@@ -259,62 +259,148 @@ td b,td strong{color:var(--t1);font-weight:600;}
 .fa{display:flex;gap:8px;justify-content:flex-end;margin-top:6px;}
 
 /* ============= SCAN PANELS ============= */
-.scan-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-@media (max-width: 1100px){.scan-grid{grid-template-columns:1fr;}}
-.panel{
-  background:var(--bg1);border:1px solid var(--b1);
-  border-radius:var(--r3);display:flex;flex-direction:column;
-  min-height:540px;max-height:calc(100vh - 160px);overflow:hidden;
+/* ============= SCANS (Stage 2 + 52W) ============= */
+.scan-content{display:flex;flex-direction:column;padding-bottom:0;height:calc(100vh - var(--th));overflow:hidden;}
+.scan-conv-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--lime-soft);color:var(--lime2);
+  border:1px solid rgba(31,95,63,0.18);
+  padding:4px 11px;border-radius:99px;
+  font-size:11px;font-family:var(--mono);font-weight:600;
 }
-.panel-hdr{
-  padding:14px 18px;border-bottom:1px solid var(--b1);
+.scan-conv-pill i{font-size:13px;}
+
+.scan-tabs{display:flex;gap:0;border-bottom:1px solid var(--b2);flex-shrink:0;margin:0 -26px;padding:0 26px;}
+.scan-tab{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 18px;cursor:pointer;
+  font-size:13px;font-weight:500;color:var(--t3);
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:color 0.12s,border-color 0.12s;font-family:var(--sans);
+}
+.scan-tab:hover{color:var(--t1);}
+.scan-tab.active{color:var(--t1);border-bottom-color:var(--t1);font-weight:600;}
+.scan-tab i{font-size:15px;opacity:0.7;}
+.scan-tab.active i{opacity:1;}
+.scan-tab-count{
+  font-family:var(--mono);font-size:10.5px;
+  background:var(--bg3);color:var(--t3);
+  padding:1px 7px;border-radius:99px;font-weight:500;
+}
+.scan-tab.active .scan-tab-count{background:var(--t1);color:var(--bg1);}
+
+.scan-panel{flex:1;display:flex;flex-direction:column;overflow:hidden;padding-top:14px;}
+
+.scan-bar{
   display:flex;align-items:center;justify-content:space-between;
-  background:var(--bg2);flex-shrink:0;
+  padding:0 0 12px;gap:12px;flex-wrap:wrap;flex-shrink:0;
 }
-.panel-hdr-left h3{font-family:var(--serif);font-size:16px;font-weight:500;display:flex;align-items:center;gap:8px;letter-spacing:-0.015em;color:var(--t1);}
-.panel-hdr-left h3 i{font-size:18px;color:var(--lime);}
-.panel-meta{font-size:10.5px;color:var(--t3);font-family:var(--mono);margin-top:3px;letter-spacing:0.02em;}
-.panel-tools{display:flex;gap:6px;}
-.panel-filters{padding:10px 16px;border-bottom:1px solid var(--b1);background:var(--bg1);display:flex;gap:8px;align-items:center;flex-wrap:wrap;flex-shrink:0;}
-.panel-filters input{
-  flex:1;min-width:120px;font-size:11.5px;
-  background:var(--bg2);border:1px solid var(--b2);
-  border-radius:var(--r2);padding:5px 9px;color:var(--t1);font-family:var(--sans);
-}
-.panel-filters input:focus{outline:none;border-color:var(--lime);}
-.panel-filters select{
-  font-size:11px;background:var(--bg2);border:1px solid var(--b2);
-  border-radius:var(--r2);padding:5px 9px;color:var(--t2);font-family:var(--mono);cursor:pointer;
-}
-.panel-body{flex:1;overflow-y:auto;}
-.panel-body::-webkit-scrollbar{width:4px;}
+.scan-bar-left{font-size:11.5px;color:var(--t3);font-family:var(--mono);display:flex;align-items:center;gap:8px;}
+.scan-bar-left b{color:var(--t1);font-weight:600;}
+.scan-bar-right{display:flex;gap:6px;}
+.scan-sep{color:var(--b3);}
 
-/* Stage 2 list items */
-.s2-item{padding:12px 16px;border-bottom:1px solid var(--b1);cursor:pointer;transition:background 0.08s;}
-.s2-item:hover{background:var(--bg2);}
-.s2-item:last-child{border-bottom:none;}
-.s2-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:5px;}
-.s2-name{font-size:13px;font-weight:500;color:var(--t1);}
-.s2-meta{font-size:10.5px;color:var(--t3);font-family:var(--mono);margin-top:2px;}
-.s2-rs{text-align:right;}
-.s2-rs-val{font-size:14px;font-weight:600;font-family:var(--mono);color:var(--lime);}
-.s2-rs-label{font-size:9.5px;color:var(--t4);font-family:var(--mono);}
-.s2-stats{display:flex;gap:10px;margin-top:6px;font-family:var(--mono);font-size:10.5px;color:var(--t3);}
-.s2-stats b{color:var(--t2);}
-.s2-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;}
+.scan-filters{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  padding:10px 12px;background:var(--bg2);border:1px solid var(--b1);
+  border-radius:var(--r2);margin-bottom:12px;flex-shrink:0;
+}
+.scan-filters input[type=text],.scan-filters select,.scan-filters input[type=number]{
+  font-size:12px;font-family:var(--sans);
+  background:var(--bg1);border:1px solid var(--b2);
+  border-radius:var(--r2);padding:6px 10px;color:var(--t1);
+  transition:border-color 0.1s;
+}
+.scan-filters input[type=text]{flex:1;min-width:200px;}
+.scan-filters input[type=text]:focus,.scan-filters select:focus,.scan-filters input[type=number]:focus{
+  outline:none;border-color:var(--t1);
+}
+.scan-filters select{cursor:pointer;font-family:var(--mono);font-size:11px;min-width:140px;}
+.scan-mcap-filter{
+  display:flex;align-items:center;gap:6px;
+  font-size:11px;color:var(--t3);font-family:var(--mono);
+}
+.scan-mcap-filter input{width:80px;text-align:right;font-family:var(--mono);}
 
-/* 52W list items */
-.w52-item{padding:11px 16px;border-bottom:1px solid var(--b1);cursor:pointer;transition:background 0.08s;}
-.w52-item:hover{background:var(--bg2);}
-.w52-item:last-child{border-bottom:none;}
-.w52-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
-.w52-name{font-size:13px;font-weight:500;color:var(--t1);}
-.w52-sec{font-size:10.5px;color:var(--t3);font-family:var(--mono);margin-top:2px;}
-.w52-price-block{text-align:right;}
-.w52-price{font-size:13px;font-weight:500;font-family:var(--mono);color:var(--t1);}
-.w52-dist{font-size:11px;font-family:var(--mono);font-weight:500;margin-top:1px;}
-.w52-stats{display:flex;gap:10px;margin-top:6px;font-family:var(--mono);font-size:10.5px;color:var(--t3);}
-.w52-stats b{color:var(--t2);}
+.scan-table-wrap{
+  flex:1;overflow:auto;background:var(--bg1);
+  border:1px solid var(--b1);border-radius:var(--r2);
+  position:relative;
+}
+.scan-table{
+  width:100%;border-collapse:collapse;
+  font-size:12.5px;font-family:var(--sans);
+}
+.scan-table thead{position:sticky;top:0;z-index:2;}
+.scan-table thead th{
+  background:var(--bg2);
+  text-align:left;padding:10px 13px;
+  border-bottom:1px solid var(--b2);
+  color:var(--t3);font-weight:600;
+  font-size:10.5px;font-family:var(--mono);
+  text-transform:uppercase;letter-spacing:0.06em;
+  white-space:nowrap;
+  cursor:pointer;user-select:none;
+  position:sticky;top:0;
+  transition:background 0.1s,color 0.1s;
+}
+.scan-table thead th:hover{color:var(--t1);background:var(--bg3);}
+.scan-table thead th.sort-asc,.scan-table thead th.sort-desc{
+  color:var(--t1);background:var(--bg3);
+}
+.scan-table thead th .sort-arr{
+  display:inline-block;width:0;opacity:0;margin-left:4px;
+  transition:opacity 0.1s;
+}
+.scan-table thead th.sort-asc .sort-arr,.scan-table thead th.sort-desc .sort-arr{
+  width:auto;opacity:1;
+}
+.scan-table thead th.sort-asc .sort-arr::before{content:'▲';font-size:8px;}
+.scan-table thead th.sort-desc .sort-arr::before{content:'▼';font-size:8px;}
+.scan-table thead th.num{text-align:right;}
+.scan-table tbody td{
+  padding:9px 13px;
+  border-bottom:1px solid var(--b1);
+  color:var(--t2);vertical-align:middle;
+}
+.scan-table tbody tr:hover td{background:var(--bg2);}
+.scan-table tbody tr:last-child td{border-bottom:none;}
+.scan-table td.num{
+  text-align:right;font-family:var(--mono);
+  font-variant-numeric:tabular-nums;
+}
+.scan-table .tk{font-weight:600;color:var(--t1);font-size:12.5px;}
+.scan-table .nm{font-size:12px;color:var(--t1);max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.scan-table .ind{color:var(--t3);font-size:11px;max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.scan-table .pos{color:var(--sage2);font-weight:600;}
+.scan-table .neg{color:var(--rose2);font-weight:600;}
+
+.scan-dot{
+  display:inline-block;width:7px;height:7px;border-radius:50%;
+  margin-right:6px;vertical-align:middle;
+}
+.scan-dot.new{background:var(--sky);}
+.scan-dot.cont{background:var(--t4);}
+.scan-dot.re{background:var(--gold);}
+.scan-dot.rem{background:var(--rose);}
+.scan-status{font-size:11px;color:var(--t2);font-family:var(--mono);}
+
+.scan-flag{
+  display:inline-block;padding:1px 6px;border-radius:3px;
+  font-size:9.5px;font-family:var(--mono);
+  background:var(--neutral-soft);color:var(--t3);
+  border:1px solid var(--b2);font-weight:500;
+}
+
+.scan-empty{padding:60px 24px;text-align:center;}
+.scan-empty i{font-size:38px;color:var(--b3);display:block;margin-bottom:14px;}
+.scan-empty h4{font-family:var(--serif);font-size:17px;font-weight:500;color:var(--t1);margin-bottom:8px;}
+.scan-empty p{font-size:12.5px;color:var(--t3);max-width:520px;margin:0 auto 18px;line-height:1.6;}
+.scan-empty code{
+  font-family:var(--mono);font-size:11px;
+  background:var(--bg3);padding:1px 5px;border-radius:3px;
+  color:var(--t2);font-weight:500;
+}
 
 /* Upload zone */
 .upload-zone{
@@ -533,21 +619,8 @@ code{font-family:var(--mono);font-size:11px;background:var(--neutral-soft);paddi
 .conc-row .cr-pct{font-family:var(--mono);color:var(--t2);font-size:11px;min-width:55px;text-align:right;}
 
 /* ============= CONVERGENCE ============= */
-.conv-card{display:flex;align-items:center;gap:14px;padding:13px 16px;border-bottom:1px solid var(--b1);transition:background 0.08s;}
-.conv-card:hover{background:var(--bg2);}
-.conv-card:last-child{border-bottom:none;}
-.conv-rank{font-family:var(--serif);font-size:20px;font-weight:500;color:var(--t4);width:30px;text-align:center;flex-shrink:0;}
-.conv-rank.top{color:var(--lime);}
-.conv-score{flex-shrink:0;width:46px;height:46px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid var(--b2);}
-.conv-score.s-hi{border-color:var(--lime);background:var(--lime-soft);}
-.conv-score.s-mid{border-color:var(--gold);background:var(--gold-soft);}
-.conv-score-num{font-family:var(--mono);font-size:16px;font-weight:700;line-height:1;color:var(--t1);}
-.conv-score-lbl{font-size:7px;font-family:var(--mono);color:var(--t4);text-transform:uppercase;letter-spacing:0.06em;margin-top:1px;}
-.conv-main{flex:1;min-width:0;}
-.conv-sym{font-size:14px;font-weight:600;color:var(--t1);display:flex;align-items:center;gap:8px;}
-.conv-sym .conv-ind{font-size:10.5px;color:var(--t3);font-family:var(--mono);font-weight:400;}
-.conv-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;}
-.conv-tag{font-size:9.5px;font-family:var(--mono);padding:2px 8px;border-radius:99px;font-weight:600;letter-spacing:0.02em;border:1px solid transparent;}
+/* Tag chips (kept for the Catalysts cell) */
+.conv-tag{font-size:9.5px;font-family:var(--mono);padding:2px 7px;border-radius:99px;font-weight:600;letter-spacing:0.02em;border:1px solid transparent;display:inline-block;white-space:nowrap;}
 .ct-s2{background:var(--lime-soft);color:var(--lime2);border-color:rgba(31,95,63,0.18);}
 .ct-fresh{background:var(--teal-soft);color:var(--teal2);border-color:rgba(47,107,122,0.18);}
 .ct-high{background:var(--sky-soft);color:var(--sky2);border-color:rgba(61,90,128,0.18);}
@@ -555,19 +628,195 @@ code{font-family:var(--mono);font-size:11px;background:var(--neutral-soft);paddi
 .ct-margin{background:var(--gold-soft);color:var(--gold2);border-color:rgba(138,103,22,0.18);}
 .ct-persist{background:#EEE3F0;color:#6B3A7A;border-color:rgba(107,58,122,0.18);}
 .ct-cat{background:var(--neutral-soft);color:var(--t2);border-color:var(--b2);cursor:pointer;}
-.ct-cat:hover{border-color:var(--lime);color:var(--lime);}
-.conv-stats{display:flex;gap:18px;flex-shrink:0;align-items:center;}
-.conv-stat{text-align:right;}
-.conv-stat-val{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--t1);}
-.conv-stat-val.up{color:var(--sage2);} .conv-stat-val.dn{color:var(--rose2);}
-.conv-stat-lbl{font-size:8.5px;color:var(--t4);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.06em;margin-top:1px;}
-.conv-actions{display:flex;gap:5px;flex-shrink:0;}
-.conv-sector-group{margin-bottom:18px;border:1px solid var(--b1);border-radius:var(--r3);overflow:hidden;box-shadow:var(--shadow-1);}
-.conv-sector-hdr{padding:11px 16px;background:var(--bg2);border-bottom:1px solid var(--b1);display:flex;align-items:center;justify-content:space-between;}
-.conv-sector-name{font-family:var(--serif);font-size:15px;font-weight:500;color:var(--t1);}
-.conv-sector-meta{font-size:10.5px;color:var(--t3);font-family:var(--mono);}
+.ct-cat:hover{border-color:var(--t2);color:var(--t1);}
+.conv-cat-add{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:18px;height:18px;border-radius:50%;
+  background:transparent;border:1px dashed var(--b3);
+  color:var(--t4);font-size:10px;cursor:pointer;
+  transition:all 0.12s;margin-left:2px;
+}
+.conv-cat-add:hover{border-color:var(--t2);color:var(--t1);border-style:solid;background:var(--bg2);}
+
+/* Score cell — number with subtle band tint */
+.conv-score-cell{
+  display:inline-flex;align-items:baseline;gap:2px;
+  font-family:var(--mono);font-weight:700;
+  color:var(--t1);padding:3px 9px;border-radius:var(--r2);min-width:44px;justify-content:center;
+}
+.conv-score-cell .num{font-size:14px;}
+.conv-score-cell .max{font-size:10.5px;color:var(--t4);font-weight:500;}
+.conv-score-cell.s-hi{background:var(--lime-soft);color:var(--lime2);}
+.conv-score-cell.s-hi .max{color:var(--lime2);opacity:0.6;}
+.conv-score-cell.s-mid{background:var(--gold-soft);color:var(--gold2);}
+.conv-score-cell.s-mid .max{color:var(--gold2);opacity:0.6;}
+
+/* Score info icon + tooltip */
+.score-info{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:13px;height:13px;border-radius:50%;
+  background:var(--bg3);border:1px solid var(--b2);
+  color:var(--t3);font-family:var(--mono);font-size:9px;font-weight:700;font-style:italic;
+  margin-left:5px;cursor:help;vertical-align:middle;
+  transition:all 0.12s;position:relative;
+  text-transform:none;letter-spacing:0;
+}
+.score-info:hover{background:var(--t1);color:var(--bg1);border-color:var(--t1);}
+.score-info-popup{
+  display:none;position:absolute;
+  top:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:var(--bg1);border:1px solid var(--b2);border-radius:var(--r3);
+  box-shadow:var(--shadow-pop);
+  padding:14px 16px;width:320px;z-index:50;
+  font-family:var(--sans);font-size:11.5px;font-weight:400;
+  color:var(--t2);text-align:left;letter-spacing:normal;
+  line-height:1.55;text-transform:none;
+  white-space:normal;
+}
+.score-info:hover .score-info-popup,.score-info:focus .score-info-popup{display:block;}
+.score-info-popup h5{font-family:var(--serif);font-size:13px;font-weight:600;color:var(--t1);margin-bottom:8px;letter-spacing:-0.005em;}
+.score-info-popup .si-row{display:flex;justify-content:space-between;padding:3px 0;font-family:var(--mono);font-size:11px;color:var(--t2);}
+.score-info-popup .si-row b{color:var(--lime2);font-weight:700;}
+.score-info-popup .si-divider{border-top:1px solid var(--b1);margin:8px 0 6px;}
+.score-info-popup .si-total{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11.5px;color:var(--t1);font-weight:700;padding-top:4px;}
+.score-info-popup p{margin-top:8px;font-size:11px;color:var(--t3);font-style:italic;}
+
+/* Sector breakdown — small sortable table */
+.conv-secbk-wrap{overflow-x:auto;}
+.conv-secbk{width:100%;border-collapse:collapse;font-size:12px;font-family:var(--sans);}
+.conv-secbk thead th{
+  background:var(--bg2);text-align:left;padding:8px 12px;
+  border-bottom:1px solid var(--b2);
+  color:var(--t3);font-weight:600;
+  font-size:10px;font-family:var(--mono);
+  text-transform:uppercase;letter-spacing:0.06em;
+  white-space:nowrap;cursor:pointer;user-select:none;transition:background 0.1s,color 0.1s;
+}
+.conv-secbk thead th:hover{color:var(--t1);background:var(--bg3);}
+.conv-secbk thead th.sort-asc,.conv-secbk thead th.sort-desc{color:var(--t1);background:var(--bg3);}
+.conv-secbk thead th .sort-arr{display:inline-block;width:0;opacity:0;margin-left:4px;transition:opacity 0.1s;}
+.conv-secbk thead th.sort-asc .sort-arr,.conv-secbk thead th.sort-desc .sort-arr{width:auto;opacity:1;}
+.conv-secbk thead th.sort-asc .sort-arr::before{content:'▲';font-size:8px;}
+.conv-secbk thead th.sort-desc .sort-arr::before{content:'▼';font-size:8px;}
+.conv-secbk thead th.num{text-align:right;}
+.conv-secbk tbody tr{cursor:pointer;transition:background 0.08s;}
+.conv-secbk tbody tr:hover td{background:var(--bg2);}
+.conv-secbk tbody tr.active td{background:var(--lime-soft);}
+.conv-secbk tbody tr.active td:first-child{box-shadow:inset 3px 0 0 var(--lime);}
+.conv-secbk tbody td{padding:8px 12px;border-bottom:1px solid var(--b1);color:var(--t2);vertical-align:middle;}
+.conv-secbk tbody tr:last-child td{border-bottom:none;}
+.conv-secbk td.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;}
+.conv-secbk .sec-name{font-family:var(--serif);font-size:13px;font-weight:500;color:var(--t1);letter-spacing:-0.005em;}
+.conv-secbk .num-strong{font-weight:600;color:var(--t1);}
+.conv-secbk-expand{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 14px;background:var(--bg2);border-top:1px solid var(--b1);
+  font-size:11px;color:var(--t3);font-family:var(--mono);
+}
+.conv-secbk-expand button{
+  background:transparent;border:none;color:var(--t2);
+  cursor:pointer;font-family:var(--mono);font-size:11px;font-weight:600;
+  padding:2px 6px;border-radius:var(--r1);transition:background 0.1s;
+}
+.conv-secbk-expand button:hover{background:var(--bg3);color:var(--t1);}
+
+/* Clickable sector cell in table */
+.conv-table .sec-clickable{
+  cursor:pointer;color:var(--t2);
+  text-decoration:underline;text-decoration-color:var(--b2);text-underline-offset:2px;
+  text-decoration-thickness:1px;transition:color 0.1s,text-decoration-color 0.1s;
+}
+.conv-table .sec-clickable:hover{color:var(--lime2);text-decoration-color:var(--lime);}
+
+/* Sector cluster sections (used in sector mode) */
+.conv-sector-group{margin-bottom:20px;border:1px solid var(--b1);border-radius:var(--r3);overflow:hidden;box-shadow:var(--shadow-1);background:var(--bg1);}
+.conv-sector-hdr{padding:13px 18px;background:var(--bg2);border-bottom:1px solid var(--b1);}
+.conv-sector-hdr-top{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.conv-sector-name{font-family:var(--serif);font-size:16px;font-weight:500;color:var(--t1);letter-spacing:-0.01em;}
+.conv-sector-count{
+  font-family:var(--mono);font-size:10.5px;background:var(--bg3);color:var(--t2);
+  padding:2px 9px;border-radius:99px;font-weight:600;
+}
+.conv-sector-summary{
+  font-size:11.5px;color:var(--t3);font-family:var(--mono);margin-top:5px;letter-spacing:0.01em;
+}
+.conv-sector-summary b{color:var(--t1);font-weight:600;}
+
+/* Convergence table — same skeleton as scan-table */
+.conv-table-wrap{overflow:auto;max-height:calc(100vh - 360px);border:1px solid var(--b1);border-radius:var(--r2);background:var(--bg1);}
+.conv-sector-group .conv-table-wrap{border:none;border-radius:0;max-height:none;}
+.conv-table{width:100%;border-collapse:collapse;font-size:12.5px;font-family:var(--sans);}
+.conv-table thead{position:sticky;top:0;z-index:2;}
+.conv-table thead th{
+  background:var(--bg2);text-align:left;padding:10px 13px;
+  border-bottom:1px solid var(--b2);color:var(--t3);font-weight:600;
+  font-size:10.5px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.06em;
+  white-space:nowrap;cursor:pointer;user-select:none;
+  position:sticky;top:0;transition:background 0.1s,color 0.1s;
+}
+.conv-table thead th:hover{color:var(--t1);background:var(--bg3);}
+.conv-table thead th.sort-asc,.conv-table thead th.sort-desc{color:var(--t1);background:var(--bg3);}
+.conv-table thead th .sort-arr{display:inline-block;width:0;opacity:0;margin-left:4px;transition:opacity 0.1s;}
+.conv-table thead th.sort-asc .sort-arr,.conv-table thead th.sort-desc .sort-arr{width:auto;opacity:1;}
+.conv-table thead th.sort-asc .sort-arr::before{content:'▲';font-size:8px;}
+.conv-table thead th.sort-desc .sort-arr::before{content:'▼';font-size:8px;}
+.conv-table thead th.num{text-align:right;}
+.conv-table thead th.center{text-align:center;}
+.conv-table tbody td{padding:9px 13px;border-bottom:1px solid var(--b1);color:var(--t2);vertical-align:middle;}
+.conv-table tbody tr:hover td{background:var(--bg2);}
+.conv-table tbody tr:last-child td{border-bottom:none;}
+.conv-table td.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;}
+.conv-table td.center{text-align:center;}
+.conv-table .tk{font-weight:600;color:var(--t1);font-size:12.5px;}
+.conv-table .conv-sec{color:var(--t2);font-size:11.5px;white-space:normal;line-height:1.3;display:inline-block;max-width:220px;}
+.conv-table .pos{color:var(--sage2);font-weight:600;}
+.conv-table .neg{color:var(--rose2);font-weight:600;}
+.conv-table .cat-cell{max-width:260px;}
+.conv-table .cat-chips{display:flex;gap:4px;align-items:center;flex-wrap:wrap;}
+.conv-table .act-cell{white-space:nowrap;}
+.conv-table .act-cell button{
+  background:var(--bg2);border:1px solid var(--b2);color:var(--t2);
+  cursor:pointer;padding:4px 9px;border-radius:var(--r2);
+  font-size:11px;font-family:var(--sans);font-weight:500;line-height:1;
+  display:inline-flex;align-items:center;gap:4px;
+  transition:all 0.12s;margin:0 2px;
+}
+.conv-table .act-cell button i{font-size:12px;opacity:0.7;}
+.conv-table .act-cell button:hover{color:var(--t1);background:var(--bg3);border-color:var(--b3);}
+.conv-table .act-cell button:hover i{opacity:1;}
+
 .conv-empty{padding:48px 24px;text-align:center;color:var(--t3);}
 .conv-empty i{font-size:32px;color:var(--t4);display:block;margin-bottom:12px;}
+
+/* ============= RESEARCH LIBRARY ============= */
+.lib-content{height:calc(100vh - var(--th));overflow-y:auto;}
+.lib-reader-bar{display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap;}
+.lib-reader-meta{font-size:11px;color:var(--t3);font-family:var(--mono);}
+.lib-article{
+  background:var(--bg1);border:1px solid var(--b1);border-radius:var(--r3);
+  box-shadow:var(--shadow-1);
+  max-width:820px;margin:0 auto;
+  padding:44px 52px 56px;
+  font-size:14px;line-height:1.75;color:var(--t2);
+}
+.lib-article h1{font-family:var(--serif);font-size:28px;font-weight:600;color:var(--t1);letter-spacing:-0.02em;line-height:1.2;margin-bottom:14px;}
+.lib-article h2{font-family:var(--serif);font-size:20px;font-weight:500;color:var(--t1);letter-spacing:-0.015em;margin:28px 0 10px;}
+.lib-article h3{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--t1);margin:22px 0 8px;}
+.lib-article p{margin-bottom:14px;}
+.lib-article ul,.lib-article ol{margin:0 0 14px 22px;}
+.lib-article li{margin-bottom:6px;}
+.lib-article strong{color:var(--t1);font-weight:600;}
+.lib-article em{font-style:italic;}
+.lib-article code{font-family:var(--mono);font-size:12px;background:var(--neutral-soft);padding:1px 6px;border-radius:3px;color:var(--lime2);}
+.lib-article blockquote{border-left:3px solid var(--b3);padding:4px 0 4px 16px;margin:0 0 14px;color:var(--t3);font-style:italic;}
+.lib-article hr{border:none;border-top:1px solid var(--b1);margin:24px 0;}
+.lib-article table{width:100%;border-collapse:collapse;font-size:12.5px;margin:0 0 16px;}
+.lib-article table th{background:var(--bg2);text-align:left;padding:8px 11px;border-bottom:1px solid var(--b2);color:var(--t3);font-weight:600;font-size:10.5px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;}
+.lib-article table td{padding:8px 11px;border-bottom:1px solid var(--b1);}
+.lib-badge-rating{display:inline-block;padding:2px 10px;border-radius:99px;font-size:10.5px;font-family:var(--mono);font-weight:600;}
+.lib-badge-rating.buy{background:var(--sage-soft);color:var(--sage2);}
+.lib-badge-rating.sell{background:var(--rose-soft);color:var(--rose2);}
+.lib-badge-rating.hold{background:var(--gold-soft);color:var(--gold2);}
 
 </style>
 </head>
@@ -599,6 +848,8 @@ code{font-family:var(--mono);font-size:11px;background:var(--neutral-soft);paddi
     <div class="nav" id="nav-pnl" onclick="show('pnl')"><i class="ti ti-receipt-tax"></i>P&amp;L Analytics</div>
     <div class="nav" id="nav-weekly" onclick="show('weekly')"><i class="ti ti-calendar-week"></i>Weekly Journal</div>
     <div class="nav" id="nav-learn" onclick="show('learn')"><i class="ti ti-brain"></i>Learnings</div>
+    <div class="sb-group">Publish</div>
+    <div class="nav" id="nav-library" onclick="show('library')"><i class="ti ti-books"></i>Research Library</div>
     <div class="sb-group">System</div>
     <div class="nav" id="nav-checklist" onclick="show('checklist')"><i class="ti ti-checklist"></i>Checklist</div>
     <div class="nav" id="nav-procedure" onclick="show('procedure')"><i class="ti ti-list-check"></i>Procedure</div>
@@ -725,92 +976,122 @@ code{font-family:var(--mono);font-size:11px;background:var(--neutral-soft);paddi
 <!-- ── SCANS — Stage 2 & 52W Highs ── -->
 <div class="sec" id="sec-scans">
   <div class="topbar">
-    <div class="tb-left"><span class="tb-title">Market Scans</span><span class="tb-crumb">/ stage 2 · 52-week high tracker</span></div>
+    <div class="tb-left"><span class="tb-title">Stage 2 · 52W Highs</span><span class="tb-crumb">/ weekly scan tracker</span></div>
     <div class="tb-right">
-      <a href="https://chartink.com/screener/fresh-52-week-highs" target="_blank" class="btn"><i class="ti ti-external-link"></i>Chartink 52W</a>
-      <button class="btn btn-lime" onclick="openModal('m-s2')"><i class="ti ti-plus"></i>Add Manual</button>
+      <span class="scan-conv-pill" id="scan-conv-pill" style="display:none;">
+        <i class="ti ti-crosshair"></i> <span id="scan-conv-cnt">0</span> in both lists
+      </span>
+      <button class="btn btn-sm" onclick="show('converge')"><i class="ti ti-arrow-right"></i>Open Convergence</button>
     </div>
   </div>
-  <div class="content" style="padding-bottom:8px;">
-    <div class="scan-grid">
+  <div class="content scan-content">
 
-      <!-- LEFT: Stage 2 stocks panel -->
-      <div class="panel">
-        <div class="panel-hdr">
-          <div class="panel-hdr-left">
-            <h3><i class="ti ti-trending-up" style="color:var(--lime);"></i>Stage 2 Stocks</h3>
-            <div class="panel-meta">Last upload: <span id="s2-last">—</span> · <span id="s2-cnt">0</span> stocks</div>
-          </div>
-          <div class="panel-tools">
-            <button class="btn btn-sm" onclick="document.getElementById('s2-file').click()"><i class="ti ti-upload"></i>Upload XLSX</button>
-            <input type="file" id="s2-file" accept=".xlsx,.xls,.csv" style="display:none;" onchange="parseS2Upload(this)">
-          </div>
-        </div>
-        <div class="upload-zone compact" onclick="document.getElementById('s2-file').click()" ondrop="dropS2(event)" ondragover="dragOver(event)" ondragleave="dragLeave(event)" id="s2-drop">
-          <i class="ti ti-file-spreadsheet"></i>
-          <div class="uz-text">
-            <p><b>Drop Stage 2 .xlsx</b> from WRAP scan</p>
-            <small>Columns: TradingView Code, Industry, RS%, Market Cap, % Return, Weeks, Status</small>
-          </div>
-        </div>
-        <div class="panel-filters">
-          <input type="text" id="s2-search" placeholder="Filter by name or industry…" oninput="renderS2()">
-          <select id="s2-status" onchange="renderS2()">
-            <option value="all">All status</option>
-            <option value="New Addition">New Addition</option>
-            <option value="Continues Trend">Continues Trend</option>
-            <option value="Reentry">Reentry</option>
-          </select>
-          <select id="s2-sort" onchange="renderS2()">
-            <option value="rs">Sort: RS% ↓</option>
-            <option value="return">Sort: Return% ↓</option>
-            <option value="mcap">Sort: MCap ↑</option>
-            <option value="weeks">Sort: Weeks ↑</option>
-          </select>
-        </div>
-        <div class="panel-body" id="s2-list"></div>
+    <!-- Tabs to switch between Stage 2 and 52W -->
+    <div class="scan-tabs">
+      <div class="scan-tab active" data-tab="s2" onclick="setScanTab('s2')">
+        <i class="ti ti-trending-up"></i>
+        <span>Stage 2 Stocks</span>
+        <span class="scan-tab-count" id="s2-tab-count">—</span>
       </div>
-
-      <!-- RIGHT: 52W highs panel -->
-      <div class="panel">
-        <div class="panel-hdr">
-          <div class="panel-hdr-left">
-            <h3><i class="ti ti-mountain" style="color:var(--teal);"></i>52-Week High Tracker</h3>
-            <div class="panel-meta">Last upload: <span id="w52-last">—</span> · <span id="w52-cnt">0</span> stocks · <span id="w52-badge" class="live-badge lb-demo">no data</span></div>
-          </div>
-          <div class="panel-tools">
-            <button class="btn btn-sm" onclick="document.getElementById('w52-file').click()"><i class="ti ti-upload"></i>Upload CSV</button>
-            <input type="file" id="w52-file" accept=".csv,.xlsx" style="display:none;" onchange="parse52WUpload(this)">
-          </div>
-        </div>
-        <div class="upload-zone compact" onclick="document.getElementById('w52-file').click()" ondrop="drop52W(event)" ondragover="dragOver(event)" ondragleave="dragLeave(event)" id="w52-drop">
-          <i class="ti ti-file-spreadsheet"></i>
-          <div class="uz-text">
-            <p><b>Drop &gt;1000Cr CSV</b> (Screener.in export)</p>
-            <small>Columns needed: NSE Code, Industry, Current Price, Down from 52w high, Returns 1d/1w/1m/3m</small>
-          </div>
-        </div>
-        <div class="panel-filters">
-          <input type="text" id="w52-search" placeholder="Filter by name or industry…" oninput="render52W()">
-          <select id="w52-dist" onchange="render52W()">
-            <option value="2">≤ 2% from 52W high</option>
-            <option value="5" selected>≤ 5% from 52W high</option>
-            <option value="10">≤ 10% from 52W high</option>
-            <option value="15">≤ 15% from 52W high</option>
-            <option value="0">At 52W high (=0)</option>
-            <option value="100">All stocks</option>
-          </select>
-          <select id="w52-sort" onchange="render52W()">
-            <option value="dist">Closest to high</option>
-            <option value="1w">Best 1W return</option>
-            <option value="1m">Best 1M return</option>
-            <option value="3m">Best 3M return</option>
-          </select>
-        </div>
-        <div class="panel-body" id="w52-list"></div>
+      <div class="scan-tab" data-tab="w52" onclick="setScanTab('w52')">
+        <i class="ti ti-mountain"></i>
+        <span>52-Week High Tracker</span>
+        <span class="scan-tab-count" id="w52-tab-count">—</span>
       </div>
-
     </div>
+
+    <!-- ── STAGE 2 PANEL ── -->
+    <div class="scan-panel" id="scan-panel-s2">
+      <div class="scan-bar">
+        <div class="scan-bar-left">
+          <span class="scan-last">Last upload: <b id="s2-last">—</b></span>
+          <span class="scan-sep">·</span>
+          <span><b id="s2-cnt">0</b> stocks shown</span>
+        </div>
+        <div class="scan-bar-right">
+          <button class="btn btn-sm" onclick="document.getElementById('s2-file').click()"><i class="ti ti-upload"></i>Upload Stage 2 file</button>
+          <input type="file" id="s2-file" accept=".xlsx,.xls,.csv" style="display:none;" onchange="parseS2Upload(this)">
+          <button class="btn btn-sm btn-ghost" onclick="openModal('m-s2')" title="Add a stock manually"><i class="ti ti-plus"></i></button>
+        </div>
+      </div>
+
+      <div class="scan-filters">
+        <input type="text" id="s2-search" placeholder="Search ticker or industry…" oninput="renderS2()">
+        <select id="s2-industry" onchange="renderS2()"><option value="all">All industries</option></select>
+        <select id="s2-status" onchange="renderS2()">
+          <option value="all">All status</option>
+          <option value="New Addition">New Addition</option>
+          <option value="Continues Trend">Continues Trend</option>
+          <option value="Reentry">Reentry</option>
+          <option value="Removed">Removed</option>
+        </select>
+        <label class="scan-mcap-filter">
+          <span>Min Mcap (Cr)</span>
+          <input type="number" id="s2-minmcap" value="500" min="0" step="100" oninput="renderS2()">
+        </label>
+      </div>
+
+      <div class="scan-table-wrap" id="s2-table-wrap">
+        <table class="scan-table" id="s2-table">
+          <thead>
+            <tr id="s2-thead"></tr>
+          </thead>
+          <tbody id="s2-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="scan-empty" id="s2-empty" style="display:none;">
+        <i class="ti ti-file-spreadsheet"></i>
+        <h4>No Stage 2 data yet</h4>
+        <p>Upload your WRAP Stage 2 export. Expected columns: <code>TradingView Code</code>, <code>Industry</code>, <code>Relative Strength %</code>, <code>Market Cap (in cr.)</code>, <code>% Return</code>, <code>Weeks</code>, <code>Stage2 Status</code>.</p>
+        <button class="btn" onclick="document.getElementById('s2-file').click()"><i class="ti ti-upload"></i>Upload Stage 2 file</button>
+      </div>
+    </div>
+
+    <!-- ── 52 WEEK HIGH PANEL ── -->
+    <div class="scan-panel" id="scan-panel-w52" style="display:none;">
+      <div class="scan-bar">
+        <div class="scan-bar-left">
+          <span class="scan-last">Last upload: <b id="w52-last">—</b></span>
+          <span class="scan-sep">·</span>
+          <span><b id="w52-cnt">0</b> stocks shown</span>
+        </div>
+        <div class="scan-bar-right">
+          <button class="btn btn-sm" onclick="document.getElementById('w52-file').click()"><i class="ti ti-upload"></i>Upload screener CSV</button>
+          <input type="file" id="w52-file" accept=".csv,.xlsx" style="display:none;" onchange="parse52WUpload(this)">
+        </div>
+      </div>
+
+      <div class="scan-filters">
+        <input type="text" id="w52-search" placeholder="Search ticker, name or industry…" oninput="render52W()">
+        <select id="w52-industry" onchange="render52W()"><option value="all">All industries</option></select>
+        <select id="w52-dist" onchange="render52W()">
+          <option value="2">≤ 2% from 52W high</option>
+          <option value="5" selected>≤ 5% from 52W high</option>
+          <option value="10">≤ 10% from 52W high</option>
+          <option value="15">≤ 15% from 52W high</option>
+          <option value="0">At 52W high (=0)</option>
+          <option value="100">All distances</option>
+        </select>
+      </div>
+
+      <div class="scan-table-wrap" id="w52-table-wrap">
+        <table class="scan-table" id="w52-table">
+          <thead>
+            <tr id="w52-thead"></tr>
+          </thead>
+          <tbody id="w52-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="scan-empty" id="w52-empty" style="display:none;">
+        <i class="ti ti-file-spreadsheet"></i>
+        <h4>No 52-week-high data yet</h4>
+        <p>Upload a screener CSV with the standard columns. Expected: <code>Name</code>, <code>NSE Code</code>, <code>Industry</code>, <code>Current Price</code>, <code>Down from 52w high</code>, <code>Return over 1day / 1week / 1month / 3months</code>, plus optional <code>EPS YoY Growth</code> and <code>Sales Growth YoY</code> for catalyst detection.</p>
+        <button class="btn" onclick="document.getElementById('w52-file').click()"><i class="ti ti-upload"></i>Upload screener CSV</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -830,21 +1111,16 @@ code{font-family:var(--mono);font-size:11px;background:var(--neutral-soft);paddi
       <i class="ti ti-crosshair"></i>
       <div class="banner-text">
         <h3>The conviction funnel</h3>
-        <p>Stocks at the intersection of <b>Stage 2 trend</b> + <b>near 52-week high</b> + <b>earnings catalyst</b> + <b>persistence</b>. Upload both weekly files in <b>Stage 2 · 52W Highs</b>, then this board ranks the confluences.</p>
+        <p>Stocks at the intersection of <b>Stage 2 trend</b> + <b>near 52-week high</b> + <b>earnings catalyst</b> + <b>persistence</b>. Loosen the sliders to explore, tighten to focus.</p>
       </div>
     </div>
 
-    <!-- Mode toggle + controls -->
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
-      <div class="ptabs" style="margin:0;">
-        <div class="ptab active" id="conv-mode-strict" onclick="setConvMode('strict')">Strict shortlist</div>
-        <div class="ptab" id="conv-mode-score" onclick="setConvMode('score')">Ranked explorer</div>
-        <div class="ptab" id="conv-mode-sector" onclick="setConvMode('sector')">Sector clusters</div>
-      </div>
+    <!-- Data status pill -->
+    <div style="display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-bottom:10px;">
       <div style="font-size:11px;color:var(--t3);font-family:var(--mono);" id="conv-data-status">—</div>
     </div>
 
-    <!-- Strict filter controls -->
+    <!-- Filter controls -->
     <div class="card" id="conv-controls" style="padding:14px 18px;">
       <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
         <div style="display:flex;flex-direction:column;gap:4px;">
@@ -863,20 +1139,87 @@ code{font-family:var(--mono);font-size:11px;background:var(--neutral-soft);paddi
           <input type="checkbox" id="conv-persist" onchange="renderConverge()" style="accent-color:var(--lime);">
           Persistent only (≥2 consecutive scans)
         </label>
+        <button class="btn btn-sm btn-ghost" onclick="resetConvFilters()" title="Reset all filters to defaults" style="margin-left:auto;"><i class="ti ti-refresh"></i>Reset</button>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--b1);">
+        <input type="text" id="conv-search" placeholder="Search ticker, sector or catalyst…" oninput="renderConverge()" style="flex:1;min-width:200px;font-size:12px;background:var(--bg1);border:1px solid var(--b2);border-radius:var(--r2);padding:6px 10px;color:var(--t1);">
+        <select id="conv-sector" onchange="renderConverge()" style="font-size:11px;font-family:var(--mono);background:var(--bg1);border:1px solid var(--b2);border-radius:var(--r2);padding:6px 10px;color:var(--t1);cursor:pointer;min-width:170px;">
+          <option value="all">All sectors</option>
+        </select>
+        <span id="conv-active-filter" style="font-size:11px;color:var(--t3);font-family:var(--mono);display:none;"></span>
       </div>
     </div>
 
     <!-- Metric strip -->
     <div class="pnl-metrics" id="conv-metrics"></div>
 
-    <!-- Results -->
-    <div class="card">
+    <!-- Sector breakdown -->
+    <div class="card" id="conv-sector-card" style="display:none;">
+      <div class="card-hdr">
+        <span class="card-label">Sector breakdown</span>
+        <span class="card-sub" id="conv-sector-sub">—</span>
+      </div>
+      <div id="conv-sector-strip"></div>
+    </div>
+
+    <!-- Results table -->
+    <div class="card" id="conv-results-card">
       <div class="card-hdr">
         <span class="card-label" id="conv-results-label">Convergence shortlist</span>
         <span class="card-sub" id="conv-results-count">0 stocks</span>
       </div>
       <div id="conv-results"></div>
     </div>
+  </div>
+</div>
+
+<!-- ── RESEARCH LIBRARY ── -->
+<div class="sec" id="sec-library">
+  <div class="topbar">
+    <div class="tb-left"><span class="tb-title">Research Library</span><span class="tb-crumb">/ equity research · published to repo</span></div>
+    <div class="tb-right">
+      <button class="btn btn-sm" onclick="loadLibrary(true)"><i class="ti ti-refresh"></i>Refresh</button>
+    </div>
+  </div>
+  <div class="content lib-content">
+
+    <!-- Reader view (hidden until a report is opened) -->
+    <div id="lib-reader" style="display:none;">
+      <div class="lib-reader-bar">
+        <button class="btn btn-sm" onclick="closeLibReader()"><i class="ti ti-arrow-left"></i>Back to library</button>
+        <span class="lib-reader-meta" id="lib-reader-meta"></span>
+      </div>
+      <article class="lib-article" id="lib-article"></article>
+    </div>
+
+    <!-- List view -->
+    <div id="lib-list">
+      <div class="scan-filters" style="margin-bottom:12px;">
+        <input type="text" id="lib-search" placeholder="Search title, ticker or sector…" oninput="renderLibrary()">
+        <select id="lib-sector" onchange="renderLibrary()"><option value="all">All sectors</option></select>
+        <select id="lib-type" onchange="renderLibrary()">
+          <option value="all">All types</option>
+          <option value="stock">Stock reports</option>
+          <option value="sector">Sector reports</option>
+          <option value="digest">Weekly digests</option>
+        </select>
+      </div>
+
+      <div class="scan-table-wrap" style="max-height:calc(100vh - 260px);" id="lib-table-wrap">
+        <table class="scan-table">
+          <thead><tr id="lib-thead"></tr></thead>
+          <tbody id="lib-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="scan-empty" id="lib-empty" style="display:none;">
+        <i class="ti ti-books"></i>
+        <h4>No reports in the library yet</h4>
+        <p>The library reads from a <code>library/index.json</code> file in your GitHub Pages repo. Generate reports via your Cowork pipeline (or write them manually), commit them to the repo's <code>library/</code> folder, and they appear here. Click Refresh after pushing.</p>
+        <p style="margin-top:-6px;"><small style="font-family:var(--mono);color:var(--t4);">Repo structure: library/index.json + library/reports/*.md</small></p>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -2625,56 +2968,141 @@ function saveWatch(e){
 }
 
 // ============= STAGE 2 SCANS =============
-function renderS2(){
-  const search = document.getElementById('s2-search').value.toLowerCase();
-  const status = document.getElementById('s2-status').value;
-  const sort = document.getElementById('s2-sort').value;
+// ============= SCANS — Stage 2 & 52W (rebuilt) =============
+const SCAN_STATE = {
+  tab: 's2',
+  s2Sort: {col:'rs', dir:'desc'},
+  w52Sort: {col:'dist', dir:'asc'}
+};
 
-  let list = DB.stage2.filter(s=>{
-    if(search && !(s.code.toLowerCase().includes(search) || (s.industry||'').toLowerCase().includes(search))) return false;
+function setScanTab(tab){
+  SCAN_STATE.tab = tab;
+  document.querySelectorAll('.scan-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  document.getElementById('scan-panel-s2').style.display = tab==='s2' ? '' : 'none';
+  document.getElementById('scan-panel-w52').style.display = tab==='w52' ? '' : 'none';
+  if(tab==='s2') renderS2(); else render52W();
+}
+
+function populateIndustryFilter(selectId, list, valueKey){
+  const sel = document.getElementById(selectId);
+  if(!sel) return;
+  const cur = sel.value || 'all';
+  const inds = Array.from(new Set(list.map(x => (x[valueKey]||'').trim()).filter(Boolean))).sort();
+  sel.innerHTML = '<option value="all">All industries</option>' + inds.map(i => `<option value="${i.replace(/"/g,'&quot;')}">${i}</option>`).join('');
+  sel.value = inds.includes(cur) || cur==='all' ? cur : 'all';
+}
+
+function updateConvergencePill(){
+  if(!Array.isArray(DB.stage2) || !Array.isArray(DB.w52)) return;
+  const s2set = new Set(DB.stage2.filter(s => s.status !== 'Removed').map(s => (s.code||'').toUpperCase()));
+  const cnt = DB.w52.filter(w => s2set.has((w.code||'').toUpperCase())).length;
+  const pill = document.getElementById('scan-conv-pill');
+  const cntEl = document.getElementById('scan-conv-cnt');
+  if(pill && cntEl){
+    cntEl.textContent = cnt;
+    pill.style.display = cnt > 0 ? '' : 'none';
+  }
+}
+
+function sortClick(panel, col){
+  const stateKey = panel === 's2' ? 's2Sort' : 'w52Sort';
+  const st = SCAN_STATE[stateKey];
+  if(st.col === col) st.dir = st.dir === 'asc' ? 'desc' : 'asc';
+  else { st.col = col; st.dir = (col === 'tk' || col === 'nm' || col === 'ind' || col === 'status') ? 'asc' : 'desc'; }
+  if(panel === 's2') renderS2(); else render52W();
+}
+
+function renderS2(){
+  const search = (document.getElementById('s2-search')?.value || '').toLowerCase().trim();
+  const status = document.getElementById('s2-status')?.value || 'all';
+  const industry = document.getElementById('s2-industry')?.value || 'all';
+  const minMcap = parseFloat(document.getElementById('s2-minmcap')?.value) || 0;
+  const all = Array.isArray(DB.stage2) ? DB.stage2 : [];
+
+  populateIndustryFilter('s2-industry', all.filter(s => s.status !== 'Removed'), 'industry');
+  const tabCount = document.getElementById('s2-tab-count');
+  if(tabCount) tabCount.textContent = all.filter(s => s.status !== 'Removed').length;
+
+  // Toggle empty state
+  if(!all.length){
+    document.getElementById('s2-empty').style.display = '';
+    document.getElementById('s2-table-wrap').style.display = 'none';
+    document.getElementById('s2-last').textContent = '—';
+    document.getElementById('s2-cnt').textContent = '0';
+    return;
+  }
+  document.getElementById('s2-empty').style.display = 'none';
+  document.getElementById('s2-table-wrap').style.display = '';
+
+  let list = all.filter(s => {
+    if(search && !((s.code||'').toLowerCase().includes(search) || (s.industry||'').toLowerCase().includes(search))) return false;
     if(status !== 'all' && s.status !== status) return false;
+    else if(status === 'all' && s.status === 'Removed') return false;
+    if(industry !== 'all' && (s.industry||'') !== industry) return false;
+    if((s.mcap || 0) < minMcap) return false;
     return true;
   });
 
-  if(sort==='rs') list.sort((a,b)=>b.rs-a.rs);
-  else if(sort==='return') list.sort((a,b)=>b.ret-a.ret);
-  else if(sort==='mcap') list.sort((a,b)=>a.mcap-b.mcap);
-  else if(sort==='weeks') list.sort((a,b)=>a.weeks-b.weeks);
+  const st = SCAN_STATE.s2Sort;
+  const keyMap = {tk:'code', ind:'industry', rs:'rs', mcap:'mcap', vol:'vol', ret:'ret', weeks:'weeks', status:'status', date:'asm'};
+  const key = keyMap[st.col] || 'rs';
+  list.sort((a,b) => {
+    let av = a[key], bv = b[key];
+    if(typeof av === 'string') { av = av.toLowerCase(); bv = (bv||'').toLowerCase(); }
+    else { av = av || 0; bv = bv || 0; }
+    if(av < bv) return st.dir === 'asc' ? -1 : 1;
+    if(av > bv) return st.dir === 'asc' ? 1 : -1;
+    return 0;
+  });
 
   document.getElementById('s2-cnt').textContent = list.length;
   document.getElementById('s2-last').textContent = DB.stage2Date ? fmtDate(DB.stage2Date) : '—';
 
+  // Render header
+  const cols = [
+    {k:'tk', t:'Ticker', cls:''},
+    {k:'ind', t:'Industry', cls:''},
+    {k:'rs', t:'RS%', cls:'num'},
+    {k:'weeks', t:'Weeks', cls:'num'},
+    {k:'ret', t:'% Return', cls:'num'},
+    {k:'mcap', t:'Mcap (Cr)', cls:'num'},
+    {k:'vol', t:'Avg Vol (Cr)', cls:'num'},
+    {k:'status', t:'Status', cls:''}
+  ];
+  document.getElementById('s2-thead').innerHTML = cols.map(c => {
+    const sortCls = st.col===c.k ? (st.dir==='asc'?'sort-asc':'sort-desc') : '';
+    return `<th class="${c.cls} ${sortCls}" onclick="sortClick('s2','${c.k}')">${c.t}<span class="sort-arr"></span></th>`;
+  }).join('');
+
+  // Render body
   if(!list.length){
-    document.getElementById('s2-list').innerHTML = '<div class="empty"><i class="ti ti-database-off"></i><p>No Stage 2 stocks match.</p><small>Upload the latest XLSX or change filters.</small></div>';
+    document.getElementById('s2-tbody').innerHTML = '<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--t3);">No stocks match the current filters.</td></tr>';
     return;
   }
-
-  document.getElementById('s2-list').innerHTML = list.map(s=>{
-    const statusBadge = s.status === 'New Addition' ? '<span class="badge bl">New</span>' :
-                        s.status === 'Reentry' ? '<span class="badge bb">Reentry</span>' :
-                        '<span class="badge bg">Continues</span>';
-    const asm = s.asm ? `<span class="badge ba">${s.asm}</span>` : '';
-    const mcapStr = s.mcap > 1000 ? (s.mcap/1000).toFixed(1)+'k cr' : s.mcap.toFixed(0)+' cr';
-    return `<div class="s2-item">
-      <div class="s2-top">
-        <div>
-          <div class="s2-name">${s.code}</div>
-          <div class="s2-meta">${s.industry||'—'}</div>
-        </div>
-        <div class="s2-rs">
-          <div class="s2-rs-val">${s.rs.toFixed(1)}%</div>
-          <div class="s2-rs-label">RS</div>
-        </div>
-      </div>
-      <div class="s2-stats">
-        <span>MCap <b>₹${mcapStr}</b></span>
-        <span>Vol <b>${s.vol||0} cr</b></span>
-        <span>Return <b class="${s.ret>0?'up':s.ret<0?'dn':''}">${s.ret.toFixed(1)}%</b></span>
-        <span>Weeks <b>${s.weeks}</b></span>
-      </div>
-      <div class="s2-tags">${statusBadge}${asm}</div>
-    </div>`;
+  const statusMeta = {
+    'New Addition':   {dot:'new',  txt:'New'},
+    'Continues Trend':{dot:'cont', txt:'Continues'},
+    'Reentry':        {dot:'re',   txt:'Reentry'},
+    'Removed':        {dot:'rem',  txt:'Removed'}
+  };
+  document.getElementById('s2-tbody').innerHTML = list.map(s => {
+    const sm = statusMeta[s.status] || {dot:'cont', txt:s.status||'—'};
+    const retCls = s.ret > 0 ? 'pos' : s.ret < 0 ? 'neg' : '';
+    const mcapVal = s.mcap >= 1000 ? (s.mcap/1000).toFixed(2)+'k' : (s.mcap||0).toFixed(0);
+    const asmFlag = s.asm ? ` <span class="scan-flag" title="In ${s.asm}${s.asmDays?' for '+s.asmDays+' days':''}">${s.asm}</span>` : '';
+    return `<tr>
+      <td><span class="tk">${s.code}</span>${asmFlag}</td>
+      <td><span class="ind">${s.industry||'—'}</span></td>
+      <td class="num">${(s.rs||0).toFixed(1)}</td>
+      <td class="num">${s.weeks||1}</td>
+      <td class="num ${retCls}">${(s.ret||0).toFixed(1)}%</td>
+      <td class="num">${mcapVal}</td>
+      <td class="num">${(s.vol||0).toFixed(1)}</td>
+      <td><span class="scan-status"><span class="scan-dot ${sm.dot}"></span>${sm.txt}</span></td>
+    </tr>`;
   }).join('');
+
+  updateConvergencePill();
 }
 
 function saveS2Manual(e){
@@ -2799,63 +3227,101 @@ function extractDateFromFilename(name){
 
 // ============= 52W HIGHS =============
 function render52W(){
-  const search = document.getElementById('w52-search').value.toLowerCase();
-  const dist = parseFloat(document.getElementById('w52-dist').value);
-  const sort = document.getElementById('w52-sort').value;
+  const search = (document.getElementById('w52-search')?.value || '').toLowerCase().trim();
+  const dist = parseFloat(document.getElementById('w52-dist')?.value);
+  const industry = document.getElementById('w52-industry')?.value || 'all';
+  const all = Array.isArray(DB.w52) ? DB.w52 : [];
 
-  let list = DB.w52.filter(s=>{
-    if(search && !(s.name.toLowerCase().includes(search) || (s.industry||'').toLowerCase().includes(search))) return false;
+  populateIndustryFilter('w52-industry', all, 'industry');
+  const tabCount = document.getElementById('w52-tab-count');
+  if(tabCount) tabCount.textContent = all.length;
+
+  // Toggle empty state
+  if(!all.length){
+    document.getElementById('w52-empty').style.display = '';
+    document.getElementById('w52-table-wrap').style.display = 'none';
+    document.getElementById('w52-last').textContent = '—';
+    document.getElementById('w52-cnt').textContent = '0';
+    return;
+  }
+  document.getElementById('w52-empty').style.display = 'none';
+  document.getElementById('w52-table-wrap').style.display = '';
+
+  let list = all.filter(s => {
+    if(search){
+      const hay = ((s.name||'')+' '+(s.code||'')+' '+(s.industry||'')).toLowerCase();
+      if(!hay.includes(search)) return false;
+    }
+    if(industry !== 'all' && (s.industry||'') !== industry) return false;
     if(dist === 0){ if(s.dist !== 0) return false; }
     else if(dist === 100){ /* all */ }
     else if(s.dist == null || s.dist > dist) return false;
     return true;
   });
 
-  if(sort==='dist') list.sort((a,b)=>(a.dist??999)-(b.dist??999));
-  else if(sort==='1w') list.sort((a,b)=>(b.ret1w||0)-(a.ret1w||0));
-  else if(sort==='1m') list.sort((a,b)=>(b.ret1m||0)-(a.ret1m||0));
-  else if(sort==='3m') list.sort((a,b)=>(b.ret3m||0)-(a.ret3m||0));
+  const st = SCAN_STATE.w52Sort;
+  const keyMap = {tk:'code', nm:'name', ind:'industry', price:'price', dist:'dist',
+                  r1d:'ret1d', r1w:'ret1w', r1m:'ret1m', r3m:'ret3m',
+                  mcap:'mcap', pe:'pe', eps:'epsYoY', sales:'salesYoY'};
+  const key = keyMap[st.col] || 'dist';
+  list.sort((a,b) => {
+    let av = a[key], bv = b[key];
+    if(typeof av === 'string') { av = av.toLowerCase(); bv = (bv||'').toLowerCase(); }
+    else { av = (av==null?(st.dir==='asc'?Infinity:-Infinity):av); bv = (bv==null?(st.dir==='asc'?Infinity:-Infinity):bv); }
+    if(av < bv) return st.dir === 'asc' ? -1 : 1;
+    if(av > bv) return st.dir === 'asc' ? 1 : -1;
+    return 0;
+  });
 
   document.getElementById('w52-cnt').textContent = list.length;
   document.getElementById('w52-last').textContent = DB.w52Date ? fmtDate(DB.w52Date) : '—';
 
-  const badge = document.getElementById('w52-badge');
-  if(DB.w52.length){
-    badge.className = 'live-badge lb-data';
-    badge.textContent = 'data loaded';
-  } else {
-    badge.className = 'live-badge lb-demo';
-    badge.textContent = 'no data';
-  }
+  const cols = [
+    {k:'tk', t:'Ticker', cls:''},
+    {k:'nm', t:'Name', cls:''},
+    {k:'ind', t:'Industry', cls:''},
+    {k:'price', t:'Price', cls:'num'},
+    {k:'dist', t:'Down %', cls:'num'},
+    {k:'r1d', t:'1D %', cls:'num'},
+    {k:'r1w', t:'1W %', cls:'num'},
+    {k:'r1m', t:'1M %', cls:'num'},
+    {k:'r3m', t:'3M %', cls:'num'},
+    {k:'mcap', t:'Mcap (Cr)', cls:'num'},
+    {k:'pe', t:'PE', cls:'num'},
+    {k:'eps', t:'EPS YoY', cls:'num'},
+    {k:'sales', t:'Sales YoY', cls:'num'}
+  ];
+  document.getElementById('w52-thead').innerHTML = cols.map(c => {
+    const sortCls = st.col===c.k ? (st.dir==='asc'?'sort-asc':'sort-desc') : '';
+    return `<th class="${c.cls} ${sortCls}" onclick="sortClick('w52','${c.k}')">${c.t}<span class="sort-arr"></span></th>`;
+  }).join('');
 
   if(!list.length){
-    document.getElementById('w52-list').innerHTML = '<div class="empty"><i class="ti ti-database-off"></i><p>No stocks match filter.</p><small>Upload the latest &gt;1000Cr CSV from Screener.in or adjust filters.</small></div>';
+    document.getElementById('w52-tbody').innerHTML = '<tr><td colspan="13" style="text-align:center;padding:30px;color:var(--t3);">No stocks match the current filters.</td></tr>';
     return;
   }
-
-  document.getElementById('w52-list').innerHTML = list.slice(0,200).map(s=>{
-    const distColor = s.dist === 0 ? 'lime' : s.dist <= 2 ? 'teal' : s.dist <= 5 ? 'gold' : 't3';
-    const distLabel = s.dist === 0 ? '@ 52W HIGH' : `${s.dist.toFixed(1)}% below`;
-    return `<div class="w52-item">
-      <div class="w52-top">
-        <div>
-          <div class="w52-name">${s.name}</div>
-          <div class="w52-sec">${s.code||'—'} · ${s.industry||'—'}</div>
-        </div>
-        <div class="w52-price-block">
-          <div class="w52-price">₹${(s.price||0).toFixed(2)}</div>
-          <div class="w52-dist" style="color:var(--${distColor==='t3'?'t3':distColor});">${distLabel}</div>
-        </div>
-      </div>
-      <div class="w52-stats">
-        <span>1D <b class="${(s.ret1d||0)>0?'up':(s.ret1d||0)<0?'dn':''}">${(s.ret1d||0).toFixed(1)}%</b></span>
-        <span>1W <b class="${(s.ret1w||0)>0?'up':(s.ret1w||0)<0?'dn':''}">${(s.ret1w||0).toFixed(1)}%</b></span>
-        <span>1M <b class="${(s.ret1m||0)>0?'up':(s.ret1m||0)<0?'dn':''}">${(s.ret1m||0).toFixed(1)}%</b></span>
-        <span>3M <b class="${(s.ret3m||0)>0?'up':(s.ret3m||0)<0?'dn':''}">${(s.ret3m||0).toFixed(1)}%</b></span>
-        <span>MCap <b>₹${((s.mcap||0)/1000).toFixed(1)}k cr</b></span>
-      </div>
-    </div>`;
+  const pct = (n, dp) => n == null ? '—' : (n>=0?'':'')+ n.toFixed(dp||1)+'%';
+  const cls = (n) => n == null ? '' : n > 0 ? 'pos' : n < 0 ? 'neg' : '';
+  document.getElementById('w52-tbody').innerHTML = list.map(s => {
+    const mcapVal = (s.mcap||0) >= 1000 ? (s.mcap/1000).toFixed(2)+'k' : (s.mcap||0).toFixed(0);
+    return `<tr>
+      <td><span class="tk">${s.code||'—'}</span></td>
+      <td><span class="nm" title="${(s.name||'').replace(/"/g,'&quot;')}">${s.name||'—'}</span></td>
+      <td><span class="ind" title="${(s.industry||'').replace(/"/g,'&quot;')}">${s.industry||'—'}</span></td>
+      <td class="num">${(s.price||0).toFixed(2)}</td>
+      <td class="num"><b>${s.dist != null ? s.dist.toFixed(2)+'%' : '—'}</b></td>
+      <td class="num ${cls(s.ret1d)}">${pct(s.ret1d)}</td>
+      <td class="num ${cls(s.ret1w)}">${pct(s.ret1w)}</td>
+      <td class="num ${cls(s.ret1m)}">${pct(s.ret1m)}</td>
+      <td class="num ${cls(s.ret3m)}">${pct(s.ret3m)}</td>
+      <td class="num">${mcapVal}</td>
+      <td class="num">${s.pe != null ? s.pe.toFixed(1) : '—'}</td>
+      <td class="num ${cls(s.epsYoY)}">${s.epsYoY != null ? s.epsYoY.toFixed(0)+'%' : '—'}</td>
+      <td class="num ${cls(s.salesYoY)}">${s.salesYoY != null ? s.salesYoY.toFixed(0)+'%' : '—'}</td>
+    </tr>`;
   }).join('');
+
+  updateConvergencePill();
 }
 
 function parse52WUpload(input){
@@ -5060,17 +5526,6 @@ function computePersistence(){
   return {streak, scans:hist.length};
 }
 
-function setConvMode(mode){
-  DB.convMode = mode;
-  ['strict','score','sector'].forEach(m => {
-    document.getElementById('conv-mode-'+m).classList.toggle('active', m===mode);
-  });
-  // Show controls only in strict/score
-  document.getElementById('conv-controls').style.display = mode==='sector' ? 'none' : '';
-  save();
-  renderConverge();
-}
-
 function convScore(sym, s2, w){
   let pts = 0; const tags = [];
   if(s2){
@@ -5119,16 +5574,19 @@ function getConvergenceData(){
   return {rows, scans};
 }
 
+const CONV_MAX_SCORE = 16;
+
 function renderConverge(){
   const hasData = (DB.w52||[]).length > 0 && (DB.stage2||[]).length > 0;
   const status = document.getElementById('conv-data-status');
   const results = document.getElementById('conv-results');
   const metrics = document.getElementById('conv-metrics');
-  const mode = DB.convMode || 'strict';
+  const sectorCard = document.getElementById('conv-sector-card');
 
   if(!hasData){
     status.textContent = 'No 52W data — upload in Stage 2 · 52W Highs';
     metrics.innerHTML = '';
+    if(sectorCard) sectorCard.style.display = 'none';
     results.innerHTML = '<div class="conv-empty"><i class="ti ti-radar-2"></i><p>Upload a 52-week-high screener file in the <b>Stage 2 · 52W Highs</b> section to activate the convergence engine.</p></div>';
     return;
   }
@@ -5136,13 +5594,36 @@ function renderConverge(){
   const {rows, scans} = getConvergenceData();
   status.textContent = `S2 ${DB.stage2Date||'—'} · 52W ${DB.w52Date||'—'} · ${scans} scan${scans!==1?'s':''} in history`;
 
-  // Badge count for sidebar = strict shortlist size
+  // Populate sector dropdown
+  const sectorSel = document.getElementById('conv-sector');
+  if(sectorSel){
+    const cur = sectorSel.value || 'all';
+    const inds = Array.from(new Set(rows.map(r => (r.industry||'').trim()).filter(Boolean))).sort();
+    sectorSel.innerHTML = '<option value="all">All sectors</option>' + inds.map(i => `<option value="${i.replace(/"/g,'&quot;')}">${i}</option>`).join('');
+    sectorSel.value = (inds.includes(cur) || cur==='all') ? cur : 'all';
+  }
+
+  // Read controls
   const prox = parseFloat(document.getElementById('conv-prox')?.value || 2);
   const minEps = parseFloat(document.getElementById('conv-eps')?.value || 0);
   const minRs = parseFloat(document.getElementById('conv-rs')?.value || 0);
   const persistOnly = document.getElementById('conv-persist')?.checked;
+  const search = (document.getElementById('conv-search')?.value || '').toLowerCase().trim();
+  const sectorFilter = sectorSel?.value || 'all';
 
-  // Metric strip (always reflects universe)
+  // Active filter indicator
+  const activeFilter = document.getElementById('conv-active-filter');
+  if(activeFilter){
+    if(sectorFilter !== 'all'){
+      activeFilter.innerHTML = `Sector: <b style="color:var(--lime2);">${sectorFilter}</b> <button onclick="clearSectorFilter()" style="background:transparent;border:none;cursor:pointer;color:var(--t3);margin-left:4px;" title="Clear sector"><i class="ti ti-x" style="font-size:11px;"></i></button>`;
+      activeFilter.style.display = 'inline-flex';
+      activeFilter.style.alignItems = 'center';
+    } else {
+      activeFilter.style.display = 'none';
+    }
+  }
+
+  // Metric strip (always reflects universe, ignoring filters — for context)
   const nearHigh = rows.filter(r=>r.dist!=null && r.dist<=2).length;
   const withEarn = rows.filter(r=>r.epsYoY!=null && r.salesYoY!=null && r.epsYoY>15 && r.salesYoY>10).length;
   const persistent = rows.filter(r=>r.persist>=2).length;
@@ -5153,55 +5634,21 @@ function renderConverge(){
     {l:'Persistent', v:persistent, c:'warn', sub:'≥2 scans in list'}
   ].map(m=>`<div class="pnl-metric ${m.c}"><div class="pnl-metric-label">${m.l}</div><div class="pnl-metric-val">${m.v}</div><div class="pnl-metric-sub">${m.sub}</div></div>`).join('');
 
-  const label = document.getElementById('conv-results-label');
-  const count = document.getElementById('conv-results-count');
+  // Apply search + sector filter
+  const matchSearch = (r) => {
+    if(!search) return true;
+    const hay = (r.sym + ' ' + (r.industry||'') + ' ' + (DB.catalystTags[r.sym]||'')).toLowerCase();
+    return hay.includes(search);
+  };
+  const matchSector = (r) => sectorFilter==='all' || (r.industry||'')===sectorFilter;
+  const searchedRows = rows.filter(matchSearch);  // for breakdown (no sector filter applied)
+  const baseFiltered = searchedRows.filter(matchSector);
 
-  if(mode === 'sector'){
-    label.textContent = 'Sector clusters';
-    // Group by industry, show sectors with 3+ converging names
-    const byInd = {};
-    rows.forEach(r => { (byInd[r.industry] = byInd[r.industry]||[]).push(r); });
-    const clusters = Object.entries(byInd).filter(([k,v])=>v.length>=3).sort((a,b)=>b[1].length-a[1].length);
-    count.textContent = clusters.length + ' clusters';
-    if(!clusters.length){ results.innerHTML = '<div class="conv-empty"><i class="ti ti-layout-grid"></i><p>No sectors with 3+ converging names.</p></div>'; return; }
-    results.innerHTML = clusters.map(([ind, stocks])=>{
-      stocks.sort((a,b)=>b.score-a.score);
-      const avgRs = (stocks.reduce((a,s)=>a+s.rs,0)/stocks.length).toFixed(0);
-      return `<div class="conv-sector-group">
-        <div class="conv-sector-hdr">
-          <span class="conv-sector-name">${ind}</span>
-          <span class="conv-sector-meta">${stocks.length} names · avg RS ${avgRs}</span>
-        </div>
-        ${stocks.map((r,i)=>convRowHtml(r, i, false)).join('')}
-      </div>`;
-    }).join('');
-    return;
-  }
+  // Sector breakdown — show top sectors by converging-name count.
+  // Reflects search but NOT sector filter, so it stays useful for switching sectors.
+  renderSectorBreakdown(searchedRows, sectorFilter);
 
-  // strict / score
-  let filtered;
-  if(mode === 'strict'){
-    label.textContent = 'Convergence shortlist (strict)';
-    filtered = rows.filter(r =>
-      r.dist != null && r.dist <= prox &&
-      (r.epsYoY == null || r.epsYoY >= minEps) &&
-      r.rs >= minRs &&
-      (!persistOnly || r.persist >= 2)
-    );
-    // For strict, require positive earnings unless slider lowered
-    if(minEps >= 0) filtered = filtered.filter(r => r.epsYoY != null && r.epsYoY >= minEps);
-    filtered.sort((a,b)=> (a.dist - b.dist) || (b.score - a.score));
-  } else {
-    label.textContent = 'Ranked explorer (all convergences)';
-    filtered = rows.filter(r =>
-      (r.dist == null || r.dist <= Math.max(prox, 10)) &&
-      r.rs >= minRs &&
-      (!persistOnly || r.persist >= 2)
-    );
-    filtered.sort((a,b)=> (b.score - a.score) || (a.dist - b.dist));
-  }
-
-  count.textContent = filtered.length + ' stocks';
+  // Sidebar badge — strict count regardless of filters
   const badge = document.getElementById('converge-badge');
   if(badge){
     const strictCount = rows.filter(r=>r.dist!=null && r.dist<=2 && r.epsYoY!=null && r.epsYoY>0).length;
@@ -5209,37 +5656,263 @@ function renderConverge(){
     badge.classList.toggle('show', strictCount>0);
   }
 
+  // Apply slider filters
+  let filtered = baseFiltered.filter(r =>
+    (r.dist == null || r.dist <= prox) &&
+    r.rs >= minRs &&
+    (!persistOnly || r.persist >= 2) &&
+    (minEps <= -50 || r.epsYoY == null || r.epsYoY >= minEps)
+  );
+
+  // Default sort: by score desc (score IS the rank)
+  if(!DB.convSort) DB.convSort = {col:'score', dir:'desc'};
+  filtered = applyConvSort(filtered, DB.convSort);
+
+  const label = document.getElementById('conv-results-label');
+  const count = document.getElementById('conv-results-count');
+  label.textContent = 'Convergence shortlist';
+  count.textContent = filtered.length + ' stocks';
+
   if(!filtered.length){
-    results.innerHTML = '<div class="conv-empty"><i class="ti ti-filter-off"></i><p>No stocks pass the current filters. Loosen the sliders above.</p></div>';
+    results.innerHTML = '<div class="conv-empty"><i class="ti ti-filter-off"></i><p>No stocks pass the current filters. Loosen the sliders or clear search/sector.</p></div>';
     return;
   }
-  results.innerHTML = filtered.map((r,i)=>convRowHtml(r, i, mode==='score')).join('');
+  results.innerHTML = convTableHtml(filtered);
 }
 
-function convRowHtml(r, i, showScore){
+function renderSectorBreakdown(rows, currentFilter){
+  const card = document.getElementById('conv-sector-card');
+  const strip = document.getElementById('conv-sector-strip');
+  const sub = document.getElementById('conv-sector-sub');
+  if(!card || !strip) return;
+
+  const byInd = {};
+  rows.forEach(r => { const k = (r.industry||'').trim() || '—'; (byInd[k] = byInd[k] || []).push(r); });
+  // Only include sectors with at least 1 stock (every key has at least one by construction)
+  const sectorRows = Object.entries(byInd).map(([name, stocks]) => {
+    const rsArr = stocks.map(s => s.rs||0);
+    const avgRs = rsArr.reduce((a,b)=>a+b,0) / rsArr.length;
+    const sortedRs = rsArr.slice().sort((a,b)=>a-b);
+    const medRs = sortedRs.length % 2 === 1
+      ? sortedRs[Math.floor(sortedRs.length/2)]
+      : (sortedRs[sortedRs.length/2 - 1] + sortedRs[sortedRs.length/2]) / 2;
+    const nearHigh = stocks.filter(s => s.dist!=null && s.dist<=2).length;
+    const withEarn = stocks.filter(s => s.epsYoY!=null && s.salesYoY!=null && s.epsYoY>15 && s.salesYoY>10).length;
+    return {name, count:stocks.length, avgRs, medRs, nearHigh, withEarn};
+  });
+
+  if(!sectorRows.length){
+    card.style.display = 'none';
+    return;
+  }
+  card.style.display = '';
+
+  // Sort state — default by count desc
+  if(!DB.secBkSort) DB.secBkSort = {col:'count', dir:'desc'};
+  const st = DB.secBkSort;
+  const keyMap = {sector:'name', count:'count', avgRs:'avgRs', medRs:'medRs', nearHigh:'nearHigh', earn:'withEarn'};
+  const key = keyMap[st.col] || 'count';
+  const sorted = sectorRows.slice().sort((a,b) => {
+    let av = a[key], bv = b[key];
+    if(typeof av === 'string'){ av = av.toLowerCase(); bv = (bv||'').toLowerCase(); }
+    if(av < bv) return st.dir==='asc' ? -1 : 1;
+    if(av > bv) return st.dir==='asc' ? 1 : -1;
+    return 0;
+  });
+
+  const expanded = DB.secBkExpanded;
+  const showCount = expanded ? sorted.length : Math.min(5, sorted.length);
+  const visible = sorted.slice(0, showCount);
+  const hidden = sorted.length - showCount;
+
+  sub.textContent = `${sectorRows.length} sectors active · click a row to filter the table below`;
+
+  const cols = [
+    {k:'sector',    t:'Sector',           cls:''},
+    {k:'count',     t:'Stocks',           cls:'num'},
+    {k:'avgRs',     t:'Avg RS',           cls:'num'},
+    {k:'medRs',     t:'Median RS',        cls:'num'},
+    {k:'nearHigh',  t:'Near 52w high',    cls:'num'},
+    {k:'earn',      t:'Earnings catalyst',cls:'num'}
+  ];
+  const head = '<tr>' + cols.map(c => {
+    const sortCls = st.col===c.k ? (st.dir==='asc'?'sort-asc':'sort-desc') : '';
+    return `<th class="${c.cls} ${sortCls}" onclick="event.stopPropagation();secBkSort('${c.k}')">${c.t}<span class="sort-arr"></span></th>`;
+  }).join('') + '</tr>';
+
+  const body = visible.map(r => {
+    const active = currentFilter === r.name ? 'active' : '';
+    const safe = r.name.replace(/'/g,"\\'");
+    return `<tr class="${active}" onclick="filterSector('${safe}')">
+      <td><span class="sec-name">${r.name}</span></td>
+      <td class="num num-strong">${r.count}</td>
+      <td class="num">${r.avgRs.toFixed(0)}</td>
+      <td class="num">${r.medRs.toFixed(0)}</td>
+      <td class="num">${r.nearHigh}</td>
+      <td class="num">${r.withEarn}</td>
+    </tr>`;
+  }).join('');
+
+  let footer = '';
+  if(hidden > 0 || expanded){
+    footer = `<div class="conv-secbk-expand">
+      <span>Showing ${showCount} of ${sorted.length} sectors</span>
+      <button onclick="toggleSecBkExpand()">${expanded ? '▲ Show top 5' : `▼ Show all ${sorted.length}`}</button>
+    </div>`;
+  }
+
+  strip.innerHTML = `<div class="conv-secbk-wrap"><table class="conv-secbk"><thead>${head}</thead><tbody>${body}</tbody></table></div>${footer}`;
+}
+
+function secBkSort(col){
+  if(!DB.secBkSort) DB.secBkSort = {col:'count', dir:'desc'};
+  if(DB.secBkSort.col === col) DB.secBkSort.dir = DB.secBkSort.dir === 'asc' ? 'desc' : 'asc';
+  else { DB.secBkSort.col = col; DB.secBkSort.dir = (col === 'sector') ? 'asc' : 'desc'; }
+  save();
+  renderConverge();
+}
+
+function toggleSecBkExpand(){
+  DB.secBkExpanded = !DB.secBkExpanded;
+  save();
+  renderConverge();
+}
+
+function filterSector(name){
+  const sel = document.getElementById('conv-sector');
+  if(!sel) return;
+  // Toggle: clicking the active sector clears it
+  if(sel.value === name) sel.value = 'all';
+  else sel.value = name;
+  renderConverge();
+}
+
+function clearSectorFilter(){
+  const sel = document.getElementById('conv-sector');
+  if(sel) sel.value = 'all';
+  renderConverge();
+}
+
+function resetConvFilters(){
+  document.getElementById('conv-prox').value = 2;
+  document.getElementById('conv-prox-val').textContent = '2.0%';
+  document.getElementById('conv-eps').value = 0;
+  document.getElementById('conv-eps-val').textContent = '0%';
+  document.getElementById('conv-rs').value = 0;
+  document.getElementById('conv-rs-val').textContent = '0';
+  document.getElementById('conv-persist').checked = false;
+  document.getElementById('conv-search').value = '';
+  document.getElementById('conv-sector').value = 'all';
+  DB.convSort = {col:'score', dir:'desc'};
+  save();
+  renderConverge();
+}
+
+function applyConvSort(list, st){
+  const keyMap = {tk:'sym', sec:'industry', score:'score', rs:'rs', dist:'dist',
+                  weeks:'weeks', eps:'epsYoY', sales:'salesYoY', persist:'persist'};
+  const key = keyMap[st.col] || 'score';
+  return list.slice().sort((a,b)=>{
+    let av, bv;
+    if(key === 'weeks'){ av = a.s2?.weeks||0; bv = b.s2?.weeks||0; }
+    else { av = a[key]; bv = b[key]; }
+    if(typeof av === 'string'){ av = av.toLowerCase(); bv = (bv||'').toLowerCase(); }
+    else { av = (av==null?(st.dir==='asc'?Infinity:-Infinity):av); bv = (bv==null?(st.dir==='asc'?Infinity:-Infinity):bv); }
+    if(av < bv) return st.dir==='asc' ? -1 : 1;
+    if(av > bv) return st.dir==='asc' ? 1 : -1;
+    return 0;
+  });
+}
+
+function convSortClick(col){
+  if(!DB.convSort) DB.convSort = {col:'score', dir:'desc'};
+  if(DB.convSort.col === col) DB.convSort.dir = DB.convSort.dir === 'asc' ? 'desc' : 'asc';
+  else { DB.convSort.col = col; DB.convSort.dir = (col==='tk' || col==='sec') ? 'asc' : 'desc'; }
+  DB.convSortUserSet = true;
+  save();
+  renderConverge();
+}
+
+function convTableHtml(list, scoped){
+  const st = (DB.convSort || {col:'score', dir:'desc'});
+  const scoreInfoIcon = scoreInfoHtml();
+  const cols = [
+    {k:'tk',      t:'Ticker',                 cls:''},
+    {k:'sec',     t:'Sector',                 cls:''},
+    {k:'score',   t:'Score' + scoreInfoIcon,  cls:'center', raw:true},
+    {k:'rs',      t:'RS%',                    cls:'num'},
+    {k:'dist',    t:'Down %',                 cls:'num'},
+    {k:'weeks',   t:'Wks in S2',              cls:'num'},
+    {k:'eps',     t:'EPS YoY',                cls:'num'},
+    {k:'sales',   t:'Sales YoY',              cls:'num'},
+    {k:'persist', t:'Persist',                cls:'num'},
+    {k:null,      t:'Catalysts',              cls:''},
+    {k:null,      t:'',                       cls:'center'}
+  ];
+  const head = '<tr>' + cols.map(c => {
+    const sortCls = c.k && st.col===c.k ? (st.dir==='asc'?'sort-asc':'sort-desc') : '';
+    if(!c.k) return `<th class="${c.cls}">${c.t}</th>`;
+    // The score column's info icon needs to NOT trigger sort when clicked
+    const onclickAttr = c.k === 'score'
+      ? `onclick="if(event.target.closest('.score-info'))return; convSortClick('score')"`
+      : `onclick="convSortClick('${c.k}')"`;
+    return `<th class="${c.cls} ${sortCls}" ${onclickAttr}>${c.t}<span class="sort-arr"></span></th>`;
+  }).join('') + '</tr>';
+
+  const body = list.map(r => convRowHtml(r)).join('');
+  return `<div class="conv-table-wrap"><table class="conv-table"><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
+}
+
+function scoreInfoHtml(){
+  return `<span class="score-info" tabindex="0" onclick="event.stopPropagation();">i<span class="score-info-popup">
+    <h5>How the score is built</h5>
+    <div class="si-row"><span>In Stage 2 list</span><b>+3</b></div>
+    <div class="si-row"><span>Status: New Addition / Reentry</span><b>+2</b></div>
+    <div class="si-row"><span>Relative Strength ≥ 50%</span><b>+2</b></div>
+    <div class="si-row"><span>Relative Strength 25 – 50%</span><b>+1</b></div>
+    <div class="si-row"><span>Within 2% of 52-week high</span><b>+3</b></div>
+    <div class="si-row"><span>Within 2 – 5% of 52w high</span><b>+2</b></div>
+    <div class="si-row"><span>Within 5 – 10% of 52w high</span><b>+1</b></div>
+    <div class="si-row"><span>Earnings catalyst (EPS YoY &gt; 15% &amp; Sales YoY &gt; 10%)</span><b>+3</b></div>
+    <div class="si-row"><span>Margin expansion (OPM up &gt; 1pp QoQ)</span><b>+1</b></div>
+    <div class="si-row"><span>Persistence ≥ 2 consecutive scans</span><b>+2</b></div>
+    <div class="si-divider"></div>
+    <div class="si-total"><span>Maximum possible score</span><span>${CONV_MAX_SCORE} / ${CONV_MAX_SCORE}</span></div>
+    <p>Higher score = more independent signals converging on the same stock. A score of 10+ means the breakout, trend, and earnings catalysts are all stacking.</p>
+  </span></span>`;
+}
+
+function convRowHtml(r){
   const scoreClass = r.score >= 10 ? 's-hi' : r.score >= 7 ? 's-mid' : '';
-  const rankClass = i < 3 ? 'top' : '';
-  const distCls = '';
-  return `<div class="conv-card">
-    <div class="conv-rank ${rankClass}">${i+1}</div>
-    <div class="conv-score ${scoreClass}"><span class="conv-score-num">${r.score}</span><span class="conv-score-lbl">score</span></div>
-    <div class="conv-main">
-      <div class="conv-sym">${r.sym} <span class="conv-ind">${r.industry}</span></div>
-      <div class="conv-tags">${r.tags.map(t=>`<span class="conv-tag ${t.c}" ${t.manual?`onclick="editCatalyst('${r.sym}')"`:''}>${t.t}</span>`).join('')}
-        <span class="conv-tag ct-cat" onclick="editCatalyst('${r.sym}')"><i class="ti ti-tag" style="font-size:9px;"></i> ${DB.catalystTags[r.sym]?'edit':'+ catalyst'}</span>
-      </div>
-    </div>
-    <div class="conv-stats">
-      <div class="conv-stat"><div class="conv-stat-val">${r.rs.toFixed(0)}</div><div class="conv-stat-lbl">RS%</div></div>
-      <div class="conv-stat"><div class="conv-stat-val ${r.dist<=2?'up':''}">${r.dist!=null?r.dist.toFixed(1)+'%':'—'}</div><div class="conv-stat-lbl">from high</div></div>
-      <div class="conv-stat"><div class="conv-stat-val ${r.epsYoY>0?'up':r.epsYoY<0?'dn':''}">${r.epsYoY!=null?r.epsYoY.toFixed(0)+'%':'—'}</div><div class="conv-stat-lbl">EPS YoY</div></div>
-      <div class="conv-stat"><div class="conv-stat-val">${r.persist||1}</div><div class="conv-stat-lbl">scans</div></div>
-    </div>
-    <div class="conv-actions">
-      <button class="btn btn-sm btn-ghost" onclick="convToWatch('${r.sym}','${(r.industry||'').replace(/'/g,'')}')" title="Add to watchlist"><i class="ti ti-eye"></i></button>
-      <button class="btn btn-sm btn-ghost" onclick="convToResearch('${r.sym}','${(r.industry||'').replace(/'/g,'')}')" title="Add to research"><i class="ti ti-microscope"></i></button>
-    </div>
-  </div>`;
+  const rsCls = r.rs >= 50 ? 'pos' : '';
+  const distCls = r.dist != null && r.dist <= 2 ? 'pos' : '';
+  const epsCls = r.epsYoY == null ? '' : r.epsYoY > 0 ? 'pos' : 'neg';
+  const salesCls = r.salesYoY == null ? '' : r.salesYoY > 0 ? 'pos' : 'neg';
+  // Catalyst chips (exclude S2/fresh/dist tags — those are already visible as columns; keep only earnings/margin/persist + manual)
+  const chipsToShow = (r.tags||[]).filter(t => t.c !== 'ct-s2' && t.c !== 'ct-fresh' && t.c !== 'ct-high' && t.c !== 'ct-persist' && t.c !== 'ct-cat');
+  const manualCat = DB.catalystTags[r.sym];
+  const catChips = chipsToShow.map(t => `<span class="conv-tag ${t.c}">${t.t}</span>`).join('');
+  const manualChip = manualCat
+    ? `<span class="conv-tag ct-cat" onclick="editCatalyst('${r.sym}')" title="Click to edit">${manualCat}</span>`
+    : `<button class="conv-cat-add" onclick="editCatalyst('${r.sym}')" title="Add catalyst tag">+</button>`;
+  const safeInd = (r.industry||'').replace(/'/g,"\\'");
+  const indEsc = (r.industry||'').replace(/"/g,'&quot;');
+  return `<tr>
+    <td><span class="tk">${r.sym}</span></td>
+    <td><span class="conv-sec sec-clickable" title="Click to filter by ${indEsc}" onclick="filterSector('${safeInd}')">${r.industry||'—'}</span></td>
+    <td class="center"><span class="conv-score-cell ${scoreClass}"><span class="num">${r.score}</span><span class="max">/${CONV_MAX_SCORE}</span></span></td>
+    <td class="num ${rsCls}">${(r.rs||0).toFixed(0)}</td>
+    <td class="num ${distCls}">${r.dist!=null?r.dist.toFixed(2)+'%':'—'}</td>
+    <td class="num">${r.s2?.weeks||1}</td>
+    <td class="num ${epsCls}">${r.epsYoY!=null?r.epsYoY.toFixed(0)+'%':'—'}</td>
+    <td class="num ${salesCls}">${r.salesYoY!=null?r.salesYoY.toFixed(0)+'%':'—'}</td>
+    <td class="num">${r.persist||1}</td>
+    <td class="cat-cell"><div class="cat-chips">${catChips}${manualChip}</div></td>
+    <td class="act-cell center">
+      <button onclick="convToWatch('${r.sym}','${safeInd}')" title="Add to watchlist"><i class="ti ti-eye"></i>Watch</button>
+      <button onclick="convToResearch('${r.sym}','${safeInd}')" title="Add to research"><i class="ti ti-microscope"></i>Research</button>
+    </td>
+  </tr>`;
 }
 
 function editCatalyst(sym){
@@ -5326,6 +5999,190 @@ function importHistory(ev){
   reader.readAsText(file);
 }
 
+// ============= RESEARCH LIBRARY =============
+// Reads library/index.json + library/reports/*.md from the same origin (the GitHub Pages repo).
+// Falls back gracefully when the folder doesn't exist yet (local file:// use or repo not set up).
+const LIB = { items: [], loaded: false, error: null, sort: {col:'date', dir:'desc'} };
+
+async function loadLibrary(manual){
+  try{
+    const res = await fetch('library/index.json', {cache: manual ? 'reload' : 'default'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const data = await res.json();
+    LIB.items = Array.isArray(data.reports) ? data.reports : [];
+    LIB.loaded = true;
+    LIB.error = null;
+    if(manual) toast(`Library refreshed — ${LIB.items.length} reports`,'success');
+  }catch(err){
+    LIB.items = [];
+    LIB.loaded = true;
+    LIB.error = err.message || String(err);
+    if(manual) toast('Could not load library — is library/index.json in the repo?','error');
+  }
+  renderLibrary();
+}
+
+function renderLibrary(){
+  const tbody = document.getElementById('lib-tbody');
+  const thead = document.getElementById('lib-thead');
+  const empty = document.getElementById('lib-empty');
+  const wrap = document.getElementById('lib-table-wrap');
+  if(!tbody) return;
+
+  if(!LIB.items.length){
+    empty.style.display = '';
+    wrap.style.display = 'none';
+    return;
+  }
+  empty.style.display = 'none';
+  wrap.style.display = '';
+
+  // Populate sector filter
+  const sel = document.getElementById('lib-sector');
+  if(sel){
+    const cur = sel.value || 'all';
+    const secs = Array.from(new Set(LIB.items.map(r => (r.sector||'').trim()).filter(Boolean))).sort();
+    sel.innerHTML = '<option value="all">All sectors</option>' + secs.map(s => `<option value="${s.replace(/"/g,'&quot;')}">${s}</option>`).join('');
+    sel.value = (secs.includes(cur) || cur==='all') ? cur : 'all';
+  }
+
+  const search = (document.getElementById('lib-search')?.value || '').toLowerCase().trim();
+  const sector = document.getElementById('lib-sector')?.value || 'all';
+  const type = document.getElementById('lib-type')?.value || 'all';
+
+  let list = LIB.items.filter(r => {
+    if(search){
+      const hay = ((r.title||'')+' '+(r.ticker||'')+' '+(r.sector||'')+' '+(r.firm||'')).toLowerCase();
+      if(!hay.includes(search)) return false;
+    }
+    if(sector !== 'all' && (r.sector||'') !== sector) return false;
+    if(type !== 'all' && (r.type||'stock') !== type) return false;
+    return true;
+  });
+
+  const st = LIB.sort;
+  const key = {title:'title', ticker:'ticker', sector:'sector', firm:'firm', rating:'rating', date:'date'}[st.col] || 'date';
+  list.sort((a,b)=>{
+    let av = (a[key]||'').toString().toLowerCase(), bv = (b[key]||'').toString().toLowerCase();
+    if(av < bv) return st.dir==='asc' ? -1 : 1;
+    if(av > bv) return st.dir==='asc' ? 1 : -1;
+    return 0;
+  });
+
+  const cols = [
+    {k:'date', t:'Date', cls:''},
+    {k:'title', t:'Title', cls:''},
+    {k:'ticker', t:'Ticker', cls:''},
+    {k:'sector', t:'Sector', cls:''},
+    {k:'rating', t:'Rating', cls:''},
+    {k:'firm', t:'Source', cls:''}
+  ];
+  thead.innerHTML = cols.map(c => {
+    const sortCls = st.col===c.k ? (st.dir==='asc'?'sort-asc':'sort-desc') : '';
+    return `<th class="${c.cls} ${sortCls}" onclick="libSort('${c.k}')">${c.t}<span class="sort-arr"></span></th>`;
+  }).join('');
+
+  const ratingBadge = (r) => {
+    if(!r) return '—';
+    const rl = r.toLowerCase();
+    const cls = rl.includes('buy')||rl.includes('accumulate') ? 'buy' : rl.includes('sell')||rl.includes('reduce') ? 'sell' : 'hold';
+    return `<span class="lib-badge-rating ${cls}">${r}</span>`;
+  };
+
+  tbody.innerHTML = list.map(r => `
+    <tr style="cursor:pointer;" onclick="openLibReport('${(r.file||'').replace(/'/g,"\\'")}')">
+      <td class="num" style="white-space:nowrap;">${r.date||'—'}</td>
+      <td><span class="tk">${r.title||'Untitled'}</span></td>
+      <td><span class="nm">${r.ticker||'—'}</span></td>
+      <td><span class="ind">${r.sector||'—'}</span></td>
+      <td>${ratingBadge(r.rating)}</td>
+      <td><span class="ind">${r.firm||'—'}</span></td>
+    </tr>
+  `).join('') || '<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--t3);">No reports match filters.</td></tr>';
+}
+
+function libSort(col){
+  if(LIB.sort.col === col) LIB.sort.dir = LIB.sort.dir==='asc' ? 'desc' : 'asc';
+  else { LIB.sort.col = col; LIB.sort.dir = (col==='date') ? 'desc' : 'asc'; }
+  renderLibrary();
+}
+
+async function openLibReport(file){
+  if(!file) return;
+  try{
+    const res = await fetch('library/reports/' + file);
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const md = await res.text();
+    const meta = LIB.items.find(r => r.file === file);
+    document.getElementById('lib-article').innerHTML = mdToHtml(md);
+    document.getElementById('lib-reader-meta').textContent = meta ? `${meta.firm||''} · ${meta.date||''} · ${meta.ticker||meta.sector||''}` : file;
+    document.getElementById('lib-list').style.display = 'none';
+    document.getElementById('lib-reader').style.display = '';
+    document.querySelector('.lib-content').scrollTop = 0;
+  }catch(err){
+    toast('Could not load report: '+(err.message||err),'error');
+  }
+}
+
+function closeLibReader(){
+  document.getElementById('lib-reader').style.display = 'none';
+  document.getElementById('lib-list').style.display = '';
+}
+
+// Minimal markdown → HTML renderer (headers, bold, italic, lists, links, tables, code, blockquote, hr)
+function mdToHtml(md){
+  const esc = (s) => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const lines = md.split(/\r?\n/);
+  let html = '', inUl = false, inOl = false, inTable = false, tableHeader = true;
+
+  const closeLists = () => {
+    if(inUl){ html += '</ul>'; inUl = false; }
+    if(inOl){ html += '</ol>'; inOl = false; }
+  };
+  const closeTable = () => { if(inTable){ html += '</tbody></table>'; inTable = false; tableHeader = true; } };
+
+  const inline = (s) => esc(s)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/`(.+?)`/g, '<code>$1</code>')
+    .replace(/\[(.+?)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+
+  for(let raw of lines){
+    const line = raw.trimEnd();
+    const t = line.trim();
+
+    if(/^\|.*\|$/.test(t)){
+      closeLists();
+      if(/^\|[\s\-:|]+\|$/.test(t)) continue; // separator row
+      const cells = t.slice(1,-1).split('|').map(c => inline(c.trim()));
+      if(!inTable){ html += '<table><tbody>'; inTable = true; tableHeader = true; }
+      const tag = tableHeader ? 'th' : 'td';
+      html += '<tr>' + cells.map(c => `<${tag}>${c}</${tag}>`).join('') + '</tr>';
+      tableHeader = false;
+      continue;
+    } else closeTable();
+
+    if(t === ''){ closeLists(); continue; }
+    if(/^---+$/.test(t)){ closeLists(); html += '<hr>'; continue; }
+    if(t.startsWith('### ')){ closeLists(); html += '<h3>'+inline(t.slice(4))+'</h3>'; continue; }
+    if(t.startsWith('## ')){ closeLists(); html += '<h2>'+inline(t.slice(3))+'</h2>'; continue; }
+    if(t.startsWith('# ')){ closeLists(); html += '<h1>'+inline(t.slice(2))+'</h1>'; continue; }
+    if(t.startsWith('> ')){ closeLists(); html += '<blockquote>'+inline(t.slice(2))+'</blockquote>'; continue; }
+    if(/^[-*] /.test(t)){
+      if(!inUl){ closeLists(); html += '<ul>'; inUl = true; }
+      html += '<li>'+inline(t.slice(2))+'</li>'; continue;
+    }
+    if(/^\d+\. /.test(t)){
+      if(!inOl){ closeLists(); html += '<ol>'; inOl = true; }
+      html += '<li>'+inline(t.replace(/^\d+\. /,''))+'</li>'; continue;
+    }
+    closeLists();
+    html += '<p>'+inline(t)+'</p>';
+  }
+  closeLists(); closeTable();
+  return html;
+}
+
 // ============= INIT =============
 function init(){
   load();
@@ -5344,6 +6201,7 @@ function init(){
   renderMonitor();
   renderPnl();
   renderSnap();
+  loadLibrary(false);
   updateMarket();
   setInterval(updateMarket, 30000);
 }
