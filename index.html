@@ -6,7 +6,7 @@
 <title>SwingEdge — Suyog's Trading Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -927,6 +927,142 @@ tr:hover .wr-act{opacity:1;} .wr-act:hover{background:var(--bg3);color:var(--lim
   body.wr-printing .wr-hero{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
 }
 
+/* ============= LAB THEME (dark slate · Inter · emerald) ============= */
+html[data-theme="lab"]{
+  --bg0:#0B1220; --bg1:#111A2E; --bg2:#162038; --bg3:#1C2842; --bg4:#263552;
+  --b1:#1E2A44; --b2:#2C3B5A; --b3:#3F5070;
+  --t1:#F1F5F9; --t2:#CBD5E1; --t3:#94A3B8; --t4:#64748B;
+  --lime:#10B981; --lime2:#6EE7B7; --lime3:#34D399;
+  --teal:#38BDF8; --teal2:#7DD3FC;
+  --gold:#F59E0B; --gold2:#FCD34D;
+  --rose:#F43F5E; --rose2:#FDA4AF;
+  --sky:#60A5FA; --sky2:#BFDBFE;
+  --sage:#22C55E; --sage2:#4ADE80;
+  --lime-soft:rgba(16,185,129,.14); --teal-soft:rgba(56,189,248,.14); --gold-soft:rgba(245,158,11,.14); --rose-soft:rgba(244,63,94,.14);
+  --sky-soft:rgba(96,165,250,.16); --sage-soft:rgba(34,197,94,.14); --neutral-soft:rgba(148,163,184,.12);
+  --serif:'Inter','Manrope',system-ui,sans-serif; --sans:'Inter','Manrope',system-ui,sans-serif;
+  --shadow-1:0 1px 0 rgba(0,0,0,.25); --shadow-2:0 2px 6px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.03); --shadow-pop:0 18px 48px rgba(2,6,23,.6),0 2px 6px rgba(2,6,23,.4);
+  color-scheme:dark;
+}
+html[data-theme="lab"] body::before{display:none;}
+html[data-theme="lab"] h1,html[data-theme="lab"] h2,html[data-theme="lab"] h3,html[data-theme="lab"] h4{font-family:var(--sans);font-weight:700;letter-spacing:-0.025em;}
+html[data-theme="lab"] .tb-title,html[data-theme="lab"] .sb-name,html[data-theme="lab"] .metric-val,html[data-theme="lab"] .modal-hdr h3,html[data-theme="lab"] .banner-text h3,html[data-theme="lab"] .scan-empty h4,html[data-theme="lab"] .wr-empty h4,html[data-theme="lab"] .wr-card .v,html[data-theme="lab"] .wr-q .v,html[data-theme="lab"] .wr-sec-h h2,html[data-theme="lab"] .wr-hero h1,html[data-theme="lab"] .wr-hm-h,html[data-theme="lab"] .lib-article h1,html[data-theme="lab"] .lib-article h2,html[data-theme="lab"] .lib-article h3{font-family:var(--sans);font-weight:700;letter-spacing:-0.02em;}
+html[data-theme="lab"] .wr-strap{font-style:normal;font-weight:500;}
+html[data-theme="lab"] .sb-icon{background:linear-gradient(135deg,#10B981,#0EA5E9);font-family:var(--sans);font-style:normal;font-weight:800;box-shadow:0 4px 14px rgba(16,185,129,.35);}
+html[data-theme="lab"] .sidebar{background:#0D1526;}
+html[data-theme="lab"] .nav.active{background:rgba(16,185,129,.12);color:#6EE7B7;border-color:rgba(16,185,129,.22);}
+html[data-theme="lab"] .nav.active i{color:#34D399;}
+html[data-theme="lab"] .topbar{background:rgba(17,26,46,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
+html[data-theme="lab"] .btn-lime{background:linear-gradient(135deg,#10B981 0%,#059669 100%);border-color:transparent;color:#fff;box-shadow:0 6px 18px rgba(16,185,129,.28);}
+html[data-theme="lab"] .btn-lime:hover{background:linear-gradient(135deg,#34D399 0%,#10B981 100%);border-color:transparent;box-shadow:0 8px 22px rgba(16,185,129,.4);}
+html[data-theme="lab"] .btn-teal{background:linear-gradient(135deg,#38BDF8,#2563EB);border-color:transparent;color:#fff;}
+html[data-theme="lab"] .overlay{background:rgba(2,6,23,.62);}
+html[data-theme="lab"] .metric-accent::after{background:linear-gradient(90deg,#10B981,#38BDF8);}
+html[data-theme="lab"] #toast{background:#F1F5F9;color:#0B1220;border-color:#F1F5F9;}
+html[data-theme="lab"] .wr-hero,html[data-theme="lab"] .se-hero{background:radial-gradient(1200px 420px at 85% -10%,rgba(16,185,129,.28),transparent 60%),radial-gradient(800px 360px at 10% 110%,rgba(59,130,246,.22),transparent 60%),linear-gradient(155deg,#0B1220 0%,#111A2E 60%,#0F1B33 100%);}
+html[data-theme="lab"] .wr-hero::before,html[data-theme="lab"] .wr-hero::after{display:none;}
+html[data-theme="lab"] .wr-meta{background:#0D1526;}
+html[data-theme="lab"] .wr-note{background:var(--gold-soft);}
+html[data-theme="lab"] .scan-table thead th.sort-asc,html[data-theme="lab"] .scan-table thead th.sort-desc{color:#6EE7B7;}
+html[data-theme="lab"] .wr-chip.active,html[data-theme="lab"] .tab.active{color:#6EE7B7;}
+html[data-theme="lab"] .wr-chip.active{background:rgba(16,185,129,.18);border-color:#10B981;}
+html[data-theme="lab"] .wr-hm-cell{border-color:rgba(255,255,255,.06);}
+html[data-theme="lab"] ::selection{background:#10B981;color:#04110B;}
+html[data-theme="lab"] .card,html[data-theme="lab"] .metric,html[data-theme="lab"] .wr-card,html[data-theme="lab"] .se-panel,html[data-theme="lab"] .se-lead{background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,0)),var(--bg1);}
+#theme-toggle{width:100%;justify-content:center;margin-top:8px;font-size:11.5px;}
+
+/* ============= EDGE MODULES ============= */
+.se-content{padding:0 0 40px;}
+.se-hero{position:relative;overflow:hidden;background:linear-gradient(155deg,#12301F 0%,#1F5F3F 58%,#1E4A56 125%);color:#F3EFE4;padding:30px 30px 24px;border-bottom:1px solid var(--b1);}
+.se-hero-inner{position:relative;z-index:2;}
+.se-hero h1{font-family:var(--sans);font-size:32px;font-weight:800;color:#FBF8F0;letter-spacing:-.03em;margin:2px 0 6px;line-height:1.1;}
+.se-hero .wr-lead{margin-bottom:18px;}
+.se-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;}
+.se-kpis.compact{margin:6px 0 14px;}
+.se-kpi{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:var(--r4);padding:12px 14px;position:relative;overflow:hidden;transition:transform .15s,border-color .15s;}
+.se-kpi:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.24);}
+.se-kpi .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:#A9BFB0;margin-bottom:5px;}
+.se-kpi .v{font-family:var(--sans);font-size:24px;font-weight:800;letter-spacing:-.03em;color:#FBF8F0;line-height:1.1;font-variant-numeric:tabular-nums;}
+.se-kpi .d{font-size:11px;color:#B9C9BE;margin-top:4px;line-height:1.4;}
+.se-kpi.accent::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#34D399,#38BDF8);}
+.se-kpi.ok .v{color:#8FE0B0;} .se-kpi.bad .v{color:#FDA4AF;} .se-kpi.warn .v{color:#FCD34D;}
+.se-kpi .d .up{color:#8FE0B0;} .se-kpi .d .dn{color:#FDA4AF;}
+.se-panel .se-kpi{background:var(--bg2);border-color:var(--b1);} .se-panel .se-kpi .k{color:var(--t3);} .se-panel .se-kpi .v{color:var(--t1);font-size:20px;} .se-panel .se-kpi .d{color:var(--t3);}
+.se-panel .se-kpi.ok .v{color:var(--sage2);} .se-panel .se-kpi.bad .v{color:var(--rose2);}
+.se-body{padding:18px 30px 10px;}
+.se-row-h{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:6px 0 12px;flex-wrap:wrap;}
+.se-row-h h2{font-family:var(--sans);font-size:18px;font-weight:700;letter-spacing:-.02em;color:var(--t1);margin:0;}
+.se-eyebrow{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:3px;}
+.se-leads{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-bottom:18px;}
+.se-lead{position:relative;background:var(--bg1);border:1px solid var(--b1);border-radius:var(--r4);padding:14px 16px 12px;cursor:pointer;transition:transform .15s,box-shadow .15s,border-color .15s;box-shadow:var(--shadow-1);overflow:hidden;}
+.se-lead::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gc,var(--lime));}
+.se-lead:hover{transform:translateY(-3px);box-shadow:var(--shadow-pop);border-color:var(--b3);}
+.se-lead-top{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.se-rank{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--gc,var(--lime));}
+.se-lead-name{font-weight:700;font-size:14px;color:var(--t1);letter-spacing:-.01em;flex:1;}
+.se-lead-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px;}
+.se-lead-grid .k{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--t4);}
+.se-lead-grid .v{font-family:var(--sans);font-size:16px;font-weight:700;color:var(--t1);font-variant-numeric:tabular-nums;}
+.se-lead-bar{display:flex;align-items:center;gap:8px;font-size:10.5px;color:var(--t3);}
+.se-lead-bar .se-rs-track{flex:1;width:auto;}
+.se-lead-bar small{font-family:var(--mono);font-size:10px;}
+.se-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.se-grid-sec{display:grid;grid-template-columns:minmax(360px,5fr) 7fr;gap:14px;}
+.se-panel{background:var(--bg1);border:1px solid var(--b1);border-radius:var(--r4);padding:14px 16px;box-shadow:var(--shadow-1);min-width:0;}
+.se-panel .wr-twrap{margin:0;}
+.se-cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.se-sub{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:6px;font-weight:600;}
+.se-sub.up{color:var(--sage2);} .se-sub.dn{color:var(--rose2);}
+.se-list{list-style:none;margin:0;padding:0;}
+.se-list li{display:grid;grid-template-columns:auto auto 1fr auto;align-items:center;gap:8px;padding:6px 8px;border-radius:var(--r2);font-size:12px;cursor:pointer;transition:background .1s;}
+.se-list li:hover{background:var(--bg2);}
+.se-list li .tk{font-weight:700;color:var(--t1);font-size:12px;}
+.se-list li .ind{color:var(--t3);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.se-list li .num{font-family:var(--mono);font-size:11px;color:var(--t2);white-space:nowrap;}
+.se-list li.flat{color:var(--t4);cursor:default;display:block;}
+.se-list.tall{max-height:320px;overflow:auto;}
+.se-rs{display:inline-flex;align-items:center;gap:7px;font-variant-numeric:tabular-nums;}
+.se-rs-track{display:inline-block;width:64px;height:6px;border-radius:99px;background:var(--bg3);overflow:hidden;vertical-align:middle;}
+.se-rs-track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#64748B,#94A3B8);transition:width .4s ease;}
+.se-rs.mid .se-rs-track i{background:linear-gradient(90deg,#3B82F6,#60A5FA);} .se-rs.warm .se-rs-track i{background:linear-gradient(90deg,#F59E0B,#FCD34D);} .se-rs.hot .se-rs-track i{background:linear-gradient(90deg,#10B981,#34D399);}
+.se-rs b{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--t1);min-width:20px;text-align:right;}
+.se-rs.hot b{color:var(--sage2);} .se-rs.warm b{color:var(--gold2);}
+.se-rs small{font-family:var(--mono);font-size:9.5px;font-weight:600;}
+.se-pill{display:inline-block;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:99px;margin-left:5px;vertical-align:middle;white-space:nowrap;border:1px solid transparent;}
+.se-pill.s2{background:var(--lime-soft);color:var(--lime2);border-color:rgba(16,185,129,.3);} .se-pill.s2.both{background:var(--lime);color:#fff;}
+.se-pill.calc{background:var(--sky-soft);color:var(--sky2);border-color:rgba(96,165,250,.3);}
+.se-pill.new{background:rgba(139,92,246,.16);color:#C4B5FD;border-color:rgba(139,92,246,.35);} html:not([data-theme="lab"]) .se-pill.new{color:#5B21B6;}
+.se-pill.re{background:var(--gold-soft);color:var(--gold2);border-color:rgba(245,158,11,.3);}
+.se-pill.q{margin-left:0;} .se-pill.q.leading{background:var(--sage-soft);color:var(--sage2);} .se-pill.q.improving{background:var(--sky-soft);color:var(--sky2);} .se-pill.q.weakening{background:var(--gold-soft);color:var(--gold2);} .se-pill.q.lagging{background:var(--rose-soft);color:var(--rose2);}
+.se-tt{display:inline-flex;align-items:center;gap:2px;cursor:help;}
+.se-tt i{display:inline-block;width:7px;height:10px;border-radius:2px;background:var(--bg4);}
+.se-tt i.ok{background:var(--lime);} .se-tt.full i.ok{background:#34D399;} .se-tt.weak i.ok{background:var(--t4);}
+.se-tt b{font-family:var(--mono);font-size:11px;margin-left:5px;color:var(--t2);} .se-tt.full b{color:var(--sage2);}
+.se-stock .se-nm{font-size:10.5px;color:var(--t3);margin-top:1px;max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.se-hist{display:flex;align-items:flex-end;gap:6px;height:150px;padding:8px 4px 0;}
+.se-hist-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px;}
+.se-hist-col i{display:block;width:100%;border-radius:4px 4px 2px 2px;background:linear-gradient(180deg,#64748B,#475569);min-height:2px;transition:height .5s ease;}
+.se-hist-col i.warm{background:linear-gradient(180deg,#FCD34D,#F59E0B);} .se-hist-col i.hot{background:linear-gradient(180deg,#34D399,#10B981);}
+.se-hist-col span{font-family:var(--mono);font-size:9px;color:var(--t4);}
+.se-quad svg{width:100%;height:auto;display:block;max-height:330px;}
+.se-quad .se-dot:hover circle{fill-opacity:.95;}
+.se-pipeline{margin-top:2px;}
+.se-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;}
+.se-step{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r3);padding:9px 11px;cursor:pointer;font-size:11px;line-height:1.5;transition:border-color .12s;}
+.se-step:hover{border-color:var(--b3);} .se-step.cur{border-color:var(--lime);box-shadow:0 0 0 1px var(--lime) inset;}
+.se-step .k{font-family:var(--mono);font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;}
+.se-step .v{color:var(--t2);}
+.se-filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 12px;background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r3);margin:0 0 10px;}
+.se-filters input[type=text]{flex:1;min-width:200px;font-size:12px;font-family:var(--sans);background:var(--bg1);border:1px solid var(--b2);border-radius:var(--r2);padding:6px 10px;color:var(--t1);}
+.se-filters select{font-size:11px;font-family:var(--mono);background:var(--bg1);border:1px solid var(--b2);border-radius:var(--r2);padding:6px 9px;color:var(--t1);cursor:pointer;max-width:220px;}
+.se-filters input:focus,.se-filters select:focus{outline:none;border-color:var(--lime);}
+.se-check{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--t2);cursor:pointer;white-space:nowrap;}
+.se-check input{accent-color:var(--lime);}
+.se-selrow td{background:var(--lime-soft)!important;}
+.se-pad{padding:18px 30px 30px;}
+@media(max-width:1100px){.se-grid2,.se-grid-sec{grid-template-columns:1fr;}.se-cols3{grid-template-columns:1fr;}}
+@media(max-width:900px){.se-hero,.se-body,.se-pad{padding-left:16px;padding-right:16px;}.se-hero h1{font-size:24px;}.se-lead-grid{grid-template-columns:repeat(2,1fr);}}
+
 </style>
 </head>
 <body>
@@ -944,8 +1080,13 @@ tr:hover .wr-act{opacity:1;} .wr-act:hover{background:var(--bg3);color:var(--lim
     </div>
   </div>
   <div class="sb-scroll">
+    <div class="sb-group">Edge</div>
+    <div class="nav active" id="nav-pulse" onclick="show('pulse')"><i class="ti ti-activity-heartbeat"></i>Market Pulse</div>
+    <div class="nav" id="nav-rsscreen" onclick="show('rsscreen')"><i class="ti ti-chart-arrows-vertical"></i>RS Screen</div>
+    <div class="nav" id="nav-sectors" onclick="show('sectors')"><i class="ti ti-chart-pie-2"></i>Sectors</div>
+    <div class="nav" id="nav-s2track" onclick="show('s2track')"><i class="ti ti-stairs-up"></i>Stage 2 Tracker</div>
     <div class="sb-group">Core</div>
-    <div class="nav active" id="nav-dash" onclick="show('dash')"><i class="ti ti-layout-dashboard"></i>Dashboard</div>
+    <div class="nav" id="nav-dash" onclick="show('dash')"><i class="ti ti-layout-dashboard"></i>Dashboard</div>
     <div class="nav" id="nav-trades" onclick="show('trades')"><i class="ti ti-notebook"></i>Trade Log</div>
     <div class="nav" id="nav-research" onclick="show('research')"><i class="ti ti-microscope"></i>Research</div>
     <div class="nav" id="nav-watchlist" onclick="show('watchlist')"><i class="ti ti-eye"></i>Watchlist</div>
@@ -970,14 +1111,63 @@ tr:hover .wr-act{opacity:1;} .wr-act:hover{background:var(--bg3);color:var(--lim
       <div class="mkt-dot" id="mkt-dot"></div>
       <span class="mkt-text" id="mkt-text">Checking…</span>
     </div>
+    <button class="btn btn-ghost btn-sm" id="theme-toggle" onclick="seToggleTheme()"><i class="ti ti-sun"></i>Ledger theme</button>
   </div>
 </div>
 
 <!-- ============= MAIN ============= -->
 <div class="main">
 
+<!-- ── EDGE: MARKET PULSE ── -->
+<div class="sec active" id="sec-pulse">
+  <div class="topbar">
+    <div class="tb-left"><span class="tb-title">Market Pulse</span><span class="tb-crumb">/ relative strength · stage 2 · sector rotation</span></div>
+    <div class="tb-right">
+      <select class="wr-week-sel se-week" onchange="seSelectWeek(this.value)"><option value="">Loading…</option></select>
+      <button class="btn btn-sm" onclick="loadSE(true)"><i class="ti ti-refresh"></i>Refresh</button>
+    </div>
+  </div>
+  <div class="content se-content"><div id="se-pulse-body"></div></div>
+</div>
+
+<!-- ── EDGE: RS SCREEN ── -->
+<div class="sec" id="sec-rsscreen">
+  <div class="topbar">
+    <div class="tb-left"><span class="tb-title">RS Screen</span><span class="tb-crumb">/ relative strength rating · trend template</span></div>
+    <div class="tb-right">
+      <select class="wr-week-sel se-week" onchange="seSelectWeek(this.value)"><option value="">Loading…</option></select>
+      <button class="btn btn-sm" onclick="loadSE(true)"><i class="ti ti-refresh"></i>Refresh</button>
+    </div>
+  </div>
+  <div class="content se-content se-pad"><div id="se-rs-body"></div></div>
+</div>
+
+<!-- ── EDGE: SECTORS ── -->
+<div class="sec" id="sec-sectors">
+  <div class="topbar">
+    <div class="tb-left"><span class="tb-title">Sectors</span><span class="tb-crumb">/ industry groups · rotation</span></div>
+    <div class="tb-right">
+      <select class="wr-week-sel se-week" onchange="seSelectWeek(this.value)"><option value="">Loading…</option></select>
+      <button class="btn btn-sm" onclick="loadSE(true)"><i class="ti ti-refresh"></i>Refresh</button>
+    </div>
+  </div>
+  <div class="content se-content se-pad"><div id="se-sec-body"></div></div>
+</div>
+
+<!-- ── EDGE: STAGE 2 TRACKER ── -->
+<div class="sec" id="sec-s2track">
+  <div class="topbar">
+    <div class="tb-left"><span class="tb-title">Stage 2 Tracker</span><span class="tb-crumb">/ weekly list · entries · exits</span></div>
+    <div class="tb-right">
+      <select class="wr-week-sel se-week" onchange="seSelectWeek(this.value)"><option value="">Loading…</option></select>
+      <button class="btn btn-sm" onclick="loadSE(true)"><i class="ti ti-refresh"></i>Refresh</button>
+    </div>
+  </div>
+  <div class="content se-content se-pad"><div id="se-s2-body"></div></div>
+</div>
+
 <!-- ── DASHBOARD ── -->
-<div class="sec active" id="sec-dash">
+<div class="sec" id="sec-dash">
   <div class="topbar">
     <div class="tb-left"><span class="tb-title">Dashboard</span><span class="tb-crumb">/ overview</span></div>
     <div class="tb-right">
@@ -6537,7 +6727,7 @@ function wrTable(id, cols, rows, opt){
     const c = cols.find(x => x.k === st.col);
     if(c){
       const val = (row) => c.fn ? c.fn(row) : row[c.k];
-      const numeric = ['num','int','pct','pct0','signed','idx'].includes(c.type);
+      const numeric = ['num','int','pct','pct0','signed','idx'].includes(c.sortType || c.type);
       list.sort((a, b) => {
         let av = c.type === 'idx' ? a.i : val(a.r), bv = c.type === 'idx' ? b.i : val(b.r);
         const an = numeric ? wrIsNum(av) : (av != null && av !== ''), bn = numeric ? wrIsNum(bv) : (bv != null && bv !== '');
@@ -6548,7 +6738,7 @@ function wrTable(id, cols, rows, opt){
     }
   }
   const thead = cols.map(c => {
-    const numCls = ['num','int','pct','pct0','signed','idx'].includes(c.type) ? 'num' : '';
+    const numCls = ['num','int','pct','pct0','signed','idx'].includes(c.sortType || c.type) ? 'num' : '';
     const sortCls = st && st.col === c.k ? (st.dir === 'asc' ? 'sort-asc' : 'sort-desc') : '';
     const click = sortable ? ` onclick="wrSort('${wrAttr(id)}','${wrAttr(c.k)}')"` : ' style="cursor:default"';
     return `<th class="${numCls} ${sortCls}"${click}>${wrEsc(c.t)}${sortable ? '<span class="sort-arr"></span>' : ''}</th>`;
@@ -6568,7 +6758,7 @@ function wrTable(id, cols, rows, opt){
         case 'html': cell = c.html ? c.html(r) : (v == null ? '' : String(v)); break;
         default: cell = v == null || v === '' ? '<span class="flat">—</span>' : wrEsc(v);
       }
-      const numCls = ['num','int','pct','pct0','signed','idx'].includes(c.type) ? 'num' : '';
+      const numCls = ['num','int','pct','pct0','signed','idx'].includes(c.sortType || c.type) ? 'num' : '';
       return `<td class="${numCls} ${c.cls || ''}">${cell}</td>`;
     }).join('') + '</tr>';
   }).join('');
@@ -6579,8 +6769,8 @@ function wrTable(id, cols, rows, opt){
 function wrSort(id, col){
   const st = WR.sort[id];
   if(st && st.col === col) WR.sort[id] = {col, dir: st.dir === 'asc' ? 'desc' : 'asc'};
-  else WR.sort[id] = {col, dir: ['name','code','bucket','industry','region','date','day','ticker'].includes(col) ? 'asc' : 'desc'};
-  wrRenderTab();
+  else WR.sort[id] = {col, dir: ['name','code','bucket','industry','region','date','day','ticker','group','band','state','since'].includes(col) ? 'asc' : 'desc'};
+  if(String(id).startsWith('se-') && typeof seRerender === 'function') seRerender(id); else wrRenderTab();
 }
 
 function wrToWatch(sym, industry){
@@ -7141,6 +7331,533 @@ function wrPrint(){
   setTimeout(() => { window.print(); setTimeout(done, 1500); }, 50);
 }
 
+// ============= EDGE: MARKET PULSE · RS SCREEN · SECTORS · STAGE 2 TRACKER =============
+// Reads data/scans/index.json + data/scans/<date>.json (schema swingedge-scan/1): the raw weekly
+// screener universe + the weekly Stage 2 list. Everything analytical is computed here:
+//   • RS rating      — percentile rank (1–99) of a recency-weighted momentum composite within the
+//                      loaded universe (IBD-style quarterly weighting when 6m/1y returns exist)
+//   • RS vs sector   — the same percentile inside the stock's industry group (≥5 peers)
+//   • Trend template — 7 Weinstein/Minervini checks from DMA50/200 + 52-week position (+ RS ≥ 70)
+//   • Stage 2 diffs  — entered / continues / re-entry / exited by comparing consecutive lists
+//   • Sector rotation— industry-group median RS, Stage 2 share, momentum, and week-over-week drift
+const SE = {
+  scans: [], cur: null, data: {}, loaded: false, loading: false, error: null,
+  c: null,                     // computed bundle for the selected week
+  ui: { rsq:'', rsmin:'0', rss2:'all', rsgroup:'all', rsband:'all', rsnew:false, rsath:false,
+        s2q:'', s2status:'all', s2ind:'all', s2minrs:'0', s2minmcap:'0', s2scan:false,
+        secGroup:null, secView:'group' },
+  weights: { r3m: 0.5, r1m: 0.3, r1w: 0.2 }   // fallback composite when only 3-month history is available
+};
+const SE_BANDS = [['Large', 50000], ['Mid', 15000], ['Small', 3000], ['Micro', 0]];
+const SE_GROUP_COLORS = ['#10B981','#3B82F6','#F59E0B','#8B5CF6','#EC4899','#14B8A6','#F97316','#6366F1','#84CC16','#06B6D4','#E11D48','#A855F7'];
+
+// ---------- loading ----------
+async function loadSE(manual){
+  if(SE.loading) return;
+  SE.loading = true;
+  try{
+    const res = await fetch('data/scans/index.json', {cache: manual ? 'reload' : 'default'});
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const idx = await res.json();
+    SE.scans = (Array.isArray(idx.scans) ? idx.scans : []).filter(s => s && s.file).sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    SE.error = null;
+    if(manual) SE.data = {};
+    const keep = SE.cur && SE.scans.some(s => s.file === SE.cur);
+    SE.cur = keep ? SE.cur : (SE.scans[0] ? SE.scans[0].file : null);
+    if(SE.cur) await seLoadSet(SE.cur);
+    SE.loaded = true;
+    if(manual) toast(`Scan data refreshed — ${SE.scans.length} week${SE.scans.length === 1 ? '' : 's'}`, 'success');
+  }catch(err){
+    SE.loaded = true; SE.error = err.message || String(err);
+    if(manual) toast('Could not load scan data — is data/scans/index.json in the repo?', 'error');
+  }finally{ SE.loading = false; }
+  seFillWeekSelects();
+  seCompute();
+  seRenderAll();
+  seFeedLegacy();
+}
+async function seFetch(file){
+  if(SE.data[file]) return SE.data[file];
+  const res = await fetch('data/scans/' + file);
+  if(!res.ok) throw new Error(file + ': HTTP ' + res.status);
+  const d = await res.json();
+  d.universe = Array.isArray(d.universe) ? d.universe : [];
+  d.stage2 = Array.isArray(d.stage2) ? d.stage2 : [];
+  d.universe.forEach(r => { r._key = String(r.code || r.name || '').trim().toUpperCase(); });
+  d.stage2.forEach(r => { r._key = String(r.code || '').trim().toUpperCase(); });
+  SE.data[file] = d;
+  return d;
+}
+async function seLoadSet(file){
+  const d = await seFetch(file);
+  const i = SE.scans.findIndex(s => s.file === file);
+  const priors = SE.scans.slice(i + 1, i + 4);
+  const rs = await Promise.allSettled(priors.map(p => seFetch(p.file)));
+  rs.forEach((r, k) => { if(r.status === 'rejected') console.warn('Edge: prior scan failed', priors[k].file, r.reason); });
+  return d;
+}
+function sePriors(){
+  const i = SE.scans.findIndex(s => s.file === SE.cur);
+  return i < 0 ? [] : SE.scans.slice(i + 1).map(s => SE.data[s.file]).filter(Boolean);
+}
+async function seSelectWeek(file){
+  if(!file) return;
+  SE.cur = file;
+  try{ await seLoadSet(file); }catch(err){ toast('Could not load scan: ' + (err.message || err), 'error'); }
+  seFillWeekSelects(); seCompute(); seRenderAll();
+}
+function seFillWeekSelects(){
+  document.querySelectorAll('select.se-week').forEach(sel => {
+    sel.innerHTML = SE.scans.map(s => `<option value="${wrAttr(s.file)}">w/e ${wrDate(s.date)}${s.universe ? ` · ${s.universe} scan` : ''}${s.stage2 ? ` · ${s.stage2} S2` : ''}</option>`).join('') || '<option value="">No scans published</option>';
+    if(SE.cur) sel.value = SE.cur;
+  });
+}
+
+// ---------- engine ----------
+function seBand(mcap){ if(!wrIsNum(mcap)) return '—'; for(const [n, min] of SE_BANDS) if(+mcap >= min) return n; return 'Micro'; }
+function seScore(r){
+  if(wrIsNum(r.r1y) && wrIsNum(r.r6m) && wrIsNum(r.r3m)){
+    // IBD-style: most recent quarter double-weighted; quarters chained out of cumulative returns
+    const q1 = +r.r3m, q2 = ((1 + r.r6m / 100) / (1 + r.r3m / 100) - 1) * 100, h2 = ((1 + r.r1y / 100) / (1 + r.r6m / 100) - 1) * 100;
+    return 0.4 * q1 + 0.2 * q2 + 0.2 * h2;   // Q3 and Q4 share the second half-year's chained return
+  }
+  const w = SE.weights; let s = 0, tw = 0;
+  if(wrIsNum(r.r3m)){ s += w.r3m * r.r3m; tw += w.r3m; }
+  if(wrIsNum(r.r1m)){ s += w.r1m * r.r1m; tw += w.r1m; }
+  if(wrIsNum(r.r1w)){ s += w.r1w * r.r1w; tw += w.r1w; }
+  return tw ? s / tw : null;
+}
+function sePercentiles(rows, key){
+  // average-rank percentile scaled to 1..99; rows without a score get null
+  const valid = rows.filter(r => wrIsNum(r[key])).sort((a, b) => (+a[key]) - (+b[key]));
+  const n = valid.length; if(!n) return;
+  let i = 0;
+  while(i < n){
+    let j = i; while(j + 1 < n && +valid[j + 1][key] === +valid[i][key]) j++;
+    const avgRank = (i + j) / 2 + 1;
+    const pct = n === 1 ? 99 : Math.round(1 + 98 * (avgRank - 1) / (n - 1));
+    for(let k = i; k <= j; k++) valid[k][key + '_pct'] = pct;
+    i = j + 1;
+  }
+}
+function seTrend(r, prevRow){
+  const checks = [];
+  const add = (k, label, ok, detail) => { if(ok === null) return; checks.push({k, label, ok, detail}); };
+  add('p50', 'Price above 50-DMA', wrIsNum(r.price) && wrIsNum(r.dma50) ? +r.price > +r.dma50 : null, wrIsNum(r.dma50) ? `${wrNum(r.price, 0)} vs ${wrNum(r.dma50, 0)}` : '');
+  add('p200', 'Price above 200-DMA', wrIsNum(r.price) && wrIsNum(r.dma200) ? +r.price > +r.dma200 : null, wrIsNum(r.dma200) ? `${wrNum(r.price, 0)} vs ${wrNum(r.dma200, 0)}` : '');
+  add('ma', '50-DMA above 200-DMA', wrIsNum(r.dma50) && wrIsNum(r.dma200) ? +r.dma50 > +r.dma200 : null, '');
+  add('low', '≥30% above 52-week low', wrIsNum(r.up_52wl) ? +r.up_52wl >= 30 : null, wrIsNum(r.up_52wl) ? `+${wrNum(r.up_52wl, 0)}% off the low` : '');
+  add('high', 'Within 25% of 52-week high', wrIsNum(r.from_52wh) ? +r.from_52wh >= -25 : null, wrIsNum(r.from_52wh) ? `${wrNum(r.from_52wh, 1)}% from high` : '');
+  add('rs', 'RS rating ≥ 70', wrIsNum(r.rs) ? +r.rs >= 70 : null, wrIsNum(r.rs) ? `RS ${r.rs}` : '');
+  add('slope', '200-DMA rising vs last scan', prevRow && wrIsNum(prevRow.dma200) && wrIsNum(r.dma200) ? +r.dma200 > +prevRow.dma200 : null, prevRow && wrIsNum(prevRow.dma200) ? `${wrNum(prevRow.dma200, 0)} → ${wrNum(r.dma200, 0)}` : '');
+  const pass = checks.filter(c => c.ok).length;
+  return { checks, pass, total: checks.length, s2: checks.length >= 5 && pass === checks.length };
+}
+function seCompute(){
+  const d = SE.cur && SE.data[SE.cur];
+  if(!d){ SE.c = null; return; }
+  const priors = sePriors();
+  const prevU = priors.find(p => p.universe.length) || null;          // previous week with a universe
+  const prevS2 = priors.find(p => p.stage2.length) || null;            // previous week with a Stage 2 list
+  const prevUMap = new Map(prevU ? prevU.universe.map(r => [r._key, r]) : []);
+  // --- universe ---
+  const U = d.universe.map(r => Object.assign({}, r));
+  U.forEach(r => { r.score = seScore(r); r.band = seBand(r.mcap); r.group = r.group || r.industry || 'Other'; });
+  sePercentiles(U, 'score'); U.forEach(r => { r.rs = r.score_pct == null ? null : r.score_pct; });
+  const groups = new Map(); U.forEach(r => { if(!groups.has(r.group)) groups.set(r.group, []); groups.get(r.group).push(r); });
+  groups.forEach(list => { if(list.length >= 5){ sePercentiles(list, 'score'); list.forEach(r => { r.rsSector = r.score_pct; }); } else list.forEach(r => { r.rsSector = null; }); });
+  // prev-week RS for drift (recomputed on the previous universe)
+  let prevRS = new Map();
+  if(prevU){ const P = prevU.universe.map(r => Object.assign({}, r)); P.forEach(r => { r.score = seScore(r); }); sePercentiles(P, 'score'); P.forEach(r => prevRS.set(r._key, r.score_pct)); }
+  // --- stage 2 list + diffs ---
+  const S2 = d.stage2.map(r => Object.assign({}, r));
+  const prevS2Map = new Map(prevS2 ? prevS2.stage2.map(r => [r._key, r]) : []);
+  const s2Map = new Map(S2.map(r => [r._key, r]));
+  const statusOf = (r) => {
+    const s = String(r.status || '').toLowerCase(), isRe = /re-?\s?entry/.test(s), isNew = /new/.test(s);
+    if(prevS2){ if(!prevS2Map.has(r._key)) return isRe ? 'reentry' : 'entered'; return isRe ? 'reentry' : 'continues'; }
+    return isNew ? 'entered' : isRe ? 'reentry' : 'continues';
+  };
+  S2.forEach(r => { r.state = statusOf(r); const u = U.find(x => x._key === r._key); r.inScan = !!u; r.rsCalc = u ? u.rs : null; r.uni = u || null; r.prev = prevS2Map.get(r._key) || null; });
+  const exits = (S2.length && prevS2) ? prevS2.stage2.filter(r => !s2Map.has(r._key)).map(r => Object.assign({}, r, {state: 'exited'})) : [];
+  U.forEach(r => { const s = s2Map.get(r._key); r.s2list = s || null; r.prevRS = prevRS.has(r._key) ? prevRS.get(r._key) : null; r.rsDelta = r.prevRS != null && r.rs != null ? r.rs - r.prevRS : null; r.isNew = prevU ? !prevUMap.has(r._key) : null; r.trend = seTrend(r, prevUMap.get(r._key)); r.s2calc = r.trend.s2; r.s2any = !!(s || r.s2calc); });
+  // --- sectors (industry groups) ---
+  const med = (a) => { const s = a.filter(wrIsNum).map(Number).sort((x, y) => x - y); return s.length ? (s.length % 2 ? s[(s.length - 1) / 2] : (s[s.length / 2 - 1] + s[s.length / 2]) / 2) : null; };
+  const avg = (a) => { const s = a.filter(wrIsNum).map(Number); return s.length ? s.reduce((x, y) => x + y, 0) / s.length : null; };
+  const prevGroupMed = new Map();
+  if(prevU){ const byG = new Map(); prevU.universe.forEach(r => { const g = r.group || r.industry || 'Other'; if(!byG.has(g)) byG.set(g, []); byG.get(g).push(prevRS.get(r._key)); }); byG.forEach((v, k) => prevGroupMed.set(k, med(v))); }
+  const sectors = [...groups.entries()].map(([name, list], i) => {
+    const inds = new Map(); list.forEach(r => { const k = r.industry || name; if(!inds.has(k)) inds.set(k, []); inds.get(k).push(r); });
+    return { name, n: list.length, color: SE_GROUP_COLORS[i % SE_GROUP_COLORS.length], rows: list.slice().sort((a, b) => (b.rs || 0) - (a.rs || 0)),
+      medRS: med(list.map(r => r.rs)), avgRS: avg(list.map(r => r.rs)), s2pct: list.length ? 100 * list.filter(r => r.s2any).length / list.length : 0,
+      s2n: list.filter(r => r.s2any).length, r1w: avg(list.map(r => r.r1w)), r1m: avg(list.map(r => r.r1m)), r3m: avg(list.map(r => r.r3m)),
+      prevMedRS: prevGroupMed.has(name) ? prevGroupMed.get(name) : null,
+      industries: [...inds.entries()].map(([k, v]) => ({name: k, n: v.length, medRS: med(v.map(r => r.rs)), s2n: v.filter(r => r.s2any).length, r1w: avg(v.map(r => r.r1w)), r3m: avg(v.map(r => r.r3m))})).sort((a, b) => (b.medRS || 0) - (a.medRS || 0)) };
+  });
+  sectors.forEach(s => { s.delta = s.prevMedRS != null && s.medRS != null ? s.medRS - s.prevMedRS : null; s.quadrant = s.medRS == null ? '' : (s.medRS >= 50 ? (s.delta == null || s.delta >= 0 ? 'Leading' : 'Weakening') : (s.delta != null && s.delta > 0 ? 'Improving' : 'Lagging')); });
+  sectors.sort((a, b) => ((b.n >= 3) - (a.n >= 3)) || (b.medRS || 0) - (a.medRS || 0) || b.n - a.n);
+  sectors.forEach((s, i) => { s.rank = i + 1; });
+  // --- Stage 2 list by industry ---
+  const s2ind = new Map(); S2.forEach(r => { const k = r.industry || 'Other'; if(!s2ind.has(k)) s2ind.set(k, []); s2ind.get(k).push(r); });
+  const s2Industries = [...s2ind.entries()].map(([name, v]) => ({name, n: v.length, entered: v.filter(r => r.state === 'entered' || r.state === 'reentry').length, medWeeks: med(v.map(r => r.weeks)), medRS: med(v.map(r => r.rs_pct)), avgRet: avg(v.map(r => r.ret)), inScan: v.filter(r => r.inScan).length})).sort((a, b) => b.n - a.n);
+  SE.c = { d, date: d.date, U, S2, exits, sectors, s2Industries, prevU, prevS2, hasPrevU: !!prevU, hasPrevS2: !!prevS2,
+    stats: { n: U.length, s2list: S2.length, entered: S2.filter(r => r.state === 'entered').length, reentry: S2.filter(r => r.state === 'reentry').length, exited: exits.length,
+      ttPass: U.filter(r => r.s2calc).length, inBoth: U.filter(r => r.s2list).length, medR1w: med(U.map(r => r.r1w)), medR3m: med(U.map(r => r.r3m)), medFrom52: med(U.map(r => r.from_52wh)),
+      nearATH: U.filter(r => r.near_ath).length, above200: U.filter(r => r.trend.checks.find(c => c.k === 'p200' && c.ok)).length, medWeeks: med(S2.map(r => r.weeks)), posRet: S2.length ? 100 * S2.filter(r => wrIsNum(r.ret) && r.ret > 0).length / S2.length : null, asm: S2.filter(r => r.asm).length } };
+}
+
+// ---------- small UI helpers ----------
+function seRsBar(rs, opts){
+  if(!wrIsNum(rs)) return '<span class="flat">—</span>';
+  const v = Math.max(1, Math.min(99, +rs)), cls = v >= 80 ? 'hot' : v >= 60 ? 'warm' : v >= 40 ? 'mid' : 'cold';
+  return `<span class="se-rs ${cls}"><span class="se-rs-track"><i style="width:${v}%"></i></span><b>${v}</b>${opts && opts.delta != null ? `<small class="${opts.delta > 0 ? 'up' : opts.delta < 0 ? 'dn' : 'flat'}">${opts.delta > 0 ? '▲' : opts.delta < 0 ? '▼' : '•'}${Math.abs(opts.delta)}</small>` : ''}</span>`;
+}
+function seS2Cell(r){
+  const list = r.s2list, calc = r.s2calc;
+  if(list && calc) return `<span class="se-pill s2 both" title="In the Stage 2 list (${list.weeks || '?'} wk) and passes the trend template">S2 ✓✓</span>`;
+  if(list) return `<span class="se-pill s2" title="In the Stage 2 list${list.weeks ? ` · ${list.weeks} wk` : ''}${list.state ? ` · ${list.state}` : ''}">S2 list${list.weeks ? ` · ${list.weeks}w` : ''}</span>`;
+  if(calc) return `<span class="se-pill calc" title="Passes all evaluated trend-template checks">S2 calc</span>`;
+  return '<span class="flat">—</span>';
+}
+function seTrendCell(r){
+  const t = r.trend; if(!t.total) return '<span class="flat">—</span>';
+  const tip = t.checks.map(c => `${c.ok ? '✓' : '✗'} ${c.label}${c.detail ? ' — ' + c.detail : ''}`).join('\n');
+  const cls = t.pass === t.total ? 'full' : t.pass >= t.total - 1 ? 'near' : 'weak';
+  return `<span class="se-tt ${cls}" title="${wrAttr(tip)}">${t.checks.map(c => `<i class="${c.ok ? 'ok' : ''}"></i>`).join('')}<b>${t.pass}/${t.total}</b></span>`;
+}
+function seStateCell(state){
+  const m = {entered: ['new', 'New'], reentry: ['re', 'Re-entry'], continues: ['cont', 'Continues'], exited: ['rem', 'Exited']}[state] || ['cont', state || '—'];
+  return `<span class="scan-status"><span class="scan-dot ${m[0]}"></span>${m[1]}</span>`;
+}
+function seStockCell(r){
+  const nm = r.name && r.name !== r.code ? `<div class="se-nm">${wrEsc(r.name)}</div>` : '';
+  return `<div class="se-stock"><div><span class="tk">${wrEsc(r.code || r.name || '—')}</span>${wrOwned(r)}${r.near_ath ? '<span class="wr-sup" title="Within 5% of all-time high">*</span>' : ''}${r.isNew ? '<span class="se-pill new" title="Not in last week\'s scan">NEW</span>' : ''}</div>${nm}</div>`;
+}
+function seActCell(r){ return wrCodeCell({code: r.code || r.name, name: r.name, industry: r.industry || r.group}, r.industry || r.group); }
+function seKpi(label, value, sub, tone, count){
+  return `<div class="se-kpi ${tone || ''}"><div class="k">${wrEsc(label)}</div><div class="v" ${count != null ? `data-count="${count}"` : ''}>${value}</div>${sub ? `<div class="d">${sub}</div>` : ''}</div>`;
+}
+function seCountUp(root){
+  (root || document).querySelectorAll('[data-count]').forEach(el => {
+    const target = parseFloat(el.dataset.count); if(isNaN(target)) return;
+    const txt = el.textContent, m = txt.match(/^(\D*)([\d,.]+)(.*)$/); if(!m) return;
+    const dec = (m[2].split('.')[1] || '').length, t0 = performance.now(), dur = 750;
+    const step = (t) => { const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3); el.textContent = m[1] + (target * e).toLocaleString('en-IN', {minimumFractionDigits: dec, maximumFractionDigits: dec}) + m[3]; if(p < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  });
+}
+function seEmpty(title, body){
+  return `<div class="wr-empty"><i class="ti ti-radar-2"></i><h4>${wrEsc(title)}</h4><p>${body}</p>${SE.error ? `<p style="margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--rose2);">${wrEsc(SE.error)}</p>` : ''}</div>`;
+}
+const SE_EMPTY_BODY = 'Publish a week with <code>python tools/build_scan.py --date YYYY-MM-DD --screener &lt;screener export&gt; --stage2 &lt;Stage 2 list&gt;</code>, commit <code>data/scans/</code>, then Refresh.';
+function seSectionTop(sectionId){ return ''; }
+function seRenderAll(){ seRenderPulse(); seRenderRS(); seRenderSectors(); seRenderS2(); }
+function seRerender(tableId){
+  if(tableId.startsWith('se-rs')) seRenderRSTable();
+  else if(tableId.startsWith('se-s2')) seRenderS2Table();
+  else if(tableId.startsWith('se-sec')) seRenderSectors();
+  else seRenderPulse();
+}
+function seGo(section, opts){
+  show(section);
+  if(opts && opts.group){ SE.ui.secGroup = opts.group; seRenderSectors(); }
+  if(opts && opts.rsmin != null){ SE.ui.rsmin = String(opts.rsmin); seRenderRS(); }
+}
+
+// ---------- Market Pulse ----------
+function seRenderPulse(){
+  const el = document.getElementById('se-pulse-body'); if(!el) return;
+  if(!SE.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading scan data…</p></div>'; return; }
+  const c = SE.c; if(!c){ el.innerHTML = seEmpty('No scan data published yet', SE_EMPTY_BODY); return; }
+  const s = c.stats, hasU = c.U.length > 0, hasS2 = c.S2.length > 0;
+  const kpis = [];
+  if(hasU) kpis.push(seKpi('Stocks in scan', wrNum(s.n), `${wrEsc(c.d.screen && c.d.screen.name || 'weekly screener scan')}`, '', s.n));
+  if(hasS2) kpis.push(seKpi('Stage 2 list', wrNum(s.s2list), c.hasPrevS2 ? `<span class="up">+${s.entered + s.reentry} in</span> · <span class="dn">−${s.exited} out</span> vs last list` : `${s.entered} flagged new by the list`, 'accent', s.s2list));
+  if(hasU) kpis.push(seKpi('Pass trend template', wrNum(s.ttPass), `${Math.round(100 * s.ttPass / s.n)}% of scan${hasS2 ? ` · ${s.inBoth} also on the S2 list` : ''}`, 'ok', s.ttPass));
+  if(hasU) kpis.push(seKpi('Median 1-wk move', wrPct(s.medR1w, 1, {plain: true}), `median 3-mo ${wrPct(s.medR3m, 0, {plain: true})} · ${s.nearATH} near all-time high`, s.medR1w >= 0 ? 'ok' : 'bad'));
+  if(hasU) kpis.push(seKpi('Distance to 52W high', wrPct(s.medFrom52, 1, {plain: true}), `median · ${s.above200} of ${s.n} above 200-DMA`, ''));
+  if(hasS2) kpis.push(seKpi('Median weeks in Stage 2', s.medWeeks != null ? wrNum(s.medWeeks) : '—', `${s.posRet != null ? Math.round(s.posRet) + '% positive since entry' : ''}${s.asm ? ` · ${s.asm} under ASM/GSM` : ''}`, '', s.medWeeks));
+  // industry leaders
+  const leaders = c.sectors.filter(g => g.n >= 3).slice(0, 4);
+  const leaderCards = leaders.map(g => `<div class="se-lead" onclick="seGo('sectors',{group:'${wrAttr(g.name)}'})" style="--gc:${g.color}">
+      <div class="se-lead-top"><span class="se-rank">#${g.rank}</span><span class="se-lead-name">${wrEsc(g.name)}</span>${g.quadrant ? `<span class="se-pill q ${g.quadrant.toLowerCase()}">${g.quadrant}</span>` : ''}</div>
+      <div class="se-lead-grid">
+        <div><div class="k">Stage 2</div><div class="v">${Math.round(g.s2pct)}%</div></div>
+        <div><div class="k">Avg RS</div><div class="v">${g.avgRS != null ? g.avgRS.toFixed(1) : '—'}</div></div>
+        <div><div class="k">Median RS</div><div class="v">${g.medRS != null ? g.medRS.toFixed(1) : '—'}</div></div>
+        <div><div class="k">Stocks</div><div class="v">${g.n}</div></div>
+      </div>
+      <div class="se-lead-bar"><span>Relative strength</span><span class="se-rs-track"><i style="width:${g.medRS || 0}%"></i></span>${g.delta != null ? `<small class="${g.delta > 0 ? 'up' : g.delta < 0 ? 'dn' : 'flat'}" title="vs w/e ${wrDate(c.prevU.date)}">${g.delta > 0 ? '▲' : g.delta < 0 ? '▼' : '•'} ${Math.abs(g.delta).toFixed(0)} vs ${wrShort(c.prevU.date)}</small>` : ''}</div>
+    </div>`).join('');
+  // top RS
+  const top = c.U.filter(r => wrIsNum(r.rs)).sort((a, b) => b.rs - a.rs || (b.r1w || 0) - (a.r1w || 0)).slice(0, 12);
+  const topRows = top.map(r => `<tr><td>${seStockCell(r)}</td><td><span class="ind">${wrEsc(r.group)}</span></td><td class="num">${seRsBar(r.rs, {delta: r.rsDelta != null ? Math.round(r.rsDelta) : null})}</td><td>${seS2Cell(r)}</td><td class="num">${wrPct(r.r1w, 1)}</td><td class="num">${wrPct(r.r3m, 0)}</td><td class="num">${wrPct(r.from_52wh, 1, {plain: true})}</td></tr>`).join('');
+  // stage 2 in/out
+  const ins = c.S2.filter(r => r.state === 'entered' || r.state === 'reentry').sort((a, b) => (b.rs_pct || 0) - (a.rs_pct || 0)).slice(0, 10);
+  const outs = c.exits.slice().sort((a, b) => (b.weeks || 0) - (a.weeks || 0)).slice(0, 10);
+  const runners = c.S2.slice().sort((a, b) => (b.weeks || 0) - (a.weeks || 0) || (b.ret || 0) - (a.ret || 0)).slice(0, 10);
+  const li = (r, extra) => `<li onclick="seGo('s2track');SE.ui.s2q='${wrAttr(r.code)}';seRenderS2();"><span class="tk">${wrEsc(r.code)}</span>${r.inScan ? '<span class="se-pill calc" title="Also in this week\'s scan">scan</span>' : ''}<span class="ind">${wrEsc(r.industry || '')}</span><span class="num">${extra}</span></li>`;
+  // rotation / distribution
+  const hist = new Array(10).fill(0); c.U.forEach(r => { if(wrIsNum(r.rs)) hist[Math.min(9, Math.floor((r.rs - 1) / 9.9))]++; });
+  const maxH = Math.max(1, ...hist);
+  const distro = `<div class="se-hist">${hist.map((h, i) => `<div class="se-hist-col" title="RS ${i * 10 + 1}–${i === 9 ? 99 : (i + 1) * 10}: ${h} stocks"><i style="height:${Math.round(100 * h / maxH)}%" class="${i >= 7 ? 'hot' : i >= 5 ? 'warm' : ''}"></i><span>${i * 10 + 1}</span></div>`).join('')}</div>`;
+  const quad = seQuadrantSvg(c.sectors.filter(g => g.n >= 3 && g.medRS != null), 'se-quad-pulse');
+  el.innerHTML = `
+    <div class="se-hero"><div class="se-hero-inner">
+      <div class="wr-tags"><span class="wr-tag am">Market Pulse</span><span class="wr-tag tl">RS · Stage 2 · Sector rotation</span><span class="wr-tag">w/e ${wrDate(c.date)}</span></div>
+      <h1>Where the strength is this week</h1>
+      <div class="wr-lead">${hasU ? `${wrNum(s.n)} stocks from the <b>${wrEsc(c.d.screen && c.d.screen.name || 'weekly scan')}</b> ranked by relative strength` : 'No screener universe this week'}${hasS2 ? `${hasU ? ', cross-checked against' : 'Tracking'} the <b>${wrNum(s.s2list)}-stock Stage 2 list</b>` : ''}${c.hasPrevU ? ` · drift measured against w/e ${wrDate(c.prevU.date)}` : ''}.</div>
+      <div class="se-kpis">${kpis.join('')}</div>
+    </div></div>
+    <div class="se-body">
+      <div class="se-row-h"><div><div class="se-eyebrow">Sector rotation intelligence</div><h2>Industry momentum leaders</h2></div><button class="btn btn-sm" onclick="seGo('sectors')">Explore all ${c.sectors.length} groups →</button></div>
+      <div class="se-leads">${leaderCards || '<div class="wr-hint">No industry groups with 3+ stocks in this scan.</div>'}</div>
+      <div class="se-grid2">
+        <div class="se-panel">
+          <div class="se-row-h"><div><div class="se-eyebrow">Relative strength</div><h2>Top RS stocks</h2></div><button class="btn btn-ghost btn-sm" onclick="seGo('rsscreen',{rsmin:70})">RS screen →</button></div>
+          <div class="wr-twrap" style="max-height:520px;"><table class="scan-table"><thead><tr><th>Stock</th><th>Group</th><th class="num">RS</th><th>Stage 2</th><th class="num">1W</th><th class="num">3M</th><th class="num">vs 52WH</th></tr></thead><tbody>${topRows || '<tr><td colspan="7" class="flat" style="text-align:center;padding:24px;">No universe this week.</td></tr>'}</tbody></table></div>
+        </div>
+        <div class="se-panel">
+          <div class="se-row-h"><div><div class="se-eyebrow">Weinstein Stage 2</div><h2>Stage 2 list — this week</h2></div><button class="btn btn-ghost btn-sm" onclick="seGo('s2track')">Tracker →</button></div>
+          ${hasS2 ? `<div class="se-cols3">
+            <div><div class="se-sub up">Entered (${ins.length}${c.S2.filter(r => r.state === 'entered' || r.state === 'reentry').length > ins.length ? ' of ' + c.S2.filter(r => r.state === 'entered' || r.state === 'reentry').length : ''})</div><ul class="se-list">${ins.map(r => li(r, `RS ${wrNum(r.rs_pct, 0)}`)).join('') || '<li class="flat">None</li>'}</ul></div>
+            <div><div class="se-sub dn">Exited (${outs.length}${c.exits.length > outs.length ? ' of ' + c.exits.length : ''})</div><ul class="se-list">${outs.map(r => li(r, `${r.weeks || '?'}w · ${wrPct(r.ret, 0, {plain: true})}`)).join('') || `<li class="flat">${c.hasPrevS2 ? 'None' : 'Need a previous list to detect exits'}</li>`}</ul></div>
+            <div><div class="se-sub">Longest runners</div><ul class="se-list">${runners.map(r => li(r, `${r.weeks}w · ${wrPct(r.ret, 0, {plain: true})}`)).join('')}</ul></div>
+          </div>` : `<div class="wr-note"><div class="lab">Stage 2 list missing for this week</div>Publish it with <code>python tools/build_scan.py --date ${wrEsc(c.date)} --stage2 "&lt;Stage 2 xlsx&gt;"</code> — entries, exits and weeks-in-stage will light up automatically.</div>`}
+        </div>
+      </div>
+      <div class="se-grid2">
+        <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Distribution</div><h2>RS rating spread</h2></div><span class="wr-hint">${hasU ? `${c.U.filter(r => r.rs >= 80).length} stocks at RS 80+` : ''}</span></div>${hasU ? distro : '<div class="wr-hint">No universe.</div>'}</div>
+        <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Rotation</div><h2>Sector quadrant</h2></div><span class="wr-hint">${c.hasPrevU ? 'median RS vs change since last scan' : 'needs two scans with a universe'}</span></div>${quad}</div>
+      </div>
+      <div class="se-panel se-pipeline">
+        <div class="se-row-h"><div><div class="se-eyebrow">Pipeline</div><h2>Data loaded</h2></div><button class="btn btn-ghost btn-sm" onclick="loadSE(true)"><i class="ti ti-refresh"></i>Refresh</button></div>
+        <div class="se-steps">${SE.scans.slice(0, 6).map(sc => `<div class="se-step ${sc.file === SE.cur ? 'cur' : ''}" onclick="seSelectWeek('${wrAttr(sc.file)}')"><div class="k">w/e ${wrDate(sc.date)}</div><div class="v">${sc.universe ? `<span class="up">●</span> ${sc.universe} scan` : '<span class="flat">○ no scan</span>'}<br>${sc.stage2 ? `<span class="up">●</span> ${sc.stage2} Stage 2` : '<span class="flat">○ no Stage 2 list</span>'}</div></div>`).join('')}</div>
+        <div class="wr-hint" style="margin-top:10px;">RS = percentile (1–99) of a recency-weighted momentum composite (${SE.weights.r3m * 100}% 3-mo · ${SE.weights.r1m * 100}% 1-mo · ${SE.weights.r1w * 100}% 1-wk) ranked inside the loaded universe; add 6-month and 1-year return columns to your export and it switches to IBD-style quarterly weighting automatically. Export a full-market screen (e.g. market cap &gt; ₹1,000 Cr) for market-wide RS.</div>
+      </div>
+    </div>`;
+  seCountUp(el);
+}
+function seQuadrantSvg(groups, id){
+  if(!groups.length) return '<div class="wr-hint">No groups to plot.</div>';
+  const hasDelta = groups.some(g => g.delta != null);
+  const W = 640, H = 300, L = 44, R = 16, T = 18, B = 34;
+  const xs = groups.map(g => g.medRS), ys = groups.map(g => g.delta || 0);
+  const ymax = Math.max(10, ...ys.map(Math.abs));
+  const x = (v) => L + (W - L - R) * (v - 1) / 98, y = (v) => T + (H - T - B) * (1 - (v + ymax) / (2 * ymax));
+  let g = `<rect x="${L}" y="${T}" width="${W - L - R}" height="${H - T - B}" fill="var(--bg2)" rx="8"/>`;
+  g += `<line x1="${x(50)}" y1="${T}" x2="${x(50)}" y2="${H - B}" stroke="var(--b2)" stroke-dasharray="4 4"/><line x1="${L}" y1="${y(0)}" x2="${W - R}" y2="${y(0)}" stroke="var(--b2)" stroke-dasharray="4 4"/>`;
+  const lab = (tx, ty, t, anchor) => `<text x="${tx}" y="${ty}" font-family="JetBrains Mono, monospace" font-size="9.5" fill="var(--t4)" text-anchor="${anchor || 'start'}" letter-spacing=".08em">${t}</text>`;
+  g += lab(x(50) + 8, T + 14, 'LEADING') + lab(L + 8, T + 14, 'IMPROVING') + lab(L + 8, H - B - 6, 'LAGGING') + lab(x(50) + 8, H - B - 6, 'WEAKENING');
+  g += lab(W / 2, H - 8, 'MEDIAN RS RATING →', 'middle') + `<text x="12" y="${H / 2}" font-family="JetBrains Mono, monospace" font-size="9.5" fill="var(--t4)" text-anchor="middle" transform="rotate(-90 12 ${H / 2})" letter-spacing=".08em">${hasDelta ? 'RS CHANGE →' : 'NO HISTORY'}</text>`;
+  groups.forEach(gr => { const cx = x(gr.medRS), cy = y(gr.delta || 0), r = 6 + Math.min(14, Math.sqrt(gr.n) * 2.2), sel = SE.ui.secGroup === gr.name;
+    g += `<g class="se-dot" onclick="seGo('sectors',{group:'${wrAttr(gr.name)}'})" style="cursor:pointer"><circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${r.toFixed(1)}" fill="${gr.color}" fill-opacity="${sel ? 0.9 : 0.55}" stroke="${sel ? 'var(--t1)' : gr.color}" stroke-width="${sel ? 2 : 1}"><title>${wrEsc(gr.name)} — median RS ${gr.medRS.toFixed(0)}${gr.delta != null ? `, ${gr.delta >= 0 ? '+' : ''}${gr.delta.toFixed(0)} vs last scan` : ''}, ${gr.n} stocks, ${Math.round(gr.s2pct)}% Stage 2</title></circle><text x="${(cx + r + 3).toFixed(1)}" y="${(cy + 3.5).toFixed(1)}" font-family="Manrope, Inter, sans-serif" font-size="10" fill="var(--t2)">${wrEsc(gr.name.length > 22 ? gr.name.slice(0, 21) + '…' : gr.name)}</text></g>`; });
+  return `<div class="se-quad"><svg id="${id}" viewBox="0 0 ${W} ${H}" role="img">${g}</svg></div>`;
+}
+
+// ---------- RS Screen ----------
+function seRenderRS(){
+  const el = document.getElementById('se-rs-body'); if(!el) return;
+  if(!SE.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading…</p></div>'; return; }
+  const c = SE.c; if(!c || !c.U.length){ el.innerHTML = seEmpty('No screener universe for this week', SE_EMPTY_BODY); return; }
+  const groups = c.sectors.map(g => g.name);
+  const u = SE.ui;
+  el.innerHTML = `
+    <div class="se-filters">
+      <input type="text" placeholder="Search stock, code, industry…" value="${wrAttr(u.rsq)}" oninput="SE.ui.rsq=this.value;seRenderRSTable()">
+      <select onchange="SE.ui.rsmin=this.value;seRenderRSTable()">${[['0', 'Any RS'], ['50', 'RS 50+'], ['70', 'RS 70+'], ['80', 'RS 80+'], ['90', 'RS 90+']].map(([v, t]) => `<option value="${v}" ${u.rsmin === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
+      <select onchange="SE.ui.rss2=this.value;seRenderRSTable()">${[['all', 'Stage 2: any'], ['list', 'On Stage 2 list'], ['calc', 'Passes trend template'], ['both', 'List + template'], ['either', 'List or template'], ['none', 'Neither']].map(([v, t]) => `<option value="${v}" ${u.rss2 === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
+      <select onchange="SE.ui.rsgroup=this.value;seRenderRSTable()"><option value="all">All industry groups</option>${groups.map(g => `<option value="${wrAttr(g)}" ${u.rsgroup === g ? 'selected' : ''}>${wrEsc(g)}</option>`).join('')}</select>
+      <select onchange="SE.ui.rsband=this.value;seRenderRSTable()"><option value="all">All sizes</option>${SE_BANDS.map(([b]) => `<option value="${b}" ${u.rsband === b ? 'selected' : ''}>${b} cap</option>`).join('')}</select>
+      <label class="se-check"><input type="checkbox" ${u.rsnew ? 'checked' : ''} onchange="SE.ui.rsnew=this.checked;seRenderRSTable()"> New this week</label>
+      <label class="se-check"><input type="checkbox" ${u.rsath ? 'checked' : ''} onchange="SE.ui.rsath=this.checked;seRenderRSTable()"> Near all-time high</label>
+      <span class="wr-count" id="se-rs-count"></span>
+      <button class="btn btn-ghost btn-sm" onclick="seExportCsv()" title="Download the filtered rows as CSV"><i class="ti ti-download"></i>CSV</button>
+    </div>
+    <div id="se-rs-table"></div>
+    <div class="wr-hint" style="margin-top:8px;">Size bands (approx.): Large ≥ ₹50,000 Cr · Mid ≥ ₹15,000 Cr · Small ≥ ₹3,000 Cr · Micro below. Trend template: price &gt; 50/200-DMA, 50 &gt; 200-DMA, ≥30% above 52W low, within 25% of 52W high, RS ≥ 70, 200-DMA rising vs last scan (when available). Hover a trend score for the failing checks.</div>`;
+  seRenderRSTable();
+}
+function seRSFiltered(){
+  const c = SE.c, u = SE.ui, q = u.rsq.trim().toLowerCase(), min = +u.rsmin || 0;
+  return c.U.filter(r => {
+    if(q && !((r.name || '') + ' ' + (r.code || '') + ' ' + (r.industry || '') + ' ' + (r.group || '')).toLowerCase().includes(q)) return false;
+    if(min && !(wrIsNum(r.rs) && r.rs >= min)) return false;
+    if(u.rss2 === 'list' && !r.s2list) return false; if(u.rss2 === 'calc' && !r.s2calc) return false; if(u.rss2 === 'both' && !(r.s2list && r.s2calc)) return false; if(u.rss2 === 'either' && !r.s2any) return false; if(u.rss2 === 'none' && r.s2any) return false;
+    if(u.rsgroup !== 'all' && r.group !== u.rsgroup) return false;
+    if(u.rsband !== 'all' && r.band !== u.rsband) return false;
+    if(u.rsnew && !r.isNew) return false;
+    if(u.rsath && !r.near_ath) return false;
+    return true;
+  });
+}
+function seRenderRSTable(){
+  const host = document.getElementById('se-rs-table'); if(!host || !SE.c) return;
+  const list = seRSFiltered().sort((a, b) => (b.rs || 0) - (a.rs || 0) || (b.r1w || 0) - (a.r1w || 0));
+  const cols = [
+    {k:'_i', t:'#', type:'idx'},
+    {k:'code', t:'Stock', type:'html', html: seStockCell},
+    {k:'act', t:'', type:'html', html: seActCell},
+    {k:'group', t:'Group / Industry', type:'html', html: r => `<span class="ind" title="${wrAttr(r.industry || '')}">${wrEsc(r.group)}${r.industry && r.industry !== r.group ? `<br><small>${wrEsc(r.industry)}</small>` : ''}</span>`},
+    {k:'band', t:'Size', type:'text'},
+    {k:'mcap', t:'MCap (₹Cr)', type:'int'},
+    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => seRsBar(r.rs, {delta: r.rsDelta != null ? Math.round(r.rsDelta) : null})},
+    {k:'rsSector', t:'RS vs sector', type:'num', fn: r => r.rsSector},
+    {k:'trend', t:'Trend', type:'html', sortType:'num', fn: r => r.trend.total ? r.trend.pass + r.trend.pass / (r.trend.total + 1) : null, html: seTrendCell},
+    {k:'s2', t:'Stage 2', type:'html', sortType:'num', fn: r => (r.s2list ? 2 : 0) + (r.s2calc ? 1 : 0), html: seS2Cell},
+    {k:'r1w', t:'1W', type:'pct', dec:1}, {k:'r1m', t:'1M', type:'pct', dec:1}, {k:'r3m', t:'3M', type:'pct', dec:0},
+    {k:'from_52wh', t:'vs 52WH', type:'pct0', dec:1},
+    {k:'eps_yoy', t:'EPS YoY', type:'pct', dec:0}, {k:'sales_yoy', t:'Sales YoY', type:'pct', dec:0}, {k:'pe', t:'P/E', type:'num', dec:1}
+  ];
+  host.innerHTML = wrTable('se-rs', cols, list, {sort:{col:'rs', dir:'desc'}, tall:true, empty:'No stocks match the filters.'});
+  const cnt = document.getElementById('se-rs-count'); if(cnt) cnt.textContent = `${wrNum(list.length)} of ${wrNum(SE.c.U.length)} stocks`;
+}
+function seExportCsv(){
+  if(!SE.c) return;
+  const list = seRSFiltered();
+  const head = ['code', 'name', 'group', 'industry', 'band', 'mcap', 'price', 'rs', 'rs_vs_sector', 'rs_change', 'trend_pass', 'trend_total', 'stage2_list', 'stage2_calc', 'r1w', 'r1m', 'r3m', 'from_52wh', 'up_52wl', 'eps_yoy', 'sales_yoy', 'pe'];
+  const rows = list.map(r => [r.code, r.name, r.group, r.industry, r.band, r.mcap, r.price, r.rs, r.rsSector, r.rsDelta, r.trend.pass, r.trend.total, r.s2list ? 'Y' : '', r.s2calc ? 'Y' : '', r.r1w, r.r1m, r.r3m, r.from_52wh, r.up_52wl, r.eps_yoy, r.sales_yoy, r.pe]);
+  const csv = [head].concat(rows).map(r => r.map(v => v == null ? '' : /[",\n]/.test(String(v)) ? '"' + String(v).replace(/"/g, '""') + '"' : String(v)).join(',')).join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv'})); a.download = `swingedge-rs-screen-${SE.c.date}.csv`; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  toast(`Exported ${list.length} rows`, 'success');
+}
+
+// ---------- Sectors ----------
+function seRenderSectors(){
+  const el = document.getElementById('se-sec-body'); if(!el) return;
+  if(!SE.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading…</p></div>'; return; }
+  const c = SE.c; if(!c || !c.U.length){ el.innerHTML = seEmpty('No screener universe for this week', SE_EMPTY_BODY); return; }
+  const sel = c.sectors.find(g => g.name === SE.ui.secGroup) || c.sectors[0];
+  SE.ui.secGroup = sel ? sel.name : null;
+  const rows = c.sectors.map(g => `<tr class="${sel && g.name === sel.name ? 'se-selrow' : ''}" onclick="SE.ui.secGroup='${wrAttr(g.name)}';seRenderSectors()" style="cursor:pointer;">
+      <td class="num">${g.rank}</td><td><span class="tk" style="color:${g.color}">●</span> <span class="tk">${wrEsc(g.name)}</span></td><td class="num">${g.n}</td>
+      <td class="num">${seRsBar(g.medRS != null ? Math.round(g.medRS) : null, {delta: g.delta != null ? Math.round(g.delta) : null})}</td>
+      <td class="num">${Math.round(g.s2pct)}% <small class="flat">(${g.s2n})</small></td><td class="num">${wrPct(g.r1w, 1)}</td><td class="num">${wrPct(g.r3m, 0)}</td>
+      <td>${g.quadrant ? `<span class="se-pill q ${g.quadrant.toLowerCase()}">${g.quadrant}</span>` : '—'}</td></tr>`).join('');
+  const detail = sel ? `
+      <div class="se-row-h"><div><div class="se-eyebrow">Sector dive</div><h2 style="color:${sel.color}">${wrEsc(sel.name)}</h2></div><div><span class="se-pill q ${(sel.quadrant || '').toLowerCase()}">${sel.quadrant || '—'}</span> <button class="btn btn-ghost btn-sm" onclick="SE.ui.rsgroup='${wrAttr(sel.name)}';seGo('rsscreen')">Open in RS screen →</button></div></div>
+      <div class="se-kpis compact">
+        ${seKpi('Stocks', sel.n, '', '')}${seKpi('Median RS', sel.medRS != null ? sel.medRS.toFixed(0) : '—', sel.delta != null ? `${sel.delta >= 0 ? '▲ +' : '▼ '}${sel.delta.toFixed(0)} vs last scan` : '', sel.medRS >= 50 ? 'ok' : '')}${seKpi('Stage 2 share', Math.round(sel.s2pct) + '%', `${sel.s2n} on list / template`, '')}${seKpi('Avg 1W · 3M', `${wrPct(sel.r1w, 1, {plain: true})} · ${wrPct(sel.r3m, 0, {plain: true})}`, '', sel.r1w >= 0 ? 'ok' : 'bad')}
+      </div>
+      ${sel.industries.length > 1 ? `<div class="wr-sub">Industries inside ${wrEsc(sel.name)}</div><div class="wr-twrap" style="max-height:260px;"><table class="scan-table"><thead><tr><th>Industry</th><th class="num">Stocks</th><th class="num">Median RS</th><th class="num">Stage 2</th><th class="num">Avg 1W</th><th class="num">Avg 3M</th></tr></thead><tbody>${sel.industries.map(i => `<tr><td>${wrEsc(i.name)}</td><td class="num">${i.n}</td><td class="num">${seRsBar(i.medRS != null ? Math.round(i.medRS) : null)}</td><td class="num">${i.s2n}</td><td class="num">${wrPct(i.r1w, 1)}</td><td class="num">${wrPct(i.r3m, 0)}</td></tr>`).join('')}</tbody></table></div>` : ''}
+      <div class="wr-sub">Stocks — ranked by RS</div>
+      ${wrTable('se-sec-stocks', [
+        {k:'code', t:'Stock', type:'html', html: seStockCell}, {k:'act', t:'', type:'html', html: seActCell}, {k:'industry', t:'Industry', type:'text'}, {k:'band', t:'Size', type:'text'},
+        {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => seRsBar(r.rs, {delta: r.rsDelta != null ? Math.round(r.rsDelta) : null})}, {k:'rsSector', t:'RS vs sector', type:'num'},
+        {k:'trend', t:'Trend', type:'html', sortType:'num', fn: r => r.trend.total ? r.trend.pass : null, html: seTrendCell}, {k:'s2', t:'Stage 2', type:'html', sortType:'num', fn: r => (r.s2list ? 2 : 0) + (r.s2calc ? 1 : 0), html: seS2Cell}, {k:'r1w', t:'1W', type:'pct', dec:1}, {k:'r3m', t:'3M', type:'pct', dec:0}, {k:'from_52wh', t:'vs 52WH', type:'pct0', dec:1}
+      ], sel.rows, {sort:null, maxHeight:'520px'})}` : '';
+  el.innerHTML = `
+    <div class="se-grid-sec">
+      <div class="se-panel">
+        <div class="se-row-h"><div><div class="se-eyebrow">Industry view</div><h2>Industry groups</h2></div><span class="wr-hint">${c.sectors.length} groups · ranked by median RS</span></div>
+        <div class="wr-twrap" style="max-height:640px;"><table class="scan-table"><thead><tr><th class="num">#</th><th>Group</th><th class="num">Stocks</th><th class="num">Median RS</th><th class="num">Stage 2</th><th class="num">Avg 1W</th><th class="num">Avg 3M</th><th>Rotation</th></tr></thead><tbody>${rows}</tbody></table></div>
+      </div>
+      <div class="se-panel">${detail}</div>
+    </div>
+    <div class="se-panel" style="margin-top:14px;"><div class="se-row-h"><div><div class="se-eyebrow">Rotation map</div><h2>Sector quadrant</h2></div><span class="wr-hint">bubble size = stocks in group · click a bubble to dive in</span></div>${seQuadrantSvg(c.sectors.filter(g => g.n >= 2 && g.medRS != null), 'se-quad-sec')}</div>`;
+}
+
+// ---------- Stage 2 Tracker ----------
+function seRenderS2(){
+  const el = document.getElementById('se-s2-body'); if(!el) return;
+  if(!SE.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading…</p></div>'; return; }
+  const c = SE.c;
+  if(!c || !c.S2.length){ el.innerHTML = seEmpty('No Stage 2 list for this week', `Publish it with <code>python tools/build_scan.py --date ${c ? wrEsc(c.date) : 'YYYY-MM-DD'} --stage2 "&lt;Stage 2 xlsx&gt;"</code>, commit <code>data/scans/</code>, then Refresh.${SE.scans.some(s => s.stage2) ? ' Older weeks with a list are available in the week selector.' : ''}`); return; }
+  const s = c.stats, u = SE.ui;
+  const inds = [...new Set(c.S2.map(r => r.industry || 'Other'))].sort();
+  el.innerHTML = `
+    <div class="se-kpis">
+      ${seKpi('On the list', wrNum(s.s2list), c.hasPrevS2 ? `vs ${wrNum(c.prevS2.stage2.length)} last list (w/e ${wrDate(c.prevS2.date)})` : 'first list loaded', 'accent', s.s2list)}
+      ${seKpi('Entered', wrNum(s.entered + s.reentry), `${s.reentry} re-entries`, 'ok', s.entered + s.reentry)}
+      ${seKpi('Exited', wrNum(s.exited), c.hasPrevS2 ? 'dropped since last list' : 'needs a previous list', s.exited ? 'bad' : '', s.exited)}
+      ${seKpi('Median weeks in stage', s.medWeeks != null ? wrNum(s.medWeeks) : '—', `${s.posRet != null ? Math.round(s.posRet) + '% positive since entry' : ''}`, '', s.medWeeks)}
+      ${seKpi('Also in weekly scan', wrNum(c.S2.filter(r => r.inScan).length), c.U.length ? `of ${c.U.length} scanned · convergence` : 'no scan this week', '', c.S2.filter(r => r.inScan).length)}
+      ${seKpi('Under ASM / GSM', wrNum(s.asm), 'surveillance flags', s.asm ? 'warn' : '', s.asm)}
+    </div>
+    <div class="se-grid2">
+      <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">This week</div><h2>Entries</h2></div></div><ul class="se-list tall">${c.S2.filter(r => r.state === 'entered' || r.state === 'reentry').sort((a, b) => (b.rs_pct || 0) - (a.rs_pct || 0)).map(r => `<li onclick="SE.ui.s2q='${wrAttr(r.code)}';seRenderS2Table();document.getElementById('se-s2-q').value='${wrAttr(r.code)}'"><span class="tk">${wrEsc(r.code)}</span>${r.state === 'reentry' ? '<span class="se-pill re">re-entry</span>' : ''}${r.inScan ? '<span class="se-pill calc">scan</span>' : ''}<span class="ind">${wrEsc(r.industry || '')}</span><span class="num">RS ${wrNum(r.rs_pct, 0)} · ₹${wrNum(r.mcap, 0)} Cr</span></li>`).join('') || '<li class="flat">No entries flagged.</li>'}</ul></div>
+      <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">This week</div><h2>Exits</h2></div></div><ul class="se-list tall">${c.exits.slice().sort((a, b) => (b.weeks || 0) - (a.weeks || 0)).map(r => `<li><span class="tk">${wrEsc(r.code)}</span><span class="ind">${wrEsc(r.industry || '')}</span><span class="num">${r.weeks || '?'}w · ${wrPct(r.ret, 0)} at exit</span></li>`).join('') || `<li class="flat">${c.hasPrevS2 ? 'No exits.' : 'Load a previous list to detect exits.'}</li>`}</ul></div>
+    </div>
+    <div class="se-panel">
+      <div class="se-row-h"><div><div class="se-eyebrow">Full list</div><h2>Stage 2 stocks</h2></div><span class="wr-count" id="se-s2-count"></span></div>
+      <div class="se-filters">
+        <input type="text" id="se-s2-q" placeholder="Search code or industry…" value="${wrAttr(u.s2q)}" oninput="SE.ui.s2q=this.value;seRenderS2Table()">
+        <select onchange="SE.ui.s2status=this.value;seRenderS2Table()">${[['all', 'All statuses'], ['entered', 'New entries'], ['reentry', 'Re-entries'], ['continues', 'Continuing']].map(([v, t]) => `<option value="${v}" ${u.s2status === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
+        <select onchange="SE.ui.s2ind=this.value;seRenderS2Table()"><option value="all">All industries</option>${inds.map(i => `<option value="${wrAttr(i)}" ${u.s2ind === i ? 'selected' : ''}>${wrEsc(i)}</option>`).join('')}</select>
+        <select onchange="SE.ui.s2minrs=this.value;seRenderS2Table()">${[['0', 'Any list RS%'], ['25', 'RS% 25+'], ['50', 'RS% 50+'], ['75', 'RS% 75+'], ['100', 'RS% 100+']].map(([v, t]) => `<option value="${v}" ${u.s2minrs === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
+        <select onchange="SE.ui.s2minmcap=this.value;seRenderS2Table()">${[['0', 'Any mcap'], ['1000', '≥ ₹1,000 Cr'], ['3000', '≥ ₹3,000 Cr'], ['10000', '≥ ₹10,000 Cr']].map(([v, t]) => `<option value="${v}" ${u.s2minmcap === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
+        <label class="se-check"><input type="checkbox" ${u.s2scan ? 'checked' : ''} onchange="SE.ui.s2scan=this.checked;seRenderS2Table()"> Also in weekly scan</label>
+      </div>
+      <div id="se-s2-table"></div>
+    </div>
+    <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Where the list is concentrated</div><h2>Stage 2 by industry</h2></div></div>
+      <div class="wr-twrap" style="max-height:360px;"><table class="scan-table"><thead><tr><th>Industry</th><th class="num">Stocks</th><th class="num">Entered</th><th class="num">Median weeks</th><th class="num">Median RS%</th><th class="num">Avg return</th><th class="num">In scan</th></tr></thead><tbody>${c.s2Industries.slice(0, 40).map(i => `<tr><td>${wrEsc(i.name)}</td><td class="num">${i.n}</td><td class="num ${i.entered ? 'up' : ''}">${i.entered}</td><td class="num">${i.medWeeks != null ? i.medWeeks : '—'}</td><td class="num">${i.medRS != null ? wrNum(i.medRS, 0) : '—'}</td><td class="num">${wrPct(i.avgRet, 0)}</td><td class="num">${i.inScan}</td></tr>`).join('')}</tbody></table></div>
+    </div>`;
+  seRenderS2Table();
+  seCountUp(el);
+}
+function seRenderS2Table(){
+  const host = document.getElementById('se-s2-table'); if(!host || !SE.c) return;
+  const u = SE.ui, q = u.s2q.trim().toLowerCase();
+  const list = SE.c.S2.filter(r => {
+    if(q && !((r.code || '') + ' ' + (r.industry || '')).toLowerCase().includes(q)) return false;
+    if(u.s2status !== 'all' && r.state !== u.s2status) return false;
+    if(u.s2ind !== 'all' && (r.industry || 'Other') !== u.s2ind) return false;
+    if(+u.s2minrs && !(wrIsNum(r.rs_pct) && r.rs_pct >= +u.s2minrs)) return false;
+    if(+u.s2minmcap && !(wrIsNum(r.mcap) && r.mcap >= +u.s2minmcap)) return false;
+    if(u.s2scan && !r.inScan) return false;
+    return true;
+  });
+  const cols = [
+    {k:'code', t:'Stock', type:'html', html: r => `<span class="tk">${wrEsc(r.code)}</span>${wrOwned({code: r.code})}${r.inScan ? '<span class="se-pill calc" title="Also in this week\'s screener scan">scan</span>' : ''}${r.asm ? ` <span class="scan-flag" title="${wrAttr(r.asm)}${r.asm_days ? ' for ' + r.asm_days + ' days' : ''}">${wrEsc(r.asm)}</span>` : ''}`},
+    {k:'act', t:'', type:'html', html: r => wrCodeCell({code: r.code, name: r.code, industry: r.industry}, r.industry)},
+    {k:'industry', t:'Industry', type:'text'},
+    {k:'rs_pct', t:'RS% (list)', type:'num', dec:1},
+    {k:'rsCalc', t:'RS (scan)', type:'html', sortType:'num', fn: r => r.rsCalc, html: r => r.rsCalc != null ? seRsBar(r.rsCalc) : '<span class="flat">—</span>'},
+    {k:'mcap', t:'MCap (₹Cr)', type:'int'}, {k:'vol_cr', t:'Wk vol (₹Cr)', type:'num', dec:1},
+    {k:'ret', t:'Return since entry', type:'pct', dec:1}, {k:'weeks', t:'Weeks', type:'int'},
+    {k:'since', t:'Since', type:'html', html: r => r.since ? `<span class="num">${wrDate(r.since)}</span>` : '<span class="flat">—</span>'},
+    {k:'state', t:'Status', type:'html', html: r => seStateCell(r.state)}
+  ];
+  host.innerHTML = wrTable('se-s2', cols, list, {sort:{col:'rs_pct', dir:'desc'}, tall:true, empty:'No stocks match the filters.'});
+  const cnt = document.getElementById('se-s2-count'); if(cnt) cnt.textContent = `${wrNum(list.length)} of ${wrNum(SE.c.S2.length)} shown`;
+}
+
+// ---------- feed the legacy scan / convergence features ----------
+function seFeedLegacy(){
+  // Feed the legacy Stage 2 / 52W scan / Convergence sections from the newest published week that carries each feed.
+  try{
+    const newer = (a, b) => !b || String(a) > String(b);
+    const loaded = SE.scans.map(sc => SE.data[sc.file]).filter(Boolean);          // newest first
+    const s2w = loaded.find(w => w.stage2.length), uw = loaded.find(w => w.universe.length);
+    if(s2w && newer(s2w.date, DB.stage2Date)){
+      const prev = loaded.find(w => w.stage2.length && String(w.date) < String(s2w.date));
+      const prevMap = new Map(prev ? prev.stage2.map(r => [r._key, r]) : []), curKeys = new Set(s2w.stage2.map(r => r._key));
+      const stat = (r) => { const st = String(r.status || '').toLowerCase(); if(/re-?\s?entry/.test(st)) return 'Reentry'; if(prev ? !prevMap.has(r._key) : /new/.test(st)) return 'New Addition'; return 'Continues Trend'; };
+      const row = (r, i, status) => ({id: Date.now() + i, code: r.code, industry: r.industry || '', rs: r.rs_pct || 0, mcap: r.mcap || 0, vol: r.vol_cr || 0, ret: r.ret || 0, weeks: r.weeks || 1, asm: r.asm || '', asmDays: r.asm_days || '', status});
+      DB.stage2 = s2w.stage2.map((r, i) => row(r, i, stat(r))).concat(prev ? prev.stage2.filter(r => !curKeys.has(r._key)).map((r, i) => row(r, 100000 + i, 'Removed')) : []);
+      DB.stage2Date = s2w.date;
+    }
+    if(uw && newer(uw.date, DB.w52Date)){
+      DB.w52 = uw.universe.map((r, i) => ({id: Date.now() + 200000 + i, name: r.name, code: r.code || '', industry: r.industry || r.group || '', price: r.price || 0, mcap: r.mcap || 0, dist: wrIsNum(r.from_52wh) ? Math.abs(r.from_52wh) : null, ret1d: r.r1d || 0, ret1w: r.r1w || 0, ret1m: r.r1m || 0, ret3m: r.r3m || 0, epsYoY: r.eps_yoy != null ? r.eps_yoy : null, salesYoY: r.sales_yoy != null ? r.sales_yoy : null, npQoQ: r.np_qoq != null ? r.np_qoq : null, npYoY: r.np_yoy != null ? r.np_yoy : null, opmL: r.opm_q != null ? r.opm_q : null, opmP: r.opm_pq != null ? r.opm_pq : null, pe: r.pe != null ? r.pe : null})).filter(x => x.dist !== null);
+      DB.w52Date = uw.date;
+      if(typeof record52WHistory === 'function') record52WHistory(DB.w52, DB.w52Date);
+    }
+    save();
+    if(typeof renderS2 === 'function') renderS2(); if(typeof render52W === 'function') render52W(); if(typeof renderConverge === 'function') renderConverge(); if(typeof renderDash === 'function') renderDash();
+  }catch(err){ console.warn('Edge: could not feed legacy scans', err); }
+}
+
+// ---------- theme ----------
+function seApplyTheme(t){
+  const theme = t || localStorage.getItem('swingedge.theme') || 'lab';
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('swingedge.theme', theme);
+  const btn = document.getElementById('theme-toggle'); if(btn) btn.innerHTML = theme === 'lab' ? '<i class="ti ti-sun"></i>Ledger theme' : '<i class="ti ti-moon-stars"></i>Lab theme';
+}
+function seToggleTheme(){ seApplyTheme((document.documentElement.getAttribute('data-theme') || 'lab') === 'lab' ? 'ledger' : 'lab'); }
+seApplyTheme();
+
 // ============= INIT =============
 function init(){
   load();
@@ -7161,6 +7878,8 @@ function init(){
   renderSnap();
   loadLibrary(false);
   loadWR(false);
+  loadSE(false);
+  seApplyTheme();
   updateMarket();
   setInterval(updateMarket, 30000);
 }
