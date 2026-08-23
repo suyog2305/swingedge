@@ -818,6 +818,115 @@ code{font-family:var(--mono);font-size:11px;background:var(--neutral-soft);paddi
 .lib-badge-rating.sell{background:var(--rose-soft);color:var(--rose2);}
 .lib-badge-rating.hold{background:var(--gold-soft);color:var(--gold2);}
 
+/* ============= WEEKLY REPORT ============= */
+.wr-content{padding:0 0 40px;}
+.wr-hero{position:relative;overflow:hidden;background:linear-gradient(155deg,#12301F 0%,#1F5F3F 58%,#1E4A56 125%);color:#F3EFE4;padding:30px 30px 26px;border-bottom:1px solid var(--b1);}
+.wr-hero::before{content:'';position:absolute;top:-40%;right:-6%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle at 42% 42%,rgba(232,239,224,.30),rgba(45,122,82,.18) 46%,transparent 70%);filter:blur(6px);}
+.wr-hero::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(180deg,transparent 0 26px,rgba(232,239,224,.035) 26px 27px);mask-image:radial-gradient(ellipse at 75% 50%,#000,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at 75% 50%,#000,transparent 75%);}
+.wr-hero-inner{position:relative;z-index:2;}
+.wr-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.wr-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:3px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#E6E1D2;}
+.wr-tag.am{background:rgba(240,230,204,.16);border-color:rgba(240,230,204,.42);color:#F5E9C6;}
+.wr-tag.tl{background:rgba(51,173,172,.16);border-color:rgba(51,173,172,.42);color:#BDE9E8;}
+.wr-hero h1{font-family:var(--serif);font-size:30px;font-weight:500;color:#FBF8F0;letter-spacing:-.02em;margin-bottom:4px;line-height:1.15;}
+.wr-strap{font-family:var(--serif);font-style:italic;font-size:15px;color:#CDE3D3;margin-bottom:10px;}
+.wr-lead{font-size:13.5px;line-height:1.6;color:#D9D3C4;max-width:860px;margin-bottom:20px;}
+.wr-lead b,.wr-lead strong{color:#fff;font-weight:600;}
+.wr-quotes{display:flex;flex-wrap:wrap;border:1px solid rgba(255,255,255,.16);border-radius:var(--r3);overflow:hidden;background:rgba(255,255,255,.04);}
+.wr-q{flex:1;min-width:150px;padding:12px 16px;border-right:1px solid rgba(255,255,255,.10);}
+.wr-q:last-child{border-right:none;}
+.wr-q .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:#A9BFB0;margin-bottom:3px;}
+.wr-q .v{font-family:var(--serif);font-size:21px;font-weight:500;color:#FBF8F0;font-variant-numeric:tabular-nums;line-height:1.1;}
+.wr-q .v.up{color:#8FE0B0;} .wr-q .v.down{color:#F2A79A;} .wr-q .v.flat{color:#CFC8B8;}
+.wr-q .d{font-size:11px;color:#B9C9BE;margin-top:3px;}
+.wr-q .d.up{color:#8FE0B0;} .wr-q .d.down{color:#F2A79A;}
+.wr-meta{display:flex;flex-wrap:wrap;gap:6px 18px;background:#12301F;color:#A9BFB0;padding:9px 30px;font-family:var(--mono);font-size:11px;border-bottom:1px solid var(--b1);}
+.wr-meta b{color:#F0E8DA;font-weight:500;}
+.wr-meta .up{color:#8FE0B0;font-weight:500;} .wr-meta .down{color:#F2A79A;font-weight:500;} .wr-meta .flat{color:#A9BFB0;}
+.wr-tabs{padding:0 30px;background:var(--bg1);border-bottom:1px solid var(--b1);display:flex;gap:0;overflow-x:auto;flex-shrink:0;position:sticky;top:0;z-index:5;}
+.wr-tab{padding:11px 16px;font-size:11.5px;cursor:pointer;color:var(--t3);border-bottom:2px solid transparent;margin-bottom:-1px;font-family:var(--mono);letter-spacing:.04em;font-weight:500;text-transform:uppercase;white-space:nowrap;transition:all .12s;}
+.wr-tab:hover{color:var(--t2);} .wr-tab.active{color:var(--lime);border-bottom-color:var(--lime);font-weight:600;}
+.wr-panel{display:none;padding:6px 30px 30px;} .wr-panel.active{display:block;}
+.wr-sec{padding:26px 0;border-bottom:1px solid var(--b1);} .wr-sec:last-child{border-bottom:none;}
+.wr-sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:12px;}
+.wr-sec-n{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--lime);border:1.5px solid var(--lime);border-radius:var(--r2);padding:1px 7px;flex-shrink:0;}
+.wr-sec-h h2{font-family:var(--serif);font-size:20px;font-weight:500;color:var(--t1);}
+.wr-sub{font-weight:600;color:var(--t1);margin:22px 0 8px;font-size:13px;}
+.wr-p{font-size:13px;line-height:1.65;color:var(--t2);margin-bottom:10px;max-width:940px;}
+.wr-p.lead{font-size:13.5px;color:var(--t1);}
+.wr-p strong{color:var(--t1);font-weight:600;}
+.wr-p code,.wr-note code{font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px;}
+.wr-hint{font-size:11.5px;color:var(--t3);margin-bottom:8px;line-height:1.5;}
+.wr-note{border-left:3px solid var(--gold);background:var(--gold-soft);padding:12px 16px;border-radius:0 var(--r3) var(--r3) 0;margin:14px 0;font-size:13px;line-height:1.6;color:var(--t2);}
+.wr-note .lab{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--gold2);margin-bottom:4px;}
+.wr-note.teal{border-color:var(--teal);background:var(--teal-soft);} .wr-note.teal .lab{color:var(--teal2);}
+.wr-note.blue{border-color:var(--sky);background:var(--sky-soft);} .wr-note.blue .lab{color:var(--sky2);}
+.wr-note.rust{border-color:var(--rose);background:var(--rose-soft);} .wr-note.rust .lab{color:var(--rose2);}
+.wr-note.red{border-color:var(--rose2);background:rgba(163,61,42,.09);} .wr-note.red .lab{color:var(--rose2);}
+.wr-note.green{border-color:var(--sage);background:var(--sage-soft);} .wr-note.green .lab{color:var(--sage2);}
+.wr-note strong{color:var(--t1);}
+.wr-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:14px 0;}
+.wr-card{background:var(--bg1);border:1px solid var(--b1);border-radius:var(--r3);padding:12px 14px;box-shadow:var(--shadow-1);min-width:0;}
+.wr-card .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--t3);margin-bottom:5px;}
+.wr-card .v{font-family:var(--serif);font-size:19px;font-weight:500;color:var(--t1);letter-spacing:-.02em;line-height:1.2;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;}
+.wr-card .v.up{color:var(--sage2);} .wr-card .v.down{color:var(--rose2);} .wr-card .v.flat{color:var(--t3);}
+.wr-card .v.sm{font-size:13.5px;font-family:var(--sans);font-weight:600;line-height:1.5;}
+.wr-card .d{font-size:11px;color:var(--t3);margin-top:3px;line-height:1.45;}
+.wr-twrap{background:var(--bg1);border:1px solid var(--b1);border-radius:var(--r2);overflow:auto;margin:10px 0 12px;max-height:560px;}
+.wr-twrap.tall{max-height:calc(100vh - 250px);}
+.wr-twrap .scan-table td.num{white-space:nowrap;}
+.wr-twrap .scan-table .nm{max-width:240px;}
+.wr-twrap tr.hi td{background:var(--gold-soft)!important;font-weight:600;color:var(--t1);}
+.wr-code{font-family:var(--mono);font-size:11.5px;color:var(--t2);}
+.wr-act{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:1px solid transparent;border-radius:var(--r2);background:transparent;color:var(--t4);cursor:pointer;vertical-align:middle;margin-left:3px;opacity:0;transition:all .12s;padding:0;}
+.wr-act i{font-size:13px;}
+tr:hover .wr-act{opacity:1;} .wr-act:hover{background:var(--bg3);color:var(--lime);border-color:var(--b2);}
+.wr-own{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;margin-left:5px;vertical-align:middle;letter-spacing:.04em;}
+.wr-own.w{background:var(--sky-soft);color:var(--sky2);} .wr-own.p{background:var(--lime-soft);color:var(--lime2);}
+.wr-sup{font-family:var(--mono);font-size:10px;color:var(--gold2);margin-left:3px;font-weight:700;}
+.wr-ctl{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0 4px;}
+.wr-ctl input[type=text]{font-size:12px;font-family:var(--sans);background:var(--bg1);border:1px solid var(--b2);border-radius:var(--r2);padding:6px 10px;color:var(--t1);min-width:230px;}
+.wr-ctl input[type=text]:focus,.wr-ctl select:focus{outline:none;border-color:var(--t1);}
+.wr-ctl select{font-size:11px;font-family:var(--mono);background:var(--bg1);border:1px solid var(--b2);border-radius:var(--r2);padding:6px 10px;color:var(--t1);cursor:pointer;}
+.wr-count{font-size:11px;color:var(--t3);font-family:var(--mono);}
+.wr-chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 8px;}
+.wr-chip{font-family:var(--sans);font-weight:500;font-size:12px;padding:5px 13px;border-radius:99px;border:1.5px solid var(--b2);background:var(--bg1);color:var(--t2);cursor:pointer;transition:all .12s;}
+.wr-chip:hover{border-color:var(--lime);} .wr-chip.active{background:var(--lime);border-color:var(--lime);color:#FBF8F0;}
+.wr-chart{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r3);padding:14px;margin:4px 0 18px;}
+.wr-chart svg{width:100%;height:auto;display:block;max-height:340px;}
+.wr-chart .series{transition:opacity .15s;}
+.wr-hm-region{margin-bottom:20px;}
+.wr-hm-h{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--serif);font-size:15px;color:var(--t1);margin-bottom:8px;padding-bottom:4px;border-bottom:1.5px solid var(--b1);}
+.wr-hm-h .avg{font-family:var(--mono);font-size:12px;}
+.wr-hm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;}
+.wr-hm-cell{border-radius:var(--r3);padding:10px 12px;color:var(--t1);border:1px solid rgba(0,0,0,.04);}
+.wr-hm-name{font-size:11.5px;font-weight:600;line-height:1.25;margin-bottom:4px;min-height:28px;}
+.wr-hm-tick{font-family:var(--mono);font-size:10px;opacity:.65;margin-bottom:3px;}
+.wr-hm-val{font-family:var(--mono);font-size:14px;font-weight:700;}
+.wr-empty{padding:56px 20px;text-align:center;color:var(--t3);}
+.wr-empty i{font-size:34px;color:var(--b3);display:block;margin-bottom:10px;}
+.wr-empty h4{font-family:var(--serif);font-size:16px;font-weight:500;color:var(--t1);margin-bottom:6px;}
+.wr-empty p{font-size:12.5px;max-width:560px;margin:0 auto;line-height:1.6;}
+.wr-empty code{font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px;}
+.wr-foot{padding:18px 30px;border-top:1px solid var(--b1);font-size:11px;color:var(--t3);line-height:1.6;font-family:var(--mono);}
+.wr-foot b{color:var(--t2);}
+.wr-week-sel{font-size:12px;font-family:var(--mono);background:var(--bg1);border:1px solid var(--b2);border-radius:var(--r2);padding:6px 10px;color:var(--t1);cursor:pointer;min-width:210px;}
+@media(max-width:900px){.wr-hero,.wr-meta,.wr-tabs,.wr-panel,.wr-foot{padding-left:16px;padding-right:16px;}.wr-hero h1{font-size:24px;}}
+@media print{
+  html,body{overflow:visible!important;height:auto!important;}
+  body::before{display:none;}
+  .shell{height:auto!important;overflow:visible!important;display:block!important;}
+  .sidebar,#toast,.overlay{display:none!important;}
+  .main{display:block!important;}
+  .sec{display:none!important;} .sec.active{display:block!important;overflow:visible!important;}
+  .content{overflow:visible!important;}
+  body.wr-printing #sec-wr .topbar,body.wr-printing .wr-tabs,body.wr-printing .wr-act{display:none!important;}
+  body.wr-printing .wr-panel{display:block!important;padding:0;page-break-before:always;}
+  body.wr-printing .wr-panel:first-of-type{page-break-before:auto;}
+  body.wr-printing .wr-twrap{max-height:none!important;overflow:visible!important;}
+  body.wr-printing .wr-hero{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+
 </style>
 </head>
 <body>
@@ -844,6 +953,7 @@ code{font-family:var(--mono);font-size:11px;background:var(--neutral-soft);paddi
     <div class="nav" id="nav-scans" onclick="show('scans')"><i class="ti ti-radar"></i>Stage 2 · 52W Highs</div>
     <div class="nav" id="nav-converge" onclick="show('converge')"><i class="ti ti-crosshair"></i>Convergence<span class="nav-badge" id="converge-badge">0</span></div>
     <div class="nav" id="nav-comm" onclick="show('comm')"><i class="ti ti-chart-candle"></i>Commodities</div>
+    <div class="nav" id="nav-wr" onclick="show('wr')"><i class="ti ti-report-analytics"></i>Weekly Report</div>
     <div class="sb-group">Review</div>
     <div class="nav" id="nav-pnl" onclick="show('pnl')"><i class="ti ti-receipt-tax"></i>P&amp;L Analytics</div>
     <div class="nav" id="nav-weekly" onclick="show('weekly')"><i class="ti ti-calendar-week"></i>Weekly Journal</div>
@@ -897,6 +1007,10 @@ code{font-family:var(--mono);font-size:11px;background:var(--neutral-soft);paddi
     <div class="card">
       <div class="card-hdr"><span class="card-label">Latest Macro</span><span class="card-sub" id="d-macro-wk"></span></div>
       <div class="macro-grid" id="d-macro"></div>
+    </div>
+    <div class="card" id="d-wr-card" style="display:none;">
+      <div class="card-hdr"><span class="card-label">Weekly Report</span><span style="display:flex;align-items:center;gap:10px;"><span class="card-sub" id="d-wr-week"></span><button class="btn btn-ghost btn-sm" onclick="show('wr')">Open →</button></span></div>
+      <div class="macro-grid" id="d-wr-grid"></div>
     </div>
   </div>
 </div>
@@ -1220,6 +1334,23 @@ code{font-family:var(--mono);font-size:11px;background:var(--neutral-soft);paddi
       </div>
     </div>
 
+  </div>
+</div>
+
+<!-- ── WEEKLY REPORT ── -->
+<div class="sec" id="sec-wr">
+  <div class="topbar">
+    <div class="tb-left"><span class="tb-title">Weekly Report</span><span class="tb-crumb">/ institutional flows · markets digest</span></div>
+    <div class="tb-right">
+      <button class="btn btn-ghost btn-sm" onclick="wrStep(1)" title="Older week"><i class="ti ti-chevron-left"></i></button>
+      <select class="wr-week-sel" id="wr-week" onchange="wrSelectWeek(this.value)"><option value="">Loading…</option></select>
+      <button class="btn btn-ghost btn-sm" onclick="wrStep(-1)" title="Newer week"><i class="ti ti-chevron-right"></i></button>
+      <button class="btn btn-sm" onclick="loadWR(true)"><i class="ti ti-refresh"></i>Refresh</button>
+      <button class="btn btn-sm" onclick="wrPrint()"><i class="ti ti-printer"></i>Print</button>
+    </div>
+  </div>
+  <div class="content wr-content" id="wr-content">
+    <div id="wr-body"></div>
   </div>
 </div>
 
@@ -2543,6 +2674,7 @@ function show(id){
   document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));
   document.getElementById('sec-'+id).classList.add('active');
   document.getElementById('nav-'+id).classList.add('active');
+  if(id === 'wr' && !WR.loaded && !WR.loading) loadWR(false);
   // P&L Analytics: auto-default to snapshot tab if user has snapshots but no P&L statements
   if(id === 'pnl'){
     const hasSnaps = (DB.snapshots || []).length > 0;
@@ -6183,6 +6315,832 @@ function mdToHtml(md){
   return html;
 }
 
+// ============= WEEKLY REPORT =============
+// Native, JSON-driven weekly markets digest.
+// Reads library/weekly/index.json + library/weekly/<week>.json (schema swingedge-weekly/1).
+// Macro numbers + narrative are authored in the JSON; every stock-level table (top performers,
+// near-52W-high, breadth, crossovers, rolling comparison, ETF heatmap) is computed here from the
+// raw universe rows, so the rolling window extends itself as new weekly files are added.
+const WR = {
+  weeks: [],          // index entries, newest first
+  cur: null,          // file name of the selected week
+  data: {},           // file -> parsed JSON (cache)
+  tab: 'macros',
+  sort: {},           // tableId -> {col, dir}
+  ui: { cmpq:'', cmpmode:'all', cmpbucket:'all', uscmpq:'', uscmpmode:'all' },
+  loaded: false, loading: false, error: null
+};
+const WR_WINDOW_DEFAULT = 4;
+const WR_BUCKETS = ['Large Cap','Mid Cap','Small Cap','Micro Cap'];
+const WR_BUCKET_SLUG = {'Large Cap':'large','Mid Cap':'mid','Small Cap':'small','Micro Cap':'micro'};
+const WR_BUCKET_COLOR = {'Large Cap':'#8A6716','Mid Cap':'#2F6B7A','Small Cap':'#3D5A80','Micro Cap':'#A33D2A'};
+const WR_TABS = [
+  {id:'macros', t:'Macros'},
+  {id:'india', t:'India Stocks & Indices'},
+  {id:'us', t:'US Stocks'},
+  {id:'cmp-india', t:'Comparison — India'},
+  {id:'cmp-us', t:'Comparison — US'},
+  {id:'etf', t:'Global ETF'}
+];
+
+// ---------- loading ----------
+async function loadWR(manual){
+  if(WR.loading) return;
+  WR.loading = true;
+  try{
+    const res = await fetch('library/weekly/index.json', {cache: manual ? 'reload' : 'default'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const idx = await res.json();
+    WR.weeks = (Array.isArray(idx.weeks) ? idx.weeks : []).filter(w => w && w.file)
+      .sort((a,b) => String(b.week_ending||'').localeCompare(String(a.week_ending||'')));
+    WR.error = null;
+    if(manual) WR.data = {};                         // force re-fetch of week files
+    wrFillWeekSelect();
+    const keep = WR.cur && WR.weeks.some(w => w.file === WR.cur);
+    WR.cur = keep ? WR.cur : (WR.weeks[0] ? WR.weeks[0].file : null);
+    if(WR.cur){ await wrLoadWeekSet(WR.cur); }
+    WR.loaded = true;
+    if(manual) toast(`Weekly report refreshed — ${WR.weeks.length} week${WR.weeks.length===1?'':'s'}`, 'success');
+  }catch(err){
+    WR.loaded = true;
+    WR.error = err.message || String(err);
+    if(manual) toast('Could not load weekly report — is library/weekly/index.json in the repo?', 'error');
+  }finally{
+    WR.loading = false;
+  }
+  renderWR();
+  wrRenderDashTile();
+}
+
+async function wrFetchWeek(file){
+  if(WR.data[file]) return WR.data[file];
+  const res = await fetch('library/weekly/' + file);
+  if(!res.ok) throw new Error(file + ': HTTP ' + res.status);
+  const d = await res.json();
+  wrPrepare(d);
+  WR.data[file] = d;
+  return d;
+}
+
+// The selected week plus the prior weeks that the rolling window needs.
+async function wrLoadWeekSet(file){
+  const d = await wrFetchWeek(file);
+  const win = (d.comparison && d.comparison.window) || WR_WINDOW_DEFAULT;
+  const priors = wrPriorEntries(file, Math.max(win - 1, 3));
+  const results = await Promise.allSettled(priors.map(p => wrFetchWeek(p.file)));
+  results.forEach((r, i) => { if(r.status === 'rejected') console.warn('Weekly report: prior week failed', priors[i].file, r.reason); });
+  return d;
+}
+
+function wrPriorEntries(file, n){
+  const i = WR.weeks.findIndex(w => w.file === file);
+  if(i < 0) return [];
+  return WR.weeks.slice(i + 1, i + 1 + n);
+}
+function wrPriors(file, n){
+  return wrPriorEntries(file, n).map(p => WR.data[p.file]).filter(Boolean);
+}
+
+function wrFillWeekSelect(){
+  const sel = document.getElementById('wr-week');
+  if(!sel) return;
+  sel.innerHTML = WR.weeks.map(w => `<option value="${wrAttr(w.file)}">${wrEsc(w.label || w.week_ending || w.file)} · w/e ${wrEsc(w.week_ending||'')}</option>`).join('')
+    || '<option value="">No weeks published</option>';
+  if(WR.cur) sel.value = WR.cur;
+}
+
+async function wrSelectWeek(file){
+  if(!file || file === WR.cur && WR.data[file]) { if(file) { WR.cur = file; renderWR(); } return; }
+  WR.cur = file;
+  WR.sort = {};
+  const sel = document.getElementById('wr-week'); if(sel) sel.value = file;
+  try{ await wrLoadWeekSet(file); }
+  catch(err){ toast('Could not load week: ' + (err.message || err), 'error'); }
+  renderWR();
+}
+function wrStep(dir){  // +1 = older, -1 = newer
+  const i = WR.weeks.findIndex(w => w.file === WR.cur);
+  const j = i + dir;
+  if(j < 0 || j >= WR.weeks.length) return;
+  wrSelectWeek(WR.weeks[j].file);
+}
+
+// Normalise a week file once after fetch: buckets, keys, ranks.
+function wrPrepare(d){
+  d.macros = d.macros || {}; d.india = d.india || {}; d.us = d.us || {}; d.etf = d.etf || {}; d.comparison = d.comparison || {};
+  const iu = wrRows(d.india.universe);
+  wrBucketize(iu);
+  iu.forEach(r => { r._key = wrKey(r); });
+  wrRows(d.us.universe).forEach(r => { r._key = wrKey(r); });
+  wrRows(d.us.etf_universe).forEach(r => { r._key = wrKey(r); });
+  wrRows(d.etf).forEach(r => { r._key = (r.code || r.name || '').toUpperCase(); });
+}
+function wrRows(obj){ return obj && Array.isArray(obj.rows) ? obj.rows : []; }
+function wrKey(r){ return String(r.code || r.name || '').trim().toUpperCase(); }
+function wrBucketize(rows){
+  // Rank-based buckets (1–100 Large, 101–250 Mid, 251–500 Small, 501+ Micro) over rows that carry mcap;
+  // rows with an explicit bucket keep it.
+  const ranked = rows.filter(r => r.mcap != null && !isNaN(+r.mcap)).sort((a,b) => (+b.mcap) - (+a.mcap));
+  ranked.forEach((r, i) => { if(!r.bucket) r.bucket = i < 100 ? 'Large Cap' : i < 250 ? 'Mid Cap' : i < 500 ? 'Small Cap' : 'Micro Cap'; });
+}
+
+// ---------- formatting ----------
+function wrEsc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function wrAttr(s){ return wrEsc(s).replace(/'/g, '&#39;'); }
+function wrInline(s){
+  // tiny inline markup: **bold**, *italic*, `code`, [text](https://…)
+  return wrEsc(s)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/(^|[^*])\*([^*]+?)\*/g, '$1<em>$2</em>')
+    .replace(/`(.+?)`/g, '<code>$1</code>')
+    .replace(/\[(.+?)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+}
+function wrIsNum(v){ return v != null && v !== '' && !isNaN(+v); }
+function wrPct(v, dec, opts){
+  opts = opts || {};
+  if(!wrIsNum(v)) return '<span class="flat">—</span>';
+  const n = +v, d = dec == null ? 2 : dec;
+  const s = (n > 0 ? '+' : '') + n.toFixed(d) + '%';
+  if(opts.plain) return s;
+  const cls = n > 0 ? 'up' : n < 0 ? 'dn' : 'flat';
+  return `<span class="${cls}">${s}</span>`;
+}
+function wrNum(v, dec){
+  if(!wrIsNum(v)) return '—';
+  return (+v).toLocaleString('en-IN', {minimumFractionDigits: dec || 0, maximumFractionDigits: dec || 0});
+}
+function wrSigned(v, dec, cur){
+  if(!wrIsNum(v)) return '<span class="flat">—</span>';
+  const n = +v, cls = n > 0 ? 'up' : n < 0 ? 'dn' : 'flat';
+  return `<span class="${cls}">${n > 0 ? '+' : n < 0 ? '−' : ''}${cur || ''}${wrNum(Math.abs(n), dec)}</span>`;
+}
+function wrToneCls(t){ return t === 'up' || t === 'down' || t === 'flat' ? t : ''; }
+const WR_DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const WR_MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function wrDateParts(iso){
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(iso || ''));
+  if(!m) return null;
+  const dt = new Date(Date.UTC(+m[1], +m[2]-1, +m[3]));
+  return {y:+m[1], m:+m[2], d:+m[3], dow: WR_DAYS[dt.getUTCDay()]};
+}
+function wrDate(iso){ const p = wrDateParts(iso); return p ? `${String(p.d).padStart(2,'0')} ${WR_MONTHS[p.m-1]} ${p.y}` : wrEsc(iso || '—'); }
+function wrDay(iso){ const p = wrDateParts(iso); return p ? p.dow : ''; }
+function wrShort(iso){ const p = wrDateParts(iso); return p ? `${String(p.d).padStart(2,'0')}-${WR_MONTHS[p.m-1]}` : wrEsc(iso || ''); }
+
+// ---------- generic blocks ----------
+function wrNote(n){
+  if(!n) return '';
+  const tone = ['teal','blue','rust','red','green'].includes(n.tone) ? n.tone : '';
+  return `<div class="wr-note ${tone}">${n.label ? `<div class="lab">${wrEsc(n.label)}</div>` : ''}${wrInline(n.text || '')}</div>`;
+}
+function wrNotes(list){ return (list || []).map(wrNote).join(''); }
+function wrCards(cards, cols){
+  if(!cards || !cards.length) return '';
+  const style = cols ? ` style="grid-template-columns:repeat(${cols},1fr)"` : '';
+  return `<div class="wr-cards"${style}>` + cards.map(c => {
+    const v = String(c.v == null ? '—' : c.v);
+    const sm = v.length > 14 ? ' sm' : '';
+    return `<div class="wr-card"><div class="k">${wrEsc(c.k||'')}</div><div class="v ${wrToneCls(c.tone)}${sm}">${c.html ? v : wrInline(v)}</div>${c.d ? `<div class="d">${wrInline(c.d)}</div>` : ''}</div>`;
+  }).join('') + '</div>';
+}
+function wrP(text, lead){ return text ? `<p class="wr-p ${lead ? 'lead' : ''}">${wrInline(text)}</p>` : ''; }
+function wrSection(n, title, body){
+  return `<section class="wr-sec"><div class="wr-sec-h"><span class="wr-sec-n">${wrEsc(n)}</span><h2>${wrEsc(title)}</h2></div>${body}</section>`;
+}
+function wrBlocks(blocks){
+  return (blocks || []).map(b => {
+    if(!b) return '';
+    switch(b.type){
+      case 'note': return wrNote(b);
+      case 'lead': return wrP(b.text, true);
+      case 'p': return wrP(b.text);
+      case 'sub': return `<div class="wr-sub">${wrInline(b.text || '')}</div>`;
+      case 'cards': return wrCards(b.cards, b.cols);
+      case 'table': return wrTable('x-' + Math.random().toString(36).slice(2, 8), (b.cols || []).map(c => ({k:c.k, t:c.t, type:c.type || 'text', dec:c.dec})), b.rows || [], {sortable:false});
+      default: return wrP(b.text);
+    }
+  }).join('');
+}
+function wrExtra(d, tab, startN){
+  const list = d.extra && Array.isArray(d.extra[tab]) ? d.extra[tab] : [];
+  return list.map((s, i) => wrSection(String(startN + i).padStart(2, '0'), s.title || 'Section', wrBlocks(s.blocks))).join('');
+}
+
+// ---------- sortable table ----------
+// cols: {k, t, type: 'text'|'html'|'num'|'int'|'pct'|'pct0'|'idx'|'signed', dec, fn(row)->value, html(row)->html, align}
+function wrTable(id, cols, rows, opt){
+  opt = opt || {};
+  const sortable = opt.sortable !== false;
+  const st = sortable ? (WR.sort[id] || opt.sort || null) : null;
+  let list = rows.map((r, i) => ({r, i}));
+  if(st && st.col){
+    const c = cols.find(x => x.k === st.col);
+    if(c){
+      const val = (row) => c.fn ? c.fn(row) : row[c.k];
+      const numeric = ['num','int','pct','pct0','signed','idx'].includes(c.type);
+      list.sort((a, b) => {
+        let av = c.type === 'idx' ? a.i : val(a.r), bv = c.type === 'idx' ? b.i : val(b.r);
+        const an = numeric ? wrIsNum(av) : (av != null && av !== ''), bn = numeric ? wrIsNum(bv) : (bv != null && bv !== '');
+        if(!an && !bn) return 0; if(!an) return 1; if(!bn) return -1;
+        let cmp = numeric ? (+av) - (+bv) : String(av).localeCompare(String(bv), undefined, {sensitivity:'base'});
+        return st.dir === 'asc' ? cmp : -cmp;
+      });
+    }
+  }
+  const thead = cols.map(c => {
+    const numCls = ['num','int','pct','pct0','signed','idx'].includes(c.type) ? 'num' : '';
+    const sortCls = st && st.col === c.k ? (st.dir === 'asc' ? 'sort-asc' : 'sort-desc') : '';
+    const click = sortable ? ` onclick="wrSort('${wrAttr(id)}','${wrAttr(c.k)}')"` : ' style="cursor:default"';
+    return `<th class="${numCls} ${sortCls}"${click}>${wrEsc(c.t)}${sortable ? '<span class="sort-arr"></span>' : ''}</th>`;
+  }).join('');
+  const tbody = list.map(({r, i}) => {
+    const cls = opt.rowCls ? opt.rowCls(r) : '';
+    return `<tr${cls ? ` class="${cls}"` : ''}>` + cols.map(c => {
+      const v = c.fn ? c.fn(r) : r[c.k];
+      let cell;
+      switch(c.type){
+        case 'idx': cell = String(i + 1); break;
+        case 'num': cell = wrNum(v, c.dec); break;
+        case 'int': cell = wrNum(v, 0); break;
+        case 'pct': cell = wrPct(v, c.dec == null ? 2 : c.dec); break;
+        case 'pct0': cell = wrIsNum(v) ? wrPct(v, c.dec == null ? 2 : c.dec, {plain:true}) : '<span class="flat">—</span>'; break;
+        case 'signed': cell = wrSigned(v, c.dec == null ? 0 : c.dec); break;
+        case 'html': cell = c.html ? c.html(r) : (v == null ? '' : String(v)); break;
+        default: cell = v == null || v === '' ? '<span class="flat">—</span>' : wrEsc(v);
+      }
+      const numCls = ['num','int','pct','pct0','signed','idx'].includes(c.type) ? 'num' : '';
+      return `<td class="${numCls} ${c.cls || ''}">${cell}</td>`;
+    }).join('') + '</tr>';
+  }).join('');
+  const empty = `<tr><td colspan="${cols.length}" style="text-align:center;padding:26px;color:var(--t3);">${wrEsc(opt.empty || 'No rows.')}</td></tr>`;
+  const h = opt.maxHeight ? ` style="max-height:${opt.maxHeight}"` : '';
+  return `<div class="wr-twrap ${opt.tall ? 'tall' : ''}" id="${wrAttr(id)}-wrap"${h}><table class="scan-table"><thead><tr>${thead}</tr></thead><tbody>${tbody || empty}</tbody></table></div>`;
+}
+function wrSort(id, col){
+  const st = WR.sort[id];
+  if(st && st.col === col) WR.sort[id] = {col, dir: st.dir === 'asc' ? 'desc' : 'asc'};
+  else WR.sort[id] = {col, dir: ['name','code','bucket','industry','region','date','day','ticker'].includes(col) ? 'asc' : 'desc'};
+  wrRenderTab();
+}
+
+function wrToWatch(sym, industry){
+  if(!Array.isArray(DB.watchlist)) DB.watchlist = [];
+  if(DB.watchlist.some(w => (w.stock||'').toUpperCase() === String(sym).toUpperCase())){ toast(sym + ' already in watchlist', 'error'); return; }
+  const wk = WR.cur && WR.data[WR.cur] ? WR.data[WR.cur].week_ending : '';
+  DB.watchlist.unshift({id:Date.now(), stock:sym, sector:industry || '', date:new Date().toISOString().slice(0,10), source:'Weekly Report' + (wk ? ' · w/e ' + wk : ''), thesis:'', action:'Research', priority:'🟡 Medium'});
+  save(); renderWatch(); renderDash();
+  toast(sym + ' added to watchlist', 'success');
+  wrRenderTab();
+}
+// Stock name / code cells with Watchlist + Research hooks and "already tracked" markers.
+function wrOwned(r){
+  const keys = new Set([r.code, r.name].filter(Boolean).map(s => String(s).trim().toUpperCase()));
+  const hit = (list, field) => (list || []).some(x => keys.has(String(x[field] || '').trim().toUpperCase()));
+  let out = '';
+  if(hit(DB.positions, 'stock') || (DB.trades || []).some(t => t.status && t.status.includes('Open') && keys.has(String(t.stock||'').trim().toUpperCase()))) out += '<span class="wr-own p" title="Open position / trade">P</span>';
+  if(hit(DB.watchlist, 'stock')) out += '<span class="wr-own w" title="On watchlist">W</span>';
+  return out;
+}
+function wrNameCell(r){
+  const marks = (r.from_52wh != null && +r.from_52wh >= -5 ? '<span class="wr-sup" title="Within 5% of 52-week high">#</span>' : '')
+              + (r.near_ath ? '<span class="wr-sup" title="Within 5% of all-time high">*</span>' : '');
+  return `<span class="nm" title="${wrAttr(r.name||'')}">${wrEsc(r.name || '—')}</span>${marks}${wrOwned(r)}`;
+}
+function wrCodeCell(r, industry){
+  const sym = r.code || r.name || '';
+  const ind = industry || r.industry || r.bucket || '';
+  if(!sym) return '<span class="flat">—</span>';
+  return `<span class="wr-code">${wrEsc(r.code || '—')}</span>`
+    + `<button class="wr-act" title="Add to Watchlist" onclick="event.stopPropagation();wrToWatch('${wrAttr(sym)}','${wrAttr(ind)}')"><i class="ti ti-eye-plus"></i></button>`
+    + `<button class="wr-act" title="Start Research" onclick="event.stopPropagation();convToResearch('${wrAttr(sym)}','${wrAttr(ind)}')"><i class="ti ti-microscope"></i></button>`;
+}
+
+// ---------- derived data ----------
+function wrTop(rows, n, asc){
+  const l = rows.filter(r => wrIsNum(r.w1)).sort((a, b) => asc ? (+a.w1) - (+b.w1) : (+b.w1) - (+a.w1));
+  return n ? l.slice(0, n) : l;
+}
+function wrNearHigh(d){
+  const cfg = d.india.near_high || {};
+  const thr = wrIsNum(cfg.threshold) ? +cfg.threshold : 5;
+  const minM = wrIsNum(cfg.min_mcap) ? +cfg.min_mcap : 0;
+  const needCode = cfg.require_code !== false;
+  return wrRows(d.india.universe)
+    .filter(r => wrIsNum(r.from_52wh) && (+r.from_52wh) >= -thr && (!minM || (wrIsNum(r.mcap) && +r.mcap >= minM)) && (!needCode || r.code))
+    .sort((a, b) => (+b.from_52wh) - (+a.from_52wh) || (+b.mcap||0) - (+a.mcap||0));
+}
+// Breadth per bucket for one week: explicit buckets win; otherwise computed from per-stock DMA flags.
+function wrBreadth(d){
+  const b = d.india && d.india.breadth || {};
+  if(Array.isArray(b.buckets) && b.buckets.length){
+    return b.buckets.map(x => {
+      const n = wrIsNum(x.n) ? +x.n : null;
+      const a50 = wrIsNum(x.above_dma50) ? +x.above_dma50 : null, a200 = wrIsNum(x.above_dma200) ? +x.above_dma200 : null;
+      return { bucket: x.bucket, n, above_dma50: a50, above_dma200: a200,
+        pct50: wrIsNum(x.pct_above_dma50) ? +x.pct_above_dma50 : (n && a50 != null ? a50 / n * 100 : null),
+        pct200: wrIsNum(x.pct_above_dma200) ? +x.pct_above_dma200 : (n && a200 != null ? a200 / n * 100 : null) };
+    });
+  }
+  const rows = wrRows(d.india && d.india.universe);
+  if(!rows.some(r => r.above_dma50 != null || r.above_dma200 != null)) return null;
+  return WR_BUCKETS.map(bk => {
+    const rs = rows.filter(r => r.bucket === bk);
+    const n = rs.length, a50 = rs.filter(r => r.above_dma50).length, a200 = rs.filter(r => r.above_dma200).length;
+    return { bucket: bk, n, above_dma50: a50, above_dma200: a200, pct50: n ? a50 / n * 100 : null, pct200: n ? a200 / n * 100 : null };
+  });
+}
+// Crossovers: explicit lists win; otherwise computed from flags in this week vs the previous one.
+function wrCrossovers(d, prev){
+  const c = d.india && d.india.breadth && d.india.breadth.crossovers;
+  if(c && ['above_dma200','below_dma200','above_dma50','below_dma50'].some(k => Array.isArray(c[k]))) return c;
+  if(!prev) return null;
+  const cur = wrRows(d.india.universe), prevMap = new Map(wrRows(prev.india.universe).map(r => [r._key, r]));
+  if(!cur.some(r => r.above_dma50 != null) || !wrRows(prev.india.universe).some(r => r.above_dma50 != null)) return null;
+  const out = {above_dma200:[], below_dma200:[], above_dma50:[], below_dma50:[]};
+  cur.forEach(r => {
+    const p = prevMap.get(r._key); if(!p) return;
+    if(r.above_dma200 && p.above_dma200 === false) out.above_dma200.push(r);
+    if(r.above_dma200 === false && p.above_dma200) out.below_dma200.push(r);
+    if(r.above_dma50 && p.above_dma50 === false) out.above_dma50.push(r);
+    if(r.above_dma50 === false && p.above_dma50) out.below_dma50.push(r);
+  });
+  return out;
+}
+// Rolling comparison: the selected week + prior weeks (oldest → newest), joined by code/name.
+function wrComparison(market, d, priors){
+  const win = (d.comparison && wrIsNum(d.comparison.window) ? +d.comparison.window : WR_WINDOW_DEFAULT);
+  const pick = (w) => market === 'india' ? wrRows(w.india && w.india.universe) : wrRows(w.us && w.us.universe);
+  const weeks = [d, ...priors].filter(w => pick(w).length).slice(0, win).reverse();
+  const maps = weeks.map(w => new Map(pick(w).map(r => [r._key, r])));
+  const rows = pick(d).map(r => {
+    const rets = maps.map(m => { const x = m.get(r._key); return x && wrIsNum(x.w1) ? +x.w1 : null; });
+    const have = rets.filter(v => v != null);
+    const all = have.length === rets.length && rets.length > 0;
+    const comp = have.length ? (have.reduce((a, v) => a * (1 + v / 100), 1) - 1) * 100 : null;
+    return Object.assign({}, r, {rets, comp, present: have.length, all, posAll: all && rets.every(v => v > 0), negAll: all && rets.every(v => v < 0)});
+  });
+  return { weeks, labels: weeks.map(w => w.week_ending), rows, window: win, universe: pick(d).length };
+}
+function wrIndustries(d){
+  const ind = d.india.indices && d.india.indices.industries;
+  if(Array.isArray(ind) && ind.length) return ind;
+  const rows = wrRows(d.india.universe).filter(r => r.industry && wrIsNum(r.w1));
+  if(!rows.length) return [];
+  const g = new Map();
+  rows.forEach(r => { const a = g.get(r.industry) || {name:r.industry, sum:0, n:0}; a.sum += +r.w1; a.n++; g.set(r.industry, a); });
+  const all = [...g.values()].filter(a => a.n >= 5).map(a => ({name:a.name, avg_w1:a.sum / a.n, n:a.n})).sort((a, b) => b.avg_w1 - a.avg_w1);
+  return all.length > 16 ? all.slice(0, 8).concat(all.slice(-8)) : all;
+}
+function wrMarketBreadth(d, prev){
+  const b = d.india.indices && d.india.indices.breadth;
+  const rows = wrRows(d.india.universe).filter(r => wrIsNum(r.w1));
+  const out = {adv: null, dec: null, universe: null, median_w1: null, prev_adv: null, prev_dec: null};
+  if(b){ Object.keys(out).forEach(k => { if(wrIsNum(b[k])) out[k] = +b[k]; }); }
+  if(out.adv == null && rows.length){
+    out.adv = rows.filter(r => +r.w1 > 0).length; out.dec = rows.filter(r => +r.w1 < 0).length; out.universe = rows.length;
+    const s = rows.map(r => +r.w1).sort((a, b) => a - b); out.median_w1 = s.length % 2 ? s[(s.length-1)/2] : (s[s.length/2-1] + s[s.length/2]) / 2;
+  }
+  if(out.prev_adv == null && prev){
+    const pb = prev.india && prev.india.indices && prev.india.indices.breadth;
+    const pr = wrRows(prev.india && prev.india.universe).filter(r => wrIsNum(r.w1));
+    if(pb && wrIsNum(pb.adv)){ out.prev_adv = +pb.adv; out.prev_dec = +pb.dec; }
+    else if(pr.length){ out.prev_adv = pr.filter(r => +r.w1 > 0).length; out.prev_dec = pr.filter(r => +r.w1 < 0).length; }
+  }
+  return out;
+}
+
+// ---------- SVG line chart ----------
+function wrLineChart(id, labels, series, opts){
+  opts = opts || {};
+  const W = 720, H = 300, L = 56, R = 18, T = 30, B = 44;
+  const pts = series.flatMap(s => s.values.filter(v => v != null));
+  if(!pts.length || labels.length < 1) return `<div class="wr-hint">Not enough history yet — the chart fills in as more weekly files are published.</div>`;
+  let lo = Math.floor((Math.min(...pts) - 3) / 5) * 5, hi = Math.ceil((Math.max(...pts) + 3) / 5) * 5;
+  if(opts.pct){ lo = Math.max(0, lo); hi = Math.min(100, hi); }
+  if(hi - lo < 10){ hi = lo + 10; }
+  const step = (hi - lo) <= 30 ? 5 : 10;
+  const x = (i) => labels.length === 1 ? (L + (W - L - R) / 2) : L + (W - L - R) * i / (labels.length - 1);
+  const y = (v) => T + (H - T - B) * (1 - (v - lo) / (hi - lo));
+  let g = '';
+  for(let v = lo; v <= hi + 1e-9; v += step){
+    g += `<line x1="${L}" y1="${y(v).toFixed(1)}" x2="${W - R}" y2="${y(v).toFixed(1)}" stroke="var(--b1)" stroke-width="1"/>`
+       + `<text x="${L - 8}" y="${(y(v) + 4).toFixed(1)}" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--t4)" text-anchor="end">${v}${opts.pct ? '%' : ''}</text>`;
+  }
+  labels.forEach((lb, i) => { g += `<text x="${x(i).toFixed(1)}" y="${H - B + 20}" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--t3)" text-anchor="middle">${wrEsc(lb)}</text>`; });
+  series.forEach(s => {
+    let d = '', segs = [];
+    s.values.forEach((v, i) => { if(v == null){ if(d){ segs.push(d); d = ''; } return; } d += (d ? ' ' : '') + `${x(i).toFixed(1)},${y(v).toFixed(1)}`; });
+    if(d) segs.push(d);
+    let inner = segs.map(seg => `<polyline points="${seg}" fill="none" stroke="${s.color}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`).join('');
+    s.values.forEach((v, i) => { if(v == null) return; inner += `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="4" fill="${s.color}" stroke="var(--bg1)" stroke-width="1.5"/>`
+      + `<text x="${x(i).toFixed(1)}" y="${(y(v) - 10).toFixed(1)}" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="${s.color}" text-anchor="middle">${(+v).toFixed(1)}${opts.pct ? '%' : ''}</text>`; });
+    g += `<g class="series series-${s.slug}">${inner}</g>`;
+  });
+  let lx = L;
+  series.forEach(s => { g += `<rect x="${lx}" y="8" width="10" height="10" rx="2" fill="${s.color}"/><text x="${lx + 15}" y="17" font-family="Manrope, sans-serif" font-size="11" fill="var(--t2)">${wrEsc(s.name)}</text>`; lx += 18 + s.name.length * 6.6 + 14; });
+  return `<svg id="${wrAttr(id)}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${wrAttr(opts.label || '')}">${g}</svg>`;
+}
+function wrChartFilter(chartId, slug, btn){
+  const svg = document.getElementById(chartId); if(!svg) return;
+  svg.querySelectorAll('.series').forEach(gr => { gr.style.opacity = (slug === 'all' || gr.classList.contains('series-' + slug)) ? '1' : '0.08'; });
+  btn.parentElement.querySelectorAll('.wr-chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function wrChips(chartId){
+  return `<div class="wr-chips"><button class="wr-chip active" onclick="wrChartFilter('${chartId}','all',this)">All</button>`
+    + WR_BUCKETS.map(b => `<button class="wr-chip" onclick="wrChartFilter('${chartId}','${WR_BUCKET_SLUG[b]}',this)">${b}</button>`).join('') + '</div>';
+}
+
+// ---------- render: shell ----------
+function renderWR(){
+  const body = document.getElementById('wr-body');
+  if(!body) return;
+  if(!WR.loaded){ body.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading weekly report…</p></div>'; return; }
+  if(!WR.weeks.length || !WR.cur || !WR.data[WR.cur]){
+    body.innerHTML = `<div class="wr-empty"><i class="ti ti-report-analytics"></i><h4>No weekly report published yet</h4>
+      <p>This page reads <code>library/weekly/index.json</code> and one <code>library/weekly/&lt;week-ending&gt;.json</code> per week from the repo.
+      Generate the weekly JSON with your pipeline (see <code>library/weekly/README.md</code> and <code>tools/build_weekly.py</code>), commit it, then click Refresh.</p>
+      ${WR.error ? `<p style="margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--rose2);">${wrEsc(WR.error)}</p>` : ''}</div>`;
+    return;
+  }
+  const d = WR.data[WR.cur];
+  const tags = (d.tags || []).map((t, i) => `<span class="wr-tag ${i === 0 ? 'am' : i === 1 ? 'tl' : ''}">${wrEsc(t)}</span>`).join('');
+  const quotes = (d.headline || []).map(q => `<div class="wr-q"><div class="k">${wrEsc(q.label || q.k || '')}</div><div class="v ${wrToneCls(q.tone)}">${wrInline(String(q.value != null ? q.value : (q.v != null ? q.v : '—')))}</div>${(q.sub || q.d) ? `<div class="d ${wrToneCls(q.subTone)}">${wrInline(q.sub || q.d)}</div>` : ''}</div>`).join('');
+  const meta = (d.ticker || []).map(t => `<span><b>${wrEsc(t.label || '')}</b> ${wrEsc(t.value || '')}${t.delta ? ` <span class="${wrToneCls(t.tone)}">${t.tone === 'down' ? '▼' : t.tone === 'up' ? '▲' : ''} ${wrEsc(t.delta)}</span>` : ''}</span>`).join('')
+    + `<span><b>Week ending</b> ${wrDate(d.week_ending)}</span>` + (d.report_date ? `<span><b>Report date</b> ${wrDate(d.report_date)}</span>` : '');
+  const tabs = WR_TABS.map(t => `<div class="wr-tab ${WR.tab === t.id ? 'active' : ''}" data-tab="${t.id}" onclick="wrTab('${t.id}')">${wrEsc(t.t)}</div>`).join('');
+  const panels = WR_TABS.map(t => `<div class="wr-panel ${WR.tab === t.id ? 'active' : ''}" id="wr-panel-${t.id}"></div>`).join('');
+  body.innerHTML = `
+    <div class="wr-hero"><div class="wr-hero-inner">
+      <div class="wr-tags">${tags}</div>
+      <h1>${wrEsc(d.title || 'Weekly Markets Report')}</h1>
+      ${d.strap ? `<div class="wr-strap">${wrEsc(d.strap)}</div>` : ''}
+      <div class="wr-lead">Week of <b>${wrEsc(d.week_label || d.week_ending || '')}</b>${d.lead ? ' — ' + wrInline(d.lead) : ''}</div>
+      ${quotes ? `<div class="wr-quotes">${quotes}</div>` : ''}
+    </div></div>
+    <div class="wr-meta">${meta}</div>
+    <div class="wr-tabs">${tabs}</div>
+    ${panels}
+    <div class="wr-foot"><b>Source:</b> library/weekly/${wrEsc(WR.cur)} · schema ${wrEsc(d.schema || '—')} · stock tables are computed in-app from the universe rows; macro figures and commentary are as authored in the weekly file.<br>Personal research notes — not investment advice.</div>`;
+  wrRenderTab();
+}
+function wrTab(id){
+  WR.tab = id;
+  document.querySelectorAll('#wr-body .wr-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === id));
+  document.querySelectorAll('#wr-body .wr-panel').forEach(p => p.classList.toggle('active', p.id === 'wr-panel-' + id));
+  wrRenderTab();
+}
+function wrRenderTab(){
+  const d = WR.cur && WR.data[WR.cur]; if(!d) return;
+  const el = document.getElementById('wr-panel-' + WR.tab); if(!el) return;
+  const priors = wrPriors(WR.cur, 12);
+  let html = '';
+  try{
+    switch(WR.tab){
+      case 'macros': html = wrTabMacros(d, priors); break;
+      case 'india': html = wrTabIndia(d, priors); break;
+      case 'us': html = wrTabUS(d); break;
+      case 'cmp-india': html = wrTabCmp(d, priors, 'india'); break;
+      case 'cmp-us': html = wrTabCmp(d, priors, 'us'); break;
+      case 'etf': html = wrTabEtf(d, priors); break;
+    }
+  }catch(err){
+    console.error('Weekly report render error', err);
+    html = `<div class="wr-empty"><i class="ti ti-alert-triangle"></i><h4>Could not render this tab</h4><p>${wrEsc(err.message || err)}</p></div>`;
+  }
+  el.innerHTML = html || '<div class="wr-empty"><i class="ti ti-file-off"></i><h4>Nothing in this tab for the selected week</h4><p>Add the relevant sections to the weekly JSON to populate it.</p></div>';
+}
+
+// ---------- render: Macros ----------
+function wrTabMacros(d, priors){
+  const m = d.macros || {};
+  let n = 0, out = '';
+  const next = () => String(++n).padStart(2, '0');
+
+  if(m.fii_dii){
+    const sn = next();
+    const f = m.fii_dii, days = (f.days || []).slice().sort((a, b) => String(a.date).localeCompare(String(b.date)));
+    const tot = (k) => days.reduce((s, x) => s + (wrIsNum(x[k]) ? +x[k] : 0), 0);
+    const weekRows = days.map(x => ({date: x.date, day: wrDay(x.date), fii_net: x.fii_net, dii_net: x.dii_net}));
+    if(days.length) weekRows.push({date: 'Week Total', day: '—', fii_net: tot('fii_net'), dii_net: tot('dii_net'), _total: true});
+    let body = wrP(f.lead, true);
+    if(days.length) body += wrTable('wr-fii-week', [
+      {k:'date', t:'Date', type:'html', html: r => r._total ? '<b>Week Total</b>' : `<span class="num">${wrDate(r.date)}</span>`},
+      {k:'day', t:'Day', type:'text'},
+      {k:'fii_net', t:'FII Net (₹ Cr)', type:'signed', dec:0},
+      {k:'dii_net', t:'DII Net (₹ Cr)', type:'signed', dec:0}
+    ], weekRows, {sortable:false, rowCls: r => r._total ? 'hi' : ''});
+    body += wrCards(f.cards) + wrNotes(f.notes);
+    // full history across every loaded week
+    const hist = new Map();
+    [d, ...priors].forEach(w => ((w.macros && w.macros.fii_dii && w.macros.fii_dii.days) || []).forEach(x => { if(x && x.date && !hist.has(x.date)) hist.set(x.date, x); }));
+    const all = [...hist.values()].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    if(all.length > days.length){
+      const first = all[all.length - 1].date, last = all[0].date;
+      body += `<div class="wr-sub">${+sn}.1 — Full FII/DII history (${all.length} sessions, ${wrDate(first)} → ${wrDate(last)})</div>
+        <div class="wr-hint">Every session carried by the weekly files loaded so far — extends automatically as new weeks are published.</div>`;
+      body += wrTable('wr-fii-hist', [
+        {k:'date', t:'Date', type:'html', html: r => `<span class="num">${wrDate(r.date)}</span>`},
+        {k:'day', t:'Day', type:'text', fn: r => wrDay(r.date)},
+        {k:'fii_buy', t:'FII Buy', type:'int'}, {k:'fii_sell', t:'FII Sell', type:'int'}, {k:'fii_net', t:'FII Net', type:'signed', dec:0},
+        {k:'dii_buy', t:'DII Buy', type:'int'}, {k:'dii_sell', t:'DII Sell', type:'int'}, {k:'dii_net', t:'DII Net', type:'signed', dec:0}
+      ], all, {sort:{col:'date', dir:'desc'}, maxHeight:'420px'});
+      const sum = (k) => all.reduce((s, x) => s + (wrIsNum(x[k]) ? +x[k] : 0), 0);
+      const fmt = (v) => (v >= 0 ? '+' : '−') + '₹' + wrNum(Math.abs(v)) + ' Cr';
+      body += wrCards([{k:`FII Net (all ${all.length} sessions)`, v: fmt(sum('fii_net')), d: `${wrDate(first)} – ${wrDate(last)}`, tone: sum('fii_net') >= 0 ? 'up' : 'down'},
+                       {k:`DII Net (all ${all.length} sessions)`, v: fmt(sum('dii_net')), d: `${wrDate(first)} – ${wrDate(last)}`, tone: sum('dii_net') >= 0 ? 'up' : 'down'}], 2);
+    }
+    out += wrSection(sn, 'FII / DII Cashflows', body);
+  }
+  if(m.derivatives){
+    const x = m.derivatives;
+    out += wrSection(next(), x.title || 'Derivatives Data — FII Positioning', wrP(x.lead, true) + wrCards(x.cards) + wrBlocks(x.blocks) + wrNotes(x.notes));
+  }
+  if(m.fx){
+    const x = m.fx;
+    let body = wrP(x.lead, true);
+    if(x.days && x.days.length) body += wrTable('wr-fx', [
+      {k:'date', t:'Date', type:'html', html: r => `<span class="num">${wrDate(r.date)}</span>`},
+      {k:'day', t:'Day', type:'text', fn: r => wrDay(r.date)},
+      {k:'value', t:(x.pair || 'USD/INR') + ' Spot', type:'html', html: r => `<span class="num ${wrToneCls(r.tone) === 'down' ? 'dn' : wrToneCls(r.tone) === 'up' ? 'up' : ''}">${wrEsc(r.value)}</span>`}
+    ], x.days, {sortable:false});
+    body += wrCards(x.cards) + wrNotes(x.notes);
+    out += wrSection(next(), x.title || `FX Market — ${x.pair || 'USD/INR'}`, body);
+  }
+  if(m.commodities){
+    const x = m.commodities;
+    let body = wrP(x.lead, true);
+    if(x.rows && x.rows.length) body += wrTable('wr-comm', [
+      {k:'name', t:'Commodity', type:'html', html: r => `<b>${wrEsc(r.name)}</b>`},
+      {k:'move', t:'Week Move', type:'html', html: r => `<span class="num ${wrToneCls(r.tone) === 'up' ? 'up' : wrToneCls(r.tone) === 'down' ? 'dn' : 'flat'}">${wrEsc(r.move)}</span>`},
+      {k:'note', t:'Note', type:'html', html: r => `<span style="font-size:12px;line-height:1.5;white-space:normal;">${wrInline(r.note || '')}</span>`}
+    ], x.rows, {sortable:false});
+    body += wrCards(x.cards) + wrNotes(x.notes);
+    out += wrSection(next(), x.title || 'Commodities — Weekly Snapshot', body);
+  }
+  if(m.debt){
+    const x = m.debt;
+    out += wrSection(next(), x.title || 'Debt Market', wrP(x.lead, true) + wrCards(x.cards) + wrBlocks(x.blocks) + wrNotes(x.notes));
+  }
+  if(m.summary){
+    const x = m.summary;
+    out += wrSection(next(), x.title || 'Executive Summary — Where Is Institutional Money Flowing?', wrBlocks(x.blocks) + wrNotes(x.notes));
+  }
+  out += wrExtra(d, 'macros', n + 1);
+  return out;
+}
+
+// ---------- render: India ----------
+function wrTabIndia(d, priors){
+  const prev = priors[0] || null;
+  const rows = wrRows(d.india.universe);
+  let n = 0, out = '';
+  const next = () => String(++n).padStart(2, '0');
+  const idxCols = [{k:'name', t:'Index', type:'html', html: r => `<b>${wrEsc(r.name)}</b>`}, {k:'w1', t:'1-Week', type:'pct'}, {k:'m1', t:'1-Month', type:'pct'}, {k:'y1', t:'1-Year', type:'pct'}, {k:'vs_52wh', t:'vs 52W High', type:'pct0'}];
+  const stockCols = (extra) => [
+    {k:'_i', t:'#', type:'idx'},
+    {k:'name', t:'Name', type:'html', html: wrNameCell},
+    {k:'code', t:'Code', type:'html', html: r => wrCodeCell(r)},
+    {k:'bucket', t:'Cap Bucket', type:'text'},
+    {k:'mcap', t:'MCap (₹Cr)', type:'int'}
+  ].concat(extra);
+  const legend = `<div class="wr-note"><div class="lab">Legend</div><strong>Cap bucket:</strong> Large = mcap rank 1–100, Mid = 101–250, Small = 251–500, Micro = 501+ (re-ranked each week). &nbsp;<strong><span class="wr-sup">#</span></strong> = within 5% of 52-week high &nbsp;<strong><span class="wr-sup">*</span></strong> = within 5% of all-time high. &nbsp;<span class="wr-own p">P</span> open position &nbsp;<span class="wr-own w">W</span> on watchlist. Hover a code for Watchlist / Research actions.</div>`;
+
+  // 01 indices
+  const ix = d.india.indices || {};
+  const inds = wrIndustries(d);
+  const hasBreadth = rows.some(r => wrIsNum(r.w1)) || (ix.breadth && wrIsNum(ix.breadth.adv));
+  if((ix.broad && ix.broad.length) || (ix.sector && ix.sector.length) || inds.length || hasBreadth){
+    let body = wrP(ix.lead, true);
+    if(ix.broad && ix.broad.length) body += `<div class="wr-sub">Broad indices</div>` + wrTable('wr-idx-broad', idxCols, ix.broad, {sort:null});
+    if(ix.sector && ix.sector.length) body += `<div class="wr-sub">Sector indices</div>` + wrTable('wr-idx-sector', idxCols, ix.sector, {sort:null});
+    const br = wrMarketBreadth(d, prev);
+    if(br.adv != null){
+      const cards = [{k:'Market breadth (this week)', v:`${wrNum(br.adv)} Adv / ${wrNum(br.dec)} Dec`, d:`of ${wrNum(br.universe)} stocks${br.median_w1 != null ? `; median stock ${wrPct(br.median_w1, 2, {plain:true})}` : ''}`, tone: br.adv >= br.dec ? 'up' : 'down'}];
+      if(br.prev_adv != null) cards.push({k:'Breadth vs last week', v: br.adv - br.dec > br.prev_adv - br.prev_dec ? 'Improved' : 'Deteriorated', d:`was ${wrNum(br.prev_adv)} Adv / ${wrNum(br.prev_dec)} Dec`, tone: br.adv - br.dec > br.prev_adv - br.prev_dec ? 'up' : 'down'});
+      body += wrCards(cards, 2);
+    }
+    if(inds.length) body += `<div class="wr-sub">Best / worst performing industries this week (≥5 constituents)</div>` + wrTable('wr-ind', [
+      {k:'name', t:'Industry', type:'text'}, {k:'avg_w1', t:'Avg 1-Wk Return', type:'pct'}, {k:'n', t:'Constituents', type:'int'}], inds, {sort:{col:'avg_w1', dir:'desc'}});
+    body += wrNotes(ix.notes);
+    out += wrSection(next(), ix.title || 'Equity Returns — Broad & Sector Indices', body);
+  }
+
+  // 02 top performers
+  if(rows.length){
+    const cfg = d.india.top_performers || {};
+    const lim = wrIsNum(cfg.limit) ? +cfg.limit : 50, blim = wrIsNum(cfg.bottom_limit) ? +cfg.bottom_limit : 20;
+    const top = wrTop(rows, lim), bot = wrTop(rows, blim, true);
+    let body = legend + wrP(cfg.lead || `Ranked by 1-week return across ${wrNum(rows.length)} stocks${d.india.universe && d.india.universe.source ? ` (${wrEsc(d.india.universe.source)})` : ''}.`, true);
+    body += `<div class="wr-sub">Top ${top.length} — India</div>` + wrTable('wr-top', stockCols([{k:'w1', t:'1-Wk', type:'pct'}, {k:'m1', t:'1-Mo', type:'pct'}, {k:'from_52wh', t:'Down fr. 52WH', type:'pct0'}]), top, {sort:{col:'w1', dir:'desc'}});
+    body += `<div class="wr-sub">Bottom ${bot.length} — India</div>` + wrTable('wr-bottom', stockCols([{k:'w1', t:'1-Wk', type:'pct'}]), bot, {sort:{col:'w1', dir:'asc'}, maxHeight:'420px'});
+    body += wrNotes(cfg.notes);
+    out += wrSection(next(), cfg.title || 'Top Performers — India', body);
+
+    // 03 near high
+    const nh = wrNearHigh(d), nc = d.india.near_high || {};
+    if(rows.some(r => wrIsNum(r.from_52wh))){
+      const thr = wrIsNum(nc.threshold) ? +nc.threshold : 5;
+      let b2 = `<div class="wr-note"><div class="lab">Filter</div>Within <strong>${thr}%</strong> of the 52-week high${wrIsNum(nc.min_mcap) ? `, mcap ≥ ₹${wrNum(nc.min_mcap)} Cr` : ''}${nc.require_code !== false ? ', valid NSE code' : ''}. <strong><span class="wr-sup">*</span></strong> = also within 5% of all-time high.</div>`;
+      b2 += wrP(nc.lead, true) + `<div class="wr-hint">${wrNum(nh.length)} candidates this week.</div>`;
+      b2 += wrTable('wr-nh', stockCols([{k:'from_52wh', t:'Down fr. 52WH', type:'pct0'}, {k:'w1', t:'1-Wk Return', type:'pct'}]), nh, {sort:{col:'from_52wh', dir:'desc'}, tall:true});
+      b2 += wrNotes(nc.notes);
+      out += wrSection(next(), nc.title || '52-Week High / Near-High Candidates — India', b2);
+    }
+  }
+
+  // 04 breadth
+  const bd = wrBreadth(d), bcfg = d.india.breadth || {};
+  if(bd){
+    const sn = next();
+    let body = `<div class="wr-note"><div class="lab">Legend</div><strong>Breadth</strong> = % of stocks in each cap bucket trading above their 50-day / 200-day moving average. Buckets are re-ranked by mcap every week.</div>` + wrP(bcfg.lead, true);
+    body += `<div class="wr-sub">${+sn}.1 — This week's breadth (week ending ${wrDate(d.week_ending)})</div>`;
+    const hasCounts = bd.some(b => b.n != null);
+    body += wrTable('wr-breadth', [
+      {k:'bucket', t:'Cap Bucket', type:'html', html: r => `<b>${wrEsc(r.bucket)}</b>`},
+      ...(hasCounts ? [{k:'n', t:'# Stocks', type:'int'}, {k:'above_dma50', t:'Above DMA50', type:'int'}] : []),
+      {k:'pct50', t:'% Above DMA50', type:'html', html: r => wrIsNum(r.pct50) ? `<span class="${r.pct50 >= 50 ? 'up' : 'dn'}">${(+r.pct50).toFixed(1)}%</span>` : '—'},
+      ...(hasCounts ? [{k:'above_dma200', t:'Above DMA200', type:'int'}] : []),
+      {k:'pct200', t:'% Above DMA200', type:'html', html: r => wrIsNum(r.pct200) ? `<span class="${r.pct200 >= 50 ? 'up' : 'dn'}">${(+r.pct200).toFixed(1)}%</span>` : '—'}
+    ], bd, {sortable:false});
+    body += wrNotes(bcfg.notes);
+    // history
+    const histAll = [d, ...priors].map(w => ({w, b: wrBreadth(w)})).filter(x => x.b).reverse();
+    const series = (key) => {
+      const hist = histAll.filter(x => x.b.some(y => wrIsNum(y[key])));
+      return { labels: hist.map(x => wrShort(x.w.week_ending)), n: hist.length,
+        s: WR_BUCKETS.map(bk => ({name: bk, slug: WR_BUCKET_SLUG[bk], color: WR_BUCKET_COLOR[bk], values: hist.map(x => { const r = x.b.find(y => y.bucket === bk); return r && wrIsNum(r[key]) ? +r[key] : null; })})) };
+    };
+    const h200 = series('pct200'), h50 = series('pct50');
+    body += `<div class="wr-sub">${+sn}.2 — Historical trend: % of stocks above DMA 200 and DMA 50, by cap bucket</div>`;
+    body += `<div class="wr-hint">DMA 200 (${h200.n} week${h200.n === 1 ? '' : 's'} of history) — select a cap bucket to isolate its line:</div>` + wrChips('wr-chart-dma200') + `<div class="wr-chart">${wrLineChart('wr-chart-dma200', h200.labels, h200.s, {pct:true, label:'% above DMA200 by cap bucket'})}</div>`;
+    body += `<div class="wr-hint">DMA 50 (${h50.n} week${h50.n === 1 ? '' : 's'} of history):</div>` + wrChips('wr-chart-dma50') + `<div class="wr-chart">${wrLineChart('wr-chart-dma50', h50.labels, h50.s, {pct:true, label:'% above DMA50 by cap bucket'})}</div>`;
+    // crossovers
+    const cx = wrCrossovers(d, prev);
+    if(cx){
+      body += `<div class="wr-sub">${+sn}.3 — Stocks that crossed key moving averages this week</div>`;
+      const cxCols = [{k:'name', t:'Name', type:'html', html: wrNameCell}, {k:'code', t:'Code', type:'html', html: r => wrCodeCell(r)}, {k:'bucket', t:'Cap Bucket', type:'text'}, {k:'mcap', t:'MCap (₹Cr)', type:'int'}, {k:'w1', t:'1-Wk Return', type:'pct'}];
+      [['above_dma200', 'Crossed <em>above</em> DMA 200'], ['below_dma200', 'Dropped <em>below</em> DMA 200'], ['above_dma50', 'Crossed <em>above</em> DMA 50'], ['below_dma50', 'Dropped <em>below</em> DMA 50']].forEach(([k, t]) => {
+        const list = Array.isArray(cx[k]) ? cx[k] : [];
+        body += `<p class="wr-p" style="margin:14px 0 4px;"><strong>${t}</strong> (${list.length} stock${list.length === 1 ? '' : 's'})</p>` + wrTable('wr-cx-' + k, cxCols, list, {sort:{col:'mcap', dir:'desc'}, maxHeight:'340px', empty:'None this week.'});
+      });
+    }
+    out += wrSection(sn, bcfg.title || 'Market Breadth by Market Cap — DMA 50 / DMA 200', body);
+  }
+  out += wrExtra(d, 'india', n + 1);
+  return out;
+}
+
+// ---------- render: US ----------
+function wrTabUS(d){
+  const u = d.us || {}, rows = wrRows(u.universe), etfs = wrRows(u.etf_universe), cfg = u.top_performers || {};
+  if(!rows.length && !etfs.length) return wrExtra(d, 'us', 1);
+  const lim = wrIsNum(cfg.limit) ? +cfg.limit : 50, blim = wrIsNum(cfg.bottom_limit) ? +cfg.bottom_limit : 15;
+  const cols = (extra) => [{k:'_i', t:'#', type:'idx'}, {k:'name', t:'Name', type:'html', html: wrNameCell}, {k:'code', t:'Ticker', type:'html', html: r => wrCodeCell(r, r.industry)}, {k:'industry', t:'Industry', type:'text'}].concat(extra);
+  let body = wrP(cfg.lead || `Ranked by 1-week return across ${wrNum(rows.length)} US stocks.`, true);
+  if(rows.length){
+    const top = wrTop(rows, lim), bot = wrTop(rows, blim, true);
+    body += `<div class="wr-sub">Top ${top.length} — US stocks</div>` + wrTable('wr-us-top', cols([{k:'w1', t:'1-Wk', type:'pct'}, {k:'m1', t:'1-Mo', type:'pct'}]), top, {sort:{col:'w1', dir:'desc'}});
+    body += `<div class="wr-sub">Bottom ${bot.length} — US stocks</div>` + wrTable('wr-us-bottom', cols([{k:'w1', t:'1-Wk', type:'pct'}]), bot, {sort:{col:'w1', dir:'asc'}, maxHeight:'400px'});
+  }
+  let out = wrSection('01', cfg.title || 'Top Performers — US Stocks', body + wrNotes(cfg.notes));
+  if(etfs.length){
+    const ecfg = u.etf_top || {};
+    const elim = wrIsNum(ecfg.limit) ? +ecfg.limit : 50, eblim = wrIsNum(ecfg.bottom_limit) ? +ecfg.bottom_limit : 15;
+    const ecols = (extra) => [{k:'_i', t:'#', type:'idx'}, {k:'name', t:'Fund Name', type:'html', html: r => `<span class="nm" style="max-width:320px;" title="${wrAttr(r.name||'')}">${wrEsc(r.name)}</span>`}, {k:'code', t:'Ticker', type:'html', html: r => `<span class="wr-code">${wrEsc(r.code || '—')}</span>`}, {k:'assets', t:'Assets', type:'text'}].concat(extra);
+    const top = wrTop(etfs, elim), bot = wrTop(etfs, eblim, true);
+    let b2 = wrP(ecfg.lead || `US ETFs (non-leveraged) ranked by 1-week return${u.etf_universe && u.etf_universe.source ? ` — ${wrEsc(u.etf_universe.source)}` : ''}.`, true);
+    b2 += `<div class="wr-sub">Top ${top.length} — US ETFs</div>` + wrTable('wr-usetf-top', ecols([{k:'w1', t:'1-Wk', type:'pct'}, {k:'m1', t:'1-Mo', type:'pct'}]), top, {sort:{col:'w1', dir:'desc'}});
+    b2 += `<div class="wr-sub">Bottom ${bot.length} — US ETFs</div>` + wrTable('wr-usetf-bottom', ecols([{k:'w1', t:'1-Wk', type:'pct'}]), bot, {sort:{col:'w1', dir:'asc'}, maxHeight:'400px'});
+    out += wrSection('02', ecfg.title || 'US ETFs — Weekly Leaders & Laggards', b2 + wrNotes(ecfg.notes));
+  }
+  return out + wrExtra(d, 'us', etfs.length ? 3 : 2);
+}
+
+// ---------- render: rolling comparison ----------
+function wrTabCmp(d, priors, market){
+  const cfg = (d.comparison && d.comparison[market]) || {};
+  const c = wrComparison(market, d, priors);
+  if(!c.rows.length) return wrExtra(d, 'cmp-' + market, 1);
+  const uiq = market === 'india' ? 'cmpq' : 'uscmpq', uim = market === 'india' ? 'cmpmode' : 'uscmpmode';
+  const posAll = c.rows.filter(r => r.posAll).length, negAll = c.rows.filter(r => r.negAll).length, full = c.rows.filter(r => r.all).length;
+  const wk = c.weeks.map((w, i) => `Week ${i + 1} = w/e ${wrDate(w.week_ending)}`).join('. ');
+  let body = `<div class="wr-note"><div class="lab">Legend</div><strong>Cap bucket</strong> uses this week's mcap-rank classification. Green = positive weekly return, red = negative, “—” = stock not present in that week's file. The window rolls forward automatically as new weekly files are added (window: ${c.window} weeks).</div>`;
+  body += wrP(cfg.lead, true) + `<p class="wr-p">${wrEsc(wk)}. ${c.weeks.length < c.window ? `${c.window - c.weeks.length} more week${c.window - c.weeks.length === 1 ? '' : 's'} needed to fill the window.` : 'Full rolling window — the oldest week drops off when the next one is added.'}</p>`;
+  body += wrCards([
+    {k:`Positive all ${c.weeks.length} weeks`, v:`${wrNum(posAll)} stocks`, d:`of ${wrNum(full)} present in every week`, tone:'up'},
+    {k:`Negative all ${c.weeks.length} weeks`, v:`${wrNum(negAll)} stocks`, d:`of ${wrNum(full)} present in every week`, tone:'down'},
+    {k:'Universe', v:`${wrNum(c.universe)} stocks`, d:`present this week; ${wrNum(full)} have full ${c.weeks.length}-week history`},
+    {k:'Rolling window', v:`${c.weeks.length} of ${c.window} weeks`, d: c.weeks.length < c.window ? 'fills as more weeks are published' : 'oldest week drops when the next is added'}
+  ]);
+  body += `<div class="wr-ctl">
+      <input type="text" placeholder="Search company or code…" value="${wrAttr(WR.ui[uiq])}" oninput="WR.ui.${uiq}=this.value;wrRenderCmpTable('${market}')">
+      <select onchange="WR.ui.${uim}=this.value;wrRenderCmpTable('${market}')">
+        <option value="all" ${WR.ui[uim] === 'all' ? 'selected' : ''}>Show all</option>
+        <option value="posall" ${WR.ui[uim] === 'posall' ? 'selected' : ''}>Positive every week only</option>
+        <option value="negall" ${WR.ui[uim] === 'negall' ? 'selected' : ''}>Negative every week only</option>
+        <option value="full" ${WR.ui[uim] === 'full' ? 'selected' : ''}>Full history only</option>
+      </select>
+      ${market === 'india' ? `<select onchange="WR.ui.cmpbucket=this.value;wrRenderCmpTable('india')"><option value="all" ${WR.ui.cmpbucket === 'all' ? 'selected' : ''}>All cap buckets</option>${WR_BUCKETS.map(b => `<option value="${b}" ${WR.ui.cmpbucket === b ? 'selected' : ''}>${b}</option>`).join('')}</select>` : ''}
+      <span class="wr-count" id="wr-cmp-count-${market}"></span>
+    </div><div id="wr-cmp-table-${market}"></div>`;
+  body += wrNotes(cfg.notes);
+  // table is filled after the panel is in the DOM (so typing keeps focus)
+  setTimeout(() => wrRenderCmpTable(market), 0);
+  return wrSection('CMP', cfg.title || (market === 'india' ? `${c.window}-Week Comparison — India Stocks` : `${c.window}-Week Comparison — US Stocks`), body) + wrExtra(d, 'cmp-' + market, 1);
+}
+function wrRenderCmpTable(market){
+  const d = WR.cur && WR.data[WR.cur]; if(!d) return;
+  const host = document.getElementById('wr-cmp-table-' + market); if(!host) return;
+  const c = wrComparison(market, d, wrPriors(WR.cur, 12));
+  const q = (market === 'india' ? WR.ui.cmpq : WR.ui.uscmpq).trim().toLowerCase();
+  const mode = market === 'india' ? WR.ui.cmpmode : WR.ui.uscmpmode;
+  const bucket = market === 'india' ? WR.ui.cmpbucket : 'all';
+  let list = c.rows.filter(r => {
+    if(q && !((r.name || '') + ' ' + (r.code || '')).toLowerCase().includes(q)) return false;
+    if(mode === 'posall' && !r.posAll) return false;
+    if(mode === 'negall' && !r.negAll) return false;
+    if(mode === 'full' && !r.all) return false;
+    if(bucket !== 'all' && r.bucket !== bucket) return false;
+    return true;
+  });
+  const id = 'wr-cmp-' + market;
+  const cols = [
+    {k:'name', t:'Company Name', type:'html', html: wrNameCell},
+    {k:'code', t: market === 'india' ? 'Code' : 'Ticker', type:'html', html: r => wrCodeCell(r)},
+    ...(market === 'india' ? [{k:'bucket', t:'Cap Bucket', type:'text'}] : []),
+    ...c.labels.map((lb, i) => ({k:'w' + i, t:`Week ${i + 1} (${wrShort(lb)})`, type:'pct', fn: r => r.rets[i]})),
+    {k:'comp', t:'Compounded', type:'pct', fn: r => r.comp},
+    {k:'posAll', t:'Positive every week?', type:'html', html: r => r.posAll ? '<span class="badge bg">YES</span>' : (r.negAll ? '<span class="badge br">ALL NEG</span>' : '')}
+  ];
+  host.innerHTML = wrTable(id, cols, list, {sort:{col:'comp', dir:'desc'}, tall:true, empty:'No stocks match the filters.'});
+  const cnt = document.getElementById('wr-cmp-count-' + market);
+  if(cnt) cnt.textContent = `${wrNum(list.length)} of ${wrNum(c.rows.length)} stocks shown`;
+}
+
+// ---------- render: Global ETF heatmap ----------
+function wrHmColor(v){
+  const a = Math.min(1, Math.abs(+v) / 6);
+  return v >= 0 ? `rgba(46,107,64,${(0.12 + a * 0.45).toFixed(2)})` : `rgba(163,61,42,${(0.12 + a * 0.42).toFixed(2)})`;
+}
+function wrTabEtf(d, priors){
+  const e = d.etf || {}, rows = wrRows(e).filter(r => wrIsNum(r.w1));
+  if(!rows.length) return wrExtra(d, 'etf', 1);
+  const regions = [];
+  rows.forEach(r => { const k = r.region || 'Other'; let g = regions.find(x => x.name === k); if(!g){ g = {name:k, rows:[]}; regions.push(g); } g.rows.push(r); });
+  regions.forEach(g => { g.rows.sort((a, b) => (+b.w1) - (+a.w1)); g.avg = g.rows.reduce((s, r) => s + (+r.w1), 0) / g.rows.length; });
+  const sorted = rows.slice().sort((a, b) => (+b.w1) - (+a.w1));
+  const adv = rows.filter(r => +r.w1 > 0).length, dec = rows.filter(r => +r.w1 < 0).length;
+  const best = regions.slice().sort((a, b) => b.avg - a.avg)[0], worst = regions.slice().sort((a, b) => a.avg - b.avg)[0];
+  const lst = (l) => l.map(r => `${wrEsc(r.name.replace(/ ETF$/, ''))} ${wrPct(r.w1, 2, {plain:true})}`).join('<br>');
+  let body = wrP(e.lead, true);
+  body += `<div class="wr-sub">Executive summary — weekly change</div>` + wrNotes((e.notes || []).slice(0, 1));
+  body += wrCards([{k:'Top 5 this week', v: lst(sorted.slice(0, 5)), tone:'up', html:true}, {k:'Bottom 5 this week', v: lst(sorted.slice(-5).reverse()), tone:'down', html:true}], 2);
+  body += wrCards([{k:'Breadth', v:`${adv} Adv / ${dec} Dec`, d:`of ${rows.length} country / region ETFs`, tone: adv > dec ? 'up' : adv < dec ? 'down' : 'flat'},
+                   {k:'Best region (avg)', v:`${wrEsc(best.name)} ${wrPct(best.avg, 2, {plain:true})}`, d:`${best.rows.length} constituent${best.rows.length === 1 ? '' : 's'}`, tone:'up'},
+                   {k:'Worst region (avg)', v:`${wrEsc(worst.name)} ${wrPct(worst.avg, 2, {plain:true})}`, d:`${worst.rows.length} constituent${worst.rows.length === 1 ? '' : 's'}`, tone:'down'}], 3);
+  body += `<div class="wr-sub">Heatmap by region <span style="font-weight:400;color:var(--t3);font-size:11.5px;">— green = positive 1-week return, red = negative; sorted best-to-worst within each region</span></div>`;
+  body += regions.map(g => `<div class="wr-hm-region"><div class="wr-hm-h"><span>${wrEsc(g.name)}</span><span class="avg ${g.avg >= 0 ? 'up' : 'dn'}">avg ${wrPct(g.avg, 2, {plain:true})}</span></div><div class="wr-hm-grid">`
+    + g.rows.map(r => `<div class="wr-hm-cell" style="background:${wrHmColor(r.w1)}"><div class="wr-hm-name">${wrEsc(r.name)}</div>${r.code ? `<div class="wr-hm-tick">${wrEsc(r.code)}</div>` : ''}<div class="wr-hm-val ${+r.w1 >= 0 ? 'up' : 'dn'}">${wrPct(r.w1, 2, {plain:true})}</div></div>`).join('') + '</div></div>').join('');
+  // week-over-week once prior weeks carry ETF rows
+  const prevW = priors.find(p => wrRows(p.etf).some(r => wrIsNum(r.w1)));
+  body += `<div class="wr-sub">Weekly comparison</div>`;
+  if(prevW){
+    const pm = new Map(wrRows(prevW.etf).map(r => [r._key, r]));
+    const cmpRows = rows.map(r => { const p = pm.get(r._key); return Object.assign({}, r, {prev: p && wrIsNum(p.w1) ? +p.w1 : null, delta: p && wrIsNum(p.w1) ? (+r.w1) - (+p.w1) : null}); });
+    body += wrTable('wr-etf-cmp', [
+      {k:'name', t:'ETF', type:'text'}, {k:'region', t:'Region', type:'text'},
+      {k:'prev', t:`w/e ${wrShort(prevW.week_ending)}`, type:'pct'}, {k:'w1', t:`w/e ${wrShort(d.week_ending)}`, type:'pct'}, {k:'delta', t:'Change (pp)', type:'pct'}
+    ], cmpRows, {sort:{col:'w1', dir:'desc'}, maxHeight:'480px'});
+  } else {
+    body += wrNotes((e.notes || []).slice(1)) || `<div class="wr-note red"><div class="lab">Building this over time</div>No earlier weekly file carries ETF rows yet — the week-over-week table appears automatically once one does.</div>`;
+  }
+  if(prevW) body += wrNotes((e.notes || []).slice(1));
+  return wrSection('01', e.title || 'Global ETF Heatmap — Weekly Analysis', body) + wrExtra(d, 'etf', 2);
+}
+
+// ---------- dashboard tile + print ----------
+function wrRenderDashTile(){
+  const card = document.getElementById('d-wr-card'); if(!card) return;
+  const d = WR.weeks[0] && WR.data[WR.weeks[0].file];
+  if(!d){ card.style.display = 'none'; return; }
+  card.style.display = '';
+  document.getElementById('d-wr-week').textContent = `w/e ${wrDate(d.week_ending)}`;
+  const items = (d.headline || []).slice(0, 4);
+  document.getElementById('d-wr-grid').innerHTML = items.length ? items.map(q => `<div class="mc"><div class="mc-label">${wrEsc(q.label || q.k || '')}</div><div class="mc-val ${wrToneCls(q.tone) === 'up' ? 'up' : wrToneCls(q.tone) === 'down' ? 'dn' : ''}">${wrInline(String(q.value != null ? q.value : (q.v != null ? q.v : '—')))}</div>${(q.sub || q.d) ? `<div class="mc-chg flat">${wrInline(q.sub || q.d)}</div>` : ''}</div>`).join('')
+    : `<div class="mc"><div class="mc-label">${wrEsc(d.title || 'Weekly report')}</div><div class="mc-val" style="font-size:13px;">${wrEsc(d.week_label || '')}</div></div>`;
+}
+function wrPrint(){
+  if(!WR.cur || !WR.data[WR.cur]){ toast('Nothing to print yet', 'error'); return; }
+  const keep = WR.tab;
+  WR_TABS.forEach(t => { WR.tab = t.id; wrRenderTab(); });
+  WR.tab = keep;
+  document.body.classList.add('wr-printing');
+  const done = () => { document.body.classList.remove('wr-printing'); window.removeEventListener('afterprint', done); };
+  window.addEventListener('afterprint', done);
+  setTimeout(() => { window.print(); setTimeout(done, 1500); }, 50);
+}
+
 // ============= INIT =============
 function init(){
   load();
@@ -6202,6 +7160,7 @@ function init(){
   renderPnl();
   renderSnap();
   loadLibrary(false);
+  loadWR(false);
   updateMarket();
   setInterval(updateMarket, 30000);
 }
