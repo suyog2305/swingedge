@@ -30,7 +30,17 @@ For each stock, a momentum composite is built and then **percentile-ranked (1–
 - If the export carries 3-month, 6-month and 1-year returns → **IBD-style quarterly weighting** (most recent quarter double-weighted): `0.4·Q1 + 0.2·Q2 + 0.2·H2`.
 - Otherwise → a lighter composite of the returns present: `0.5·3M + 0.3·1M + 0.2·1W`.
 
-RS is only as market-wide as the universe you feed it. A "near-52W-high / weekly-gainers" export gives RS **within that already-strong set**; for a true market-wide RS rating, export a broad screen (e.g. *market capitalization > ₹1,000 Cr*, no return filter) — the extra columns (6-month, 1-year returns) also switch on the IBD weighting.
+RS is only as market-wide as the universe you feed it. A "near-52W-high / weekly-gainers" export gives RS **within that already-strong set**; for a true market-wide RS rating, export a broad screen (e.g. *market capitalization > ₹1,000 Cr*, no return filter).
+
+**Recommended screener.in screen for market-wide RS.** Create a screen with a broad filter and make sure the return columns appear in the export (on screener.in, a ratio only becomes an export column if it is referenced in the query — so tack the returns onto the query even where they don't filter anything):
+
+```
+Market Capitalization > 1000 AND
+Return over 1year > -1000 AND Return over 6months > -1000 AND
+Return over 3months > -1000 AND Return over 1month > -1000 AND Return over 1week > -1000
+```
+
+Add `DMA 50`, `DMA 200`, `Down from 52w high`, `Up from 52w low` and `High price all time` as columns too (the trend template and near-high markers use them). With **6-month and 1-year returns present the RS engine automatically switches to IBD-style quarterly weighting**; without them it falls back to the 3m/1m/1w blend. The RS table caps rendering at the top 800 rows for responsiveness — filters and sorting still run over the full universe.
 
 ### Trend template (Stage 2 by calculation)
 
@@ -83,9 +93,24 @@ The Edge data also **back-feeds the older Stage 2 · 52W Highs scan and the Conv
 
 **`stage2` row** — `code` (required), `industry`, `rs_pct` (the provider's RS%), `mcap` (₹Cr), `vol_cr`, `ret` (% since entry), `weeks`, `since` (entry date), `asm`, `asm_days`, `status` (New Addition / Re-entry / Continues Trend).
 
-## Automating the weekly export (future)
+## Automating the weekly pull
 
-Today the flow is: export from screener.in → run `build_scan.py` → commit. To automate it, a small fetcher can log into screener.in with your session cookie, pull the saved screen + Stage 2 watchlist as CSV, run the same builder, and commit — on a schedule. That fetcher isn't in the repo yet; ping to add it when you want to wire up your login.
+`tools/fetch_screener.py` pulls your screener.in export automatically, runs `build_scan.py`, and (optionally) commits — so a weekly run is one command:
+
+```bash
+python tools/fetch_screener.py --date 2026-08-21            # fetch + build
+python tools/fetch_screener.py --dry-run                    # show the plan, fetch nothing
+python tools/fetch_screener.py --commit                     # also git commit + push data/scans
+```
+
+**One-time setup**
+
+1. `cp tools/screener_config.example.json tools/screener_config.json` (the copy is gitignored) and paste your **Export to Excel** link(s) into `exports[].url`. Get a link by opening your saved screen on screener.in and right-clicking *Export to Excel → Copy link address*. Set `kind` to `screener` for the universe (or `stage2` for a Stage 2 list, if you host one at an exportable URL); add `min_mcap` and a `name`.
+2. Provide your session cookie **without putting it in any prompt**: create `.secrets/screener_cookie.txt` (gitignored) containing your screener.in `sessionid` value (DevTools → Application → Cookies → `sessionid`), or set the `SCREENER_COOKIE` environment variable. The script only reads it to attach to the download; it never prints, logs, or commits it.
+
+If the cookie is missing or expired, screener.in returns its login page instead of a spreadsheet — the script detects that and stops without writing anything, so a stale cookie can never corrupt a scan file. To run it on a schedule, wrap the `--commit` form in your OS scheduler (Task Scheduler / cron); refresh the cookie file whenever the session expires.
+
+The Stage 2 list stays in your hands — keep producing it however you do today and pass it with `build_scan.py --stage2` (or add it as a `kind: "stage2"` export URL if it lives somewhere the cookie can reach).
 
 ## Sample weeks
 

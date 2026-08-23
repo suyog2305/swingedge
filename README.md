@@ -25,3 +25,5 @@ python tools/build_scan.py --date 2026-08-21 --screener "<screener export>" --st
 ```
 
 Provide a full market-cap screen (not just the near-52W-high list) for a market-wide RS rating. The Edge data also back-feeds the legacy Stage 2 scan and Convergence funnel automatically.
+
+To automate the weekly pull, `tools/fetch_screener.py` downloads your screener.in export with your session cookie, runs the builder, and can commit + push. Setup and the credential-safe cookie handling are documented in [data/scans/README.md](data/scans/README.md).

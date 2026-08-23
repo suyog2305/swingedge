@@ -6737,6 +6737,9 @@ function wrTable(id, cols, rows, opt){
       });
     }
   }
+  const total = list.length;
+  const capped = opt.cap && total > opt.cap;
+  if(capped) list = list.slice(0, opt.cap);   // render only the top N after sorting; keeps large universes snappy
   const thead = cols.map(c => {
     const numCls = ['num','int','pct','pct0','signed','idx'].includes(c.sortType || c.type) ? 'num' : '';
     const sortCls = st && st.col === c.k ? (st.dir === 'asc' ? 'sort-asc' : 'sort-desc') : '';
@@ -6764,7 +6767,8 @@ function wrTable(id, cols, rows, opt){
   }).join('');
   const empty = `<tr><td colspan="${cols.length}" style="text-align:center;padding:26px;color:var(--t3);">${wrEsc(opt.empty || 'No rows.')}</td></tr>`;
   const h = opt.maxHeight ? ` style="max-height:${opt.maxHeight}"` : '';
-  return `<div class="wr-twrap ${opt.tall ? 'tall' : ''}" id="${wrAttr(id)}-wrap"${h}><table class="scan-table"><thead><tr>${thead}</tr></thead><tbody>${tbody || empty}</tbody></table></div>`;
+  const note = capped ? `<div class="wr-hint" style="margin:6px 2px 0;">Showing the top ${wrNum(opt.cap)} of ${wrNum(total)} rows — refine the filters to narrow the list.</div>` : '';
+  return `<div class="wr-twrap ${opt.tall ? 'tall' : ''}" id="${wrAttr(id)}-wrap"${h}><table class="scan-table"><thead><tr>${thead}</tr></thead><tbody>${tbody || empty}</tbody></table></div>${note}`;
 }
 function wrSort(id, col){
   const st = WR.sort[id];
@@ -7709,7 +7713,7 @@ function seRenderRSTable(){
     {k:'from_52wh', t:'vs 52WH', type:'pct0', dec:1},
     {k:'eps_yoy', t:'EPS YoY', type:'pct', dec:0}, {k:'sales_yoy', t:'Sales YoY', type:'pct', dec:0}, {k:'pe', t:'P/E', type:'num', dec:1}
   ];
-  host.innerHTML = wrTable('se-rs', cols, list, {sort:{col:'rs', dir:'desc'}, tall:true, empty:'No stocks match the filters.'});
+  host.innerHTML = wrTable('se-rs', cols, list, {sort:{col:'rs', dir:'desc'}, tall:true, cap:800, empty:'No stocks match the filters.'});
   const cnt = document.getElementById('se-rs-count'); if(cnt) cnt.textContent = `${wrNum(list.length)} of ${wrNum(SE.c.U.length)} stocks`;
 }
 function seExportCsv(){
