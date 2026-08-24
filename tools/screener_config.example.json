@@ -1,12 +1,15 @@
 {
-  "_comment": "Copy to tools/screener_config.json (gitignored) and fill in your screen_url(s). screen_url = the address-bar URL of your saved screener.in screen; the fetcher finds its Export-to-Excel form and posts it with your cookie. Use 'url' instead for a direct-download link (e.g. a Google Sheets .../export?format=csv). kind = 'screener' (weekly universe) or 'stage2'.",
+  "_comment": "Copy this to tools/screener_config.json (gitignored) and put your screener.in sessionid in .secrets/screener_cookie.txt. Give each source ONE of: raw_query (a query string, no saved screen needed \u2014 RECOMMENDED), screen_url (a saved screen's page URL), or url (a direct CSV/XLSX link). kind = 'screener' or 'stage2'.",
   "sources": [
     {
-      "screen_url": "https://www.screener.in/screens/REPLACE_WITH_YOUR_SCREEN_ID/your-screen-slug/",
+      "raw_query": "Market Capitalization > 1000",
       "kind": "screener",
-      "name": "Market cap > 1000 (full-market RS)",
+      "name": "Market cap > 1000 (broad market)",
       "min_mcap": 1000
     }
   ],
-  "git": { "push": true, "branch": "main" }
+  "git": {
+    "push": true,
+    "branch": "main"
+  }
 }
