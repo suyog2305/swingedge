@@ -27,3 +27,14 @@ python tools/build_scan.py --date 2026-08-21 --screener "<screener export>" --st
 Provide a full market-cap screen (not just the near-52W-high list) for a market-wide RS rating. The Edge data also back-feeds the legacy Stage 2 scan and Convergence funnel automatically.
 
 To automate the weekly pull, `tools/fetch_screener.py` downloads your screener.in export with your session cookie, runs the builder, and can commit + push. Setup and the credential-safe cookie handling are documented in [data/scans/README.md](data/scans/README.md).
+
+
+## PEAD Radar — quarterly earnings drift
+
+A separate quarterly dashboard that tracks results classified for **post-earnings-announcement drift** and cross-references them with your weekly momentum data:
+
+- **Convergence ★** — Strong/Moderate PEAD stocks that are also near a 52-week high and on the Stage 2 list (strong earnings meeting momentum).
+- **Industry earnings strength**, and **quarter-over-quarter** tracking (repeat performers, newly-strong, faded) that fills in as you upload each quarter.
+- The **RS Screen** gains an *Earnings* column + PEAD filter, so momentum names can be screened for strong results too.
+
+Upload one file per quarter and build it with `python tools/build_pead.py --file "<quarterly xlsx>"`. The cross-reference is live against the selected Edge week — see [data/pead/README.md](data/pead/README.md).

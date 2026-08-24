@@ -1063,6 +1063,24 @@ html[data-theme="lab"] .card,html[data-theme="lab"] .metric,html[data-theme="lab
 @media(max-width:1100px){.se-grid2,.se-grid-sec{grid-template-columns:1fr;}.se-cols3{grid-template-columns:1fr;}}
 @media(max-width:900px){.se-hero,.se-body,.se-pad{padding-left:16px;padding-right:16px;}.se-hero h1{font-size:24px;}.se-lead-grid{grid-template-columns:repeat(2,1fr);}}
 
+/* ============= PEAD RADAR ============= */
+.pd-dist{display:flex;height:26px;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);}
+.pd-dist-seg{display:flex;align-items:center;justify-content:center;min-width:0;font-family:var(--mono);font-size:11px;font-weight:700;color:#0B1220;transition:width .5s ease;overflow:hidden;}
+.pd-dist-seg span{padding:0 4px;white-space:nowrap;}
+.pd-dist-seg.strong{background:#34D399;} .pd-dist-seg.moderate{background:#7DD3FC;} .pd-dist-seg.weak{background:#FCD34D;} .pd-dist-seg.none{background:rgba(148,163,184,.55);color:#E2E8F0;}
+.pd-tier{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.02em;padding:2px 8px;border-radius:99px;border:1px solid transparent;white-space:nowrap;}
+.pd-tier.strong{background:var(--sage-soft);color:var(--sage2);border-color:rgba(34,197,94,.35);}
+.pd-tier.moderate{background:var(--sky-soft);color:var(--sky2);border-color:rgba(96,165,250,.32);}
+.pd-tier.weak{background:var(--gold-soft);color:var(--gold2);border-color:rgba(245,158,11,.3);}
+.pd-tier.none{background:var(--neutral-soft);color:var(--t3);border-color:var(--b2);}
+html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data-theme="lab"]) .pd-tier.moderate{color:var(--sky2);}
+/* PEAD badge shown on RS-screen / scan rows */
+.pd-badge{display:inline-block;width:8px;height:8px;border-radius:2px;margin-left:6px;vertical-align:middle;}
+.pd-badge.strong{background:#34D399;} .pd-badge.moderate{background:#7DD3FC;} .pd-badge.weak{background:#FCD34D;} .pd-badge.none{background:var(--b3);}
+.pd-tag{display:inline-block;font-family:var(--mono);font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:99px;margin-left:5px;vertical-align:middle;}
+.pd-tag.strong{background:var(--sage-soft);color:var(--sage2);} .pd-tag.moderate{background:var(--sky-soft);color:var(--sky2);}
+.pd-hero-sel{display:flex;gap:6px;align-items:center;}
+
 </style>
 </head>
 <body>
@@ -1085,6 +1103,7 @@ html[data-theme="lab"] .card,html[data-theme="lab"] .metric,html[data-theme="lab
     <div class="nav" id="nav-rsscreen" onclick="show('rsscreen')"><i class="ti ti-chart-arrows-vertical"></i>RS Screen</div>
     <div class="nav" id="nav-sectors" onclick="show('sectors')"><i class="ti ti-chart-pie-2"></i>Sectors</div>
     <div class="nav" id="nav-s2track" onclick="show('s2track')"><i class="ti ti-stairs-up"></i>Stage 2 Tracker</div>
+    <div class="nav" id="nav-pead" onclick="show('pead')"><i class="ti ti-report-money"></i>PEAD Radar</div>
     <div class="sb-group">Core</div>
     <div class="nav" id="nav-dash" onclick="show('dash')"><i class="ti ti-layout-dashboard"></i>Dashboard</div>
     <div class="nav" id="nav-trades" onclick="show('trades')"><i class="ti ti-notebook"></i>Trade Log</div>
@@ -1117,6 +1136,20 @@ html[data-theme="lab"] .card,html[data-theme="lab"] .metric,html[data-theme="lab
 
 <!-- ============= MAIN ============= -->
 <div class="main">
+
+<!-- ── EDGE: PEAD RADAR ── -->
+<div class="sec" id="sec-pead">
+  <div class="topbar">
+    <div class="tb-left"><span class="tb-title">PEAD Radar</span><span class="tb-crumb">/ quarterly earnings · post-earnings drift</span></div>
+    <div class="tb-right">
+      <button class="btn btn-ghost btn-sm" onclick="pdStep(1)" title="Older quarter"><i class="ti ti-chevron-left"></i></button>
+      <select class="wr-week-sel" id="pd-quarter" onchange="pdSelectQuarter(this.value)"><option value="">Loading…</option></select>
+      <button class="btn btn-ghost btn-sm" onclick="pdStep(-1)" title="Newer quarter"><i class="ti ti-chevron-right"></i></button>
+      <button class="btn btn-sm" onclick="loadPD(true)"><i class="ti ti-refresh"></i>Refresh</button>
+    </div>
+  </div>
+  <div class="content se-content"><div id="pd-body"></div></div>
+</div>
 
 <!-- ── EDGE: MARKET PULSE ── -->
 <div class="sec active" id="sec-pulse">
@@ -7347,7 +7380,7 @@ function wrPrint(){
 const SE = {
   scans: [], cur: null, data: {}, loaded: false, loading: false, error: null,
   c: null,                     // computed bundle for the selected week
-  ui: { rsq:'', rsmin:'0', rss2:'all', rsgroup:'all', rsband:'all', rsnew:false, rsath:false,
+  ui: { rsq:'', rsmin:'0', rss2:'all', rsgroup:'all', rsband:'all', rsnew:false, rsath:false, rspead:'all',
         s2q:'', s2status:'all', s2ind:'all', s2minrs:'0', s2minmcap:'0', s2scan:false,
         secGroup:null, secView:'group' },
   weights: { r3m: 0.5, r1m: 0.3, r1w: 0.2 }   // fallback composite when only 3-month history is available
@@ -7509,6 +7542,7 @@ function seCompute(){
   // --- Stage 2 list by industry ---
   const s2ind = new Map(); S2.forEach(r => { const k = r.industry || 'Other'; if(!s2ind.has(k)) s2ind.set(k, []); s2ind.get(k).push(r); });
   const s2Industries = [...s2ind.entries()].map(([name, v]) => ({name, n: v.length, entered: v.filter(r => r.state === 'entered' || r.state === 'reentry').length, medWeeks: med(v.map(r => r.weeks)), medRS: med(v.map(r => r.rs_pct)), avgRet: avg(v.map(r => r.ret)), inScan: v.filter(r => r.inScan).length})).sort((a, b) => b.n - a.n);
+  if(typeof PD !== 'undefined' && PD.loaded && typeof pdStampUniverse === 'function') pdStampUniverse(U);
   SE.c = { d, date: d.date, U, S2, exits, sectors, s2Industries, prevU, prevS2, hasPrevU: !!prevU, hasPrevS2: !!prevS2,
     stats: { n: U.length, s2list: S2.length, entered: S2.filter(r => r.state === 'entered').length, reentry: S2.filter(r => r.state === 'reentry').length, exited: exits.length,
       ttPass: U.filter(r => r.s2calc).length, inBoth: U.filter(r => r.s2list).length, medR1w: med(U.map(r => r.r1w)), medR3m: med(U.map(r => r.r3m)), medFrom52: med(U.map(r => r.from_52wh)),
@@ -7560,7 +7594,7 @@ function seEmpty(title, body){
 }
 const SE_EMPTY_BODY = 'Publish a week with <code>python tools/build_scan.py --date YYYY-MM-DD --screener &lt;screener export&gt; --stage2 &lt;Stage 2 list&gt;</code>, commit <code>data/scans/</code>, then Refresh.';
 function seSectionTop(sectionId){ return ''; }
-function seRenderAll(){ seRenderPulse(); seRenderRS(); seRenderSectors(); seRenderS2(); }
+function seRenderAll(){ seRenderPulse(); seRenderRS(); seRenderSectors(); seRenderS2(); if(typeof renderPD === 'function' && typeof PD !== 'undefined' && PD.loaded && document.getElementById('pd-body')) renderPD(); }
 function seRerender(tableId){
   if(tableId.startsWith('se-rs')) seRenderRSTable();
   else if(tableId.startsWith('se-s2')) seRenderS2Table();
@@ -7678,6 +7712,7 @@ function seRenderRS(){
       <select onchange="SE.ui.rss2=this.value;seRenderRSTable()">${[['all', 'Stage 2: any'], ['list', 'On Stage 2 list'], ['calc', 'Passes trend template'], ['both', 'List + template'], ['either', 'List or template'], ['none', 'Neither']].map(([v, t]) => `<option value="${v}" ${u.rss2 === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
       <select onchange="SE.ui.rsgroup=this.value;seRenderRSTable()"><option value="all">All industry groups</option>${groups.map(g => `<option value="${wrAttr(g)}" ${u.rsgroup === g ? 'selected' : ''}>${wrEsc(g)}</option>`).join('')}</select>
       <select onchange="SE.ui.rsband=this.value;seRenderRSTable()"><option value="all">All sizes</option>${SE_BANDS.map(([b]) => `<option value="${b}" ${u.rsband === b ? 'selected' : ''}>${b} cap</option>`).join('')}</select>
+      <select onchange="SE.ui.rspead=this.value;seRenderRSTable()">${[['all', 'Earnings: any'], ['3', 'Strong PEAD'], ['2', 'Strong + Moderate PEAD'], ['1', 'Any PEAD (weak+)'], ['yes', 'In PEAD list']].map(([v, t]) => `<option value="${v}" ${u.rspead === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
       <label class="se-check"><input type="checkbox" ${u.rsnew ? 'checked' : ''} onchange="SE.ui.rsnew=this.checked;seRenderRSTable()"> New this week</label>
       <label class="se-check"><input type="checkbox" ${u.rsath ? 'checked' : ''} onchange="SE.ui.rsath=this.checked;seRenderRSTable()"> Near all-time high</label>
       <span class="wr-count" id="se-rs-count"></span>
@@ -7697,6 +7732,10 @@ function seRSFiltered(){
     if(u.rsband !== 'all' && r.band !== u.rsband) return false;
     if(u.rsnew && !r.isNew) return false;
     if(u.rsath && !r.near_ath) return false;
+    if(u.rspead === 'yes' && r.pead == null) return false;
+    if(u.rspead === '3' && !(r.pead === 3)) return false;
+    if(u.rspead === '2' && !(r.pead >= 2)) return false;
+    if(u.rspead === '1' && !(r.pead >= 1)) return false;
     return true;
   });
 }
@@ -7714,6 +7753,7 @@ function seRenderRSTable(){
     {k:'rsSector', t:'RS vs sector', type:'num', fn: r => r.rsSector},
     {k:'trend', t:'Trend', type:'html', sortType:'num', fn: r => r.trend.total ? r.trend.pass + r.trend.pass / (r.trend.total + 1) : null, html: seTrendCell},
     {k:'s2', t:'Stage 2', type:'html', sortType:'num', fn: r => (r.s2list ? 2 : 0) + (r.s2calc ? 1 : 0), html: seS2Cell},
+    {k:'pead', t:'Earnings', type:'html', sortType:'num', fn: r => r.pead != null ? r.pead : null, html: r => r.pead != null && typeof pdTierCell === 'function' ? pdTierCell(r.pead) : '<span class="flat">—</span>'},
     {k:'r1w', t:'1W', type:'pct', dec:1}, {k:'r1m', t:'1M', type:'pct', dec:1}, {k:'r3m', t:'3M', type:'pct', dec:0},
     {k:'from_52wh', t:'vs 52WH', type:'pct0', dec:1},
     {k:'eps_yoy', t:'EPS YoY', type:'pct', dec:0}, {k:'sales_yoy', t:'Sales YoY', type:'pct', dec:0}, {k:'pe', t:'P/E', type:'num', dec:1}
@@ -7867,6 +7907,307 @@ function seApplyTheme(t){
 function seToggleTheme(){ seApplyTheme((document.documentElement.getAttribute('data-theme') || 'lab') === 'lab' ? 'ledger' : 'lab'); }
 seApplyTheme();
 
+// ============= PEAD RADAR — quarterly earnings drift, cross-referenced with the weekly scan =============
+// Reads data/pead/index.json + data/pead/<quarter>.json (schema swingedge-pead/1). Each quarter is a
+// list of companies with a Strong/Moderate/Weak/No PEAD classification and growth metrics. The module:
+//   • tracks the tier distribution quarter-over-quarter (repeat performers, newly strong, faded),
+//   • cross-references every PEAD name against the currently-selected weekly scan universe (name -> NSE
+//     code -> near-52W-high + RS) and the Stage 2 list (code) — the "strong earnings + momentum" trifecta.
+// Cross-ref is live against whichever Edge week is selected, so richer universes match more names.
+const PD = {
+  quarters: [], cur: null, data: {}, loaded: false, loading: false, error: null,
+  ui: { q:'', tier:'all', ind:'all', xref:'all', minmcap:'0', sort:{col:'tier', dir:'desc'} }
+};
+const PD_TIERS = [[3,'Strong','strong'],[2,'Moderate','moderate'],[1,'Weak','weak'],[0,'No PEAD','none']];
+const PD_TIER_LABEL = {3:'Strong',2:'Moderate',1:'Weak',0:'No PEAD'};
+const PD_TIER_CLS = {3:'strong',2:'moderate',1:'weak',0:'none'};
+const PD_NEARHIGH = 10;   // within N% of 52-week high counts as "near high" when cross-referencing
+
+function peadKey(n){
+  return String(n == null ? '' : n).toLowerCase()
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9 ]/g, ' ')
+    .replace(/\b(ltd|limited|the|company|co|corporation|corp|inc|plc|india|indian|of|and)\b/g, ' ')
+    .replace(/\binds?\b/g, 'industries')
+    .replace(/\s+/g, ' ').trim();
+}
+
+// ---------- loading ----------
+async function loadPD(manual){
+  if(PD.loading) return;
+  PD.loading = true;
+  try{
+    const res = await fetch('data/pead/index.json', {cache: manual ? 'reload' : 'default'});
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const idx = await res.json();
+    PD.quarters = (Array.isArray(idx.quarters) ? idx.quarters : []).filter(q => q && q.file).sort((a, b) => (b.sortkey || 0) - (a.sortkey || 0));
+    PD.error = null;
+    if(manual) PD.data = {};
+    const keep = PD.cur && PD.quarters.some(q => q.file === PD.cur);
+    PD.cur = keep ? PD.cur : (PD.quarters[0] ? PD.quarters[0].file : null);
+    if(PD.cur) await pdLoadSet(PD.cur);
+    PD.loaded = true;
+    if(manual) toast(`PEAD refreshed — ${PD.quarters.length} quarter${PD.quarters.length === 1 ? '' : 's'}`, 'success');
+  }catch(err){
+    PD.loaded = true; PD.error = err.message || String(err);
+    if(manual) toast('Could not load PEAD data — is data/pead/index.json in the repo?', 'error');
+  }finally{ PD.loading = false; }
+  pdFillSelect();
+  if(typeof seCompute === 'function') seCompute();   // so RS Screen etc. pick up PEAD stamps
+  renderPD(); if(typeof seRenderAll === 'function') seRenderAll();
+}
+async function pdFetch(file){
+  if(PD.data[file]) return PD.data[file];
+  const res = await fetch('data/pead/' + file);
+  if(!res.ok) throw new Error(file + ': HTTP ' + res.status);
+  const d = await res.json();
+  d.rows = Array.isArray(d.rows) ? d.rows : [];
+  d.rows.forEach(r => { if(!r.key) r.key = peadKey(r.name); });
+  PD.data[file] = d;
+  return d;
+}
+async function pdLoadSet(file){
+  const d = await pdFetch(file);
+  const i = PD.quarters.findIndex(q => q.file === file);
+  const priors = PD.quarters.slice(i + 1, i + 3);
+  await Promise.allSettled(priors.map(p => pdFetch(p.file)));
+  return d;
+}
+function pdFillSelect(){
+  const sel = document.getElementById('pd-quarter'); if(!sel) return;
+  sel.innerHTML = PD.quarters.map(q => `<option value="${wrAttr(q.file)}">${wrEsc(q.quarter)} · ${q.count} cos · ${q.strong} strong</option>`).join('') || '<option value="">No quarters</option>';
+  if(PD.cur) sel.value = PD.cur;
+}
+async function pdSelectQuarter(file){
+  if(!file) return;
+  PD.cur = file; PD.ui.sort = {col:'tier', dir:'desc'};
+  try{ await pdLoadSet(file); }catch(err){ toast('Could not load quarter: ' + (err.message || err), 'error'); }
+  pdFillSelect(); renderPD();
+}
+function pdStep(dir){
+  const i = PD.quarters.findIndex(q => q.file === PD.cur), j = i + dir;
+  if(j < 0 || j >= PD.quarters.length) return;
+  pdSelectQuarter(PD.quarters[j].file);
+}
+function pdCur(){ return PD.cur && PD.data[PD.cur]; }
+function pdPriors(){
+  const i = PD.quarters.findIndex(q => q.file === PD.cur);
+  return i < 0 ? [] : PD.quarters.slice(i + 1).map(q => PD.data[q.file]).filter(Boolean);
+}
+
+// ---------- cross-reference against the selected weekly scan ----------
+function pdXref(){
+  const d = pdCur(); if(!d) return null;
+  const c = (typeof SE !== 'undefined' && SE.c) ? SE.c : null;
+  // universe keyed by normalized name; stage 2 keyed by code
+  const uniByKey = new Map(), uniKeys = [];
+  if(c){ c.U.forEach(u => { const k = peadKey(u.name); if(k && !uniByKey.has(k)){ uniByKey.set(k, u); uniKeys.push(k); } }); }
+  const s2ByCode = new Map(); if(c){ c.S2.forEach(s => s2ByCode.set(String(s.code || '').toUpperCase(), s)); }
+  const matchUni = (pk) => {
+    if(uniByKey.has(pk)) return uniByKey.get(pk);
+    for(const uk of uniKeys){ if(uk.split(' ').length >= 2 && (pk.startsWith(uk + ' ') || uk.startsWith(pk + ' '))) return uniByKey.get(uk); }
+    return null;
+  };
+  const rows = d.rows.map(r => {
+    const uni = c ? matchUni(r.key) : null;
+    const code = uni ? (uni.code || null) : null;
+    const s2 = code ? (s2ByCode.get(code.toUpperCase()) || null) : null;
+    const nearHigh = uni && wrIsNum(uni.from_52wh) ? (+uni.from_52wh >= -PD_NEARHIGH) : false;
+    return Object.assign({}, r, { code, uni, s2, rs: uni ? uni.rs : null, from_52wh: uni ? uni.from_52wh : null,
+      inScan: !!uni, nearHigh, inS2: !!s2, s2weeks: s2 ? s2.weeks : null,
+      converge: r.tier >= 2 && nearHigh && !!s2 });
+  });
+  const strong = rows.filter(r => r.tier >= 2);
+  const stats = {
+    count: rows.length, strong: rows.filter(r => r.tier === 3).length, moderate: rows.filter(r => r.tier === 2).length,
+    weak: rows.filter(r => r.tier === 1).length, none: rows.filter(r => r.tier === 0).length,
+    inScan: rows.filter(r => r.inScan).length, nearHigh: rows.filter(r => r.nearHigh).length, inS2: rows.filter(r => r.inS2).length,
+    converge: rows.filter(r => r.converge).length,
+    strongNearHigh: strong.filter(r => r.nearHigh).length, strongS2: strong.filter(r => r.inS2).length,
+    medEps: pdMedian(rows.map(r => r.eps_yoy)), medPat: pdMedian(rows.map(r => r.pat_yoy)),
+    hasScan: !!c, scanDate: c ? c.date : null
+  };
+  return { d, rows, stats };
+}
+function pdMedian(a){ const s = a.filter(wrIsNum).map(Number).sort((x, y) => x - y); return s.length ? (s.length % 2 ? s[(s.length - 1) / 2] : (s[s.length / 2 - 1] + s[s.length / 2]) / 2) : null; }
+
+// stamp PEAD tier onto SE universe rows (so RS Screen / Pulse can show an earnings badge)
+function pdStampUniverse(U){
+  const d = pdCur(); if(!d || !U) return;
+  const byKey = new Map(); d.rows.forEach(r => { if(!byKey.has(r.key)) byKey.set(r.key, r); });
+  const keys = [...byKey.keys()];
+  U.forEach(u => {
+    const uk = peadKey(u.name);
+    let p = byKey.get(uk);
+    if(!p){ for(const pk of keys){ if(pk.split(' ').length >= 2 && (uk.startsWith(pk + ' ') || pk.startsWith(uk + ' '))){ p = byKey.get(pk); break; } } }
+    if(p){ u.pead = p.tier; u.peadLabel = p.pead; u.peadRow = p; }
+  });
+}
+
+// QoQ: compare tiers of the current quarter's companies vs the previous quarter
+function pdQoQ(){
+  const d = pdCur(); const priors = pdPriors(); const prev = priors[0];
+  if(!d || !prev) return null;
+  const prevByKey = new Map(prev.rows.map(r => [r.key, r]));
+  const repeat = [], rising = [], newStrong = [], faded = [];
+  d.rows.forEach(r => {
+    if(r.tier < 2) return;
+    const p = prevByKey.get(r.key);
+    if(!p){ newStrong.push(r); return; }
+    if(p.tier >= 2 && r.tier >= 2) repeat.push(Object.assign({}, r, {prevTier: p.tier}));
+    if(r.tier > p.tier) rising.push(Object.assign({}, r, {prevTier: p.tier}));
+  });
+  prev.rows.forEach(p => { if(p.tier >= 2){ const cur = d.rows.find(r => r.key === p.key); if(!cur || cur.tier < 2) faded.push(Object.assign({}, p, {nowTier: cur ? cur.tier : null})); } });
+  return { prev, repeat, rising, newStrong, faded };
+}
+
+// ---------- cells ----------
+function pdTierCell(tier){ return `<span class="pd-tier ${PD_TIER_CLS[tier]}">${PD_TIER_LABEL[tier]}</span>`; }
+function pdXrefCell(r){
+  let s = '';
+  if(r.nearHigh) s += `<span class="se-pill s2" title="Near its 52-week high in the scan of w/e ${r.uni && SE.c ? wrDate(SE.c.date) : ''}${wrIsNum(r.from_52wh) ? ' · ' + wrPct(r.from_52wh, 1, {plain:true}) + ' from high' : ''}">near high</span>`;
+  else if(r.inScan) s += `<span class="se-pill calc" title="In this week's scan${wrIsNum(r.from_52wh) ? ' · ' + wrPct(r.from_52wh, 1, {plain:true}) + ' from high' : ''}">in scan</span>`;
+  if(r.inS2) s += `<span class="se-pill re" title="On the Stage 2 list${r.s2weeks ? ' · ' + r.s2weeks + ' wk' : ''}">S2${r.s2weeks ? ' · ' + r.s2weeks + 'w' : ''}</span>`;
+  return s || '<span class="flat">—</span>';
+}
+function pdNameCell(r){
+  return `<div class="se-stock"><div><span class="tk">${wrEsc(r.name)}</span>${r.converge ? '<span class="se-pill new" title="Strong/Moderate PEAD + near 52W high + Stage 2">★</span>' : ''}${wrOwned({code:r.code, stock:r.name})}</div>${r.industry ? `<div class="se-nm">${wrEsc(r.industry)}</div>` : ''}</div>`;
+}
+function pdActCell(r){ return r.code ? wrCodeCell({code:r.code, name:r.name, industry:r.industry}, r.industry) : '<span class="flat" title="not matched to a ticker in the current scan">—</span>'; }
+
+// ---------- render ----------
+function renderPD(){
+  const el = document.getElementById('pd-body'); if(!el) return;
+  if(!PD.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading PEAD data…</p></div>'; return; }
+  const x = pdXref();
+  if(!x){ el.innerHTML = `<div class="wr-empty"><i class="ti ti-report-money"></i><h4>No PEAD quarter published yet</h4><p>Build one with <code>python tools/build_pead.py --file "&lt;quarterly xlsx&gt;"</code>, commit <code>data/pead/</code>, then Refresh.</p>${PD.error ? `<p style="margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--rose2);">${wrEsc(PD.error)}</p>` : ''}</div>`; return; }
+  const { d, rows, stats } = x;
+  const qoq = pdQoQ();
+  const distTotal = stats.count || 1;
+  const distBar = PD_TIERS.map(([t, lbl, cls]) => { const n = {3:stats.strong,2:stats.moderate,1:stats.weak,0:stats.none}[t]; return `<div class="pd-dist-seg ${cls}" style="width:${(100 * n / distTotal).toFixed(1)}%" title="${lbl}: ${n} (${Math.round(100*n/distTotal)}%)"><span>${n}</span></div>`; }).join('');
+  const prevStrong = qoq ? qoq.prev.distribution && (qoq.prev.distribution.strong + qoq.prev.distribution.moderate) : null;
+  const curStrong = stats.strong + stats.moderate;
+  const qoqDelta = qoq && prevStrong != null ? curStrong - prevStrong : null;
+
+  const kpis = [
+    seKpi('Companies', wrNum(stats.count), `${wrEsc(d.quarter)}${d.reported ? ' · compiled ' + wrDate(d.reported) : ''}`, '', stats.count),
+    seKpi('Strong + Moderate PEAD', wrNum(curStrong), qoqDelta != null ? `<span class="${qoqDelta>=0?'up':'dn'}">${qoqDelta>=0?'+':''}${qoqDelta}</span> vs ${wrEsc(qoq.prev.quarter)}` : `${stats.strong} strong · ${stats.moderate} moderate`, 'accent', curStrong),
+    seKpi('Near 52W high', stats.hasScan ? wrNum(stats.nearHigh) : '—', stats.hasScan ? `of the scan (w/e ${wrDate(stats.scanDate)}) · ${stats.strongNearHigh} are strong/mod` : 'load a weekly scan to cross-ref', 'ok', stats.nearHigh),
+    seKpi('On Stage 2 list', stats.hasScan ? wrNum(stats.inS2) : '—', stats.hasScan ? `${stats.strongS2} of them strong/mod` : 'load a Stage 2 list to cross-ref', '', stats.inS2),
+    seKpi('Convergence ★', wrNum(stats.converge), 'strong/mod PEAD + near high + Stage 2', stats.converge ? 'ok' : '', stats.converge),
+    seKpi('Median EPS · PAT YoY', `${wrPct(stats.medEps,0,{plain:true})} · ${wrPct(stats.medPat,0,{plain:true})}`, 'across all companies this quarter', '')
+  ];
+
+  // convergence spotlight: tier>=2 and (nearHigh or in S2), best first
+  const spot = rows.filter(r => r.tier >= 2 && (r.nearHigh || r.inS2)).sort((a, b) => b.converge - a.converge || b.tier - a.tier || (b.rs || 0) - (a.rs || 0));
+  const spotTable = wrTable('pd-spot', [
+    {k:'name', t:'Company', type:'html', html: pdNameCell},
+    {k:'code', t:'Code', type:'html', html: pdActCell},
+    {k:'pead', t:'PEAD', type:'html', sortType:'num', fn: r => r.tier, html: r => pdTierCell(r.tier)},
+    {k:'xref', t:'Momentum', type:'html', sortType:'num', fn: r => (r.nearHigh?2:0)+(r.inS2?1:0), html: pdXrefCell},
+    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs != null ? seRsBar(r.rs) : '<span class="flat">—</span>'},
+    {k:'from_52wh', t:'vs 52WH', type:'pct0', dec:1},
+    {k:'eps_yoy', t:'EPS YoY', type:'pct', dec:0}, {k:'pat_yoy', t:'PAT YoY', type:'pct', dec:0},
+    {k:'sales_yoy', t:'Sales YoY', type:'pct', dec:0}, {k:'mcap', t:'MCap (₹Cr)', type:'int'}, {k:'peg', t:'PEG', type:'num', dec:2}
+  ], spot, {sort:{col:'xref', dir:'desc'}, maxHeight:'460px', empty: stats.hasScan ? 'No strong/moderate PEAD names are near a high or in Stage 2 in the current scan.' : 'Load a weekly scan (Edge) to light up the cross-reference.'});
+
+  // industry earnings strength
+  const byInd = new Map();
+  rows.forEach(r => { const k = r.industry || 'Other'; if(!byInd.has(k)) byInd.set(k, []); byInd.get(k).push(r); });
+  const inds = [...byInd.entries()].map(([name, list]) => ({name, n:list.length, strong:list.filter(r=>r.tier===3).length, mod:list.filter(r=>r.tier===2).length,
+    good:list.filter(r=>r.tier>=2).length, nearHigh:list.filter(r=>r.nearHigh).length, medEps:pdMedian(list.map(r=>r.eps_yoy))}))
+    .filter(i => i.good > 0).sort((a, b) => b.good - a.good || b.strong - a.strong).slice(0, 30);
+  const indTable = wrTable('pd-ind', [
+    {k:'name', t:'Industry', type:'text'}, {k:'n', t:'Companies', type:'int'},
+    {k:'strong', t:'Strong', type:'int'}, {k:'mod', t:'Moderate', type:'int'},
+    {k:'good', t:'Strong+Mod', type:'int'}, {k:'nearHigh', t:'Near high', type:'int'}, {k:'medEps', t:'Median EPS YoY', type:'pct', dec:0}
+  ], inds, {sort:{col:'good', dir:'desc'}, maxHeight:'360px', empty:'No strong/moderate earnings this quarter.'});
+
+  // QoQ tracker
+  let qoqHtml;
+  if(qoq){
+    const li = (r, extra) => `<li onclick="PD.ui.q='${wrAttr(r.name)}';pdRenderTable();document.getElementById('pd-q').value='${wrAttr(r.name)}'"><span class="tk">${wrEsc(r.name)}</span>${pdTierCell(r.tier)}<span class="ind">${wrEsc(r.industry||'')}</span><span class="num">${extra}</span></li>`;
+    qoqHtml = `<div class="se-cols3">
+      <div><div class="se-sub up">Repeat strong (${qoq.repeat.length})</div><ul class="se-list tall">${qoq.repeat.sort((a,b)=>b.tier-a.tier).map(r=>li(r, `${PD_TIER_LABEL[r.prevTier]}→${PD_TIER_LABEL[r.tier]}`)).join('') || '<li class="flat">None</li>'}</ul></div>
+      <div><div class="se-sub">Newly strong (${qoq.newStrong.length})</div><ul class="se-list tall">${qoq.newStrong.sort((a,b)=>b.tier-a.tier).map(r=>li(r, 'new')).join('') || '<li class="flat">None</li>'}</ul></div>
+      <div><div class="se-sub dn">Faded (${qoq.faded.length})</div><ul class="se-list tall">${qoq.faded.map(r=>li(r, `→${r.nowTier!=null?PD_TIER_LABEL[r.nowTier]:'off list'}`)).join('') || '<li class="flat">None</li>'}</ul></div>
+    </div>`;
+  } else {
+    qoqHtml = `<div class="wr-note"><div class="lab">Quarter-over-quarter unlocks with the next upload</div>This is the first PEAD quarter loaded. Upload next quarter's file (<code>python tools/build_pead.py --file "&lt;xlsx&gt;"</code>) and this panel will show repeat performers, newly-strong names, and faded ones automatically.</div>`;
+  }
+
+  const tags = `<span class="wr-tag am">PEAD Radar</span><span class="wr-tag tl">Post-earnings drift</span><span class="wr-tag">${wrEsc(d.quarter)}</span>`;
+  el.innerHTML = `
+    <div class="se-hero"><div class="se-hero-inner">
+      <div class="wr-tags">${tags}</div>
+      <h1>Quarterly earnings, ranked by drift potential</h1>
+      <div class="wr-lead">${wrNum(stats.count)} companies with results this quarter — <b>${stats.strong} Strong</b>, ${stats.moderate} Moderate, ${stats.weak} Weak, ${stats.none} No PEAD. ${stats.hasScan ? `Cross-referenced against the weekly scan of <b>w/e ${wrDate(stats.scanDate)}</b>: ${stats.converge} names hit the earnings + momentum + Stage 2 trifecta.` : 'Open an Edge week to cross-reference against the scan and Stage 2 list.'}</div>
+      <div class="pd-dist">${distBar}</div>
+      <div class="se-kpis" style="margin-top:14px;">${kpis.join('')}</div>
+    </div></div>
+    <div class="se-body">
+      <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">The trifecta</div><h2>Convergence — strong earnings meeting momentum</h2></div><span class="wr-hint">strong/moderate PEAD that is also near a 52W high or on the Stage 2 list</span></div>${spotTable}</div>
+      <div class="se-grid2">
+        <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Where earnings are strong</div><h2>Industry earnings strength</h2></div><button class="btn btn-ghost btn-sm" onclick="show('sectors')">Sector rotation →</button></div>${indTable}</div>
+        <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Quarter over quarter</div><h2>Tier migration</h2></div>${qoq ? `<span class="wr-hint">vs ${wrEsc(qoq.prev.quarter)}</span>` : ''}</div>${qoqHtml}</div>
+      </div>
+      <div class="se-panel">
+        <div class="se-row-h"><div><div class="se-eyebrow">Full quarter</div><h2>All companies</h2></div><span class="wr-count" id="pd-count"></span></div>
+        <div class="se-filters">
+          <input type="text" id="pd-q" placeholder="Search company or industry…" value="${wrAttr(PD.ui.q)}" oninput="PD.ui.q=this.value;pdRenderTable()">
+          <select onchange="PD.ui.tier=this.value;pdRenderTable()">${[['all','All tiers'],['3','Strong only'],['2','Moderate+'],['1','Weak+'],['strongmod','Strong + Moderate']].map(([v,t])=>`<option value="${v}" ${PD.ui.tier===v?'selected':''}>${t}</option>`).join('')}</select>
+          <select onchange="PD.ui.xref=this.value;pdRenderTable()">${[['all','Any momentum'],['near','Near 52W high'],['scan','In weekly scan'],['s2','On Stage 2'],['converge','Convergence ★']].map(([v,t])=>`<option value="${v}" ${PD.ui.xref===v?'selected':''}>${t}</option>`).join('')}</select>
+          <select onchange="PD.ui.ind=this.value;pdRenderTable()"><option value="all">All industries</option>${[...new Set(rows.map(r=>r.industry||'Other'))].sort().map(i=>`<option value="${wrAttr(i)}" ${PD.ui.ind===i?'selected':''}>${wrEsc(i)}</option>`).join('')}</select>
+          <select onchange="PD.ui.minmcap=this.value;pdRenderTable()">${[['0','Any mcap'],['1000','≥ ₹1,000 Cr'],['5000','≥ ₹5,000 Cr'],['20000','≥ ₹20,000 Cr']].map(([v,t])=>`<option value="${v}" ${PD.ui.minmcap===v?'selected':''}>${t}</option>`).join('')}</select>
+          <button class="btn btn-ghost btn-sm" onclick="pdExportCsv()"><i class="ti ti-download"></i>CSV</button>
+        </div>
+        <div id="pd-table"></div>
+      </div>
+      <div class="wr-foot" style="border:none;padding:14px 0 0;">PEAD tiers are as classified in your quarterly file; growth figures are as supplied. Cross-reference matches company names to the selected Edge week's scan (name → NSE code) and Stage 2 list — export a broad market screen for the widest match. Source: data/pead/${wrEsc(PD.cur)}.</div>
+    </div>`;
+  pdRenderTable();
+  if(typeof seCountUp === 'function') seCountUp(el);
+}
+
+function pdRenderTable(){
+  const host = document.getElementById('pd-table'); const x = pdXref(); if(!host || !x) return;
+  const u = PD.ui, q = u.q.trim().toLowerCase();
+  const list = x.rows.filter(r => {
+    if(q && !((r.name||'')+' '+(r.industry||'')+' '+(r.code||'')).toLowerCase().includes(q)) return false;
+    if(u.tier === '3' && r.tier !== 3) return false;
+    if(u.tier === '2' && r.tier < 2) return false;
+    if(u.tier === '1' && r.tier < 1) return false;
+    if(u.tier === 'strongmod' && r.tier < 2) return false;
+    if(u.xref === 'near' && !r.nearHigh) return false;
+    if(u.xref === 'scan' && !r.inScan) return false;
+    if(u.xref === 's2' && !r.inS2) return false;
+    if(u.xref === 'converge' && !r.converge) return false;
+    if(u.ind !== 'all' && (r.industry||'Other') !== u.ind) return false;
+    if(+u.minmcap && !(wrIsNum(r.mcap) && r.mcap >= +u.minmcap)) return false;
+    return true;
+  });
+  host.innerHTML = wrTable('pd-all', [
+    {k:'name', t:'Company', type:'html', html: pdNameCell},
+    {k:'code', t:'Code', type:'html', html: pdActCell},
+    {k:'industry', t:'Industry', type:'text'},
+    {k:'pead', t:'PEAD', type:'html', sortType:'num', fn: r => r.tier, html: r => pdTierCell(r.tier)},
+    {k:'xref', t:'Momentum', type:'html', sortType:'num', fn: r => (r.nearHigh?4:r.inScan?2:0)+(r.inS2?1:0), html: pdXrefCell},
+    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs != null ? seRsBar(r.rs) : '<span class="flat">—</span>'},
+    {k:'eps_yoy', t:'EPS YoY', type:'pct', dec:0}, {k:'eps_qoq', t:'EPS QoQ', type:'pct', dec:0},
+    {k:'pat_yoy', t:'PAT YoY', type:'pct', dec:0}, {k:'sales_yoy', t:'Sales YoY', type:'pct', dec:0},
+    {k:'op_yoy', t:'OpProfit YoY', type:'pct', dec:0}, {k:'mcap', t:'MCap (₹Cr)', type:'int'}, {k:'peg', t:'PEG', type:'num', dec:2}
+  ], list, {sort: PD.ui.sort, tall:true, cap:800, empty:'No companies match the filters.'});
+  const cnt = document.getElementById('pd-count'); if(cnt) cnt.textContent = `${wrNum(list.length)} of ${wrNum(x.rows.length)} companies`;
+}
+function pdExportCsv(){
+  const x = pdXref(); if(!x) return;
+  const head = ['company','code','industry','pead','tier','near_high','from_52wh','rs','in_stage2','stage2_weeks','eps_yoy','eps_qoq','pat_yoy','sales_yoy','op_yoy','mcap','peg'];
+  const rows = x.rows.map(r => [r.name, r.code, r.industry, r.pead, r.tier, r.nearHigh?'Y':'', r.from_52wh, r.rs, r.inS2?'Y':'', r.s2weeks, r.eps_yoy, r.eps_qoq, r.pat_yoy, r.sales_yoy, r.op_yoy, r.mcap, r.peg]);
+  const csv = [head].concat(rows).map(r => r.map(v => v == null ? '' : /[",\n]/.test(String(v)) ? '"'+String(v).replace(/"/g,'""')+'"' : String(v)).join(',')).join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv'})); a.download = `swingedge-pead-${(pdCur()||{}).quarter||''}.csv`.replace(/\s+/g,'-'); a.click(); setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+  toast(`Exported ${x.rows.length} companies`, 'success');
+}
+
 // ============= INIT =============
 function init(){
   load();
@@ -7888,6 +8229,7 @@ function init(){
   loadLibrary(false);
   loadWR(false);
   loadSE(false);
+  loadPD(false);
   seApplyTheme();
   updateMarket();
   setInterval(updateMarket, 30000);
