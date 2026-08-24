@@ -7477,10 +7477,15 @@ function seCompute(){
   const S2 = d.stage2.map(r => Object.assign({}, r));
   const prevS2Map = new Map(prevS2 ? prevS2.stage2.map(r => [r._key, r]) : []);
   const s2Map = new Map(S2.map(r => [r._key, r]));
+  // Prefer the provider's per-row status (accurate week-over-week from their pipeline); only
+  // fall back to set-membership vs the previous loaded list when the status column is blank.
   const statusOf = (r) => {
     const s = String(r.status || '').toLowerCase(), isRe = /re-?\s?entry/.test(s), isNew = /new/.test(s);
-    if(prevS2){ if(!prevS2Map.has(r._key)) return isRe ? 'reentry' : 'entered'; return isRe ? 'reentry' : 'continues'; }
-    return isNew ? 'entered' : isRe ? 'reentry' : 'continues';
+    if(isNew) return 'entered';
+    if(isRe) return 'reentry';
+    if(s.includes('continue')) return 'continues';
+    if(prevS2) return prevS2Map.has(r._key) ? 'continues' : 'entered';
+    return 'continues';
   };
   S2.forEach(r => { r.state = statusOf(r); const u = U.find(x => x._key === r._key); r.inScan = !!u; r.rsCalc = u ? u.rs : null; r.uni = u || null; r.prev = prevS2Map.get(r._key) || null; });
   const exits = (S2.length && prevS2) ? prevS2.stage2.filter(r => !s2Map.has(r._key)).map(r => Object.assign({}, r, {state: 'exited'})) : [];
@@ -7623,9 +7628,9 @@ function seRenderPulse(){
         </div>
         <div class="se-panel">
           <div class="se-row-h"><div><div class="se-eyebrow">Weinstein Stage 2</div><h2>Stage 2 list — this week</h2></div><button class="btn btn-ghost btn-sm" onclick="seGo('s2track')">Tracker →</button></div>
-          ${hasS2 ? `<div class="se-cols3">
+          ${hasS2 ? `${c.hasPrevS2 ? `<div class="wr-hint" style="margin:-2px 0 8px;">Entries are the provider's own New/Re-entry flags for this week; exits are stocks on the list of w/e ${wrDate(c.prevS2.date)} that have since dropped off.</div>` : ''}<div class="se-cols3">
             <div><div class="se-sub up">Entered (${ins.length}${c.S2.filter(r => r.state === 'entered' || r.state === 'reentry').length > ins.length ? ' of ' + c.S2.filter(r => r.state === 'entered' || r.state === 'reentry').length : ''})</div><ul class="se-list">${ins.map(r => li(r, `RS ${wrNum(r.rs_pct, 0)}`)).join('') || '<li class="flat">None</li>'}</ul></div>
-            <div><div class="se-sub dn">Exited (${outs.length}${c.exits.length > outs.length ? ' of ' + c.exits.length : ''})</div><ul class="se-list">${outs.map(r => li(r, `${r.weeks || '?'}w · ${wrPct(r.ret, 0, {plain: true})}`)).join('') || `<li class="flat">${c.hasPrevS2 ? 'None' : 'Need a previous list to detect exits'}</li>`}</ul></div>
+            <div><div class="se-sub dn" title="stocks on the list of w/e ${c.hasPrevS2 ? wrDate(c.prevS2.date) : ''} no longer present">Exited (${outs.length}${c.exits.length > outs.length ? ' of ' + c.exits.length : ''})</div><ul class="se-list">${outs.map(r => li(r, `${r.weeks || '?'}w · ${wrPct(r.ret, 0, {plain: true})}`)).join('') || `<li class="flat">${c.hasPrevS2 ? 'None' : 'Need a previous list to detect exits'}</li>`}</ul></div>
             <div><div class="se-sub">Longest runners</div><ul class="se-list">${runners.map(r => li(r, `${r.weeks}w · ${wrPct(r.ret, 0, {plain: true})}`)).join('')}</ul></div>
           </div>` : `<div class="wr-note"><div class="lab">Stage 2 list missing for this week</div>Publish it with <code>python tools/build_scan.py --date ${wrEsc(c.date)} --stage2 "&lt;Stage 2 xlsx&gt;"</code> — entries, exits and weeks-in-stage will light up automatically.</div>`}
         </div>
@@ -7773,7 +7778,7 @@ function seRenderS2(){
     <div class="se-kpis">
       ${seKpi('On the list', wrNum(s.s2list), c.hasPrevS2 ? `vs ${wrNum(c.prevS2.stage2.length)} last list (w/e ${wrDate(c.prevS2.date)})` : 'first list loaded', 'accent', s.s2list)}
       ${seKpi('Entered', wrNum(s.entered + s.reentry), `${s.reentry} re-entries`, 'ok', s.entered + s.reentry)}
-      ${seKpi('Exited', wrNum(s.exited), c.hasPrevS2 ? 'dropped since last list' : 'needs a previous list', s.exited ? 'bad' : '', s.exited)}
+      ${seKpi('Exited', wrNum(s.exited), c.hasPrevS2 ? `dropped since the list of w/e ${wrDate(c.prevS2.date)}` : 'needs a previous list', s.exited ? 'bad' : '', s.exited)}
       ${seKpi('Median weeks in stage', s.medWeeks != null ? wrNum(s.medWeeks) : '—', `${s.posRet != null ? Math.round(s.posRet) + '% positive since entry' : ''}`, '', s.medWeeks)}
       ${seKpi('Also in weekly scan', wrNum(c.S2.filter(r => r.inScan).length), c.U.length ? `of ${c.U.length} scanned · convergence` : 'no scan this week', '', c.S2.filter(r => r.inScan).length)}
       ${seKpi('Under ASM / GSM', wrNum(s.asm), 'surveillance flags', s.asm ? 'warn' : '', s.asm)}
@@ -7837,7 +7842,7 @@ function seFeedLegacy(){
     if(s2w && newer(s2w.date, DB.stage2Date)){
       const prev = loaded.find(w => w.stage2.length && String(w.date) < String(s2w.date));
       const prevMap = new Map(prev ? prev.stage2.map(r => [r._key, r]) : []), curKeys = new Set(s2w.stage2.map(r => r._key));
-      const stat = (r) => { const st = String(r.status || '').toLowerCase(); if(/re-?\s?entry/.test(st)) return 'Reentry'; if(prev ? !prevMap.has(r._key) : /new/.test(st)) return 'New Addition'; return 'Continues Trend'; };
+      const stat = (r) => { const st = String(r.status || '').toLowerCase(); if(/re-?\s?entry/.test(st)) return 'Reentry'; if(/new/.test(st)) return 'New Addition'; if(st.includes('continue')) return 'Continues Trend'; return (prev && !prevMap.has(r._key)) ? 'New Addition' : 'Continues Trend'; };
       const row = (r, i, status) => ({id: Date.now() + i, code: r.code, industry: r.industry || '', rs: r.rs_pct || 0, mcap: r.mcap || 0, vol: r.vol_cr || 0, ret: r.ret || 0, weeks: r.weeks || 1, asm: r.asm || '', asmDays: r.asm_days || '', status});
       DB.stage2 = s2w.stage2.map((r, i) => row(r, i, stat(r))).concat(prev ? prev.stage2.filter(r => !curKeys.has(r._key)).map((r, i) => row(r, 100000 + i, 'Removed')) : []);
       DB.stage2Date = s2w.date;
