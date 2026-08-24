@@ -1,10 +1,10 @@
 {
-  "_comment": "Copy this file to tools/screener_config.json and fill in your export URL(s). That file is gitignored. Get each url by opening your saved screen on screener.in and copying the 'Export to Excel' link address (right-click -> Copy link address). kind = 'screener' (the weekly universe) or 'stage2' (a Stage 2 list, if exportable). min_mcap drops tiny names from the universe.",
-  "exports": [
+  "_comment": "Copy to tools/screener_config.json (gitignored) and fill in your screen_url(s). screen_url = the address-bar URL of your saved screener.in screen; the fetcher finds its Export-to-Excel form and posts it with your cookie. Use 'url' instead for a direct-download link (e.g. a Google Sheets .../export?format=csv). kind = 'screener' (weekly universe) or 'stage2'.",
+  "sources": [
     {
-      "url": "https://www.screener.in/screen/raw/REPLACE_WITH_YOUR_SCREEN/?limit=2000",
+      "screen_url": "https://www.screener.in/screens/REPLACE_WITH_YOUR_SCREEN_ID/your-screen-slug/",
       "kind": "screener",
-      "name": "Market cap > 1000 (full market RS)",
+      "name": "Market cap > 1000 (full-market RS)",
       "min_mcap": 1000
     }
   ],

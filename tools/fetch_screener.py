@@ -7,36 +7,41 @@ fetch_screener.py — pull your weekly screener.in export automatically and buil
     python tools/fetch_screener.py --commit           # also git-commit + push data/scans
 
 WHAT IT DOES
-  1. reads one or more export URLs from a config file you control (tools/screener_config.json),
-  2. downloads each with your screener.in session cookie attached,
-  3. saves them under exports/, and
+  1. reads one or more sources from a config file you control (tools/screener_config.json),
+  2. downloads each with your screener.in session cookie attached
+     — screener.in's "Export to Excel" is a CSRF-protected POST, so for a "screen_url" source
+       the script opens your screen page, reads the export form's token, and posts it for you,
+  3. saves the result under exports/, and
   4. runs build_scan.py to produce data/scans/<date>.json.
 
 CREDENTIALS — you stay in control, the cookie never goes through chat:
   * Put your screener.in session cookie in the SCREENER_COOKIE environment variable,
     or in a file .secrets/screener_cookie.txt (both are gitignored; the file wins if present).
-  * To get it: log in to screener.in in your browser → DevTools → Application/Storage → Cookies
-    → copy the value of `sessionid` (or the whole Cookie header). Paste it into that file.
-  * This script only READS the cookie to attach it to the download request. It never prints,
-    logs, or commits it. If the cookie is missing/expired the download returns screener's login
-    page and the script stops with a clear message — nothing partial is written.
+  * Easiest: log in to screener.in in your browser, open DevTools → Application → Cookies →
+    https://www.screener.in, and copy the value of `sessionid` into that file. (You can paste the
+    whole "sessionid=...; csrftoken=..." cookie string too — either works; the script fetches a
+    fresh csrftoken from your screen page if you only give sessionid.)
+  * This script only READS the cookie to attach it to the request. It never prints, logs, or
+    commits it. If the cookie is missing/expired screener.in redirects to its login page and the
+    script stops with a clear message — nothing partial is written.
 
 CONFIG — tools/screener_config.json (copy tools/screener_config.example.json):
   {
-    "exports": [
-      { "url": "https://www.screener.in/screen/raw/<id>/?...&limit=2000", "kind": "screener",
-        "name": "Market cap > 1000", "min_mcap": 1000 }
+    "sources": [
+      { "screen_url": "https://www.screener.in/screens/<id>/<slug>/",
+        "kind": "screener", "name": "Market cap > 1000", "min_mcap": 1000 }
     ],
     "git": { "push": true, "branch": "main" }
   }
-  Get each `url` by opening your saved screen on screener.in and copying the address of the
-  "Export to Excel" link (right-click → Copy link address). `kind` is "screener" (the universe)
-  or "stage2" (a Stage 2 list, if you host one somewhere exportable). You can list several.
-
-Nothing here is screener-specific beyond the login-page sniff — any URL that returns a CSV/XLSX
-with your cookie works, so it also fits a Google-Sheets "export?format=csv" link, etc.
+  * screen_url  — paste the address-bar URL of your saved screener.in screen. The script finds the
+                  Export-to-Excel form on that page and posts it. (Recommended for screener.in.)
+  * url         — OR a direct download URL that returns a CSV/XLSX on a plain GET with your cookie
+                  (e.g. a Google-Sheets ".../export?format=csv" link). Use screen_url OR url.
+  * kind        — "screener" (the weekly universe) or "stage2" (a Stage 2 list, if exportable).
+  * name/min_mcap — passed through to build_scan.py for the universe.
 """
-import argparse, datetime as dt, io, json, os, subprocess, sys, urllib.request, urllib.error
+import argparse, datetime as dt, html, io, json, os, re, subprocess, sys
+import urllib.request, urllib.error, urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TOOLS = os.path.join(ROOT, 'tools')
@@ -45,6 +50,7 @@ EXPORTS = os.path.join(ROOT, 'exports')
 SECRET_FILE = os.path.join(ROOT, '.secrets', 'screener_cookie.txt')
 UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) SwingEdge-fetch/1.0'
 
+# ---------------------------------------------------------------- credentials
 def load_cookie():
     if os.path.exists(SECRET_FILE):
         c = io.open(SECRET_FILE, encoding='utf-8').read().strip()
@@ -53,40 +59,104 @@ def load_cookie():
     if c: return c, 'SCREENER_COOKIE env'
     return None, None
 
-def normalize_cookie(c):
-    # accept a bare sessionid value or a full "k=v; k2=v2" cookie header
-    return c if ('=' in c) else ('sessionid=' + c)
+def parse_cookies(s):
+    jar = {}
+    for part in (s or '').split(';'):
+        part = part.strip()
+        if '=' in part:
+            k, v = part.split('=', 1); jar[k.strip()] = v.strip()
+        elif part:                          # a bare value is assumed to be the sessionid
+            jar['sessionid'] = part
+    return jar
 
+def cookie_header(jar):
+    return '; '.join(f'{k}={v}' for k, v in jar.items())
+
+# ---------------------------------------------------------------- http (no auto-redirect, so we can spot login)
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, *a, **k):
+        return None
+_OPENER = urllib.request.build_opener(_NoRedirect)
+
+def request(method, url, jar=None, referer=None, form=None):
+    headers = {'User-Agent': UA, 'Accept': '*/*'}
+    if jar: headers['Cookie'] = cookie_header(jar)
+    if referer:
+        headers['Referer'] = referer
+        p = urllib.parse.urlparse(referer); headers['Origin'] = f'{p.scheme}://{p.netloc}'
+    data = urllib.parse.urlencode(form).encode() if form is not None else None
+    if data is not None: headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    req = urllib.request.Request(url, data=data, headers=headers, method=method)
+    try:
+        r = _OPENER.open(req, timeout=60)
+        return getattr(r, 'status', 200), r.headers, r.read()
+    except urllib.error.HTTPError as e:      # 3xx (no-redirect) and 4xx/5xx land here
+        return e.code, e.headers, e.read()
+    except urllib.error.URLError as e:
+        raise SystemExit(f'  ! could not reach {url}: {e.reason}')
+
+def is_redirect(status):
+    return status in (301, 302, 303, 307, 308)
+
+def merge_setcookie(jar, headers):
+    for sc in headers.get_all('Set-Cookie') or []:
+        first = sc.split(';', 1)[0]
+        if '=' in first:
+            k, v = first.split('=', 1); jar[k.strip()] = v.strip()
+
+def looks_like_login(data, ctype):
+    if 'html' in (ctype or '').lower():
+        return True
+    low = data[:2048].lower()
+    return b'<html' in low or (b'login' in low and b'password' in low)
+
+# ---------------------------------------------------------------- fetch strategies
+def fetch_direct(url, jar):
+    """Plain GET that already returns a CSV/XLSX (Google Sheets export, a direct file, file:// fixture)."""
+    status, headers, data = request('GET', url, jar)
+    if is_redirect(status):
+        raise SystemExit(f'  ! {url} redirected to {headers.get("Location","?")} — cookie missing/expired or not a direct download URL.')
+    if looks_like_login(data, headers.get('Content-Type', '')):
+        raise SystemExit('  ! got an HTML/login page, not a spreadsheet — cookie missing or expired (nothing written).')
+    return data
+
+def fetch_screen(screen_url, jar):
+    """screener.in flow: GET the screen page, read the export form's CSRF token, POST it."""
+    status, headers, body = request('GET', screen_url, jar)
+    if is_redirect(status) and 'login' in headers.get('Location', '').lower():
+        raise SystemExit('  ! screener.in redirected the screen page to login — your sessionid cookie is missing or expired (nothing written).')
+    if is_redirect(status):
+        raise SystemExit(f'  ! screen page redirected to {headers.get("Location","?")} — check the screen_url.')
+    merge_setcookie(jar, headers)                                   # picks up a fresh csrftoken
+    page = body.decode('utf-8', 'replace')
+    m = re.search(r'<form[^>]+action="([^"]*?/api/export/[^"]*?)"[^>]*>(.*?)</form>', page, re.S)
+    if not m:
+        raise SystemExit('  ! no Export-to-Excel form on that page. Make sure screen_url is your saved screen and the cookie is a logged-in session.')
+    action = html.unescape(m.group(1))
+    tok = re.search(r'name="csrfmiddlewaretoken"\s+value="([^"]+)"', m.group(2))
+    if not tok:
+        raise SystemExit('  ! export form found but no CSRF token in it — screener.in markup may have changed.')
+    token = tok.group(1)
+    jar.setdefault('csrftoken', token)
+    export_url = urllib.parse.urljoin(screen_url, action)
+    status, headers, data = request('POST', export_url, jar, referer=screen_url, form={'csrfmiddlewaretoken': token})
+    if is_redirect(status):
+        loc = headers.get('Location', '')
+        raise SystemExit('  ! export POST redirected to ' + (loc or '?') + (' (login — session expired)' if 'login' in loc.lower() else '') + ' — nothing written.')
+    if looks_like_login(data, headers.get('Content-Type', '')):
+        raise SystemExit('  ! export returned an HTML/login page — session expired (nothing written).')
+    return data
+
+def save(data, base):
+    ext = '.xlsx' if data[:2] == b'PK' else '.csv'      # xlsx is a zip ("PK"); Content-Type is unreliable on Windows
+    path = base + ext
+    io.open(path, 'wb').write(data)
+    return path, len(data)
+
+# ---------------------------------------------------------------- main
 def last_friday(today=None):
     today = today or dt.date.today()
     return (today - dt.timedelta(days=(today.weekday() - 4) % 7)).isoformat()
-
-def looks_like_login(head_bytes, ctype):
-    if 'html' in (ctype or '').lower():
-        return True
-    low = head_bytes[:2048].lower()
-    return b'<html' in low or b'login' in low and b'password' in low
-
-def fetch(url, cookie, dest):
-    req = urllib.request.Request(url, headers={'User-Agent': UA, 'Accept': '*/*'})
-    if cookie:
-        req.add_header('Cookie', normalize_cookie(cookie))
-    try:
-        with urllib.request.urlopen(req, timeout=60) as resp:
-            ctype = resp.headers.get('Content-Type', '')
-            data = resp.read()
-    except urllib.error.HTTPError as e:
-        raise SystemExit(f'  ! HTTP {e.code} fetching the export — {"cookie likely expired; refresh it" if e.code in (401, 403) else e.reason}')
-    except urllib.error.URLError as e:
-        raise SystemExit(f'  ! could not reach the export URL: {e.reason}')
-    if looks_like_login(data, ctype):
-        raise SystemExit('  ! the download returned an HTML/login page, not a spreadsheet — your screener.in cookie is missing or expired. Refresh it and retry (nothing was written).')
-    # xlsx files are zip archives (magic bytes "PK"); everything else we treat as CSV.
-    # Content-Type is unreliable here (Windows reports .csv as application/vnd.ms-excel).
-    if not (dest.endswith('.csv') or dest.endswith('.xlsx')):
-        dest += '.xlsx' if data[:2] == b'PK' else '.csv'
-    io.open(dest, 'wb').write(data)
-    return dest, len(data)
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -102,30 +172,37 @@ def main():
     except ValueError: raise SystemExit('--date must be YYYY-MM-DD')
 
     if not os.path.exists(a.config):
-        raise SystemExit(f'no config at {a.config}\n  copy tools/screener_config.example.json to tools/screener_config.json and put your export URL(s) in it.')
+        raise SystemExit(f'no config at {a.config}\n  copy tools/screener_config.example.json to tools/screener_config.json and add your screen_url(s).')
     cfg = json.load(io.open(a.config, encoding='utf-8'))
-    exports = cfg.get('exports') or []
-    if not exports:
-        raise SystemExit('config has no "exports" — add at least one {url, kind} entry.')
+    sources = cfg.get('sources') or cfg.get('exports') or []      # accept the old key name too
+    if not sources:
+        raise SystemExit('config has no "sources" — add at least one {screen_url|url, kind} entry.')
 
-    cookie, src = load_cookie()
+    raw_cookie, src = load_cookie()
     print(f'week-ending {date}')
-    print(f'cookie: {"loaded from " + src + f" ({len(cookie)} chars)" if cookie else "NOT SET — add SCREENER_COOKIE env or .secrets/screener_cookie.txt"}')
-    print(f'{len(exports)} export(s) configured:')
-    for e in exports:
-        print(f'  - [{e.get("kind","screener")}] {e.get("name","(unnamed)")}: {e.get("url","")[:80]}')
+    print(f'cookie: {"loaded from " + src + f" ({len(raw_cookie)} chars)" if raw_cookie else "NOT SET — add SCREENER_COOKIE env or .secrets/screener_cookie.txt"}')
+    print(f'{len(sources)} source(s):')
+    for e in sources:
+        loc = e.get('screen_url') or e.get('url') or '(missing url)'
+        print(f'  - [{e.get("kind","screener")}] {e.get("name","(unnamed)")}: {loc[:78]}')
     if a.dry_run:
         print('dry-run: nothing fetched.'); return
-    if not cookie:
+    if not raw_cookie:
         raise SystemExit('refusing to fetch without a cookie (the download would just be a login page).')
 
     os.makedirs(EXPORTS, exist_ok=True)
     built = {'screener': None, 'stage2': None}
-    for e in exports:
+    for e in sources:
         kind = e.get('kind', 'screener')
-        base = os.path.join(EXPORTS, f'{kind}_{date}')
-        print(f"fetching {kind} ...")
-        path, n = fetch(e['url'], cookie, base)
+        jar = parse_cookies(raw_cookie)                            # a fresh jar per source
+        print(f'fetching {kind} ...')
+        if e.get('screen_url'):
+            data = fetch_screen(e['screen_url'], jar)
+        elif e.get('url'):
+            data = fetch_direct(e['url'], jar)
+        else:
+            raise SystemExit(f'  ! source "{e.get("name","?")}" has neither screen_url nor url.')
+        path, n = save(data, os.path.join(EXPORTS, f'{kind}_{date}'))
         print(f'  saved {os.path.relpath(path, ROOT)} ({n:,} bytes)')
         built[kind] = (path, e)
 
@@ -139,19 +216,16 @@ def main():
         if e.get('min_mcap') is not None: args += ['--min-mcap', str(e['min_mcap'])]
     if built['stage2']:
         args += ['--stage2', built['stage2'][0]]
-    print("running build_scan.py ...")
+    print('running build_scan.py ...')
     if subprocess.call(args) != 0:
         raise SystemExit('  ! build_scan.py failed — see output above.')
 
     if a.commit:
         git = cfg.get('git', {})
-        rel = os.path.relpath(os.path.join(ROOT, 'data', 'scans'), ROOT)
-        subprocess.check_call(['git', '-C', ROOT, 'add', rel])
-        msg = f'Edge scan: week ending {date}'
-        rc = subprocess.call(['git', '-C', ROOT, 'commit', '-m', msg])
+        subprocess.check_call(['git', '-C', ROOT, 'add', 'data/scans'])
+        rc = subprocess.call(['git', '-C', ROOT, 'commit', '-m', f'Edge scan: week ending {date}'])
         if rc == 0 and git.get('push'):
-            subprocess.check_call(['git', '-C', ROOT, 'push', 'origin', git.get('branch', 'main')])
-            print('committed and pushed.')
+            subprocess.check_call(['git', '-C', ROOT, 'push', 'origin', git.get('branch', 'main')]); print('committed and pushed.')
         elif rc == 0:
             print('committed (push disabled in config.git.push).')
         else:
