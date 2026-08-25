@@ -108,7 +108,18 @@ python tools/fetch_screener.py --commit                     # also git commit + 
 1. `cp tools/screener_config.example.json tools/screener_config.json` (the copy is gitignored). The example is already set to the broad market screen via **`raw_query`** — a screener.in query string that needs **no saved screen**; the fetcher runs it at `/screen/raw/`, reads the Export-to-Excel form's CSRF token, and posts it (retrying screener's occasional 503). The default `"Market Capitalization > 1000"` is what you want; edit it to taste. Each source takes ONE of: `raw_query` (recommended), `screen_url` (a *saved* screen's address-bar URL — used the same CSRF-POST way), or `url` (a direct CSV/XLSX link, e.g. a Google-Sheets `.../export?format=csv`). Set `kind` to `screener` (universe) or `stage2`, plus `min_mcap` and a `name`. Note: screener's raw export uses a fixed column set (no 6-month/1-year returns), so RS uses the 3m/1m/1w blend market-wide; use a saved screen with those columns added if you want IBD weighting.
 2. Provide your session cookie **without putting it in any prompt**: create `.secrets/screener_cookie.txt` (gitignored) containing your screener.in `sessionid` value (DevTools → Application → Cookies → `sessionid`), or set the `SCREENER_COOKIE` environment variable. The script only reads it to attach to the download; it never prints, logs, or commits it.
 
-If the cookie is missing or expired, screener.in returns its login page instead of a spreadsheet — the script detects that and stops without writing anything, so a stale cookie can never corrupt a scan file. To run it on a schedule, wrap the `--commit` form in your OS scheduler (Task Scheduler / cron); refresh the cookie file whenever the session expires.
+If the cookie is missing or expired, screener.in returns its login page instead of a spreadsheet — the script detects that and stops without writing anything, so a stale cookie can never corrupt a scan file.
+
+### Scheduled weekly (Windows Task Scheduler)
+
+A scheduled task **"SwingEdge Weekly Pull"** runs `tools/weekly_pull.cmd` every **Saturday 09:00 IST** — it pulls the broad universe, rebuilds `data/scans/`, and commits + pushes, logging to `.secrets/weekly_pull.log`. It runs only when you're logged in (no stored password), so `git push` uses your normal credentials. Until you put your `sessionid` in `.secrets/screener_cookie.txt` it exits cleanly without fetching.
+
+- Run it now / test:  `tools\weekly_pull.cmd`  (or `Start-ScheduledTask -TaskName "SwingEdge Weekly Pull"`)
+- See last result:  `Get-ScheduledTaskInfo -TaskName "SwingEdge Weekly Pull"` and the tail of `.secrets\weekly_pull.log`
+- Change the time / day:  `Set-ScheduledTask -TaskName "SwingEdge Weekly Pull" -Trigger (New-ScheduledTaskTrigger -Weekly -DaysOfWeek Sunday -At 8:00AM)`
+- Disable / remove:  `Disable-ScheduledTask` / `Unregister-ScheduledTask -TaskName "SwingEdge Weekly Pull"`
+
+Re-register it on another machine (or after removing it) with the `Register-ScheduledTask` block using `tools/weekly_pull.cmd`. Refresh the cookie file whenever the session expires (the log will show a login-redirect message when it does).
 
 The Stage 2 list stays in your hands — keep producing it however you do today and pass it with `build_scan.py --stage2` (or add it as a `kind: "stage2"` export URL if it lives somewhere the cookie can reach).
 
