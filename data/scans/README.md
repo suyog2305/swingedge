@@ -110,16 +110,16 @@ python tools/fetch_screener.py --commit                     # also git commit + 
 
 If the cookie is missing or expired, screener.in returns its login page instead of a spreadsheet — the script detects that and stops without writing anything, so a stale cookie can never corrupt a scan file.
 
-### Scheduled weekly (Windows Task Scheduler)
+### Scheduled daily (Windows Task Scheduler)
 
-A scheduled task **"SwingEdge Weekly Pull"** runs `tools/weekly_pull.cmd` every **Saturday 09:00 IST** — it pulls the broad universe, rebuilds `data/scans/`, and commits + pushes, logging to `.secrets/weekly_pull.log`. It runs only when you're logged in (no stored password), so `git push` uses your normal credentials. Until you put your `sessionid` in `.secrets/screener_cookie.txt` it exits cleanly without fetching.
+A scheduled task **"SwingEdge Daily Pull"** runs `tools/daily_pull.cmd` every day at **09:00 IST** — it pulls the broad universe, rebuilds `data/scans/`, and commits + pushes, logging to `.secrets/daily_pull.log`. It runs only when you're logged in (no stored password), so `git push` uses your normal credentials. Until you put your `sessionid` in `.secrets/screener_cookie.txt` it exits cleanly without fetching. On non-trading days screener data is unchanged, so the run is a clean no-op (nothing to commit).
 
-- Run it now / test:  `tools\weekly_pull.cmd`  (or `Start-ScheduledTask -TaskName "SwingEdge Weekly Pull"`)
-- See last result:  `Get-ScheduledTaskInfo -TaskName "SwingEdge Weekly Pull"` and the tail of `.secrets\weekly_pull.log`
-- Change the time / day:  `Set-ScheduledTask -TaskName "SwingEdge Weekly Pull" -Trigger (New-ScheduledTaskTrigger -Weekly -DaysOfWeek Sunday -At 8:00AM)`
-- Disable / remove:  `Disable-ScheduledTask` / `Unregister-ScheduledTask -TaskName "SwingEdge Weekly Pull"`
+- Run it now / test:  `tools\daily_pull.cmd`  (or `Start-ScheduledTask -TaskName "SwingEdge Daily Pull"`)
+- See last result:  `Get-ScheduledTaskInfo -TaskName "SwingEdge Daily Pull"` and the tail of `.secrets\daily_pull.log`
+- Change the time:  `Set-ScheduledTask -TaskName "SwingEdge Daily Pull" -Trigger (New-ScheduledTaskTrigger -Daily -At 8:00PM)`
+- Disable / remove:  `Disable-ScheduledTask` / `Unregister-ScheduledTask -TaskName "SwingEdge Daily Pull"`
 
-Re-register it on another machine (or after removing it) with the `Register-ScheduledTask` block using `tools/weekly_pull.cmd`. Refresh the cookie file whenever the session expires (the log will show a login-redirect message when it does).
+Pairs with the **"SwingEdge daily gainers news"** cloud routine (weekdays 18:30 IST), which refreshes `data/daily/news.json` for the day's top gainers from whatever scan this task last committed. Re-register on another machine with the `Register-ScheduledTask` block using `tools/daily_pull.cmd` and a `-Daily` trigger. Refresh the cookie file whenever the session expires (the log shows a login-redirect message when it does).
 
 The Stage 2 list stays in your hands — keep producing it however you do today and pass it with `build_scan.py --stage2` (or add it as a `kind: "stage2"` export URL if it lives somewhere the cookie can reach).
 
