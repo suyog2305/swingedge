@@ -27,7 +27,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 PEAD_ALIASES = {
     'industry':   ['industry', 'sector', 'industry name'],
-    'name':       ['company name', 'name', 'company', 'stock'],
+    'name':       ['company name', 'companyname', 'name', 'company', 'stock'],
     'sales_yoy':  ['yoy sales growth', 'sales growth yoy', 'sales yoy'],
     'sales_qoq':  ['qoq sales growth', 'sales growth qoq', 'sales qoq'],
     'op_yoy':     ['yoy op profit growth', 'yoy operating profit growth', 'op profit growth yoy'],
@@ -36,9 +36,12 @@ PEAD_ALIASES = {
     'eps_qoq':    ['qoq eps growth', 'eps growth qoq', 'eps qoq'],
     'pat_yoy':    ['yoy pat growth', 'pat growth yoy', 'pat yoy', 'yoy net profit growth', 'net profit yoy growth'],
     'pat_qoq':    ['qoq pat growth', 'pat growth qoq', 'pat qoq', 'qoq net profit growth', 'net profit qoq growth'],
-    'mcap':       ['market cap', 'market capitalization', 'mcap', 'market cap (in cr.)', 'market capitalisation'],
+    'mcap':       ['market cap', 'market capitalization', 'mcap', 'market cap (in cr.)', 'market capitalisation', 'marketcap'],
     'peg':        ['peg ratio', 'peg'],
-    'pead':       ['pead classification', 'pead', 'pead class', 'classification'],
+    'pead':       ['pead classification', 'pead', 'pead class', 'classification', 'tier'],
+    'code':       ['tradingview code', 'tradingview', 'nse code', 'symbol', 'code', 'ticker'],
+    'rs_pct':     ['relative strength %', 'relative strength', 'rs %', 'rs'],
+    'margin':     ['margin increase vs decrease', 'margin', 'margin trend'],
 }
 for k, v in PEAD_ALIASES.items():
     ALIASES.setdefault(k, []); ALIASES[k] = list(dict.fromkeys(ALIASES[k] + v)); ALIAS_LOOKUP[k] = {norm(a) for a in ALIASES[k]}
@@ -55,7 +58,11 @@ def name_key(n):
 
 TIER = {'strong pead': 3, 'moderate pead': 2, 'weak pead': 1, 'no pead': 0}
 def tier_of(label):
+    """Normalize a classification to a 0-3 score. Handles both the 'Strong/Moderate/Weak/No PEAD'
+    scheme and a 'Tier 1..4' scheme (Tier 1 strongest -> 3, Tier 4 -> 0)."""
     l = (label or '').strip().lower()
+    m = re.search(r'tier\s*([1-9])', l)
+    if m: return max(0, 3 - (int(m.group(1)) - 1))     # Tier 1->3, 2->2, 3->1, 4+->0
     for k, v in TIER.items():
         if k in l: return v
     if 'strong' in l: return 3
@@ -77,12 +84,13 @@ def parse_quarter(sheet_or_arg):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--file', required=True, help='quarterly PEAD export (.xlsx/.csv)')
-    ap.add_argument('--quarter', help='e.g. "Q1 FY27"; default derived from the sheet name')
+    ap.add_argument('--quarter', help='e.g. "Q1 FY27"; default derived from the sheet name or filename')
+    ap.add_argument('--sheet', help='for multi-sheet workbooks, the sheet to read (default: auto-detect the data sheet)')
     ap.add_argument('--reported', help='ISO date the results were compiled/reported (for ordering); default today')
     ap.add_argument('--out', default=os.path.join(ROOT, 'data', 'pead'))
     a = ap.parse_args()
 
-    headers, rows, sheet = read_table_with_sheet(a.file)
+    headers, rows, sheet = read_table_with_sheet(a.file, a.sheet)
     cols = map_columns(headers, list(PEAD_ALIASES.keys()))
     for need in ('name', 'pead'):
         if need not in cols:
@@ -110,6 +118,10 @@ def main():
         if ind: item['industry'] = ind
         item['pead'] = (cell(r, cols, 'pead') or '').strip()
         item['tier'] = tier_of(item['pead'])
+        code = (cell(r, cols, 'code') or '').strip().upper()
+        if code and not re.fullmatch(r'\d+(\.\d+)?', code): item['code'] = code
+        marg = (cell(r, cols, 'margin') or '').strip()
+        if marg: item['margin'] = marg
         for f, out_f in (('sales_yoy', 'sales_yoy'), ('sales_qoq', 'sales_qoq'), ('op_yoy', 'op_yoy'), ('op_qoq', 'op_qoq'),
                          ('eps_yoy', 'eps_yoy'), ('eps_qoq', 'eps_qoq'), ('pat_yoy', 'pat_yoy'), ('pat_qoq', 'pat_qoq'), ('mcap', 'mcap'), ('peg', 'peg')):
             v = num(cell(r, cols, f))
@@ -146,20 +158,66 @@ def main():
         json.dump(idx, fh, ensure_ascii=False, indent=2)
     print(f'updated {ipath} ({len(qs)} quarter{"s" if len(qs) != 1 else ""})')
 
-def read_table_with_sheet(path):
-    """read_table, plus the first sheet's name for .xlsx (used to derive the quarter)."""
+def _header_row(rows):
+    for i, r in enumerate(rows[:6]):
+        cells = [c for c in r if str(c).strip()]
+        if len(cells) >= 3 and not all(re.fullmatch(r'-?[\d,.]+%?', str(c).strip()) for c in cells):
+            return i
+    return 0
+
+def read_table_with_sheet(path, want_sheet=None):
+    """Return (headers, rows, sheet_name). For a multi-sheet .xlsx, pick the data sheet:
+    the one named `want_sheet`, else the sheet whose header has a company/name column and the
+    most rows (so a 'Summary' tab never wins over 'All Companies')."""
     ext = os.path.splitext(path)[1].lower()
-    sheet = ''
-    if ext in ('.xlsx', '.xlsm'):
-        import zipfile
-        from xml.etree import ElementTree as ET
-        z = zipfile.ZipFile(path)
-        wb = ET.fromstring(z.read('xl/workbook.xml'))
-        ns = {'m': 'http://schemas.openxmlformats.org/spreadsheetml/2006/main'}
-        s = wb.find('m:sheets', ns).find('m:sheet', ns)
-        sheet = s.get('name', '') if s is not None else ''
-    headers, rows = read_table(path)
-    return headers, rows, sheet
+    if ext not in ('.xlsx', '.xlsm'):
+        headers, rows = read_table(path)
+        return headers, rows, ''
+    import zipfile
+    from xml.etree import ElementTree as ET
+    ns = {'m': 'http://schemas.openxmlformats.org/spreadsheetml/2006/main', 'r': 'http://schemas.openxmlformats.org/officeDocument/2006/relationships'}
+    z = zipfile.ZipFile(path)
+    shared = []
+    if 'xl/sharedStrings.xml' in z.namelist():
+        for si in ET.fromstring(z.read('xl/sharedStrings.xml')).findall('m:si', ns):
+            shared.append(''.join(t.text or '' for t in si.iter('{%s}t' % ns['m'])))
+    wb = ET.fromstring(z.read('xl/workbook.xml'))
+    rels = {r.get('Id'): r.get('Target') for r in ET.fromstring(z.read('xl/_rels/workbook.xml.rels'))}
+    def grid_of(target):
+        p = target if target.startswith('xl/') else 'xl/' + target.lstrip('/')
+        g = {}
+        for c in ET.fromstring(z.read(p)).iter('{%s}c' % ns['m']):
+            m = re.match(r'([A-Z]+)(\d+)', c.get('r') or '');
+            if not m: continue
+            col = 0
+            for ch in m.group(1): col = col * 26 + (ord(ch) - 64)
+            row = int(m.group(2)); t = c.get('t'); v = c.find('m:v', ns)
+            if t == 's' and v is not None: val = shared[int(v.text)]
+            elif t == 'inlineStr': val = ''.join(x.text or '' for x in c.iter('{%s}t' % ns['m']))
+            else: val = v.text if v is not None else ''
+            g.setdefault(row, {})[col] = val
+        out = []
+        for rr in sorted(g):
+            width = max(g[rr]) if g[rr] else 0
+            out.append([str(g[rr].get(i, '') or '') for i in range(1, width + 1)])
+        return [r for r in out if any(str(c).strip() for c in r)]
+    sheets = []
+    for s in wb.find('m:sheets', ns):
+        name = s.get('name', ''); rid = s.get('{%s}id' % ns['r'])
+        if rid not in rels: continue
+        rows = grid_of(rels[rid])
+        if not rows: continue
+        hi = _header_row(rows); headers = [str(c).strip() for c in rows[hi]]
+        has_name = any(norm(h) in ALIAS_LOOKUP['name'] for h in headers)
+        sheets.append((name, headers, rows[hi + 1:], has_name, len(rows)))
+    if not sheets:
+        raise SystemExit(f'{path}: no readable sheets')
+    if want_sheet:
+        pick = next((s for s in sheets if s[0].lower() == want_sheet.lower()), None)
+        if not pick: raise SystemExit(f'{path}: no sheet named {want_sheet!r} (have: {[s[0] for s in sheets]})')
+    else:
+        pick = sorted(sheets, key=lambda s: (s[3], s[4]), reverse=True)[0]   # prefer has-name, then most rows
+    return pick[1], pick[2], pick[0]
 
 if __name__ == '__main__':
     main()

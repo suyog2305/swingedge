@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-24",
+  "updated": "2026-08-25",
   "quarters": [
     {
       "quarter": "Q1 FY27",
@@ -9,6 +9,15 @@
       "count": 511,
       "strong": 100,
       "moderate": 75
+    },
+    {
+      "quarter": "Q4 FY26",
+      "sortkey": 20264,
+      "reported": "2026-05-20",
+      "file": "q4-fy26.json",
+      "count": 327,
+      "strong": 186,
+      "moderate": 43
     }
   ]
 }

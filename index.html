@@ -8023,18 +8023,20 @@ function pdXref(){
   const d = pdCur(); if(!d) return null;
   const c = (typeof SE !== 'undefined' && SE.c) ? SE.c : null;
   // universe keyed by normalized name; stage 2 keyed by code
-  const uniByKey = new Map(), uniKeys = [];
-  if(c){ c.U.forEach(u => { const k = peadKey(u.name); if(k && !uniByKey.has(k)){ uniByKey.set(k, u); uniKeys.push(k); } }); }
+  const uniByKey = new Map(), uniKeys = [], uniByCode = new Map();
+  if(c){ c.U.forEach(u => { const k = peadKey(u.name); if(k && !uniByKey.has(k)){ uniByKey.set(k, u); uniKeys.push(k); } if(u.code) uniByCode.set(String(u.code).toUpperCase(), u); }); }
   const s2ByCode = new Map(); if(c){ c.S2.forEach(s => s2ByCode.set(String(s.code || '').toUpperCase(), s)); }
-  const matchUni = (pk) => {
+  const matchUni = (r) => {                                   // prefer the PEAD row's own ticker code, else its normalized name
+    if(r.code && uniByCode.has(String(r.code).toUpperCase())) return uniByCode.get(String(r.code).toUpperCase());
+    const pk = r.key;
     if(uniByKey.has(pk)) return uniByKey.get(pk);
     for(const uk of uniKeys){ if(uk.split(' ').length >= 2 && (pk.startsWith(uk + ' ') || uk.startsWith(pk + ' '))) return uniByKey.get(uk); }
     return null;
   };
   const rows = d.rows.map(r => {
-    const uni = c ? matchUni(r.key) : null;
-    const code = uni ? (uni.code || null) : null;
-    const s2 = code ? (s2ByCode.get(code.toUpperCase()) || null) : null;
+    const uni = c ? matchUni(r) : null;
+    const code = r.code || (uni ? uni.code : null) || null;
+    const s2 = code ? (s2ByCode.get(String(code).toUpperCase()) || null) : null;
     const nearHigh = uni && wrIsNum(uni.from_52wh) ? (+uni.from_52wh >= -PD_NEARHIGH) : false;
     return Object.assign({}, r, { code, uni, s2, rs: uni ? uni.rs : null, from_52wh: uni ? uni.from_52wh : null,
       inScan: !!uni, nearHigh, inS2: !!s2, s2weeks: s2 ? s2.weeks : null,
@@ -8057,12 +8059,12 @@ function pdMedian(a){ const s = a.filter(wrIsNum).map(Number).sort((x, y) => x -
 // stamp PEAD tier onto SE universe rows (so RS Screen / Pulse can show an earnings badge)
 function pdStampUniverse(U){
   const d = pdCur(); if(!d || !U) return;
-  const byKey = new Map(); d.rows.forEach(r => { if(!byKey.has(r.key)) byKey.set(r.key, r); });
+  const byKey = new Map(), byCode = new Map();
+  d.rows.forEach(r => { if(r.code) byCode.set(String(r.code).toUpperCase(), r); if(!byKey.has(r.key)) byKey.set(r.key, r); });
   const keys = [...byKey.keys()];
   U.forEach(u => {
-    const uk = peadKey(u.name);
-    let p = byKey.get(uk);
-    if(!p){ for(const pk of keys){ if(pk.split(' ').length >= 2 && (uk.startsWith(pk + ' ') || pk.startsWith(uk + ' '))){ p = byKey.get(pk); break; } } }
+    let p = (u.code && byCode.get(String(u.code).toUpperCase())) || byKey.get(peadKey(u.name));   // code first, then name
+    if(!p){ const uk = peadKey(u.name); for(const pk of keys){ if(pk.split(' ').length >= 2 && (uk.startsWith(pk + ' ') || pk.startsWith(uk + ' '))){ p = byKey.get(pk); break; } } }
     if(p){ u.pead = p.tier; u.peadLabel = p.pead; u.peadRow = p; }
   });
 }
