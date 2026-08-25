@@ -1,0 +1,21 @@
+{
+  "updated": "2026-08-25",
+  "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
+  "stocks": {
+    "SHANTIGEAR": [
+      { "t": "Shanthi Gears shares zoom ~17% after Tube Investments raises stake to 73.16% via block deal", "src": "Business Standard", "url": "https://www.business-standard.com/markets/news/shanthi-gears-shares-zoom-17-after-tube-investments-raises-stake-126082100285_1.html", "date": "2026-08-21" }
+    ],
+    "RATNAMANI": [
+      { "t": "Ratnamani Metals arm wins export orders worth ~₹2,700 cr ($286M); stock zooms ~15%", "src": "Business Today", "url": "https://www.businesstoday.in/markets/stocks/story/this-mid-cap-metal-stock-zooms-15-on-rs-2700-crore-order-announcement-do-you-own-550977-2026-08-24", "date": "2026-08-24" }
+    ],
+    "BALUFORGE": [
+      { "t": "Balu Forge jumps on first purchase order for 155mm defence shells; Q1 FY27 revenue ₹300.7 cr, PAT ₹66 cr", "src": "Business Standard", "url": "https://www.business-standard.com/markets/capital-market-news/balu-forge-industries-ltd-leads-gainers-in-a-group-126081400823_1.html", "date": "2026-08-17" }
+    ],
+    "VMM": [
+      { "t": "Vishal Mega Mart jumps ~11%: Q1 FY27 revenue +18.7%, PAT +25.6% to ₹259 cr; 819 stores", "src": "Business Today", "url": "https://www.businesstoday.in/markets/stocks/story/why-vishal-mega-mart-shares-jumped-11-in-early-trade-550867-2026-08-24", "date": "2026-08-24" }
+    ],
+    "MARATHON": [
+      { "t": "Marathon Nextgen enters Sewri via joint development for a ₹450 cr GDV residential-retail project", "src": "Screener", "url": "https://www.screener.in/company/MARATHON/consolidated/", "date": "2026-08-01" }
+    ]
+  }
+}

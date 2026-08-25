@@ -1081,6 +1081,16 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
 .pd-tag.strong{background:var(--sage-soft);color:var(--sage2);} .pd-tag.moderate{background:var(--sky-soft);color:var(--sky2);}
 .pd-hero-sel{display:flex;gap:6px;align-items:center;}
 
+/* ============= DAILY GAINERS ============= */
+.dg-news{display:flex;align-items:center;gap:8px;min-width:0;}
+.dg-headline{font-size:11.5px;line-height:1.35;color:var(--t2);max-width:340px;white-space:normal;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-decoration:none;border-bottom:1px dotted var(--b3);}
+.dg-headline:hover{color:var(--lime);border-bottom-color:var(--lime);}
+.dg-news-links{display:inline-flex;gap:4px;flex-shrink:0;}
+.dg-news-ico{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:var(--r2);border:1px solid var(--b2);color:var(--t3);text-decoration:none;transition:all .12s;}
+.dg-news-ico:hover{color:var(--lime);border-color:var(--lime);background:var(--lime-soft);}
+.dg-news-ico i{font-size:14px;}
+.dg-growth{display:block;font-family:var(--mono);font-size:9.5px;color:var(--t3);margin-top:2px;white-space:nowrap;}
+
 </style>
 </head>
 <body>
@@ -1100,6 +1110,7 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
   <div class="sb-scroll">
     <div class="sb-group">Edge</div>
     <div class="nav active" id="nav-pulse" onclick="show('pulse')"><i class="ti ti-activity-heartbeat"></i>Market Pulse</div>
+    <div class="nav" id="nav-dg" onclick="show('dg')"><i class="ti ti-flame"></i>Daily Gainers</div>
     <div class="nav" id="nav-rsscreen" onclick="show('rsscreen')"><i class="ti ti-chart-arrows-vertical"></i>RS Screen</div>
     <div class="nav" id="nav-sectors" onclick="show('sectors')"><i class="ti ti-chart-pie-2"></i>Sectors</div>
     <div class="nav" id="nav-s2track" onclick="show('s2track')"><i class="ti ti-stairs-up"></i>Stage 2 Tracker</div>
@@ -1149,6 +1160,18 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
     </div>
   </div>
   <div class="content se-content"><div id="pd-body"></div></div>
+</div>
+
+<!-- ── EDGE: DAILY GAINERS ── -->
+<div class="sec" id="sec-dg">
+  <div class="topbar">
+    <div class="tb-left"><span class="tb-title">Daily Gainers</span><span class="tb-crumb">/ top movers · earnings · news</span></div>
+    <div class="tb-right">
+      <select class="wr-week-sel se-week" onchange="seSelectWeek(this.value)"><option value="">Loading…</option></select>
+      <button class="btn btn-sm" onclick="loadSE(true);loadDG(true)"><i class="ti ti-refresh"></i>Refresh</button>
+    </div>
+  </div>
+  <div class="content se-content"><div id="dg-body"></div></div>
 </div>
 
 <!-- ── EDGE: MARKET PULSE ── -->
@@ -7594,7 +7617,7 @@ function seEmpty(title, body){
 }
 const SE_EMPTY_BODY = 'Publish a week with <code>python tools/build_scan.py --date YYYY-MM-DD --screener &lt;screener export&gt; --stage2 &lt;Stage 2 list&gt;</code>, commit <code>data/scans/</code>, then Refresh.';
 function seSectionTop(sectionId){ return ''; }
-function seRenderAll(){ seRenderPulse(); seRenderRS(); seRenderSectors(); seRenderS2(); if(typeof renderPD === 'function' && typeof PD !== 'undefined' && PD.loaded && document.getElementById('pd-body')) renderPD(); }
+function seRenderAll(){ seRenderPulse(); seRenderRS(); seRenderSectors(); seRenderS2(); if(typeof renderPD === 'function' && typeof PD !== 'undefined' && PD.loaded && document.getElementById('pd-body')) renderPD(); if(typeof renderDG === 'function' && typeof DG !== 'undefined' && DG.loaded && document.getElementById('dg-body')) renderDG(); }
 function seRerender(tableId){
   if(tableId.startsWith('se-rs')) seRenderRSTable();
   else if(tableId.startsWith('se-s2')) seRenderS2Table();
@@ -8208,6 +8231,167 @@ function pdExportCsv(){
   toast(`Exported ${x.rows.length} companies`, 'success');
 }
 
+// ============= DAILY GAINERS — top 1-day movers, cross-linked to earnings (PEAD), momentum & news =============
+// A live view over the current Edge scan universe, ranked by 1-day return. Each gainer is cross-linked to:
+//   • its recent quarterly result (PEAD tier + EPS/PAT growth) — already stamped onto scan rows by pdStampUniverse,
+//   • RS rating / Stage 2 membership (from the scan), and
+//   • news: an always-live per-ticker news search + screener.in page, plus a curated headline when one is on file.
+// The "day" is the scan's as-of date, so it becomes truly daily if the scan is pulled daily.
+const DG = {
+  news: { updated: null, stocks: {} }, loaded: false, loading: false,
+  ui: { q: '', minmove: '0', minmcap: '0', ind: 'all', flt: 'all', sort: { col: 'r1d', dir: 'desc' } }
+};
+
+async function loadDG(manual){
+  if(DG.loading) return;
+  DG.loading = true;
+  try{
+    const res = await fetch('data/daily/news.json', { cache: manual ? 'reload' : 'default' });
+    if(res.ok){ const d = await res.json(); DG.news = { updated: d.updated || null, stocks: d.stocks || {} }; }
+  }catch(err){ /* news is optional — live links still work */ }
+  finally{ DG.loading = false; DG.loaded = true; }
+  renderDG();
+}
+
+function dgNewsFor(code){ return code ? (DG.news.stocks[String(code).toUpperCase()] || null) : null; }
+function dgGoogleNews(r){
+  const q = encodeURIComponent((r.name || r.code || '') + ' share news');
+  return `https://news.google.com/search?q=${q}&hl=en-IN&gl=IN&ceid=IN:en`;
+}
+function dgScreener(r){ return r.code ? `https://www.screener.in/company/${encodeURIComponent(r.code)}/` : null; }
+
+function dgNewsCell(r){
+  const items = dgNewsFor(r.code);
+  const gn = `<a class="dg-news-ico" href="${dgGoogleNews(r)}" target="_blank" rel="noopener" title="Latest news (Google News)"><i class="ti ti-news"></i></a>`;
+  const sc = r.code ? `<a class="dg-news-ico" href="${dgScreener(r)}" target="_blank" rel="noopener" title="screener.in company page & announcements"><i class="ti ti-external-link"></i></a>` : '';
+  let head = '';
+  if(items && items.length){
+    const n = items[0];
+    head = `<a class="dg-headline" href="${wrAttr(n.url || dgGoogleNews(r))}" target="_blank" rel="noopener" title="${wrAttr((n.src || '') + (n.date ? ' · ' + n.date : ''))}">${wrEsc(n.t)}</a>`;
+  }
+  return `<div class="dg-news">${head}<span class="dg-news-links">${gn}${sc}</span></div>`;
+}
+function dgPeadCell(r){
+  if(r.pead == null) return '<span class="flat">—</span>';
+  const pr = r.peadRow || {};
+  const g = [];
+  if(wrIsNum(pr.eps_yoy)) g.push('EPS ' + wrPct(pr.eps_yoy, 0, {plain:true}));
+  if(wrIsNum(pr.pat_yoy)) g.push('PAT ' + wrPct(pr.pat_yoy, 0, {plain:true}));
+  const tip = (r.peadLabel || '') + (g.length ? ' · ' + g.join(' · ') : '');
+  return `<span title="${wrAttr(tip)}">${typeof pdTierCell === 'function' ? pdTierCell(r.pead) : wrEsc(r.peadLabel||'')}</span>${g.length ? `<span class="dg-growth">${wrEsc(g.join(' · '))}</span>` : ''}`;
+}
+function dgMomentumCell(r){
+  let s = '';
+  if(r.s2list) s += `<span class="se-pill s2" title="On the Stage 2 list${r.s2list.weeks ? ' · ' + r.s2list.weeks + ' wk' : ''}">S2${r.s2list.weeks ? ' · ' + r.s2list.weeks + 'w' : ''}</span>`;
+  else if(r.s2calc) s += `<span class="se-pill calc" title="Passes the trend template">S2 calc</span>`;
+  if(r.near_ath) s += `<span class="wr-sup" title="Within 5% of all-time high">*</span>`;
+  return s || '<span class="flat">—</span>';
+}
+
+function dgRows(){
+  const c = (typeof SE !== 'undefined' && SE.c) ? SE.c : null;
+  if(!c) return [];
+  return c.U.filter(r => wrIsNum(r.r1d)).sort((a, b) => (+b.r1d) - (+a.r1d));
+}
+
+function renderDG(){
+  const el = document.getElementById('dg-body'); if(!el) return;
+  if(typeof SE === 'undefined' || !SE.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading…</p></div>'; return; }
+  const c = SE.c;
+  if(!c || !c.U.length){ el.innerHTML = seEmpty('No scan loaded', 'Daily Gainers ranks the Edge scan universe by 1-day return. Publish a scan (Edge → Refresh) and it fills in.'); return; }
+  if(!c.U.some(r => wrIsNum(r.r1d))){ el.innerHTML = seEmpty('No 1-day return in this scan', 'This scan export has no 1-day return column, so gainers can\'t be ranked. Include "Return over 1day" in the screener export.'); return; }
+  const all = dgRows();
+  const gainers = all.filter(r => +r.r1d > 0);
+  const peadReady = typeof PD !== 'undefined' && PD.loaded;
+  // headline stats
+  const withPead = gainers.filter(r => r.pead >= 2).length;
+  const withS2 = gainers.filter(r => r.s2list || r.s2calc).length;
+  const conv = gainers.filter(r => +r.r1d >= 3 && r.pead >= 2 && (r.s2list || r.s2calc)).length;
+  const top = all[0];
+  const kpis = [
+    seKpi('Advancers', wrNum(gainers.length), `of ${wrNum(all.length)} scanned · as of the ${wrEsc(c.d.screen && c.d.screen.name || 'scan')} (w/e ${wrDate(c.date)})`, 'ok', gainers.length),
+    seKpi('Top move', top ? wrPct(top.r1d, 1, {plain:true}) : '—', top ? wrEsc(top.name || top.code) : '', 'ok'),
+    seKpi('Gaining + strong earnings', peadReady ? wrNum(withPead) : '—', peadReady ? 'up today with Strong/Moderate PEAD' : 'load PEAD Radar to cross-ref', 'accent', withPead),
+    seKpi('Gaining + on Stage 2', wrNum(withS2), 'up today and trending', '', withS2),
+    seKpi('Convergence ★', wrNum(conv), '≥3% today + strong earnings + Stage 2', conv ? 'ok' : '', conv)
+  ];
+  // spotlight: biggest movers that also have strong earnings (the "why it moved" list)
+  const spot = gainers.filter(r => r.pead >= 2 || r.s2list).slice(0, 12);
+  const cols = (withRank) => [
+    ...(withRank ? [{k:'_i', t:'#', type:'idx'}] : []),
+    {k:'name', t:'Stock', type:'html', html: r => `<div class="se-stock"><div><span class="tk">${wrEsc(r.code || r.name || '—')}</span>${typeof wrOwned==='function'?wrOwned(r):''}${(+r.r1d)>=3 && r.pead>=2 && (r.s2list||r.s2calc) ? '<span class="se-pill new" title="Big move + strong earnings + Stage 2">★</span>':''}</div>${r.name && r.name!==r.code ? `<div class="se-nm">${wrEsc(r.name)}</div>`:''}</div>`},
+    {k:'act', t:'', type:'html', html: r => typeof wrCodeCell==='function' ? wrCodeCell({code:r.code||r.name, name:r.name, industry:r.industry||r.group}, r.industry||r.group) : ''},
+    {k:'industry', t:'Industry', type:'text', fn: r => r.industry || r.group},
+    {k:'r1d', t:'Day %', type:'pct', dec:1},
+    {k:'price', t:'Price', type:'num', dec:0},
+    {k:'mcap', t:'MCap (₹Cr)', type:'int'},
+    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs!=null && typeof seRsBar==='function' ? seRsBar(r.rs) : '<span class="flat">—</span>'},
+    {k:'mom', t:'Momentum', type:'html', sortType:'num', fn: r => (r.s2list?2:0)+(r.s2calc?1:0), html: dgMomentumCell},
+    {k:'pead', t:'Earnings (PEAD)', type:'html', sortType:'num', fn: r => r.pead, html: dgPeadCell},
+    {k:'r1w', t:'1W', type:'pct', dec:1},
+    {k:'from_52wh', t:'vs 52WH', type:'pct0', dec:1},
+    {k:'news', t:'News', type:'html', html: dgNewsCell}
+  ];
+  el.innerHTML = `
+    <div class="se-hero"><div class="se-hero-inner">
+      <div class="wr-tags"><span class="wr-tag am">Daily Gainers</span><span class="wr-tag tl">Movers · earnings · news</span><span class="wr-tag">as of w/e ${wrDate(c.date)}</span></div>
+      <h1>Today's movers, and why they moved</h1>
+      <div class="wr-lead">${wrNum(gainers.length)} advancers in the ${wrEsc(c.d.screen && c.d.screen.name || 'scan')} — ranked by 1-day return and cross-linked to recent quarterly results, RS/Stage 2, and live news.${DG.news.updated ? ` Curated headlines updated ${wrDate(DG.news.updated)}.` : ''}</div>
+      <div class="se-kpis">${kpis.join('')}</div>
+    </div></div>
+    <div class="se-body">
+      ${spot.length ? `<div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Why they moved</div><h2>Movers with an earnings or momentum reason</h2></div><span class="wr-hint">gainers that are on the Stage 2 list or had Strong/Moderate PEAD results</span></div>${wrTable('dg-spot', cols(false), spot, {sort:null, maxHeight:'440px'})}</div>` : ''}
+      <div class="se-panel">
+        <div class="se-row-h"><div><div class="se-eyebrow">Ranked by 1-day move</div><h2>All advancers</h2></div><span class="wr-count" id="dg-count"></span></div>
+        <div class="se-filters">
+          <input type="text" id="dg-q" placeholder="Search stock or industry…" value="${wrAttr(DG.ui.q)}" oninput="DG.ui.q=this.value;dgRenderTable()">
+          <select onchange="DG.ui.minmove=this.value;dgRenderTable()">${[['0','Any gain'],['2','≥ 2%'],['5','≥ 5%'],['10','≥ 10%']].map(([v,t])=>`<option value="${v}" ${DG.ui.minmove===v?'selected':''}>${t}</option>`).join('')}</select>
+          <select onchange="DG.ui.flt=this.value;dgRenderTable()">${[['all','Any'],['pead','Strong/Mod PEAD'],['s2','On Stage 2'],['conv','Convergence ★'],['news','Has a headline']].map(([v,t])=>`<option value="${v}" ${DG.ui.flt===v?'selected':''}>${t}</option>`).join('')}</select>
+          <select onchange="DG.ui.ind=this.value;dgRenderTable()"><option value="all">All industries</option>${[...new Set(gainers.map(r=>r.industry||r.group||'Other'))].sort().map(i=>`<option value="${wrAttr(i)}" ${DG.ui.ind===i?'selected':''}>${wrEsc(i)}</option>`).join('')}</select>
+          <select onchange="DG.ui.minmcap=this.value;dgRenderTable()">${[['0','Any mcap'],['1000','≥ ₹1,000 Cr'],['5000','≥ ₹5,000 Cr'],['20000','≥ ₹20,000 Cr']].map(([v,t])=>`<option value="${v}" ${DG.ui.minmcap===v?'selected':''}>${t}</option>`).join('')}</select>
+        </div>
+        <div id="dg-table"></div>
+      </div>
+      <div class="wr-foot" style="border:none;padding:14px 0 0;">1-day return is as of the scan's date (pull the scan daily for a truly daily list). Earnings (PEAD) is matched by company name to the loaded quarterly file; News opens a live per-ticker search plus the screener.in page, with a curated headline shown where one is on file (data/daily/news.json). Not investment advice.</div>
+    </div>`;
+  dgRenderTable();
+  if(typeof seCountUp === 'function') seCountUp(el);
+}
+
+function dgRenderTable(){
+  const host = document.getElementById('dg-table'); if(!host || typeof SE==='undefined' || !SE.c) return;
+  const u = DG.ui, q = u.q.trim().toLowerCase();
+  const list = dgRows().filter(r => {
+    if(!(+r.r1d > 0)) return false;
+    if(q && !((r.name||'')+' '+(r.code||'')+' '+(r.industry||'')+' '+(r.group||'')).toLowerCase().includes(q)) return false;
+    if(+u.minmove && !(+r.r1d >= +u.minmove)) return false;
+    if(+u.minmcap && !(wrIsNum(r.mcap) && r.mcap >= +u.minmcap)) return false;
+    if(u.ind !== 'all' && (r.industry||r.group||'Other') !== u.ind) return false;
+    if(u.flt === 'pead' && !(r.pead >= 2)) return false;
+    if(u.flt === 's2' && !(r.s2list || r.s2calc)) return false;
+    if(u.flt === 'conv' && !(+r.r1d >= 3 && r.pead >= 2 && (r.s2list || r.s2calc))) return false;
+    if(u.flt === 'news' && !dgNewsFor(r.code)) return false;
+    return true;
+  });
+  const cols = [
+    {k:'_i', t:'#', type:'idx'},
+    {k:'name', t:'Stock', type:'html', html: r => `<div class="se-stock"><div><span class="tk">${wrEsc(r.code || r.name || '—')}</span>${typeof wrOwned==='function'?wrOwned(r):''}${(+r.r1d)>=3 && r.pead>=2 && (r.s2list||r.s2calc) ? '<span class="se-pill new" title="Big move + strong earnings + Stage 2">★</span>':''}</div>${r.name && r.name!==r.code ? `<div class="se-nm">${wrEsc(r.name)}</div>`:''}</div>`},
+    {k:'act', t:'', type:'html', html: r => typeof wrCodeCell==='function' ? wrCodeCell({code:r.code||r.name, name:r.name, industry:r.industry||r.group}, r.industry||r.group) : ''},
+    {k:'industry', t:'Industry', type:'text', fn: r => r.industry || r.group},
+    {k:'r1d', t:'Day %', type:'pct', dec:1},
+    {k:'price', t:'Price', type:'num', dec:0},
+    {k:'mcap', t:'MCap (₹Cr)', type:'int'},
+    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs!=null && typeof seRsBar==='function' ? seRsBar(r.rs) : '<span class="flat">—</span>'},
+    {k:'mom', t:'Momentum', type:'html', sortType:'num', fn: r => (r.s2list?2:0)+(r.s2calc?1:0), html: dgMomentumCell},
+    {k:'pead', t:'Earnings (PEAD)', type:'html', sortType:'num', fn: r => r.pead, html: dgPeadCell},
+    {k:'r1w', t:'1W', type:'pct', dec:1},
+    {k:'from_52wh', t:'vs 52WH', type:'pct0', dec:1},
+    {k:'news', t:'News', type:'html', html: dgNewsCell}
+  ];
+  host.innerHTML = wrTable('dg-all', cols, list, {sort: DG.ui.sort, tall:true, cap:400, empty:'No advancers match the filters.'});
+  const cnt = document.getElementById('dg-count'); if(cnt) cnt.textContent = `${wrNum(list.length)} advancers shown`;
+}
+
 // ============= INIT =============
 function init(){
   load();
@@ -8230,6 +8414,7 @@ function init(){
   loadWR(false);
   loadSE(false);
   loadPD(false);
+  loadDG(false);
   seApplyTheme();
   updateMarket();
   setInterval(updateMarket, 30000);
