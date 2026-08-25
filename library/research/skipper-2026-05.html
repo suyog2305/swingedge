@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skipper Limited — Equity Research Report | May 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ MASTHEAD ═══════════════ -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: SKIPPER &nbsp;|&nbsp; BSE: 538562 &nbsp;|&nbsp; ISIN: INE439E01022 &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; May 2026</p>
+    <h1 class="report-title"><span>Skipper</span> Limited</h1>
+    <p class="report-subtitle">Power T&amp;D Structures &amp; EPC &nbsp;·&nbsp; S.K. Bansal Group &nbsp;·&nbsp; Among the world's largest transmission-tower manufacturers</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (May 27)</div><div class="kpi-value">~₹502</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹5,668 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">52W H / L</div><div class="kpi-value">₹588 / ₹327</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Revenue FY26</div><div class="kpi-value">₹5,553 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">PAT FY26</div><div class="kpi-value">₹213 Cr</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Accumulate / Buy on Dips</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Target (1Y)</div><div class="rating-val">₹730 – ₹760</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Target (1Y)</div><div class="rating-val">₹360 – ₹400</div></div>
+  </div>
+</header>
+
+<!-- ═══════════════ STICKY NAV ═══════════════ -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Business</a>
+    <a href="#s3">Value Chain</a>
+    <a href="#s4">Order Book</a>
+    <a href="#s5">Capacity</a>
+    <a href="#s6">Competition</a>
+    <a href="#s7">Financials</a>
+    <a href="#s8">Working Capital</a>
+    <a href="#s9">Growth &amp; Guidance</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- ═══════════════ S1: OVERVIEW ═══════════════ -->
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:220px">Full Name</td><td>Skipper Limited</td></tr>
+        <tr><td class="bold">Lineage</td><td>Skipper Investments Ltd (1981) → Skipper Steels Ltd (1990) → Skipper Ltd (2009)</td></tr>
+        <tr><td class="bold">ISIN / Codes</td><td style="font-family:'IBM Plex Mono',monospace;font-size:12px">INE439E01022 &nbsp;|&nbsp; NSE: SKIPPER &nbsp;|&nbsp; BSE: 538562</td></tr>
+        <tr><td class="bold">Listed</td><td>NSE/BSE — listed May 2015; part of the Kolkata-based S.K. Bansal Group (est. 1961)</td></tr>
+        <tr><td class="bold">Promoters</td><td>Bansal family — Sajan Kumar Bansal (Chairman &amp; MD), Sharan Bansal, Devesh Bansal, Siddharth Bansal. Promoter holding ~66.5% (Mar 2026)</td></tr>
+        <tr><td class="bold">Headquarters</td><td>Kolkata, West Bengal</td></tr>
+        <tr><td class="bold">Face Value</td><td>₹1 per share</td></tr>
+        <tr><td class="bold">Sector</td><td>Power Infrastructure / Engineering — Transmission &amp; Distribution structures, EPC, polymer pipes</td></tr>
+        <tr><td class="bold">Shareholding (Mar 26)</td><td>Promoters ~66.5% &nbsp;·&nbsp; FIIs ~6.1% &nbsp;·&nbsp; DIIs ~1.4% &nbsp;·&nbsp; Public &amp; others ~26%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Skipper is among the world's leading manufacturers of power transmission &amp; distribution (T&amp;D) structures — lattice towers, monopoles, distribution poles, and angles — supplied to utilities such as Power Grid Corporation (PGCIL), state transmission companies, and international clients. The company runs three lines of business: a dominant <strong>Engineering Products</strong> division (towers and structures), an <strong>Infrastructure / EPC</strong> arm (turnkey transmission lines and substations), and a <strong>Polymer</strong> division (PVC and HDPE pipes &amp; fittings).</p>
+
+  <p>The investment case rests on a simple structural fact: India is in the middle of a multi-year transmission build-out, with the National Electricity Plan targeting more than 50,000 circuit-kilometres of new transmission lines over the next five years, alongside renewable-evacuation corridors, HVDC links and grid-strengthening. Skipper sits at the <strong>towers &amp; EPC</strong> stage of that value chain — a structurally cheaper entry point than the equipment names, with similar end-demand exposure.</p>
+
+  <div class="callout callout-gold">House view: Within our grid-infrastructure coverage, Skipper is a Tier-1 "pure bottleneck play at a reasonable forward multiple" — the cleanest listed proxy for the tower/overhead-line leg of the T&amp;D capex cycle, trading well below the 30–70x multiples of the HVDC equipment trio.</div>
+</section>
+
+<!-- ═══════════════ S2: BUSINESS ═══════════════ -->
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">Business Segments</h2></div>
+
+  <p>FY26 revenue of ₹5,552.8 Cr was driven overwhelmingly by the Engineering division, with EPC embedded in the order book and Polymer a smaller but margin-accretive diversifier.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Segment</th><th class="right">FY26 Revenue</th><th>Profile</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Engineering Products &amp; EPC</td><td class="right green">~₹4,359 Cr (+24% YoY)</td><td>Best-ever 12-month engineering revenue. Transmission/distribution towers, monopoles, angles, fasteners, plus turnkey EPC of transmission lines and substations. Core of the order book and growth engine.</td></tr>
+        <tr><td class="bold">Polymer Products</td><td class="right">~₹500+ Cr (+17% YoY)</td><td>Highest-ever annual polymer revenue. PVC/CPVC/HDPE pipes and fittings (water, plumbing, agri, infrastructure). Higher-margin than commodity tower work but still scaling; a diversification lever away from pure government tower demand.</td></tr>
+        <tr><td class="bold">Exports</td><td class="right muted">~10% of order book</td><td>International supply across 60+ countries. Management is building out Brazil, UAE and US subsidiaries to grow this leg, though near-term export growth is being tempered by geopolitical/tariff frictions.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="subsection-title">Operational Milestones — FY26</p>
+  <ul class="report-list">
+    <li><strong>Heaviest tower in the world:</strong> Skipper manufactured a record ~293-tonne transmission tower during FY26, underscoring its capability at the high-voltage / EHV end of the spectrum.</li>
+    <li><strong>India's first composite-insulated cross-arms:</strong> Tested in FY26 — a step toward higher-value, technology-differentiated products versus commodity angle-tower fabrication.</li>
+    <li><strong>EHV / HVDC execution:</strong> ~5,000 circuit-km of EHV and HVDC overhead lines under execution, positioning Skipper directly in the highest-growth transmission category.</li>
+    <li><strong>Global footprint build-out:</strong> New subsidiaries being set up in Brazil, the UAE and the US to localise bidding and execution in international markets.</li>
+  </ul>
+</section>
+
+<!-- ═══════════════ S3: VALUE CHAIN ═══════════════ -->
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Where Skipper Sits in the T&amp;D Value Chain</h2></div>
+
+  <p>Every transmission corridor flows through the same physical sequence. Skipper occupies the towers &amp; EPC stage — the point with lower margins than equipment manufacture, but with the broadest, most repeatable demand and the lowest technology-obsolescence risk.</p>
+
+  <div class="vc-diagram">
+    <div class="vc-layer l1">
+      <div class="vc-num">STAGE 01</div>
+      <div class="vc-name">Raw Materials</div>
+      <div class="vc-desc">Steel (angles, plates, coils), zinc for galvanising, aluminium/conductor, polymers</div>
+      <div class="vc-tags"><span class="vc-tag">Steel mills · Zinc</span></div>
+    </div>
+    <div class="vc-layer l2">
+      <div class="vc-num">STAGE 02</div>
+      <div class="vc-name">Equipment Mfg</div>
+      <div class="vc-desc">Transformers, HVDC converters, GIS, reactors, conductors, cables</div>
+      <div class="vc-tags"><span class="vc-tag">Hitachi · Siemens</span><span class="vc-tag">Apar · KEI</span></div>
+    </div>
+    <div class="vc-layer l3">
+      <div class="vc-num">STAGE 03</div>
+      <div class="vc-name">Towers &amp; Structures</div>
+      <div class="vc-desc">Lattice towers, monopoles, distribution poles, structures — the fabricated backbone of every line</div>
+      <div class="vc-tags"><span class="vc-tag skip">SKIPPER</span><span class="vc-tag">KEC · KPIL</span></div>
+    </div>
+    <div class="vc-layer l4">
+      <div class="vc-num">STAGE 04</div>
+      <div class="vc-name">EPC &amp; Asset Owners</div>
+      <div class="vc-desc">Turnkey line erection, stringing, substations → transmission asset owners</div>
+      <div class="vc-tags"><span class="vc-tag skip">SKIPPER (EPC)</span><span class="vc-tag">PGCIL · AESL</span></div>
+    </div>
+  </div>
+
+  <p>Skipper straddles Stage 03 (its core, high-share business) and Stage 04 (EPC). It is not directly exposed to the HVDC converter-equipment bottleneck — that is the domain of Hitachi Energy, Siemens Energy and GE Vernova T&amp;D — but it is a direct beneficiary of the <em>volume</em> of lines those corridors require. The trade-off is margin: tower fabrication is closer to a processing/engineering business (mid-single-digit to low-double-digit EBITDA margins) than the 15–22% margins of equipment OEMs.</p>
+</section>
+
+<!-- ═══════════════ S4: ORDER BOOK ═══════════════ -->
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">Order Book &amp; Demand Visibility</h2></div>
+
+  <div class="macro-grid">
+    <div class="macro-card"><div class="macro-co">Closing Order Book</div><div class="macro-val">₹8,502 Cr</div><div class="macro-label">All-time high as of Mar 2026 · ~90% domestic / 10% exports · ~18 months of visibility</div></div>
+    <div class="macro-card"><div class="macro-co">Bidding Pipeline</div><div class="macro-val">₹33,000 Cr</div><div class="macro-label">Active tenders being pursued — conversion is the key swing factor for FY27–28</div></div>
+    <div class="macro-card"><div class="macro-co">FY26 Order Inflow</div><div class="macro-val">₹5,678 Cr</div><div class="macro-label">Driven by large EPC wins from PGCIL and international markets</div></div>
+    <div class="macro-card"><div class="macro-co">Q4 FY26 Inflow</div><div class="macro-val">₹1,029 Cr</div><div class="macro-label">Sustained order momentum into the new fiscal</div></div>
+  </div>
+
+  <p>The record ₹8,502 Cr backlog is the single strongest pillar of the thesis: at ~1.5x FY26 revenue, it underwrites roughly 18 months of execution and removes most near-term revenue risk. The ₹33,000 Cr bidding pipeline is the optionality — even a modest win-rate sustains the order book through FY28. The strategically important shift is the rising <strong>EPC and exports</strong> mix, which carries better realisations than plain tower supply.</p>
+
+  <div class="callout">The risk inside the strength: the book is ~90% domestic and heavily PGCIL/state-utility linked. That concentrates Skipper on the pace and tendering discipline of Indian transmission ordering — a tailwind today, but a single-customer-type dependency to watch.</div>
+</section>
+
+<!-- ═══════════════ S5: CAPACITY ═══════════════ -->
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Capacity Expansion</h2></div>
+
+  <p>Skipper's growth is capacity-led — output scales with installed tonnage, which is why the capex roadmap matters as much as the order book. The company added ~75,000 MTPA in Q1 FY26 and is on a path to materially expand engineering capacity.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Milestone</th><th>Capacity (Engineering)</th><th>Implication</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Pre-FY26 base</td><td>~3,75,000 MTPA</td><td>Established large-scale tower manufacturing footprint</td></tr>
+        <tr><td class="bold">By ~Jun 2026 (target)</td><td class="green">~4,50,000 MTPA</td><td>Near-term debottlenecking + brownfield additions</td></tr>
+        <tr><td class="bold">By FY28 (aspiration)</td><td class="green">~6,00,000 MTPA</td><td>Would rank Skipper among / as the world's largest tower manufacturer by capacity</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Capacity figures are management aspirations sourced from disclosures/concall commentary; phasing depends on capex execution and demand absorption.</p>
+  </div>
+
+  <p>The strategic logic is sound — capacity is the binding constraint in a demand-rich environment, and being a low-cost, high-volume supplier at scale is a real moat in tower fabrication. The financial tension is equally clear: capacity growth requires capex, and tower margins do not self-fund expansion at the same rate as the order book grows. This keeps Skipper modestly leveraged and makes <strong>return on capital and working-capital discipline</strong> the variables that separate a good outcome from a great one.</p>
+</section>
+
+<!-- ═══════════════ S6: COMPETITION ═══════════════ -->
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Competitive Positioning</h2></div>
+
+  <p>Skipper competes in two overlapping arenas: pure tower/structure manufacturing (where it is a global-scale, low-cost leader) and T&amp;D EPC (where it is a smaller player among much larger diversified contractors).</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Peer</th><th>Positioning</th><th class="right">Relative Scale</th><th>Read-across for Skipper</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">KEC International</td><td>Large diversified T&amp;D EPC</td><td class="right">Multiples of Skipper's revenue / order book</td><td>Sets the EPC competitive bar; Skipper differentiates on manufacturing depth, not EPC breadth</td></tr>
+        <tr><td class="bold">Kalpataru Projects (KPIL)</td><td>Large diversified EPC</td><td class="right">Order book several times larger</td><td>Same — Skipper is the manufacturing-led, focused alternative</td></tr>
+        <tr><td class="bold">Transrail Lighting</td><td>Towers + international EPC</td><td class="right">Comparable / smaller</td><td>Closest like-for-like on the tower-manufacturing model</td></tr>
+        <tr><td class="bold">HVDC equipment trio</td><td>Hitachi / Siemens / GE Vernova T&amp;D</td><td class="right">Premium-valued (~30–70x)</td><td>Not direct competitors — but Skipper is the cheap "shovels" exposure to the same demand</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>The honest competitive read: Skipper is <em>smaller in scale</em> than KEC and KPIL on revenue and backlog, but it is more vertically integrated in manufacturing and arguably the purest listed proxy for the tower leg specifically. Its edge is cost, scale of tonnage, galvanising integration and a long track record of high-voltage qualification; its limitation is that tower fabrication has modest pricing power and the EPC business pits it against far larger balance sheets.</p>
+</section>
+
+<!-- ═══════════════ S7: FINANCIALS ═══════════════ -->
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Financial Performance</h2></div>
+
+  <p>FY26 (audited, approved 28 Apr 2026) was a record year on revenue, profit and cash generation — with strong Q4 momentum.</p>
+
+  <p class="subsection-title">FY26 vs FY25 — Full Year</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">FY25</th><th class="right">FY26</th><th class="right">YoY</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Revenue (₹ Cr)</td><td class="right">~4,625</td><td class="right">5,552.8</td><td class="right green">+20.1%</td></tr>
+        <tr><td class="bold">PBT (₹ Cr)</td><td class="right">~198.7</td><td class="right">281.5</td><td class="right green">+41.7%</td></tr>
+        <tr><td class="bold">PAT (₹ Cr)</td><td class="right">~149</td><td class="right">~213</td><td class="right green">+42%</td></tr>
+        <tr><td class="bold">EPS (₹)</td><td class="right">~13.2</td><td class="right">18.88</td><td class="right green">+43%</td></tr>
+        <tr><td class="bold">Cash from Operations (₹ Cr)</td><td class="right">153.3</td><td class="right">277.4</td><td class="right green">+81%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">FY25 figures approximate, back-solved from disclosed YoY growth rates. Consolidated PAT reported in the ~₹207–213 Cr range across sources; EPS of ₹18.88 implies ~₹213 Cr on ~11.3 cr shares.</p>
+  </div>
+
+  <p class="subsection-title">Q4 FY26 — Quarter</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Q4 FY26</th><th class="right">YoY</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Revenue (₹ Cr)</td><td class="right">1,666.6</td><td class="right green">+29.4%</td></tr>
+        <tr><td class="bold">PAT (₹ Cr)</td><td class="right">78.1</td><td class="right green">+62.9%</td></tr>
+        <tr><td class="bold">EPS (₹)</td><td class="right">6.96</td><td class="right green">—</td></tr>
+        <tr><td class="bold">Engineering Revenue (₹ Cr)</td><td class="right">1,248.7</td><td class="right green">+33.2% (best-ever quarter)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-green">The operating-leverage story is real: PAT grew roughly twice as fast as revenue in both Q4 and full-year FY26, and operating cash flow nearly doubled — a meaningful quality marker for a business often dismissed as "just steel fabrication."</div>
+</section>
+
+<!-- ═══════════════ S8: WORKING CAPITAL ═══════════════ -->
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">Balance Sheet &amp; Working Capital</h2></div>
+
+  <p>This is where the scrutiny belongs. Skipper's profit growth is strong, but capital efficiency and the cash-conversion cycle are the structural watch-items.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:260px">Return on Equity (3-yr avg)</td><td>~13.7% — modest for the valuation; the key metric the re-rating depends on improving</td></tr>
+        <tr><td class="bold">Debtor Days</td><td class="red">Increased from ~79 to ~98 days — a deterioration driven by EPC mix and project-billing cycles</td></tr>
+        <tr><td class="bold">Operating Cash Flow (FY26)</td><td class="green">₹277.4 Cr, up from ₹153.3 Cr — encouraging, partly offsets the receivables drag</td></tr>
+        <tr><td class="bold">Leverage</td><td>Modestly geared; capacity expansion is partly debt-funded, so interest cost as a % of revenue is a monitorable</td></tr>
+        <tr><td class="bold">P/B</td><td>~3.4–4.3x — full relative to a ~14% ROE, which is why ROE improvement is central to the thesis</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>The tension is straightforward. A capacity-led, project-heavy business with rising receivables needs working capital to grow, and tower margins don't generate enough internal cash to fund both expansion and a lengthening cycle without leverage. FY26's near-doubling of operating cash flow is the right direction; sustaining it while debtor days normalise is what would justify a higher multiple. Until then, the ~14% ROE caps how aggressively the stock can re-rate.</p>
+</section>
+
+<!-- ═══════════════ S9: GROWTH & GUIDANCE ═══════════════ -->
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">Growth Drivers &amp; Management Guidance</h2></div>
+
+  <p class="subsection-title">Management Guidance (Q4 FY26 Concall)</p>
+  <ul class="report-list">
+    <li><strong>FY27 revenue growth ~15%</strong> — explicitly <em>moderated down from the prior ~20%</em>, with geopolitical/export frictions cited as the reason for caution.</li>
+    <li><strong>FY27 PAT growth ~30%</strong> — margin expansion and operating leverage are expected to drive profit faster than revenue.</li>
+    <li><strong>Long-term EBITDA margin target ~12%</strong> — with margin improvement expected through FY27 (vs a historically mid-single-digit to ~10% range).</li>
+    <li><strong>FY28+ : return to 20–25% growth</strong> — predicated on the export build-out (Brazil/UAE/US) and conversion of the ₹33,000 Cr bidding pipeline.</li>
+  </ul>
+
+  <p class="subsection-title">Structural Demand Drivers</p>
+  <ul class="report-list">
+    <li><strong>India transmission build-out:</strong> 50,000+ ckm of new lines planned over five years; renewable-evacuation corridors and grid-strengthening drive sustained tower demand.</li>
+    <li><strong>EHV / HVDC mix-up:</strong> Higher-voltage lines carry richer realisations; Skipper's ~5,000 ckm of EHV/HVDC execution and composite cross-arm capability move it up the value curve.</li>
+    <li><strong>Exports as the second engine:</strong> Localised subsidiaries to win international tenders — the swing factor for the FY28 re-acceleration, currently held back by trade frictions.</li>
+    <li><strong>Polymer scale-up:</strong> A higher-margin diversifier that reduces dependence on government tower ordering as it scales.</li>
+  </ul>
+
+  <div class="callout callout-gold">The guidance cut from 20% to 15% revenue growth is the most important single data point of the quarter. It is not a demand-collapse signal — the order book is at a record — but it tempers the near-term growth narrative and is the reason this report sets a measured "Accumulate," not an aggressive "Buy."</div>
+</section>
+
+<!-- ═══════════════ S10: VALUATION ═══════════════ -->
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation Model</h2></div>
+
+  <p>Shares outstanding ~11.3 crore. FY26 EPS ₹18.88. We anchor on FY27E EPS, applying management's ~30% PAT-growth guide to a base case and flexing for execution.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Conservative</th><th class="right">Base Case</th><th class="right">Bull Case</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">FY26 EPS (₹) — actual</td><td class="right">18.9</td><td class="right">18.9</td><td class="right">18.9</td></tr>
+        <tr><td class="bold">FY27E PAT growth</td><td class="right">~10%</td><td class="right green">~28–30%</td><td class="right">~35%</td></tr>
+        <tr><td class="bold">FY27E EPS (₹)</td><td class="right">~20.8</td><td class="right green">~24.5</td><td class="right">~25.5</td></tr>
+        <tr><td class="bold">Target P/E (FY27E)</td><td class="right">17x</td><td class="right green">24x</td><td class="right">29x</td></tr>
+        <tr><td class="bold">12-Month Target Price</td><td class="right">~₹355–400</td><td class="right green bold">~₹575–590</td><td class="right">~₹730–760</td></tr>
+        <tr><td class="bold">Upside vs CMP ~₹502</td><td class="right red">−21% to −29%</td><td class="right green">+15% to +18%</td><td class="right" style="color:var(--gold)">+45% to +51%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">FY27E EPS estimates are the author's own projections derived from management guidance and are directional, not precise forecasts.</p>
+  </div>
+
+  <p class="subsection-title">Cross-Checks</p>
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:260px">Trailing P/E (FY26)</td><td>~24–27x on ₹18.9 EPS — in line with smallcap capital-goods peers, a clear discount to the HVDC equipment trio</td></tr>
+        <tr><td class="bold">Order book / revenue</td><td>₹8,502 Cr / ₹5,553 Cr ≈ 1.5x — solid revenue visibility supporting the base case</td></tr>
+        <tr><td class="bold">P/B vs ROE</td><td>~3.4–4.3x P/B against ~14% ROE — the valuation already embeds margin/ROE improvement, leaving limited cushion if execution slips</td></tr>
+        <tr><td class="bold">Where it sits in coverage</td><td>FY27E P/E ~20–22x — at the cheaper end of grid-infrastructure names, but still a grid-capex equity subject to the broader multiple-compression risk in the theme</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════ S11: SCENARIOS ═══════════════ -->
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Bull &amp; Bear Scenario Analysis</h2></div>
+
+  <div class="scenario-grid">
+    <div class="scenario-card">
+      <div class="sc-header bull">🐂 Bull Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val green">Bidding pipeline converts faster than expected; exports re-accelerate as subsidiaries ramp; margins move toward 12%; ROE inflects</span></div>
+        <div class="sc-row"><span class="sc-key">Revenue FY27E</span><span class="sc-val green">+18–20% YoY</span></div>
+        <div class="sc-row"><span class="sc-key">EBITDA Margin</span><span class="sc-val green">11–12%</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E EPS</span><span class="sc-val green">~₹25.5</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val green">₹730 – ₹760</span></div>
+      </div>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-header bear">🐻 Bear Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val red">Transmission ordering slows; export frictions persist; debtor days worsen; steel/zinc cost pressure squeezes margins; commodity-regime de-rating of grid names</span></div>
+        <div class="sc-row"><span class="sc-key">Revenue FY27E</span><span class="sc-val red">+8–10% YoY</span></div>
+        <div class="sc-row"><span class="sc-key">EBITDA Margin</span><span class="sc-val red">9–10% (flat)</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E EPS</span><span class="sc-val red">~₹20.8</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val red">₹360 – ₹400</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p>The asymmetry is roughly balanced at the current price — a ~15–18% base-case upside against a ~25% bear-case downside. That is why entry discipline matters: the order book de-risks the business, but the valuation has already priced in a chunk of the margin/ROE improvement that has yet to be delivered.</p>
+</section>
+
+<!-- ═══════════════ S12: RISKS ═══════════════ -->
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risk Factors</h2></div>
+
+  <div class="risk-grid">
+    <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Working Capital / Receivables</div><span class="badge badge-high">HIGH</span><div class="risk-body">Debtor days rose from ~79 to ~98. A project-heavy, capacity-led model needs working capital to grow; further stretch would pressure cash flow and force more leverage. The single most important number to track each quarter.</div></div>
+    <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Modest Return on Capital</div><span class="badge badge-medh">MED–HIGH</span><div class="risk-body">~14% 3-yr ROE against a ~3.4–4.3x P/B. The valuation embeds improvement; if margins and capital efficiency don't inflect, the multiple is hard to defend.</div></div>
+    <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Demand / Customer Concentration</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">~90% domestic order book, heavily PGCIL/state-utility linked. Any slowdown or tendering discipline shift in Indian transmission ordering hits Skipper directly.</div></div>
+    <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Commodity / Input Cost</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">Steel and zinc are the dominant inputs. Tower fabrication has limited pricing power; sharp input-cost moves can compress margins, especially on fixed-price contracts.</div></div>
+    <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Export Execution &amp; Geopolitics</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">The FY28 re-acceleration leans on exports via new Brazil/UAE/US subsidiaries. Management has already flagged geopolitical frictions; this is execution-heavy and not yet de-risked.</div></div>
+    <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Guidance Moderation</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">The FY27 revenue guide was cut from ~20% to ~15%. Further moderation, or a PAT-growth miss versus the ~30% guide, would challenge the operating-leverage narrative.</div></div>
+    <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Macro / Regime De-rating</div><span class="badge badge-low">LOW–MED</span><div class="risk-body">In a commodities-outperformance regime, high-multiple grid-infrastructure names face multiple compression even with strong earnings. Skipper is cheaper than the equipment trio but is not immune to a sector-wide de-rating.</div></div>
+    <div class="risk-row"><div class="risk-num">08</div><div class="risk-name">Polymer Margin Drag</div><span class="badge badge-low">LOW</span><div class="risk-body">Polymer is positioned as margin-accretive but historically operates at thin EBITDA margins; scaling without margin delivery would dilute the diversification case.</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ S13: SUMMARY ═══════════════ -->
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Investment Summary &amp; Recommendation</h2></div>
+
+  <div class="thesis-box">
+    <p>Skipper is the <strong>cleanest listed proxy for the tower and overhead-line leg of India's transmission build-out</strong> — a capacity-led, low-cost manufacturer entering FY27 with a <strong>record ₹8,502 Cr order book</strong>, a ₹33,000 Cr bidding pipeline, and a demonstrated FY26 in which profit and cash flow grew roughly twice as fast as revenue. It is structurally cheaper than the HVDC equipment trio while sharing the same end-demand. The case is not without friction: a <strong>guidance cut from 20% to 15%</strong> revenue growth, debtor days stretching to ~98, and a ~14% ROE against a full price-to-book all temper the enthusiasm. This is a quality grid-capex compounder to <strong>accumulate on weakness</strong> rather than chase — the order book de-risks the business, but the valuation already discounts much of the margin and capital-efficiency improvement that management has guided to but not yet delivered.</p>
+  </div>
+
+  <p class="subsection-title">The Three Reasons to Own SKIPPER</p>
+  <ul class="report-list">
+    <li><strong>1. Record, visible order book:</strong> ₹8,502 Cr (~1.5x revenue, ~18 months) underwrites near-term execution; the ₹33,000 Cr pipeline is the optionality for FY28.</li>
+    <li><strong>2. Cheap exposure to a real capex super-cycle:</strong> 50,000+ ckm of planned transmission lines, EHV/HVDC mix-up, and a world-scale capacity roadmap — at a meaningful discount to equipment-OEM multiples.</li>
+    <li><strong>3. Operating-leverage proof point:</strong> FY26 PAT +42% on +20% revenue and operating cash flow up ~81% — evidence the business can convert volume into profit, if working capital is contained.</li>
+  </ul>
+
+  <p class="subsection-title">Key Monitorables — Watch Through FY27</p>
+  <div class="monitor-grid">
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Debtor days — the single most important quality metric; needs to stabilise/fall from ~98 days</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>EBITDA margin trajectory toward the 12% long-term target — is the FY27 expansion materialising?</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Order inflow run-rate &amp; pipeline conversion — does the ₹33,000 Cr pipeline translate into wins?</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Export ramp — revenue contribution from Brazil/UAE/US subsidiaries and any easing of trade frictions</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Capacity commissioning — the path from ~4.5 lakh MTPA toward the 6 lakh MTPA aspiration, and its funding</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>ROE inflection — the variable that determines whether the ~3.4–4.3x P/B is sustainable</div></div>
+  </div>
+
+  <div class="verdict-banner">
+    <h3>RATING: ACCUMULATE / BUY ON DIPS</h3>
+    <p>Base Case 12-Month Target: <strong>₹575–590</strong> &nbsp;|&nbsp; Bull: ₹730–760 &nbsp;|&nbsp; Bear: ₹360–400 &nbsp;|&nbsp; CMP ~₹502 &nbsp;|&nbsp; Risk Level: MEDIUM</p>
+  </div>
+
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:20px;">
+    SOURCE QUALITY: Company financials, order book, capacity and milestones are grounded in audited FY26 results (board meeting 28 Apr 2026), the Q4 FY26 concall, and exchange/aggregator disclosures retrieved via web search; positioning within the grid-infrastructure value chain draws on Chartitude project research. FY27E estimates are the author's own directional projections and may differ materially from outcomes.
+  </p>
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:10px;">
+    DISCLAIMER: This report is prepared for informational and private research purposes only. It does not constitute investment advice or a recommendation to buy or sell any security. The author is not a SEBI-registered investment adviser and may hold positions in the securities discussed. All financial data is sourced from publicly available filings, concall transcripts and exchange disclosures. Investing in equities involves the risk of capital loss. Past performance is not indicative of future results. Please consult a SEBI-registered investment adviser before making any investment decision.
+  </p>
+</section>
+
+</div><!-- /.page -->
+
+<footer class="footer">
+  <div>SKIPPER LIMITED (NSE: SKIPPER) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; MAY 2026 &nbsp;|&nbsp; CHARTITUDE RESEARCH</div>
+  <div>Data Sources: FY26 Audited Results (28 Apr 2026) · Q4 FY26 Concall &amp; Investor Update · BSE/NSE Filings · Screener.in · Aggregator Price Data (late May 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

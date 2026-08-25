@@ -38,3 +38,10 @@ A separate quarterly dashboard that tracks results classified for **post-earning
 - The **RS Screen** gains an *Earnings* column + PEAD filter, so momentum names can be screened for strong results too.
 
 Upload one file per quarter and build it with `python tools/build_pead.py --file "<quarterly xlsx>"`. The cross-reference is live against the selected Edge week — see [data/pead/README.md](data/pead/README.md).
+
+
+## Research Desk
+
+Curated, full-length equity-research reports — a **Today's Reads** strip (3–5 featured) plus a searchable archive. Each report is a self-contained HTML page shown in an isolated iframe (rich styling preserved), and every report cross-links to the stock's live RS / Stage 2 / earnings via its NSE code.
+
+Add one with `python tools/build_research.py --file "<report>.html" --feature` (auto-extracts title/code/sector/rating/targets/summary). Contract: [library/research/README.md](library/research/README.md).

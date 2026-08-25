@@ -1091,6 +1091,40 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
 .dg-news-ico i{font-size:14px;}
 .dg-growth{display:block;font-family:var(--mono);font-size:9.5px;color:var(--t3);margin-top:2px;white-space:nowrap;}
 
+/* ============= RESEARCH DESK ============= */
+.rd-featured{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;}
+.rd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:10px;}
+.rd-card{background:var(--bg1);border:1px solid var(--b1);border-radius:var(--r4);padding:16px 18px;cursor:pointer;transition:transform .15s,box-shadow .15s,border-color .15s;box-shadow:var(--shadow-1);display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden;}
+.rd-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--lime);opacity:.0;transition:opacity .15s;}
+.rd-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-pop);border-color:var(--b3);}
+.rd-card:hover::before{opacity:1;}
+.rd-card.big{background:linear-gradient(180deg,rgba(255,255,255,.02),transparent),var(--bg1);}
+.rd-card-top{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.rd-date{font-family:var(--mono);font-size:10.5px;color:var(--t3);white-space:nowrap;}
+.rd-rating{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:99px;border:1px solid transparent;white-space:nowrap;}
+.rd-rating.buy{background:var(--sage-soft);color:var(--sage2);border-color:rgba(34,197,94,.3);}
+.rd-rating.sell{background:var(--rose-soft);color:var(--rose2);border-color:rgba(244,63,94,.3);}
+.rd-rating.hold{background:var(--gold-soft);color:var(--gold2);border-color:rgba(245,158,11,.3);}
+.rd-title{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--t1);letter-spacing:-.01em;line-height:1.2;}
+.rd-card.big .rd-title{font-size:19px;}
+.rd-code{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--lime);margin-left:8px;letter-spacing:.03em;}
+.rd-sector{font-size:11.5px;color:var(--t3);font-family:var(--mono);}
+.rd-summary{font-size:12.5px;line-height:1.55;color:var(--t2);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;}
+.rd-card.big .rd-summary{-webkit-line-clamp:5;}
+.rd-targets{display:flex;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--t3);font-family:var(--mono);border-top:1px solid var(--b1);padding-top:9px;margin-top:auto;}
+.rd-targets b{color:var(--t1);font-weight:600;}
+.rd-targets .up b{color:var(--sage2);} .rd-targets .dn b{color:var(--rose2);}
+.rd-open{font-size:11px;font-weight:600;color:var(--lime);font-family:var(--mono);letter-spacing:.03em;}
+/* reader */
+.rd-reader-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 16px;background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r3);margin-bottom:12px;position:sticky;top:0;z-index:5;}
+.rd-reader-meta{display:flex;flex-direction:column;line-height:1.3;min-width:0;flex:1;}
+.rd-reader-meta b{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--t1);}
+.rd-reader-meta span{font-family:var(--mono);font-size:10.5px;color:var(--t3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rd-reader-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.rd-frame-wrap{border:1px solid var(--b1);border-radius:var(--r3);overflow:hidden;background:#fff;box-shadow:var(--shadow-1);}
+.rd-frame{width:100%;height:calc(100vh - 150px);min-height:600px;border:0;display:block;background:#fff;}
+@media(max-width:700px){.rd-reader-actions{width:100%;}.rd-frame{height:calc(100vh - 220px);}}
+
 </style>
 </head>
 <body>
@@ -1116,6 +1150,7 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
     <div class="nav" id="nav-s2track" onclick="show('s2track')"><i class="ti ti-stairs-up"></i>Stage 2 Tracker</div>
     <div class="nav" id="nav-pead" onclick="show('pead')"><i class="ti ti-report-money"></i>PEAD Radar</div>
     <div class="nav" id="nav-tr" onclick="show('tr')"><i class="ti ti-target-arrow"></i>Track Record</div>
+    <div class="nav" id="nav-rdesk" onclick="show('rdesk')"><i class="ti ti-news"></i>Research Desk</div>
     <div class="sb-group">Core</div>
     <div class="nav" id="nav-dash" onclick="show('dash')"><i class="ti ti-layout-dashboard"></i>Dashboard</div>
     <div class="nav" id="nav-trades" onclick="show('trades')"><i class="ti ti-notebook"></i>Trade Log</div>
@@ -1185,6 +1220,17 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
     </div>
   </div>
   <div class="content se-content"><div id="tr-body"></div></div>
+</div>
+
+<!-- ── EDGE: RESEARCH DESK ── -->
+<div class="sec" id="sec-rdesk">
+  <div class="topbar">
+    <div class="tb-left"><span class="tb-title">Research Desk</span><span class="tb-crumb">/ curated equity research · daily reads</span></div>
+    <div class="tb-right">
+      <button class="btn btn-sm" onclick="loadRD(true)"><i class="ti ti-refresh"></i>Refresh</button>
+    </div>
+  </div>
+  <div class="content se-content"><div id="rd-body"></div></div>
 </div>
 
 <!-- ── EDGE: MARKET PULSE ── -->
@@ -8541,6 +8587,112 @@ function renderTR(){
   if(typeof seCountUp === 'function') seCountUp(el);
 }
 
+// ============= RESEARCH DESK — read the day's curated equity-research reports =============
+// Reads library/research/index.json + library/research/<id>.html. Each report is a self-contained
+// HTML page (any styling), shown in an isolated iframe so its look is untouched. "Today's Reads" =
+// featured reports (or the newest few); the archive is searchable. Reports cross-link to the stock's
+// live data (RS / Stage 2 / earnings) via NSE code.
+const RD = { reports: [], loaded: false, loading: false, cur: null, ui: { q: '', sector: 'all', rating: 'all' } };
+const RD_FEATURE_MAX = 5;
+
+async function loadRD(manual){
+  if(RD.loading) return;
+  RD.loading = true;
+  try{
+    const res = await fetch('library/research/index.json', { cache: manual ? 'reload' : 'default' });
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const idx = await res.json();
+    RD.reports = (Array.isArray(idx.reports) ? idx.reports : []).filter(r => r && r.file)
+      .sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
+    RD.error = null;
+    if(manual) toast(`Research desk refreshed — ${RD.reports.length} report${RD.reports.length === 1 ? '' : 's'}`, 'success');
+  }catch(err){ RD.error = err.message || String(err); RD.reports = []; if(manual) toast('Could not load research index', 'error'); }
+  finally{ RD.loading = false; RD.loaded = true; }
+  renderRD();
+}
+
+function rdRatingCls(rating){
+  const s = String(rating || '').toLowerCase();
+  if(/(sell|reduce|avoid|underweight)/.test(s)) return 'sell';
+  if(/(buy|accumulate|add|overweight)/.test(s)) return 'buy';
+  return 'hold';
+}
+function rdOpen(id){ RD.cur = id; renderRD(); const c = document.querySelector('#sec-rdesk .content'); if(c) c.scrollTop = 0; }
+function rdClose(){ RD.cur = null; renderRD(); }
+function rdViewStock(code){
+  if(!code) return; RD.cur = null;
+  show('rsscreen');
+  if(typeof SE !== 'undefined' && SE.ui){ SE.ui.rsq = code; SE.ui.rsmin = '0'; SE.ui.rss2 = 'all'; SE.ui.rsgroup = 'all'; SE.ui.rsband = 'all'; SE.ui.rspead = 'all'; if(typeof seRenderRS === 'function') seRenderRS(); }
+}
+function rdCard(r, big){
+  const rating = r.rating ? `<span class="rd-rating ${rdRatingCls(r.rating)}">${wrEsc(r.rating)}</span>` : '';
+  const tg = r.targets || {};
+  const targets = (tg.base || tg.bull || tg.bear) ? `<div class="rd-targets">${tg.base ? `<span>Base <b>${wrEsc(tg.base)}</b></span>` : ''}${tg.bull ? `<span class="up">Bull <b>${wrEsc(tg.bull)}</b></span>` : ''}${tg.bear ? `<span class="dn">Bear <b>${wrEsc(tg.bear)}</b></span>` : ''}</div>` : '';
+  return `<div class="rd-card ${big ? 'big' : ''}" onclick="rdOpen('${wrAttr(r.id)}')">
+    <div class="rd-card-top">${rating}<span class="rd-date">${wrDate(r.date)}</span></div>
+    <h3 class="rd-title">${wrEsc(r.title)}${r.code ? `<span class="rd-code">${wrEsc(r.code)}</span>` : ''}</h3>
+    ${r.sector ? `<div class="rd-sector">${wrEsc(r.sector)}${r.cmp ? ` · CMP ${wrEsc(r.cmp)}` : ''}${r.mcap ? ` · ${wrEsc(r.mcap)}` : ''}</div>` : ''}
+    ${r.summary ? `<p class="rd-summary">${wrEsc(r.summary)}</p>` : ''}
+    ${targets}
+    <div class="rd-open">Read report →</div>
+  </div>`;
+}
+
+function renderRD(){
+  const el = document.getElementById('rd-body'); if(!el) return;
+  if(!RD.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading research desk…</p></div>'; return; }
+  if(RD.cur){ return rdRenderReader(el); }
+  if(!RD.reports.length){
+    el.innerHTML = `<div class="wr-empty"><i class="ti ti-file-text"></i><h4>No research reports yet</h4><p>Add a report with <code>python tools/build_research.py --file &lt;report.html&gt; --feature</code>, commit <code>library/research/</code>, then Refresh.</p>${RD.error ? `<p style="margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--rose2);">${wrEsc(RD.error)}</p>` : ''}</div>`;
+    return;
+  }
+  const featured = RD.reports.filter(r => r.featured);
+  const todays = (featured.length ? featured : RD.reports).slice(0, RD_FEATURE_MAX);
+  const sectors = [...new Set(RD.reports.map(r => r.sector).filter(Boolean))].sort();
+  const u = RD.ui, q = u.q.trim().toLowerCase();
+  const rest = RD.reports.filter(r => {
+    if(q && !((r.title || '') + ' ' + (r.code || '') + ' ' + (r.sector || '') + ' ' + (r.summary || '')).toLowerCase().includes(q)) return false;
+    if(u.sector !== 'all' && r.sector !== u.sector) return false;
+    if(u.rating !== 'all' && rdRatingCls(r.rating) !== u.rating) return false;
+    return true;
+  });
+  el.innerHTML = `
+    <div class="se-hero"><div class="se-hero-inner">
+      <div class="wr-tags"><span class="wr-tag am">Research Desk</span><span class="wr-tag tl">Curated equity research</span><span class="wr-tag">${RD.reports.length} report${RD.reports.length === 1 ? '' : 's'}</span></div>
+      <h1>Today's reads</h1>
+      <div class="wr-lead">Curated equity-research reports — full write-ups with thesis, valuation, scenarios and risks. ${featured.length ? `${todays.length} featured today.` : `Newest ${todays.length} shown up top.`} Every report links through to the stock's live RS, Stage 2 and earnings.</div>
+    </div></div>
+    <div class="se-body">
+      <div class="rd-featured">${todays.map(r => rdCard(r, true)).join('')}</div>
+      <div class="se-row-h" style="margin-top:22px;"><div><div class="se-eyebrow">Archive</div><h2>All reports</h2></div><span class="wr-count">${rest.length} of ${RD.reports.length}</span></div>
+      <div class="se-filters">
+        <input type="text" placeholder="Search company, code, sector…" value="${wrAttr(u.q)}" oninput="RD.ui.q=this.value;renderRD()">
+        <select onchange="RD.ui.sector=this.value;renderRD()"><option value="all">All sectors</option>${sectors.map(s => `<option value="${wrAttr(s)}" ${u.sector === s ? 'selected' : ''}>${wrEsc(s)}</option>`).join('')}</select>
+        <select onchange="RD.ui.rating=this.value;renderRD()">${[['all', 'Any rating'], ['buy', 'Buy / Accumulate'], ['hold', 'Hold / Neutral'], ['sell', 'Sell / Reduce']].map(([v, t]) => `<option value="${v}" ${u.rating === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
+      </div>
+      <div class="rd-grid">${rest.map(r => rdCard(r, false)).join('') || '<div class="wr-hint">No reports match the filters.</div>'}</div>
+      <div class="wr-foot" style="border:none;padding:16px 0 0;">Reports are self-contained HTML in library/research/, rendered in an isolated frame. Add one with <code>tools/build_research.py</code>. Informational only — not investment advice.</div>
+    </div>`;
+}
+
+function rdRenderReader(el){
+  const r = RD.reports.find(x => x.id === RD.cur);
+  if(!r){ RD.cur = null; return renderRD(); }
+  const tg = r.targets || {};
+  const meta = [r.code, r.sector, r.cmp ? 'CMP ' + r.cmp : '', wrDate(r.date)].filter(Boolean).map(wrEsc).join(' · ');
+  el.innerHTML = `
+    <div class="rd-reader-bar">
+      <button class="btn btn-sm" onclick="rdClose()"><i class="ti ti-arrow-left"></i>All reports</button>
+      <div class="rd-reader-meta"><b>${wrEsc(r.title)}</b><span>${meta}</span></div>
+      <div class="rd-reader-actions">
+        ${r.rating ? `<span class="rd-rating ${rdRatingCls(r.rating)}">${wrEsc(r.rating)}</span>` : ''}
+        ${r.code ? `<button class="btn btn-sm" onclick="rdViewStock('${wrAttr(r.code)}')" title="See this stock's live RS / Stage 2 / earnings"><i class="ti ti-chart-line"></i>View ${wrEsc(r.code)}</button>` : ''}
+        <a class="btn btn-sm" href="library/research/${wrAttr(r.file)}" target="_blank" rel="noopener" title="Open in a new tab"><i class="ti ti-external-link"></i>Open</a>
+      </div>
+    </div>
+    <div class="rd-frame-wrap"><iframe class="rd-frame" src="library/research/${wrAttr(r.file)}" title="${wrAttr(r.title)}" loading="lazy"></iframe></div>`;
+}
+
 // ============= INIT =============
 function init(){
   load();
@@ -8565,6 +8717,7 @@ function init(){
   loadPD(false);
   loadDG(false);
   loadTR(false);
+  loadRD(false);
   seApplyTheme();
   updateMarket();
   setInterval(updateMarket, 30000);
