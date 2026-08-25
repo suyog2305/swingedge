@@ -3,19 +3,108 @@
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
-      { "t": "Shanthi Gears shares zoom ~17% after Tube Investments raises stake to 73.16% via block deal", "src": "Business Standard", "url": "https://www.business-standard.com/markets/news/shanthi-gears-shares-zoom-17-after-tube-investments-raises-stake-126082100285_1.html", "date": "2026-08-21" }
+      {
+        "t": "Shanthi Gears shares zoom ~17% after Tube Investments raises stake to 73.16% via block deal",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/shanthi-gears-shares-zoom-17-after-tube-investments-raises-stake-126082100285_1.html",
+        "date": "2026-08-21"
+      }
     ],
     "RATNAMANI": [
-      { "t": "Ratnamani Metals arm wins export orders worth ~₹2,700 cr ($286M); stock zooms ~15%", "src": "Business Today", "url": "https://www.businesstoday.in/markets/stocks/story/this-mid-cap-metal-stock-zooms-15-on-rs-2700-crore-order-announcement-do-you-own-550977-2026-08-24", "date": "2026-08-24" }
+      {
+        "t": "Ratnamani Metals arm wins export orders worth ~\u20b92,700 cr ($286M); stock zooms ~15%",
+        "src": "Business Today",
+        "url": "https://www.businesstoday.in/markets/stocks/story/this-mid-cap-metal-stock-zooms-15-on-rs-2700-crore-order-announcement-do-you-own-550977-2026-08-24",
+        "date": "2026-08-24"
+      }
     ],
     "BALUFORGE": [
-      { "t": "Balu Forge jumps on first purchase order for 155mm defence shells; Q1 FY27 revenue ₹300.7 cr, PAT ₹66 cr", "src": "Business Standard", "url": "https://www.business-standard.com/markets/capital-market-news/balu-forge-industries-ltd-leads-gainers-in-a-group-126081400823_1.html", "date": "2026-08-17" }
+      {
+        "t": "Balu Forge jumps on first purchase order for 155mm defence shells; Q1 FY27 revenue \u20b9300.7 cr, PAT \u20b966 cr",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/capital-market-news/balu-forge-industries-ltd-leads-gainers-in-a-group-126081400823_1.html",
+        "date": "2026-08-17"
+      }
     ],
     "VMM": [
-      { "t": "Vishal Mega Mart jumps ~11%: Q1 FY27 revenue +18.7%, PAT +25.6% to ₹259 cr; 819 stores", "src": "Business Today", "url": "https://www.businesstoday.in/markets/stocks/story/why-vishal-mega-mart-shares-jumped-11-in-early-trade-550867-2026-08-24", "date": "2026-08-24" }
+      {
+        "t": "Vishal Mega Mart jumps ~11%: Q1 FY27 revenue +18.7%, PAT +25.6% to \u20b9259 cr; 819 stores",
+        "src": "Business Today",
+        "url": "https://www.businesstoday.in/markets/stocks/story/why-vishal-mega-mart-shares-jumped-11-in-early-trade-550867-2026-08-24",
+        "date": "2026-08-24"
+      }
     ],
     "MARATHON": [
-      { "t": "Marathon Nextgen enters Sewri via joint development for a ₹450 cr GDV residential-retail project", "src": "Screener", "url": "https://www.screener.in/company/MARATHON/consolidated/", "date": "2026-08-01" }
+      {
+        "t": "Marathon Nextgen Realty shares soar 4% on \u20b9450 crore Sewri cluster redevelopment project",
+        "src": "Equitypandit",
+        "url": "https://www.equitypandit.com/marathon-nextgen-realty-shares-soar-4-on-rs-450-crore-project/",
+        "date": "2026-08-03"
+      }
+    ],
+    "MAXESTATES": [
+      {
+        "t": "Max Estates hits fresh 52-week high after Q1 FY27 pre-sales surge 5x YoY to \u20b91,100 crore",
+        "src": "Univest",
+        "url": "https://univest.in/blogs/why-max-estates-ltd-share-price-52-week-high-2026-08-19",
+        "date": "2026-08-19"
+      }
+    ],
+    "QUADFUTURE": [
+      {
+        "t": "Quadrant Future Tek among buzzing stocks zooming up to 42% in 2 days on strong Q1 growth",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/buzzing-stocks-ratnamani-quadrant-shanthi-gears-zoom-up-to-42-in-2-days-126082400630_1.html",
+        "date": "2026-08-24"
+      }
+    ],
+    "TVSSCS": [
+      {
+        "t": "TVS Supply Chain shares zoom 16% after Sankyu MoU for supply chain & engineering tie-up",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/tvs-supply-chain-share-price-zooms-16-in-subdued-market-here-s-why-126082400501_1.html",
+        "date": "2026-08-24"
+      }
+    ],
+    "SSEGL": [
+      {
+        "t": "Sathlokhar Synergys in focus after securing \u20b9102 crore orders from Carrier and TAFE",
+        "src": "TradeBrains",
+        "url": "https://tradebrains.in/sathlokhar-synergys-shares-in-focus-after-securing-102-cr-orders-from-carrier-tafe/",
+        "date": "2026-08-11"
+      }
+    ],
+    "KOTIC": [
+      {
+        "t": "Kothari Industrial Corporation secures \u20b92.54 crore contract from Integral Coach Factory",
+        "src": "EquityBulls",
+        "url": "https://www.equitybulls.com/category.php?id=374420",
+        "date": "2026-08-24"
+      }
+    ],
+    "PCJEWELLER": [
+      {
+        "t": "PC Jeweller gets shareholder nod for \u20b91,000 crore QIP and Balram Garg's reappointment as MD",
+        "src": "TradeBrains",
+        "url": "https://tradebrains.in/pc-jeweller-receives-shareholder-approval-for-1000-cr-qip/",
+        "date": "2026-08-24"
+      }
+    ],
+    "CLSEL": [
+      {
+        "t": "Chaman Lal Setia Exports Q1 FY27 net profit jumps 48% YoY on higher export realizations",
+        "src": "ScanX",
+        "url": "https://scanx.trade/stock-market-news/companies/chaman-lal-setia-exports-q1-results-net-profit-up-48-yoy-to-319-87-lakh/47730249",
+        "date": "2026-08-08"
+      }
+    ],
+    "OPTIEMUS": [
+      {
+        "t": "Optiemus Infracom registers 46% YoY rise in Q1 PAT on strong manufacturing revenue",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/capital-market-news/optiemus-infracom-registers-46-yoy-rise-in-q1-pat-126080401353_1.html",
+        "date": "2026-08-04"
+      }
     ]
   }
 }
