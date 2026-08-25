@@ -1115,6 +1115,7 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
     <div class="nav" id="nav-sectors" onclick="show('sectors')"><i class="ti ti-chart-pie-2"></i>Sectors</div>
     <div class="nav" id="nav-s2track" onclick="show('s2track')"><i class="ti ti-stairs-up"></i>Stage 2 Tracker</div>
     <div class="nav" id="nav-pead" onclick="show('pead')"><i class="ti ti-report-money"></i>PEAD Radar</div>
+    <div class="nav" id="nav-tr" onclick="show('tr')"><i class="ti ti-target-arrow"></i>Track Record</div>
     <div class="sb-group">Core</div>
     <div class="nav" id="nav-dash" onclick="show('dash')"><i class="ti ti-layout-dashboard"></i>Dashboard</div>
     <div class="nav" id="nav-trades" onclick="show('trades')"><i class="ti ti-notebook"></i>Trade Log</div>
@@ -1172,6 +1173,18 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
     </div>
   </div>
   <div class="content se-content"><div id="dg-body"></div></div>
+</div>
+
+<!-- ── EDGE: TRACK RECORD ── -->
+<div class="sec" id="sec-tr">
+  <div class="topbar">
+    <div class="tb-left"><span class="tb-title">Track Record</span><span class="tb-crumb">/ signal forward returns</span></div>
+    <div class="tb-right">
+      <select class="wr-week-sel se-week" onchange="seSelectWeek(this.value)"><option value="">Loading…</option></select>
+      <button class="btn btn-sm" onclick="loadSE(true).then(loadTR).then(()=>loadTR(true))"><i class="ti ti-refresh"></i>Refresh</button>
+    </div>
+  </div>
+  <div class="content se-content"><div id="tr-body"></div></div>
 </div>
 
 <!-- ── EDGE: MARKET PULSE ── -->
@@ -8394,6 +8407,140 @@ function dgRenderTable(){
   const cnt = document.getElementById('dg-count'); if(cnt) cnt.textContent = `${wrNum(list.length)} advancers shown`;
 }
 
+// ============= TRACK RECORD — do the signals actually work? =============
+// Measures forward returns of the app's signals from the accumulating scan archive: for every past
+// scan (cohort), take the names meeting a signal and see how they performed by the latest scan,
+// versus the market (all names matched forward). Everything is recomputed client-side from the
+// committed data/scans history — no look-ahead beyond matching prices by code across dated scans.
+// Thin now (few scans, long gaps); it thickens automatically as the daily pull adds scans.
+const TR = { scans: [], loaded: false, loading: false, ui: { cohortSignal: 'conv' } };
+const TR_SIGNALS = [
+  { k: 'nearhigh', t: 'Near 52W high', test: r => wrIsNum(r.from_52wh) && r.from_52wh >= -3 },
+  { k: 'rs80', t: 'RS ≥ 80', test: r => wrIsNum(r.rs) && r.rs >= 80 },
+  { k: 'rs90', t: 'RS ≥ 90', test: r => wrIsNum(r.rs) && r.rs >= 90 },
+  { k: 'trend', t: 'Passes trend template', test: r => r._trend },
+  { k: 's2', t: 'On Stage 2 list', test: r => r._s2 },
+  { k: 'conv', t: 'Convergence (RS ≥ 80 + Stage 2)', test: r => wrIsNum(r.rs) && r.rs >= 80 && r._s2 }
+];
+function trMean(a){ const s = a.filter(wrIsNum); return s.length ? s.reduce((x, y) => x + y, 0) / s.length : null; }
+function trMed(a){ return typeof pdMedian === 'function' ? pdMedian(a) : (a.length ? a.slice().sort((x, y) => x - y)[Math.floor(a.length / 2)] : null); }
+function trDays(a, b){ return Math.round((new Date(b + 'T00:00:00Z') - new Date(a + 'T00:00:00Z')) / 86400000); }
+
+async function loadTR(manual){
+  if(TR.loading) return;
+  TR.loading = true;
+  try{
+    for(let i = 0; i < 160 && !(typeof SE !== 'undefined' && SE.loaded); i++) await new Promise(r => setTimeout(r, 250));  // wait for the scan index
+    if(typeof SE !== 'undefined' && SE.scans){
+      for(const s of SE.scans){ if(!SE.data[s.file]){ try{ await seFetch(s.file); }catch(e){} } }
+      const list = SE.scans.map(s => SE.data[s.file]).filter(Boolean)
+        .filter(d => Array.isArray(d.universe) && d.universe.some(r => r.code && wrIsNum(r.price)));
+      list.sort((a, b) => String(a.date).localeCompare(String(b.date)));   // oldest first
+      let prev = null;
+      for(const d of list){
+        const U = d.universe.filter(r => r.code && wrIsNum(r.price)).map(r => Object.assign({}, r));
+        U.forEach(r => { r.score = (typeof seScore === 'function') ? seScore(r) : r.r3m; });
+        if(typeof sePercentiles === 'function'){ sePercentiles(U, 'score'); U.forEach(r => { r.rs = r.score_pct == null ? null : r.score_pct; }); }
+        const s2set = new Set((d.stage2 || []).map(s => String(s.code || '').toUpperCase()));
+        const prevMap = prev ? prev._map : null;
+        U.forEach(r => { r._s2 = s2set.has(String(r.code).toUpperCase()); r._trend = (typeof seTrend === 'function') ? seTrend(r, prevMap ? prevMap.get(String(r.code).toUpperCase()) : null).s2 : false; });
+        d._U = U; d._map = new Map(U.map(r => [String(r.code).toUpperCase(), r]));
+        prev = d;
+      }
+      TR.scans = list;
+    }
+    TR.loaded = true;
+  }catch(err){ console.warn('Track Record load failed', err); TR.loaded = true; }
+  finally{ TR.loading = false; }
+  renderTR();
+}
+
+// forward return of every cohort's signal names to a target scan (default: the latest)
+function trResults(targetIdx){
+  if(TR.scans.length < 2) return null;
+  const Li = targetIdx == null ? TR.scans.length - 1 : targetIdx;
+  const L = TR.scans[Li];
+  const cohorts = TR.scans.slice(0, Li).filter(E => E._U.length);
+  if(!cohorts.length) return null;
+  const fwd = (r, code) => { const lr = L._map.get(code); return (lr && wrIsNum(lr.price) && wrIsNum(r.price) && r.price > 0) ? (lr.price / r.price - 1) * 100 : null; };
+  const perSignal = TR_SIGNALS.map(sig => {
+    const rets = [];
+    cohorts.forEach(E => E._U.forEach(r => { if(sig.test(r)){ const v = fwd(r, String(r.code).toUpperCase()); if(v != null) rets.push(v); } }));
+    return { sig, n: rets.length, med: trMed(rets), avg: trMean(rets), win: rets.length ? 100 * rets.filter(x => x > 0).length / rets.length : null };
+  });
+  const bench = [];
+  cohorts.forEach(E => E._U.forEach(r => { const v = fwd(r, String(r.code).toUpperCase()); if(v != null) bench.push(v); }));
+  const benchMed = trMed(bench), benchWin = bench.length ? 100 * bench.filter(x => x > 0).length / bench.length : null;
+  perSignal.forEach(p => { p.edge = (p.med != null && benchMed != null) ? p.med - benchMed : null; });
+  return { L, cohorts, perSignal, benchMed, benchWin, benchN: bench.length,
+    spanDays: trDays(cohorts[0].date, L.date), fwdFn: fwd };
+}
+
+// per-cohort breakdown for one signal (each pick date -> its own forward return + horizon)
+function trCohorts(sigKey){
+  const R = trResults(); if(!R) return [];
+  const sig = TR_SIGNALS.find(s => s.k === sigKey) || TR_SIGNALS[0];
+  return R.cohorts.map(E => {
+    const rets = [], bench = [];
+    E._U.forEach(r => { const v = R.fwdFn(r, String(r.code).toUpperCase()); if(v == null) return; bench.push(v); if(sig.test(r)) rets.push(v); });
+    return { date: E.date, horizon: trDays(E.date, R.L.date), n: rets.length, med: trMed(rets), win: rets.length ? 100 * rets.filter(x => x > 0).length / rets.length : null, benchMed: trMed(bench), edge: (trMed(rets) != null && trMed(bench) != null) ? trMed(rets) - trMed(bench) : null };
+  }).filter(c => c.horizon > 0);
+}
+
+function renderTR(){
+  const el = document.getElementById('tr-body'); if(!el) return;
+  if(!TR.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading track record…</p></div>'; return; }
+  const R = trResults();
+  if(!R){ el.innerHTML = seEmpty('Not enough history yet', 'Track Record measures how each signal\'s names performed from one scan to a later one. It needs at least two dated scans with prices — the daily pull builds this up automatically. Check back after a few days of scans.'); return; }
+  const ranked = R.perSignal.slice().filter(p => p.n > 0).sort((a, b) => (b.edge || -1e9) - (a.edge || -1e9));
+  const best = ranked[0];
+  const kpis = [
+    seKpi('Scans in archive', wrNum(TR.scans.length), `${wrDate(TR.scans[0].date)} → ${wrDate(R.L.date)} · ${R.spanDays}d span`, ''),
+    seKpi('Names tracked', wrNum(R.benchN), `signal picks matched forward to ${wrDate(R.L.date)}`, ''),
+    seKpi('Market baseline', wrPct(R.benchMed, 1, {plain:true}), `median of all tracked names · ${R.benchWin != null ? Math.round(R.benchWin) + '% positive' : ''}`, R.benchMed >= 0 ? 'ok' : 'bad'),
+    best ? seKpi('Best signal edge', (best.edge >= 0 ? '+' : '') + wrNum(best.edge, 1) + ' pp', `${wrEsc(best.sig.t)} vs market`, best.edge >= 0 ? 'ok' : 'bad') : seKpi('Best signal edge', '—', '', '')
+  ];
+  const cohortSig = TR_SIGNALS.find(s => s.k === TR.ui.cohortSignal) || TR_SIGNALS[0];
+  const cohorts = trCohorts(TR.ui.cohortSignal);
+  el.innerHTML = `
+    <div class="se-hero"><div class="se-hero-inner">
+      <div class="wr-tags"><span class="wr-tag am">Track Record</span><span class="wr-tag tl">Do the signals work?</span><span class="wr-tag">as of ${wrDate(R.L.date)}</span></div>
+      <h1>How the signals have actually performed</h1>
+      <div class="wr-lead">Forward returns of each signal's names, pooled across ${wrNum(R.cohorts.length)} past scan${R.cohorts.length === 1 ? '' : 's'} and measured to the latest scan (${wrDate(R.L.date)}), against the market baseline (every tracked name). <b>Edge</b> = signal's median return minus the market's.</div>
+      <div class="se-kpis">${kpis.join('')}</div>
+    </div></div>
+    <div class="se-body">
+      <div class="se-panel">
+        <div class="se-row-h"><div><div class="se-eyebrow">Signal scorecard</div><h2>Median forward return vs the market</h2></div><span class="wr-hint">ranked by edge · positive edge = the signal beat a random tracked name</span></div>
+        ${wrTable('tr-sig', [
+          {k:'t', t:'Signal', type:'html', html: r => `<span class="tk">${wrEsc(r.sig.t)}</span>`},
+          {k:'n', t:'Picks', type:'int', fn: r => r.n},
+          {k:'med', t:'Median return', type:'pct', dec:1, fn: r => r.med},
+          {k:'avg', t:'Avg return', type:'pct', dec:1, fn: r => r.avg},
+          {k:'win', t:'Win rate', type:'html', sortType:'num', fn: r => r.win, html: r => r.win != null ? `<span class="${r.win >= 50 ? 'up' : 'dn'}">${Math.round(r.win)}%</span>` : '—'},
+          {k:'edge', t:'Edge vs market', type:'html', sortType:'num', fn: r => r.edge, html: r => r.edge == null ? '—' : `<b class="${r.edge >= 0 ? 'up' : 'dn'}">${r.edge >= 0 ? '+' : ''}${wrNum(r.edge, 1)} pp</b>`}
+        ], ranked, {sort:{col:'edge', dir:'desc'}, empty:'No signal picks matched forward yet.'})}
+        <div class="wr-hint" style="margin-top:6px;">Market baseline (all tracked names): median ${wrPct(R.benchMed, 1, {plain:true})}, ${R.benchWin != null ? Math.round(R.benchWin) + '% positive' : ''}. RS is a percentile within each scan's own universe, so early narrow scans understate market-wide RS; readings firm up as the broad daily universe accumulates.</div>
+      </div>
+      <div class="se-panel">
+        <div class="se-row-h"><div><div class="se-eyebrow">By pick date</div><h2>Cohort breakdown</h2></div>
+          <select onchange="TR.ui.cohortSignal=this.value;renderTR()">${TR_SIGNALS.map(s => `<option value="${s.k}" ${TR.ui.cohortSignal === s.k ? 'selected' : ''}>${wrEsc(s.t)}</option>`).join('')}</select></div>
+        ${wrTable('tr-coh', [
+          {k:'date', t:'Picked (scan)', type:'html', html: r => `<span class="num">${wrDate(r.date)}</span>`},
+          {k:'horizon', t:'Held (days)', type:'int'},
+          {k:'n', t:'Picks', type:'int'},
+          {k:'med', t:'Median return', type:'pct', dec:1},
+          {k:'win', t:'Win rate', type:'html', sortType:'num', fn: r => r.win, html: r => r.win != null ? `<span class="${r.win >= 50 ? 'up' : 'dn'}">${Math.round(r.win)}%</span>` : '—'},
+          {k:'benchMed', t:'Market', type:'pct', dec:1},
+          {k:'edge', t:'Edge', type:'html', sortType:'num', fn: r => r.edge, html: r => r.edge == null ? '—' : `<b class="${r.edge >= 0 ? 'up' : 'dn'}">${r.edge >= 0 ? '+' : ''}${wrNum(r.edge, 1)}</b>`}
+        ], cohorts, {sort:{col:'date', dir:'desc'}, empty:'No cohorts with this signal yet.'})}
+        <div class="wr-hint" style="margin-top:6px;">Each row = names meeting <b>${wrEsc(cohortSig.t)}</b> on that scan date, held to the latest scan. Mixed holding periods (shown), so read edge-vs-market rather than the absolute number.</div>
+      </div>
+      <div class="wr-foot" style="border:none;padding:14px 0 0;">Computed from the committed scan archive (data/scans); prices matched by NSE code across dated scans, no forward look beyond that. This is a study aid, not a backtest — small samples and uneven gaps until the daily pull fills the history. Not investment advice.</div>
+    </div>`;
+  if(typeof seCountUp === 'function') seCountUp(el);
+}
+
 // ============= INIT =============
 function init(){
   load();
@@ -8417,6 +8564,7 @@ function init(){
   loadSE(false);
   loadPD(false);
   loadDG(false);
+  loadTR(false);
   seApplyTheme();
   updateMarket();
   setInterval(updateMarket, 30000);
