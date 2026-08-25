@@ -881,6 +881,8 @@ code{font-family:var(--mono);font-size:11px;background:var(--neutral-soft);paddi
 .wr-act{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:1px solid transparent;border-radius:var(--r2);background:transparent;color:var(--t4);cursor:pointer;vertical-align:middle;margin-left:3px;opacity:0;transition:all .12s;padding:0;}
 .wr-act i{font-size:13px;}
 tr:hover .wr-act{opacity:1;} .wr-act:hover{background:var(--bg3);color:var(--lime);border-color:var(--b2);}
+.wr-act.rd-has{opacity:1;color:var(--lime);border-color:rgba(31,95,63,0.28);background:var(--lime-soft);}
+.wr-act.rd-has:hover{background:var(--lime);color:#fff;border-color:var(--lime);}
 .wr-own{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;margin-left:5px;vertical-align:middle;letter-spacing:.04em;}
 .wr-own.w{background:var(--sky-soft);color:var(--sky2);} .wr-own.p{background:var(--lime-soft);color:var(--lime2);}
 .wr-sup{font-family:var(--mono);font-size:10px;color:var(--gold2);margin-left:3px;font-weight:700;}
@@ -6919,7 +6921,10 @@ function wrCodeCell(r, industry){
   const sym = r.code || r.name || '';
   const ind = industry || r.industry || r.bucket || '';
   if(!sym) return '<span class="flat">—</span>';
+  const rep = (typeof rdForCode === 'function') ? rdForCode(r.code) : null;   // a published research report for this ticker?
+  const repBtn = rep ? `<button class="wr-act rd-has" title="Research report: ${wrAttr(rep.title || '')}${rep.rating ? ' · ' + wrAttr(rep.rating) : ''}" onclick="event.stopPropagation();rdGo('${wrAttr(rep.id)}')"><i class="ti ti-file-text"></i></button>` : '';
   return `<span class="wr-code">${wrEsc(r.code || '—')}</span>`
+    + repBtn
     + `<button class="wr-act" title="Add to Watchlist" onclick="event.stopPropagation();wrToWatch('${wrAttr(sym)}','${wrAttr(ind)}')"><i class="ti ti-eye-plus"></i></button>`
     + `<button class="wr-act" title="Start Research" onclick="event.stopPropagation();convToResearch('${wrAttr(sym)}','${wrAttr(ind)}')"><i class="ti ti-microscope"></i></button>`;
 }
@@ -8592,7 +8597,7 @@ function renderTR(){
 // HTML page (any styling), shown in an isolated iframe so its look is untouched. "Today's Reads" =
 // featured reports (or the newest few); the archive is searchable. Reports cross-link to the stock's
 // live data (RS / Stage 2 / earnings) via NSE code.
-const RD = { reports: [], loaded: false, loading: false, cur: null, ui: { q: '', sector: 'all', rating: 'all' } };
+const RD = { reports: [], byCode: new Map(), loaded: false, loading: false, cur: null, ui: { q: '', sector: 'all', rating: 'all' } };
 const RD_FEATURE_MAX = 5;
 
 async function loadRD(manual){
@@ -8604,12 +8609,18 @@ async function loadRD(manual){
     const idx = await res.json();
     RD.reports = (Array.isArray(idx.reports) ? idx.reports : []).filter(r => r && r.file)
       .sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
+    RD.byCode = new Map();                                   // NSE code -> newest report, for the reverse badge on scan rows
+    RD.reports.forEach(r => { if(r.code && !RD.byCode.has(String(r.code).toUpperCase())) RD.byCode.set(String(r.code).toUpperCase(), r); });
     RD.error = null;
     if(manual) toast(`Research desk refreshed — ${RD.reports.length} report${RD.reports.length === 1 ? '' : 's'}`, 'success');
-  }catch(err){ RD.error = err.message || String(err); RD.reports = []; if(manual) toast('Could not load research index', 'error'); }
+  }catch(err){ RD.error = err.message || String(err); RD.reports = []; RD.byCode = new Map(); if(manual) toast('Could not load research index', 'error'); }
   finally{ RD.loading = false; RD.loaded = true; }
   renderRD();
+  // re-render the scan views so the research badge appears on rows whose ticker now has a report
+  if(typeof seRenderAll === 'function' && typeof SE !== 'undefined' && SE.loaded) seRenderAll();
 }
+function rdForCode(code){ return code && RD.byCode ? (RD.byCode.get(String(code).toUpperCase()) || null) : null; }
+function rdGo(id){ show('rdesk'); RD.cur = id; renderRD(); const c = document.querySelector('#sec-rdesk .content'); if(c) c.scrollTop = 0; }
 
 function rdRatingCls(rating){
   const s = String(rating || '').toLowerCase();
