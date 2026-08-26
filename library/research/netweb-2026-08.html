@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Netweb Technologies India Ltd — Equity Research Report | August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ MASTHEAD ═══════════════ -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: NETWEB &nbsp;|&nbsp; BSE: 543945 &nbsp;|&nbsp; CIN: L72100HR1999PLC103911 &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026</p>
+    <h1 class="report-title"><span>Netweb</span> Technologies India Ltd</h1>
+    <p class="report-subtitle">High-End Computing Solutions &nbsp;·&nbsp; Lodha Family &nbsp;·&nbsp; India's only listed full-stack domestic AI/HPC server OEM</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (Aug 26)</div><div class="kpi-value">~₹5,403</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹32,100 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">52W H / L</div><div class="kpi-value">₹5,494 / ₹2,191</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Revenue FY26</div><div class="kpi-value">₹2,184 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">PAT FY26</div><div class="kpi-value">₹206 Cr</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Reduce / Avoid at CMP</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Target (1Y)</div><div class="rating-val">₹6,400 – ₹6,600</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Target (1Y)</div><div class="rating-val">₹2,750 – ₹2,900</div></div>
+  </div>
+</header>
+
+<!-- ═══════════════ STICKY NAV ═══════════════ -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Segments</a>
+    <a href="#s3">Value Chain</a>
+    <a href="#s4">Order Book</a>
+    <a href="#s5">India AI</a>
+    <a href="#s6">Competition</a>
+    <a href="#s7">Financials</a>
+    <a href="#s8">Margins &amp; WC</a>
+    <a href="#s9">Guidance</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- ═══════════════ S1: OVERVIEW ═══════════════ -->
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:220px">Full Name</td><td>Netweb Technologies India Limited</td></tr>
+        <tr><td class="bold">Lineage</td><td>Incorporated 1999 as a high-end computing solutions (HCS) provider; brand names <em>Tyrone</em> (systems) and <em>Skylus.ai</em> (software stack). Listed July 2023.</td></tr>
+        <tr><td class="bold">Codes</td><td style="font-family:'IBM Plex Mono',monospace;font-size:12px">NSE: NETWEB &nbsp;|&nbsp; BSE: 543945 &nbsp;|&nbsp; Bloomberg: NETWEB IN &nbsp;|&nbsp; CIN: L72100HR1999PLC103911</td></tr>
+        <tr><td class="bold">Listed</td><td>NSE and BSE — IPO July 2023</td></tr>
+        <tr><td class="bold">Promoters</td><td>Lodha family — Sanjay Lodha (Chairman &amp; Managing Director), Navin Lodha, Niraj Lodha, Vivek Lodha. Promoter holding <strong>66.98%</strong> as at Jun 2026 quarter; approx. 64% pro-forma after the Aug 2026 QIP <span class="muted">(author's estimate)</span></td></tr>
+        <tr><td class="bold">Headquarters</td><td>Plot H-1, Block-H, Faridabad Industrial Town, Sector-57, Faridabad, Haryana (Delhi–NCR); 18 offices across India</td></tr>
+        <tr><td class="bold">Face Value</td><td>₹2 per share</td></tr>
+        <tr><td class="bold">Sector</td><td>IT Hardware / Electronics Manufacturing — supercomputing (HPC), AI GPU systems, private cloud &amp; HCI, enterprise storage, data-centre servers</td></tr>
+        <tr><td class="bold">Shareholding (Jun 26)</td><td>Promoters 66.98% &nbsp;·&nbsp; FIIs 9.27% &nbsp;·&nbsp; DIIs 5.91% &nbsp;·&nbsp; Public &amp; others 17.84%. Roughly 2.47 lakh shareholders.</td></tr>
+        <tr><td class="bold">Shares Outstanding</td><td>~5.95 crore post the Aug 2026 QIP (25,05,219 fresh shares at ₹4,790 raising ₹1,200 Cr, allotted 20 Aug 2026), from ~5.70 crore before</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">52-week range differs across broker feeds depending on the as-of date: intraday highs of ₹5,396 (18 Aug) and ₹5,494 (21 Aug) are reported in the press, while one broker feed showed ₹5,813 as at 25 Aug; the low rolls between ₹2,037 and ₹2,191 as the Aug-2025 base drops out of the window. We use ₹5,494 / ₹2,191.</p>
+  </div>
+
+  <p>Netweb designs, manufactures and deploys high-end computing systems in India — supercomputing clusters, GPU-accelerated AI systems, private cloud and hyperconverged infrastructure, parallel-file-system storage and data-centre servers — under its own <strong>Tyrone</strong> hardware brand and <strong>Skylus.ai</strong> software stack. It describes itself as India's leading Indian-origin, Indian-owned and Indian-controlled OEM in the HCS space, and is one of a small number of firms worldwide holding an OEM design-and-manufacture partnership with NVIDIA for AI GPU systems.</p>
+
+  <p>Installed-base credentials are real rather than promotional: 600+ supercomputing systems, 7,000+ accelerator/GPU-based AI systems and 60+ private-cloud/HCI installations, with Netweb-built machines appearing 15 times across three entries in the global Top 500 supercomputer list. Manufacturing is concentrated at the Faridabad facility, commissioned in May 2024 under the PLI 2.0 IT-hardware scheme, which carries in-house PCB design and a surface-mount-technology (SMT) line for servers, storage and switches.</p>
+
+  <div class="callout callout-gold">House view: Netweb is the only clean listed way to own India's sovereign-AI compute build-out at the <em>system-manufacturing</em> layer. It is also a hardware assembler whose reported growth is dominated by two named strategic orders, whose top-10 customers were 87.7% of Q1 FY27 revenue, and which trades at roughly 118x trailing earnings. Everything in this report follows from holding both of those facts at once.</div>
+</section>
+
+<!-- ═══════════════ S2: SEGMENTS ═══════════════ -->
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">Business Segments &amp; Revenue Mix</h2></div>
+
+  <p>Management frames the business around three growth pillars — HPC, Private Cloud and AI Systems — which together were 91.4% of FY26 operating revenue (up from roughly 85% in FY25). The mix shift inside those three pillars is the entire story of the last eighteen months.</p>
+
+  <p class="subsection-title">FY26 — Revenue by Offering (₹ Cr)</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Offering</th><th class="right">FY26 Revenue</th><th class="right">% of Revenue</th><th>YoY &amp; Profile</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">AI Systems</td><td class="right green">~₹948 Cr</td><td class="right green">43.4%</td><td class="green">+459.6% YoY — from 14.7% of revenue in FY25. GPU-accelerated systems on NVIDIA Blackwell/GB200-class platforms plus AI workstations; the segment that carried the strategic national-scale orders.</td></tr>
+        <tr><td class="bold">HPC / Supercomputing</td><td class="right">~₹531 Cr</td><td class="right">~24%</td><td>+31% YoY. The legacy core — bespoke clusters for IITs, IISc, C-DAC, ISRO, defence and research bodies. Slower, stickier, better-understood economics.</td></tr>
+        <tr><td class="bold">Private Cloud &amp; HCI</td><td class="right">~₹516 Cr</td><td class="right">~24%</td><td>+28% YoY. On-prem hyperconverged infrastructure for enterprises and PSUs; benefits from data-localisation and the enterprise retreat from public cloud.</td></tr>
+        <tr><td class="bold">High Performance Storage (HPS)</td><td class="right muted">~₹33 Cr</td><td class="right muted">~1.5%</td><td>+19% YoY. Parallel file-system and unified storage — attach product to HPC/AI clusters.</td></tr>
+        <tr><td class="bold">Data Centre Servers</td><td class="right red">~₹32 Cr</td><td class="right muted">~1.5%</td><td class="red">−14% YoY. The only declining line; commodity-adjacent and the most exposed to global OEM pricing.</td></tr>
+        <tr><td class="bold">Software &amp; Services</td><td class="right muted">~₹51 Cr</td><td class="right muted">~2.3%</td><td>+13% YoY. Cloud managed services, design and deployment, AI/ML-as-a-service. Small, but the margin-defending layer.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">AI Systems at 43.4% of FY26 revenue and the segment YoY growth rates are company-disclosed. The rupee values for HPC, Private Cloud, HPS, Data Centre Servers and Software &amp; Services are the author's derivation, applying disclosed FY26 YoY growth rates to the FY25 segment base published in the company's Q2 FY26 investor presentation; they are directional and do not sum exactly to ₹2,184 Cr because network switches and spares are excluded.</p>
+  </div>
+
+  <p class="subsection-title">Q1 FY27 — The Mix Tips Decisively</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Offering</th><th class="right">Q1 FY27 (₹ Cr)</th><th class="right">% of Revenue</th><th class="right">YoY</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">AI Systems</td><td class="right green">510.6</td><td class="right green">62.3%</td><td class="right green">+484.2%</td></tr>
+        <tr><td class="bold">Private Cloud &amp; HCI</td><td class="right">135.3</td><td class="right">16.5%</td><td class="right muted">not disclosed</td></tr>
+        <tr><td class="bold">HPC / Supercomputing</td><td class="right">125.3</td><td class="right">15.3%</td><td class="right muted">not disclosed</td></tr>
+        <tr><td class="bold">All other (storage, DC servers, software, switches, spares)</td><td class="right muted">~48.5</td><td class="right muted">~5.9%</td><td class="right muted">residual</td></tr>
+        <tr><td class="bold">Total Operating Revenue</td><td class="right bold">819.7</td><td class="right bold">100%</td><td class="right green">+172.1%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">AI Systems, Private Cloud &amp; HCI and HPC values are company-disclosed; the "all other" line is the residual computed by the author.</p>
+  </div>
+
+  <div class="callout">In four quarters, AI Systems went from 14.7% of revenue (FY25) to 43.4% (FY26) to 62.3% (Q1 FY27). That is a genuine capability being monetised — but it also means the company's revenue line is now largely a function of GPU-system order flow, which arrives in lumps of hundreds of crores rather than as a book of recurring business.</div>
+</section>
+
+<!-- ═══════════════ S3: VALUE CHAIN ═══════════════ -->
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Where Netweb Sits in the AI Compute Value Chain</h2></div>
+
+  <p>Every AI cluster deployed in India flows through the same physical sequence. Netweb occupies the system design, integration and manufacturing stage — the layer that turns silicon into a working, racked, cooled, orchestrated cluster. It is a real and defensible position. It is also structurally <em>not</em> where the profit pool sits.</p>
+
+  <div class="vc-diagram">
+    <div class="vc-layer l1">
+      <div class="vc-num">STAGE 01</div>
+      <div class="vc-name">Silicon &amp; Memory</div>
+      <div class="vc-desc">GPUs and accelerators, CPUs, HBM/DRAM, NAND — the scarce, allocated, price-setting inputs</div>
+      <div class="vc-tags"><span class="vc-tag">NVIDIA · AMD</span><span class="vc-tag">Intel · Samsung</span></div>
+    </div>
+    <div class="vc-layer l2">
+      <div class="vc-num">STAGE 02</div>
+      <div class="vc-name">Boards &amp; Subsystems</div>
+      <div class="vc-desc">PCB design and SMT assembly, power delivery, liquid/advanced cooling, chassis and interconnect</div>
+      <div class="vc-tags"><span class="vc-tag skip">NETWEB (in-house SMT)</span><span class="vc-tag">Vertiv (cooling)</span></div>
+    </div>
+    <div class="vc-layer l3">
+      <div class="vc-num">STAGE 03</div>
+      <div class="vc-name">System Design &amp; Manufacture</div>
+      <div class="vc-desc">GPU-system architecture, cluster middleware, integration, burn-in, qualification — the "Make in India" layer</div>
+      <div class="vc-tags"><span class="vc-tag skip">NETWEB (Tyrone)</span><span class="vc-tag">Dell · HPE · SMCI</span></div>
+    </div>
+    <div class="vc-layer l4">
+      <div class="vc-num">STAGE 04</div>
+      <div class="vc-name">Deployment &amp; Operators</div>
+      <div class="vc-desc">Sovereign-AI compute providers, government and academic HPC centres, enterprise on-prem clouds</div>
+      <div class="vc-tags"><span class="vc-tag skip">NETWEB (software/services)</span><span class="vc-tag">Yotta · Neysa · E2E</span></div>
+    </div>
+  </div>
+
+  <p>Netweb straddles Stages 02–03 with a thin but real toe-hold in Stage 04 through Skylus.ai, cluster management and managed services. The commercial consequence is arithmetic: when an AI system is sold, the GPU is the overwhelming share of the bill of materials, it is bought in dollars from a supplier with pricing power, and it is passed through to the customer. What Netweb keeps is the integration, software, qualification and support layer.</p>
+
+  <p>That is precisely why <strong>revenue growth and gross-margin direction move in opposite directions</strong> in this business. FY26 revenue grew 90% while gross margin fell from 23.2% to 20.8%. The bigger the AI mix, the more of each rupee of revenue is somebody else's silicon. Management is candid about the mechanism, saying it prices to show value rather than to exploit scarcity, and that new orders carry price pass-through — a fair description of a business that is a margin-taker on inputs and a margin-defender on integration.</p>
+</section>
+
+<!-- ═══════════════ S4: ORDER BOOK ═══════════════ -->
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">Order Book, Pipeline &amp; the Strategic-Order Question</h2></div>
+
+  <div class="macro-grid">
+    <div class="macro-card"><div class="macro-co">Order Book (30 Jun 2026)</div><div class="macro-val">₹2,507 Cr</div><div class="macro-label">Confirmed backlog — ~1.15x FY26 revenue. Includes the unexecuted balance of the strategic AI orders.</div></div>
+    <div class="macro-card"><div class="macro-co">L1 Position</div><div class="macro-val">₹848 Cr</div><div class="macro-label">Lowest-bidder positions not yet converted to firm orders. Total visibility ~₹3,355 Cr.</div></div>
+    <div class="macro-card"><div class="macro-co">Bid Pipeline</div><div class="macro-val">₹10,401 Cr</div><div class="macro-label">Management expects ~60% conversion over 18–24 months — the single biggest swing factor for FY28.</div></div>
+    <div class="macro-card"><div class="macro-co">Strategic Orders Won</div><div class="macro-val">₹2,184 Cr</div><div class="macro-label">Two national-scale AI orders (₹1,734 Cr NVIDIA Blackwell + ~₹450 Cr), announced Sep 2025, executed Q4 FY26 → H1/Q3 FY27.</div></div>
+  </div>
+
+  <p class="subsection-title">Reconciling the Backlog — Where the Growth Actually Comes From</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Component</th><th class="right">31 Mar 2026</th><th class="right">30 Jun 2026</th><th>Comment</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Disclosed order book</td><td class="right">₹472 Cr</td><td class="right">₹2,507 Cr</td><td>The Mar-26 press release disclosed the organic book separately from strategic orders; the Jun-26 disclosure appears to be a combined total. Definitions are not perfectly comparable.</td></tr>
+        <tr><td class="bold">Strategic order, pending execution</td><td class="right">~₹1,620 Cr</td><td class="right">~₹1,190 Cr</td><td>~₹430 Cr executed in Q1 FY27 per management; balance runs to roughly Q3 FY27.</td></tr>
+        <tr><td class="bold">L1 (not yet firm)</td><td class="right">₹328 Cr</td><td class="right">₹848 Cr</td><td>L1 more than doubled — an encouraging leading indicator.</td></tr>
+        <tr><td class="bold">Total visibility entering the period</td><td class="right bold">~₹2,420 Cr</td><td class="right bold">~₹3,355 Cr</td><td>Ties to management's "about ₹2,100 Cr, ₹2,400 Cr including L1" comment at the FY26 call.</td></tr>
+        <tr><td class="bold">Implied organic backlog</td><td class="right muted">~₹472 Cr</td><td class="right green">~₹1,317 Cr</td><td class="green">Author's derivation (Jun-26 book less unexecuted strategic balance). If the definition holds, the non-strategic book has roughly tripled — the most important number in the report.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">The ₹1,620 Cr and ₹430 Cr figures are from broker coverage of the Q4 FY26 and Q1 FY27 concalls; the "implied organic backlog" line is the author's arithmetic, not a company disclosure, and is sensitive to whether the Jun-26 order-book definition is on the same basis as Mar-26.</p>
+  </div>
+
+  <p class="subsection-title">The Organic Growth Test</p>
+  <p>Headline Q1 FY27 revenue growth was +172.1%. Strip out the ~₹430 Cr of strategic-order execution management said was booked in the quarter and base-business revenue was roughly <strong>₹390 Cr against ₹301 Cr</strong> in Q1 FY26 — about <strong>+30% YoY</strong>, a shade <em>below</em> the 35–40% organic growth management has guided to. That is not a bad number in absolute terms. It is a materially different number from 172%, and it is the number that matters for FY28 and beyond.</p>
+
+  <div class="callout callout-red">The structural risk inside the strength: the ₹2,184 Cr of strategic orders is finite and largely completes by Q3 FY27. At least one covering broker (Equirus, May 2026) explicitly models <strong>FY28E revenue of ₹3,260 Cr below FY27E of ₹3,898 Cr</strong> — a revenue decline — precisely because the strategic order runs off with nothing yet booked to replace it. Whether the ₹10,401 Cr pipeline converts in time is the entire FY28 debate.</div>
+</section>
+
+<!-- ═══════════════ S5: INDIA AI ═══════════════ -->
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">The Policy Engine: IndiaAI, PLI 2.0 and NSM 2.0</h2></div>
+
+  <p>Netweb's addressable market is being created substantially by policy rather than by an autonomous private capex cycle. That is both the opportunity and the concentration risk.</p>
+
+  <div class="macro-grid">
+    <div class="macro-card"><div class="macro-co">IndiaAI Mission Outlay</div><div class="macro-val">₹10,300 Cr</div><div class="macro-label">Government of India allocation to build the sovereign AI ecosystem, including subsidised common compute</div></div>
+    <div class="macro-card"><div class="macro-co">GPUs Empanelled</div><div class="macro-val">38,000+</div><div class="macro-label">By mid-2026, versus an original 10,000-chip target; 34,333 across the first empanelment rounds, 17,300+ physically installed</div></div>
+    <div class="macro-card"><div class="macro-co">PLI 2.0 (IT Hardware)</div><div class="macro-val">₹17,000 Cr</div><div class="macro-label">Six-year scheme targeting ₹3,35,000 Cr of incremental IT-hardware production. Netweb is a consistent recipient.</div></div>
+    <div class="macro-card"><div class="macro-co">NSM 2.0</div><div class="macro-val">Dec 2025</div><div class="macro-label">National Supercomputing Mission 2.0 launched — the successor HPC tendering pipeline behind the AI wave</div></div>
+  </div>
+
+  <p>Four policy vectors converge on Netweb's P&amp;L. <strong>IndiaAI Mission</strong> funds GPU capacity procurement and subsidises compute for startups and researchers to roughly $1 per GPU-hour, well below commercial cloud rates — it is the reason the ₹1,734 Cr Blackwell order existed at all. <strong>PLI 2.0</strong> subsidises domestic IT-hardware manufacture and is the reason the Faridabad SMT line was built. <strong>NSM 2.0</strong> re-opens the academic and research supercomputing tender pipeline that is Netweb's original franchise. And <strong>data-localisation and sovereign-AI policy</strong> creates a structural preference for an Indian-origin, Indian-controlled OEM in government, defence and PSU procurement.</p>
+
+  <p class="subsection-title">An Honest Reading of the PLI Contribution</p>
+  <p>PLI is widely assumed to be Netweb's margin engine. The disclosed evidence says otherwise. Broker analysis of FY25 puts gross margin at 23.2% as reported versus <strong>22.8% excluding PLI</strong> — roughly 40 basis points of benefit. PLI matters as a capex offset and as a qualification credential for government tenders; it is not what makes the business profitable, and its withdrawal or delay would not break the model. Investors should size the PLI narrative accordingly.</p>
+
+  <div class="callout">The flip side of policy-driven demand: ordering is lumpy, tender-cycle dependent and politically sequenced. Government and government-adjacent customers were roughly 42.5% of the customer split at the last comparable disclosure. A budget reprioritisation or a slow empanelment round does not reduce demand permanently — it just moves several hundred crore of revenue out of a fiscal year, which for a stock at these multiples is the same thing.</div>
+</section>
+
+<!-- ═══════════════ S6: COMPETITION ═══════════════ -->
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Competitive Positioning &amp; Margin Read-Across</h2></div>
+
+  <p>Netweb competes on two fronts that behave very differently: against global server OEMs on capability and price, and against Indian electronics manufacturers on cost and the multiple the market is willing to pay.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Peer</th><th>Positioning</th><th class="right">Margin / Multiple Marker</th><th>Read-across for Netweb</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Dell Technologies</td><td>Global #1 AI-server OEM</td><td class="right">FY26 gross margin <strong>20.0%</strong>, down 220 bps</td><td>Dell attributes the compression explicitly to AI-optimised server mix. The same force acting on Netweb, at vastly greater scale — proof the effect is structural, not an execution failure.</td></tr>
+        <tr><td class="bold">Super Micro (SMCI)</td><td>Design-led AI system builder — closest structural analogue</td><td class="right">Q4 FY26 gross margin <strong>~17.5%</strong> (from ~9.5%)</td><td>The cautionary tale. SMCI's assembler margin nearly doubled in a year — and had collapsed to 9.5% the year before. Assembler gross margins are violently cyclical.</td></tr>
+        <tr><td class="bold">HPE</td><td>Global OEM; cumulative AI backlog ~$16.4bn</td><td class="right muted">margin not disclosed here</td><td>Competes directly in Indian government and enterprise HPC tenders. The incumbent Netweb displaces on "Make in India" preference, not on raw cost.</td></tr>
+        <tr><td class="bold">Dixon Technologies</td><td>India EMS leader, expanding into IT hardware</td><td class="right">~56x P/E, ROE ~28%</td><td>The credible domestic threat. If Dixon enters server/AI-hardware assembly at scale, Netweb's "only Indian OEM" moat narrows to design IP and software, not manufacturing.</td></tr>
+        <tr><td class="bold">Kaynes Technology</td><td>India EMS / advanced manufacturing</td><td class="right">~90x P/E, ROE ~14%</td><td>Not a direct competitor, but the multiple cohort Netweb is priced within — and Netweb trades above it.</td></tr>
+        <tr><td class="bold">Syrma SGS</td><td>India EMS</td><td class="right">~107x P/E</td><td>Same cohort. Shows how much of the Indian electronics complex is priced for flawless execution.</td></tr>
+        <tr><td class="bold">Netweb Technologies</td><td>India's only listed full-stack domestic HCS OEM</td><td class="right green">FY26 GM <strong>20.8%</strong>, EBITDA <strong>13.0%</strong>, ROE <strong>32.8%</strong>; ~118x TTM P/E</td><td>Better gross margin than SMCI, on par with Dell, at a fraction of their scale — and with a far lighter opex base, which is why EBITDA margin is 13–15% against low-single-digit operating margins at the global OEMs.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Peer P/E and ROE markers are as reported in market commentary around May 2026 and will have moved; they are included for cohort context, not as a live comps screen. Dell and Super Micro margins are from their own FY2026 disclosures.</p>
+  </div>
+
+  <p class="subsection-title">Is the 13–15% EBITDA Margin Real?</p>
+  <p>This is the question that decides the multiple, and it deserves a direct answer rather than a hedge. Netweb's EBITDA margin genuinely exceeds what Dell or Supermicro earn at the operating line, and the explanation is mostly structural rather than magical. Employee cost was ~5.4% of revenue in FY25 and is modelled below 4% as revenue scales; there is no global sales force, no worldwide service network, no R&amp;D budget of Dell's magnitude. Management's own explanation — that the integrated full-stack approach of designing, manufacturing and supplying both software and hardware commands better margins than competitors who bundle third-party products — is credible for the HPC and private-cloud franchise, where the software and cluster middleware genuinely differentiate.</p>
+
+  <p>What is <em>not</em> yet proven is that the margin survives an AI-dominated mix at much larger scale. Two disclosed facts push against it: strategic AI orders carry margins roughly <strong>150–200 basis points lower at the PBT level</strong> than base business, on management's own guidance; and gross margin has already fallen from 23.2% (FY25) to 20.8% (FY26) as AI mix rose, with broker models putting raw material at 80–81% of revenue in FY26–FY27 against 75–77% historically. The 13–14% EBITDA guidance is being defended by operating leverage on a fixed cost base, not by pricing power on the bill of materials.</p>
+</section>
+
+<!-- ═══════════════ S7: FINANCIALS ═══════════════ -->
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Financial Performance</h2></div>
+
+  <p>FY26 (audited standalone, approved 2 May 2026) was a step-change year, and Q1 FY27 was the largest quarter in the company's history. Both are also heavily shaped by the strategic orders.</p>
+
+  <p class="subsection-title">FY26 vs FY25 — Full Year (₹ Cr unless stated)</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">FY25</th><th class="right">FY26</th><th class="right">YoY</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Operating Revenue</td><td class="right">1,149.0</td><td class="right">2,183.6</td><td class="right green">+90.0%</td></tr>
+        <tr><td class="bold">Operating EBITDA</td><td class="right">159.0</td><td class="right">284.8</td><td class="right green">+79.1%</td></tr>
+        <tr><td class="bold">Operating EBITDA Margin</td><td class="right">13.8%</td><td class="right">13.0%</td><td class="right red">−80 bps</td></tr>
+        <tr><td class="bold">Adjusted Operating EBITDA</td><td class="right">159.0</td><td class="right">290.1</td><td class="right green">+82.4%</td></tr>
+        <tr><td class="bold">Adjusted EBITDA Margin</td><td class="right">13.8%</td><td class="right">13.3%</td><td class="right red">−56 bps</td></tr>
+        <tr><td class="bold">Gross Margin</td><td class="right">23.2%</td><td class="right">20.8%</td><td class="right red">−240 bps</td></tr>
+        <tr><td class="bold">PAT</td><td class="right">113.8</td><td class="right">205.8</td><td class="right green">+80.9%</td></tr>
+        <tr><td class="bold">PAT Margin</td><td class="right">9.8%</td><td class="right">9.3%</td><td class="right red">−47 bps</td></tr>
+        <tr><td class="bold">Diluted EPS (₹)</td><td class="right">20.11</td><td class="right">36.30</td><td class="right green">+80.5%</td></tr>
+        <tr><td class="bold">Net Debt</td><td class="right muted">net cash</td><td class="right green">Nil — net free cash ₹83.3 Cr</td><td class="right muted">—</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Standalone figures from the company's audited FY26 press release dated 2 May 2026. Adjusted EBITDA adds back hedging gains classified in other income against MTM losses on payables (₹5.2 Cr). Gross margin is from broker analysis of the same results, not a company-disclosed line. FY25 comparatives were restated for a change in inventory valuation policy from FIFO to moving weighted average; the company states the impact is not material.</p>
+  </div>
+
+  <p class="subsection-title">Quarterly Trajectory (₹ Cr)</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Quarter</th><th class="right">Revenue</th><th class="right">Op EBITDA</th><th class="right">EBITDA Mgn</th><th class="right">PAT</th><th class="right">PAT Mgn</th><th class="right">Diluted EPS (₹)</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Q1 FY26</td><td class="right">301.2</td><td class="right">44.8</td><td class="right">14.9%</td><td class="right">30.5</td><td class="right">10.1%</td><td class="right">5.38</td></tr>
+        <tr><td class="bold">Q2 FY26</td><td class="right">303.7</td><td class="right">45.5</td><td class="right">15.0%</td><td class="right">31.4</td><td class="right">10.3%</td><td class="right">5.55</td></tr>
+        <tr><td class="bold">Q3 FY26</td><td class="right">804.9</td><td class="right">98.0</td><td class="right red">12.2%</td><td class="right">73.3</td><td class="right">9.0%</td><td class="right">12.94</td></tr>
+        <tr><td class="bold">Q4 FY26</td><td class="right">773.7</td><td class="right">96.6</td><td class="right red">12.5%</td><td class="right">70.6</td><td class="right">9.0%</td><td class="right">12.43</td></tr>
+        <tr><td class="bold">Q1 FY27</td><td class="right green">819.7</td><td class="right green">120.5</td><td class="right green">14.7%</td><td class="right green">85.3</td><td class="right green">10.3%</td><td class="right green">14.98</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Trailing-twelve-month diluted EPS through Q1 FY27 is ₹45.90 (Q2 FY26 through Q1 FY27), computed by the author from the quarterly disclosures above.</p>
+  </div>
+
+  <div class="callout callout-green">The Q1 FY27 margin recovery is the genuinely encouraging datapoint. EBITDA margin rose 222 bps sequentially to 14.7% while revenue still grew 6% QoQ — evidence that the low-margin drag of strategic-order execution in Q3/Q4 FY26 was a mix effect the company can offset with better revenue quality, not a permanent reset. ROCE of 48.2% and ROE of 44.6% (annualised) are exceptional for a manufacturer.</div>
+
+  <p class="subsection-title">The Long Arc</p>
+  <p>Revenue has compounded from ₹247 Cr in FY22 to ₹2,184 Cr in FY26 — a four-year CAGR of about 72% — with PAT compounding at a similar ~74%. That is not a company that discovered AI last year; it is a company with a fifteen-year HPC franchise that happened to be positioned when the AI cycle arrived. The FY23–FY26 revenue CAGR of roughly 70% is the honest headline number, and it is the reason the market is willing to underwrite a very large multiple.</p>
+</section>
+
+<!-- ═══════════════ S8: MARGINS & WORKING CAPITAL ═══════════════ -->
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">Working Capital, the Balance Sheet and the QIP</h2></div>
+
+  <p>This is where a hardware assembler either earns its multiple or loses it. Netweb's income statement is excellent; its cash cycle is the part that requires quarterly supervision.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Mar-25</th><th class="right">Sep-25</th><th class="right">Dec-25</th><th class="right">Mar-26</th><th class="right">Jun-26</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Cash Conversion Cycle (days)</td><td class="right">73</td><td class="right red">120</td><td class="right green">69</td><td class="right muted">n/d</td><td class="right">96</td></tr>
+        <tr><td class="bold">Receivable Days</td><td class="right muted">n/d</td><td class="right muted">n/d</td><td class="right muted">n/d</td><td class="right">86</td><td class="right green">78</td></tr>
+        <tr><td class="bold">Inventory Days</td><td class="right muted">n/d</td><td class="right muted">n/d</td><td class="right muted">n/d</td><td class="right">86</td><td class="right red">110</td></tr>
+        <tr><td class="bold">Net Worth (₹ Cr)</td><td class="right">529.2</td><td class="right">578.6</td><td class="right muted">n/d</td><td class="right">723.3</td><td class="right">808.7</td></tr>
+        <tr><td class="bold">Net Debt / Equity</td><td class="right green">(0.31)</td><td class="right green">(0.41)</td><td class="right green">net cash</td><td class="right green">net cash</td><td class="right red">0.25</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Mar-25 and Sep-25 figures from the company's Q2 FY26 investor presentation; Dec-25 from broker coverage of the Q3 FY26 concall; Mar-26 and Jun-26 from the FY26 press release and Q1 FY27 investor slides. Negative net debt/equity denotes a net cash position. "n/d" = not disclosed on a comparable basis.</p>
+  </div>
+
+  <p>Three things are happening at once. <strong>Receivables improved</strong> — 86 to 78 days — which is genuinely good and unusual for a business selling into government-linked customers. <strong>Inventory rose sharply</strong> — 86 to 110 days — which management frames as a deliberate raw-material build to secure GPU and memory supply and hedge an execution timeline that has stretched from 8–12 weeks to <strong>16–20 weeks</strong>. And the combination flipped the balance sheet from net cash at March to <strong>net debt of roughly ₹200 Cr</strong> (0.25x equity, 0.41x annualised EBITDA) by June.</p>
+
+  <p>That flip is the honest explanation for the ₹1,200 Cr QIP completed on 20 August 2026 at ₹4,790 per share, taken up by Goldman Sachs Asset Management, Nomura, Amundi and domestic mutual funds. Management had earlier characterised the enabling resolution as being for working capital "if needed"; the Q1 balance sheet shows it was needed. Pro-forma, the company swings to roughly ₹1,000 Cr of net cash, book value per share rises to about ₹334 and P/B falls from roughly 38x to about 16x — a genuine de-risking, at the cost of 4.2% dilution.</p>
+
+  <div class="callout callout-gold">The right way to read the QIP: not as a growth-capex raise. Management has said explicitly that the business is "capability-driven, not capacity-driven," with facilities already able to sustain turnover above ₹3,000 Cr and <strong>no major capacity capex anticipated</strong>. The ₹1,200 Cr is balance-sheet ammunition to fund inventory and receivables for larger, longer-cycle AI orders — which tells you the working-capital intensity of the AI mix is higher than the HPC business it is replacing.</div>
+
+  <p class="subsection-title">Credit and Governance Markers</p>
+  <ul class="report-list">
+    <li><strong>CRISIL upgrade:</strong> Long-term rating raised to CRISIL A+/Stable from A/Stable, short-term reaffirmed at A1, with total bank facilities enhanced from ₹260 Cr to ₹700 Cr — a meaningful expansion of committed liquidity ahead of larger order execution.</li>
+    <li><strong>Promoter selling:</strong> The four promoters sold 20,79,935 shares (~3.65%) in open-market transactions, taking collective holding from 70.64% to 66.98%. Control is untouched, but selling into a re-rating deserves noting.</li>
+    <li><strong>Customer concentration is worsening, not improving:</strong> Top-10 customers were 57.8% of revenue in FY23, 65.8% in FY25, 76.4% in FY26 and <strong>87.7% in Q1 FY27</strong>. Repeat-customer revenue of 98.9% and average top-10 tenure of 7.68 years mitigate this — these are long relationships, not one-night stands — but the trend line is unambiguous.</li>
+    <li><strong>FX and input exposure:</strong> GPUs and memory are USD-denominated imports. FY26 saw MTM losses on payables offset by hedging gains booked in other income, and Q4 FY26 PAT came in below one broker's estimate specifically on forex losses. Memory and chip price inflation is a live 2026 issue that management says it plans around rather than reacts to.</li>
+  </ul>
+</section>
+
+<!-- ═══════════════ S9: GUIDANCE ═══════════════ -->
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">Growth Drivers &amp; Management Guidance</h2></div>
+
+  <p class="subsection-title">What Management Has Committed To</p>
+  <ul class="report-list">
+    <li><strong>Organic revenue growth of 35–40%</strong> over the next couple of years — explicitly <em>excluding</em> strategic-order revenue. This is the number to hold management to, and Q1 FY27's implied ~30% organic growth is marginally short of it.</li>
+    <li><strong>FY27 EBITDA margin of 13–14%</strong>, reaffirmed at the Q1 FY27 call with margins described as "well within" the guided range. Q1 delivered 14.7%.</li>
+    <li><strong>Strategic order execution completing across Q1–Q3 FY27</strong>, with roughly ₹430 Cr booked in Q1 and ~₹1,190 Cr remaining.</li>
+    <li><strong>Pipeline conversion of ~60% over 18–24 months</strong> on the ₹10,401 Cr bid book — the arithmetic that has to work for FY28 to avoid the step-down.</li>
+    <li><strong>No major capacity capex</strong> — the Faridabad plant is stated to support turnover above ₹3,000 Cr, so incremental revenue should be largely working-capital funded rather than capex funded.</li>
+  </ul>
+
+  <p class="subsection-title">Structural Demand Drivers</p>
+  <ul class="report-list">
+    <li><strong>Sovereign AI compute:</strong> IndiaAI Mission empanelment rounds, subsidised common-compute capacity and a policy preference for indigenous, in-country compute infrastructure.</li>
+    <li><strong>NVIDIA OEM partnership:</strong> Netweb is one of a select set of OEMs globally designing and manufacturing NVIDIA-based AI GPU systems, with Blackwell/GB200-class platforms, an AI edge system, and a Vertiv collaboration for advanced cooling.</li>
+    <li><strong>NSM 2.0 and academic HPC:</strong> The original franchise — IITs, IISc, IIIT, IISER, C-DAC, ISRO, Ministry of Defence and the Indian Army — reopening for a fresh procurement cycle.</li>
+    <li><strong>Enterprise on-prem repatriation:</strong> Private cloud and HCI grew 28% in FY26 with customers including Zoho, Samsung, Infosys, Yotta, Neysa and Graviton Research Capital — a non-government, non-AI leg that grows steadily and carries better working-capital characteristics.</li>
+    <li><strong>Software as margin defence:</strong> Skylus.ai, cluster middleware and managed services are small today but are the only structural answer to gross-margin compression from rising GPU content.</li>
+  </ul>
+
+  <div class="callout">The guidance is coherent and management has not over-promised — 13–14% EBITDA has been delivered, and they have been careful to separate organic growth from strategic-order revenue. The gap between guidance and price is not a credibility problem. It is that the market appears to be capitalising the strategic-order-inflated FY27 revenue base as though it were the new normal.</div>
+</section>
+
+<!-- ═══════════════ S10: VALUATION ═══════════════ -->
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation Model</h2></div>
+
+  <p>We use ~5.95 crore post-QIP shares and anchor on FY27E EPS. FY26 actual diluted EPS was ₹36.30; trailing-twelve-month EPS through Q1 FY27 is ₹45.90. All FY27E lines below are the author's own directional projections built from management guidance, the disclosed order book and the strategic-order execution schedule.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Conservative</th><th class="right">Base Case</th><th class="right">Bull Case</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">FY26 Revenue (₹ Cr) — actual</td><td class="right">2,184</td><td class="right">2,184</td><td class="right">2,184</td></tr>
+        <tr><td class="bold">FY27E Revenue (₹ Cr)</td><td class="right">3,300</td><td class="right green">3,900</td><td class="right">4,400</td></tr>
+        <tr><td class="bold">FY27E Revenue Growth</td><td class="right">+51%</td><td class="right green">+79%</td><td class="right">+102%</td></tr>
+        <tr><td class="bold">FY27E EBITDA Margin</td><td class="right">12.5%</td><td class="right green">13.2%</td><td class="right">14.0%</td></tr>
+        <tr><td class="bold">FY27E PAT (₹ Cr)</td><td class="right">305</td><td class="right green">380</td><td class="right">455</td></tr>
+        <tr><td class="bold">FY27E EPS (₹) — on 5.95 cr shares</td><td class="right">51.3</td><td class="right green">63.9</td><td class="right">76.5</td></tr>
+        <tr><td class="bold">Target P/E (FY27E)</td><td class="right">55x</td><td class="right green">70x</td><td class="right">85x</td></tr>
+        <tr><td class="bold">12-Month Target Price</td><td class="right">~₹2,750–2,900</td><td class="right green bold">~₹4,400–4,550</td><td class="right">~₹6,400–6,600</td></tr>
+        <tr><td class="bold">Upside vs CMP ~₹5,403</td><td class="right red">−49% to −46%</td><td class="right red">−19% to −16%</td><td class="right green">+18% to +22%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">FY27E revenue, margin, PAT and EPS are the author's own directional estimates, not company guidance and not consensus. Target multiples are judgement calls anchored on the Indian electronics-manufacturing cohort (roughly 55–105x) and on Netweb's superior ROE but inferior earnings durability. Arithmetic check: 51.3 × 55 = ₹2,822; 63.9 × 70 = ₹4,473; 76.5 × 85 = ₹6,503.</p>
+  </div>
+
+  <p class="subsection-title">Cross-Checks</p>
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:280px">Trailing P/E (FY26 EPS ₹36.30)</td><td class="red">~149x. On TTM EPS of ₹45.90, ~118x. Either way, among the most expensive listed manufacturers in India.</td></tr>
+        <tr><td class="bold">P/E on our base FY27E EPS</td><td class="red">~85x at CMP — i.e. the market is already paying a full multiple on a revenue year inflated by a finite ₹2,184 Cr strategic order.</td></tr>
+        <tr><td class="bold">Price to book (pro-forma post-QIP)</td><td>~16x on estimated BVPS of ~₹334. Pre-QIP it was roughly 38x on the Jun-26 book. Justifiable only if a 30–45% ROE persists.</td></tr>
+        <tr><td class="bold">EV / EBITDA</td><td class="red">~103x on FY26 operating EBITDA of ₹285 Cr; ~60x on our base FY27E EBITDA of ~₹515 Cr (EV taken as market cap less ~₹1,000 Cr pro-forma net cash).</td></tr>
+        <tr><td class="bold">Market cap / total order visibility</td><td class="red">₹32,100 Cr against ₹3,355 Cr of order book plus L1 — roughly 9.6x. The equity is priced on the ₹10,401 Cr pipeline converting, not on the confirmed book.</td></tr>
+        <tr><td class="bold">Where the sell-side sits</td><td>Both covering notes we could retrieve are <em>below</em> the market: Monarch Networth HOLD, TP ₹3,725 (Jan 2026); Equirus ADD, TP ₹4,110 for Jun-27 (May 2026). A consensus 1-year target of ~₹5,362 across four analysts implies roughly 0–2% upside from CMP.</td></tr>
+        <tr><td class="bold">The FY28 problem</td><td class="red">Equirus models FY28E revenue of ₹3,260 Cr and EPS of ₹58.7 — <strong>below</strong> FY27E of ₹3,898 Cr and ₹60.6 — as the strategic order runs off. At CMP that is ~92x FY28E. A stock cannot hold 90x into a year of falling earnings unless the pipeline converts first.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-red">The valuation conclusion is uncomfortable but unambiguous. Netweb is an excellent operating business — 32.8% FY26 ROE, 48% Q1 FY27 ROCE, near-zero net debt pro-forma, real technology, real policy tailwind. At ₹5,403 the market is paying 85x our base FY27E and 118x trailing for it, at a moment when both covering brokers sit 20–30% below the price and the FY28 revenue line may be lower than FY27's. The business is worth owning. This price is not where to start owning it.</div>
+</section>
+
+<!-- ═══════════════ S11: SCENARIOS ═══════════════ -->
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Bull &amp; Bear Scenario Analysis</h2></div>
+
+  <div class="scenario-grid">
+    <div class="scenario-card">
+      <div class="sc-header bull">🐂 Bull Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val green">IndiaAI round-3/4 and NSM 2.0 awards land inside FY27; the ~₹1,317 Cr implied organic backlog keeps compounding so FY28 never steps down; QIP cash funds a second strategic-order cycle; gross margin holds ~21%</span></div>
+        <div class="sc-row"><span class="sc-key">Revenue FY27E</span><span class="sc-val green">~₹4,400 Cr (+102%)</span></div>
+        <div class="sc-row"><span class="sc-key">EBITDA Margin</span><span class="sc-val green">14.0%</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E EPS</span><span class="sc-val green">~₹76.5</span></div>
+        <div class="sc-row"><span class="sc-key">Target Multiple</span><span class="sc-val green">85x FY27E</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val green">₹6,400 – ₹6,600</span></div>
+      </div>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-header bear">🐻 Bear Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val red">Strategic order completes by Q3 FY27 with nothing booked to replace it; pipeline conversion slips past 24 months; memory/GPU inflation pushes gross margin below 20%; top-10 concentration bites on one deferred tender; multiple de-rates toward the EMS cohort</span></div>
+        <div class="sc-row"><span class="sc-key">Revenue FY27E</span><span class="sc-val red">~₹3,300 Cr (+51%)</span></div>
+        <div class="sc-row"><span class="sc-key">EBITDA Margin</span><span class="sc-val red">12.5%</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E EPS</span><span class="sc-val red">~₹51.3</span></div>
+        <div class="sc-row"><span class="sc-key">Target Multiple</span><span class="sc-val red">55x FY27E</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val red">₹2,750 – ₹2,900</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p>The asymmetry at ₹5,403 is poor: roughly +20% in the bull case against roughly −47% in the bear, with a base case that is <em>negative</em>. Note also that the bear case does not require the business to fail — it only requires the FY28 step-down that a covering broker already has in its published model, plus a de-rating to a multiple that is still 55x. Both halves of that are ordinary outcomes, not disasters.</p>
+
+  <div class="callout callout-gold">Where the entry becomes interesting: at roughly ₹4,000 the stock trades at ~63x our base FY27E EPS and the base-case target implies ~+12%, with the bear case downside narrowing to about −30%. That is a risk-reward worth engaging with. Below ₹3,500 — approximately the Monarch Networth target — the asymmetry inverts in the buyer's favour.</div>
+</section>
+
+<!-- ═══════════════ S12: RISKS ═══════════════ -->
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risk Factors</h2></div>
+
+  <div class="risk-grid">
+    <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Valuation / Multiple Risk</div><span class="badge badge-high">HIGH</span><div class="risk-body">~118x TTM and ~85x our base FY27E EPS. Both retrievable broker targets (₹3,725 and ₹4,110) sit 20–30% below the market and consensus implies ~0–2% upside. A stock priced this way has no cushion for an ordinary miss, and India's electronics complex has already shown 20–30% drawdowns on lesser news.</div></div>
+    <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Strategic-Order Cliff</div><span class="badge badge-high">HIGH</span><div class="risk-body">₹2,184 Cr of named strategic AI orders substantially complete by Q3 FY27. Equirus explicitly models FY28E revenue (₹3,260 Cr) <em>below</em> FY27E (₹3,898 Cr). Unless the ₹10,401 Cr pipeline converts on schedule, FY28 is an earnings-decline year against a 90x multiple.</div></div>
+    <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Customer Concentration</div><span class="badge badge-high">HIGH</span><div class="risk-body">Top-10 customers rose from 57.8% (FY23) to 65.8% (FY25) to 76.4% (FY26) to 87.7% of Q1 FY27 revenue. Long tenure (7.68 years average) and 98.9% repeat revenue soften it, but a single deferred government tender now moves a full quarter.</div></div>
+    <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Gross-Margin Compression</div><span class="badge badge-medh">MED–HIGH</span><div class="risk-body">Gross margin fell 240 bps to 20.8% in FY26 as AI mix rose, with raw material modelled at 80–81% of revenue versus 75–77% historically. Strategic orders carry 150–200 bps lower PBT margin. The GPU is the product; the assembler keeps the integration layer.</div></div>
+    <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Working Capital &amp; Inventory</div><span class="badge badge-medh">MED–HIGH</span><div class="risk-body">Inventory days rose 86 → 110 and the balance sheet flipped from net cash at Mar-26 to ~₹200 Cr net debt by Jun-26, prompting the ₹1,200 Cr QIP. Execution timelines stretched from 8–12 to 16–20 weeks. Larger AI orders are structurally more working-capital hungry than the HPC business they replace.</div></div>
+    <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">GPU Allocation, Memory Inflation &amp; FX</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">Revenue is gated by NVIDIA/AMD allocation, and inputs are USD-denominated into a depreciating rupee. FY26 carried MTM losses on payables offset by hedging gains; Q4 FY26 PAT missed one broker's estimate on forex. Memory and chip price inflation is a live 2026 pressure.</div></div>
+    <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Competitive Entry</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">Dell, HPE and Supermicro compete directly for Indian AI/HPC tenders; domestically, Dixon and other EMS players could localise server assembly under the same PLI framework. Netweb's moat is design IP, software and government qualification — not manufacturing scale, which is replicable.</div></div>
+    <div class="risk-row"><div class="risk-num">08</div><div class="risk-name">Policy Dependency &amp; Promoter Selling</div><span class="badge badge-low">LOW–MED</span><div class="risk-body">Demand is heavily policy-sequenced (IndiaAI, NSM 2.0, PLI 2.0); a reprioritised budget shifts hundreds of crore between fiscal years. Separately, promoters sold ~3.65% (holding 70.64% → 66.98%) and the QIP diluted a further 4.2% — control is safe, but insider supply into a re-rating is worth watching.</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ S13: SUMMARY ═══════════════ -->
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Investment Summary &amp; Recommendation</h2></div>
+
+  <div class="thesis-box">
+    <p>Netweb is <strong>the listed domestic proxy for India's sovereign-AI compute build-out</strong> — the only Indian-origin, Indian-controlled full-stack OEM designing and manufacturing NVIDIA-based AI systems at scale, with a fifteen-year HPC franchise underneath, <strong>90% FY26 revenue growth</strong>, 32.8% ROE, 48% Q1 FY27 ROCE and a ₹10,401 Cr bid pipeline. It is also a hardware assembler whose gross margin fell 240 bps as AI mix rose, whose <strong>top-10 customers are 87.7% of revenue</strong>, whose balance sheet needed a ₹1,200 Cr QIP after inventory days went to 110, and whose FY27 revenue is inflated by <strong>₹2,184 Cr of finite strategic orders that largely complete by Q3 FY27</strong>. At ~118x trailing and ~85x our base FY27E — with both covering brokers 20–30% below the market and at least one modelling an FY28 revenue <em>decline</em> — the AI narrative is not merely priced in, it is priced through. We rate NETWEB <strong>Reduce / Avoid at CMP</strong> and would begin engaging near ₹4,000, meaningfully below ₹3,500.</p>
+  </div>
+
+  <p class="subsection-title">The Three Reasons to Own NETWEB</p>
+  <ul class="report-list">
+    <li><strong>1. A genuine, non-replicable position:</strong> One of a select set of OEMs worldwide with an NVIDIA design-and-manufacture partnership, 600+ supercomputers installed, 15 Top-500 listings, in-house PCB/SMT under PLI 2.0, and an owned software stack. Not a trading house with a badge — a designer and manufacturer.</li>
+    <li><strong>2. Policy demand that is funded, not aspirational:</strong> ₹10,300 Cr IndiaAI outlay, 38,000+ GPUs empanelled, ₹17,000 Cr PLI 2.0, NSM 2.0 launched. The ₹1,734 Cr Blackwell order is proof the money converts into purchase orders for this specific company.</li>
+    <li><strong>3. Financial quality that is rare in Indian manufacturing:</strong> FY26 revenue +90%, PAT +81%, ROE 32.8%, ROCE 48% annualised in Q1 FY27, net cash pro-forma post-QIP, CRISIL upgraded to A+ with bank lines tripled to ₹700 Cr, and a Q1 FY27 EBITDA margin recovery to 14.7%.</li>
+  </ul>
+
+  <div class="callout callout-red">And the reason not to buy it today: every one of those three strengths is already in the price, and then some. The stock is up roughly 74% year-to-date and 150%+ over twelve months. Owning the business and owning the stock at ₹5,403 are different decisions.</div>
+
+  <p class="subsection-title">Key Monitorables — Watch Through FY27</p>
+  <div class="monitor-grid">
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Ex-strategic-order organic growth each quarter — is it back above the 35–40% guide, or stuck near Q1's implied ~30%?</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Order-book composition at Sep-26 and Dec-26 — does the organic backlog keep building as the strategic order runs off?</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Gross margin trajectory from 20.8% — the single cleanest read on whether pricing power survives an AI-heavy mix</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Inventory days (110) and cash conversion cycle (96) — plus how fast the ₹1,200 Cr QIP cash is actually deployed</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Top-10 customer concentration — 87.7% needs to fall, not keep climbing</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>IndiaAI round-3/4 awards, NSM 2.0 tendering and PLI 2.0 disbursement — the mechanism that has to refill the book for FY28</div></div>
+  </div>
+
+  <div class="verdict-banner">
+    <h3>RATING: REDUCE / AVOID AT CMP</h3>
+    <p>Base Case 12-Month Target: <strong>₹4,400–4,550</strong> &nbsp;|&nbsp; Bull: ₹6,400–6,600 &nbsp;|&nbsp; Bear: ₹2,750–2,900 &nbsp;|&nbsp; CMP ~₹5,403 &nbsp;|&nbsp; Risk Level: HIGH</p>
+  </div>
+
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:20px;">
+    SOURCE QUALITY: FY26 revenue, EBITDA, PAT, EPS, order book and net-debt figures are taken directly from Netweb's audited standalone FY26 press release filed with BSE/NSE on 2 May 2026. Q2 FY26 balance-sheet, segment, customer-concentration and management-commentary data are from the company's Q2 FY26 investor presentation filed 1 November 2025. Q1 FY27 revenue, EBITDA, PAT, EPS, segment split, order book, L1, pipeline, working-capital days and return ratios are from media and market coverage of the company's Q1 FY27 investor slides and concall (results dated 29 July 2026), cross-checked across multiple outlets. FY25 quarterly history, gross-margin analysis, FY27E/FY28E broker estimates and concall takeaways are from two research notes hosted on the company's own investor-relations site: Monarch Networth Capital (19 January 2026, HOLD, TP ₹3,725) and Equirus Securities (5 May 2026, ADD, TP ₹4,110). Price, market cap, 52-week range, shareholding, QIP terms, CRISIL rating action and peer multiples are from reputable financial media and market-data providers retrieved in late August 2026. All FY27E revenue, margin, PAT, EPS and target-price figures in Section 10, the implied organic backlog in Section 4, the implied organic growth rate, the derived FY26 segment rupee values in Section 2, and the pro-forma post-QIP book value, share count, promoter holding and net-cash position are the author's own calculations or directional estimates and may differ materially from outcomes. Items we could not verify to a primary source are marked "not disclosed" or "n/d" rather than estimated.
+  </p>
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:10px;">
+    DISCLAIMER: This report is prepared for informational and private research purposes only. It does not constitute investment advice or a recommendation to buy or sell any security. The author is not a SEBI-registered investment adviser and may hold positions in the securities discussed. All financial data is sourced from publicly available filings, investor presentations, concall coverage and exchange disclosures. Investing in equities involves the risk of capital loss. Past performance is not indicative of future results. Please consult a SEBI-registered investment adviser before making any investment decision.
+  </p>
+</section>
+
+</div><!-- /.page -->
+
+<footer class="footer">
+  <div>NETWEB TECHNOLOGIES INDIA LIMITED (NSE: NETWEB) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Audited FY26 Press Release (2 May 2026) · Q2 FY26 Investor Presentation (1 Nov 2025) · Q1 FY27 Results &amp; Concall Coverage (29 Jul 2026) · Monarch Networth &amp; Equirus Research Notes · BSE/NSE Filings · Aggregator Price Data (late Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

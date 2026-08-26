@@ -8625,6 +8625,9 @@ function rdGo(id){ show('rdesk'); RD.cur = id; renderRD(); const c = document.qu
 function rdRatingCls(rating){
   const s = String(rating || '').toLowerCase();
   if(/(sell|reduce|avoid|underweight)/.test(s)) return 'sell';
+  // hold-first or price-conditional ("Hold / Accumulate on Dips", "Accumulate below X", "Hold at CMP")
+  // is neutral; "Accumulate / Buy on dips" (buy-first) stays constructive.
+  if(/^\s*(hold|neutral)/.test(s) || /\b(below|at cmp)\b/.test(s) || /\bhold\b/.test(s)) return 'hold';
   if(/(buy|accumulate|add|overweight)/.test(s)) return 'buy';
   return 'hold';
 }

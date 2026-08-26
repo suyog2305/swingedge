@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CarTrade Tech Limited — Equity Research Report | August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ MASTHEAD ═══════════════ -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: CARTRADE &nbsp;|&nbsp; BSE: 543333 &nbsp;|&nbsp; ISIN: INE290S01011 &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026</p>
+    <h1 class="report-title"><span>CarTrade</span> Tech Limited</h1>
+    <p class="report-subtitle">Auto Classifieds &amp; Remarketing &nbsp;·&nbsp; CarWale · BikeWale · Shriram Automall · OLX India &nbsp;·&nbsp; India's largest asset-light vehicle marketplace</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (Aug 26)</div><div class="kpi-value">~₹3,142</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹15,279 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">52W H / L</div><div class="kpi-value">₹3,291 / ₹1,523</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Revenue FY26</div><div class="kpi-value">₹779 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">PAT FY26</div><div class="kpi-value">₹244 Cr</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold / Accumulate on Declines</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Target (1Y)</div><div class="rating-val">₹4,250 – ₹4,400</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Target (1Y)</div><div class="rating-val">₹2,200 – ₹2,300</div></div>
+  </div>
+</header>
+
+<!-- ═══════════════ STICKY NAV ═══════════════ -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Segments</a>
+    <a href="#s3">Value Chain</a>
+    <a href="#s4">Operating Leverage</a>
+    <a href="#s5">Platform Metrics</a>
+    <a href="#s6">Competition</a>
+    <a href="#s7">Financials</a>
+    <a href="#s8">Earnings Quality</a>
+    <a href="#s9">Growth &amp; Guidance</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- ═══════════════ S1: OVERVIEW ═══════════════ -->
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:220px">Full Name</td><td>CarTrade Tech Limited</td></tr>
+        <tr><td class="bold">Lineage</td><td>Incorporated 2000 (CIN dates to 2000); business built out from 2010 under founder Vinay Sanghi. CarWale acquired 2015 · Shriram Automall (SAMIL) control acquired 2018 · Adroit Auto 2018 · <strong>OLX India classifieds &amp; auto business acquired Aug 2023 for ₹535.54 Cr</strong></td></tr>
+        <tr><td class="bold">ISIN / Codes</td><td style="font-family:'IBM Plex Mono',monospace;font-size:12px">INE290S01011 &nbsp;|&nbsp; NSE: CARTRADE &nbsp;|&nbsp; BSE: 543333 &nbsp;|&nbsp; CIN: L74900MH2000PLC126237</td></tr>
+        <tr><td class="bold">Listed</td><td>NSE/BSE — IPO August 2021; listed 20 Aug 2021 at ₹1,600, ~1% below issue price. Traded as much as ~79% below issue before the 2024–26 re-rating</td></tr>
+        <tr><td class="bold">Promoters</td><td class="red"><strong>None — promoter holding 0.00%</strong> (Jun 2026). CarTrade is a promoter-less, professionally managed company; Vinay Sanghi is Founder, Chairman &amp; CEO. The pre-IPO PE/strategic holders (Warburg-linked and Temasek-linked vehicles, Highdell/MacRitchie) have exited or been reclassified</td></tr>
+        <tr><td class="bold">Headquarters</td><td>12th Floor, Vishwaroop IT Park, Sector 30A, Vashi, Navi Mumbai 400705</td></tr>
+        <tr><td class="bold">Face Value</td><td>₹10 per share &nbsp;·&nbsp; ~4.85 crore shares outstanding (derived: market cap ÷ CMP; equity capital ₹48 Cr implies ~4.80 cr shares)</td></tr>
+        <tr><td class="bold">Sector</td><td>Internet / Consumer Marketplaces — auto classifieds, vehicle remarketing &amp; auctions, horizontal used-goods classifieds</td></tr>
+        <tr><td class="bold">Shareholding (Jun 26)</td><td>Promoters <strong>0.0%</strong> &nbsp;·&nbsp; FIIs/FPIs ~54.4% &nbsp;·&nbsp; DIIs ~15.6% (MFs ~11.0%, 25 schemes) &nbsp;·&nbsp; Public &amp; others ~30.0%. Largest holders: Tata Small Cap ~5.8%, Smallcap World Fund ~3.3%, Jupiter India ~3.2%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">FII holding has fallen from ~68.5% (Sep 2025) to ~54.4% (Jun 2026) while DII/MF and retail have absorbed the stock — a four-quarter ownership rotation that matters for both liquidity and the durability of the multiple.</p>
+  </div>
+
+  <p>CarTrade Tech runs three profitable, structurally different businesses under one roof. <strong>Consumer Group</strong> (CarWale, CarWale abSure, BikeWale, CarTrade.com) is a lead-generation and advertising business for new and used vehicles, monetising OEMs and dealers. <strong>Remarketing</strong> (Shriram Automall, CarTrade Exchange, Adroit Auto) is a "phygital" auction platform that liquidates repossessed, off-lease, fleet and retail vehicles for banks, NBFCs, OEMs and consumers, monetising on commission per transaction. <strong>OLX India</strong> is a horizontal C2C used-goods classifieds platform spanning ~12 categories — autos, mobiles, electronics, furniture and real estate.</p>
+
+  <p>What binds them is a balance-sheet philosophy: CarTrade does not buy, refurbish or hold vehicle inventory. It takes fees, commissions and listing revenue on transactions it enables but does not own. That is the single most important distinction between CarTrade and Cars24, Spinny or Droom — and it is why CarTrade earns a 33% EBITDA margin and ₹244 Cr of profit while its better-known competitors earn multi-hundred-crore losses on multiples of its revenue.</p>
+
+  <div class="callout callout-gold">House view: CarTrade is the highest-quality <em>business</em> in Indian auto internet and one of the few genuinely profitable listed new-age names. Our reservation is entirely about price. The stock has re-rated ~2x in twelve months into a print where consolidated revenue growth decelerated to +16%, and the profit line is being flattered by an abnormally low tax rate that is now visibly normalising.</div>
+</section>
+
+<!-- ═══════════════ S2: SEGMENTS ═══════════════ -->
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">Business Segments</h2></div>
+
+  <p>FY26 revenue from operations of ₹779.3 Cr splits almost evenly across three legs — an unusually balanced portfolio for an internet company, and a deliberate de-risking of the classifieds monoline that CarTrade was at IPO.</p>
+
+  <p class="subsection-title">FY26 Segment P&amp;L (₹ Cr, year ended 31 Mar 2026)</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Segment</th><th class="right">Revenue</th><th class="right">YoY</th><th class="right">EBITDA</th><th class="right">EBITDA %</th><th class="right">PAT</th><th class="right">PAT YoY</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Consumer Group<br><span style="font-weight:400;font-size:11.5px;color:var(--muted)">CarWale · BikeWale · abSure · CarTrade.com</span></td><td class="right">308.3</td><td class="right green">+30%</td><td class="right">118.0</td><td class="right">38%</td><td class="right">115.5</td><td class="right green">+55%</td></tr>
+        <tr><td class="bold">Remarketing<br><span style="font-weight:400;font-size:11.5px;color:var(--muted)">Shriram Automall · CarTrade Exchange · Adroit Auto</span></td><td class="right">259.3</td><td class="right green">+22%</td><td class="right">71.8</td><td class="right">28%</td><td class="right">46.0</td><td class="right green">+66%</td></tr>
+        <tr><td class="bold">OLX India (Classifieds)<br><span style="font-weight:400;font-size:11.5px;color:var(--muted)">Horizontal used-goods marketplace, ~12 categories</span></td><td class="right">217.6</td><td class="right">+13%</td><td class="right">67.1</td><td class="right">31%</td><td class="right">82.0</td><td class="right green">+77%</td></tr>
+        <tr><td class="bold muted">Less: intersegment eliminations</td><td class="right muted">(5.9)</td><td class="right muted">—</td><td class="right muted">—</td><td class="right muted">—</td><td class="right muted">—</td><td class="right muted">—</td></tr>
+        <tr><td class="bold">Consolidated</td><td class="right bold">779.3</td><td class="right green">+21%</td><td class="right bold">257.0</td><td class="right bold">33%</td><td class="right bold">243.5</td><td class="right green">+68%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Source: CarTrade Tech Q4 FY26 investor presentation (BSE filing, 7 May 2026), figures converted from ₹ lakhs. Segment EBITDA is defined by the company as revenue from operations less total segment expenses — it <em>excludes</em> other income. Note that OLX's <strong>revenue</strong> grew 13%; the "+22%" figure widely quoted in the press is OLX's <em>total income</em>, which includes a 221% jump in other income.</p>
+  </div>
+
+  <p class="subsection-title">Q1 FY27 Segment Performance (quarter ended 30 Jun 2026)</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Segment</th><th class="right">Revenue (₹ Cr)</th><th class="right">YoY</th><th class="right">EBITDA (₹ Cr)</th><th class="right">EBITDA YoY</th><th class="right">Margin (vs PY)</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Consumer Group</td><td class="right">78.1</td><td class="right">+18%</td><td class="right">25.9</td><td class="right green">+33%</td><td class="right">33% (29%)</td></tr>
+        <tr><td class="bold">Remarketing</td><td class="right">67.2</td><td class="right">+13%</td><td class="right">19.0</td><td class="right green">+38%</td><td class="right">28% (23%)</td></tr>
+        <tr><td class="bold">OLX India</td><td class="right green">62.2</td><td class="right green">+29%</td><td class="right">18.1</td><td class="right green">+76%</td><td class="right">29% (21%)</td></tr>
+        <tr><td class="bold">Consolidated</td><td class="right bold">201.2</td><td class="right">+16%</td><td class="right bold">63.0</td><td class="right green">+43%</td><td class="right bold">31% (25%)</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Segment revenues sum to ₹207.5 Cr before ~₹6.4 Cr of intersegment elimination. Segment EBITDAs sum to ₹63.0 Cr, tying exactly to consolidated operating profit — a useful consistency check on the disclosure.</p>
+  </div>
+
+  <div class="callout">The mix has flipped. In FY26 the growth engine was Consumer (+30% revenue) with OLX the laggard (+13%). In Q1 FY27 that reversed: <strong>OLX accelerated to +29% while Consumer decelerated to +18% and Remarketing to +13%</strong>. Consumer PAT growth fell to just +12% in Q1 and its EBITDA margin slipped to 33% from 39% in Q4 FY26. The consolidated story is still strong, but the two legs that carried FY26 are both losing momentum.</div>
+</section>
+
+<!-- ═══════════════ S3: VALUE CHAIN ═══════════════ -->
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Where CarTrade Sits in the Used-Vehicle Value Chain</h2></div>
+
+  <p>Every used-vehicle transaction in India passes through the same four stages. The economics of each stage are radically different, and the entire competitive question in this sector is <em>which stage you choose to own</em>. CarTrade has deliberately taken stages 1–3 and refused stage 4.</p>
+
+  <div class="vc-diagram">
+    <div class="vc-layer l1">
+      <div class="vc-num">STAGE 01</div>
+      <div class="vc-name">Supply Origination</div>
+      <div class="vc-desc">Where cars enter the market: consumer sellers, bank/NBFC repossessions, off-lease and fleet returns, OEM exchange, dealer trade-ins</div>
+      <div class="vc-tags"><span class="vc-tag skip">SHRIRAM AUTOMALL</span><span class="vc-tag skip">CARTRADE EXCHANGE</span></div>
+    </div>
+    <div class="vc-layer l2">
+      <div class="vc-num">STAGE 02</div>
+      <div class="vc-name">Discovery &amp; Listings</div>
+      <div class="vc-desc">Research, pricing data, classifieds inventory, lead generation — the top of the funnel and the cheapest revenue in the chain</div>
+      <div class="vc-tags"><span class="vc-tag skip">CARWALE · BIKEWALE</span><span class="vc-tag skip">OLX INDIA</span><span class="vc-tag">CarDekho</span></div>
+    </div>
+    <div class="vc-layer l3">
+      <div class="vc-num">STAGE 03</div>
+      <div class="vc-name">Matching &amp; Transaction</div>
+      <div class="vc-desc">Auctions, inspection and condition grading, price discovery, AI matchmaking, bidder liquidity — commission per closed deal</div>
+      <div class="vc-tags"><span class="vc-tag skip">AUTOMALL · ADROIT</span><span class="vc-tag skip">SUPERDOST / VAYA AI</span></div>
+    </div>
+    <div class="vc-layer l4">
+      <div class="vc-num">STAGE 04</div>
+      <div class="vc-name">Fulfilment &amp; Money</div>
+      <div class="vc-desc">Buying the car onto your own balance sheet, refurbishment, warranty, delivery, financing, insurance, escrow, logistics</div>
+      <div class="vc-tags"><span class="vc-tag">Cars24 · Spinny (own inventory)</span><span class="vc-tag skip">abSure · IDFC tie-up</span><span class="vc-tag skip">SPINNY PARTNERSHIP</span></div>
+    </div>
+  </div>
+
+  <p>Stages 1–3 are <strong>fee businesses with near-zero incremental cost</strong>: a listing, a lead or an auction commission costs almost nothing to produce once the platform exists. Stage 4 is a <strong>working-capital business</strong>: you buy a ₹6 lakh car, hold it, refurbish it, warrant it and sell it for a ~10% gross margin against real inventory risk. Cars24 and Spinny own stage 4 and generate revenue several times CarTrade's — at large, persistent losses. CarTrade earns a fraction of the GMV but keeps a third of it as EBITDA.</p>
+
+  <p>The July 2026 <strong>Spinny partnership</strong> is the interesting move: CarTrade gets exposure to stage-4 economics through a transaction-based margin-sharing arrangement (explicitly <em>not</em> a listing fee), while Spinny carries the inventory. If it works, CarTrade participates in transaction value without taking transaction risk. If it does not, CarTrade has trained its highest-intent buyers to transact on a competitor's inventory. Both readings are live.</p>
+
+  <div class="callout callout-gold">The strategic tension in one line: CarTrade's margin comes from <em>not</em> owning the transaction, and its growth ceiling comes from the same fact. Lead-generation revenue is a small slice of a ₹3 lakh crore GMV pool. Every route to a bigger slice — retail, fintech, escrow, the Spinny tie-up — moves it closer to the economics it has spent a decade avoiding.</div>
+</section>
+
+<!-- ═══════════════ S4: OPERATING LEVERAGE ═══════════════ -->
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">The Operating-Leverage Engine — How Real Is It?</h2></div>
+
+  <p>This is the heart of the CarTrade story and it deserves to be examined line by line rather than accepted from a headline. The claim is that revenue growth drops through to EBITDA at a very high incremental rate. The FY26 cost table settles the question.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>₹ Cr (consolidated)</th><th class="right">FY25</th><th class="right">FY26</th><th class="right">YoY</th><th>Read</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Revenue from operations</td><td class="right">641.5</td><td class="right">779.3</td><td class="right green">+21%</td><td>Organic; no acquisitions in the period</td></tr>
+        <tr><td class="bold">Employee cost</td><td class="right">284.4</td><td class="right">307.1</td><td class="right">+8%</td><td>Largest cost line, growing at ~⅓ the rate of revenue</td></tr>
+        <tr><td class="bold">Marketing</td><td class="right">31.9</td><td class="right">32.7</td><td class="right">+3%</td><td class="bold">The crux: 4.2% of revenue vs 5.0% in FY25</td></tr>
+        <tr><td class="bold">Other expenses</td><td class="right">174.3</td><td class="right">182.5</td><td class="right">+5%</td><td>Yard, hosting, professional, admin</td></tr>
+        <tr><td class="bold">Total expenses</td><td class="right">490.6</td><td class="right">522.3</td><td class="right">+6%</td><td class="green">Revenue +21% against costs +6%</td></tr>
+        <tr><td class="bold">EBITDA</td><td class="right">150.9</td><td class="right green">257.0</td><td class="right green">+70%</td><td>Margin 24% → 33%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">EBITDA as defined by the company = revenue from operations less total expenses (excludes other income, before D&amp;A and finance cost). Incremental EBITDA margin on the ₹137.8 Cr of incremental FY26 revenue = <strong>77%</strong> (author's calculation).</p>
+  </div>
+
+  <p class="subsection-title">Why the marketing line is the whole argument</p>
+  <p>CarTrade discloses that <strong>&gt;95% of its traffic is organic</strong> — users arrive by search, brand and habit rather than paid acquisition. That is why ₹138 Cr of incremental revenue required only ₹0.8 Cr of incremental marketing spend. It is also the structural difference from Cars24 and Spinny, whose customer-acquisition cost scales with volume because they must buy demand for inventory they already own. A platform whose traffic is free and whose product is a listing has genuine, defensible operating leverage; a platform that buys traffic to move inventory does not.</p>
+
+  <p>Q1 FY27 confirmed the mechanism held: total cost escalation was <strong>+7%</strong> against revenue +16%, even after absorbing the full April salary increment, and EBITDA rose ~43% to ₹63 Cr with margin at 31% versus 25% a year earlier. Management explicitly noted that because increments land in Q1, incremental revenue in Q2–Q4 should flow more directly to EBITDA.</p>
+
+  <div class="callout callout-green">Verdict on the leverage: <strong>it is real, structural and not an accounting artefact.</strong> Roughly 87% of the ₹121.5 Cr increase in FY26 profit before exceptional items and tax came from operating EBITDA rather than other income (author's decomposition). The costs are genuinely fixed and the traffic is genuinely organic.</div>
+
+  <div class="callout callout-red">The caveat that governs the valuation: <strong>operating leverage is a finite resource.</strong> EBITDA margin has gone 9% (FY23) → 16% → 24% → 33% (FY26) → 31% in Q1 FY27. Management's stated ceiling is "40%+". Once margins reach that ceiling, profit growth converges to revenue growth — which in the latest quarter was <strong>16%</strong>, not 40%. The market is paying ~50x forward earnings for a business whose top line is currently compounding in the mid-to-high teens.</div>
+</section>
+
+<!-- ═══════════════ S5: PLATFORM METRICS ═══════════════ -->
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Platform Scale &amp; Operating Metrics</h2></div>
+
+  <div class="macro-grid">
+    <div class="macro-card"><div class="macro-co">Monthly Unique Users</div><div class="macro-val">~76–80 M</div><div class="macro-label">76M+ average monthly unique visitors (Q4 FY26); ~80M cited on the Q1 FY27 call, still growing sequentially · &gt;95% organic</div></div>
+    <div class="macro-card"><div class="macro-co">Used-Car Listing Share</div><div class="macro-val">~63%</div><div class="macro-label">Company claim: share of all used-car listings in India across CarWale + OLX India · ~2.3M car sellers, ~15.5M car buyers</div></div>
+    <div class="macro-card"><div class="macro-co">Auctions Per Year</div><div class="macro-val">~1.7 M</div><div class="macro-label">FY26 auction listings; ~2.5 lakh+ vehicles actually transacted · ~₹5,300 Cr GMV processed on the remarketing platform</div></div>
+    <div class="macro-card"><div class="macro-co">Physical Footprint</div><div class="macro-val">500+</div><div class="macro-label">Total physical locations across ~90 cities, of which ~134 are Shriram Automalls · ~200,000 registered auction bidders</div></div>
+  </div>
+
+  <p class="subsection-title">Segment-level operating detail</p>
+  <ul class="report-list">
+    <li><strong>OLX India:</strong> ~30M monthly users, ~2M new listings every month, ~6M buyers on platform, &gt;2.3 billion chats, average ~24 replies per listing, ~18% of listings marked sold, ~$3bn of GMV of used products sold. ~57% of users have been on the platform &gt;5 years — genuine habit, and the source of the ~100% organic traffic.</li>
+    <li><strong>Remarketing:</strong> ~15,000 active retail suppliers against an addressable base of ~100,000 — management's own estimate of ~1.5% penetration. &gt;40% of the business now comes from the Retail segment (vs institutional repo supply), and in Q1 FY27 Retail grew 45% and Repo 41%.</li>
+    <li><strong>Consumer Group:</strong> ~55M+ unique monthly engaged users on the new-auto platforms, &gt;90% organic. India's new-vehicle market is ~4–4.5M passenger vehicles and ~18–20M two-wheelers a year; management sizes the high-intent digital discovery TAM at ~$14bn.</li>
+    <li><strong>TAM framing:</strong> company-stated Auto TAM ~$14bn+ and Used Products TAM ~$22bn+, i.e. a ~$36bn addressable market against FY26 revenue of ~$90mn. CarTrade monetises a fraction of a percent of the value flowing through its platforms.</li>
+  </ul>
+
+  <p class="tbl-note" style="margin-top:14px">Data caution: company disclosures on annual unique users are internally inconsistent — one FY26 slide claims "150 million unique customers on three different platforms" while another claims "~180M+ unique users annually" for OLX alone. These are marketing-grade reach metrics, not audited KPIs, and should not be modelled. Note also that Q1 FY27 slides cite ~1.5M auction listings against ~1.7M for FY26; whether that is an annualised run-rate or a genuine decline is not clarified, and it is a monitorable.</p>
+</section>
+
+<!-- ═══════════════ S6: COMPETITION ═══════════════ -->
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Competitive Positioning</h2></div>
+
+  <p>CarTrade competes on two fronts that are almost never compared correctly. Against the used-car <em>transaction</em> platforms it is far smaller on revenue and far larger on profit. Against listed internet <em>marketplaces</em> it is a mid-sized business on a top-decile multiple.</p>
+
+  <p class="subsection-title">Used-vehicle platforms — the honest read</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Player</th><th>Model</th><th class="right">Latest revenue</th><th class="right">Profitability</th><th>Read-across for CarTrade</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">CarTrade Tech</td><td>Asset-light marketplace: classifieds, leads, auction commission</td><td class="right">₹779 Cr (FY26)</td><td class="right green">PAT ₹244 Cr<br>33% EBITDA margin</td><td>The only one that converts scale into cash. Owns discovery and price discovery, not inventory.</td></tr>
+        <tr><td class="bold">Cars24</td><td>Full-stack C2B/B2C: buys, refurbishes, retails, finances</td><td class="right">₹6,233 Cr gross (FY25, −10% YoY)<br>₹1,411 Cr adj. net rev (FY26, +27%)</td><td class="right red">Net loss ₹543 Cr (FY25)<br>EBITDA loss ₹357 Cr (FY26, −36% YoY)</td><td>8x CarTrade's revenue, still deeply loss-making. Losses narrowing — a genuine competitive threat if it reaches breakeven at scale.</td></tr>
+        <tr><td class="bold">Spinny</td><td>Full-stack B2C with own hubs, warranty, delivery</td><td class="right">₹4,657 Cr (FY25, +25%)</td><td class="right red">Loss-making; FY25 net loss reported ~₹424 Cr</td><td><strong>Now a partner, not just a rival</strong> — the July 2026 tie-up gives CarTrade transaction economics without inventory. Pre-IPO, so the incentive to show scale is high.</td></tr>
+        <tr><td class="bold">Droom</td><td>Marketplace + ecosystem services</td><td class="right">₹164 Cr (FY26) vs ₹390 Cr peak (FY22)</td><td class="right red">Loss-making; valuation ~$1.2bn (2021) → ~$360mn (2025)</td><td>Effectively out of contention. Proof that scale without economics does not survive a funding winter.</td></tr>
+        <tr><td class="bold">CarDekho (Girnar)</td><td>Classifieds + transactions + fintech</td><td class="right muted">Private — not disclosed</td><td class="right muted">Private</td><td>The closest structural comparable. CarTrade held consolidation talks valued at &gt;$1.2bn; <strong>both sides walked away 27 Nov 2025</strong>. Remains the primary classifieds competitor.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Competitor figures are from press coverage of private-company filings and are not directly comparable to CarTrade's audited consolidated accounts — Cars24 in particular reports both a gross and an "adjusted net" revenue basis. Reports differ on the year-on-year direction of Spinny's FY25 losses; the ~₹424 Cr figure is the most commonly cited. Treat this table as directional, not like-for-like.</p>
+  </div>
+
+  <p class="subsection-title">Listed internet marketplaces — the valuation read</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Company</th><th class="right">Market cap</th><th class="right">P/E</th><th>Business &amp; comparison</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">CarTrade Tech</td><td class="right">~₹15,279 Cr</td><td class="right red">~63x FY26 PAT<br>~60x TTM</td><td>Highest growth of the group; also the highest multiple relative to revenue scale</td></tr>
+        <tr><td class="bold">Info Edge (Naukri)</td><td class="right">~₹88,244 Cr</td><td class="right">~46x</td><td>Larger, more diversified, but reported earnings carry heavy investment-portfolio noise (Zomato/PolicyBazaar). The closest "premium Indian classifieds" anchor</td></tr>
+        <tr><td class="bold">IndiaMART InterMESH</td><td class="right">~₹14,818 Cr</td><td class="right green">~28x</td><td class="bold">The most instructive comp: near-identical market cap, similar asset-light B2B marketplace model, high margins — at less than half CarTrade's multiple</td></tr>
+        <tr><td class="bold">Matrimony.com</td><td class="right">~₹1,123 Cr</td><td class="right">~29x</td><td>Sub-scale vertical classifieds; shows what the market pays when growth stalls</td></tr>
+        <tr><td class="bold">Just Dial</td><td class="right">~₹6,464 Cr</td><td class="right">~11x</td><td>The cautionary case — a former #1 local-search marketplace de-rated to low double digits once growth disappeared</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Peer market caps and multiples sourced from aggregator data in the second half of August 2026 and are approximate; multiples are trailing and not adjusted for differing accounting of investment income (materially relevant for Info Edge). CarTrade P/E computed as market cap ÷ consolidated PAT to avoid the share-count/EPS inconsistencies across data feeds; Screener reports 64.1x.</p>
+  </div>
+
+  <div class="callout">The competitive verdict is genuinely favourable and the valuation verdict genuinely is not. CarTrade has won the argument against Droom, drawn with CarDekho, converted Spinny from rival into partner, and is the only player earning money. But it trades at roughly <strong>2.2x IndiaMART's multiple on a similar market cap and a similar business model</strong>, and the Just Dial precedent shows how fast the Indian market withdraws a marketplace multiple when growth normalises.</div>
+</section>
+
+<!-- ═══════════════ S7: FINANCIALS ═══════════════ -->
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Financial Performance</h2></div>
+
+  <p class="subsection-title">FY26 vs FY25 — Full Year (consolidated, ₹ Cr)</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">FY25</th><th class="right">FY26</th><th class="right">YoY</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Revenue from operations</td><td class="right">641.5</td><td class="right">779.3</td><td class="right green">+21%</td></tr>
+        <tr><td class="bold">Other income</td><td class="right">69.9</td><td class="right">90.5</td><td class="right">+30%</td></tr>
+        <tr><td class="bold">Total income</td><td class="right">711.3</td><td class="right">869.8</td><td class="right green">+22%</td></tr>
+        <tr><td class="bold">Total expenses</td><td class="right">490.6</td><td class="right">522.3</td><td class="right">+6%</td></tr>
+        <tr><td class="bold">EBITDA</td><td class="right">150.9</td><td class="right green">257.0</td><td class="right green">+70%</td></tr>
+        <tr><td class="bold">EBITDA margin</td><td class="right">24%</td><td class="right green">33%</td><td class="right">+900 bps</td></tr>
+        <tr><td class="bold">Finance cost</td><td class="right">11.5</td><td class="right">12.5</td><td class="right">+8%</td></tr>
+        <tr><td class="bold">Depreciation &amp; amortisation</td><td class="right">40.9</td><td class="right">38.7</td><td class="right green">−5%</td></tr>
+        <tr><td class="bold">PBT before exceptional item</td><td class="right">168.4</td><td class="right">296.3</td><td class="right green">+76%</td></tr>
+        <tr><td class="bold muted">Exceptional item — labour code impact</td><td class="right muted">—</td><td class="right muted">(6.5)</td><td class="right muted">—</td></tr>
+        <tr><td class="bold">Profit before tax</td><td class="right">168.4</td><td class="right">289.8</td><td class="right green">+72%</td></tr>
+        <tr><td class="bold">Tax — current</td><td class="right">9.8</td><td class="right">18.5</td><td class="right">+89%</td></tr>
+        <tr><td class="bold">Tax — deferred</td><td class="right">13.3</td><td class="right">27.8</td><td class="right">+109%</td></tr>
+        <tr><td class="bold">Effective tax rate</td><td class="right red">13.7%</td><td class="right red">16.0%</td><td class="right">vs 25.2% statutory</td></tr>
+        <tr><td class="bold">Profit after tax</td><td class="right">145.3</td><td class="right green">243.5</td><td class="right green">+68%</td></tr>
+        <tr><td class="bold muted">Memo: "Adjusted EBITDA" (company definition)</td><td class="right muted">241.4</td><td class="right muted">363.0</td><td class="right muted">+50%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Source: CarTrade Tech Q4 FY26 investor presentation filed with BSE/NSE on 7 May 2026 (converted from ₹ lakhs). The company's "Adjusted EBITDA" adds other income and share-based (ESOP) expense back to EBITDA and still expresses the margin on revenue from operations — which is how a 33% EBITDA margin becomes a headline "42%". We use the unadjusted EBITDA throughout.</p>
+  </div>
+
+  <p class="subsection-title">Q1 FY27 — Quarter ended 30 June 2026</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Q1 FY26</th><th class="right">Q4 FY26</th><th class="right">Q1 FY27</th><th class="right">YoY</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Revenue from operations (₹ Cr)</td><td class="right">173.0</td><td class="right">203.1</td><td class="right">201.2</td><td class="right">+16%</td></tr>
+        <tr><td class="bold">Total income (₹ Cr)</td><td class="right muted">~198</td><td class="right">220.8</td><td class="right">229.7</td><td class="right">+16%</td></tr>
+        <tr><td class="bold">EBITDA (₹ Cr)</td><td class="right">44.0</td><td class="right">71.6</td><td class="right green">63.0</td><td class="right green">+43%</td></tr>
+        <tr><td class="bold">EBITDA margin</td><td class="right">25%</td><td class="right">35%</td><td class="right">31%</td><td class="right green">+600 bps</td></tr>
+        <tr><td class="bold">PBT before exceptional (₹ Cr)</td><td class="right muted">~57</td><td class="right">75.0</td><td class="right">77.6</td><td class="right green">+36%</td></tr>
+        <tr><td class="bold">Profit after tax (₹ Cr)</td><td class="right">47.0</td><td class="right">70.8</td><td class="right">56.8</td><td class="right green">+21%</td></tr>
+        <tr><td class="bold">Cash &amp; investments (₹ Cr)</td><td class="right muted">n/d</td><td class="right">1,244</td><td class="right green">1,321</td><td class="right">zero debt</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Q1 FY26 total income and PBT are approximate, back-solved from disclosed growth rates. Note the sequential picture: revenue was <em>down</em> 1% QoQ, EBITDA down 12% QoQ and PAT down 20% QoQ against Q4 FY26 — Q1 is seasonally the weakest automotive quarter and carries the full April salary increment. Some data feeds report Q1 FY27 net profit as ₹51.24 Cr rather than ₹56.75 Cr; we use the company-reported consolidated PAT of ₹56.75 Cr and flag the discrepancy rather than reconcile it without the audited filing.</p>
+  </div>
+
+  <div class="callout callout-green">Three years of compounding, and the reason the stock re-rated: revenue ₹364 Cr → ₹779 Cr (FY23→FY26, ~29% CAGR), EBITDA margin 9% → 33%, PAT ₹40 Cr → ₹244 Cr (~82% CAGR), reported EPS ~₹7 → ~₹47. Cash reserves ₹1,244 Cr with zero debt. This is one of a very small number of Indian new-age listings that has actually delivered on the profitability promise.</div>
+</section>
+
+<!-- ═══════════════ S8: EARNINGS QUALITY ═══════════════ -->
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">Quality of Earnings, Balance Sheet &amp; Cash</h2></div>
+
+  <p>The brief for this report was to test how much of CarTrade's profit growth is genuine operating leverage and how much is something else. The answer is nuanced and important: the <strong>pre-tax</strong> growth is high quality, the <strong>post-tax</strong> growth is not fully repeatable, and the headline margin is presented flatteringly.</p>
+
+  <p class="subsection-title">Where FY26's ₹121.5 Cr of incremental pre-tax profit came from</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Driver</th><th class="right">₹ Cr</th><th class="right">Share of increase</th><th>Quality assessment</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Operating EBITDA growth</td><td class="right green">+106.1</td><td class="right green">~87%</td><td class="green">High — organic revenue against a near-fixed cost base</td></tr>
+        <tr><td class="bold">Other income (treasury)</td><td class="right">+20.6</td><td class="right">~17%</td><td>Low — non-operating, rate-sensitive, not a franchise</td></tr>
+        <tr><td class="bold">Lower depreciation</td><td class="right">+4.2</td><td class="right">~3%</td><td class="muted">Neutral — acquisition intangibles amortising down</td></tr>
+        <tr><td class="bold">Higher finance cost</td><td class="right red">−0.9</td><td class="right">~−1%</td><td class="muted">Neutral — lease-related</td></tr>
+        <tr><td class="bold">Exceptional (labour code)</td><td class="right red">−6.5</td><td class="right">~−5%</td><td class="muted">One-off provision, correctly disclosed below EBITDA</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Author's decomposition of the FY25→FY26 movement in profit before tax (₹168.4 Cr → ₹289.8 Cr), built from the company's own disclosed line items. Shares do not sum to 100% because the components are gross of one another.</p>
+  </div>
+
+  <p class="subsection-title">The three quality caveats — quantified</p>
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:250px">1. Tax is abnormally low and normalising</td><td>FY26 effective tax rate was <strong>16.0%</strong> against a 25.17% statutory rate, and cash tax (current tax only) was just <strong>6.4% of PBT</strong>. The gap is accumulated losses and deferred tax assets — notably at OLX India, which paid <em>zero</em> tax in FY25. On the Q1 FY27 call management confirmed OLX is "now fully taxable" and took an incremental provision of ~₹7–8 Cr. <span class="red"><strong>Taxed at the full 25.17%, FY26 PAT would have been ~₹217 Cr rather than ₹243.5 Cr — roughly 11% of reported profit is a shrinking tax shield</strong></span> (author's calculation). This is the single biggest reason PBT grew 36% in Q1 FY27 while PAT grew only 21%.</td></tr>
+        <tr><td class="bold">2. Other income is a third of pre-tax profit</td><td>FY26 other income of ₹90.5 Cr equals <strong>31% of PBT</strong> — a large, non-operating slice earned on the ₹1,244 Cr cash pile at an implied ~8% pre-tax yield. In fairness the dependence is <em>falling</em>: other income was 41.5% of PBT in FY25. But it is rate-sensitive and would compress in a rate-cutting cycle. Within OLX India specifically, other income jumped 221% in FY26 to ₹26.3 Cr — which is why OLX's PBT (₹88.9 Cr) exceeded its EBITDA (₹67.1 Cr).</td></tr>
+        <tr><td class="bold">3. "Adjusted EBITDA" is a flattering construct</td><td>The company's headline "42% Adjusted EBITDA margin" adds other income <em>and</em> ESOP cost back to EBITDA while still dividing by revenue from operations. The unadjusted operating EBITDA margin is <strong>33% (FY26) and 31% (Q1 FY27)</strong>. Nothing improper is disclosed — the reconciliation is published — but readers should anchor on 31–33%, and note that the "40%+ margin" target refers to the adjusted number, not the operating one.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="subsection-title">Balance sheet &amp; cash conversion</p>
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:250px">Net worth (FY26)</td><td>~₹2,484 Cr (equity capital ₹48 Cr + reserves ₹2,436 Cr) · book value ~₹519/share · total assets ~₹3,009 Cr</td></tr>
+        <tr><td class="bold">Cash &amp; investments</td><td class="green">₹1,244 Cr at Mar-26 → <strong>₹1,321 Cr at Jun-26</strong>. Cash balance rose ~₹300 Cr during FY26. Company describes itself as zero-debt; Screener shows ₹140 Cr of "borrowings", most plausibly lease liabilities against the Automall yard network (author's inference — not separately disclosed)</td></tr>
+        <tr><td class="bold">Cash conversion</td><td class="green">FY26 PAT ₹243.5 Cr + D&amp;A ₹38.7 Cr + ESOP ₹15.5 Cr ≈ ₹298 Cr, against a ~₹300 Cr cash build — implying essentially 100% conversion with negligible working capital and capex. This is the strongest single fact in the bull case (author's derivation)</td></tr>
+        <tr><td class="bold red">Return on equity</td><td class="red">~10% (FY26, company-stated; Screener 9.69%) against a <strong>6.1x price-to-book</strong>. The low ROE is almost entirely the idle ₹1,321 Cr — management cited a 17% ROE on the Q1 call, presumably on a capital base excluding surplus cash. The gap between 10% and 17% is the capital-allocation problem in a single number</td></tr>
+        <tr><td class="bold">Capital returns</td><td class="red">No dividend. No buyback. No announced plan for the cash. The one large deployment attempt — the &gt;$1.2bn CarDekho/Girnar consolidation — was abandoned by mutual agreement on 27 Nov 2025</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-gold">Net assessment: the operating engine is high quality and cash-generative; the reported bottom line is being helped by roughly ₹27 Cr of tax shield and ₹90 Cr of treasury income that together account for a meaningful share of FY26 PAT. Neither is a red flag — both are fully disclosed — but both are reasons why forward <em>PAT</em> growth should be expected to run below forward <em>EBITDA</em> growth, which is precisely what Q1 FY27 delivered.</div>
+</section>
+
+<!-- ═══════════════ S9: GROWTH & GUIDANCE ═══════════════ -->
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">Growth Drivers &amp; Management Guidance</h2></div>
+
+  <p class="subsection-title">Management guidance (Q4 FY26 and Q1 FY27 concalls)</p>
+  <ul class="report-list">
+    <li><strong>The "40/40" ambition:</strong> 40% profit growth with 40%+ (adjusted) EBITDA margins. Management states it is currently delivering the growth consistently — 16 straight quarters of 45%+ adjusted-EBITDA growth — with margins at 31% on the unadjusted operating basis.</li>
+    <li><strong>₹1,000 Cr PAT in four to five years:</strong> reiterated on both calls, from the FY26 base of ₹244 Cr. That implies a ~32–42% PAT CAGR sustained for half a decade — an aggressive target given the tax normalisation now under way and Q1's 21% PAT growth.</li>
+    <li><strong>FY27 shape:</strong> explicitly guided to a stronger Q2–Q4 than Q1, on three grounds — Q1 is seasonally the weakest automotive quarter, the annual April increment is now fully in the cost base, and new monetisation ramps through the year.</li>
+    <li><strong>No formal revenue guidance</strong> is given. That absence matters: the entire forward case rests on margin and monetisation commentary rather than a top-line commitment.</li>
+  </ul>
+
+  <p class="subsection-title">The monetisation pipeline — what has to work</p>
+  <ul class="report-list">
+    <li><strong>Elite Buyer programme (OLX):</strong> crossed 100,000 users in a single month; monetised on usage-based fees rather than per-transaction charges, with business buyers being migrated from free to paid in phases. Management expects it to become <em>"our largest revenue stream"</em>. This is the highest-conviction near-term driver and explains OLX's acceleration to +29% revenue growth in Q1 FY27.</li>
+    <li><strong>Elite Seller programme:</strong> already ~25–30% of seller revenue, being enhanced with AI pricing, condition assessment and matchmaking.</li>
+    <li><strong>Spinny partnership (announced 29 Jul 2026):</strong> Spinny's quality-assured inventory surfaced on CarWale and OLX India, with CarTrade's Vaya AI doing the matching, on a <strong>transaction-based margin-sharing model</strong>. &gt;23 million consumers a year visit OLX India and CarWale to buy or sell used cars. No revenue contribution has been disclosed yet.</li>
+    <li><strong>CarTrade Used Auto (launched Jun 2026):</strong> a unified transactional portal merging CarWale and OLX India inventory across B2C, C2B, C2C and financing. Stated ambition: <strong>2 million annual deals and ~₹1.2 lakh crore of GMV</strong>, against a current market of ~5.9 million annual used-car transactions and a &gt;₹3 lakh crore GMV pool.</li>
+    <li><strong>Vaya AI / SuperDost:</strong> proprietary models built on CarTrade's own transaction data rather than third-party LLMs; management stresses that post-training inference cost is "almost insignificant" — i.e. AI is being positioned as a margin lever, not a cost line.</li>
+    <li><strong>Fintech:</strong> used-car financing partnership with IDFC is live, with further bank/NBFC tie-ups planned; verification, escrow, logistics and insurance products in the pipeline.</li>
+  </ul>
+
+  <p class="subsection-title">Structural industry tailwinds</p>
+  <ul class="report-list">
+    <li><strong>Used-vehicle volumes:</strong> ~5.5 million used cars sold annually at an average selling price of ₹5–6 lakh; CRISIL expects organised used-car volumes to cross 7 million units with the used-to-new ratio staying above 1x. Organised-player share has risen to ~26% from 20–21% in FY22.</li>
+    <li><strong>Dealer margin pool:</strong> ~10% per car, or ~₹60,000 — a ~₹30,000 crore annual pool that CarTrade's platform sits adjacent to but currently captures very little of. This is the strategic prize behind CarTrade Used Auto and the Spinny tie-up.</li>
+    <li><strong>Remarketing penetration:</strong> auction penetration of institutional and retail used-vehicle supply remains low in a highly fragmented ecosystem; globally vehicle remarketing is a ~$40bn business. CarTrade's ~1.5% penetration of its own retail-supplier addressable base is the clearest runway in the group.</li>
+    <li><strong>Online share shift:</strong> unorganised local dealers still hold ~70% of used-car distribution; online platforms are the fastest-growing channel by a wide margin.</li>
+  </ul>
+
+  <div class="callout callout-red">The gap that defines the investment case: management is guiding to ~40% profit growth and a ₹1,000 Cr PAT, while the most recent quarter delivered <strong>16% revenue growth and 21% PAT growth</strong>. Bridging that gap requires the new monetisation engines — Elite Buyer, Spinny, Used Auto, fintech — to contribute materially, and none of them has yet been disclosed as a revenue line. The stock is priced as though they will.</div>
+</section>
+
+<!-- ═══════════════ S10: VALUATION ═══════════════ -->
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation Model</h2></div>
+
+  <p>We value on FY27E consolidated PAT against a target multiple, converting to a per-share target through the ~4.85 crore share count. We use market cap ÷ PAT rather than reported EPS because data feeds disagree on CarTrade's EPS denominator (reported basic/diluted EPS of ~₹47 for FY26 does not reconcile cleanly to ₹243.5 Cr of PAT on ~4.80 crore shares).</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Conservative</th><th class="right">Base Case</th><th class="right">Bull Case</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">FY26 PAT (₹ Cr) — actual</td><td class="right">243.5</td><td class="right">243.5</td><td class="right">243.5</td></tr>
+        <tr><td class="bold">FY27E revenue growth</td><td class="right">~13%</td><td class="right green">~19%</td><td class="right">~24%</td></tr>
+        <tr><td class="bold">FY27E EBITDA margin</td><td class="right">34%</td><td class="right green">36%</td><td class="right">38%</td></tr>
+        <tr><td class="bold">FY27E effective tax rate</td><td class="right">25%</td><td class="right">22%</td><td class="right">21%</td></tr>
+        <tr><td class="bold">FY27E PAT (₹ Cr)</td><td class="right">~272 (+12%)</td><td class="right green">~305 (+25%)</td><td class="right">~338 (+39%)</td></tr>
+        <tr><td class="bold">Target P/E (FY27E)</td><td class="right">40x</td><td class="right green">52x</td><td class="right">62x</td></tr>
+        <tr><td class="bold">Implied market cap (₹ Cr)</td><td class="right">~10,880</td><td class="right green">~15,860</td><td class="right">~20,960</td></tr>
+        <tr><td class="bold">12-Month Target Price</td><td class="right red">~₹2,200 – ₹2,300</td><td class="right green bold">~₹3,200 – ₹3,350</td><td class="right">~₹4,250 – ₹4,400</td></tr>
+        <tr><td class="bold">Upside vs CMP ₹3,142</td><td class="right red">−30% to −27%</td><td class="right green">+2% to +7%</td><td class="right" style="color:var(--gold)">+35% to +40%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">FY27E revenue, margin, tax and PAT are the author's own directional projections built from Q1 FY27 run-rates and management commentary, not company guidance and not consensus. Arithmetic check: base case ₹305 Cr × 52 = ₹15,860 Cr ÷ 4.85 cr shares = ₹3,270/share, the midpoint of the stated ₹3,200–3,350 range.</p>
+  </div>
+
+  <p class="subsection-title">Cross-Checks</p>
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:260px">Trailing P/E</td><td class="red">~63x FY26 PAT / ~60x TTM PAT at ₹15,279 Cr market cap (Screener reports 64.1x on its EPS basis). Against ~28x for IndiaMART on a near-identical market cap and a comparable asset-light marketplace model</td></tr>
+        <tr><td class="bold">Normalised for tax</td><td class="red">Taxed at the full 25.17%, FY26 PAT would be ~₹217 Cr → <strong>~70x normalised trailing earnings</strong>. This is the fairest single valuation number in the report</td></tr>
+        <tr><td class="bold">Forward P/E at CMP</td><td>~50x our FY27E base PAT of ₹305 Cr, falling to ~39x FY28E if the base case repeats. The multiple only works if 25%+ PAT growth is sustained beyond FY28</td></tr>
+        <tr><td class="bold">Enterprise value</td><td>EV ≈ ₹13,958 Cr after netting the ₹1,321 Cr cash → ~54x FY26 EBITDA and ~18x FY26 revenue. Note the cash does <em>not</em> make the stock look cheaper on a core basis: stripping both the cash and the post-tax treasury income it generates leaves a core operating business at roughly <strong>62x FY27E core earnings</strong> (author's calculation) — the cash is earning a higher yield than the equity</td></tr>
+        <tr><td class="bold">Price-to-book vs ROE</td><td class="red">6.1x P/B against ~10% ROE. On any conventional framework that combination is unsustainable unless ROE moves decisively higher — which requires either much faster profit growth or deployment of the ₹1,321 Cr cash</td></tr>
+        <tr><td class="bold">Sell-side consensus</td><td>~₹3,276 twelve-month target across ~10 analysts (Trendlyne, Aug 2026) — roughly +4% from CMP, and closely aligned with our base case. Consensus is not arguing for upside either</td></tr>
+        <tr><td class="bold">Where it sits in coverage</td><td>A best-in-class business at a price that already discounts flawless execution of an unproven monetisation roadmap. Quality: top decile. Margin of safety: none at CMP</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════ S11: SCENARIOS ═══════════════ -->
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Bull &amp; Bear Scenario Analysis</h2></div>
+
+  <div class="scenario-grid">
+    <div class="scenario-card">
+      <div class="sc-header bull">🐂 Bull Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val green">Elite Buyer converts at scale and becomes a disclosed revenue line; Spinny partnership contributes visible transaction revenue from H2 FY27; OLX sustains ~30% growth; Consumer re-accelerates on new-auto discovery; cash finally deployed into a buyback or an accretive acquisition</span></div>
+        <div class="sc-row"><span class="sc-key">Revenue FY27E</span><span class="sc-val green">+24% YoY (~₹965 Cr)</span></div>
+        <div class="sc-row"><span class="sc-key">EBITDA Margin</span><span class="sc-val green">38% (toward the 40% target)</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E PAT</span><span class="sc-val green">~₹338 Cr (+39%)</span></div>
+        <div class="sc-row"><span class="sc-key">Target Multiple</span><span class="sc-val green">62x FY27E</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val green">₹4,250 – ₹4,400</span></div>
+      </div>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-header bear">🐻 Bear Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val red">Revenue growth settles in the low-to-mid teens; Consumer margin stays near 33% rather than recovering to 39%; full 25% tax rate arrives faster than expected; Cars24 reaching breakeven pressures dealer ad budgets; new-age multiple compression as FII holding continues to unwind from 54%</span></div>
+        <div class="sc-row"><span class="sc-key">Revenue FY27E</span><span class="sc-val red">+13% YoY (~₹880 Cr)</span></div>
+        <div class="sc-row"><span class="sc-key">EBITDA Margin</span><span class="sc-val red">34% (leverage largely exhausted)</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E PAT</span><span class="sc-val red">~₹272 Cr (+12%)</span></div>
+        <div class="sc-row"><span class="sc-key">Target Multiple</span><span class="sc-val red">40x FY27E</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val red">₹2,200 – ₹2,300</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p>The asymmetry is unattractive at the current price: roughly <strong>+2% to +7% in the base case against −27% to −30% in the bear case</strong>, with the bull case requiring both a growth re-acceleration and a multiple the Indian market rarely sustains for a mid-teens top-line grower. Note that the bear case is not a business-failure scenario — it assumes 13% revenue growth, a 34% EBITDA margin and 12% profit growth. That is a perfectly good year for most companies; it simply does not support 63x trailing earnings. <strong>The downside here comes from the multiple, not the fundamentals.</strong></p>
+
+  <div class="callout">A useful way to frame the entry: at ~₹2,400–2,500 the base case offers ~30%+ upside and the bear case ~10% downside — a genuinely attractive risk-reward for a debt-free, cash-generative, category-leading platform. The business is worth owning. The question is only what you pay.</div>
+</section>
+
+<!-- ═══════════════ S12: RISKS ═══════════════ -->
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risk Factors</h2></div>
+
+  <div class="risk-grid">
+    <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Valuation / Multiple Compression</div><span class="badge badge-high">HIGH</span><div class="risk-body">~63x trailing and ~50x FY27E earnings, 6.1x book against ~10% ROE, on a stock up ~77% in six months and near its all-time high. A single quarter of sub-15% revenue growth would likely trigger a de-rating well before earnings are affected. This is the dominant risk in the name.</div></div>
+    <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Revenue Growth Deceleration</div><span class="badge badge-high">HIGH</span><div class="risk-body">Consolidated revenue growth fell from +21% (FY26) to +16% (Q1 FY27). Consumer decelerated from +30% to +18% and Remarketing from +22% to +13%. Margin expansion has offset it so far, but margin is a finite offset — once it reaches the 40% ceiling, PAT growth converges to revenue growth.</div></div>
+    <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Tax Normalisation</div><span class="badge badge-medh">MED–HIGH</span><div class="risk-body">FY26 effective tax was 16.0% versus a 25.17% statutory rate, with cash tax at just 6.4% of PBT. OLX India is now fully taxable and took an incremental ~₹7–8 Cr provision in Q1 FY27. Roughly 11% of FY26 reported PAT is a tax shield that will not repeat, and it is the direct reason PBT grew 36% while PAT grew 21%.</div></div>
+    <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Idle Cash &amp; Capital Allocation</div><span class="badge badge-medh">MED–HIGH</span><div class="risk-body">₹1,321 Cr (~9% of market cap) earns treasury income but caps ROE at ~10%. No dividend, no buyback, no announced plan. The one major deployment attempt — the &gt;$1.2bn CarDekho/Girnar consolidation — was abandoned in Nov 2025. A poorly-priced acquisition would be a material value risk; continued inaction is a persistent ROE drag.</div></div>
+    <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Competitive Model Risk</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">Cars24's FY26 EBITDA loss narrowed 36% to ₹357 Cr on adjusted net revenue up 27%. If full-stack transaction players reach sustainable economics, they capture the transaction and CarTrade's lead-generation revenue becomes a commoditised top-of-funnel. The Spinny partnership hedges this — but also normalises sending CarTrade's highest-intent buyers to a competitor's inventory.</div></div>
+    <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Other-Income Dependence</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">₹90.5 Cr of FY26 other income equals ~31% of PBT, at an implied ~8% pre-tax yield on the cash pile. A rate-cutting cycle compresses this directly. Within OLX India the effect is starker: other income rose 221% in FY26 and its PBT exceeds its EBITDA as a result.</div></div>
+    <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Ownership Structure &amp; FII Unwind</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">Zero promoter holding removes the usual skin-in-the-game anchor and leaves the register entirely institutional and retail. FII holding has fallen from ~68.5% (Sep 2025) to ~54.4% (Jun 2026), with the FPI count down from 285 to 263 in a single quarter. Domestic funds and retail have absorbed the supply; a continuation of that unwind is a live overhang.</div></div>
+    <div class="risk-row"><div class="risk-num">08</div><div class="risk-name">Monetisation Execution</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">Elite Buyer, Elite Seller, CarTrade Used Auto, the Spinny tie-up and fintech are all early-stage and none is yet disclosed as a separate revenue line. Management's ₹1,000 Cr PAT and "40/40" targets depend on them. Migrating business buyers from free to paid on OLX is the specific execution risk — it can suppress engagement as easily as it lifts revenue.</div></div>
+    <div class="risk-row"><div class="risk-num">09</div><div class="risk-name">Auto Cycle &amp; Seasonality</div><span class="badge badge-low">LOW–MED</span><div class="risk-body">Q1 is structurally the weakest automotive quarter; Q1 FY27 revenue fell ~1% QoQ and PAT ~20% QoQ. A slowdown in new-vehicle sales would hit OEM and dealer advertising budgets directly, and Remarketing volumes track institutional repossession and off-lease supply, which is itself credit-cycle dependent.</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ S13: SUMMARY ═══════════════ -->
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Investment Summary &amp; Recommendation</h2></div>
+
+  <div class="thesis-box">
+    <p>CarTrade Tech is the <strong>best business in Indian auto internet and, at ₹3,142, close to fully priced</strong>. The operating-leverage inflection is genuine and quantifiable: FY26 revenue grew 21% against a cost base that grew 6%, taking EBITDA margin from 24% to 33% and PAT up 68% to ₹244 Cr, with essentially 100% cash conversion and ₹1,321 Cr of net cash. The OLX acquisition has been an outstanding piece of capital allocation — <strong>₹535.5 Cr paid in 2023 against ₹82 Cr of FY26 profit</strong>, roughly a quarter of the purchase price already returned — and remarketing has quietly compounded to a 28% EBITDA margin on ~1.5% penetration of its own addressable supplier base. But the quality of the <em>profit</em> growth is a step below the quality of the <em>EBITDA</em> growth: a 16% effective tax rate is normalising toward 25%, other income supplies ~31% of pre-tax profit, and the headline "42% adjusted EBITDA margin" is a 33% operating margin with treasury income and ESOP cost added back. Most importantly, revenue growth has decelerated to 16% while the stock has doubled. <strong>Own the business, but not at 63x trailing and 6.1x book against a 10% ROE.</strong> Accumulate on a meaningful correction; do not chase the re-rating.</p>
+  </div>
+
+  <p class="subsection-title">The Three Reasons to Own CARTRADE</p>
+  <ul class="report-list">
+    <li><strong>1. Structural, proven operating leverage:</strong> &gt;95% organic traffic means ₹138 Cr of incremental FY26 revenue required ₹0.8 Cr of incremental marketing spend. Incremental EBITDA margin of ~77%, and a cost base that grew 6% against revenue +21%. Q1 FY27 confirmed it: costs +7%, revenue +16%, EBITDA +43%.</li>
+    <li><strong>2. Three profitable, differently-shaped businesses and a superb acquisition track record:</strong> Consumer (38% FY26 EBITDA margin), Remarketing (28%) and OLX (31%) all make money independently. OLX was bought for ₹535.5 Cr and earned ₹82 Cr in FY26 — ~6.5x purchase-price-to-profit, or ~11x adjusted for a full tax charge.</li>
+    <li><strong>3. Asset-light economics in a sector that destroys capital:</strong> Cars24 lost ₹543 Cr and Spinny ~₹424 Cr while CarTrade earned ₹244 Cr. Zero debt, ₹1,321 Cr of cash, near-100% cash conversion and no inventory risk — and Spinny is now a partner rather than purely a competitor.</li>
+  </ul>
+
+  <p class="subsection-title">Key Monitorables — Watch Through FY27</p>
+  <div class="monitor-grid">
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Q2 FY27 revenue growth — does 16% re-accelerate toward 20%+, or settle in the mid-teens? The single most important number</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Effective tax rate — the path from 16% (FY26) toward the 25.17% statutory rate, and how much PAT growth it consumes</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Consumer Group EBITDA margin — recovery from 33% back toward the 38–39% seen in FY26, or a new lower plateau</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Elite Buyer monetisation — paid conversion of business buyers and the first disclosed revenue contribution</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Spinny partnership economics — any disclosure of transaction volume or margin-share revenue from H2 FY27</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Remarketing auction listings — reconciling the ~1.5M Q1 FY27 figure against ~1.7M for FY26</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Capital allocation on the ₹1,321 Cr cash — buyback, dividend, or another large acquisition attempt</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>FII holding trend — 68.5% → 54.4% over four quarters; further unwind is a supply overhang</div></div>
+  </div>
+
+  <div class="verdict-banner">
+    <h3>RATING: HOLD / ACCUMULATE ON DECLINES</h3>
+    <p>Base Case 12-Month Target: <strong>₹3,200–3,350</strong> &nbsp;|&nbsp; Bull: ₹4,250–4,400 &nbsp;|&nbsp; Bear: ₹2,200–2,300 &nbsp;|&nbsp; CMP ~₹3,142 &nbsp;|&nbsp; Preferred accumulation zone: ₹2,400–2,600 &nbsp;|&nbsp; Risk Level: MEDIUM–HIGH</p>
+  </div>
+
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:20px;">
+    SOURCE QUALITY: All FY26 and Q4 FY26 consolidated and segment figures in this report are taken directly from CarTrade Tech's audited-results investor presentation filed with BSE and NSE on 7 May 2026 (read in full), and converted from ₹ lakhs. Q1 FY27 figures are from the company's Q1 FY27 investor presentation and earnings-call coverage, cross-checked against Screener.in's quarterly series — segment EBITDAs summing to the consolidated ₹63 Cr operating profit provides an independent consistency check. Price, market capitalisation, 52-week range, shareholding and peer multiples are from Screener.in and Trendlyne data retrieved on 26 August 2026; the 52-week low is shown as ₹1,523 per Screener, while the company's own July slide cited ₹1,600 — the discrepancy is unresolved. Competitor financials for Cars24, Spinny and Droom come from press coverage of private-company filings and are not on a like-for-like basis with CarTrade's audited accounts; reports conflict on the direction of Spinny's FY25 loss. Industry sizing draws on CRISIL commentary and the company's own TAM slides. All FY27E revenue, margin, tax-rate and PAT figures, the decomposition of FY26 profit growth, the tax-normalised PAT of ~₹217 Cr, the ~77% incremental EBITDA margin, the cash-conversion derivation and the ~62x core ex-cash multiple are the author's own calculations and directional estimates — they are not company guidance, not consensus, and may differ materially from outcomes. Where a figure could not be verified it is marked as not disclosed rather than estimated.
+  </p>
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:10px;">
+    DISCLAIMER: This report is prepared for informational and private research purposes only. It does not constitute investment advice or a recommendation to buy or sell any security. The author is not a SEBI-registered investment adviser and may hold positions in the securities discussed. All financial data is sourced from publicly available filings, investor presentations, concall coverage and exchange disclosures. Investing in equities involves the risk of capital loss. Past performance is not indicative of future results. Please consult a SEBI-registered investment adviser before making any investment decision.
+  </p>
+</section>
+
+</div><!-- /.page -->
+
+<footer class="footer">
+  <div>CARTRADE TECH LIMITED (NSE: CARTRADE) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q4 FY26 Audited Results &amp; Investor Presentation (BSE filing, 7 May 2026) · Q1 FY27 Investor Presentation &amp; Earnings Call (Jul 2026) · BSE/NSE Filings · Screener.in · Trendlyne · Aggregator Price Data (26 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

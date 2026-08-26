@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E2E Networks Limited — Equity Research Report | August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ MASTHEAD ═══════════════ -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: E2E &nbsp;|&nbsp; BSE: 544783 &nbsp;|&nbsp; CIN: L72900DL2009PLC341980 &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026</p>
+    <h1 class="report-title"><span>E2E</span> Networks Limited</h1>
+    <p class="report-subtitle">GPU Cloud &amp; AI Infrastructure &nbsp;·&nbsp; Tarun Dua promoter group &nbsp;·&nbsp; India's only listed pure-play neocloud, with L&amp;T holding 18.45%</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (Aug 26)</div><div class="kpi-value">~₹619</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹12,724 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">52W H / L</div><div class="kpi-value">₹698 / ₹183</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Revenue FY26</div><div class="kpi-value">₹246 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">PAT FY26</div><div class="kpi-value">−₹16 Cr</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — Accumulate Only on Deep Dips</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Target (1Y)</div><div class="rating-val">₹1,215 – ₹1,280</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Target (1Y)</div><div class="rating-val">₹250 – ₹285</div></div>
+  </div>
+</header>
+
+<!-- ═══════════════ STICKY NAV ═══════════════ -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Business</a>
+    <a href="#s3">Value Chain</a>
+    <a href="#s4">Sovereign AI</a>
+    <a href="#s5">Fleet &amp; Unit Economics</a>
+    <a href="#s6">Competition</a>
+    <a href="#s7">Financials</a>
+    <a href="#s8">Capex &amp; Funding</a>
+    <a href="#s9">Growth &amp; Guidance</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- ═══════════════ S1: OVERVIEW ═══════════════ -->
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:220px">Full Name</td><td>E2E Networks Limited</td></tr>
+        <tr><td class="bold">Lineage</td><td>Incorporated in Delhi in 2009 (CIN L72900DL2009PLC341980) as an independent Indian cloud-hosting provider; migrated from CPU cloud/VPS into GPU-accelerated cloud from ~FY22 and into large-scale AI training clusters from FY25</td></tr>
+        <tr><td class="bold">Codes</td><td style="font-family:'IBM Plex Mono',monospace;font-size:12px">NSE: E2E &nbsp;|&nbsp; BSE: 544783 &nbsp;|&nbsp; ISIN <span style="color:var(--muted)">— not verified for this report</span></td></tr>
+        <tr><td class="bold">Listing</td><td>NSE main board; received in-principle approval from BSE for direct listing of equity shares (BSE code 544783)</td></tr>
+        <tr><td class="bold">Promoters</td><td>Tarun Dua (Managing Director) 36.31% &nbsp;·&nbsp; Shailly Dua 1.46% &nbsp;·&nbsp; Suchinta Baweja 1.43% — promoter group <strong>39.45%</strong> (Jun 2026)</td></tr>
+        <tr><td class="bold">Strategic Investor</td><td class="bold" style="color:var(--green)">Larsen &amp; Toubro Ltd — 18.45% (3,79,33,290 shares, Jun 2026). Classified as public, not promoter; L&amp;T does not hold control, only minority protective rights</td></tr>
+        <tr><td class="bold">Headquarters</td><td>New Delhi (registered office); leased third-party data centres in Delhi NCR, Maharashtra and southern India</td></tr>
+        <tr><td class="bold">Face Value</td><td>₹1 per share, following a <strong>1:10 stock split</strong> (from ₹10) with record date 5 June 2026</td></tr>
+        <tr><td class="bold">Sector</td><td>IT — Cloud Infrastructure / AI Compute (GPU-as-a-Service "neocloud")</td></tr>
+        <tr><td class="bold">Shareholding (Jun 26)</td><td>Promoters 39.45% &nbsp;·&nbsp; L&amp;T 18.45% &nbsp;·&nbsp; DIIs ~6.1% (MFs ~3.55%) &nbsp;·&nbsp; FIIs ~1.27% &nbsp;·&nbsp; Public &amp; others ~53.2%</td></tr>
+        <tr><td class="bold">Shares Outstanding</td><td>~20.56 crore <span class="muted">(derived from L&amp;T's 3,79,33,290 shares at a disclosed 18.45% holding)</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>E2E Networks rents accelerated compute. It buys NVIDIA GPU systems, houses them in leased Indian data centres, and sells them by the hour, by the month and increasingly on multi-quarter reservations — to Indian AI startups, enterprises, research institutions and, critically, to the Government of India through the <strong>IndiaAI Mission</strong>. Its own software layer, <strong>TIR</strong>, wraps that hardware in an AI/ML platform, and a wholly-owned subsidiary, <strong>Sovcloud Technologies Limited</strong> (incorporated 17 June 2026), has been set up to operate the large GPU clusters and hold data-centre-related IP.</p>
+
+  <p>The reason the stock exists as a distinct investment case is scarcity of supply, not uniqueness of product. India's sovereign-AI push is being executed largely through private compute providers, and among the empanelled suppliers — Jio Platforms, Yotta, Tata Communications, NxtGen, Neysa, CtrlS and others — <strong>E2E is the only listed pure play</strong>. Everything else is either a subsidiary of a conglomerate, privately held, or a rounding error inside a much larger telecom or IT balance sheet. That scarcity is a real part of why the stock trades where it does, and it is not the same thing as a competitive moat.</p>
+
+  <div class="callout callout-gold">House view: E2E is the cleanest listed expression of India's GPU-capex cycle and, on the June-2026 exit run-rate, the business genuinely works. But this is an asset-rental business dressed in software-like margins. At ~7.4x book and ~15x annualised run-rate sales, with a three-year ROE of ~2% and negative ROCE, the price already assumes the fleet keeps compounding. We rate it HOLD, and would rather own it 30% lower.</div>
+</section>
+
+<!-- ═══════════════ S2: BUSINESS ═══════════════ -->
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">Business Segments &amp; Revenue Drivers</h2></div>
+
+  <p>E2E reports as a <strong>single operating segment</strong> — cloud services — and does not publish a revenue split by product line, customer type or GPU model. We therefore present the revenue <em>drivers</em> the company does discuss, rather than manufacture a segment table it has never disclosed.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Revenue Driver</th><th class="right">Disclosed Detail</th><th>Profile</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Flagship GPU cloud (H100 / H200)</td><td class="right">Core of the ~5,100-GPU fleet</td><td>Hopper-generation SXM systems sold on-demand and on reservation. Management attributes a large part of the Q1 FY27 step-up to <em>improved utilisation of the flagship GPUs</em> rather than new capacity — i.e. the FY25–FY26 capex finally filling up.</td></tr>
+        <tr><td class="bold">Blackwell B200 cluster</td><td class="right green">1,024 GPUs live, ~late May 2026</td><td>Deployed on NVIDIA Certified Reference Architecture; management describes it as going to full utilisation on go-live and being immediately margin-accretive. A second 1,024-GPU B200 tranche was procured in July 2026.</td></tr>
+        <tr><td class="bold">TIR AI/ML platform</td><td class="right muted">Not separately disclosed</td><td>E2E's own orchestration/notebook/inference layer on top of bare metal. Strategically the only part of the stack that could earn a software margin rather than a rental margin; financially still invisible in the disclosures.</td></tr>
+        <tr><td class="bold">IndiaAI Mission compute</td><td class="right">₹177 Cr order (Sep 2025)</td><td>H200 SXM and H100 SXM capacity, 1,29,94,560 GPU-hours over 360 days, service commencing around January 2026. Government-anchored, price-discovered, and the lowest-realisation tier in the book.</td></tr>
+        <tr><td class="bold">Legacy CPU cloud / VPS</td><td class="right muted">Not separately disclosed</td><td>The original business (FY22 revenue ₹52 Cr). Now a small, slow-growing base beneath a GPU business that is ~5x larger and growing at triple digits.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">E2E does not disclose a formal segment split; the "disclosed detail" column reproduces only figures the company or exchange filings have put on record.</p>
+  </div>
+
+  <p class="subsection-title">Corporate Actions &amp; Milestones — FY26 to date</p>
+  <ul class="report-list">
+    <li><strong>1:10 stock split</strong> — face value cut from ₹10 to ₹1, record date 5 June 2026. All per-share figures in this report are post-split.</li>
+    <li><strong>QIP, February 2026</strong> — 4,28,000 equity shares (pre-split) placed at a floor price of ₹2,630.60, raising ₹107.00 Cr. As at 30 June 2026, ₹102.43 Cr of that remained unutilised and earmarked for IT capex.</li>
+    <li><strong>Sovcloud Technologies Limited</strong> — wholly-owned subsidiary incorporated 17 June 2026 to operate large GPU clusters on TIR and to hold data-centre / networking / energy-efficiency IP.</li>
+    <li><strong>Jarvis Labs AI asset acquisition</strong> — announced alongside the IndiaAI order in September 2025; consideration and contribution not separately quantified in the sources reviewed.</li>
+    <li><strong>NVIDIA partnership</strong> — E2E is named among the Indian firms partnered with NVIDIA, alongside Reliance Industries, L&amp;T, Infosys and others. Allocation from NVIDIA is the binding constraint on the growth plan.</li>
+  </ul>
+
+  <div class="callout">A note on a persistent market rumour: <strong>Reliance is not an investor in E2E.</strong> Reliance's Jio Platforms is a <em>competing</em> lowest bidder on the same IndiaAI GPU tender. The verified strategic shareholder is <strong>Larsen &amp; Toubro at 18.45%</strong>, acquired through a November 2024 investment agreement.</div>
+</section>
+
+<!-- ═══════════════ S3: VALUE CHAIN ═══════════════ -->
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Where E2E Sits in the AI Compute Value Chain</h2></div>
+
+  <p>Every AI training or inference rupee flows through the same four physical stages. E2E occupies stage three and reaches into stage four — but it is a <em>tenant</em>, not an owner, at stage two, and it is a <em>customer</em>, not a designer, at stage one. Both facts matter enormously for the durability of its returns.</p>
+
+  <div class="vc-diagram">
+    <div class="vc-layer l1">
+      <div class="vc-num">STAGE 01</div>
+      <div class="vc-name">Silicon &amp; Systems</div>
+      <div class="vc-desc">GPUs, interconnect, reference architectures. Allocation, not money, is the gate</div>
+      <div class="vc-tags"><span class="vc-tag">NVIDIA H100/H200</span><span class="vc-tag">B200 · Vera Rubin</span></div>
+    </div>
+    <div class="vc-layer l2">
+      <div class="vc-num">STAGE 02</div>
+      <div class="vc-name">Power &amp; Data Centre</div>
+      <div class="vc-desc">Land, grid power, cooling, racks — the emerging global bottleneck, measured in megawatts</div>
+      <div class="vc-tags"><span class="vc-tag">Yotta · CtrlS · Sify</span><span class="vc-tag">E2E leases ~10 MW</span></div>
+    </div>
+    <div class="vc-layer l3">
+      <div class="vc-num">STAGE 03</div>
+      <div class="vc-name">GPU Cloud / Neocloud</div>
+      <div class="vc-desc">Bare-metal and clustered GPU rental, scheduling, billing, utilisation management</div>
+      <div class="vc-tags"><span class="vc-tag skip">E2E NETWORKS</span><span class="vc-tag">Jio · Yotta · Neysa</span></div>
+    </div>
+    <div class="vc-layer l4">
+      <div class="vc-num">STAGE 04</div>
+      <div class="vc-name">Platform &amp; End Demand</div>
+      <div class="vc-desc">AI/ML platform, sovereign models, startups, enterprises and government workloads</div>
+      <div class="vc-tags"><span class="vc-tag skip">E2E — TIR PLATFORM</span><span class="vc-tag">IndiaAI · Enterprises</span></div>
+    </div>
+  </div>
+
+  <p>Two structural observations follow. First, <strong>E2E captures none of the scarcity rent at stage one</strong> — NVIDIA does — and it captures little of the durable rent at stage two, because it leases rather than owns power and shells. Its ~10 MW of aggregate contracted data-centre capacity, enough for roughly 8,000–10,000 GPUs, is a hard ceiling on the current asset base. Second, <strong>stage three is the least defensible link in the chain</strong>: a GPU-hour is close to a commodity, differentiated mainly by price, availability, latency-to-customer, INR billing with GST input credit, and MeitY empanelment. E2E's real edges are regulatory and geographic, not technological.</p>
+
+  <p>The offsetting point is that the Indian market rewards exactly those regulatory and geographic edges. Data residency, rupee billing, GST-compliant invoices and IndiaAI empanelment are meaningful commercial advantages against AWS, Azure and GCP for a domestic buyer — and against foreign neoclouds for a government one. That is a real business. It is simply not the same as owning the bottleneck.</p>
+</section>
+
+<!-- ═══════════════ S4: SOVEREIGN AI ═══════════════ -->
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">The Growth Driver: Sovereign AI &amp; the IndiaAI Compute Build-Out</h2></div>
+
+  <div class="macro-grid">
+    <div class="macro-card"><div class="macro-co">Exit MRR — June 2026</div><div class="macro-val">₹71.8 Cr</div><div class="macro-label">Monthly recurring revenue run-rate, up from ₹37.4 Cr at March 2026 — a 92% step-up in one quarter. Annualises to ~₹862 Cr</div></div>
+    <div class="macro-card"><div class="macro-co">Cloud GPU Fleet</div><div class="macro-val">~5,100</div><div class="macro-label">Units at Q1 FY27 exit, including the 1,024-GPU NVIDIA B200 cluster that went live around late May 2026</div></div>
+    <div class="macro-card"><div class="macro-co">IndiaAI Order (Sep 2025)</div><div class="macro-val">₹177 Cr</div><div class="macro-label">MeitY / IndiaAI Mission — 1,29,94,560 GPU-hours of H200 SXM and H100 SXM over 360 days, service from ~Jan 2026</div></div>
+    <div class="macro-card"><div class="macro-co">IndiaAI Empanelled GPUs</div><div class="macro-val">38,000+</div><div class="macro-label">Across 14 providers by mid-2026, against an original target of 10,000 — the programme scaled, and so did the supplier list</div></div>
+  </div>
+
+  <p>The IndiaAI Mission is a ~₹10,000 Cr government programme that subsidises AI compute for Indian users by buying GPU-hours from empanelled private providers at rates discovered through reverse auction. E2E was one of ten bidders (from nineteen) to clear the technical round, and emerged among the <strong>lowest bidders on several GPU models</strong> alongside NxtGen Datacenter and Jio Platforms. That produced the ₹177 Cr order announced in September 2025.</p>
+
+  <p>This is the strategic prize and the strategic trap in the same sentence. Being L1 wins volume, government-grade counterparty risk and a reference customer for sovereign workloads. It also anchors the price. End users on IndiaAI-subsidised capacity pay roughly <strong>₹67–92 per GPU-hour</strong>; E2E's own published IndiaAI-linked B200 reservation rate is <strong>₹251.10 per GPU-hour</strong> on a 12-month commitment, against commercial list rates of roughly ₹362/hour for H100 and ₹436/hour for H200 (with lower USD-denominated rates advertised on longer commitments). The programme is therefore simultaneously the demand engine and the reference price against which every commercial negotiation in India will now be benchmarked.</p>
+
+  <div class="callout callout-red">The uncomfortable arithmetic: 38,000+ GPUs have been empanelled against an original 10,000-GPU target, across 14 providers. Government-anchored demand is real, but government-anchored <em>supply</em> is being encouraged at the same time. A subsidised tender is a very effective way to build a market and a very effective way to commoditise it.</div>
+</section>
+
+<!-- ═══════════════ S5: FLEET & UNIT ECONOMICS ═══════════════ -->
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Fleet, Capacity &amp; Unit Economics</h2></div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Operating Metric</th><th class="right">Latest Disclosed</th><th>Comment</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Cloud GPUs deployed</td><td class="right">~5,100 (Q1 FY27 exit)</td><td>Mix of A100, H100 SXM, H200 SXM and 1,024 B200. Model-wise split not disclosed.</td></tr>
+        <tr><td class="bold">Data-centre capacity</td><td class="right">~10 MW aggregate</td><td>Leased third-party facilities across Delhi NCR, Maharashtra and southern India; management indicates this supports ~8,000–10,000 GPUs. This is the physical ceiling on the current plan.</td></tr>
+        <tr><td class="bold">Exit MRR</td><td class="right green">₹71.8 Cr (Jun 2026)</td><td>vs ₹37.4 Cr at March 2026. The single most informative KPI E2E discloses.</td></tr>
+        <tr><td class="bold">Published rate card</td><td class="right">₹189 – ₹436 / GPU-hr</td><td>A100 80GB ~₹189/hr, H100 ~₹362/hr, H200 ~₹436/hr; B200 at ₹251.10/hr on 12-month IndiaAI-linked reservation. USD list rates of $1.80/$2.20/$4.90 per hour are also advertised on longer commitments.</td></tr>
+        <tr><td class="bold">Depreciation life on GPUs</td><td class="right">6 years</td><td>Extended from 3 years. Management's stated view is an economic life of 7–8 years, on software/ecosystem compatibility grounds.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="subsection-title">Derived Unit Economics — the author's own calculation</p>
+
+  <p>E2E does not publish utilisation or realisation. Both can be inferred, and the inference is more informative than anything in the P&amp;L.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Derived Metric</th><th class="right">Value</th><th>Working</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Blended realisation per GPU-hour</td><td class="right bold">~₹193</td><td>₹71.8 Cr exit MRR ÷ 5,100 GPUs = ~₹1.41 lakh per GPU per month ÷ ~730 hours. Sits well below H100/H200 list rates — consistent with a mix of reservation discounts, IndiaAI-tier pricing and less-than-full utilisation on the older fleet.</td></tr>
+        <tr><td class="bold">All-in capital cost per B200</td><td class="right">~₹63.5 lakh</td><td>~₹650 Cr of disclosed capex for up to 1,024 B200 GPUs, including networking, storage and fit-out.</td></tr>
+        <tr><td class="bold">Annual revenue per B200 <span class="muted">(at IndiaAI reservation pricing)</span></td><td class="right">~₹18.7 lakh</td><td>₹251.10/hr × 8,760 hrs × 85% assumed utilisation.</td></tr>
+        <tr><td class="bold">Cash payback per B200 <span class="muted">(IndiaAI pricing)</span></td><td class="right red">~4.5 years</td><td>₹63.5 lakh ÷ (₹18.7 lakh × 75% EBITDA margin = ₹14.0 lakh). Against a 6-year book life. Thin.</td></tr>
+        <tr><td class="bold">Cash payback per B200 <span class="muted">(commercial pricing ~₹430/hr)</span></td><td class="right green">~2.6 years</td><td>₹32.0 lakh revenue → ₹24.0 lakh EBITDA → payback 2.6 years. Comfortably inside the depreciation life.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">All figures in this table are the author's own derived estimates using disclosed capex, disclosed rate cards and an assumed 85% utilisation and 75% EBITDA margin. E2E has not published per-GPU economics. Actual outcomes will differ.</p>
+  </div>
+
+  <div class="callout callout-gold">This is the whole investment case in one number. At commercial rates a B200 pays for itself in ~2.6 years against a 6-year book life — a genuinely good asset. At IndiaAI reservation rates it takes ~4.5 years — and at that point a single generation shift or a 20% price cut turns the asset marginal. <strong>The spread between commercial and tender pricing, and the mix between them, matters more to E2E's terminal value than revenue growth does.</strong></div>
+</section>
+
+<!-- ═══════════════ S6: COMPETITION ═══════════════ -->
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Competitive Positioning</h2></div>
+
+  <p>E2E competes on two fronts that barely overlap: a domestic contest for Indian AI workloads, where it is a credible mid-tier player, and an implicit global comparison with the listed neoclouds, where it is not remotely in the same weight class.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Peer</th><th>Positioning</th><th class="right">Relative Scale</th><th>Read-across for E2E</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Jio Platforms (Reliance)</td><td>IndiaAI co-L1 bidder; hyperscale ambitions</td><td class="right red">Effectively unlimited balance sheet</td><td>The most dangerous competitor. Co-lowest bidder on the same tender, with no need to earn a return on the compute leg in isolation. Not an investor in E2E — a rival.</td></tr>
+        <tr><td class="bold">Yotta Data Services</td><td>Owns the data centre and the GPUs</td><td class="right red">NM1 Navi Mumbai: ~210 MW, 8.2 lakh sq ft; 32,768-GPU programme incl. 16,000 H100/GH200 delivered</td><td>Vertically integrated at stage two, where E2E only leases. On raw power and GPU count Yotta is an order of magnitude larger; E2E counters on H200/B200 availability and self-serve access.</td></tr>
+        <tr><td class="bold">Tata Communications (Vayu)</td><td>GPU cloud bundled with private connectivity</td><td class="right">Far larger group balance sheet</td><td>Targets hybrid enterprise buyers; typically prices higher because connectivity is bundled. E2E wins on price and on developer self-service.</td></tr>
+        <tr><td class="bold">NxtGen, Neysa, CtrlS, Sify, AceCloud, ESDS</td><td>Empanelled Indian providers</td><td class="right">Comparable to smaller</td><td>Fourteen providers now empanelled under IndiaAI. Fragmented supply at the tail is precisely what erodes pricing.</td></tr>
+        <tr><td class="bold">CoreWeave (NASDAQ: CRWV)</td><td>Listed US neocloud</td><td class="right red">Q2 CY26 revenue $2.6bn (+112% YoY); backlog $104bn; 1.5 GW active power</td><td>Roughly <strong>150x</strong> E2E's deployed power and about two orders of magnitude its revenue. Also loss-making ($626mn Q2 net loss) with a 5% adjusted operating margin — a useful reminder that scale does not automatically mean profit in this industry.</td></tr>
+        <tr><td class="bold">Nebius Group (NASDAQ: NBIS)</td><td>Listed European/global neocloud</td><td class="right red">ARR $3.0bn at end-June (+598% YoY); CY26 guide $3–3.4bn revenue, $7–9bn exit ARR; capex $20–25bn; 5 GW contracted power target</td><td>Growing far faster off a far larger base, with ~40% guided adjusted EBITDA margin against E2E's reported 75.2%. The margin gap is a mix and accounting story, not a superiority story.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Peer data as reported for the quarters ended June 2026 (CoreWeave Q2 reported 11 Aug 2026; Nebius Q2 reported August 2026). Scale differences are extreme and cross-comparison should be treated as directional context, not as valuation equivalence.</p>
+  </div>
+
+  <p>The honest read: E2E is a well-run, fast-executing niche operator in a market where the two most powerful potential competitors — Reliance/Jio and a fully-built-out Yotta — have structurally lower costs of capital and, in Jio's case, a strategic reason to price compute at or near cost. E2E's defensible ground is speed, self-service developer experience, the TIR platform, and being the counterparty an Indian buyer can actually transact with in rupees today. Its 75.2% EBITDA margin is not evidence of pricing power; it is evidence that a rental business books its costs below the EBITDA line.</p>
+</section>
+
+<!-- ═══════════════ S7: FINANCIALS ═══════════════ -->
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Financial Performance</h2></div>
+
+  <p>FY26 was the year the capex landed and the depreciation arrived before the revenue did — a full-year loss on 50% revenue growth. Q1 FY27 is the year the revenue caught up.</p>
+
+  <p class="subsection-title">Annual — Standalone (₹ Cr)</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">FY23</th><th class="right">FY24</th><th class="right">FY25</th><th class="right">FY26</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Revenue</td><td class="right">66</td><td class="right">94</td><td class="right">164</td><td class="right green">246</td></tr>
+        <tr><td class="bold">Operating Profit (EBITDA)</td><td class="right">33</td><td class="right">48</td><td class="right">97</td><td class="right">126</td></tr>
+        <tr><td class="bold">OPM %</td><td class="right">50%</td><td class="right">51%</td><td class="right">59%</td><td class="right">51%</td></tr>
+        <tr><td class="bold">Depreciation</td><td class="right">20</td><td class="right">16</td><td class="right">60</td><td class="right red">169</td></tr>
+        <tr><td class="bold">Interest</td><td class="right">0</td><td class="right">4</td><td class="right">13</td><td class="right">12</td></tr>
+        <tr><td class="bold">PBT</td><td class="right">13</td><td class="right">30</td><td class="right">63</td><td class="right red">−21</td></tr>
+        <tr><td class="bold">Net Profit</td><td class="right">10</td><td class="right">22</td><td class="right">47</td><td class="right red">−16</td></tr>
+        <tr><td class="bold">EPS (₹, split-adjusted)</td><td class="right">0.68</td><td class="right">1.51</td><td class="right">2.38</td><td class="right red">−0.76</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Standalone figures as compiled by Screener.in from exchange filings. FY26 revenue of ₹246 Cr corresponds to the reported ₹2,456 Mn, up ~50% YoY. Note that depreciation rose 2.8x in FY26 while revenue rose 1.5x — that gap is the entire FY26 loss.</p>
+  </div>
+
+  <p class="subsection-title">Quarterly — the inflection (₹ Cr)</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Q1 FY26<br>Jun-25</th><th class="right">Q2 FY26<br>Sep-25</th><th class="right">Q3 FY26<br>Dec-25</th><th class="right">Q4 FY26<br>Mar-26</th><th class="right">Q1 FY27<br>Jun-26</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Revenue</td><td class="right">36</td><td class="right">44</td><td class="right">70</td><td class="right">96</td><td class="right green bold">157</td></tr>
+        <tr><td class="bold">Operating Profit</td><td class="right">11</td><td class="right">18</td><td class="right">40</td><td class="right">58</td><td class="right green bold">118</td></tr>
+        <tr><td class="bold">OPM %</td><td class="right">29%</td><td class="right">41%</td><td class="right">57%</td><td class="right">61%</td><td class="right green bold">75%</td></tr>
+        <tr><td class="bold">Depreciation</td><td class="right">27</td><td class="right">43</td><td class="right">48</td><td class="right">51</td><td class="right red">61</td></tr>
+        <tr><td class="bold">Interest</td><td class="right">2</td><td class="right">2</td><td class="right">5</td><td class="right">4</td><td class="right red">10</td></tr>
+        <tr><td class="bold">PBT</td><td class="right red">−4</td><td class="right red">−18</td><td class="right red">−8</td><td class="right">9</td><td class="right green bold">59</td></tr>
+        <tr><td class="bold">Net Profit</td><td class="right red">−3</td><td class="right red">−13</td><td class="right red">−6</td><td class="right">6</td><td class="right green bold">44</td></tr>
+        <tr><td class="bold">EPS (₹)</td><td class="right red">−0.14</td><td class="right red">−0.67</td><td class="right red">−0.28</td><td class="right">0.31</td><td class="right green bold">2.13</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Q1 FY27 as reported: revenue ₹156.76 Cr (₹1,568 Mn, +334.3% YoY, +63.9% QoQ); EBITDA ₹117.9 Cr (₹1,179 Mn, +1,022.8% YoY) at a 75.2% margin, up ~1,450 bps QoQ from 60.7%; depreciation ₹606 Mn; PBT ₹58.63 Cr (₹586 Mn vs ₹86 Mn in Q4 FY26); PAT ₹43.9 Cr (₹439 Mn) at a 28.0% margin vs 6.7% in Q4 FY26; basic EPS ₹2.14, diluted ₹2.10.</p>
+  </div>
+
+  <div class="callout callout-green">Five consecutive quarters of margin expansion — 29% → 41% → 57% → 61% → 75% — on a revenue base that quadrupled year-on-year. Cash opex barely moved (₹26 Cr to ₹39 Cr) while revenue went from ₹36 Cr to ₹157 Cr. That is genuine, textbook operating leverage on a fixed asset base, and it is the strongest fact in the bull case.</div>
+
+  <div class="callout callout-red">The counterweight, in the same table: depreciation went from ₹27 Cr to ₹61 Cr per quarter and interest from ₹2 Cr to ₹10 Cr over the same five quarters. The 75.2% EBITDA margin converts to a 28.0% PAT margin — and only because the fleet is young and the life assumption is six years. EBITDA is not cash available to shareholders in this business.</div>
+</section>
+
+<!-- ═══════════════ S8: CAPEX & FUNDING ═══════════════ -->
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">Balance Sheet, Capex Funding &amp; the Depreciation Question</h2></div>
+
+  <p class="subsection-title">Balance Sheet — Standalone (₹ Cr)</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Item</th><th class="right">FY24</th><th class="right">FY25</th><th class="right">FY26</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Equity Capital</td><td class="right">14</td><td class="right">20</td><td class="right">21</td></tr>
+        <tr><td class="bold">Reserves</td><td class="right">56</td><td class="right">1,573</td><td class="right">1,664</td></tr>
+        <tr><td class="bold">Borrowings</td><td class="right">144</td><td class="right">73</td><td class="right">159</td></tr>
+        <tr><td class="bold">Net Fixed Assets</td><td class="right">210</td><td class="right">389</td><td class="right">1,036</td></tr>
+        <tr><td class="bold">Capital Work in Progress</td><td class="right muted">—</td><td class="right">636</td><td class="right">533</td></tr>
+        <tr><td class="bold">Total Assets</td><td class="right">255</td><td class="right">2,581</td><td class="right">2,328</td></tr>
+        <tr><td class="bold">Cash from Operations</td><td class="right">43</td><td class="right">88</td><td class="right">122</td></tr>
+        <tr><td class="bold">Free Cash Flow</td><td class="right red">−103</td><td class="right red">−37</td><td class="right red">−1,140</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Book value per share ~₹82 at FY26; at CMP ₹619 the stock trades at ~7.4x book. Reported ROCE of −0.51% and a three-year average ROE of ~2.12% (Screener.in) reflect a balance sheet that has been capitalised well ahead of its earnings.</p>
+  </div>
+
+  <p class="subsection-title">How the Fleet Has Been Paid For</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Source</th><th class="right">Amount</th><th>Status / Terms</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Preferential issue (first tranche)</td><td class="right">₹405.66 Cr</td><td>Fully utilised, primarily on IT equipment — cloud GPUs and compute infrastructure.</td></tr>
+        <tr><td class="bold">Preferential issue to L&amp;T</td><td class="right">₹1,079.28 Cr</td><td>15% stake at ₹3,622.25 per share (pre-split), under the November 2024 investment agreement. ₹1,049.03 Cr deployed as at 30 June 2026.</td></tr>
+        <tr><td class="bold">L&amp;T secondary purchase from founder</td><td class="right muted">₹327.75 Cr (agreed)</td><td>A further 6% at ₹2,750 per share was contracted; L&amp;T ultimately capped total holding at ~18.45% rather than the full 21%.</td></tr>
+        <tr><td class="bold">QIP (February 2026)</td><td class="right">₹107.00 Cr</td><td>4,28,000 shares (pre-split) at a ₹2,630.60 floor. ₹102.43 Cr still unutilised at 30 June 2026, earmarked for IT capex.</td></tr>
+        <tr><td class="bold">Institutional debt facilities</td><td class="right">up to ₹450 Cr</td><td>Sanctioned capacity-expansion lines. Q1 FY27 interest of ₹10 Cr annualises to ~₹40 Cr, implying substantial drawdown during the quarter <span class="muted">(author's inference)</span>.</td></tr>
+        <tr><td class="bold">Reported Q1 FY27 capex</td><td class="right red bold">₹870 Cr</td><td>₹8,700 Mn as disclosed in the Q1 FY27 results material — roughly 5.5x the quarter's revenue and far in excess of the ~₹97 Cr of issue proceeds deployed in the same quarter. Funding split not disclosed.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Approximately ₹1,590 Cr of equity has been raised across the two preferential issues and the QIP. The ₹870 Cr Q1 FY27 capex figure is taken from the results presentation as reported in secondary sources; the author was unable to open the primary filing to confirm whether it represents capex incurred in the quarter or capex committed. Treat it as directionally correct rather than precise.</p>
+  </div>
+
+  <p class="subsection-title">The Depreciation Question — Sensitivity</p>
+  <p>E2E extended its GPU depreciation life from three years to six, and management's stated view is that economic life runs to seven or eight years on software and ecosystem compatibility grounds. Six years is now the standard assumption at the US hyperscalers, so the policy is defensible — but for E2E it is not a rounding item. It is the difference between a profitable company and a loss-making one.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Assumed GPU Life</th><th class="right">Implied Annual Depreciation</th><th class="right">Implied FY27E EBIT</th><th>Read</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">3 years <span class="muted">(old policy)</span></td><td class="right">~₹800 Cr</td><td class="right red">−₹152 Cr</td><td>Deeply loss-making at the operating line</td></tr>
+        <tr><td class="bold">4 years</td><td class="right">~₹600 Cr</td><td class="right red">₹48 Cr</td><td>Barely breakeven; equity story collapses</td></tr>
+        <tr><td class="bold">5 years</td><td class="right">~₹480 Cr</td><td class="right">₹168 Cr</td><td>Modest returns on a ₹12,700 Cr market cap</td></tr>
+        <tr><td class="bold">6 years <span class="muted">(current policy)</span></td><td class="right green">~₹400 Cr</td><td class="right green">₹248 Cr</td><td>The basis of every published number</td></tr>
+        <tr><td class="bold">8 years <span class="muted">(mgmt economic view)</span></td><td class="right">~₹300 Cr</td><td class="right green">₹348 Cr</td><td>Best case; assumes Hopper stays commercially rentable to 2032</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Author's own sensitivity, applying each life assumption on a straight-line basis to an assumed ~₹2,400 Cr gross block at Q1 FY27 exit (FY26 net block ₹1,036 Cr + CWIP ₹533 Cr + reported Q1 capex ₹870 Cr) against the base-case FY27E EBITDA of ₹648 Cr from Section 10. Not company guidance; illustrative only.</p>
+  </div>
+
+  <div class="callout">A two-year change in the assumed life of an asset swings implied FY27 EBIT by ~₹400 Cr — more than twice the entire base-case profit. No investor in this stock can be indifferent to that assumption, and no one outside the company can verify it until an H100 fleet is actually seven years old, which will not be before 2030.</div>
+</section>
+
+<!-- ═══════════════ S9: GROWTH & GUIDANCE ═══════════════ -->
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">Growth Drivers &amp; Management Guidance</h2></div>
+
+  <p class="subsection-title">What Management Actually Said (Q1 FY27 Concall, July 2026)</p>
+  <ul class="report-list">
+    <li><strong>Fleet target:</strong> a <em>minimum of 6,000 GPUs</em> by the end of FY27, against ~5,100 at Q1 FY27 exit — with plans to procure <strong>2,048 Blackwell GPUs</strong> and a roadmap into NVIDIA's next-generation Vera Rubin architecture.</li>
+    <li><strong>No MRR guidance:</strong> management explicitly declined to give short-term monthly recurring revenue guidance. There is no order book, no backlog disclosure and no contracted-revenue number — a material disclosure gap versus CoreWeave's $104bn backlog or Nebius's ARR framework.</li>
+    <li><strong>Growth mix:</strong> "major growth is expected from capacity addition rather than price hikes," with pricing described as having only a moderate impact on the Q1 step-up. Management is explicitly <em>not</em> underwriting price increases.</li>
+    <li><strong>Contract tenure:</strong> increased customer willingness to sign longer-term contracts, described as improving predictability. Tenures and contracted values were not quantified.</li>
+    <li><strong>Capacity philosophy:</strong> "aggressive yet judicious" expansion over the next two to three years to serve sovereign-AI demand, with further B200 deliveries in the coming months.</li>
+    <li><strong>Funding:</strong> capex funded from internal accruals, prior fundraises and institutional debt of up to ₹450 Cr — with future Blackwell procurement explicitly flagged as a trigger for further debt or equity raising.</li>
+  </ul>
+
+  <p class="subsection-title">The Structural Demand Case</p>
+  <ul class="report-list">
+    <li><strong>Sovereign-AI policy:</strong> the IndiaAI Mission has already scaled past its original 10,000-GPU target to 38,000+ empanelled GPUs, and data-residency requirements structurally favour domestic providers.</li>
+    <li><strong>Enterprise AI adoption:</strong> Indian enterprises building on domestic infrastructure need INR billing, GST input credit and local latency — a real commercial edge over the global hyperscalers.</li>
+    <li><strong>Generational upgrade cycle:</strong> Blackwell today, Vera Rubin next. Each generation is a revenue opportunity and a capital call in the same breath.</li>
+    <li><strong>Utilisation headroom:</strong> a derived blended realisation of ~₹193/GPU-hour against list rates of ₹362–436 suggests the existing Hopper fleet is not yet fully monetised — genuine upside if demand tightens, genuine risk if it does not.</li>
+  </ul>
+
+  <div class="callout callout-gold">Read the guidance carefully and it is more modest than the share price implies. Six thousand GPUs by end-FY27 is an ~18% increase on the Q1 exit fleet. If growth is to come from capacity rather than price, and capacity grows 18%, then the balance of the growth has to come from utilisation and mix on assets already installed — which is exactly what happened in Q1, and is by definition a finite source of upside.</div>
+</section>
+
+<!-- ═══════════════ S10: VALUATION ═══════════════ -->
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation Model</h2></div>
+
+  <p>Shares outstanding ~20.56 crore. CMP ₹619, market capitalisation ~₹12,724 Cr. We estimate net debt of ~₹450 Cr (author's estimate, inferred from the ₹450 Cr sanctioned facility, the Q1 interest run-rate and ₹102 Cr of unutilised QIP proceeds), giving an enterprise value of ~₹13,174 Cr. For a business whose earnings are dominated by a contestable depreciation assumption, <strong>EV/EBITDA on forward estimates is the primary anchor and P/E is the cross-check</strong> — not the other way round.</p>
+
+  <p class="subsection-title">FY27E Earnings Build — Author's Estimates</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric (₹ Cr)</th><th class="right">Conservative</th><th class="right">Base Case</th><th class="right">Bull Case</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Q1 FY27 actual revenue</td><td class="right">157</td><td class="right">157</td><td class="right">157</td></tr>
+        <tr><td class="bold">FY27E revenue</td><td class="right">800</td><td class="right green">900</td><td class="right">1,030</td></tr>
+        <tr><td class="bold">EBITDA margin</td><td class="right">68%</td><td class="right green">72%</td><td class="right">75%</td></tr>
+        <tr><td class="bold">FY27E EBITDA</td><td class="right">544</td><td class="right green">648</td><td class="right">773</td></tr>
+        <tr><td class="bold">Depreciation</td><td class="right">400</td><td class="right">380</td><td class="right">360</td></tr>
+        <tr><td class="bold">Interest</td><td class="right">75</td><td class="right">65</td><td class="right">55</td></tr>
+        <tr><td class="bold">Other income</td><td class="right">15</td><td class="right">15</td><td class="right">20</td></tr>
+        <tr><td class="bold">FY27E PBT</td><td class="right">84</td><td class="right green">218</td><td class="right">378</td></tr>
+        <tr><td class="bold">FY27E PAT (25% tax)</td><td class="right">63</td><td class="right green">164</td><td class="right">284</td></tr>
+        <tr><td class="bold">FY27E EPS (₹)</td><td class="right">3.06</td><td class="right green">7.97</td><td class="right">13.81</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Author's own directional projections. The FY27E revenue range brackets the June-2026 exit MRR annualised (~₹862 Cr): the conservative case assumes the run-rate flattens and prices erode, the base case assumes modest fleet additions land through H2, the bull case assumes both B200 tranches fill at commercial pricing. E2E has given no revenue guidance.</p>
+  </div>
+
+  <p class="subsection-title">Target Price — 12 Months, on FY28E EBITDA</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Conservative</th><th class="right">Base Case</th><th class="right">Bull Case</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">FY28E revenue (₹ Cr)</td><td class="right">950</td><td class="right green">1,350</td><td class="right">1,750</td></tr>
+        <tr><td class="bold">FY28E EBITDA margin</td><td class="right">65%</td><td class="right green">72%</td><td class="right">75%</td></tr>
+        <tr><td class="bold">FY28E EBITDA (₹ Cr)</td><td class="right">618</td><td class="right green">972</td><td class="right">1,313</td></tr>
+        <tr><td class="bold">Target EV / EBITDA</td><td class="right">10x</td><td class="right green">15x – 16x</td><td class="right">20x – 21x</td></tr>
+        <tr><td class="bold">Implied EV (₹ Cr)</td><td class="right">6,180 – 6,800</td><td class="right green">14,580 – 15,552</td><td class="right">26,260 – 27,573</td></tr>
+        <tr><td class="bold">Less estimated net debt (₹ Cr)</td><td class="right">1,000</td><td class="right">1,100</td><td class="right">1,300</td></tr>
+        <tr><td class="bold">12-Month Target Price</td><td class="right red bold">₹250 – ₹285</td><td class="right green bold">₹655 – ₹705</td><td class="right bold" style="color:var(--gold)">₹1,215 – ₹1,280</td></tr>
+        <tr><td class="bold">Upside vs CMP ₹619</td><td class="right red">−60% to −54%</td><td class="right green">+6% to +14%</td><td class="right" style="color:var(--gold)">+96% to +107%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Author's own projections and target multiples. Net debt for FY28E is an estimate that assumes further debt-funded capex; a large equity raise would lower net debt and raise the share count, broadly offsetting on a per-share basis. Per-share values use the current 20.56 crore share count and do not model dilution.</p>
+  </div>
+
+  <p class="subsection-title">Cross-Checks</p>
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:280px">Trailing P/E</td><td>~408x (Screener.in). Meaningless on a base that includes three loss-making quarters — quoted only to show why trailing multiples cannot be used here.</td></tr>
+        <tr><td class="bold">Price / Book</td><td>~7.4x on book value of ₹82, against a three-year average ROE of ~2.12% and a reported ROCE of −0.51%. The multiple is entirely a forward bet.</td></tr>
+        <tr><td class="bold">EV / annualised Q1 FY27 EBITDA</td><td>~27.9x (₹13,174 Cr ÷ ₹472 Cr). Versus CoreWeave at ~17.9x EV/EBITDA as of August 2026.</td></tr>
+        <tr><td class="bold">EV / annualised exit-MRR EBITDA</td><td>~20.4x (₹13,174 Cr ÷ ₹647 Cr, being ₹862 Cr annualised exit MRR at a 75% margin). The most generous defensible framing of the current price.</td></tr>
+        <tr><td class="bold">Market cap / annualised exit MRR</td><td>~14.8x. Nebius trades at roughly 25x market cap to exit ARR — so on this one metric E2E screens <em>cheaper</em> than a global neocloud, with the enormous caveat that Nebius is growing ARR ~600% YoY with a 5 GW power pipeline against E2E's ~10 MW.</td></tr>
+        <tr><td class="bold" style="color:var(--red)">EV / steady-state free cash flow</td><td class="red">~89x (author's calculation). Taking ₹647 Cr of run-rate EBITDA, deducting ~₹400 Cr of annual replacement capex needed simply to hold a ₹2,400 Cr fleet constant on a 6-year life, plus ~₹50 Cr of interest and 25% tax, leaves ~₹148 Cr of sustainable free cash flow. <strong>This is the number that says the multiple embeds perfection.</strong></td></tr>
+        <tr><td class="bold">Implied FY28E P/E at base target</td><td>~49x (₹656 target ÷ ~₹13.4 FY28E EPS). Defensible only if growth continues well beyond FY28 — which requires more megawatts, more GPUs and more capital.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info-box">
+    <p><strong>What the price is telling you.</strong> At ₹619, the market is capitalising E2E at ~20x an EBITDA figure that only exists if the June-2026 exit run-rate holds for a full year — and it is paying ~89x the free cash flow that run-rate actually throws off after replacing the assets that generate it. That is a price that requires the fleet to keep compounding, the depreciation life to hold at six years, and IndiaAI-tier pricing not to become the market clearing rate. Any two of those three going right is not enough.</p>
+  </div>
+</section>
+
+<!-- ═══════════════ S11: SCENARIOS ═══════════════ -->
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Bull &amp; Bear Scenario Analysis</h2></div>
+
+  <div class="scenario-grid">
+    <div class="scenario-card">
+      <div class="sc-header bull">🐂 Bull Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val green">Both B200 tranches fill at commercial (non-tender) pricing; leased capacity expands beyond ~10 MW; longer-tenure enterprise contracts create disclosable ARR; utilisation on the Hopper fleet closes the gap to list rates; L&amp;T deepens the commercial relationship</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E Revenue</span><span class="sc-val green">~₹1,030 Cr</span></div>
+        <div class="sc-row"><span class="sc-key">FY28E Revenue</span><span class="sc-val green">~₹1,750 Cr</span></div>
+        <div class="sc-row"><span class="sc-key">EBITDA Margin</span><span class="sc-val green">75%</span></div>
+        <div class="sc-row"><span class="sc-key">FY28E EBITDA</span><span class="sc-val green">~₹1,313 Cr</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val green">₹1,215 – ₹1,280</span></div>
+      </div>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-header bear">🐻 Bear Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val red">Blackwell supply floods India; IndiaAI subsidised rates become the reference price; utilisation on the ageing H100 fleet slips below 70%; auditors or investors force a shorter depreciation life; a dilutive equity raise lands at a discount; Jio and Yotta price compute as a strategic loss-leader</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E Revenue</span><span class="sc-val red">~₹800 Cr</span></div>
+        <div class="sc-row"><span class="sc-key">FY28E Revenue</span><span class="sc-val red">~₹950 Cr</span></div>
+        <div class="sc-row"><span class="sc-key">EBITDA Margin</span><span class="sc-val red">65%</span></div>
+        <div class="sc-row"><span class="sc-key">FY28E EBITDA</span><span class="sc-val red">~₹618 Cr</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val red">₹250 – ₹285</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p>The asymmetry runs the wrong way at ₹619. The base case offers roughly <strong>+6% to +14%</strong> over twelve months; the conservative case implies <strong>−54% to −60%</strong> — and that bear target still sits above the ₹183 low the stock printed within the last 52 weeks, so it is not an extreme assumption. The bull case is genuinely large, but it requires a re-rating <em>and</em> a doubling of revenue in two years <em>and</em> the depreciation assumption to survive. Skew, not direction, is the argument here: this is a stock whose fair value is highly sensitive to variables that will not be resolved for two to three years, priced as though they already have been.</p>
+</section>
+
+<!-- ═══════════════ S12: RISKS ═══════════════ -->
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risk Factors</h2></div>
+
+  <div class="risk-grid">
+    <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">GPU Price Deflation / Commoditisation</div><span class="badge badge-high">HIGH</span><div class="risk-body">A GPU-hour is a commodity. Fourteen empanelled providers, 38,000+ empanelled GPUs against a 10,000 target, and IndiaAI end-user rates of ₹67–92/GPU-hour set a public reference price far below commercial list rates. Management has already said growth will come from capacity, not price. Our derived blended realisation of ~₹193/GPU-hour is the metric to watch; a sustained fall in it breaks the model regardless of revenue growth.</div></div>
+    <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Depreciation Life Assumption</div><span class="badge badge-high">HIGH</span><div class="risk-body">The extension from a 3-year to a 6-year GPU life is the single largest swing factor in reported earnings. Our sensitivity shows a ±2-year change moves implied FY27 EBIT by roughly ₹400 Cr — more than twice base-case profit. Six years matches US hyperscaler practice, but E2E's fleet is Hopper-heavy and India's second-hand market for four-year-old GPUs is untested.</div></div>
+    <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Funding Gap &amp; Dilution</div><span class="badge badge-high">HIGH</span><div class="risk-body">FY26 free cash flow was −₹1,140 Cr against operating cash flow of ₹122 Cr, and reported Q1 FY27 capex of ~₹870 Cr was ~5.5x the quarter's revenue. Around ₹1,590 Cr of equity has already been raised; the ₹450 Cr debt line appears substantially drawn on the interest run-rate. Management has flagged further Blackwell procurement as a trigger for fresh debt or equity. Every future GPU generation is a new capital call.</div></div>
+    <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Utilisation &amp; Absence of a Disclosed Backlog</div><span class="badge badge-medh">MED–HIGH</span><div class="risk-body">E2E discloses no order book, no contracted revenue and no utilisation rate, and has explicitly declined MRR guidance. Investors are asked to extrapolate from a single month's exit MRR. CoreWeave discloses a $104bn backlog; Nebius discloses ARR. This disclosure gap is itself a valuation risk when sentiment turns.</div></div>
+    <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Competition from Deeper Balance Sheets</div><span class="badge badge-medh">MED–HIGH</span><div class="risk-body">Jio Platforms was a co-lowest bidder on the same IndiaAI tender and has no need to earn a standalone return on compute. Yotta owns ~210 MW at a single Navi Mumbai campus against E2E's ~10 MW of leased capacity. E2E's competitive position rests on execution speed and developer experience, not on cost of capital or scale.</div></div>
+    <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Power &amp; Data-Centre Ceiling</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">~10 MW of leased third-party capacity supports roughly 8,000–10,000 GPUs. Beyond that, growth requires new leases at whatever the market clears — and globally the neocloud competition has already shifted from GPU supply to power, cooling and deployment speed. E2E owns none of that layer.</div></div>
+    <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Customer &amp; Programme Concentration</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">The ₹177 Cr IndiaAI order runs 360 days from around January 2026 — renewal is a live FY27 question, at rates that will be re-discovered. Customer concentration is not disclosed. A government-anchored revenue base is high-quality on credit and low-quality on pricing power.</div></div>
+    <div class="risk-row"><div class="risk-num">08</div><div class="risk-name">Valuation &amp; Positioning</div><span class="badge badge-high">HIGH</span><div class="risk-body">~7.4x book on ~2% three-year ROE, ~20x EV to a run-rate EBITDA that has existed for one quarter, and ~89x EV to estimated steady-state free cash flow. Shareholder count rose from ~8,000 (Mar 2024) to ~86,000 (Jun 2026) and the stock ranged from ₹183 to ₹698 within twelve months. This is a retail-heavy, high-beta AI-theme equity; a global neocloud de-rating would hit it regardless of its own delivery.</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ S13: SUMMARY ═══════════════ -->
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Investment Summary &amp; Recommendation</h2></div>
+
+  <div class="thesis-box">
+    <p>E2E Networks is <strong>India's only listed pure play on sovereign-AI compute</strong>, and in Q1 FY27 the business finally worked: revenue ₹157 Cr (+334% YoY), a <strong>75.2% EBITDA margin</strong>, ₹43.9 Cr of profit after five quarters of depreciation-driven losses, and exit MRR nearly doubling to <strong>₹71.8 Cr</strong>. Larsen &amp; Toubro's 18.45% stake and ~₹1,590 Cr of raised equity give it a balance sheet most Indian challengers lack. But this is a GPU-rental business, not a software business: FY26 free cash flow was <strong>−₹1,140 Cr</strong>, reported Q1 capex of ~₹870 Cr was 5.5x quarterly revenue, and the entire earnings picture rests on a six-year depreciation life that no one can verify before 2030. On our numbers the shares trade at ~20x run-rate EV/EBITDA but <strong>~89x steady-state free cash flow</strong> after the replacement capex the fleet actually requires. The base case offers +6% to +14%; the conservative case −54% to −60%. Own the theme, respect the operator — but demand a much better entry price.</p>
+  </div>
+
+  <p class="subsection-title">The Three Reasons to Own E2E</p>
+  <ul class="report-list">
+    <li><strong>1. Scarcity of the listed exposure:</strong> the only NSE-listed pure play on India's GPU-capex cycle — MeitY-empanelled, INR-billed with GST input credit, and among the lowest bidders on the ₹10,000 Cr IndiaAI programme, with a ₹177 Cr order already in service.</li>
+    <li><strong>2. The capex cycle has flipped to cash:</strong> five straight quarters of margin expansion (29% → 75%), exit MRR up 92% in a single quarter to ₹71.8 Cr, and a B200 cluster that reached full utilisation on go-live. Cash opex rose ~50% while revenue rose 4.3x — the operating leverage is real.</li>
+    <li><strong>3. Strategic and financial backing:</strong> L&amp;T at 18.45% (acquired at ₹3,622.25 per pre-split share) plus ~₹1,590 Cr of equity raised and a ₹450 Cr debt line — a funding base no other Indian challenger of this size has, and one that a strategic buyer has already validated at a price.</li>
+  </ul>
+
+  <p class="subsection-title">Key Monitorables — Watch Through FY27</p>
+  <div class="monitor-grid">
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Exit MRR each quarter — ₹71.8 Cr at Jun-26. The cleanest KPI E2E publishes; direction matters more than level</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Derived realisation per GPU-hour (~₹193 at Jun-26) — the earliest tell on price deflation</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>GPU count against the 6,000 minimum FY27 guide and the 2,048 Blackwell procurement</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Depreciation charge versus gross block — the implied life, and any change in the accounting policy</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Borrowings and interest cost, and the price at which any fresh QIP or preferential issue is done</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Any first disclosure of contracted revenue, contract tenure or utilisation — and IndiaAI order renewal terms</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Data-centre capacity beyond the current ~10 MW, and whether E2E moves from leasing to owning</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>L&amp;T's posture — whether the 18.45% stake becomes a commercial channel or stays a passive holding</div></div>
+  </div>
+
+  <div class="verdict-banner">
+    <h3>RATING: HOLD — ACCUMULATE ONLY ON DEEP DIPS</h3>
+    <p>Base Case 12-Month Target: <strong>₹655–705</strong> &nbsp;|&nbsp; Bull: ₹1,215–1,280 &nbsp;|&nbsp; Bear: ₹250–285 &nbsp;|&nbsp; CMP ~₹619 &nbsp;|&nbsp; Preferred accumulation zone: ₹420–450 &nbsp;|&nbsp; Risk Level: HIGH</p>
+  </div>
+
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:20px;">
+    SOURCE QUALITY: Reported financials, shareholding, balance-sheet and cash-flow figures are grounded in exchange-filed results as compiled by Screener.in and Trendlyne (retrieved 26 August 2026), the Q1 FY27 press release and investor presentation dated 21 July 2026 as reported by Business Upturn, Whalesbook and Sahi, and the Q1 FY27 earnings call as summarised by Yahoo Finance/GuruFocus, Business Upturn and Sahi. The L&amp;T investment, the IndiaAI/MeitY order, the QIP and preferential-issue utilisation, the 1:10 stock split and the Sovcloud incorporation are grounded in exchange disclosures reported by Business Standard, Entrepreneur India, Datacenter Dynamics, Whalesbook and Business Upturn. Peer data for CoreWeave and Nebius is from their Q2 CY2026 reports (11–12 August 2026) and Multiples.vc. <strong>Estimated or derived by the author, not company-disclosed:</strong> shares outstanding (~20.56 Cr, back-solved from L&amp;T's disclosed shareholding), net debt (~₹450 Cr), blended realisation per GPU-hour, all per-GPU unit economics and payback calculations, the depreciation sensitivity table, and every FY27E and FY28E figure and target price. The reported Q1 FY27 capex of ₹8,700 Mn is taken from secondary reporting of the results presentation; the primary filing could not be opened during preparation and it is not confirmed whether the figure is capex incurred or committed in the quarter. E2E's ISIN could not be verified and has been omitted. E2E gives no revenue, MRR or margin guidance; all forward numbers here are the author's own directional projections and may differ materially from outcomes.
+  </p>
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:10px;">
+    DISCLAIMER: This report is prepared for informational and private research purposes only. It does not constitute investment advice or a recommendation to buy or sell any security. The author is not a SEBI-registered investment adviser and may hold positions in the securities discussed. All financial data is sourced from publicly available filings, concall coverage and exchange disclosures. Investing in equities involves the risk of capital loss. Past performance is not indicative of future results. Please consult a SEBI-registered investment adviser before making any investment decision.
+  </p>
+</section>
+
+</div><!-- /.page -->
+
+<footer class="footer">
+  <div>E2E NETWORKS LIMITED (NSE: E2E) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results &amp; Investor Presentation (21 Jul 2026) · Q1 FY27 Earnings Call · FY26 Audited Results · NSE/BSE Filings · Screener.in · Trendlyne · CoreWeave &amp; Nebius Q2 CY26 Reports · Aggregator Price Data (26 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>
