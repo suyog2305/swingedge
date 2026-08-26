@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akums Drugs &amp; Pharmaceuticals — Equity Research Report | August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ MASTHEAD ═══════════════ -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: AKUMS &nbsp;|&nbsp; BSE: 544222 &nbsp;|&nbsp; ISIN: INE09XN01023 &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026</p>
+    <h1 class="report-title"><span>Akums</span> Drugs &amp; Pharmaceuticals</h1>
+    <p class="report-subtitle">India's largest domestic-formulations CDMO &nbsp;·&nbsp; Jain family (Sanjeev &amp; Sandeep Jain) &nbsp;·&nbsp; Manufacturer to 26 of India's top 30 pharma companies</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (Aug 26)</div><div class="kpi-value">~₹765</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹12,048 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">52W H / L</div><div class="kpi-value">₹784 / ₹409</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Revenue FY26</div><div class="kpi-value">₹4,359 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">PAT FY26</div><div class="kpi-value">₹256 Cr</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — Accumulate Below ₹650</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Target (1Y)</div><div class="rating-val">₹1,030 – ₹1,090</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Target (1Y)</div><div class="rating-val">₹450 – ₹515</div></div>
+  </div>
+</header>
+
+<!-- ═══════════════ STICKY NAV ═══════════════ -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Segments</a>
+    <a href="#s3">Value Chain</a>
+    <a href="#s4">CDMO Moat</a>
+    <a href="#s5">Capacity</a>
+    <a href="#s6">Competition</a>
+    <a href="#s7">Financials</a>
+    <a href="#s8">Balance Sheet</a>
+    <a href="#s9">Growth &amp; Guidance</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- ═══════════════ S1: OVERVIEW ═══════════════ -->
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:220px">Full Name</td><td>Akums Drugs and Pharmaceuticals Limited</td></tr>
+        <tr><td class="bold">Lineage</td><td>Founded 2004 by brothers Sanjeev Jain and Sandeep Jain; built from a Haridwar contract-manufacturing base into India's largest domestic-formulations CDMO. Key subsidiaries: Akumentis Healthcare (domestic branded formulations), Pure &amp; Cure Healthcare (manufacturing)</td></tr>
+        <tr><td class="bold">ISIN / Codes</td><td style="font-family:'IBM Plex Mono',monospace;font-size:12px">INE09XN01023 &nbsp;|&nbsp; NSE: AKUMS &nbsp;|&nbsp; BSE: 544222</td></tr>
+        <tr><td class="bold">Listed</td><td>NSE/BSE — 6 August 2024. IPO priced at ₹679 (band ₹646–679): ₹680 Cr fresh issue + 1,73,30,435-share OFS worth ~₹1,177 Cr; ~₹829 Cr anchor book; issue subscribed 31.72x</td></tr>
+        <tr><td class="bold">Promoters</td><td>Sanjeev Jain and Sandeep Jain (co-founders, Managing Directors). Akums Master Trust ~40.79%; Sandeep Jain ~17.24%; Sanjeev Jain ~17.23%. Promoter holding <strong>75.26%</strong> (Jun 2026) — unchanged every quarter since listing; nil pledge</td></tr>
+        <tr><td class="bold">Headquarters</td><td>New Delhi; manufacturing hub at Haridwar, Uttarakhand</td></tr>
+        <tr><td class="bold">Face Value</td><td>₹2 per share</td></tr>
+        <tr><td class="bold">Sector</td><td>Pharmaceuticals — CDMO / contract manufacturing of formulations, plus branded formulations (domestic &amp; international), APIs and trade generics</td></tr>
+        <tr><td class="bold">Shareholding (Jun 26)</td><td>Promoters 75.26% &nbsp;·&nbsp; DIIs 13.44% &nbsp;·&nbsp; FIIs 1.91% &nbsp;·&nbsp; Public 6.67% &nbsp;·&nbsp; Others 2.73%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Akums is the manufacturer behind the label. It does not primarily sell medicines under its own brands — it makes them for other people's brands, on contract, at a scale no other Indian company matches. The company reports <strong>over 30% share by value of India's domestic CDMO market</strong>, is a manufacturing partner to <strong>26 of the top 30 Indian pharmaceutical companies</strong>, serves more than 1,500 customers, and has commercialised over 4,100 formulations across 60+ dosage forms. Company disclosures put its output at more than 12% of the medicines consumed domestically in India.</p>
+
+  <p>That is a genuinely unusual industrial position — and it comes with a genuinely unusual economic profile. FY26 operating margin was <strong>12%</strong>; Divi's Laboratories, the market's reference CDMO, earned 33%. Akums' three-year ROE screens at ~8.5% and ROCE at ~14.9%. This is a volume-and-share business, not a margin business. The entire equity debate reduces to one question: can a company that manufactures a tenth of India's medicine supply convert that share into returns on capital that justify a 3.6x book value?</p>
+
+  <p class="subsection-title">Post-IPO Lock-in &amp; Float Status</p>
+  <p>All IPO lock-ins have lapsed — the longest-dated (the 18-month promoter minimum-contribution lock-in from the August 2024 listing) would have expired around February 2026, with anchor and other pre-IPO lock-ins well before that. <strong>Promoters have not sold a single share:</strong> holding has printed at exactly 75.26% in every quarterly filing from September 2024 to June 2026. The float story has nonetheless changed materially — FII holding has collapsed from 7.34% (Sep 2024) to 1.91% (Jun 2026), while DIIs went the other way, from 7.53% to 13.44%. The stock is now largely a domestic-institution and retail book with a thin ~24.7% free float.</p>
+
+  <div class="callout callout-gold">House view: Akums is the clearest listed expression of "own the factory, not the brand" in Indian pharma. It is a Tier-1 asset on market position and a Tier-3 asset on returns — which is exactly why the post-IPO price action has been so violent in both directions.</div>
+</section>
+
+<!-- ═══════════════ S2: BUSINESS SEGMENTS ═══════════════ -->
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">Business Segments &amp; Revenue Mix</h2></div>
+
+  <p>Akums reports five lines. One of them is the company; the other four are, at present, rounding errors on revenue and a drag on profit. Q1 FY27 (quarter ended June 2026) is the cleanest current snapshot.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Segment</th><th class="right">Q1 FY27 Revenue</th><th class="right">% of Mix</th><th class="right">YoY</th><th>Profile</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">CDMO (contract manufacturing)</td><td class="right green">₹964 Cr</td><td class="right">82.6%</td><td class="right green">+18.6%</td><td>The franchise. Formulations manufactured for 1,500+ pharma brand owners, domestic and export. Segment EBITDA ₹163 Cr (+36.8% YoY from ₹119 Cr) — roughly a 16.9% margin, and ~93% of group operating EBITDA.</td></tr>
+        <tr><td class="bold">Domestic Branded Formulations</td><td class="right">₹115 Cr</td><td class="right">9.9%</td><td class="right green">+7.3%</td><td>Akumentis Healthcare — Akums' own-brand arm (FY26 revenue ~₹446 Cr, PAT ~₹77 Cr). Q1 FY27 segment EBITDA fell 25.4% YoY on field-force expansion costs: growth being bought, not yet earned.</td></tr>
+        <tr><td class="bold">International Branded Formulations</td><td class="right muted">~₹35 Cr</td><td class="right">3.0%</td><td class="right red">−1.5%</td><td>Own-brand exports. Management called it a "muted quarter". FY26 international generics revenue also declined.</td></tr>
+        <tr><td class="bold">API</td><td class="right">₹32 Cr</td><td class="right">2.7%</td><td class="right red">−29.7%</td><td>Deliberate portfolio surgery — exiting low-margin SIFA products for lenalidomide, zoledronic acid and montelukast. Quarterly loss narrowed to ₹4 Cr from ₹6 Cr. Still loss-making.</td></tr>
+        <tr><td class="bold">Trade Generics</td><td class="right muted">~₹21 Cr</td><td class="right">1.8%</td><td class="right red">−9.5%</td><td>Shrinking by design; turned EBITDA-breakeven in Q1 FY27 after being EBITDA-positive in FY26.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Segment percentages are as disclosed in the Q1 FY27 investor presentation; CDMO, domestic branded and API rupee figures are as reported. International branded and trade generics rupee values are derived by applying the disclosed mix percentages to reported operating revenue of ₹1,167 Cr and are therefore approximate.</p>
+  </div>
+
+  <p>The FY26 full-year mix was broadly similar — CDMO ~80%, domestic branded 10.2%, international branded 3.3% — so the Q1 FY27 shape is structural, not seasonal. What changed in Q1 was <em>direction</em>: CDMO accelerated to +18.6% while API contracted 29.7%, and the arithmetic of that swap is what produced a 15.0% group EBITDA margin against 12.6% a year earlier.</p>
+
+  <div class="callout">Read the mix honestly: Akums is a single-segment company with four appendages. The diversification narrative — branded, API, exports — has so far cost more than it has earned. Every rupee of the FY27 margin story so far comes from CDMO volume plus better API pricing on the input side.</div>
+</section>
+
+<!-- ═══════════════ S3: VALUE CHAIN ═══════════════ -->
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Where Akums Sits in the Pharma Value Chain</h2></div>
+
+  <p>Indian pharma splits cleanly into four economic layers. Brand owners capture the pricing power and the multiples; manufacturers capture the volume. Akums has deliberately colonised the layer everyone else outsources — and then made a modest, so-far-unprofitable attempt to climb into the layers on either side.</p>
+
+  <div class="vc-diagram">
+    <div class="vc-layer l1">
+      <div class="vc-num">STAGE 01</div>
+      <div class="vc-name">API &amp; Intermediates</div>
+      <div class="vc-desc">Active ingredients and key starting materials — largely China-dependent for Indian formulators</div>
+      <div class="vc-tags"><span class="vc-tag skip">AKUMS (small)</span><span class="vc-tag">Divi's · Aarti</span></div>
+    </div>
+    <div class="vc-layer l2">
+      <div class="vc-num">STAGE 02</div>
+      <div class="vc-name">Formulation Mfg (CDMO)</div>
+      <div class="vc-desc">Tablets, capsules, liquids, injectables, ointments — developed and manufactured to a client's specification and brand</div>
+      <div class="vc-tags"><span class="vc-tag skip">AKUMS — &gt;30% SHARE</span><span class="vc-tag">Innova · Windlas</span></div>
+    </div>
+    <div class="vc-layer l3">
+      <div class="vc-num">STAGE 03</div>
+      <div class="vc-name">Brand Ownership</div>
+      <div class="vc-desc">Marketing authorisation, brand equity, pricing power, MR field force — where the margin lives</div>
+      <div class="vc-tags"><span class="vc-tag skip">AKUMENTIS</span><span class="vc-tag">Sun · Cipla · Mankind</span></div>
+    </div>
+    <div class="vc-layer l4">
+      <div class="vc-num">STAGE 04</div>
+      <div class="vc-name">Distribution &amp; Retail</div>
+      <div class="vc-desc">C&amp;F, stockists, chemists, hospitals, government and multilateral tenders</div>
+      <div class="vc-tags"><span class="vc-tag">Chemists · Hospitals</span><span class="vc-tag">Govt tenders</span></div>
+    </div>
+  </div>
+
+  <p>Stage 02 is a structurally low-margin layer — a client can, in principle, re-tender its production. What protects Akums is not contract law but physics and regulation: 12 manufacturing units, 60+ dosage forms, 4,100+ commercialised SKUs and 1,056 cumulative DCGI approvals mean a brand owner can source almost its entire portfolio from one qualified vendor. Re-qualifying that at a competitor is expensive, slow and regulatorily risky. <strong>38 of Akums' 50 largest customers had relationships longer than five years</strong> as of FY24. That stickiness is the moat; it is a switching-cost moat, not a pricing-power moat, which is precisely why it produces share without margin.</p>
+
+  <div class="callout callout-gold">The structural tension in one line: Akums' clients at Stage 03 are also, via Akumentis, its competitors. Every rupee Akums invests in its own brands risks irritating the brand owners who supply 82.6% of its revenue. Management has kept Akumentis small — ~10% of mix — and that restraint looks deliberate.</div>
+</section>
+
+<!-- ═══════════════ S4: CDMO MOAT ═══════════════ -->
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">The Growth Driver: CDMO Volume, Share &amp; the Client Franchise</h2></div>
+
+  <div class="macro-grid">
+    <div class="macro-card"><div class="macro-co">Domestic CDMO Share</div><div class="macro-val">&gt;30%</div><div class="macro-label">By value of India's domestic CDMO market — the largest India-focused CDMO by a wide margin</div></div>
+    <div class="macro-card"><div class="macro-co">Top-30 Pharma Clients Served</div><div class="macro-val">26 / 30</div><div class="macro-label">Manufacturing partner to 26 of India's 30 largest pharmaceutical companies</div></div>
+    <div class="macro-card"><div class="macro-co">CDMO Volume Growth</div><div class="macro-val">High teens</div><div class="macro-label">Sustained across Q3 FY26, Q4 FY26 and Q1 FY27 — against domestic industry volume growth of just 2–3%</div></div>
+    <div class="macro-card"><div class="macro-co">Client Base</div><div class="macro-val">1,500+</div><div class="macro-label">Top-10 CDMO clients = 39.3% of CDMO revenue (FY24, per ICRA); 38 of top 50 are 5-year-plus relationships</div></div>
+  </div>
+
+  <p>The single most important number in this report is the gap between <strong>high-teens CDMO volume growth and 2–3% domestic industry volume growth</strong>. Akums is not riding the market; it is taking share within it. The mechanism is straightforward — as Indian pharma companies chase asset-light models, capacity that used to sit on their own balance sheets migrates to specialists, and the specialist with the widest dosage-form range and the deepest regulatory file collects most of it.</p>
+
+  <p class="subsection-title">Client Concentration — the Honest Read</p>
+  <p>The top-10 CDMO clients contributed <strong>39.3% of CDMO revenue in FY24</strong> (38.9% in FY23), per ICRA's rating rationale. That is meaningful but not alarming for contract manufacturing, and the shape of the risk matters more than the level: these are large, financially sound Indian pharma majors on multi-year relationships, not a handful of fragile counterparties. The real concentration exposure is different — it is <em>bargaining</em> concentration. When your top ten customers are Sun, Cipla, Mankind and their peers, and your product is a manufactured tablet rather than a proprietary molecule, price negotiations run in one direction. That is the structural reason a 30%-share business earns 12–15% EBITDA margins rather than 25%.</p>
+
+  <div class="callout callout-green">What has genuinely improved: CDMO segment EBITDA rose 36.8% YoY in Q1 FY27 to ₹163 Cr on revenue growth of 18.6% — operating leverage of roughly 2x. That is the first clean evidence since listing that scale is translating into profit rather than just tonnage.</div>
+</section>
+
+<!-- ═══════════════ S5: CAPACITY ═══════════════ -->
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Manufacturing Footprint, Capacity &amp; Utilisation</h2></div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Asset</th><th>Detail</th><th>Implication</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Manufacturing units</td><td>12 formulation manufacturing units plus dedicated API facilities; 4 R&amp;D centres (two DSIR-approved)</td><td>Breadth is the product — one vendor can cover a client's whole portfolio</td></tr>
+        <tr><td class="bold">Installed capacity</td><td>49.21 billion formulation units and 737.38 MT of APIs per annum</td><td>Scale unmatched among listed India-focused CDMOs</td></tr>
+        <tr><td class="bold">Capacity utilisation</td><td class="green">~50% (per Q1 FY27 concall)</td><td><strong>The core of the bull case.</strong> Incremental volume can be absorbed with minimal capex, and drops through at high incremental margin</td></tr>
+        <tr><td class="bold">Dosage forms</td><td>60+ — oral solids, oral liquids, sterile/injectables, hormonal, ointments, cosmetics, ayurvedic, nutraceuticals; 22+ platform technologies</td><td>Range is the switching cost</td></tr>
+        <tr><td class="bold">Sterile injectables</td><td>Sterile injectable facility operationalised Aug 2024 (~362 mn units p.a.); lyophilised injectable plant launched Jan 2025</td><td>The mix-up lever — injectables carry better realisations than plain oral solids</td></tr>
+        <tr><td class="bold">Regulatory approvals</td><td>EU-GMP certifications at Haridwar; ANVISA (Brazil) GMP for the sterile plant (Jul 2025); 1,056 cumulative DCGI approvals by end-FY26</td><td>The gateway to the regulated-market CDMO contracts that carry higher margins</td></tr>
+        <tr><td class="bold">Under construction</td><td>New Baddi facility targeted live by end-FY27 (oral solids); Pure &amp; Cure lease at Sector 8A, IIE SIDCUL Haridwar; ~₹300 Cr FY27 capex, oral-solid weighted</td><td>Capacity being added ahead of demand, funded from cash</td></tr>
+        <tr><td class="bold">Acquired (Jul 2026)</td><td>Oriflame India's manufacturing business for ₹56 Cr — two HALAL-certified plants at Noida and Roorkee; completed 23 Jul 2026</td><td>Bolt-on into skincare, cosmetics and wellness manufacturing</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Capacity of 49.21 bn formulation units / 737.38 MT APIs and the 12-unit count are as stated on the company's own disclosures; these are cumulative installed figures and may not reflect the very latest additions. Utilisation of ~50% is management commentary from the Q1 FY27 earnings call.</p>
+  </div>
+
+  <p>The ~50% utilisation figure is the most consequential operating datum in the file. It means the FY27 growth Akums is guiding to does <em>not</em> require a capex cycle — the plants already exist and are half-idle. In a fixed-cost-heavy manufacturing business, incremental volume onto paid-for assets is the highest-margin revenue there is, which is exactly what the Q1 FY27 print showed: revenue +13.9%, EBITDA +35.4%.</p>
+
+  <p>The counterpoint is equally important. Half-idle capacity is also half-idle <em>capital</em>. It sits in the denominator of ROCE, and it is a large part of why a company with 30% market share earns a 14.9% return on capital employed. The utilisation number is simultaneously the bull case (operating leverage available) and the bear case (capital already sunk into assets that are not yet earning).</p>
+
+  <div class="callout callout-red">Operational fragility to note: Akums' manufacturing is heavily concentrated at Haridwar. In FY26, labour unrest disrupted production at the Haridwar sites, with full 100% capacity restored only on 18 May 2026. A single-cluster footprint is efficient right up until it isn't.</div>
+</section>
+
+<!-- ═══════════════ S6: COMPETITION ═══════════════ -->
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Competitive Positioning &amp; Peer Comparison</h2></div>
+
+  <p>Akums competes in two arenas that the market persistently conflates. In <em>domestic-formulations CDMO</em> it is the dominant player and its true peers are Innova Captab and Windlas Biotech. In <em>global/regulated CDMO</em> — the arena the market pays 60–80x for — it is a new entrant with one signed European contract and no track record.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Company</th><th class="right">Mkt Cap</th><th class="right">FY26 Sales</th><th class="right">FY26 OPM</th><th class="right">P/E (TTM)</th><th class="right">ROCE</th><th class="right">ROE</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Akums Drugs</td><td class="right">₹12,048 Cr</td><td class="right">₹4,359 Cr</td><td class="right">12%</td><td class="right">39.5x</td><td class="right">14.9%</td><td class="right">8.45%</td></tr>
+        <tr><td class="bold">Divi's Laboratories</td><td class="right">₹2,39,321 Cr</td><td class="right">₹10,560 Cr</td><td class="right green">33%</td><td class="right">80.3x</td><td class="right green">22.0%</td><td class="right green">16.5%</td></tr>
+        <tr><td class="bold">Piramal Pharma</td><td class="right">₹28,158 Cr</td><td class="right">₹8,869 Cr</td><td class="right">10%</td><td class="right muted">n.m. (loss)</td><td class="right red">2.52%</td><td class="right red">−3.83%</td></tr>
+        <tr><td class="bold">Cohance Lifesciences <span class="muted">(ex-Suven Pharma)</span></td><td class="right">₹17,684 Cr</td><td class="right">₹2,269 Cr</td><td class="right">19%</td><td class="right red">164x</td><td class="right">8.35%</td><td class="right">7.04%</td></tr>
+        <tr><td class="bold">Innova Captab</td><td class="right">₹5,871 Cr</td><td class="right">₹1,630 Cr</td><td class="right">15%</td><td class="right">38.1x</td><td class="right">15.0%</td><td class="right green">13.7%</td></tr>
+        <tr><td class="bold">Windlas Biotech</td><td class="right">₹2,019 Cr</td><td class="right">₹904 Cr</td><td class="right">12%</td><td class="right">30.4x</td><td class="right green">15.9%</td><td class="right">12.2%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">All figures sourced from Screener.in company pages as of 26 August 2026 (FY26 = year ended March 2026). Suven Pharmaceuticals was renamed Cohance Lifesciences in 2025 following the group's CDMO consolidation; Suven Life Sciences is a separate, unrelated clinical-stage company. Piramal Pharma's P/E is not meaningful given an FY26 net loss of ₹326 Cr.</p>
+  </div>
+
+  <p class="subsection-title">The Read-Across</p>
+  <ul class="report-list">
+    <li><strong>Against Innova Captab:</strong> Akums is 2.7x the revenue but earns a <em>lower</em> operating margin (12% vs 15%) and a much lower ROE (8.45% vs 13.7%) — while trading at a marginally <em>higher</em> P/E. On these numbers, scale has bought Akums share, not superior unit economics. This is the most uncomfortable comparison in the table.</li>
+    <li><strong>Against Windlas Biotech:</strong> 4.8x the revenue at an identical 12% operating margin, a lower ROE, and a 30% higher P/E. Windlas is the value alternative in the same industry.</li>
+    <li><strong>Against Divi's:</strong> a different business entirely. Divi's earns 33% margins and 22% ROCE from custom synthesis and generic APIs for innovator clients; Akums earns 12% making other people's tablets. The 80x vs 40x multiple gap is not a mispricing — it is a correct reflection of two different economic models.</li>
+    <li><strong>Against Piramal Pharma and Cohance:</strong> the cautionary exhibits. Both are larger-ambition CDMOs trading on hope rather than delivered returns — Piramal at a loss, Cohance at 164x on 7% ROE. Akums at 39.5x with 14.9% ROCE is, at least, not the worst-capitalised story in the sector.</li>
+  </ul>
+
+  <div class="callout">The fair conclusion: Akums is the <strong>best-positioned</strong> and <strong>worst-returning-per-rupee-of-scale</strong> name in domestic-formulations CDMO. It deserves a premium to Windlas for franchise durability and optionality. Whether it deserves a premium to Innova Captab — which out-earns it on every profitability metric — is the argument the market is currently having.</div>
+</section>
+
+<!-- ═══════════════ S7: FINANCIALS ═══════════════ -->
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Financial Performance</h2></div>
+
+  <p>Akums' four-year record is a study in volatility that has little to do with the operating business. FY24's near-zero profit reflected exceptional charges; FY25's ₹344 Cr was flattered by a prior-period deferred tax asset; FY26's headline decline is the reversal of that base effect, not an operating deterioration.</p>
+
+  <p class="subsection-title">Full-Year Record</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">FY23</th><th class="right">FY24</th><th class="right">FY25</th><th class="right">FY26</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Revenue (₹ Cr)</td><td class="right">3,655</td><td class="right">4,178</td><td class="right">4,118</td><td class="right">4,359</td></tr>
+        <tr><td class="bold">Revenue growth</td><td class="right muted">—</td><td class="right green">+14.3%</td><td class="right red">−1.4%</td><td class="right green">+5.8%</td></tr>
+        <tr><td class="bold">Operating margin (OPM)</td><td class="right">8%</td><td class="right red">3%</td><td class="right">11%</td><td class="right green">12%</td></tr>
+        <tr><td class="bold">Reported PAT (₹ Cr)</td><td class="right">98</td><td class="right red">1</td><td class="right">344</td><td class="right">256</td></tr>
+        <tr><td class="bold">Reported EPS (₹)</td><td class="right">6.63</td><td class="right red">−0.28</td><td class="right">21.49</td><td class="right">16.21</td></tr>
+        <tr><td class="bold">Adjusted EBITDA (₹ Cr)</td><td class="right muted">—</td><td class="right muted">—</td><td class="right">~461</td><td class="right green">522 (+13.3%)</td></tr>
+        <tr><td class="bold">Adjusted PAT (₹ Cr)</td><td class="right muted">—</td><td class="right muted">—</td><td class="right">~217</td><td class="right green">276 (+27.3%)</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Revenue, OPM, PAT and EPS per Screener.in (consolidated). FY26 adjusted EBITDA of ₹522 Cr (+13.3% YoY) and adjusted PAT of ₹276 Cr (+27.3% YoY) are as reported by the company; FY25 comparatives are back-solved from those disclosed growth rates and are therefore approximate. FY26 total income was ₹4,488 Cr (+7.6%). FY26 also carried ~₹18 Cr of exceptional items relating to labour-code changes and retrospective variable-DA revisions.</p>
+  </div>
+
+  <p class="subsection-title">The Post-Listing Quarterly Trajectory — Where the Story Actually Turned</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Quarter</th><th class="right">Revenue (₹ Cr)</th><th class="right">Op. Profit (₹ Cr)</th><th class="right">OPM</th><th class="right">PAT (₹ Cr)</th><th class="right">EPS (₹)</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Q2 FY25 (Sep 24)</td><td class="right">1,033</td><td class="right">121</td><td class="right">12%</td><td class="right">67</td><td class="right">4.14</td></tr>
+        <tr><td class="bold">Q3 FY25 (Dec 24)</td><td class="right">1,010</td><td class="right">121</td><td class="right">12%</td><td class="right">66</td><td class="right">4.14</td></tr>
+        <tr><td class="bold">Q4 FY25 (Mar 25)</td><td class="right">1,056</td><td class="right">94</td><td class="right red">9%</td><td class="right">150</td><td class="right">9.38</td></tr>
+        <tr><td class="bold">Q1 FY26 (Jun 25)</td><td class="right">1,024</td><td class="right">129</td><td class="right">13%</td><td class="right">65</td><td class="right">4.03</td></tr>
+        <tr><td class="bold">Q2 FY26 (Sep 25)</td><td class="right red">1,018</td><td class="right red">94</td><td class="right red">9%</td><td class="right red">43</td><td class="right red">2.59</td></tr>
+        <tr><td class="bold">Q3 FY26 (Dec 25)</td><td class="right green">1,160</td><td class="right green">147</td><td class="right">13%</td><td class="right">68</td><td class="right">4.21</td></tr>
+        <tr><td class="bold">Q4 FY26 (Mar 26)</td><td class="right">1,158</td><td class="right">152</td><td class="right">13%</td><td class="right">81</td><td class="right">5.38</td></tr>
+        <tr><td class="bold">Q1 FY27 (Jun 26)</td><td class="right green">1,167</td><td class="right green">175</td><td class="right green">15%</td><td class="right green">101</td><td class="right green">6.35</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Quarterly consolidated figures per Screener.in. Q4 FY25 PAT of ₹150 Cr on a 9% operating margin reflects a prior-period deferred tax asset, not operating performance — the cleanest illustration of why this company must be read on EBITDA rather than PAT.</p>
+  </div>
+
+  <p class="subsection-title">Q1 FY27 in Detail (Quarter Ended 30 June 2026)</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Q1 FY26</th><th class="right">Q1 FY27</th><th class="right">YoY</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Operating revenue (₹ Cr)</td><td class="right">1,024</td><td class="right">1,167</td><td class="right green">+13.9%</td></tr>
+        <tr><td class="bold">Total income (₹ Cr)</td><td class="right">~1,051</td><td class="right">1,197</td><td class="right green">+13.9%</td></tr>
+        <tr><td class="bold">Operating EBITDA (₹ Cr)</td><td class="right">129</td><td class="right">175</td><td class="right green">+35.4%</td></tr>
+        <tr><td class="bold">EBITDA margin</td><td class="right">12.6%</td><td class="right">15.0%</td><td class="right green">+240 bps</td></tr>
+        <tr><td class="bold">EBITDA incl. other income (₹ Cr)</td><td class="right">~156</td><td class="right">205</td><td class="right green">+31.7%</td></tr>
+        <tr><td class="bold">PAT (₹ Cr)</td><td class="right">65</td><td class="right">101</td><td class="right green">+56.1%</td></tr>
+        <tr><td class="bold">PAT margin</td><td class="right">6.2%</td><td class="right">8.4%</td><td class="right green">+220 bps</td></tr>
+        <tr><td class="bold">CDMO revenue (₹ Cr)</td><td class="right">813</td><td class="right">964</td><td class="right green">+18.6%</td></tr>
+        <tr><td class="bold">CDMO EBITDA (₹ Cr)</td><td class="right">119</td><td class="right">163</td><td class="right green">+36.8%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Q1 FY26 total income and EBITDA-including-other-income figures are back-solved from disclosed YoY growth rates and are approximate. All Q1 FY27 figures are as reported.</p>
+  </div>
+
+  <div class="callout callout-green">The Q1 FY27 print is the strongest quarter Akums has delivered as a listed company: highest revenue, highest EBITDA margin (15.0%), highest PAT, all with operating leverage of ~2.5x (EBITDA +35.4% on revenue +13.9%). It is one quarter — but it is the quarter the bulls needed.</div>
+</section>
+
+<!-- ═══════════════ S8: BALANCE SHEET ═══════════════ -->
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">Balance Sheet, Cash &amp; Capital Efficiency</h2></div>
+
+  <p>The balance sheet is the least controversial part of the Akums file — and, arguably, the most under-appreciated. This is a debt-free company sitting on roughly 13% of its market capitalisation in cash.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:260px">Net cash surplus</td><td class="green">₹1,616 Cr (per Q1 FY27 concall) — 98% parked in fixed deposits with nationalised banks. Effectively no debt.</td></tr>
+        <tr><td class="bold">Borrowings (Mar 2026)</td><td>₹157 Cr against reserves of ₹3,283 Cr — immaterial gearing</td></tr>
+        <tr><td class="bold">Net worth</td><td>&gt;₹3,400 Cr (Q1 FY27); book value ₹211/share</td></tr>
+        <tr><td class="bold">Total assets / fixed assets (Mar 26)</td><td>₹5,429 Cr total; ₹1,456 Cr fixed assets</td></tr>
+        <tr><td class="bold">ROCE</td><td>14.9% — respectable in absolute terms, and the more relevant metric given the cash pile</td></tr>
+        <tr><td class="bold">ROE (3-yr)</td><td class="red">8.45% — depressed by (a) the FY24 near-zero profit in the averaging window and (b) ₹1,616 Cr of low-yielding cash sitting in equity</td></tr>
+        <tr><td class="bold">Price / Book</td><td class="red">~3.63x (₹765 / ₹211) against an 8.45% ROE — the single hardest number in the valuation to defend</td></tr>
+        <tr><td class="bold">IPO proceeds</td><td>A CRISIL monitoring report has verified full utilisation of the ₹642.18 Cr of IPO proceeds</td></tr>
+        <tr><td class="bold">Dividend (FY26)</td><td>₹1 final + ₹2 special = ₹3/share; yield ~0.13% at CMP — token, given the cash balance</td></tr>
+        <tr><td class="bold">Contingent tax exposure</td><td class="muted">₹133.75 Cr block-period demand (Apr 2018 – Mar 2025) under s.158BC on Akums and Akumentis, arising from disallowance under s.37(1). Company says no material impact expected and is appealing.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">ROCE and ROE as computed by Screener.in on a multi-year basis. FY26 cash-flow-statement line items were not independently verifiable to a primary source at the time of writing and are therefore not reproduced here.</p>
+  </div>
+
+  <p>Two structural observations. First, the <strong>cash is doing real work in the ROE denominator</strong>: strip ₹1,616 Cr of net cash out of a ₹12,048 Cr market cap and the enterprise value is ~₹10,432 Cr — which puts the business on ~20x FY26 adjusted EBITDA, not the ~40x the headline P/E implies. Second, that same cash is a capital-allocation question the company has not yet answered. It is earning fixed-deposit rates while the equity is priced for growth. The ₹56 Cr Oriflame acquisition and the ~₹300 Cr FY27 capex plan are steps; they do not deploy ₹1,616 Cr.</p>
+
+  <div class="callout callout-gold">The most likely path to an ROE inflection is not margin alone — it is <em>capital deployment</em>. Either the cash goes into capacity and acquisitions that earn above the cost of capital, or it comes back to shareholders in size. A ₹3/share dividend on ₹1,616 Cr of net cash is neither.</div>
+</section>
+
+<!-- ═══════════════ S9: GROWTH & GUIDANCE ═══════════════ -->
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">Growth Drivers &amp; Management Guidance</h2></div>
+
+  <p class="subsection-title">Management Guidance (Q1 FY27 Concall, August 2026)</p>
+  <ul class="report-list">
+    <li><strong>FY27 EBITDA margin 14–15%, with upward bias</strong> — management explicitly said the strong Q1 (14.97%) inclines them toward the upper bracket. Against FY26's 12%, this is the margin-inflection guide the whole thesis rests on.</li>
+    <li><strong>CDMO double-digit volume growth for the full year</strong>, with Q2 FY27 specifically guided to "high teens" — versus domestic industry volume growth of only 2–3%.</li>
+    <li><strong>API monthly EBITDA breakeven by February/March 2027</strong>, with a positive contribution expected from FY28. The segment has been a persistent loss-maker; Q1 FY27's loss narrowed to ₹4 Cr from ₹6 Cr.</li>
+    <li><strong>Zambia order: ~US$25 mn (≈₹240 Cr) shipping in H2 FY27</strong>, with a similar quantum expected the following fiscal, at "high teens" margins.</li>
+    <li><strong>European CDMO contract commences in FY28</strong> — also guided to high-teens margins.</li>
+    <li><strong>FY27 capex ~₹300 Cr</strong>, weighted to oral solid dosage expansion; the new Baddi facility is targeted live by the end of FY27.</li>
+  </ul>
+
+  <p class="subsection-title">Structural Growth Drivers</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Driver</th><th>Detail</th><th class="right">Timing</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Europe CDMO contract</td><td>Signed Dec 2024 with a leading global pharma company: ~€200 mn (~₹1,760 Cr) across 2027–2032 for oral liquid formulations supplied into European markets. Management expects ~€35 mn annually once commercial supply begins. Akums' first regulated-market CDMO contract of scale.</td><td class="right">FY28 start</td></tr>
+        <tr><td class="bold">Zambia JV &amp; supply</td><td>JV with the Government of Zambia (Akums 51%) announced Aug 2025 to build a ~US$50 mn facility by 2028. Separately, Zambia has committed to buy ≥US$25 mn/year of essential medicines from Akums' Indian plants for CY2026 and CY2027. Export ambitions across Zimbabwe, Namibia, Botswana, Malawi, Tanzania and Mozambique.</td><td class="right">H2 FY27</td></tr>
+        <tr><td class="bold">Capacity headroom</td><td>~50% utilisation on 49.21 bn formulation units — growth without a capex cycle, at high incremental margin.</td><td class="right">Now</td></tr>
+        <tr><td class="bold">API turnaround</td><td>Exit from low-margin SIFA into lenalidomide, zoledronic acid, montelukast. Revenue is falling by design; the goal is profit, not scale.</td><td class="right">FY27–FY28</td></tr>
+        <tr><td class="bold">Injectables / sterile mix-up</td><td>Sterile injectable plant (Aug 2024, ~362 mn units p.a.) and lyophilised injectable plant (Jan 2025), with EU-GMP and ANVISA approvals — a route out of commodity oral solids into higher-realisation dosage forms.</td><td class="right">Ramping</td></tr>
+        <tr><td class="bold">Oriflame bolt-on</td><td>₹56 Cr for two HALAL-certified plants (Noida, Roorkee) completed 23 Jul 2026 — entry into skincare, cosmetics and wellness contract manufacturing.</td><td class="right">FY27</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-gold">Note the timing asymmetry carefully. The two genuinely transformative contracts — Europe (₹1,760 Cr over five years) and Zambia — contribute almost nothing to FY27 earnings beyond the ₹240 Cr H2 shipment. They are <strong>FY28 stories being paid for at FY27 prices</strong>. That is the definition of a stock where the multiple, not the earnings, is doing the work.</div>
+</section>
+
+<!-- ═══════════════ S10: VALUATION ═══════════════ -->
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation Model</h2></div>
+
+  <p>Shares outstanding ~15.75 crore (₹12,048 Cr market cap ÷ ₹765). FY26 reported EPS ₹16.21; Q1 FY27 EPS ₹6.35. We anchor on FY27E EPS, building up from management's own revenue and margin guidance and flexing for delivery.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Conservative</th><th class="right">Base Case</th><th class="right">Bull Case</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">FY26 revenue (₹ Cr) — actual</td><td class="right">4,359</td><td class="right">4,359</td><td class="right">4,359</td></tr>
+        <tr><td class="bold">FY27E revenue growth</td><td class="right">~+10%</td><td class="right green">~+15%</td><td class="right">~+18%</td></tr>
+        <tr><td class="bold">FY27E revenue (₹ Cr)</td><td class="right">~4,795</td><td class="right green">~5,010</td><td class="right">~5,145</td></tr>
+        <tr><td class="bold">FY27E EBITDA margin</td><td class="right">13.0%</td><td class="right green">14.5%</td><td class="right">15.5%</td></tr>
+        <tr><td class="bold">FY27E EBITDA (₹ Cr)</td><td class="right">~623</td><td class="right green">~726</td><td class="right">~798</td></tr>
+        <tr><td class="bold">FY27E PAT (₹ Cr)</td><td class="right">~340</td><td class="right green">~421</td><td class="right">~478</td></tr>
+        <tr><td class="bold">FY27E EPS (₹)</td><td class="right">~21.5</td><td class="right green">~26.7</td><td class="right">~30.4</td></tr>
+        <tr><td class="bold">Target P/E (FY27E)</td><td class="right">21–24x</td><td class="right green">29–30x</td><td class="right">34–36x</td></tr>
+        <tr><td class="bold">12-Month Target Price</td><td class="right">~₹450–₹515</td><td class="right green bold">~₹775–₹800</td><td class="right">~₹1,030–₹1,090</td></tr>
+        <tr><td class="bold">Upside vs CMP ~₹765</td><td class="right red">−41% to −33%</td><td class="right">+1% to +5%</td><td class="right" style="color:var(--gold)">+35% to +42%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">FY27E figures are the author's own directional projections, not company guidance. Bridge used in all three cases: EBITDA + other income of ₹115–125 Cr (on ₹1,616 Cr of net cash) − depreciation and finance cost of ~₹285 Cr (annualising the ~₹70 Cr implied in Q1 FY27) = PBT; taxed at 25%; divided by 15.75 crore shares. The base case sits at the mid-point of management's 14–15% margin guide with revenue growth roughly in line with the Q1 run-rate plus the ₹240 Cr Zambia shipment. These are estimates and may differ materially from outcomes.</p>
+  </div>
+
+  <p class="subsection-title">Cross-Checks</p>
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:260px">Trailing P/E</td><td>~39.5x on Screener's basis; ~41x on a strict TTM PAT of ₹292 Cr (FY26 ₹256 Cr − Q1 FY26 ₹65 Cr + Q1 FY27 ₹101 Cr). Rich for a 12–15% EBITDA-margin contract manufacturer.</td></tr>
+        <tr><td class="bold">Implied FY27E P/E at CMP</td><td>~28.6x on base-case EPS of ₹26.7 — i.e. the market is already paying a full multiple on a year in which management's guidance is fully delivered.</td></tr>
+        <tr><td class="bold">EV / EBITDA</td><td class="green">EV ≈ ₹10,432 Cr (₹12,048 Cr mcap − ₹1,616 Cr net cash). That is ~20x FY26 adjusted EBITDA of ₹522 Cr and ~14.4x base-case FY27E EBITDA of ₹726 Cr. <strong>Ex-cash, the valuation is materially less demanding than the headline P/E suggests</strong> — the single strongest argument against the bear case.</td></tr>
+        <tr><td class="bold">P/B vs ROE</td><td class="red">3.63x book against an 8.45% three-year ROE. Even normalising for the depressed FY24 base and the cash drag, this multiple requires the ROE to roughly double.</td></tr>
+        <tr><td class="bold">Peer relative</td><td>~28.6x FY27E vs Innova Captab at 38.1x trailing (on better margins and ROE) and Windlas at 30.4x trailing (on the same margins). Akums screens as fairly valued within its true peer group — not cheap, not egregious.</td></tr>
+        <tr><td class="bold">Street</td><td>ICICI Securities raised its target to <strong>₹850</strong> (from ₹680) with a Buy after Q1 FY27 — ~+11% from CMP, close to the top of our base range. A three-analyst consensus average of ₹673 is stale (it implies a reference price near ₹493) and should be disregarded.</td></tr>
+        <tr><td class="bold">Where the price sits</td><td class="red">₹765 is 2.4% below the ₹784 52-week high and <strong>+87% above the ₹409 low</strong>. The re-rating has already happened.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-red">The uncomfortable arithmetic: at ₹765, base-case fair value is ₹775–₹800. That is +1% to +5%. The stock is not mispriced — it is <em>correctly</em> priced for management delivering exactly what it has guided. Everything above ₹800 requires FY28 (Europe, Zambia at scale, API profitability) to be pulled forward into today's multiple.</div>
+</section>
+
+<!-- ═══════════════ S11: SCENARIOS ═══════════════ -->
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Bull &amp; Bear Scenario Analysis</h2></div>
+
+  <div class="scenario-grid">
+    <div class="scenario-card">
+      <div class="sc-header bull">🐂 Bull Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val green">Margin guide is beaten, not met — FY27 EBITDA margin above 15%; API hits EBITDA breakeven early; Zambia ships in full; Europe regulatory approval lands and FY28 visibility gets baked in; utilisation climbs off 50% with no capex</span></div>
+        <div class="sc-row"><span class="sc-key">Revenue FY27E</span><span class="sc-val green">~₹5,145 Cr (+18%)</span></div>
+        <div class="sc-row"><span class="sc-key">EBITDA Margin</span><span class="sc-val green">15.5%</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E EPS</span><span class="sc-val green">~₹30.4</span></div>
+        <div class="sc-row"><span class="sc-key">Target Multiple</span><span class="sc-val green">34–36x FY27E</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val green">₹1,030 – ₹1,090</span></div>
+      </div>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-header bear">🐻 Bear Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val red">API pricing tailwind reverses (Q1's margin was helped by favourable API prices); CDMO volume growth normalises toward industry; Zambia slips out of FY27; another Haridwar disruption; branded field-force spend keeps eating EBITDA; small-cap pharma multiple compression</span></div>
+        <div class="sc-row"><span class="sc-key">Revenue FY27E</span><span class="sc-val red">~₹4,795 Cr (+10%)</span></div>
+        <div class="sc-row"><span class="sc-key">EBITDA Margin</span><span class="sc-val red">13.0% (below guide)</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E EPS</span><span class="sc-val red">~₹21.5</span></div>
+        <div class="sc-row"><span class="sc-key">Target Multiple</span><span class="sc-val red">21–24x FY27E</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val red">₹450 – ₹515</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p>The asymmetry at ₹765 is poor: roughly <strong>+3% in the base case against −37% in the bear case and +39% in the bull</strong>. Put differently, an investor buying today is being paid nothing for the base case and is underwriting a coin-flip between a full re-rating and a full de-rating. The stock has already done the easy 87% off the ₹409 low; what remains is a bet on FY28 optionality at an FY27 price.</p>
+
+  <p>This is not a comment on business quality. Akums' operating trajectory over the last three quarters is unambiguously improving. It is a comment on entry price — the market has priced the improvement before it is annualised.</p>
+</section>
+
+<!-- ═══════════════ S12: RISKS ═══════════════ -->
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risk Factors</h2></div>
+
+  <div class="risk-grid">
+    <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Structurally Modest Margins &amp; Returns</div><span class="badge badge-high">HIGH</span><div class="risk-body">12% FY26 operating margin, 8.45% three-year ROE, 14.9% ROCE — against 3.63x book. Contract manufacturing for larger, more powerful counterparties has limited pricing power by construction. If the 14–15% margin guide proves a cyclical peak rather than a new floor, the multiple has no support.</div></div>
+    <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Valuation / Re-rating Already Done</div><span class="badge badge-high">HIGH</span><div class="risk-body">₹765 is +87% off the ₹409 52-week low and 2.4% below the ₹784 high, on ~40x trailing and ~28.6x base-case FY27E. Base-case fair value offers +1% to +5%. The margin of safety has been spent.</div></div>
+    <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Single-Cluster Manufacturing (Haridwar)</div><span class="badge badge-medh">MED–HIGH</span><div class="risk-body">Production is heavily concentrated at Haridwar, Uttarakhand. Labour unrest disrupted output during FY26, with full capacity restored only on 18 May 2026. A repeat — labour, regulatory, or environmental — hits a large share of group revenue at once. The Baddi and Noida/Roorkee additions dilute this only marginally.</div></div>
+    <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Client Concentration &amp; Channel Conflict</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">Top-10 CDMO clients were 39.3% of CDMO revenue in FY24. Those clients are large pharma majors with structural bargaining advantage — and, via Akumentis, Akums competes with them in domestic branded formulations. Scaling the branded arm too aggressively risks the CDMO franchise that funds it.</div></div>
+    <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">API Price Tailwind Is Not Durable</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">Management explicitly attributed part of Q1 FY27's margin strength to favourable API input prices, and flagged that Q1 sat at the upper end of the 14–15% range for that reason. API pricing is a cycle, not a moat; a reversal removes a chunk of the margin inflection the market has just paid for.</div></div>
+    <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">FY28 Execution: Europe &amp; Zambia</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">The ₹1,760 Cr Europe contract requires European regulatory approval of the oral-liquid site and only begins commercially in FY28. Zambia's ~₹240 Cr H2 FY27 shipment depends on a sovereign counterparty; the JV facility is a 2028 project. Neither is de-risked, and both are already partially in the price.</div></div>
+    <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Loss-Making Non-Core Segments</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">API revenue fell 29.7% YoY in Q1 FY27 and is still loss-making (₹4 Cr); trade generics fell 9.5% at breakeven EBITDA; international branded declined 1.5%; domestic branded EBITDA fell 25.4% on field-force spend. Four of five segments are currently value-neutral or worse.</div></div>
+    <div class="risk-row"><div class="risk-num">08</div><div class="risk-name">Thin Float, FII Exodus &amp; Tax Overhang</div><span class="badge badge-low">LOW–MED</span><div class="risk-body">Promoters hold 75.26% leaving a ~24.7% float; FII holding has fallen from 7.34% to 1.91% since listing, concentrating the register in domestic hands and amplifying moves in both directions. Separately, a ₹133.75 Cr block-period income-tax demand (FY18–FY25) is under appeal; the company expects no material impact, but it is an unresolved contingent claim.</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ S13: SUMMARY ═══════════════ -->
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Investment Summary &amp; Recommendation</h2></div>
+
+  <div class="thesis-box">
+    <p>Akums manufactures more than a tenth of the medicine India consumes and holds <strong>over 30% of the domestic CDMO market</strong>, supplying <strong>26 of the country's 30 largest pharma companies</strong> from 12 plants running at roughly <strong>50% utilisation</strong>. That is a real, physical, hard-to-replicate moat — and for two years after its August 2024 IPO the market refused to pay for it, marking the stock down 40% from its ₹679 issue price through a run of earnings disappointments that bottomed with Q2 FY26's 9% operating margin and ₹43 Cr of profit. The last three quarters have changed the argument: CDMO volumes have compounded in the high teens against an industry growing 2–3%, and Q1 FY27 delivered a record ₹1,167 Cr of revenue at a <strong>15.0% EBITDA margin with PAT up 56%</strong>. The problem is that the stock has already re-rated <strong>87% off its ₹409 low</strong> to sit 2% below its all-time high, on ~40x trailing and ~28.6x our base-case FY27E — a full multiple for a business that still earns an 8.45% ROE on 3.6x book, still loses money in API, and whose two genuinely transformative contracts (the ₹1,760 Cr European agreement and the Zambia partnership) are largely FY28 events. This is a high-quality franchise at a price that already assumes the guidance is met. <strong>Own the business; wait for the price.</strong></p>
+  </div>
+
+  <p class="subsection-title">The Three Reasons to Own AKUMS</p>
+  <ul class="report-list">
+    <li><strong>1. An irreplaceable share position:</strong> &gt;30% of India's domestic CDMO market, 26 of the top 30 pharma majors as clients, 4,100+ commercialised formulations across 60+ dosage forms, and 38 of the top 50 customers on relationships longer than five years. You cannot build this in a decade.</li>
+    <li><strong>2. Operating leverage sitting in plain sight:</strong> ~50% capacity utilisation means growth needs volume, not capex. Q1 FY27 proved the drop-through — revenue +13.9%, EBITDA +35.4%, CDMO segment EBITDA +36.8%.</li>
+    <li><strong>3. A fortress balance sheet with unpriced optionality:</strong> ₹1,616 Cr net cash (13% of market cap), effectively no debt, IPO proceeds fully deployed per CRISIL. Strip the cash and the enterprise trades at ~14.4x base-case FY27E EBITDA — far less demanding than the headline. The ₹1,760 Cr Europe contract and the Zambia programme are free options on FY28.</li>
+  </ul>
+
+  <p class="subsection-title">Key Monitorables — Watch Through FY27</p>
+  <div class="monitor-grid">
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Quarterly EBITDA margin against the 14–15% guide — does Q1's 15.0% hold once the API price tailwind fades?</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>CDMO volume growth vs the 2–3% industry rate — the share-gain engine; Q2 FY27 is guided to "high teens"</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>API monthly EBITDA breakeven by Feb–Mar 2027 — a hard, dated, falsifiable management commitment</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Zambia: does the ~US$25 mn (₹240 Cr) shipment actually land in H2 FY27?</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>European regulatory approval for the oral-liquid site — the gate on the ₹1,760 Cr FY28 contract</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Capacity utilisation moving off ~50%, and Baddi commissioning by end-FY27</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>ROE/ROCE inflection and what happens to ₹1,616 Cr of idle cash — the real determinant of the 3.6x P/B</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Any repeat of Haridwar operational disruption, and progress on the ₹133.75 Cr tax appeal</div></div>
+  </div>
+
+  <div class="verdict-banner">
+    <h3>RATING: HOLD — ACCUMULATE BELOW ₹650</h3>
+    <p>Base Case 12-Month Target: <strong>₹775–₹800</strong> &nbsp;|&nbsp; Bull: ₹1,030–₹1,090 &nbsp;|&nbsp; Bear: ₹450–₹515 &nbsp;|&nbsp; CMP ~₹765 &nbsp;|&nbsp; Risk Level: MEDIUM–HIGH</p>
+  </div>
+
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:20px;">
+    SOURCE QUALITY: Financials, quarterly trajectory, shareholding pattern, market cap, CMP (~₹765), 52-week range (₹784/₹409) and all peer comparison metrics are taken from Screener.in company pages retrieved on 26 August 2026. Q1 FY27 results, segment mix and segment EBITDA are from the company's Q1 FY27 results release and investor presentation (10 August 2026) and coverage of the Q1 FY27 earnings call; FY26 and Q4 FY26 figures are from the company's 15 May 2026 results release. Guidance (14–15% EBITDA margin, CDMO volume growth, API breakeven by Feb–Mar 2027, ~₹300 Cr capex, ~50% utilisation, ₹1,616 Cr net cash, Baddi timing) is management commentary from the Q1 FY27 concall as reported in financial media. Market share, client count, capacity (49.21 bn formulation units / 737.38 MT APIs), facility count and dosage-form data are company disclosures. Top-10 client concentration of 39.3% is from an ICRA rating rationale and is FY24 data — the most recent independently sourced figure available, and it may since have changed. The Europe contract (~€200 mn / ₹1,760 Cr, 2027–2032) and the Zambia JV and supply commitment are per company announcements and media coverage. FY25 adjusted EBITDA/PAT comparatives, and the rupee values for international branded and trade generics, are back-solved from disclosed growth rates and mix percentages and are approximate. FY27E revenue, margin, PAT, EPS and all target prices are the author's own directional projections and are not company guidance. FY26 cash-flow-statement detail and working-capital/debtor-day metrics could not be verified to a primary source and have been omitted rather than estimated.
+  </p>
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:10px;">
+    DISCLAIMER: This report is prepared for informational and private research purposes only. It does not constitute investment advice or a recommendation to buy or sell any security. The author is not a SEBI-registered investment adviser and may hold positions in the securities discussed. All financial data is sourced from publicly available filings, concall coverage and exchange disclosures. Investing in equities involves the risk of capital loss. Past performance is not indicative of future results. Please consult a SEBI-registered investment adviser before making any investment decision.
+  </p>
+</section>
+
+</div><!-- /.page -->
+
+<footer class="footer">
+  <div>AKUMS DRUGS AND PHARMACEUTICALS LIMITED (NSE: AKUMS) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results &amp; Investor Presentation (10 Aug 2026) · Q1 FY27 Earnings Call · FY26 Audited Results (15 May 2026) · ICRA Rating Rationale · Company Disclosures · Screener.in (26 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

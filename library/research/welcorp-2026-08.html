@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welspun Corp Limited — Equity Research Report | August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ MASTHEAD ═══════════════ -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: WELCORP &nbsp;|&nbsp; BSE: 532144 &nbsp;|&nbsp; ISIN: INE191B01025 &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026</p>
+    <h1 class="report-title"><span>Welspun</span> Corp Limited</h1>
+    <p class="report-subtitle">Large-Diameter Line Pipes &amp; DI Pipes &nbsp;·&nbsp; Welspun Group (B.K. Goenka) &nbsp;·&nbsp; India · USA · Saudi Arabia</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (Aug 26)</div><div class="kpi-value">~₹2,301</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹60,698 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">52W H / L</div><div class="kpi-value">₹2,434 / ₹710</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Revenue FY26</div><div class="kpi-value">₹16,770 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">PAT FY26</div><div class="kpi-value">₹1,620 Cr</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Accumulate on Dips · Hold at CMP</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Target (1Y)</div><div class="rating-val">₹3,200 – ₹3,300</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Target (1Y)</div><div class="rating-val">₹1,300 – ₹1,450</div></div>
+  </div>
+</header>
+
+<!-- ═══════════════ STICKY NAV ═══════════════ -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Segments</a>
+    <a href="#s3">Value Chain</a>
+    <a href="#s4">Order Book</a>
+    <a href="#s5">Capacity</a>
+    <a href="#s6">Competition</a>
+    <a href="#s7">Financials</a>
+    <a href="#s8">Balance Sheet</a>
+    <a href="#s9">Guidance</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- ═══════════════ S1: OVERVIEW ═══════════════ -->
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:220px">Full Name</td><td>Welspun Corp Limited — flagship listed entity of the Welspun Group</td></tr>
+        <tr><td class="bold">Lineage</td><td>Welspun Gujarat Stahl Rohren Ltd → merged with Welspun Tubular / Welspun Pipes → renamed Welspun Corp Ltd. Anjar (Kutch) has been the manufacturing anchor since the early 2000s; Little Rock, Arkansas since 2007; Saudi Arabia via EPIC (associate) and a wholly-owned subsidiary under construction. Sintex acquired out of insolvency (2022–23); Welspun Specialty Solutions (WSSL) is the stainless arm.</td></tr>
+        <tr><td class="bold">ISIN / Codes</td><td style="font-family:'IBM Plex Mono',monospace;font-size:12px">INE191B01025 &nbsp;|&nbsp; NSE: WELCORP &nbsp;|&nbsp; BSE: 532144</td></tr>
+        <tr><td class="bold">Listed</td><td>NSE / BSE. Part of the Welspun Group alongside Welspun Living, Welspun Enterprises and Welspun Specialty Solutions.</td></tr>
+        <tr><td class="bold">Promoters</td><td>Balkrishan Goenka (Trustee, Welspun Group Master Trust) and associated family trusts / Welspun Investments &amp; Commercials. Promoter holding <strong>49.73%</strong> (Mar 2026), of which the Master Trust alone holds ~44.8%.</td></tr>
+        <tr><td class="bold">Key Management</td><td>Vipul Mathur — Managing Director &amp; CEO &nbsp;·&nbsp; Percy Birdy — CFO</td></tr>
+        <tr><td class="bold">Headquarters</td><td>Mumbai (corporate) &nbsp;·&nbsp; Welspun City, Anjar, Kutch, Gujarat (principal manufacturing complex)</td></tr>
+        <tr><td class="bold">Face Value</td><td>₹5 per share &nbsp;·&nbsp; ~26.4 crore shares outstanding</td></tr>
+        <tr><td class="bold">Sector</td><td>Iron &amp; Steel Products — large-diameter welded line pipe (LSAW / HSAW / HFIW), ductile iron pipe, stainless bars &amp; pipes, TMT rebar, plastic water products (Sintex)</td></tr>
+        <tr><td class="bold">Shareholding (Mar 26)</td><td>Promoters 49.73% &nbsp;·&nbsp; DIIs 21.49% &nbsp;·&nbsp; FIIs 11.23% &nbsp;·&nbsp; Public &amp; others 17.52%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Shareholding as per the latest pattern captured on Screener.in (Mar 2026 quarter). Promoter stake has drifted marginally from 50.00% (Mar 2025) to 49.73% across FY26.</p>
+  </div>
+
+  <p>Welspun Corp is one of the world's largest manufacturers of large-diameter welded line pipe — the physical arteries of oil, gas, LNG and water transmission. It is <em>not</em>, however, a single-product business any more. Four verticals now sit under the same roof: <strong>Line Pipes</strong> (India, USA, Saudi Arabia), <strong>Ductile Iron (DI) Pipes</strong> (Anjar, plus a Saudi build-out), <strong>Sintex</strong> (water tanks, plastic pipes and fittings — a B2C brand acquired out of insolvency), and <strong>Welspun Specialty Solutions</strong> (integrated stainless steel bars, seamless pipes and tubes).</p>
+
+  <p>The investment question in August 2026 is unusually sharp, because the stock has quadrupled from its 52-week low of ₹710 and just posted its largest single order in history. Is this a business whose earnings power has been <em>structurally rebased</em> — by a protected, high-margin US franchise and a Middle-East build-out — or is it a classic project-cycle business printing peak margins at the top of a global pipeline capex wave? This report argues the answer is <strong>both, in unequal measure</strong>, and that the distinction is what the current valuation hinges on.</p>
+
+  <div class="callout callout-gold">House view: The US franchise is genuinely rebased — Section 232 tariffs, an entrenched 19-year Little Rock presence and ~US$300/tonne EBITDA give Welspun a moat that did not exist in FY22. But the consolidated Q1 FY27 EBITDA margin of 18.5% is a peak print, not a run-rate: management's own FY27 guidance implies roughly ₹700 Cr of EBITDA per quarter for the balance of the year, <em>below</em> the ₹756 Cr just delivered.</div>
+</section>
+
+<!-- ═══════════════ S2: BUSINESS SEGMENTS ═══════════════ -->
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">Business Segments &amp; Portfolio</h2></div>
+
+  <p>Welspun does not publish a clean revenue split by vertical in its quarterly disclosures — management explicitly declined to break out the India-versus-US mix on the Q1 FY27 call, directing analysts offline. What it <em>does</em> publish is volume by product line, which is the most reliable public read on segment scale.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Vertical</th><th class="right">Q1 FY27 Volume</th><th class="right">Q1 FY26 Volume</th><th>Profile &amp; Direction</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Line Pipes (India + USA)</td><td class="right green">193 KMT</td><td class="right">182 KMT</td><td>The profit engine. LSAW, HSAW/Spiral and HFIW/ERW for oil &amp; gas transmission, LNG export headers and — increasingly — gas laterals feeding US data-centre power plants. US EBITDA guided at ~US$300/tonne, currently running "slightly more". Order book heavily weighted to the USA.</td></tr>
+        <tr><td class="bold">Ductile Iron Pipes</td><td class="right">69 KMT</td><td class="right">65 KMT</td><td>The disappointment. Anjar integrated DI facility (blast furnace, sinter plant, coke oven, PCI, oxygen plant). Domestic Jal Jeevan Mission demand is fund-constrained and the Indian industry is in overcapacity; management has deliberately scaled DI down and re-routed hot metal into <strong>pig iron exports</strong>.</td></tr>
+        <tr><td class="bold">TMT Rebar</td><td class="right green">47 KMT</td><td class="right">40 KMT</td><td>Downstream use of Anjar's integrated steelmaking. Commodity-grade, low realisation, but absorbs hot metal when DI demand is soft.</td></tr>
+        <tr><td class="bold">Stainless Bars / Pipes (WSSL)</td><td class="right red">6.3 KMT</td><td class="right">8.3 KMT</td><td>Small but strategically interesting: FY26 EBITDA +52% YoY on a "value over volume" strategy. India's only integrated player with its own steelmaking, rolling and pipe-making. Targeting nuclear, defence, aerospace and petrochemical grades.</td></tr>
+        <tr><td class="bold">Sintex (plastics / water)</td><td class="right muted">Not disclosed</td><td class="right muted">—</td><td>~₹500 Cr revenue over 9M FY26 (management commentary). B2C water tanks plus a build-out into pipes, fittings and OPVC. A ₹2,355 Cr investment plan is underway. Currently a margin drag: the same Jal Jeevan funding squeeze that hurts DI hurts Sintex.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Volumes from the Q1 FY27 investor presentation. Sintex revenue is management commentary from the Q3 FY26 call, not an audited segment disclosure; treat as indicative.</p>
+  </div>
+
+  <div class="callout">The portfolio is doing exactly what a diversified portfolio is supposed to do — and that is both the good news and the warning. Line pipes are carrying the whole company while DI and Sintex, the two "India water infrastructure" legs, are in a genuine down-cycle. The diversification thesis is real, but in FY27 it is running on one cylinder.</div>
+</section>
+
+<!-- ═══════════════ S3: VALUE CHAIN ═══════════════ -->
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Where Welspun Sits in the Pipeline Value Chain</h2></div>
+
+  <p>Every hydrocarbon or water pipeline follows the same physical sequence. Welspun occupies stages 02 and 03 — pipe forming and coating — which is where the technical qualification barriers, and therefore the pricing power, actually live.</p>
+
+  <div class="vc-diagram">
+    <div class="vc-layer l1">
+      <div class="vc-num">STAGE 01</div>
+      <div class="vc-name">Substrate</div>
+      <div class="vc-desc">HR coil and plate for welded pipe; iron ore, coke and scrap for DI and rebar</div>
+      <div class="vc-tags"><span class="vc-tag">US &amp; Indian mills</span><span class="vc-tag">Anjar: own hot metal</span></div>
+    </div>
+    <div class="vc-layer l2">
+      <div class="vc-num">STAGE 02</div>
+      <div class="vc-name">Pipe Forming</div>
+      <div class="vc-desc">LSAW, HSAW/Spiral, HFIW/ERW, ductile iron casting, seamless stainless</div>
+      <div class="vc-tags"><span class="vc-tag skip">WELSPUN CORP</span><span class="vc-tag">Jindal SAW · Man Ind.</span></div>
+    </div>
+    <div class="vc-layer l3">
+      <div class="vc-num">STAGE 03</div>
+      <div class="vc-name">Coating &amp; Value-Add</div>
+      <div class="vc-desc">3LPE/FBE anti-corrosion, concrete weight coating, bends, double-jointing, logistics</div>
+      <div class="vc-tags"><span class="vc-tag skip">WELSPUN CORP</span><span class="vc-tag">Bhopal · Little Rock</span></div>
+    </div>
+    <div class="vc-layer l4">
+      <div class="vc-num">STAGE 04</div>
+      <div class="vc-name">Owners &amp; EPC</div>
+      <div class="vc-desc">Midstream operators, LNG terminals, national oil companies, water utilities, data-centre power developers</div>
+      <div class="vc-tags"><span class="vc-tag">US midstream</span><span class="vc-tag">Saudi Aramco · GAIL</span></div>
+    </div>
+  </div>
+
+  <p>Two features of this position matter. First, <strong>approvals are the moat</strong>. Management was explicit that Tier-1 midstream operators run a lengthy qualification cycle, and that for an already-approved supplier "getting approval is a matter of weeks, not months" — while a greenfield entrant in the US faces "at least an 18- to 24-month process". Second, <strong>the coating leg is where the incremental margin sits</strong>: an uncoated pipe is close to a commodity; a coated, double-jointed, weight-coated pipe delivered to a Gulf Coast right-of-way is a project service.</p>
+
+  <p>What Welspun does <em>not</em> control is the substrate. In the US, Section 232 has pushed domestic steel pricing sharply higher — which inflates the rupee value of the order book but also means the FY29 book cannot be committed until steel supply is locked. Management flagged precisely this: securing an assured, fixed-price substrate for FY29 is "not a one data point discussion".</p>
+</section>
+
+<!-- ═══════════════ S4: ORDER BOOK ═══════════════ -->
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">The Order Book — and the US$1.8 Billion Order</h2></div>
+
+  <div class="macro-grid">
+    <div class="macro-card"><div class="macro-co">Global Order Book (post-Aug 21)</div><div class="macro-val">~US$4.4 bn</div><div class="macro-label">≈ ₹42,000 Cr &nbsp;·&nbsp; ~2.5x FY26 revenue &nbsp;·&nbsp; all-time high</div></div>
+    <div class="macro-card"><div class="macro-co">Single Largest Order Ever</div><div class="macro-val">US$1.8 bn</div><div class="macro-label">≈ ₹17,200 Cr &nbsp;·&nbsp; announced 20–21 Aug 2026 &nbsp;·&nbsp; executes across FY28 and FY29</div></div>
+    <div class="macro-card"><div class="macro-co">Order Book at Q1 FY27</div><div class="macro-val">~₹25,750 Cr</div><div class="macro-label">≈ US$2.7 bn &nbsp;·&nbsp; "the strongest in the company's history" — Vipul Mathur, 27 Jul 2026</div></div>
+    <div class="macro-card"><div class="macro-co">US Order Mix</div><div class="macro-val">75 / 25</div><div class="macro-label">~75–80% Gulf Coast LNG export &nbsp;·&nbsp; ~20–25% data-centre gas infrastructure, and rising</div></div>
+  </div>
+
+  <p>On 20 August 2026 Welspun disclosed a <strong>US$1.8 billion pipe supply order to be executed from its US facility across FY28 and FY29</strong> — the largest single order in the company's history and, on the available public record, one of the largest ever won by an Indian pipe manufacturer. The customer was not named in the exchange filing. The award took the global order book from roughly US$2.7 billion to <strong>US$4.4 billion</strong>. The stock rose ~9–12% on the day to a fresh all-time high, capping a six-session rally of roughly 28%.</p>
+
+  <p>The strategic significance is larger than the headline. Three weeks earlier, on the Q1 FY27 call, Mathur had said the book was "mostly till FY28" and that FY29 visibility was "a long way out" but that engagements had started. This single order converts that hope into contracted revenue. It is the reason the FY29 earnings hole — the single biggest bear argument three weeks ago — has materially closed.</p>
+
+  <p class="subsection-title">The Two Demand Engines Behind the Book</p>
+  <ul class="report-list">
+    <li><strong>US Gulf Coast LNG export:</strong> still ~75–80% of the US book. Feed-gas headers and takeaway lines from the Permian to Gulf Coast liquefaction. Lumpy, project-driven, and tied to LNG FID cycles.</li>
+    <li><strong>US data-centre power infrastructure:</strong> ~20–25% today and explicitly the faster-growing leg. The logic is second-order but sound — data centres are moving to Midwest and Arizona sites with their own gas-fired generation, and each plant needs a lateral. Management cited a US gas-turbine order book of "more than 300 gas turbines" this year versus "hardly 5 or 7 or 10" two years ago as the leading indicator.</li>
+    <li><strong>Saudi Arabia / Middle East:</strong> oil &amp; gas plus water infrastructure plus reconstruction. Management describes discussions having moved from internal to engagement stage, with the Saudi East-West pipeline expansion (bypassing the Strait of Hormuz) "a very active project, which is under discussion" — but not yet tendered.</li>
+    <li><strong>India export from Anjar:</strong> ~150,000–200,000 tonnes a year of pipe, "primarily LSAW", into the Middle East, South-East Asia and now the Caspian. A ~₹1,600 Cr export order was booked shortly before the Q1 call. India's LSAW line "was always export".</li>
+  </ul>
+
+  <div class="callout callout-green">The honest read on the book: at ~2.5x FY26 revenue with visibility into FY29, this is the best demand position Welspun has ever held. The qualifier is concentration — a single undisclosed customer now accounts for roughly 40% of the total book, and ~75% of the US book still depends on the LNG export cycle continuing to sanction projects.</div>
+</section>
+
+<!-- ═══════════════ S5: CAPACITY ═══════════════ -->
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Capacity, Operations &amp; the US Franchise</h2></div>
+
+  <p>Welspun operates roughly <strong>2.2 MTPA of line pipe capacity</strong> across three geographies, plus a separate integrated DI and steelmaking complex at Anjar. The US leg is where the economics diverge sharply from everything else.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Location</th><th class="right">Line Pipe Capacity</th><th>Status &amp; Economics</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">India (Anjar, Bhopal, Mandya)</td><td class="right">~12,55,000 MTPA</td><td>LSAW, Spiral, HFIW/ERW plus a DI plant. Anjar's spiral facility was converted into a hybrid Spiral/LSAW plant in FY26; an additional 3 mn sq.m coating line commissioned at Bhopal. Predominantly export-oriented on LSAW.</td></tr>
+        <tr><td class="bold">USA (Little Rock, Arkansas)</td><td class="right green">~5,25,000 MTPA</td><td>Welspun Tubular LLC, at the Port of Little Rock since 2007. <strong>~US$300/tonne EBITDA</strong> guided, currently running above that. HFIW/ERW upgrade (~US$100 mn) commissioned and stabilised as of Jul 2026; new LSAW mill + coating line (~US$150 mn) targeted by end-FY27, which will make it the only US producer capable of 6" to 56" line pipe.</td></tr>
+        <tr><td class="bold">Saudi Arabia</td><td class="right">~3,75,000 MTPA</td><td>Via EPIC (East Pipes Integrated Company), a listed Saudi associate in which Welspun holds <strong>&gt;22%</strong> and remains the largest shareholder. A separate 100%-owned Welspun subsidiary is under construction — two facilities progressively commissioning by Q3 FY27.</td></tr>
+        <tr><td class="bold">DI Pipes (Anjar)</td><td class="right muted">~4,00,000 MTPA</td><td>Integrated greenfield complex with blast furnace, sinter plant, coke oven, PCI and oxygen plant supporting up to ~5,00,000 MTPA of hot metal for DI and pig iron. Board had approved expansion toward ~6,00,000 MTPA. Deliberately under-utilised today.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Capacity figures compiled from company disclosures and industry coverage; the US number predates the LSAW and HFIW expansions now commissioning and should rise. Treat as approximate.</p>
+  </div>
+
+  <p class="subsection-title">Why the US Business Is the Whole Argument</p>
+  <p>Take management's own disclosed figure of ~US$300/tonne of US EBITDA and apply it to the current ~525,000 MTPA of US capacity at full utilisation: that is roughly <strong>US$158 million, or ~₹1,500 Cr of EBITDA</strong> from about a quarter of group capacity — against total guided FY27 group EBITDA of ₹2,850 Cr. <em>(This arithmetic is the author's own, using management's disclosed per-tonne figure and a USD/INR of ~95.6 implied by the ₹17,200 Cr conversion of the US$1.8 bn order; it is illustrative, not a company disclosure.)</em></p>
+
+  <p>The protection around that margin is <strong>Section 232</strong>, the 50% US steel tariff. Asked directly what happens if 232 and Section 301 were rolled back, Mathur was unusually blunt: it is "by statute of law… It has survived 2 terms of 2 different parties. So I see no reason whatsoever that this is going to roll back." He also declined to add US capacity — arguing that at current industry capacity "there probably is no need to add any capacity", because overcapacity "comes and bites you back when the sun is not shining". That is a supplier consciously protecting price, and it is the single most important structural fact in this equity.</p>
+
+  <div class="callout callout-gold">Read the capacity discipline carefully. A management team that refuses to expand into a demand boom is either preserving pricing power (bullish for margins, bearish for volume growth beyond FY29) or signalling that it does not believe the demand is permanent. Mathur said both things on the same call: "we are seeing a very structural demand for the next 5 to 7 years" and "this is also a cyclical business."</div>
+</section>
+
+<!-- ═══════════════ S6: COMPETITION ═══════════════ -->
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Competitive Positioning &amp; Peer Comparison</h2></div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Company</th><th class="right">CMP</th><th class="right">M-Cap (₹ Cr)</th><th class="right">P/E</th><th class="right">P/B</th><th class="right">ROCE</th><th class="right">FY26 Sales</th><th class="right">FY26 PAT</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Welspun Corp</td><td class="right">₹2,301</td><td class="right">60,698</td><td class="right">26.3</td><td class="right">6.6x</td><td class="right green">22.9%</td><td class="right">16,770</td><td class="right">1,620</td></tr>
+        <tr><td class="bold">Jindal SAW</td><td class="right">₹304</td><td class="right">19,441</td><td class="right">29.6</td><td class="right green">1.54x</td><td class="right red">10.4%</td><td class="right">17,895</td><td class="right">925</td></tr>
+        <tr><td class="bold">Man Industries</td><td class="right">₹707</td><td class="right">5,300</td><td class="right">25.9</td><td class="right">2.5x</td><td class="right">16.2%</td><td class="right">3,564</td><td class="right">170</td></tr>
+        <tr><td class="bold">APL Apollo Tubes</td><td class="right">₹2,160</td><td class="right">59,960</td><td class="right red">48.7</td><td class="right red">11.3x</td><td class="right green">31.8%</td><td class="right">23,079</td><td class="right">1,203</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">All market data as at 26 Aug 2026 from Screener.in (consolidated). P/B computed by the author from CMP ÷ book value per share. Welspun's trailing P/E is flattered by the ₹548 Cr EPIC exceptional gain booked in Q1 FY27 — see Section 10 for the normalised view.</p>
+  </div>
+
+  <p class="subsection-title">The Honest Read-Across</p>
+  <ul class="report-list">
+    <li><strong>Jindal SAW is the closest structural comparable — and the sharpest contrast.</strong> Near-identical FY26 revenue (₹17,895 Cr vs ₹16,770 Cr) and a similar product spread (LSAW, HSAW, DI, seamless, pellets). But it earned ₹925 Cr against Welspun's ₹1,620 Cr, on a 10.4% ROCE versus 22.9%, and Q1 FY27 was starker still: ₹4,452 Cr of sales producing just ₹91 Cr of profit at a 9% operating margin, against Welspun's ₹4,081 Cr producing a 17% margin. The market prices that gap honestly — 1.54x book versus 6.6x. <em>The entire Welspun premium is the US business.</em></li>
+    <li><strong>Man Industries</strong> is the sub-scale domestic alternative: ~1 mn tonne capacity, a decent 14% Q1 operating margin, but a 9.2% ROE and no meaningful overseas manufacturing footprint. It is a leveraged bet on the same Indian export cycle without the tariff-protected US annuity.</li>
+    <li><strong>APL Apollo</strong> is included as a valuation anchor, not a competitor — it is structural steel tubes for construction, not line pipe. It shows what the market will pay for a genuinely branded, high-ROCE (31.8%), non-project steel business: 48.7x earnings and 11.3x book. Welspun's 26.3x/6.6x sits between the commodity pipe complex and that branded benchmark, which is roughly where a 23% ROCE project business belongs.</li>
+    <li><strong>Global peers</strong> — Tenaris, Vallourec, US Steel's tubular arm — are outside this coverage, but the relevant competitive fact is that inside the US, Section 232 has effectively fenced the market to domestic producers, and Welspun is now the only one able to span 6" to 56" once Little Rock's LSAW mill commissions.</li>
+  </ul>
+
+  <div class="callout">Where Welspun is genuinely differentiated: multi-geography manufacturing (not just exporting), 15+ years of on-the-ground US and Saudi presence, Tier-1 qualifications that are portable across new mills, and a net-cash balance sheet. Where it is not: it is still a project business selling a specification-driven product to a handful of large buyers, and the pipe itself is not branded.</div>
+</section>
+
+<!-- ═══════════════ S7: FINANCIALS ═══════════════ -->
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Financial Performance</h2></div>
+
+  <p class="subsection-title">Five-Year Track Record (Consolidated)</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>₹ Cr</th><th class="right">FY22</th><th class="right">FY23</th><th class="right">FY24</th><th class="right">FY25</th><th class="right">FY26</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Revenue</td><td class="right">6,505</td><td class="right">9,758</td><td class="right">17,340</td><td class="right">13,978</td><td class="right green">16,770</td></tr>
+        <tr><td class="bold">Operating Profit</td><td class="right">473</td><td class="right">494</td><td class="right">1,561</td><td class="right">1,684</td><td class="right green">2,236</td></tr>
+        <tr><td class="bold">OPM %</td><td class="right">7%</td><td class="right red">5%</td><td class="right">9%</td><td class="right">12%</td><td class="right green">13%</td></tr>
+        <tr><td class="bold">Reported PAT</td><td class="right">444</td><td class="right red">199</td><td class="right">1,136</td><td class="right">1,902</td><td class="right">1,620</td></tr>
+        <tr><td class="bold">Reported EPS (₹)</td><td class="right">16.82</td><td class="right">7.90</td><td class="right">42.44</td><td class="right">72.73</td><td class="right">61.15</td></tr>
+        <tr><td class="bold">ROCE %</td><td class="right">13%</td><td class="right red">6%</td><td class="right">20%</td><td class="right">21%</td><td class="right green">23%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Source: Screener.in consolidated. Note that FY25 reported PAT of ₹1,902 Cr includes roughly ₹843 Cr of exceptional gains (largely the 74% divestment of Nauyaan Shipyard for ₹382.73 Cr and related items). On a like-for-like basis the company reported FY26 PAT of <strong>₹1,613 Cr, up 42% YoY</strong> — i.e. the apparent FY25→FY26 profit "decline" is an artefact of exceptionals, not operations. Company-defined FY26 EBITDA was ₹2,371 Cr (14% margin) versus Screener's ₹2,236 Cr operating profit; the gap reflects definitional treatment of associate/JV income and other operating income.</p>
+  </div>
+
+  <p>This table is the single most important exhibit in the report, and it cuts both ways. The FY22–FY23 columns are the memory of what this business is at the bottom: 5–7% operating margins and a 6% ROCE. The FY24–FY26 columns are the rebasing: margins from 5% to 13%, ROCE from 6% to 23%. Whether the right anchor for FY29 is the left of this table or the right of it is, quite literally, the whole valuation debate.</p>
+
+  <p class="subsection-title">FY26 vs FY25 — Full Year</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">FY25</th><th class="right">FY26</th><th class="right">YoY</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Revenue (₹ Cr)</td><td class="right">13,977.5</td><td class="right">16,770.1</td><td class="right green">+20%</td></tr>
+        <tr><td class="bold">EBITDA (company-defined, ₹ Cr)</td><td class="right muted">n/a</td><td class="right">2,371</td><td class="right green">vs ₹2,200 Cr guidance — beat</td></tr>
+        <tr><td class="bold">EBITDA Margin</td><td class="right muted">n/a</td><td class="right">14%</td><td class="right">—</td></tr>
+        <tr><td class="bold">PAT — normalised (₹ Cr)</td><td class="right">~1,136</td><td class="right">1,613</td><td class="right green">+42%</td></tr>
+        <tr><td class="bold">PAT — reported (₹ Cr)</td><td class="right">1,902</td><td class="right">1,620</td><td class="right red">−15% (FY25 base inflated)</td></tr>
+        <tr><td class="bold">ROCE</td><td class="right">21%</td><td class="right">22%</td><td class="right green">+~100 bps</td></tr>
+        <tr><td class="bold">Capex (₹ Cr)</td><td class="right muted">n/a</td><td class="right">2,532</td><td class="right">US &amp; KSA build-out</td></tr>
+        <tr><td class="bold">Net Cash (₹ Cr)</td><td class="right muted">n/a</td><td class="right green">1,627</td><td class="right">Despite the capex</td></tr>
+        <tr><td class="bold">Order Book (₹ Cr)</td><td class="right muted">n/a</td><td class="right">25,350</td><td class="right green">All-time high at the time</td></tr>
+        <tr><td class="bold">Dividend</td><td class="right muted">—</td><td class="right">₹5 / share (100%)</td><td class="right">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="subsection-title">Q1 FY27 (Quarter ended 30 Jun 2026)</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Q1 FY26</th><th class="right">Q1 FY27</th><th class="right">YoY</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Revenue (₹ Cr)</td><td class="right">3,551</td><td class="right">4,081</td><td class="right green">+15%</td></tr>
+        <tr><td class="bold">EBITDA (₹ Cr)</td><td class="right">~560</td><td class="right green">756</td><td class="right green">+35% — highest ever</td></tr>
+        <tr><td class="bold">EBITDA Margin</td><td class="right">15.8%</td><td class="right green">18.5%</td><td class="right green">+270 bps</td></tr>
+        <tr><td class="bold">Operating Profit (Screener basis, ₹ Cr)</td><td class="right">525</td><td class="right">692</td><td class="right green">+32% (OPM 15% → 17%)</td></tr>
+        <tr><td class="bold">Finance Cost (₹ Cr)</td><td class="right">63</td><td class="right green">45</td><td class="right green">−28%</td></tr>
+        <tr><td class="bold">Depreciation (₹ Cr)</td><td class="right">85</td><td class="right red">125</td><td class="right red">+47% (new assets)</td></tr>
+        <tr><td class="bold">Share of JV / associate profit (₹ Cr)</td><td class="right">~49</td><td class="right green">73</td><td class="right green">+49% (EPIC)</td></tr>
+        <tr><td class="bold">PAT — normalised (₹ Cr)</td><td class="right">~351</td><td class="right green">499</td><td class="right green">+42%</td></tr>
+        <tr><td class="bold">PAT — reported (₹ Cr)</td><td class="right">349</td><td class="right">1,046–1,048</td><td class="right green">+199%</td></tr>
+        <tr><td class="bold">Reported EPS (₹)</td><td class="right">13.31</td><td class="right">39.67</td><td class="right green">—</td></tr>
+        <tr><td class="bold">ROCE (annualised)</td><td class="right muted">—</td><td class="right green">23.1%</td><td class="right">—</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Reported PAT includes an exceptional gain of <strong>₹548 Cr</strong> from the partial sale of the EPIC (Saudi) associate stake, and the effective tax rate consequently fell to ~13%. Q1 FY26 EBITDA and normalised PAT are back-solved from disclosed YoY growth rates and are approximate. Company-defined EBITDA (₹756 Cr / 18.5%) differs from Screener's operating profit (₹692 Cr / 17%) on the same definitional treatment noted above.</p>
+  </div>
+
+  <div class="callout callout-red">The most important number on this page is one management did not emphasise. Q1 FY27 delivered ₹756 Cr of EBITDA. Full-year guidance of ₹2,850 Cr implies roughly <strong>₹698 Cr per quarter for the remaining nine months</strong> — a step down from Q1. When asked to raise guidance, Mathur declined, calling the margin "an exceptional scenario we are into." Whatever else is true, the June quarter's 18.5% margin is not the run-rate the company itself is underwriting.</div>
+</section>
+
+<!-- ═══════════════ S8: BALANCE SHEET ═══════════════ -->
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">Balance Sheet, Cash Flow &amp; Capital Allocation</h2></div>
+
+  <p>This is where Welspun looks best, and where the FY22–23 version of the company is least recognisable.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>₹ Cr</th><th class="right">FY23</th><th class="right">FY24</th><th class="right">FY25</th><th class="right">FY26</th><th class="right">Q1 FY27</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Reserves</td><td class="right">4,582</td><td class="right">5,467</td><td class="right">7,313</td><td class="right green">9,024</td><td class="right muted">—</td></tr>
+        <tr><td class="bold">Gross Borrowings</td><td class="right red">3,381</td><td class="right">1,967</td><td class="right green">1,122</td><td class="right">2,355</td><td class="right muted">—</td></tr>
+        <tr><td class="bold">Net Cash Position</td><td class="right muted">—</td><td class="right muted">—</td><td class="right muted">—</td><td class="right green">1,627</td><td class="right green">2,336</td></tr>
+        <tr><td class="bold">Cash from Operations</td><td class="right red">−185</td><td class="right">1,306</td><td class="right">1,504</td><td class="right green">3,204</td><td class="right muted">—</td></tr>
+        <tr><td class="bold">Free Cash Flow</td><td class="right red">−1,235</td><td class="right">1,022</td><td class="right">690</td><td class="right">715</td><td class="right muted">—</td></tr>
+        <tr><td class="bold">Debtor Days</td><td class="right">43</td><td class="right green">38</td><td class="right">46</td><td class="right green">37</td><td class="right muted">—</td></tr>
+        <tr><td class="bold">Inventory Days</td><td class="right red">286</td><td class="right green">70</td><td class="right red">173</td><td class="right red">166</td><td class="right muted">—</td></tr>
+        <tr><td class="bold">Cash Conversion Cycle (days)</td><td class="right red">199</td><td class="right green">40</td><td class="right">87</td><td class="right">85</td><td class="right muted">—</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Source: Screener.in consolidated. FY26 operating cash flow of ₹3,204 Cr is materially above reported EBITDA and reflects working-capital release plus advances against the order book; do not annualise it as a run-rate.</p>
+  </div>
+
+  <p class="subsection-title">The Guardrails Management Set Itself</p>
+  <ul class="report-list">
+    <li><strong>ROCE above 20%</strong> on any capital deployed — stated as a board-level constraint, and delivered (23.1% annualised in Q1 FY27).</li>
+    <li><strong>Net debt / EBITDA below 1.0x</strong> — currently irrelevant, because the company is in net cash of ₹2,336 Cr <em>after</em> ₹834 Cr of Q1 capex.</li>
+    <li><strong>Only proven geographies and core products</strong> — the stated reason for walking away from a Saudi asset another Indian company acquired: it "would not be fitting into Welspun standards."</li>
+    <li><strong>Capex cycle ~60–65% complete</strong> as of Jul 2026, with the balance exhausted within FY27 and <em>no incremental capex committed beyond what is announced</em>.</li>
+  </ul>
+
+  <p>Debtor days of 37 and a net-cash position are unusual for a project business of this size, and they are a genuine quality marker. The soft spot is <strong>inventory</strong>: 166 days, elevated since FY25, which is partly the nature of a business that must lock steel substrate ahead of multi-quarter project deliveries, and partly under-absorbed DI and pig-iron stock in India.</p>
+
+  <p>The looming question is <strong>what happens to the cash</strong>. Welspun will exit FY27 with a very large net-cash balance, no committed capex, and a board guardrail that prevents deploying it below a 20% ROCE. Asked directly, Mathur listed "dividend, buyback, investment" as being under discussion and said "by the end of the year… we will have figured out an answer." For a stock trading at 6.6x book, how that cash is deployed is a first-order valuation input, not a footnote.</p>
+</section>
+
+<!-- ═══════════════ S9: GUIDANCE ═══════════════ -->
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">Growth Drivers &amp; Management Guidance</h2></div>
+
+  <p class="subsection-title">Guidance — Reiterated, Not Raised (Q1 FY27 Concall, 27 Jul 2026)</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">FY26 Actual</th><th class="right">FY27 Guidance</th><th class="right">Implied Growth</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Revenue (₹ Cr)</td><td class="right">16,770</td><td class="right">20,000</td><td class="right green">+19%</td></tr>
+        <tr><td class="bold">EBITDA (₹ Cr)</td><td class="right">2,371</td><td class="right">2,850</td><td class="right green">+20%</td></tr>
+        <tr><td class="bold">Implied EBITDA Margin</td><td class="right">14.1%</td><td class="right">14.3%</td><td class="right">Broadly flat</td></tr>
+        <tr><td class="bold">Q1 FY27 delivered</td><td class="right muted">—</td><td class="right">₹756 Cr (26.5% of guide)</td><td class="right red">Implies ~₹698 Cr/qtr for 9M</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Management explicitly declined to raise guidance despite the record quarter, citing a four-year track record of "meeting, if not exceeding" guidance and a preference for "realistic guidance, not creating a disappointment." Interpret the FY27 guide as a floor, not a ceiling — but also note it embeds no margin expansion.</p>
+  </div>
+
+  <p class="subsection-title">Structural Demand Drivers</p>
+  <ul class="report-list">
+    <li><strong>US gas infrastructure — the pivot:</strong> "the U.S. market with its demand drivers remains the pivot for the growth for the company." LNG export takeaway plus the emerging data-centre lateral market, with 232 tariffs fencing out imports.</li>
+    <li><strong>The data-centre second leg:</strong> ~25% of the US book and rising. The value of this is diversification of the US demand base away from pure LNG export — "now there's an alternate consumption pattern… which has emerged."</li>
+    <li><strong>Saudi Arabia:</strong> a 100%-owned facility plus the &gt;22% EPIC stake commissioning through Q3 FY27; a local anti-dumping investigation on imported DI pipe is progressing, which management expects to convert Saudi DI into "purely a domestic play in times to come."</li>
+    <li><strong>Capacity commissioning as the FY28 step-up:</strong> Little Rock LSAW and the two KSA facilities are guided to be "up and running by the end of this year", with "the full impact of their performance coming up in FY 2028." FY28, not FY27, is the operating inflection year.</li>
+    <li><strong>WSSL / stainless:</strong> FY26 EBITDA +52% YoY; positioning for nuclear, defence and aerospace grades as India's only integrated stainless bar-and-pipe player.</li>
+  </ul>
+
+  <p class="subsection-title">Where Guidance Has Gone the Other Way</p>
+  <ul class="report-list">
+    <li><strong>Indian DI / Jal Jeevan:</strong> the clearest negative on the call. Jal Jeevan Mission work is "slow owing to the fund constraint and industry overcapacity", and management expects the challenges "to continue and persist over a longer period of time." Mathur went further: "this is going to be a sort of a sustainable pain for a sustainable period." DI has been deliberately scaled down and hot metal redirected to <strong>pig iron exports</strong>, where Welspun is "probably one of the largest exporters of pig in this quarter."</li>
+    <li><strong>Sintex:</strong> "the trickle of the fund is not happening to the ground, and that is where they are also impacted." The response is to invest through the trough — dealer, distribution and influencer network expansion, plus the announced capex on tanks, pipes, fittings and OPVC — and wait for the rebound.</li>
+    <li><strong>No FY28 or FY29 numerical guidance</strong> has been given. FY29 substrate strategy is still being "triangulated" with steel suppliers.</li>
+  </ul>
+
+  <div class="callout callout-gold">The India water-infrastructure leg of the original thesis — DI pipes riding Jal Jeevan — has, for now, failed. That is not a nuance; it is management's own characterisation. The stock is working <em>despite</em> it, which tells you exactly how much of the current market capitalisation is the US business.</div>
+</section>
+
+<!-- ═══════════════ S10: VALUATION ═══════════════ -->
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation Model</h2></div>
+
+  <p>Shares outstanding ~26.4 crore. The headline trailing P/E of 26.3x is misleading — trailing earnings include the ₹548 Cr EPIC exceptional gain. On <strong>normalised</strong> FY26 EPS of ~₹61, the stock trades at ~37.7x. The only defensible anchor is FY28E, because that is the year the US LSAW mill, the two KSA facilities and the US$1.8 bn order all land together.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Conservative</th><th class="right">Base Case</th><th class="right">Bull Case</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">FY26 normalised EPS (₹) — actual</td><td class="right">61.1</td><td class="right">61.1</td><td class="right">61.1</td></tr>
+        <tr><td class="bold">FY27E revenue (₹ Cr)</td><td class="right">19,000</td><td class="right green">20,000 <span class="muted">(guided)</span></td><td class="right">21,000</td></tr>
+        <tr><td class="bold">FY27E EBITDA (₹ Cr)</td><td class="right">2,650</td><td class="right green">2,850 <span class="muted">(guided)</span></td><td class="right">3,050</td></tr>
+        <tr><td class="bold">FY27E normalised EPS (₹)</td><td class="right">~68</td><td class="right green">~74</td><td class="right">~80</td></tr>
+        <tr><td class="bold">FY28E revenue (₹ Cr)</td><td class="right">21,500</td><td class="right green">25,000</td><td class="right">28,000</td></tr>
+        <tr><td class="bold">FY28E EBITDA margin</td><td class="right">13.0%</td><td class="right green">14.5%</td><td class="right">16.0%</td></tr>
+        <tr><td class="bold">FY28E normalised EPS (₹)</td><td class="right">~72</td><td class="right green">~100</td><td class="right">~126</td></tr>
+        <tr><td class="bold">Target P/E on FY28E</td><td class="right">18x</td><td class="right green">24x</td><td class="right">26x</td></tr>
+        <tr><td class="bold">12-Month Target Price</td><td class="right red">₹1,300 – ₹1,450</td><td class="right green bold">₹2,380 – ₹2,480</td><td class="right">₹3,200 – ₹3,300</td></tr>
+        <tr><td class="bold">Upside vs CMP ₹2,301</td><td class="right red">−44% to −37%</td><td class="right green">+3% to +8%</td><td class="right" style="color:var(--gold)">+39% to +43%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note"><strong>All FY27E and FY28E figures are the author's own directional projections</strong>, built from management's stated FY27 guidance, the disclosed order book and per-tonne economics. They are not company forecasts and may differ materially from outcomes. FY27E EPS is normalised — it excludes the ₹548 Cr EPIC exceptional gain already booked in Q1 (reported FY27 EPS would be roughly ₹20 higher). Target prices = FY28E EPS × target multiple; the arithmetic is 18 × 72 ≈ ₹1,300, 24 × 100 ≈ ₹2,400, 26 × 126 ≈ ₹3,275.</p>
+  </div>
+
+  <p class="subsection-title">Cross-Checks</p>
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:280px">Trailing P/E (reported)</td><td>26.3x — but this includes the ₹548 Cr exceptional. On normalised FY26 EPS of ~₹61, it is <strong>~37.7x</strong>.</td></tr>
+        <tr><td class="bold">Forward P/E ladder (normalised)</td><td>~31x FY27E &nbsp;→&nbsp; ~23x FY28E. You are not paying for FY27; you are paying for FY28 delivery.</td></tr>
+        <tr><td class="bold">EV / EBITDA</td><td>EV ≈ ₹58,362 Cr (₹60,698 Cr m-cap less ₹2,336 Cr net cash). That is <strong>24.6x FY26, ~20.5x FY27E guided, ~16.1x FY28E base</strong>. Demanding for a project business, even a good one.</td></tr>
+        <tr><td class="bold">Order book / revenue</td><td>~₹42,000 Cr / ₹16,770 Cr ≈ <strong>2.5x</strong> — the strongest coverage in company history, with contracted visibility into FY29.</td></tr>
+        <tr><td class="bold">P/B vs ROE</td><td>6.6x book on 19.4% ROE. Jindal SAW: 1.54x on 8.2%. The 4.3x P/B premium on ~2.4x the ROE is internally consistent — provided the ROE holds.</td></tr>
+        <tr><td class="bold">Street positioning (Aug 2026)</td><td>Post-order revisions: Nuvama BUY ₹2,656 (from ₹1,890); Investec Buy ₹2,878; Equirus ₹3,107; Systematix HOLD ₹2,363 (from ₹1,794). Our base case sits at the conservative end of that range, close to Systematix.</td></tr>
+        <tr><td class="bold">Price context</td><td>CMP ₹2,301 against a 52-week range of ₹710–₹2,434. The stock is ~3.2x off its low and ~5% off its all-time high, after a ~28% six-session rally on the order news.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-red">The uncomfortable conclusion from the cross-checks: at ~16x FY28E EV/EBITDA on the <em>base</em> case — a case that already assumes ₹25,000 Cr of revenue at a 14.5% margin — the order-book news is substantially priced. The base case offers a mid-single-digit return; the bull case requires margins to reach 16%, which the company has never sustained for a full year.</div>
+</section>
+
+<!-- ═══════════════ S11: SCENARIOS ═══════════════ -->
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Bull &amp; Bear Scenario Analysis</h2></div>
+
+  <div class="scenario-grid">
+    <div class="scenario-card">
+      <div class="sc-header bull">🐂 Bull Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val green">Little Rock LSAW and both KSA plants commission on schedule; US EBITDA/tonne holds well above $300 as data-centre mix rises; FY29 book fills through FY27; DI/Sintex stop bleeding; cash returned via buyback</span></div>
+        <div class="sc-row"><span class="sc-key">FY28E Revenue</span><span class="sc-val green">~₹28,000 Cr</span></div>
+        <div class="sc-row"><span class="sc-key">EBITDA Margin</span><span class="sc-val green">~16%</span></div>
+        <div class="sc-row"><span class="sc-key">FY28E EPS</span><span class="sc-val green">~₹126</span></div>
+        <div class="sc-row"><span class="sc-key">Target Multiple</span><span class="sc-val green">26x FY28E</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val green">₹3,200 – ₹3,300</span></div>
+      </div>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-header bear">🐻 Bear Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val red">US LNG FID cycle pauses and data-centre gas build slows; Section 232 economics diluted or steel substrate cost spikes; commissioning slips past FY27; DI/Sintex losses widen; the market re-rates a project business back toward mid-teens earnings</span></div>
+        <div class="sc-row"><span class="sc-key">FY28E Revenue</span><span class="sc-val red">~₹21,500 Cr</span></div>
+        <div class="sc-row"><span class="sc-key">EBITDA Margin</span><span class="sc-val red">~13%</span></div>
+        <div class="sc-row"><span class="sc-key">FY28E EPS</span><span class="sc-val red">~₹72</span></div>
+        <div class="sc-row"><span class="sc-key">Target Multiple</span><span class="sc-val red">18x FY28E</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val red">₹1,300 – ₹1,450</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p>The skew here is unattractive at the current price: roughly <strong>+3% to +8% in the base case, +39% to +43% in the bull, and −37% to −44% in the bear</strong>. The distribution is wide because the multiple and the margin move together in this business — a project company printing peak margins gets a peak multiple, and both compress at the same time. That is precisely what happened between FY22 and FY23, when operating margin fell to 5% and reported PAT fell from ₹444 Cr to ₹199 Cr.</p>
+
+  <p>What makes this cycle genuinely different — and what supports the base case rather than the bear — is that the order book now extends into FY29 and the balance sheet is in net cash. Welspun will not be forced to bid badly to fill a mill in FY28. That converts a boom-bust profile into something closer to a plateau. But a plateau at 24x forward earnings still leaves little room for error.</p>
+</section>
+
+<!-- ═══════════════ S12: RISKS ═══════════════ -->
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risk Factors</h2></div>
+
+  <div class="risk-grid">
+    <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Valuation Already Discounts FY28</div><span class="badge badge-high">HIGH</span><div class="risk-body">~37.7x normalised trailing, ~31x FY27E, ~23x FY28E, 6.6x book, ~16x FY28E EV/EBITDA. The stock has run ~3.2x off its 52-week low and ~28% in six sessions. Every element of the good news — the record order book, the US$1.8 bn order, the FY28 commissioning — is now in the price. There is no valuation cushion for a single missed quarter.</div></div>
+    <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Cyclicality — Management's Own Framing</div><span class="badge badge-high">HIGH</span><div class="risk-body">Mathur described the business plainly: "we are also a project business. This is also a cyclical business. All what we are seeing is a 5, 7 years of a sustained growth." FY22–23 showed 5–7% margins and a 6% ROCE. Nothing structurally prevents a return there once the current pipeline capex wave is served.</div></div>
+    <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">US Policy Dependence (Section 232)</div><span class="badge badge-medh">MED–HIGH</span><div class="risk-body">The US margin premium exists largely because a 50% tariff fences out imports. Management argues 232 is statutory, bipartisan and has survived two administrations — a fair argument, but it concentrates a large share of group profit on a single policy regime that Welspun does not control.</div></div>
+    <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Customer &amp; Order Concentration</div><span class="badge badge-medh">MED–HIGH</span><div class="risk-body">A single undisclosed customer's US$1.8 bn award now represents roughly 40% of the global order book, executing across just two fiscal years. The customer is not named and the contract terms are not public. Cancellation, deferral or re-phasing of one contract would move consolidated FY28–29 earnings materially.</div></div>
+    <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">India DI / Jal Jeevan Structural Weakness</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">Management expects Jal Jeevan fund constraints and Indian DI overcapacity to be "a sustainable pain for a sustainable period." DI has been scaled down and hot metal redirected into low-margin pig iron exports. The India water-infrastructure leg of the diversification thesis is currently not contributing.</div></div>
+    <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Sintex Turnaround Execution</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">A ₹2,355 Cr investment plan against ~₹500 Cr of 9M FY26 revenue in a market management itself calls muted. B2C branding, dealer expansion and OPVC capacity are all being funded through the trough. Long-dated optionality; a near-term margin drag with no disclosed segment P&amp;L for investors to track.</div></div>
+    <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Commissioning Slippage — KSA &amp; Little Rock</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">FY28 earnings depend on two KSA facilities (guided by Q3 FY27) and the Little Rock LSAW mill (end-FY27) landing on time. Management acknowledged "minor hiccups" from geopolitical disruption to equipment logistics. Any slip pushes the step-up into FY29.</div></div>
+    <div class="risk-row"><div class="risk-num">08</div><div class="risk-name">Substrate Cost &amp; FY29 Book</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">Steel is the dominant input and, in the US, is tariff-inflated. Management has "concluded for FY28" but is still triangulating FY29 substrate strategy; committing FY29 volumes without assured fixed-price steel is the explicit constraint on filling the book further.</div></div>
+    <div class="risk-row"><div class="risk-num">09</div><div class="risk-name">Capital Allocation of the Cash Pile</div><span class="badge badge-low">LOW–MED</span><div class="risk-body">Net cash of ₹2,336 Cr and rising, with capex ending in FY27 and a board guardrail against sub-20% ROCE deployment. Dividend, buyback and investment are all "under discussion." A poorly-judged acquisition would be the fastest way to break a 23% ROCE; management's stated discipline is reassuring but untested at this cash level.</div></div>
+    <div class="risk-row"><div class="risk-num">10</div><div class="risk-name">Promoter Holding Below 50%</div><span class="badge badge-low">LOW</span><div class="risk-body">Promoter stake drifted from 50.00% (Mar 2025) to 49.73% (Mar 2026). Small in itself, but worth monitoring alongside the group's wider history of stake sales across Welspun entities.</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ S13: SUMMARY ═══════════════ -->
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Investment Summary &amp; Recommendation</h2></div>
+
+  <div class="thesis-box">
+    <p>Welspun Corp's earnings are <strong>partly rebased and partly cyclical-peak</strong>, and the distinction determines what you should pay. The rebased part is real and defensible: a tariff-protected US franchise earning ~<strong>US$300/tonne of EBITDA</strong> behind Section 232, a 19-year Little Rock presence with Tier-1 qualifications a new entrant needs 18–24 months to replicate, ROCE lifted from 6% (FY23) to <strong>23%</strong>, a <strong>net-cash balance sheet</strong>, and — after the <strong>US$1.8 bn order of 20 August</strong> — an all-time-high order book of <strong>~US$4.4 bn (~2.5x revenue)</strong> with contracted visibility into FY29. The cyclical-peak part is equally real: Q1 FY27's 18.5% EBITDA margin is above what management's own FY27 guidance implies for the rest of the year; the India water-infrastructure leg (DI pipes, Sintex) is in a downturn management calls "a sustainable pain for a sustainable period"; and the MD himself describes this as "a project business… also a cyclical business" seeing "5, 7 years of sustained growth" — not a permanent plateau. At ₹2,301, roughly <strong>3.2x the 52-week low</strong> and ~23x our FY28E EPS, the market has already paid for the rebasing <em>and</em> for flawless FY28 commissioning. Excellent business, fully-valued stock: <strong>own it, but add on weakness, not on strength</strong>.</p>
+  </div>
+
+  <p class="subsection-title">The Three Reasons to Own WELCORP</p>
+  <ul class="report-list">
+    <li><strong>1. A protected, high-margin US annuity — not an export trade:</strong> ~US$300/tonne EBITDA behind Section 232, a book filled through FY28 with FY29 now contracted, and a demand base diversifying from LNG export into data-centre gas laterals (~25% of the US book and rising). Little Rock's new LSAW mill will make Welspun the only US producer spanning 6" to 56".</li>
+    <li><strong>2. Order book and balance sheet that break the boom-bust pattern:</strong> ~₹42,000 Cr of backlog at ~2.5x FY26 revenue, ₹2,336 Cr of net cash after ₹834 Cr of quarterly capex, debtor days of 37, and explicit board guardrails (ROCE &gt;20%, net debt/EBITDA &lt;1x). Welspun will not have to bid badly to fill a mill in FY28.</li>
+    <li><strong>3. Capacity commissioning as a dated FY28 catalyst:</strong> two KSA facilities by Q3 FY27, the Little Rock LSAW mill by end-FY27, and capex ~60–65% complete with no incremental spend committed. Management has guided the full earnings impact to FY28 — a specific, checkable event, not a vague growth narrative.</li>
+  </ul>
+
+  <p class="subsection-title">Key Monitorables — Watch Through FY27</p>
+  <div class="monitor-grid">
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Quarterly EBITDA versus the ~₹698 Cr/quarter that FY27 guidance implies — does Q1's ₹756 Cr prove to be the peak or the new floor?</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>US EBITDA per tonne against the $300 baseline — the single cleanest read on whether the US premium is holding</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Commissioning dates: two KSA facilities (guided Q3 FY27) and Little Rock LSAW (end-FY27)</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>FY29 order inflow and the substrate strategy being "triangulated" with steel suppliers</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Data-centre share of the US book (currently ~25%) — the diversifier away from LNG-export dependence</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>DI pipe volumes and any sign of Jal Jeevan funds actually reaching the ground</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Sintex revenue trajectory and the first evidence of margin turn against the ₹2,355 Cr plan</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>The cash deployment decision — dividend, buyback or acquisition — expected around year-end</div></div>
+  </div>
+
+  <div class="verdict-banner">
+    <h3>RATING: ACCUMULATE ON DIPS — HOLD AT CMP</h3>
+    <p>Base Case 12-Month Target: <strong>₹2,380–2,480</strong> &nbsp;|&nbsp; Bull: ₹3,200–3,300 &nbsp;|&nbsp; Bear: ₹1,300–1,450 &nbsp;|&nbsp; CMP ~₹2,301 &nbsp;|&nbsp; Risk Level: MEDIUM–HIGH</p>
+  </div>
+
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:20px;">
+    SOURCE QUALITY: Financials, volumes, order book, guidance and management quotations are grounded in Welspun Corp's audited FY26 results, its Q1 FY27 results and investor presentation (released 24 Jul 2026), and the <strong>full Q1 FY27 earnings conference call transcript of 27 July 2026</strong> published on the company's investor page — which was read in its entirety for this report. The US$1.8 bn order detail is from the company's exchange filing of 20 August 2026 as reported by Business Standard, Bloomberg and Reuters. Market data (CMP ₹2,301, market cap ₹60,698 Cr, 52-week range ₹2,434/₹710), five-year financials, ratios and shareholding are from Screener.in consolidated data retrieved on 26 August 2026; peer figures for Jindal SAW, Man Industries and APL Apollo are from the same source and date. Brokerage targets are as reported in Indian financial media following the August order. <strong>All FY27E and FY28E projections, the US EBITDA arithmetic in Section 05, the P/B and EV/EBITDA computations, and all target prices are the author's own directional estimates</strong> and are labelled as such. Segment-level revenue for Sintex and the India-versus-US order book split are <em>not</em> publicly disclosed by the company — management explicitly declined to provide them on the Q1 FY27 call — and any figures shown are management commentary, clearly marked. Q1 FY26 EBITDA and normalised PAT are back-solved from disclosed growth rates. The order book figure was quoted by management as both ~₹24,750 Cr (investor deck) and ~₹25,750 Cr / "close to ₹26,000 Cr, $2.7 billion" (opening remarks) on the same call; both are reproduced here rather than reconciled.
+  </p>
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:10px;">
+    DISCLAIMER: This report is prepared for informational and private research purposes only. It does not constitute investment advice or a recommendation to buy or sell any security. The author is not a SEBI-registered investment adviser and may hold positions in the securities discussed. All financial data is sourced from publicly available filings, concall transcripts and exchange disclosures. Investing in equities involves the risk of capital loss. Past performance is not indicative of future results. Please consult a SEBI-registered investment adviser before making any investment decision.
+  </p>
+</section>
+
+</div><!-- /.page -->
+
+<footer class="footer">
+  <div>WELSPUN CORP LIMITED (NSE: WELCORP) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: FY26 Audited Results · Q1 FY27 Results &amp; Investor Presentation (24 Jul 2026) · Q1 FY27 Earnings Call Transcript (27 Jul 2026) · BSE Filing dated 20 Aug 2026 · Screener.in (26 Aug 2026) · Business Standard / Bloomberg / Reuters</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

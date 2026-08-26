@@ -1,6 +1,44 @@
 {
-  "updated": "2026-08-25",
+  "updated": "2026-08-26",
   "reports": [
+    {
+      "id": "welcorp-2026-08",
+      "title": "Welspun Corp Limited",
+      "subtitle": "Large-Diameter Line Pipes & DI Pipes · Welspun Group (B.K. Goenka) · India · USA · Saudi Arabia",
+      "code": "WELCORP",
+      "sector": "Line pipes",
+      "date": "2026-08-26",
+      "rating": "Accumulate on Dips · Hold at CMP",
+      "cmp": "~₹2,301",
+      "mcap": "~₹60,698 Cr",
+      "targets": {
+        "base": "₹2,380–2,480",
+        "bull": "₹3,200 – ₹3,300",
+        "bear": "₹1,300 – ₹1,450"
+      },
+      "summary": "Welspun Corp's earnings are partly rebased and partly cyclical-peak, and the distinction determines what you should pay. The rebased part is real and defensible: a tariff-protected US franchise earning ~US$300/tonne of EBITDA behind Section 232, a 19-year Little Rock presence with Tier-1…",
+      "file": "welcorp-2026-08.html",
+      "featured": true
+    },
+    {
+      "id": "akums-2026-08",
+      "title": "Akums Drugs & Pharmaceuticals",
+      "subtitle": "India's largest domestic-formulations CDMO · Jain family (Sanjeev & Sandeep Jain) · Manufacturer to 26 of India's top 30 pharma companies",
+      "code": "AKUMS",
+      "sector": "Pharma CDMO",
+      "date": "2026-08-26",
+      "rating": "Hold — Accumulate Below ₹650",
+      "cmp": "~₹765",
+      "mcap": "~₹12,048 Cr",
+      "targets": {
+        "base": "₹775–₹800",
+        "bull": "₹1,030 – ₹1,090",
+        "bear": "₹450 – ₹515"
+      },
+      "summary": "Akums manufactures more than a tenth of the medicine India consumes and holds over 30% of the domestic CDMO market, supplying 26 of the country's 30 largest pharma companies from 12 plants running at roughly 50% utilisation. That is a real, physical, hard-to-replicate moat — and for two years after…",
+      "file": "akums-2026-08.html",
+      "featured": true
+    },
     {
       "id": "skipper-2026-05",
       "title": "Skipper Limited",
