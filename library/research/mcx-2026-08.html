@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi Commodity Exchange of India — Equity Research Report | August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ MASTHEAD ═══════════════ -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: MCX &nbsp;|&nbsp; BSE: 534091 &nbsp;|&nbsp; ISIN: INE745G01043 &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026</p>
+    <h1 class="report-title"><span>Multi</span> Commodity Exchange of India Ltd</h1>
+    <p class="report-subtitle">Commodity Derivatives Exchange &nbsp;·&nbsp; &gt;99% share in bullion, base metals &amp; energy &nbsp;·&nbsp; A listed call option on commodity volatility</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (Aug 25)</div><div class="kpi-value">~₹3,347</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹85,347 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">52W H / L</div><div class="kpi-value">₹3,480 / ₹1,461</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Revenue FY26</div><div class="kpi-value">₹2,302 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">PAT FY26</div><div class="kpi-value">₹1,332 Cr</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold / Accumulate on Dips</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Target (1Y)</div><div class="rating-val">₹4,600 – ₹4,750</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Target (1Y)</div><div class="rating-val">₹1,850 – ₹1,950</div></div>
+  </div>
+</header>
+
+<!-- ═══════════════ STICKY NAV ═══════════════ -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Business</a>
+    <a href="#s3">Commodity Cycle</a>
+    <a href="#s4">ADT Engine</a>
+    <a href="#s5">Op Leverage</a>
+    <a href="#s6">Products</a>
+    <a href="#s7">Competition</a>
+    <a href="#s8">Financials</a>
+    <a href="#s9">Regulation</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- ═══════════════ S1: OVERVIEW ═══════════════ -->
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:220px">Full Name</td><td>Multi Commodity Exchange of India Limited</td></tr>
+        <tr><td class="bold">Lineage</td><td>Incorporated 2002; commenced operations November 2003. Listed March 2012 — India's first listed exchange. Erstwhile promoter Financial Technologies (India) Ltd exited post-2013; Kotak Mahindra Bank bought a 15% block from FTIL in 2014.</td></tr>
+        <tr><td class="bold">ISIN / Codes</td><td style="font-family:'IBM Plex Mono',monospace;font-size:12px">INE745G01043 &nbsp;|&nbsp; NSE: MCX &nbsp;|&nbsp; BSE: 534091</td></tr>
+        <tr><td class="bold">Structure</td><td>SEBI-regulated Market Infrastructure Institution (MII). Wholly-owned subsidiary <strong>MCX Clearing Corporation Ltd (MCXCCL)</strong> acts as central counterparty; Settlement Guarantee Fund corpus ₹1,367.29 Cr.</td></tr>
+        <tr><td class="bold">Promoters</td><td><strong>None.</strong> Promoter holding 0% — MCX is a professionally managed, board-run institution with no identified promoter group. Largest single shareholder: Kotak Mahindra Bank at 14.99%.</td></tr>
+        <tr><td class="bold">Headquarters</td><td>Mumbai, Maharashtra</td></tr>
+        <tr><td class="bold">Face Value</td><td>₹2 per share — sub-divided from ₹10 in a maiden 1:5 stock split, record date 2 January 2026. Shares outstanding ~25.5 crore.</td></tr>
+        <tr><td class="bold">Sector</td><td>Financial Services — Exchanges &amp; Market Infrastructure. Commodity futures and options across bullion, energy, base metals, agri and (from 2025) electricity.</td></tr>
+        <tr><td class="bold">Shareholding (Jun 26)</td><td>Promoters 0% &nbsp;·&nbsp; DIIs ~50.8% (Mutual funds ~30.1%, Banks ~15.0%) &nbsp;·&nbsp; FIIs/FPIs ~29.9% &nbsp;·&nbsp; Public &amp; others ~19.2%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Shareholding split per Screener.in (Jun 2026 quarter); the mutual fund / bank / resident-individual breakdown is from MCX's own Q1 FY27 investor presentation. Categories overlap in definition between the two sources.</p>
+  </div>
+
+  <p>MCX is India's dominant commodity-derivatives exchange, with over <strong>99% market share in bullion, base metals and energy</strong> and roughly 96% of the total Indian commodity-derivatives market. It does not take price risk, hold inventory, or lend. It runs an order book, charges a transaction fee per unit of turnover, and clears the resulting trades through MCXCCL. Costs are overwhelmingly fixed. That combination — near-monopoly share, a fee-per-trade revenue line, and a fixed cost base — makes MCX one of the highest operating-leverage businesses on the Indian market.</p>
+
+  <p>The consequence is that MCX's earnings are <em>not</em> a function of commodity price <strong>levels</strong>. They are a function of commodity price <strong>movement</strong>. Volatility creates hedging demand, speculative interest and option-writing activity; those create turnover; turnover creates transaction fees, which drop through to profit at an incremental margin north of 80%. The stock is, in the most literal sense available in Indian equities, a long-volatility instrument on the metals and energy complex.</p>
+
+  <div class="callout callout-gold">House view: MCX is the highest-quality business in our market-infrastructure coverage — 56% ROE, 71% ROCE, effectively debt-free, near-monopoly share — trading on peak-cycle earnings after a 100% one-year run. The business deserves the premium; at ₹3,347 the <em>price</em> no longer leaves room for the cycle to disappoint. This is a Hold, not a Buy.</div>
+</section>
+
+<!-- ═══════════════ S2: BUSINESS ═══════════════ -->
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">Business Model, Revenue Segments &amp; Value-Chain Position</h2></div>
+
+  <p>Revenue is almost entirely transaction fees on derivatives turnover, split between futures and options. FY26 was the year options overtook futures decisively as the primary revenue engine.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Revenue Line</th><th class="right">FY26</th><th>Profile</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Options transaction fees</td><td class="right green">₹1,398 Cr</td><td>Now the single largest revenue line. Driven by gold and silver options, where 1 kg gold options alone can print over ₹10 lakh crore of notional in a day. Fees track <em>premium</em> turnover far more closely than notional turnover.</td></tr>
+        <tr><td class="bold">Futures transaction fees</td><td class="right green">₹693 Cr (+136% YoY)</td><td>The older, more stable leg. Gold and silver together account for ~64% of futures turnover; crude and natural gas ~25%; copper ~8%.</td></tr>
+        <tr><td class="bold">Other operating income</td><td class="right muted">~₹211 Cr (residual)</td><td>Membership and admission fees, connectivity/terminal charges, data and index licensing, warehousing-linked services. Back-solved as the gap between reported operating revenue of ₹2,302 Cr and the disclosed futures + options fee lines.</td></tr>
+        <tr><td class="bold">Other (non-operating) income</td><td class="right">₹127 Cr</td><td>Treasury yield on ₹2,949 Cr of investments plus clearing-corporation float income. Reported below operating revenue; grew 30% in FY26 and ₹50 Cr in Q1 FY27 alone.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Futures and options revenue figures are from MCX's FY26 results disclosure. The "other operating income" line is the author's arithmetic residual, not a disclosed segment.</p>
+  </div>
+
+  <p class="subsection-title">Where MCX Sits in the Commodity Risk-Transfer Chain</p>
+
+  <p>Unlike a manufacturer, MCX occupies a toll-booth position: it does not create the commodity price, but every rupee of Indian exchange-traded commodity risk transfer passes through its matching engine and its clearing corporation. It captures a fee at both stages.</p>
+
+  <div class="vc-diagram">
+    <div class="vc-layer l1">
+      <div class="vc-num">STAGE 01</div>
+      <div class="vc-name">Global Price Formation</div>
+      <div class="vc-desc">COMEX / LME / ICE benchmarks, physical bullion and crude flows, USD-INR — the volatility source MCX does not control</div>
+      <div class="vc-tags"><span class="vc-tag">COMEX · LME · ICE</span></div>
+    </div>
+    <div class="vc-layer l2">
+      <div class="vc-num">STAGE 02</div>
+      <div class="vc-name">Members &amp; Clients</div>
+      <div class="vc-desc">Brokers route order flow from jewellers, refiners, importers, prop desks, HNIs and retail traders</div>
+      <div class="vc-tags"><span class="vc-tag">597 members</span><span class="vc-tag">13.72 lakh clients</span></div>
+    </div>
+    <div class="vc-layer l3">
+      <div class="vc-num">STAGE 03</div>
+      <div class="vc-name">Trading &amp; Price Discovery</div>
+      <div class="vc-desc">The order book itself — matching, contract design, market data. Liquidity network effects are the moat</div>
+      <div class="vc-tags"><span class="vc-tag skip">MCX</span><span class="vc-tag">&gt;99% share</span></div>
+    </div>
+    <div class="vc-layer l4">
+      <div class="vc-num">STAGE 04</div>
+      <div class="vc-name">Clearing &amp; Settlement</div>
+      <div class="vc-desc">Novation, margining, default management, physical delivery and warehousing linkage</div>
+      <div class="vc-tags"><span class="vc-tag skip">MCXCCL (100%)</span><span class="vc-tag">SGF ₹1,367 Cr</span></div>
+    </div>
+  </div>
+
+  <p>The critical structural point is that Stage 01 — where volatility is manufactured — is entirely outside MCX's control. Gold's path is set in New York, London and Beijing; copper's in Santiago, Kinshasa and Shanghai. MCX monetises the <em>domestic echo</em> of those moves. That is why a section on the global metals cycle is not colour commentary in this report; it is the earnings model.</p>
+</section>
+
+<!-- ═══════════════ S3: THE COMMODITY CYCLE ═══════════════ -->
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">The Commodities Rally Restart — Gold, Silver &amp; Copper</h2></div>
+
+  <p>2026 has been, by the World Gold Council's own description, one of the most dramatic starts to any year in gold-market history. It has also been a two-act drama, and the shape of those two acts explains MCX's quarterly earnings almost perfectly.</p>
+
+  <p class="subsection-title">Act One — The Melt-Up and the Break (Jan–Jun 2026)</p>
+  <ul class="report-list">
+    <li><strong>Gold peaked near $5,595/oz in late January 2026</strong> after starting the year around $4,500 — one of twelve new all-time highs printed in H1 2026.</li>
+    <li><strong>A ~14% correction followed in March</strong>, triggered by a hawkish Fed meeting that cut expected rate cuts to one and openly discussed hikes. Gold reclaimed the $4,700 area before rolling over again.</li>
+    <li><strong>On 24 June, spot gold fell ~3.3% in a single session to $3,973.79</strong> — its lowest since November 2025, and a peak-to-trough drawdown of roughly 29% from the January high.</li>
+    <li><strong>Realised volatility temporarily exceeded 50%</strong>, far above gold's 20-year historical average — the World Gold Council's mid-year framing.</li>
+  </ul>
+
+  <p class="subsection-title">Act Two — The Restart (Jul–Aug 2026)</p>
+  <ul class="report-list">
+    <li><strong>Gold has gained ~10% in August from near $4,000</strong>, breaching $4,400/oz with futures briefly touching $4,500 — its best monthly gain since January. Roughly +5.5% in the last week and ~+15% over the past month.</li>
+    <li><strong>Silver has rebounded from the upper-$50s into the mid-$60s</strong>, having already scored a near-14-year high earlier in the cycle.</li>
+    <li><strong>Copper printed a record $14,455/t on the LME in August 2026</strong>, with a COMEX intraday record of $6.77/lb on 7 August. Copper traded near $6.75/lb on 26 August versus roughly $4.25/lb a year earlier.</li>
+    <li><strong>Copper's drivers are structural, not monetary:</strong> AI data-centre load, grid capex, and supply disruption — Zijin warned flooding at the Kamoa-Kakula complex in the DRC could cost it up to 57,000 tonnes of attributable output this year.</li>
+  </ul>
+
+  <p class="subsection-title">The Indian Print — What MCX Contracts Actually Show</p>
+  <div class="macro-grid">
+    <div class="macro-card"><div class="macro-co">MCX GOLD · 24 AUG 2026</div><div class="macro-val">₹1,64,730</div><div class="macro-label">Per 10 g — a fresh high; ₹1,63,400 on 25 Aug, ~₹1.63 lakh on 26 Aug. Up ~15% in a month.</div></div>
+    <div class="macro-card"><div class="macro-co">MCX SILVER · 24 AUG 2026</div><div class="macro-val">₹2,47,900</div><div class="macro-label">Per kg — eased to ₹2,43,610 on 25 Aug. Silver first breached ₹2.42 lakh/kg in late Dec 2025 after a 15% week.</div></div>
+    <div class="macro-card"><div class="macro-co">COPPER · LME RECORD</div><div class="macro-val">$14,455/t</div><div class="macro-label">August 2026 record. COMEX intraday record $6.77/lb on 7 Aug; ~$6.75/lb on 26 Aug vs ~$4.25 a year ago.</div></div>
+    <div class="macro-card"><div class="macro-co">GOLD REALISED VOL · H1 26</div><div class="macro-val">&gt;50%</div><div class="macro-label">Temporarily exceeded 50% — far above the 20-year average (World Gold Council mid-year outlook).</div></div>
+  </div>
+
+  <div class="callout callout-gold">Why this is the whole thesis: a commodity that grinds sideways generates hedging demand but little speculative turnover. A commodity that swings 29% peak-to-trough and then rallies 15% in a month generates <em>both</em> — jewellers and importers must hedge, and option writers, prop desks and retail traders must trade. MCX earns a fee on every leg of that, and its cost base does not move.</div>
+
+  <p>The honest counterweight: this is a <strong>regime</strong>, not a permanence. The same mechanism that delivered +238% ADT growth in Q1 FY27 delivers a violent reversal when the metals complex goes quiet. Gold's own path in 2026 is the proof — a 29% drawdown inside six months. Any model that extrapolates August 2026 turnover into perpetuity is not a model; it is a bet on volatility never mean-reverting.</p>
+</section>
+
+<!-- ═══════════════ S4: ADT ENGINE ═══════════════ -->
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">Volatility → Turnover → Fees: The ADT Engine</h2></div>
+
+  <p>Average daily turnover is the single number that determines MCX's revenue. Here is the transmission, quarter by quarter, with the commodity regime that produced it.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Period</th><th class="right">Total ADT</th><th class="right">Revenue</th><th class="right">PAT</th><th>Commodity regime</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">FY25 (full year)</td><td class="right">~₹2.2 lakh Cr</td><td class="right">₹1,113 Cr</td><td class="right">₹560 Cr</td><td>Base year — futures ADT ₹27,153 Cr, options notional ADT ₹1,91,909 Cr</td></tr>
+        <tr><td class="bold">Q2 FY26 (Sep 25)</td><td class="right">₹4,11,270 Cr</td><td class="right">₹374 Cr</td><td class="right">₹197 Cr</td><td>Bullion breaking out; PAT +29% YoY</td></tr>
+        <tr><td class="bold">Q3 FY26 (Dec 25)</td><td class="right">₹7,50,136 Cr</td><td class="right">₹666 Cr</td><td class="right">₹401 Cr</td><td>ADT +224% YoY; silver's 15% week and record ₹2.42 lakh/kg</td></tr>
+        <tr><td class="bold">Q4 FY26 (Mar 26)</td><td class="right green">₹5.4 lakh Cr (FY avg)</td><td class="right green">₹889 Cr</td><td class="right green">₹530 Cr</td><td>Gold's $5,595 blow-off top (29 Jan) then the March break — peak quarter</td></tr>
+        <tr><td class="bold">Q1 FY27 (Jun 26)</td><td class="right green">₹10,49,365 Cr</td><td class="right">₹702 Cr</td><td class="right">₹413 Cr</td><td>Record notional ADT (+238% YoY) but the correction quarter — <strong>revenue −21% and PAT −22% sequentially</strong></td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">FY25 ADT is approximate, derived from disclosed FY25 futures (₹27,153 Cr) and options notional (₹1,91,909 Cr) ADT. Q4 FY26 shows the FY26 full-year ADT of ₹5.4 lakh Cr as the quarter-specific total ADT was not separately disclosed in the sources reviewed; the quarter's disclosed components were futures ADT ₹90,199 Cr (+111% YoY) and options notional ADT ₹5,75,387 Cr (+112% YoY).</p>
+  </div>
+
+  <p class="subsection-title">Q1 FY27 ADT by Segment — Bullion Dominance, Quantified</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Segment (Futures + Options)</th><th class="right">Q1 FY27 ADT</th><th class="right">% of Total</th><th class="right">YoY</th><th class="right">QoQ</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Bullion (gold + silver)</td><td class="right">₹7,19,959 Cr</td><td class="right bold">68.6%</td><td class="right green">+427%</td><td class="right red">−13%</td></tr>
+        <tr><td class="bold">Energy (crude + natural gas)</td><td class="right">₹3,13,088 Cr</td><td class="right">29.8%</td><td class="right green">+83%</td><td class="right green">+18%</td></tr>
+        <tr><td class="bold">Base metals (copper, alu, zinc, lead)</td><td class="right">₹16,313 Cr</td><td class="right">1.6%</td><td class="right green">+445%</td><td class="right muted">n/d</td></tr>
+        <tr><td class="bold">Agri</td><td class="right muted">~₹5 Cr</td><td class="right muted">&lt;0.01%</td><td class="right muted">n/d</td><td class="right muted">n/d</td></tr>
+        <tr><td class="bold">Total</td><td class="right bold">₹10,49,365 Cr</td><td class="right bold">100%</td><td class="right green">+238%</td><td class="right muted">—</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Percentages of total are the author's calculation from the disclosed segment ADTs. Bullion's −13% QoQ against energy's +18% QoQ is the cleanest evidence that MCX's mix tracks the commodity regime quarter by quarter, not a secular adoption curve.</p>
+  </div>
+
+  <p class="subsection-title">Futures Turnover Mix — Q1 FY27</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Contract</th><th class="right">Share of futures turnover</th><th>Read-across</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Gold</td><td class="right">34.5%</td><td rowspan="2" style="vertical-align:middle">Bullion is <strong>64.2%</strong> of futures turnover. Gold's realised volatility is the single largest input to MCX's revenue line.</td></tr>
+        <tr><td class="bold">Silver</td><td class="right">29.7%</td></tr>
+        <tr><td class="bold">Crude oil</td><td class="right">16.6%</td><td rowspan="2" style="vertical-align:middle">Energy is <strong>25.4%</strong> — the diversifier that worked in Q1 FY27 (+18% QoQ) when bullion fell.</td></tr>
+        <tr><td class="bold">Natural gas</td><td class="right">8.8%</td></tr>
+        <tr><td class="bold">Copper</td><td class="right">7.7%</td><td rowspan="3" style="vertical-align:middle">Base metals are <strong>10.2%</strong> of futures — small, but growing 445% YoY off the copper record. The optionality, not yet the earnings.</td></tr>
+        <tr><td class="bold">Aluminium</td><td class="right">1.4%</td></tr>
+        <tr><td class="bold">Zinc</td><td class="right">1.1%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Sub-totals (64.2%, 25.4%, 10.2%) are the author's arithmetic from the disclosed contract-level shares, which sum to 99.8%.</p>
+  </div>
+
+  <p class="subsection-title">The Number Most Commentary Gets Wrong</p>
+
+  <p>Headline notional ADT rose <strong>+238%</strong> in Q1 FY27 while revenue rose <strong>+88%</strong>. That gap is not a fee cut and it is not a mystery — it is mix. Options notional ADT surged 266% to ₹9,89,691 Cr, but options <em>premium</em> ADT rose a far more modest 114%, to ₹9,086 Cr. Notional and premium diverged because the flow rotated into cheap, deep-out-of-the-money gold options, where a rupee of premium buys a great deal more notional.</p>
+
+  <div class="callout">Test the framing: weight futures ADT growth (+47%) and options premium ADT growth (+114%) by FY26's revenue mix (futures ₹693 Cr / options ₹1,398 Cr, i.e. 33% / 67%). That gives implied revenue growth of ~92% against the +88% actually reported. Notional ADT is a vanity metric. <strong>Premium ADT and futures ADT are the two numbers that forecast MCX's revenue</strong> — and they grew at less than half the headline rate.</div>
+
+  <p>Expressed differently: MCX generated roughly ₹426 Cr of revenue per lakh-crore of ADT in FY26. Annualising Q1 FY27, that realisation falls to roughly ₹268 Cr — a ~37% decline in revenue per notional rupee traded. Investors underwriting the ₹10.5 lakh crore ADT headline as if the FY26 revenue conversion still applies will overestimate FY27 earnings materially. This is the author's own calculation and the single most important analytical caveat in this report.</p>
+
+  <div class="callout callout-green">The August set-up, however, is genuinely strong. MCX printed an all-time high in bullion options turnover of over <strong>₹10.69 lakh crore in a single day</strong>, of which gold 1 kg options alone contributed over ₹10.24 lakh crore. With gold up ~15% on the month and copper at a record, Q2 FY27 (Jul–Sep) should reverse Q1's sequential decline. That is the near-term catalyst — and it is already substantially in the price.</div>
+</section>
+
+<!-- ═══════════════ S5: OPERATING LEVERAGE ═══════════════ -->
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Operating Leverage &amp; the Technology-Cost Reset</h2></div>
+
+  <p>The reason volume growth is so violently accretive today is a cost event that happened three years ago. MCX ran its old trading platform on software licensed from 63 Moons Technologies. Migration to a new TCS-built core ("Project Udaan") was repeatedly delayed; MCX had to extend the legacy contract at sharply higher cost, paying the vendor roughly ₹140 Cr in FY23 and materially more in FY24. Operating margin collapsed to <strong>9%</strong> in FY24. The new platform went live in October 2023, the legacy charges rolled off, and the cost structure reset permanently to a fixed base.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Year</th><th class="right">Revenue</th><th class="right">Operating Expenses</th><th class="right">Operating Profit</th><th class="right">OPM %</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">FY24</td><td class="right">₹684 Cr</td><td class="right red">₹621 Cr</td><td class="right">₹63 Cr</td><td class="right red">9%</td></tr>
+        <tr><td class="bold">FY25</td><td class="right">₹1,113 Cr</td><td class="right green">₹447 Cr</td><td class="right">₹665 Cr</td><td class="right green">60%</td></tr>
+        <tr><td class="bold">FY26</td><td class="right">₹2,302 Cr</td><td class="right">₹660 Cr</td><td class="right">₹1,642 Cr</td><td class="right green">71%</td></tr>
+        <tr><td class="bold">Q4 FY26</td><td class="right">₹889 Cr</td><td class="right">₹224 Cr</td><td class="right">₹665 Cr</td><td class="right green">75%</td></tr>
+        <tr><td class="bold">Q1 FY27</td><td class="right">₹702 Cr</td><td class="right">₹208 Cr</td><td class="right">₹494 Cr</td><td class="right">70%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Screener.in consolidated basis; "operating expenses" excludes depreciation. MCX's own reported EBITDA is higher because it includes other income — company-reported FY26 EBITDA was ₹1,774 Cr at a 73% margin, and Q1 FY27 EBITDA ₹544 Cr at 72%.</p>
+  </div>
+
+  <p class="subsection-title">The Drop-Through, Measured</p>
+  <ul class="report-list">
+    <li><strong>FY25 → FY26 incremental margin: 82%.</strong> Revenue rose ₹1,189 Cr; operating profit rose ₹977 Cr. Eighty-two paise of every incremental rupee of turnover fell to operating profit.</li>
+    <li><strong>Costs grew at less than half the rate of revenue.</strong> FY26 revenue +107%; operating expenses +48%. In FY25 costs fell 28% in absolute terms even as revenue grew 63%, as the legacy software charges rolled off.</li>
+    <li><strong>PAT grew faster than revenue at every level.</strong> FY26 revenue +107%, PAT +138%. Q1 FY27 revenue +88%, PAT +103%.</li>
+    <li><strong>Capacity is no longer the constraint.</strong> Management states the platform can handle over 3 billion transactions a day — multiples of current peak load — so incremental volume requires no incremental technology spend.</li>
+  </ul>
+
+  <div class="callout callout-red">The caveat that cuts against the "fully fixed cost base" story: <strong>product licence fees rose to ₹39.68 Cr in Q1 FY27 from ₹22.01 Cr</strong>, an 80% increase. These are payments for referencing global benchmark prices and index data, and they scale with volume. Employee costs also rose to ₹57.45 Cr from ₹44.84 Cr. Total expenses grew 54% against revenue growth of 88% — genuine leverage, but not infinite leverage. Q1 FY27's OPM of 70% was 5 points <em>below</em> Q4 FY26's 75%, and that is why sequential PAT fell 22%.</div>
+</section>
+
+<!-- ═══════════════ S6: PRODUCTS ═══════════════ -->
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Product Mix, Distribution &amp; New Launches</h2></div>
+
+  <p>The strategic problem MCX is trying to solve is exactly the one this report keeps returning to: <strong>68.6% of turnover is bullion, and bullion turnover is a derivative of gold's volatility regime</strong>. Every new product launch should be read as an attempt to buy diversification away from that single factor.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Initiative</th><th>Status</th><th>Assessment</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Electricity futures</td><td>Launched 10 Jul 2025. Q1 FY27 ADT ₹37 Cr; ~55% market share.</td><td class="muted">Strategically the most interesting launch — a genuinely uncorrelated volatility source tied to renewable integration and merchant power. Economically immaterial today: ₹37 Cr against ₹10.49 lakh Cr of total ADT. Growth is gated by thin merchant-market and RTC/FDRE volumes.</td></tr>
+        <tr><td class="bold">MCX BULLDEX options</td><td>Launched 27 Oct 2025 — India's first commodity index option.</td><td class="muted">Cash-settled index option on the bullion index (gold ~70.5% / silver ~29.5%). Widens access but deepens, rather than reduces, the bullion dependency.</td></tr>
+        <tr><td class="bold">Silver 100 g futures</td><td>Launched Q1 FY27; management describes reception as strong.</td><td class="muted">Smaller-lot retail democratisation — and a direct defensive response to NSE's small-lot bullion strategy.</td></tr>
+        <tr><td class="bold">Coal exchange / new metals</td><td>Early development stage per Q1 FY27 concall.</td><td class="muted">Optionality only. No timeline, no volumes, no disclosed economics. Should not be in any near-term earnings model.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="subsection-title">Distribution &amp; Participation — Q1 FY27</p>
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:260px">Traded client base</td><td class="green">13.72 lakh — nearly doubled from 7.03 lakh. The clearest evidence that the bullion rally is pulling genuinely new participants onto the platform, not just churning existing ones.</td></tr>
+        <tr><td class="bold">Unique client codes</td><td>4.05 crore registered</td></tr>
+        <tr><td class="bold">Members / authorised persons</td><td>597 members (12 added in Q1) and 29,474 authorised persons across 646 cities</td></tr>
+        <tr><td class="bold">Foreign portfolio investors</td><td>220 registered, 35 added in Q1 FY27 — a small base today, and the reason SEBI's August FPI proposal matters so much (see Section 09)</td></tr>
+        <tr><td class="bold">Market share</td><td>Over 99% in bullion, base metals and energy; ~96% of total Indian commodity derivatives</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>The honest read on diversification: it is directionally right and quantitatively trivial. Electricity, coal and index products together contribute a rounding error to ADT. On a three-to-five year view they could matter. On a twelve-month view, MCX's earnings remain a gold-and-silver volatility trade with a crude-oil hedge attached.</p>
+</section>
+
+<!-- ═══════════════ S7: COMPETITION ═══════════════ -->
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Competitive Positioning</h2></div>
+
+  <p>MCX's moat is liquidity, not licence. Anyone can obtain a commodity-derivatives licence in India; nobody can conjure an order book. Both NSE and BSE hold commodity licences and both have effectively failed to build volume — but NSE's 2026 push is the most credible attack MCX has faced.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Competitor</th><th>Approach</th><th class="right">Commodity share</th><th>Honest read-across</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">NSE</td><td>Differentiated specs rather than clones: earlier crude expiries, 10 g gold and 100 g silver futures, dated Brent, ₹99 doorstep physical delivery. SEBI approval for natural gas and WTI crude in Feb 2026; 12 unique contracts targeted by Jun 2026.</td><td class="right">&lt;0.5% overall</td><td class="red">The real warning shot: NSE has reportedly taken roughly one-third share <em>in some crude expiries</em>. Aggregate share is negligible, but contract-level share loss is how liquidity moats erode — one expiry at a time.</td></tr>
+        <tr><td class="bold">BSE</td><td>Entered commodity derivatives in 2018, initially waiving transaction charges outright.</td><td class="right muted">Negligible</td><td>Eight years of effort has not produced meaningful commodity liquidity. Evidence that zero pricing alone does not move an order book.</td></tr>
+        <tr><td class="bold">MCX</td><td>Incumbent order book, TCS-built platform, MCXCCL clearing, 646-city distribution, 29,474 authorised persons.</td><td class="right green">~96% total; &gt;99% bullion / base metals / energy</td><td>Genuine network-effect monopoly. The vulnerability is not price — it is that MCX's own technology transition gave competitors a two-year window of credibility.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="subsection-title">Listed Market-Infrastructure Peers — Valuation Read-Across</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Name</th><th class="right">P/E</th><th class="right">P/B</th><th class="right">ROE</th><th>Character of earnings</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">MCX</td><td class="right">~55x TTM</td><td class="right">~30x</td><td class="right green">56.3%</td><td>Highest cyclicality of the three — a single-factor bet on commodity volatility, with 68.6% of turnover in one complex.</td></tr>
+        <tr><td class="bold">CDSL</td><td class="right">~62x</td><td class="right">~14x</td><td class="right muted">n/v</td><td>Depository — annuity-like custody and corporate-action fees plus a transaction-linked leg. Structurally the most recurring revenue of the three.</td></tr>
+        <tr><td class="bold">BSE Ltd</td><td class="right">~51x</td><td class="right muted">n/v</td><td class="right muted">n/v</td><td>Equity exchange — has faced direct regulatory intervention in index-options expiry and lot sizes. The cautionary precedent for MCX.</td></tr>
+        <tr><td class="bold">NSE (unlisted)</td><td class="right muted">n/v</td><td class="right muted">n/v</td><td class="right muted">n/v</td><td class="muted">Traded in the unlisted market; no verified public multiple as of this report. Its commodity ambitions are a competitive input, not a valuation comparable.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">MCX P/E, P/B and ROE per Screener.in (late Aug 2026). CDSL P/E ~61.7x and P/B ~14.05x per market data as of late Aug 2026. BSE P/E of ~50.8x is a 2026 estimate per MarketScreener. "n/v" = not verified for this report. Multiples are drawn from different providers on different bases and are indicative only.</p>
+  </div>
+
+  <p>The read-across is uncomfortable rather than reassuring. MCX trades at a discount to CDSL on P/E despite having <em>far</em> more cyclical earnings and vastly more concentrated revenue. That discount is not generous — it is arguably insufficient. CDSL's fee base grows with demat accounts; MCX's grows with gold's realised volatility. Those should not be valued on similar multiples.</p>
+</section>
+
+<!-- ═══════════════ S8: FINANCIALS ═══════════════ -->
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">Financial Performance &amp; Balance Sheet</h2></div>
+
+  <p class="subsection-title">FY24 → FY26 — Consolidated</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric (₹ Cr)</th><th class="right">FY24</th><th class="right">FY25</th><th class="right">FY26</th><th class="right">FY26 YoY</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Revenue from operations</td><td class="right">684</td><td class="right">1,113</td><td class="right">2,302</td><td class="right green">+107%</td></tr>
+        <tr><td class="bold">Operating expenses</td><td class="right">621</td><td class="right">447</td><td class="right">660</td><td class="right">+48%</td></tr>
+        <tr><td class="bold">Operating profit</td><td class="right">63</td><td class="right">665</td><td class="right">1,642</td><td class="right green">+147%</td></tr>
+        <tr><td class="bold">OPM %</td><td class="right red">9%</td><td class="right">60%</td><td class="right green">71%</td><td class="right green">+11 pts</td></tr>
+        <tr><td class="bold">Other income</td><td class="right">75</td><td class="right">98</td><td class="right">127</td><td class="right green">+30%</td></tr>
+        <tr><td class="bold">Depreciation</td><td class="right">36</td><td class="right">64</td><td class="right">78</td><td class="right">+22%</td></tr>
+        <tr><td class="bold">Profit before tax</td><td class="right">102</td><td class="right">699</td><td class="right">1,690</td><td class="right green">+142%</td></tr>
+        <tr><td class="bold">Net profit</td><td class="right">83</td><td class="right">560</td><td class="right">1,332</td><td class="right green">+138%</td></tr>
+        <tr><td class="bold">EPS (₹, split-adjusted)</td><td class="right">3.26</td><td class="right">21.96</td><td class="right">52.22</td><td class="right green">+138%</td></tr>
+        <tr><td class="bold">Dividend payout %</td><td class="right">47%</td><td class="right">27%</td><td class="right red">15%</td><td class="right red">−12 pts</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Screener.in consolidated. EPS is restated for the 1:5 split (record date 2 Jan 2026) across all years. MCX's own reported FY26 EBITDA of ₹1,774 Cr (73% margin) includes other income and therefore exceeds the ₹1,642 Cr operating profit shown here. Total FY26 income including other income was ₹2,429 Cr, +101% YoY.</p>
+  </div>
+
+  <p class="subsection-title">Q1 FY27 (Jun 2026) — Latest Reported Quarter</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Q1 FY26</th><th class="right">Q4 FY26</th><th class="right">Q1 FY27</th><th class="right">YoY</th><th class="right">QoQ</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Revenue from ops (₹ Cr)</td><td class="right">373</td><td class="right">889</td><td class="right">702</td><td class="right green">+88.1%</td><td class="right red">−21.0%</td></tr>
+        <tr><td class="bold">Total income (₹ Cr)</td><td class="right muted">~407</td><td class="right">925</td><td class="right">752</td><td class="right green">+85%</td><td class="right red">−18.7%</td></tr>
+        <tr><td class="bold">EBITDA (₹ Cr, company basis)</td><td class="right muted">~275</td><td class="right">701</td><td class="right">544</td><td class="right green">+98%</td><td class="right red">−22.4%</td></tr>
+        <tr><td class="bold">EBITDA margin</td><td class="right">68%</td><td class="right green">76%</td><td class="right">72%</td><td class="right green">+4 pts</td><td class="right red">−4 pts</td></tr>
+        <tr><td class="bold">Total expenses (₹ Cr)</td><td class="right muted">~149</td><td class="right">243</td><td class="right">229</td><td class="right">+54%</td><td class="right green">−5.8%</td></tr>
+        <tr><td class="bold">Profit before tax (₹ Cr)</td><td class="right">~256</td><td class="right">682</td><td class="right">523</td><td class="right green">+104%</td><td class="right red">−23.3%</td></tr>
+        <tr><td class="bold">Net profit (₹ Cr)</td><td class="right">203</td><td class="right">530</td><td class="right">413</td><td class="right green">+103.5%</td><td class="right red">−22.1%</td></tr>
+        <tr><td class="bold">EPS (₹)</td><td class="right">7.98</td><td class="right">20.78</td><td class="right">16.21</td><td class="right green">+103%</td><td class="right red">−22.0%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Q1 FY27 and FY26 quarterly figures from MCX disclosures and Screener.in. Q1 FY26 total income, EBITDA and total expenses (marked ~) are the author's back-solved approximations from the disclosed YoY growth rates and the reported 68% EBITDA margin; treat them as indicative. Q4 FY26 total income and EBITDA are derived from the Screener sales/other-income/operating-profit lines on the same basis.</p>
+  </div>
+
+  <div class="callout callout-red">Do not let the +103% headline obscure it: <strong>Q1 FY27 was a sequential decline of 22% in profit and 4 points in EBITDA margin</strong>, because bullion ADT fell 13% QoQ as gold corrected toward $3,974. This is exactly what the bear case looks like in miniature — and it happened in the most recent reported quarter, during what everyone is calling a commodity bull market.</div>
+
+  <p class="subsection-title">Balance Sheet &amp; Cash — March 2026</p>
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:260px">Net worth</td><td>₹2,848 Cr (equity capital ₹51 Cr + reserves ₹2,797 Cr). Book value ~₹112 per share.</td></tr>
+        <tr><td class="bold">Borrowings</td><td class="green">₹5 Cr — effectively debt-free. There is no leverage in this earnings stream; the operating leverage is entirely fixed-cost, not financial.</td></tr>
+        <tr><td class="bold">Investments</td><td class="green">₹2,949 Cr — larger than net worth, because a portion sits at MCXCCL against clearing obligations. Generates the ₹127 Cr FY26 other-income line.</td></tr>
+        <tr><td class="bold">Other liabilities</td><td>₹4,648 Cr of the ₹7,501 Cr balance sheet. This is <strong>not debt</strong> — it is predominantly clearing-member margin and deposit float held by MCXCCL. It inflates the balance sheet and must be mentally netted out.</td></tr>
+        <tr><td class="bold">Settlement Guarantee Fund</td><td>₹1,367.29 Cr corpus at MCXCCL. Management describes the position as comfortable, noting SGF requirements move with volatility, margins, volumes and open interest — i.e. they scale with exactly the boom the P&amp;L is enjoying.</td></tr>
+        <tr><td class="bold">Cash flow FY26</td><td>Operating cash flow ₹3,035 Cr against ₹1,642 Cr of operating profit — a CFO/OP ratio of 202%. <span class="muted">Flattered by clearing-float movement, not a clean conversion metric. Free cash flow ₹2,962 Cr on the same basis.</span></td></tr>
+        <tr><td class="bold">Returns</td><td class="green">ROE 56.3% · ROCE 71.4% — among the highest in the listed Indian universe, and structurally so given the asset-light model.</td></tr>
+        <tr><td class="bold">Dividend</td><td>FY26 final dividend <strong>₹8 per share</strong> (record date 28 Aug 2026, payment 15 Oct 2026) — 400% of the ₹2 face value, and equivalent to ₹40 pre-split against FY25's ₹30. But the <em>payout ratio fell to 15%</em> from 27%. Yield ~0.24%. This is a capital-accumulation story, not an income one.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════ S9: REGULATION & GUIDANCE ═══════════════ -->
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">Regulation, Guidance &amp; Growth Drivers</h2></div>
+
+  <p>Unusually for an Indian financial-market intermediary in 2026, the live regulatory agenda is a <strong>tailwind</strong>. SEBI is actively trying to deepen commodity derivatives, not shrink them — the opposite of its posture on equity index options.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Development</th><th>Date</th><th class="right">Direction</th><th>Substance</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Position-limit doubling</td><td>Consultation 12 May 2026</td><td class="right green">Positive</td><td>SEBI proposed doubling client-level position limits in commodity derivatives — broad 1%→2%, narrow 0.5%→1%, sensitive 0.25%→0.5% — explicitly to deepen liquidity and encourage institutional and HNI participation.</td></tr>
+        <tr><td class="bold">Wider FPI access</td><td>Consultation 11 Aug 2026</td><td class="right green">Positive</td><td>Proposal to let FPIs trade non-agri <em>index</em> derivatives regardless of the underlying's settlement type, and <em>physically settled</em> non-agri commodity contracts — crude, natural gas, gold, silver, base metals. Comments open until 1 Sep 2026. SEBI cited the liquidity uplift already observed in crude and natural gas options after earlier FPI access.</td></tr>
+        <tr><td class="bold">Margin framework review</td><td>Aug 2026</td><td class="right green">Positive</td><td>SEBI streamlining position-limit and margin frameworks to cut avoidable cost for participants while retaining risk controls.</td></tr>
+        <tr><td class="bold">RBI bank guarantee rules</td><td>2026</td><td class="right muted">Neutral</td><td>Management expects "minimal detrimental impact" on the Q1 FY27 call.</td></tr>
+        <tr><td class="bold">F&amp;O tightening spillover</td><td>Ongoing risk</td><td class="right red">Negative risk</td><td class="red">Not yet enacted for commodities — but this is the tail risk. See the discussion below.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="subsection-title">The Regulatory Tail Risk Nobody Is Pricing</p>
+
+  <p>SEBI spent 2024–25 progressively tightening equity index derivatives — lot sizes, expiry rationalisation, upfront premium collection, position-limit measurement on delta rather than notional — because it judged that retail participants were losing money in options with extreme notional-to-premium leverage. Look at MCX's own ratio: Q1 FY27 options notional ADT of ₹9,89,691 Cr against premium ADT of ₹9,086 Cr is a <strong>~109x notional-to-premium multiple</strong>. That is the author's calculation from disclosed figures, and it is precisely the optic that drew regulatory attention in equity index options.</p>
+
+  <div class="callout callout-red">The asymmetry is stark. SEBI's <em>current</em> proposals are liquidity-expanding and would lift MCX's volumes. But a single measure of the kind already applied to equity index options — expiry rationalisation, strike-range restriction, or a lot-size increase on gold options — would land directly on the 68.6% of ADT that is bullion, and on the options line that is now two-thirds of revenue. This risk is not in consensus estimates and not in the price.</div>
+
+  <p class="subsection-title">Management Guidance — Q1 FY27 Concall (5 Aug 2026)</p>
+  <ul class="report-list">
+    <li><strong>No numerical revenue, margin or ADT guidance was given.</strong> MCX does not guide, and investors should not pretend otherwise. Everything below is qualitative commentary, not a forecast.</li>
+    <li><strong>Positioning:</strong> management describes MCX as the world's largest commodity options exchange and the fourth-largest commodity derivatives exchange.</li>
+    <li><strong>Regulatory:</strong> "keenly awaiting" the extension of FPI participation to non-cash-settled contracts — the clearest statement of what management sees as the next volume unlock.</li>
+    <li><strong>Products:</strong> silver 100 g futures well received; electricity derivatives being actively grown from a ~55% share of a tiny market; a coal exchange and new metal contracts in early development; index products progressing.</li>
+    <li><strong>Capacity:</strong> platform headroom above 3 billion transactions a day, described as multiples of current demand.</li>
+  </ul>
+
+  <p class="subsection-title">Street Positioning</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>House</th><th>Rating</th><th class="right">Target</th><th class="right">vs CMP ₹3,347</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">UBS</td><td>Buy (revised 13 Aug 2026)</td><td class="right">₹3,800</td><td class="right green">+13.5%</td></tr>
+        <tr><td class="bold">Morgan Stanley</td><td>Overweight</td><td class="right">₹3,665</td><td class="right green">+9.5%</td></tr>
+        <tr><td class="bold">Jefferies</td><td>Buy (initiated Jul 2026)</td><td class="right">₹3,600</td><td class="right green">+7.6%</td></tr>
+        <tr><td class="bold">JPMorgan</td><td>Overweight (upgraded Aug 2026 on the FPI proposal)</td><td class="right">₹3,500</td><td class="right green">+4.6%</td></tr>
+        <tr><td class="bold">Consensus target</td><td class="muted">11 of 13 analysts at Buy per one aggregator</td><td class="right">₹3,364</td><td class="right red">+0.5%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Upside percentages are the author's calculation against a CMP of ₹3,347. The consensus target of ₹3,364 has been revised up from ₹2,980; consensus FY27E EPS has been revised up to ₹71.26 from ₹65.19 and FY27E revenue to ~₹3,130 Cr.</p>
+  </div>
+
+  <p>The most telling number in that table is the last one. <strong>The stock is trading essentially at consensus fair value</strong>, and only ~4% below its all-time high of ₹3,480, after doubling in twelve months. The bull case now requires beating targets that have already been revised up twice.</p>
+</section>
+
+<!-- ═══════════════ S10: VALUATION ═══════════════ -->
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation Model</h2></div>
+
+  <p>Shares outstanding ~25.5 crore. FY26 EPS ₹52.22; trailing-twelve-month EPS ₹60.46 (Sep-25 ₹7.74 + Dec-25 ₹15.73 + Mar-26 ₹20.78 + Jun-26 ₹16.21). At ₹3,347 that is a trailing P/E of ~55x. The valuation question is entirely about (a) what ADT does in H2 FY27 and (b) what multiple a cyclical earnings peak deserves.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Conservative</th><th class="right">Base Case</th><th class="right">Bull Case</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">FY26 EPS (₹) — actual</td><td class="right">52.2</td><td class="right">52.2</td><td class="right">52.2</td></tr>
+        <tr><td class="bold">TTM EPS (₹) — actual</td><td class="right">60.5</td><td class="right">60.5</td><td class="right">60.5</td></tr>
+        <tr><td class="bold">FY27E ADT assumption</td><td class="right">~₹6.5–7 lakh Cr</td><td class="right green">~₹10 lakh Cr</td><td class="right">~₹12–13 lakh Cr</td></tr>
+        <tr><td class="bold">FY27E PAT growth</td><td class="right">~+11%</td><td class="right green">~+36%</td><td class="right">~+61%</td></tr>
+        <tr><td class="bold">FY27E PAT (₹ Cr)</td><td class="right">~1,479</td><td class="right green">~1,811</td><td class="right">~2,142</td></tr>
+        <tr><td class="bold">FY27E EPS (₹)</td><td class="right">~58</td><td class="right green">~71</td><td class="right">~84</td></tr>
+        <tr><td class="bold">Target P/E (FY27E)</td><td class="right">32x</td><td class="right green">50x</td><td class="right">56x</td></tr>
+        <tr><td class="bold">12-Month Target Price</td><td class="right red bold">~₹1,850–1,950</td><td class="right green bold">~₹3,500–3,650</td><td class="right bold" style="color:var(--gold)">~₹4,600–4,750</td></tr>
+        <tr><td class="bold">Upside vs CMP ~₹3,347</td><td class="right red">−42% to −45%</td><td class="right green">+5% to +9%</td><td class="right" style="color:var(--gold)">+37% to +42%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">FY27E EPS, PAT, ADT assumptions and target multiples are the author's own directional projections, not company guidance — MCX does not issue numerical guidance. The base-case EPS of ~₹71 is deliberately anchored to the published consensus figure of ₹71.26 so the model can be benchmarked against the street rather than replacing it.</p>
+  </div>
+
+  <p class="subsection-title">Cross-Checks</p>
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:260px">Trailing P/E</td><td>~55x on ₹60.46 TTM EPS. Sits between BSE (~51x) and CDSL (~62x) — but on materially more cyclical earnings than either.</td></tr>
+        <tr><td class="bold">Forward P/E</td><td>~47x on consensus FY27E EPS of ₹71.26. Not obviously expensive <em>if</em> the ADT run-rate holds; the entire question is whether it does.</td></tr>
+        <tr><td class="bold">Price / Book</td><td>~30x on ₹112 book value, against 56.3% ROE. The P/B is defensible only because the ROE is extraordinary — and the ROE is extraordinary only at peak volumes.</td></tr>
+        <tr><td class="bold">Market cap / sales</td><td>~37x FY26 revenue; ~27x consensus FY27E revenue of ~₹3,130 Cr. Exchange businesses justify high revenue multiples because of the drop-through, but this is at the top of the historical band.</td></tr>
+        <tr><td class="bold">Distance to 52-week extremes</td><td class="red">CMP is 3.8% below the ₹3,480 high and <strong>129% above the ₹1,461 low</strong>. The bear-case target is not a fantasy — it is roughly where the stock traded within the last twelve months.</td></tr>
+        <tr><td class="bold">Dividend yield</td><td>~0.24% at a 15% payout. No valuation support from income.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-gold">Why the conservative case uses a 32x multiple rather than something gentler: when a cyclical business misses on volumes, the market de-rates the multiple <em>and</em> the earnings simultaneously. A 32x multiple on ₹58 of EPS is not a distressed valuation — it is simply what a 96%-share monopoly on <em>normalised</em> commodity volatility might reasonably fetch. That it implies a 42–45% drawdown tells you how much cycle is currently embedded in the price, not how harsh the assumption is.</div>
+</section>
+
+<!-- ═══════════════ S11: SCENARIOS ═══════════════ -->
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Bull &amp; Bear Scenario Analysis</h2></div>
+
+  <div class="scenario-grid">
+    <div class="scenario-card">
+      <div class="sc-header bull">🐂 Bull Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val green">August's metals melt-up persists through H2 FY27; SEBI clears FPI access to physically-settled non-agri contracts after the 1 Sep consultation close; position limits doubled; copper's record run pulls base metals from 1.6% of ADT toward a real contributor</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E ADT</span><span class="sc-val green">₹12–13 lakh Cr</span></div>
+        <div class="sc-row"><span class="sc-key">EBITDA Margin</span><span class="sc-val green">74–76%</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E EPS</span><span class="sc-val green">~₹84</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val green">₹4,600 – ₹4,750</span></div>
+      </div>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-header bear">🐻 Bear Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val red">Gold volatility mean-reverts toward its 20-year average after H1's &gt;50% realised-vol spike; bullion ADT repeats Q1 FY27's −13% QoQ for several quarters; SEBI extends equity-style F&amp;O curbs to commodity options; NSE keeps taking contract-level share in crude</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E ADT</span><span class="sc-val red">₹6.5–7 lakh Cr</span></div>
+        <div class="sc-row"><span class="sc-key">EBITDA Margin</span><span class="sc-val red">64–67%</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E EPS</span><span class="sc-val red">~₹58</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val red">₹1,850 – ₹1,950</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p>The asymmetry is the whole argument against buying here. A base case worth <strong>+5% to +9%</strong> sits against a bear case worth <strong>−42% to −45%</strong>. Even the bull case, at +37% to +42%, requires both a sustained volatility regime <em>and</em> a favourable regulatory outcome — two independent conditions. Probability-weight those honestly and the expected value at ₹3,347 is close to flat, with a fat left tail.</p>
+
+  <div class="callout">This is not a criticism of the business. MCX at ₹2,200 would be one of the most attractive risk-rewards on the Indian market: a 96%-share monopoly, 56% ROE, debt-free, with genuine structural volume growth underneath the cyclical noise. The problem is arithmetic, not quality — the stock has already delivered a 100% return in twelve months, which is precisely the return the volatility regime was worth.</div>
+</section>
+
+<!-- ═══════════════ S12: RISKS ═══════════════ -->
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risk Factors</h2></div>
+
+  <div class="risk-grid">
+    <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Volatility Mean-Reversion</div><span class="badge badge-high">HIGH</span><div class="risk-body">The core risk, and it is not hypothetical. Gold's realised volatility exceeded 50% in H1 2026 against a far lower 20-year average. Q1 FY27 already showed what normalisation does: bullion ADT −13% QoQ, revenue −21%, PAT −22%, margin −4 points. A multi-quarter version of that quarter is the bear case in full.</div></div>
+    <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Bullion Concentration</div><span class="badge badge-high">HIGH</span><div class="risk-body">68.6% of Q1 FY27 ADT and 64.2% of futures turnover is gold and silver. Electricity (₹37 Cr ADT), coal and index products are strategically sound and quantitatively irrelevant. There is no meaningful diversification in the twelve-month earnings model.</div></div>
+    <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">F&amp;O Regulatory Spillover</div><span class="badge badge-medh">MED–HIGH</span><div class="risk-body">Options are now ~two-thirds of revenue at a ~109x notional-to-premium ratio (author's calculation from Q1 FY27 disclosures) — the exact profile SEBI acted against in equity index options. Current commodity proposals are expansionary, but a single expiry-rationalisation or lot-size measure on gold options would hit the largest revenue line directly.</div></div>
+    <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Valuation on Peak Earnings</div><span class="badge badge-medh">MED–HIGH</span><div class="risk-body">~55x trailing, ~47x forward, ~30x book, 3.8% below the all-time high and 129% above the 52-week low. Consensus target ₹3,364 is at the current price. There is no valuation cushion for a volume disappointment.</div></div>
+    <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Realisation Decay</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">Revenue per unit of notional ADT fell from roughly ₹426 Cr to ~₹268 Cr per lakh-crore between FY26 and annualised Q1 FY27 — a ~37% decline (author's calculation) as flow rotated into cheap OTM options. Headline ADT growth systematically overstates revenue growth; models anchored to notional will be wrong.</div></div>
+    <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">NSE Contract-Level Share Loss</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">NSE's aggregate commodity share is under 0.5%, but it has reportedly taken roughly one-third share in some crude expiries using differentiated specs, small-lot bullion and a ₹99 physical-delivery model. Liquidity moats erode contract by contract, not all at once.</div></div>
+    <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Technology &amp; Vendor Concentration</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">The 63 Moons-to-TCS migration was delayed, cost more than planned, collapsed FY24 operating margin to 9%, and drew a SEBI penalty for non-disclosure of payments. The platform now works and has capacity headroom — but MCX is single-vendor dependent, and an outage at record volumes would be a systemic event.</div></div>
+    <div class="risk-row"><div class="risk-num">08</div><div class="risk-name">Cost Base Not Fully Fixed</div><span class="badge badge-low">LOW–MED</span><div class="risk-body">Product licence fees rose 80% YoY to ₹39.68 Cr in Q1 FY27 and scale with volume; employee costs rose to ₹57.45 Cr. Total expenses grew 54% against 88% revenue growth. Real leverage, but the incremental margin is closer to 70–80% than to 100%.</div></div>
+    <div class="risk-row"><div class="risk-num">09</div><div class="risk-name">Clearing / SGF &amp; Governance</div><span class="badge badge-low">LOW</span><div class="risk-body">MCXCCL's ₹1,367 Cr SGF must scale with volatility, margins and open interest — a claim on capital that grows with the boom, and part of why the payout ratio fell to 15%. Separately, MCX has no promoter; a zero-promoter, board-run structure is generally a governance positive but leaves no anchor shareholder in a crisis.</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ S13: SUMMARY ═══════════════ -->
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Investment Summary &amp; Recommendation</h2></div>
+
+  <div class="thesis-box">
+    <p>MCX is a <strong>near-monopoly toll booth on Indian commodity risk transfer</strong> — over 99% share in bullion, base metals and energy, 56% ROE, 71% ROCE, effectively debt-free — whose earnings are a leveraged call option on the volatility of gold, silver and copper rather than on their price level. The 2026 metals regime has been extraordinary: gold peaked near $5,595, fell 29% to $3,974 by late June, and has rallied ~15% in August; copper printed a record $14,455/t. MCX converted that into <strong>FY26 revenue +107% and PAT +138%</strong>, with an <strong>82% incremental operating margin</strong> now that the TCS platform migration has permanently reset the cost base. But three things temper the enthusiasm. Q1 FY27 profit fell <strong>22% sequentially</strong> when bullion ADT dipped 13%. Revenue per rupee of notional turnover has fallen ~37% as flow rotated into cheap out-of-the-money options. And at ₹3,347 the stock trades at ~55x trailing earnings, 3.8% below its all-time high, <strong>at the consensus target price</strong>, after a 100% twelve-month run. The business deserves a premium; the price no longer permits the cycle to disappoint. <strong>Hold — accumulate meaningfully only on a volatility-driven drawdown.</strong></p>
+  </div>
+
+  <p class="subsection-title">The Three Reasons to Own MCX</p>
+  <ul class="report-list">
+    <li><strong>1. A monopoly with proven operating leverage:</strong> ~96% total commodity-derivatives share, &gt;99% in bullion/base metals/energy, and an 82% incremental operating margin FY25→FY26 with the technology cost reset behind it. Every incremental lakh-crore of turnover is nearly pure profit.</li>
+    <li><strong>2. A live, structural volatility regime:</strong> gold's realised volatility exceeded 50% in H1 2026 against a far lower long-run average; copper is at a record on AI data-centre and grid demand plus DRC supply disruption. August's record ₹10.69 lakh crore single-day bullion options print sets up a strong Q2 FY27.</li>
+    <li><strong>3. Regulation is, for once, expanding the market:</strong> SEBI has proposed doubling client position limits (May 2026) and widening FPI access to physically-settled non-agri contracts (Aug 2026, comments to 1 Sep). With only 220 registered FPIs today, the participation base can grow independently of the commodity cycle.</li>
+  </ul>
+
+  <p class="subsection-title">Key Monitorables — Watch Through FY27</p>
+  <div class="monitor-grid">
+    <div class="monitor-item"><div class="monitor-dot"></div><div><strong>Options premium ADT</strong> — not notional ADT. The +114% premium growth, not the +266% notional headline, is what forecasts revenue.</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div><strong>Bullion ADT QoQ</strong> — Q1 FY27's −13% was the whole reason profit fell sequentially. This is the single most predictive line item.</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div><strong>SEBI's final FPI framework</strong> after the 1 September 2026 consultation close — the largest identifiable non-cyclical volume unlock.</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div><strong>Any commodity-options tightening</strong> — expiry rationalisation, strike restriction or lot-size increases on gold options would hit two-thirds of revenue.</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div><strong>Product licence fees</strong> — rose 80% YoY to ₹39.68 Cr. If this keeps outpacing revenue, the incremental-margin story weakens.</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div><strong>NSE crude and bullion expiry share</strong> — aggregate share is meaningless; contract-level share is the early-warning indicator.</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div><strong>Electricity and coal ADT</strong> — the only genuine diversification away from the gold-volatility factor. Currently ₹37 Cr a day.</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div><strong>Gold realised volatility</strong> — the true underlying of this equity. Normalisation toward the 20-year average is the bear case.</div></div>
+  </div>
+
+  <div class="verdict-banner">
+    <h3>RATING: HOLD / ACCUMULATE ON DIPS</h3>
+    <p>Base Case 12-Month Target: <strong>₹3,500–3,650</strong> &nbsp;|&nbsp; Bull: ₹4,600–4,750 &nbsp;|&nbsp; Bear: ₹1,850–1,950 &nbsp;|&nbsp; CMP ~₹3,347 &nbsp;|&nbsp; Risk Level: HIGH (cyclical)</p>
+  </div>
+
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:20px;">
+    SOURCE QUALITY: Financials, ADT, segment mix, client and member data are grounded in MCX's Q1 FY27 results (announced 4 August 2026), the Q1 FY27 investor presentation and earnings call (5 August 2026), FY26 audited results, and Screener.in consolidated data retrieved late August 2026. Price, market cap, 52-week range, P/E, P/B, ROE and ROCE are from Screener.in as of ~25 August 2026 and may differ slightly from other aggregators — one source cited a market capitalisation of ₹77,460 Cr as of 19 August and a P/E of 69x on a different basis. Commodity price and volatility data are from financial media and the World Gold Council's 2026 mid-year outlook. Regulatory items are from SEBI consultation-paper coverage dated 12 May and 11 August 2026. Brokerage targets are as reported in financial media during July–August 2026. Items explicitly marked as the author's calculation — the 82% incremental margin, the ~109x notional-to-premium ratio, the ~37% realisation decay, segment percentages of ADT, and all Q1 FY26 back-solved approximations — are derived arithmetic, not company disclosures. All FY27E estimates, target multiples and target prices are the author's own directional projections; MCX issues no numerical guidance. Items marked "n/v" could not be verified for this report.
+  </p>
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:10px;">
+    DISCLAIMER: This report is prepared for informational and private research purposes only. It does not constitute investment advice or a recommendation to buy or sell any security. The author is not a SEBI-registered investment adviser and may hold positions in the securities discussed. All financial data is sourced from publicly available filings, concall transcripts and exchange disclosures. Investing in equities involves the risk of capital loss. Past performance is not indicative of future results. Please consult a SEBI-registered investment adviser before making any investment decision.
+  </p>
+</section>
+
+</div><!-- /.page -->
+
+<footer class="footer">
+  <div>MULTI COMMODITY EXCHANGE OF INDIA LTD (NSE: MCX) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results &amp; Investor Presentation (4–5 Aug 2026) · FY26 Audited Results · SEBI Consultation Papers (12 May &amp; 11 Aug 2026) · Screener.in · World Gold Council Mid-Year Outlook 2026 · Aggregator Price Data (late Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>
