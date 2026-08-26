@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motilal Oswal Financial Services — Equity Research Report | August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ MASTHEAD ═══════════════ -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: MOTILALOFS &nbsp;|&nbsp; BSE: 532892 &nbsp;|&nbsp; ISIN: INE338I01027 &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026</p>
+    <h1 class="report-title"><span>Motilal</span> Oswal Financial Services</h1>
+    <p class="report-subtitle">Broking · Asset &amp; Wealth Management · Capital Markets · Housing Finance &nbsp;·&nbsp; A leveraged play on the financialisation of Indian savings — with a ₹10,482 Cr proprietary investment book bolted on</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (Aug 26)</div><div class="kpi-value">~₹1,040</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹62,663 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">52W H / L</div><div class="kpi-value">₹1,097 / ₹615</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Revenue FY26</div><div class="kpi-value">₹9,381 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">PAT FY26</div><div class="kpi-value">₹1,872 Cr</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Accumulate on Dips</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Target (1Y)</div><div class="rating-val">₹1,470 – ₹1,510</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Target (1Y)</div><div class="rating-val">₹740 – ₹780</div></div>
+  </div>
+</header>
+
+<!-- ═══════════════ STICKY NAV ═══════════════ -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Segments</a>
+    <a href="#s3">Value Chain</a>
+    <a href="#s4">AUM Engine</a>
+    <a href="#s5">Operating Metrics</a>
+    <a href="#s6">Competition</a>
+    <a href="#s7">Financials</a>
+    <a href="#s8">Investment Book</a>
+    <a href="#s9">Growth &amp; Guidance</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- ═══════════════ S1: OVERVIEW ═══════════════ -->
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:220px">Full Name</td><td>Motilal Oswal Financial Services Limited</td></tr>
+        <tr><td class="bold">Lineage</td><td>Founded 1987 by Motilal Oswal and Raamdeo Agrawal as a sub-broking outfit → holding company Motilal Oswal Financial Services Ltd incorporated 18 May 2005 → IPO / listing 2007. CIN L67190MH2005PLC153397</td></tr>
+        <tr><td class="bold">ISIN / Codes</td><td style="font-family:'IBM Plex Mono',monospace;font-size:12px">INE338I01027 &nbsp;|&nbsp; NSE: MOTILALOFS &nbsp;|&nbsp; BSE: 532892</td></tr>
+        <tr><td class="bold">Listed</td><td>NSE/BSE since 2007. Management's stated record: <strong>no equity dilution since listing</strong>, three buybacks and consistent dividends. Equity capital rose from ₹15 Cr to ₹60 Cr on a 3:1 bonus issue (FY25) — bonus, not dilution.</td></tr>
+        <tr><td class="bold">Promoters</td><td>Motilal Oswal and Raamdeo Agrawal (and family/entities). Promoter holding <strong>67.20%</strong> as at June 2026, drifting down gently from 69.5% in Sep 2023</td></tr>
+        <tr><td class="bold">Key Management</td><td>Navin Agarwal (Group Managing Director), Shalibhadra Shah (CFO), Prateek Agrawal (MD &amp; CEO, Asset Management), Ashish Shanker (CEO, Private Wealth), Ajay Menon (CEO, Wealth Management)</td></tr>
+        <tr><td class="bold">Headquarters</td><td>Motilal Oswal Tower, Prabhadevi, Mumbai — 400025</td></tr>
+        <tr><td class="bold">Face Value</td><td>₹1 per share &nbsp;·&nbsp; ~60.25 crore shares outstanding</td></tr>
+        <tr><td class="bold">Sector</td><td>Diversified financial services — retail &amp; institutional broking, mutual fund/PMS/AIF asset management, private wealth, investment banking, affordable housing finance, and a proprietary investment (treasury) book</td></tr>
+        <tr><td class="bold">Credit Rating</td><td>AA+ — described by management as the highest for a non-bank domestic capital-market player; a CRISIL upgrade during the year is expected to save 15–20 bps of borrowing cost over 12–18 months</td></tr>
+        <tr><td class="bold">Shareholding (Jun 26)</td><td>Promoters 67.20% &nbsp;·&nbsp; FIIs 6.86% &nbsp;·&nbsp; DIIs 6.78% &nbsp;·&nbsp; Public &amp; others 19.15% &nbsp;·&nbsp; ~2.25 lakh shareholders</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>MOFSL is best understood not as a broker but as <strong>two businesses stapled together</strong>. The first is an operating financial-services group — India's largest integrated non-bank capital-market player, spanning retail broking (7.6% market share), a ₹2.12 lakh crore asset-management franchise, a ₹2.4 lakh crore private-wealth arm, a #2-ranked investment bank and a small affordable-housing lender. The second is a <strong>₹10,482 crore proprietary investment book</strong> — roughly 73% of the group's ₹14,429 Cr net worth — built by ploughing retained operating profits into the company's own mutual funds, PMS and AIF products for over a decade.</p>
+
+  <p>That structure is the whole analytical problem. The operating group compounded operating profit at 33% a year over the past decade on an average 23% return on equity — a genuinely excellent record. But the investment book is marked to market through the P&amp;L and OCI every quarter, and it is now large enough that <strong>reported earnings tell you more about the Nifty than about the business</strong>. In Q1 FY27 treasury contributed ₹664 Cr of the ₹1,273 Cr reported PAT. One quarter earlier, in Q4 FY26, treasury took ₹491 Cr <em>out</em> of the P&amp;L and pushed the group to a reported net loss of ₹221 Cr — in a quarter when the operating businesses delivered their best-ever ₹661 Cr.</p>
+
+  <div class="callout callout-gold">House view: MOFSL is the highest-quality listed proxy for the financialisation of Indian household savings, and the annuity mix has genuinely inflected — recurring revenue is 66% of net revenue versus 51% a year ago. But at ~₹1,040 the stock sits within 5% of its 52-week high after a 42% six-month run, and our sum-of-the-parts lands <em>below</em> the current price. This is an "own the business, respect the price" situation.</div>
+</section>
+
+<!-- ═══════════════ S2: SEGMENTS ═══════════════ -->
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">Business Segments &amp; Profit Mix</h2></div>
+
+  <p>MOFSL reports five operating segments plus treasury. Because the group's own preferred metric is <strong>operating PAT</strong> (i.e. excluding the treasury book), the cleanest way to see the business is segment PAT — reproduced below for the June 2026 quarter against the comparable quarter and the immediately preceding one.</p>
+
+  <p class="subsection-title">Segment PAT — Q1 FY27 (₹ Cr)</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Segment</th><th class="right">Q1 FY27</th><th class="right">Q4 FY26</th><th class="right">Q1 FY26</th><th class="right">YoY</th><th>What it is</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Asset Management</td><td class="right green">244.7</td><td class="right">248.5</td><td class="right">141.4</td><td class="right green">+73%</td><td>Mutual funds, PMS and AIF (listed) plus MO Alternates (private equity, real estate, private credit). Now the single largest profit pool at ~40% of operating PAT.</td></tr>
+        <tr><td class="bold">Wealth Management</td><td class="right red">161.3</td><td class="right">203.9</td><td class="right">173.0</td><td class="right red">−7%</td><td>Retail broking, third-party product distribution and retail lending (MTF). The legacy engine — still 26% of operating PAT, but shrinking in relative terms.</td></tr>
+        <tr><td class="bold">Private Wealth</td><td class="right">90.1</td><td class="right">88.2</td><td class="right">88.6</td><td class="right">+2%</td><td>UHNI/family-office advisory. ARR revenue grew 42% but flat overall PAT — transaction-based revenue (TBR) fell against a very high base.</td></tr>
+        <tr><td class="bold">Capital Markets</td><td class="right red">75.7</td><td class="right">75.2</td><td class="right">101.1</td><td class="right red">−25%</td><td>Institutional equities and investment banking. Lumpy by construction; 11 deals raising &gt;₹10,000 Cr in the quarter, ranked #2 on IPO/QIP league tables.</td></tr>
+        <tr><td class="bold">Housing Finance</td><td class="right green">32.4</td><td class="right">59.3</td><td class="right">23.9</td><td class="right green">+36%</td><td>Affordable housing loans. Small (5% of operating PAT) but growing fast and self-funding.</td></tr>
+        <tr><td class="bold" style="border-top:2px solid var(--rule)">Operating PAT (company-stated)</td><td class="right bold" style="border-top:2px solid var(--rule)">609</td><td class="right bold" style="border-top:2px solid var(--rule)">661</td><td class="right bold" style="border-top:2px solid var(--rule)">~528</td><td class="right green bold" style="border-top:2px solid var(--rule)">+14%</td><td style="border-top:2px solid var(--rule)">The number management asks you to judge them on.</td></tr>
+        <tr><td class="bold">Treasury / Investments</td><td class="right green">664.1</td><td class="right red">−491.1</td><td class="right">628.3</td><td class="right">+6%</td><td>Mark-to-market on the ₹10,482 Cr proprietary book, routed through the P&amp;L. A further ₹240 Cr of Q1 FY27 gain went through OCI (₹904 Cr total).</td></tr>
+        <tr><td class="bold" style="border-top:2px solid var(--rule)">Reported consolidated PAT</td><td class="right bold" style="border-top:2px solid var(--rule)">1,273</td><td class="right red bold" style="border-top:2px solid var(--rule)">−221</td><td class="right bold" style="border-top:2px solid var(--rule)">1,163</td><td class="right green bold" style="border-top:2px solid var(--rule)">+10%</td><td style="border-top:2px solid var(--rule)">The number that actually hits the EPS line.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Segment PAT sums to ₹604 Cr against the company's stated ₹609 Cr operating PAT; the small residual is unallocated/other. Q1 FY26 operating PAT of ~₹528 Cr is implied from the disclosed +14% YoY growth. Treasury PAT "including OCI" was ₹904 Cr in Q1 FY27 and −₹1,054 Cr in Q4 FY26.</p>
+  </div>
+
+  <p class="subsection-title">Revenue Composition — Q1 FY27 Net Operating Revenue ₹1,538 Cr</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Revenue line</th><th class="right">Share</th><th>Read</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Net interest income</td><td class="right">32%</td><td>Earned on the MTF/LAS book (&gt;₹7,000 Cr in wealth, ₹4,200 Cr in private wealth) and housing finance. Classified by the company as fully annuity — there is no transactional element in NII.</td></tr>
+        <tr><td class="bold">Management &amp; advisory fees</td><td class="right green">30%</td><td>The prize. Up from 19% in FY22. AMC and private-wealth trail fees — the most valuable revenue in the group.</td></tr>
+        <tr><td class="bold">Distribution fees</td><td class="right">11%</td><td>Trail on a ₹45,575 Cr distribution book at a stable ~70 bps yield.</td></tr>
+        <tr><td class="bold">Broking, IB and other transactional</td><td class="right muted">~27%</td><td>The cyclical residual — brokerage, investment-banking fees and transaction-based wealth revenue. Balancing figure.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Company-disclosed shares for NII, management/advisory fees and distribution fees; the transactional residual is the author's arithmetic on the balance. Annual recurring revenue (ARR) is disclosed at 66% of net revenue in Q1 FY27, versus 51% a year earlier and ~60% for FY26.</p>
+  </div>
+
+  <div class="callout callout-green">The mix shift is the real story, and it is not marketing. Asset &amp; Private Wealth moved from 42% of group operating PAT in FY25 → ~50% in FY26 → <strong>55% in Q1 FY27</strong>. Meanwhile the ARR share of revenue jumped 15 percentage points year on year. A broker with a 15-year history of volatile, market-linked earnings is genuinely turning into an asset manager with a broking distribution arm attached.</div>
+</section>
+
+<!-- ═══════════════ S3: VALUE CHAIN ═══════════════ -->
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Where MOFSL Sits in the Financialisation Chain</h2></div>
+
+  <p>Indian household savings are migrating out of gold, property and bank deposits into market-linked products. Every rupee that makes that journey passes through the same four stages, and each stage carries a very different economics profile — from thin, regulated, volume-linked transaction economics at the front, to fat, sticky, annuity economics at the back. MOFSL is unusual in owning a position at every stage.</p>
+
+  <div class="vc-diagram">
+    <div class="vc-layer l1">
+      <div class="vc-num">STAGE 01</div>
+      <div class="vc-name">Household Savings</div>
+      <div class="vc-desc">₹100 trillion+ Indian market cap; savings shifting from deposits/gold/property into equities, MFs and SIPs</div>
+      <div class="vc-tags"><span class="vc-tag">SIP flows · Demat growth</span></div>
+    </div>
+    <div class="vc-layer l2">
+      <div class="vc-num">STAGE 02</div>
+      <div class="vc-name">Access &amp; Execution</div>
+      <div class="vc-desc">Broking, demat, margin funding — regulated, price-competitive, volume-linked. The commoditising leg.</div>
+      <div class="vc-tags"><span class="vc-tag skip">MOFSL (7.6% share)</span><span class="vc-tag">Zerodha · Groww · Angel</span></div>
+    </div>
+    <div class="vc-layer l3">
+      <div class="vc-num">STAGE 03</div>
+      <div class="vc-name">Advice &amp; Distribution</div>
+      <div class="vc-desc">Wealth management, family offices, third-party product distribution — trail income, sticky, relationship-led</div>
+      <div class="vc-tags"><span class="vc-tag skip">MOFSL (PWM + WM)</span><span class="vc-tag">360 ONE · Nuvama</span></div>
+    </div>
+    <div class="vc-layer l4">
+      <div class="vc-num">STAGE 04</div>
+      <div class="vc-name">Asset Manufacture</div>
+      <div class="vc-desc">Mutual funds, PMS, AIF, private credit — the annuity end of the chain, highest margin, highest multiple</div>
+      <div class="vc-tags"><span class="vc-tag skip">MOFSL AMC + Alternates</span><span class="vc-tag">HDFC AMC · Nippon</span></div>
+    </div>
+  </div>
+
+  <p>The strategic logic of MOFSL's last five years has been a deliberate <strong>march from Stage 02 to Stage 04</strong>. Broking-led wealth management contributed 33% of its segment revenue from ARR and NII in FY21; that is 57% today. Group-wide, annuity revenue is 66% of the total. The company is monetising the same client — 15.8 million of them, up 16% year on year — further down a chain where the multiple the market pays roughly triples.</p>
+
+  <p>The honest counterpoint: MOFSL still <em>earns</em> a meaningful share of its profit at Stage 02, where SEBI has spent two years compressing economics, and it holds only a 2.9% share of mutual-fund AUM at Stage 04, where it competes against far larger incumbents. The migration is real but incomplete, and the market is now paying for its completion.</p>
+</section>
+
+<!-- ═══════════════ S4: AUM ENGINE ═══════════════ -->
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">The Annuity Engine — AUM, Flows and Vintage</h2></div>
+
+  <div class="macro-grid">
+    <div class="macro-card"><div class="macro-co">Asset Management AUM</div><div class="macro-val">₹2.12 L Cr</div><div class="macro-label">+31% YoY · crossed the ₹2 lakh crore milestone · 34% CAGR since March 2020 · MF + PMS + AIF + Alternates</div></div>
+    <div class="macro-card"><div class="macro-co">Private Wealth AUM</div><div class="macro-val">₹2.39 L Cr</div><div class="macro-label">+37% YoY · net flows ₹3,929 Cr in Q1 FY27 (+37%) · ARR AUM ~₹52,000 Cr</div></div>
+    <div class="macro-card"><div class="macro-co">Distribution Book</div><div class="macro-val">₹45,575 Cr</div><div class="macro-label">+29% YoY in the Wealth Management segment · stable ~70 bps yield · cross-sell penetration only 18%</div></div>
+    <div class="macro-card"><div class="macro-co">Total Assets Under Advice</div><div class="macro-val">₹7.9 L Cr</div><div class="macro-label">+22% YoY across the group · Asset Management + Private Wealth combined AUM ₹4.5 lakh Cr, +34% YoY</div></div>
+  </div>
+
+  <p class="subsection-title">The Asset Management Business — Where the Profit Growth Came From</p>
+
+  <p>AMC PAT grew 73% year on year to ₹244.7 Cr. Two things drove it, and they are not equally repeatable. The first is operating leverage on a rising average AUM base: average AUM moved from ₹1.57 lakh Cr for FY26 to ₹1.67 lakh Cr in Q4 FY26 to ₹1.81 lakh Cr in Q1 FY27, against a fixed cost base — PBT margin expanded to 70% from 66%. The second is <strong>₹66 Cr of accrued "variable additional return"</strong> (carry) from the unlisted alternates business, which only began accruing in Q3 FY26 and therefore sits in the Q1 FY27 numbers but not in the Q1 FY26 base.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Q1 FY27</th><th>Read-across</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">MF AUM market share</td><td class="right">2.9%</td><td>The base. Small enough that the growth runway is genuine rather than rhetorical.</td></tr>
+        <tr><td class="bold">Net MF flow market share</td><td class="right green">4.2%</td><td>Up from 3.7% in the prior quarter. Flow share running well above AUM share is the leading indicator that matters.</td></tr>
+        <tr><td class="bold">SIP flows</td><td class="right">₹4,064 Cr</td><td>+16% YoY, 4.3% market share, SIP AUM ₹38,643 Cr. Annualised run-rate ~₹16,000 Cr — the AUM floor.</td></tr>
+        <tr><td class="bold">Digital channel share</td><td class="right green">~7%</td><td>Up 110 bps from ~6% in Q1 FY26. Digital is the fastest-growing distribution channel industry-wide.</td></tr>
+        <tr><td class="bold">Unique investors (PANs)</td><td class="right">&gt;1 crore</td><td>Versus 85 lakh in June 2025 — roughly 16% of all mutual-fund investors in India now hold a Motilal Oswal product.</td></tr>
+        <tr><td class="bold">Funds with 3+ year vintage</td><td class="right red">6 funds</td><td>Addressing only 44% of industry AUM. This is the binding constraint — see below.</td></tr>
+        <tr><td class="bold">Alternates AUM</td><td class="right">&gt;₹35,000 Cr</td><td>Maiden ₹3,000 Cr private-credit fund, ~₹2,500 Cr raised at second close; commercial real-estate fund launching in H2 FY27.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">A note on which AUM number is which, because the company quotes several: <strong>₹2.12 lakh Cr</strong> is closing Asset Management AUM <em>including</em> MO Alternates; <strong>~₹1.9 lakh Cr</strong> was the listed-AMC closing AUM at the time of the July call; <strong>₹1.81 lakh Cr</strong> was listed-AMC <em>average</em> AUM for Q1 FY27 (versus ₹1.57 lakh Cr average for FY26); and <strong>₹4.5 lakh Cr</strong> is Asset Management plus Private Wealth combined. Fees are earned on average, not closing, AUM — which is why the ~15% gap between current and FY26-average AUM is itself a revenue tailwind before any new flows.</p>
+  </div>
+
+  <p class="subsection-title">The Vintage Unlock — the Single Most Important Forward Variable</p>
+
+  <p>Indian distributors and wealth platforms will not sell a fund without a three-year track record. MOFSL's product suite is young: only <strong>six funds</strong> currently clear that bar, and those six address just 44% of industry AUM. Management's stated path is that two more funds cross the three-year mark by March 2027 and a further eight by March 2028, lifting addressable coverage from 44% to <strong>75% of industry AUM</strong>. Two large funds — the small-cap and large-cap schemes — cross three years in the December 2026 to January 2027 window.</p>
+
+  <p>This is a mechanical, dated, largely non-discretionary catalyst, and it is the strongest single argument for the stock. It does not require MOFSL to win a share fight; it requires only that funds already performing well become eligible for shelves they are currently locked out of. Management's own list of AUM drivers is worth reproducing verbatim in substance: the ~₹16,000 Cr annualised SIP run-rate; NFO collections; more products crossing the three-year vintage; a current AUM of ~₹1.9 lakh Cr that already sits 15%+ above the FY26 average; potential mark-to-market gains after two muted years; and GIFT City fund launches.</p>
+
+  <div class="callout">The caveat a promoter will not volunteer: fund performance is what makes a three-year vintage valuable. Vintage alone opens the shelf; it does not fill it. MOFSL's funds are concentrated in mid-cap and small-cap-flavoured mandates that have led the SIP share gains — a strength in a broadening market and a liability in a narrow, large-cap-led one.</div>
+</section>
+
+<!-- ═══════════════ S5: OPERATING METRICS ═══════════════ -->
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Broking, Distribution &amp; the F&amp;O Regulatory Reset</h2></div>
+
+  <p>The cyclical leg of MOFSL is its Wealth Management segment — retail broking, third-party distribution and margin funding — plus the Capital Markets segment. Both were the group's engine a decade ago; both are now the drag on the growth rate, and both operate inside the most aggressive regulatory tightening the Indian broking industry has faced.</p>
+
+  <p class="subsection-title">What SEBI Did to the Industry</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Measure / Effect</th><th class="right">Magnitude</th><th>Consequence</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Options contracts traded, FY26</td><td class="right red">−51.5%</td><td>The headline number. Per SEBI data, options volumes more than halved in the year following the six-step F&amp;O framework.</td></tr>
+        <tr><td class="bold">Futures contracts traded, FY26</td><td class="right red">~−18%</td><td>NSE F&amp;O turnover also down ~18%. Cash-market turnover dipped alongside.</td></tr>
+        <tr><td class="bold">Unique F&amp;O traders</td><td class="right red">−20% to 6.7 mn</td><td>Participation, not just turnover, contracted.</td></tr>
+        <tr><td class="bold">Smallest retail traders (&lt;₹10k monthly premium)</td><td class="right red">−49% YoY</td><td>Per ICRA/exchange data. The ₹10k–₹1 lakh cohort fell ~37%. The regulation worked as designed.</td></tr>
+        <tr><td class="bold">Industry broking revenue, H1 FY26</td><td class="right red">~−6% YoY</td><td>Revenue fell far less than volumes — brokers with distribution, wealth, IB and interest income were materially insulated.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Industry data from SEBI/exchange disclosures and ICRA commentary reported in financial media during FY26. Regulatory measures include one-exchange-one-weekly-expiry, higher lot sizes, stricter upfront margining, and an STT increase.</p>
+  </div>
+
+  <p class="subsection-title">How MOFSL Actually Fared</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Q1 FY27</th><th class="right">Q1 FY26</th><th>Comment</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Overall retail broking market share (incl. commodities)</td><td class="right green">7.6%</td><td class="right">7.0%</td><td>Share <em>gained</em> through the reset — the pie shrank but MOFSL's slice grew.</td></tr>
+        <tr><td class="bold">F&amp;O premium market share</td><td class="right green">7.6%</td><td class="right">7.0%</td><td>The gain was led specifically by the premium segment, i.e. the higher-quality end of derivatives flow.</td></tr>
+        <tr><td class="bold">Cash market share</td><td class="right">stable</td><td class="right muted">—</td><td>MOFSL claims to be the largest broker in the cash segment by revenue market share among non-bank players.</td></tr>
+        <tr><td class="bold">Brokerage revenue</td><td class="right">+6% YoY</td><td class="right muted">—</td><td>Positive growth in a year the industry's volumes halved. Full-service, advisory-led mix is doing its job.</td></tr>
+        <tr><td class="bold">MTF / retail loan book</td><td class="right green">&gt;₹7,000 Cr</td><td class="right muted">—</td><td>+33% YoY (the group MTF book reported +54–55% YoY to ~₹7,800 Cr). MTF market share ~6.5%.</td></tr>
+        <tr><td class="bold">Distribution revenue</td><td class="right red">₹179 Cr</td><td class="right">₹298 Cr</td><td>Down ~40%. This — not broking — is why Wealth Management PAT fell 7%. See below.</td></tr>
+        <tr><td class="bold">Wealth Management ARR revenue</td><td class="right green">₹304 Cr</td><td class="right muted">+26% YoY</td><td>ARR + NII now 57% of segment revenue, versus 33% in FY21.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="subsection-title">How Little of This Segment Is Actually Brokerage</p>
+  <p>The most under-appreciated fact about MOFSL is how small pure brokerage has become. The FY26 Wealth Management segment generated ₹2,304 Cr of net revenue, of which brokerage was only ₹804 Cr:</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Wealth Management net revenue, FY26</th><th class="right">₹ Cr</th><th class="right">Share</th><th>Character</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Net interest income (MTF, LAS)</td><td class="right">965</td><td class="right">~42%</td><td class="green">Annuity — a spread on cost of capital, and MOFSL's AA+ rating is compressing that cost</td></tr>
+        <tr><td class="bold">Brokerage</td><td class="right">804</td><td class="right">~35%</td><td class="red">Cyclical and regulated — the leg exposed to F&amp;O curbs and fee-cap proposals</td></tr>
+        <tr><td class="bold">Distribution</td><td class="right">388</td><td class="right">~17%</td><td class="green">Annuity trail at ~70 bps on a ₹45,575 Cr book</td></tr>
+        <tr><td class="bold">Other</td><td class="right">146</td><td class="right">~6%</td><td class="muted">Mixed</td></tr>
+        <tr><td class="bold" style="border-top:2px solid var(--rule)">Total</td><td class="right bold" style="border-top:2px solid var(--rule)">2,304</td><td class="right bold" style="border-top:2px solid var(--rule)">100%</td><td style="border-top:2px solid var(--rule)">Group-wide, <strong>non-brokerage income was 77% of FY26 net revenue</strong></td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">FY26 segment revenue composition per company disclosures. Share percentages are the author's arithmetic on the disclosed amounts.</p>
+  </div>
+
+  <p>That mix is why MOFSL's most broking-exposed segment fell only 7% in a quarter when a pure-play peer's annual profit fell 22%. Brokerage is ~35% of one segment that is itself ~26% of group operating PAT — call it 9% of group operating profit. A brokerage fee cap that halved that line would cost roughly 4–5% of group operating PAT. Painful, not existential.</p>
+
+  <p>The nuance that a headline reading misses: <strong>the weak spot in Q1 FY27 was not broking, it was transaction-based revenue.</strong> Management's explanation on the call is credible — Q1 FY26 carried an exceptionally high base of TBR, particularly from unlisted paper sourcing (both credit and equity) in the private-wealth and distribution channels, and the subsequent three quarters of FY26 were already muted on that line. Distribution <em>assets</em> grew 29% and broking assets 7%; distribution <em>revenue</em> fell because the one-off transactional layer on top did not repeat. Trail income tracking a growing asset base is the durable half; TBR is the half that will keep whipsawing quarter to quarter.</p>
+
+  <p class="subsection-title">Capital Markets — Lumpy by Design</p>
+  <p>Institutional equities plus investment banking delivered ₹75.7 Cr of PAT, down 25% year on year, despite eleven completed deals raising over ₹10,000 Cr and a 48% sequential jump in fee income to ₹68 Cr. MOFSL ranked <strong>#2 on the IPO and QIP league tables</strong> for the quarter. Institutional research coverage stands at 384 stocks against a stated target of 500, with 20 initiations in the quarter. Management was explicit that this business will not deliver a clean runway of activity across a full year — it gets "pockets of two or three months, maybe two or three times a year" in which to execute a signed-mandate pipeline it describes as very strong. Expect growth for FY27 as a whole and volatility every quarter within it.</p>
+
+  <div class="callout callout-green">The share-gain data point deserves emphasis. Through the single worst regulatory shock the Indian broking industry has absorbed — options volumes halving, F&amp;O participants down a fifth — MOFSL grew brokerage revenue 6% and lifted overall retail market share from 7.0% to 7.6%. That is the signature of a full-service, advisory-led franchise consolidating share as thinly-capitalised discount competitors lose the marginal punter.</div>
+</section>
+
+<!-- ═══════════════ S6: COMPETITION ═══════════════ -->
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Competitive Positioning</h2></div>
+
+  <p>MOFSL does not have a single clean comparable, which is precisely why the sum-of-the-parts matters. It competes against discount brokers at the execution layer, against pure wealth managers in advisory, and against listed AMCs in asset manufacture — and it is sub-scale against the leader in every one of those three arenas individually while being larger and more diversified than any of them in aggregate. The listed cohort also thinned materially in March 2025 when ICICI Securities was absorbed into ICICI Bank.</p>
+
+  <p class="subsection-title">Peer Comparison — Prices as at 26 August 2026</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">MOFSL</th><th class="right">Angel One</th><th class="right">360 ONE WAM</th><th class="right">Nuvama</th><th class="right">ICICI Sec.</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Market price (₹)</td><td class="right bold">1,040</td><td class="right">300</td><td class="right">1,197</td><td class="right">1,765</td><td class="right muted">delisted</td></tr>
+        <tr><td class="bold">Market cap (₹ Cr)</td><td class="right bold">62,663</td><td class="right">27,411</td><td class="right">48,785</td><td class="right">32,408</td><td class="right muted">29,149*</td></tr>
+        <tr><td class="bold">P/E (TTM, reported)</td><td class="right">31.7</td><td class="right">26.6</td><td class="right red">38.7</td><td class="right">30.0</td><td class="right muted">16.7*</td></tr>
+        <tr><td class="bold">Price / Book</td><td class="right">4.86</td><td class="right">4.46</td><td class="right">4.95</td><td class="right red">7.81</td><td class="right muted">—</td></tr>
+        <tr><td class="bold">ROE %</td><td class="right">15.5</td><td class="right">15.6</td><td class="right">14.4</td><td class="right green">27.4</td><td class="right muted">29.2*</td></tr>
+        <tr><td class="bold">ROCE %</td><td class="right">12.7</td><td class="right">14.8</td><td class="right">12.1</td><td class="right green">17.5</td><td class="right muted">—</td></tr>
+        <tr><td class="bold">FY26 revenue (₹ Cr, gross)</td><td class="right bold">9,381</td><td class="right">5,138</td><td class="right">4,470</td><td class="right">4,631</td><td class="right">5,890</td></tr>
+        <tr><td class="bold">FY26 PAT (₹ Cr)</td><td class="right">1,872</td><td class="right">915</td><td class="right">1,216</td><td class="right">1,040</td><td class="right">1,713</td></tr>
+        <tr><td class="bold">FY26 PAT growth</td><td class="right red">−25%</td><td class="right red">−22%</td><td class="right green">+21%</td><td class="right">+6%</td><td class="right red">−12%</td></tr>
+        <tr><td class="bold">52-week high / low (₹)</td><td class="right">1,097 / 615</td><td class="right">360 / 209</td><td class="right">1,236 / 906</td><td class="right">2,067 / 1,097</td><td class="right muted">—</td></tr>
+        <tr><td class="bold">Promoter holding</td><td class="right">67.20%</td><td class="right">28.59%</td><td class="right">6.20%</td><td class="right">53.98%</td><td class="right muted">74.35%*</td></tr>
+        <tr><td class="bold">Dividend yield</td><td class="right red">0.59%</td><td class="right">1.33%</td><td class="right">1.00%</td><td class="right green">1.56%</td><td class="right muted">—</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Prices, market caps, multiples, book values, returns and shareholding from Screener.in consolidated pages, retrieved 26 August 2026; promoter holdings as at June 2026 except ICICI Securities. <strong>*ICICI Securities is delisted</strong> — it merged into ICICI Bank under a scheme of arrangement (swap: 67 ICICI Bank shares per 100 ISEC shares), last traded at ₹895.70 on 21 March 2025 and was removed from NSE/BSE on 24 March 2025. Its price, market cap, P/E, ROE and shareholding above are <em>frozen at March 2025</em> and must not be read as current; only its FY26 revenue and PAT (it still files results as a wholly-owned subsidiary) are live figures. <strong>Revenue is not fully like-for-like:</strong> Screener "Sales" is gross revenue, whereas 360 ONE and Nuvama headline net revenue in their investor materials (360 ONE: ₹3,144 Cr net vs ₹4,470 Cr gross). Nuvama's P/B is the one genuinely contested cell across data providers (7.8x to 9.2x, likely a standalone-versus-consolidated book difference); Nuvama also executed a 1:5 stock split in December 2025, so older price series are not comparable.</p>
+  </div>
+
+  <p class="subsection-title">What the Table Actually Says</p>
+  <ul class="report-list">
+    <li><strong>MOFSL's reported P/E of 31.7x is not comparable to the others</strong> — it is computed on earnings that a treasury write-down dragged 25% lower. On FY26 <em>operating</em> earnings the multiple is ~26.5x, which puts MOFSL between Angel One (26.6x) and Nuvama (30.0x) and at a clear discount to 360 ONE (38.7x). The market is not paying MOFSL a full annuity multiple yet.</li>
+    <li><strong>Angel One is the read on what the F&amp;O reset cost a pure broker:</strong> FY26 revenue slipped to ₹5,138 Cr and PAT fell 22% to ₹915 Cr. Its 26.6x is a <em>trough-earnings</em> multiple, not a structural one. MOFSL's contrast is stark: its broking-linked Wealth Management segment fell only 7% in the latest quarter, because brokerage is just ~35% of that segment's revenue against NII at ~42% and distribution at ~17%.</li>
+    <li><strong>360 ONE is the valuation prize MOFSL is chasing:</strong> 38.7x on ₹6.74 lakh Cr of AUM with 75% ARR revenue and essentially no retail broking — the purest listed annuity model in the cohort. Its 14.4% ROE is <em>below</em> MOFSL's, which tells you the premium is being paid for revenue quality, not returns. That is precisely the re-rating mechanism MOFSL is trying to trigger.</li>
+    <li><strong>Nuvama is the best structural analogue and the best-returning business:</strong> 27.4% ROE and 17.5% ROCE against MOFSL's 15.5% and 12.7%, with wealth at ~55% of revenue and asset services ~24%. It earns a 7.8x book multiple for it. MOFSL's lower ROE is partly structural — a large equity-funded investment book sits in the denominator earning market returns rather than operating returns.</li>
+    <li><strong>MOFSL is the largest and the most diversified,</strong> with revenue roughly double any peer and the only genuine five-way business. It is also the lowest-yielding (0.59%) and the most promoter-concentrated (67.2%) — a group that retains and reinvests rather than distributes, which is exactly how the investment book got so large.</li>
+  </ul>
+
+  <p class="subsection-title">The Genuine Competitive Advantages</p>
+  <ul class="report-list">
+    <li><strong>Integration across the whole chain:</strong> Management's claim to be "the largest integrated capital-market player" is defensible. A single client can be acquired through broking, retained through advice, monetised through distribution, and compounded through the AMC. Cross-sell penetration is only 18% — against global full-service peers running "multiple times" that — which is simultaneously an admission of underperformance and the cheapest growth available to the group.</li>
+    <li><strong>Balance-sheet strength as a weapon:</strong> AA+ rating, no equity dilution in 19 years as a listed company, and capital-market borrowing spreads that have narrowed from 75 bps to 30–35 bps over AAA. In margin funding — a business that is simply a spread on cost of capital — this is a durable, compounding edge.</li>
+    <li><strong>Research and advisory depth:</strong> 384 stocks under institutional coverage and a #2 IPO/QIP league-table position give the group an institutional credibility that discount platforms structurally cannot replicate, and which feeds the private-wealth and AMC franchises.</li>
+    <li><strong>The honest weakness — scale in the businesses that matter most:</strong> 2.9% of mutual-fund AUM. A private-wealth arm with an RM base only two-thirds of which is past its productivity ramp. An investment bank that concedes it needs market windows to earn. MOFSL is the best-diversified player in its cohort and the sub-scale challenger in each of its individual arenas.</li>
+  </ul>
+</section>
+
+<!-- ═══════════════ S7: FINANCIALS ═══════════════ -->
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Financial Performance</h2></div>
+
+  <p>The five-year P&amp;L below is the clearest illustration of why this company must be analysed twice — once on operating earnings, once on reported. Revenue has compounded steadily. Reported profit has not, and the deviation is almost entirely treasury.</p>
+
+  <p class="subsection-title">Consolidated Profit &amp; Loss — FY22 to FY26 (₹ Cr)</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">FY22</th><th class="right">FY23</th><th class="right">FY24</th><th class="right">FY25</th><th class="right">FY26</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Revenue</td><td class="right">4,298</td><td class="right">4,178</td><td class="right">7,069</td><td class="right">8,340</td><td class="right green">9,381</td></tr>
+        <tr><td class="bold">Operating profit</td><td class="right">2,120</td><td class="right">1,877</td><td class="right">4,067</td><td class="right">4,546</td><td class="right">3,877</td></tr>
+        <tr><td class="bold">OPM %</td><td class="right">49%</td><td class="right">45%</td><td class="right">58%</td><td class="right">55%</td><td class="right red">41%</td></tr>
+        <tr><td class="bold">Interest cost</td><td class="right">478</td><td class="right">596</td><td class="right">1,014</td><td class="right">1,298</td><td class="right">1,336</td></tr>
+        <tr><td class="bold">PBT</td><td class="right">1,616</td><td class="right">1,242</td><td class="right">3,032</td><td class="right">3,226</td><td class="right">2,472</td></tr>
+        <tr><td class="bold">Reported PAT</td><td class="right">1,312</td><td class="right">935</td><td class="right">2,446</td><td class="right">2,508</td><td class="right red">1,872</td></tr>
+        <tr><td class="bold">Reported EPS (₹)</td><td class="right">21.97</td><td class="right">15.74</td><td class="right">40.96</td><td class="right">41.74</td><td class="right red">31.06</td></tr>
+        <tr><td class="bold" style="border-top:2px solid var(--rule)">Operating PAT (ex-treasury)</td><td class="right muted" style="border-top:2px solid var(--rule)">n/d</td><td class="right muted" style="border-top:2px solid var(--rule)">n/d</td><td class="right muted" style="border-top:2px solid var(--rule)">n/d</td><td class="right" style="border-top:2px solid var(--rule)">~2,034</td><td class="right green bold" style="border-top:2px solid var(--rule)">2,360</td></tr>
+        <tr><td class="bold">Gap: reported less operating</td><td class="right muted">—</td><td class="right muted">—</td><td class="right muted">—</td><td class="right green">+~474</td><td class="right red">−488</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Revenue, operating profit, PBT, PAT and EPS from exchange-filed consolidated results as aggregated by Screener.in. FY26 operating PAT of ₹2,360 Cr (+16% YoY) is company-disclosed; FY25 operating PAT of ~₹2,034 Cr is back-solved from that disclosed growth rate and is therefore approximate. The "gap" row is simple arithmetic between the two disclosed figures and is dominated by treasury mark-to-market, though it may also carry minority-interest and consolidation effects. Note separately that the company's own data book cites FY26 PAT of ₹2,043 Cr on a pre-minority-interest basis; this report uses the ₹1,872 Cr owners' figure throughout because that is the number the ₹31.06 EPS and the market's P/E are computed on.</p>
+  </div>
+
+  <div class="info-box">
+    <p><strong>Read this row and nothing else if you read nothing else in this report.</strong> In FY26, MOFSL's operating businesses earned ₹2,360 Cr — a record, up 16%. Its reported profit was ₹1,872 Cr, down 25%. The ~₹488 Cr difference is not an operating failure; it is a mark-to-market. In FY25 the same mechanism ran the other way, flattering reported profit by roughly ₹474 Cr. Any investor extrapolating either year's reported EPS is extrapolating the wrong number.</p>
+  </div>
+
+  <p class="subsection-title">Quarterly Trajectory — the Volatility, Quantified (₹ Cr)</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Quarter</th><th class="right">Revenue</th><th class="right">OPM %</th><th class="right">Reported PAT</th><th class="right">EPS (₹)</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Q1 FY26 (Jun 25)</td><td class="right">2,737</td><td class="right">63%</td><td class="right">1,163</td><td class="right">19.38</td></tr>
+        <tr><td class="bold">Q2 FY26 (Sep 25)</td><td class="right">1,849</td><td class="right">45%</td><td class="right">363</td><td class="right">6.04</td></tr>
+        <tr><td class="bold">Q3 FY26 (Dec 25)</td><td class="right">2,112</td><td class="right">52%</td><td class="right">566</td><td class="right">9.42</td></tr>
+        <tr><td class="bold">Q4 FY26 (Mar 26)</td><td class="right">2,676</td><td class="right red">8%</td><td class="right red">−219</td><td class="right red">−3.68</td></tr>
+        <tr><td class="bold">Q1 FY27 (Jun 26)</td><td class="right green">3,426</td><td class="right">57%</td><td class="right green">1,274</td><td class="right green">21.14</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Consolidated quarterly figures per exchange filings. Q4 FY26's 8% operating margin and reported loss coincided with the group's <em>best-ever</em> quarterly operating PAT of ₹661 Cr — the entire swing was a treasury write-down of ₹491 Cr through the P&amp;L (₹1,054 Cr including OCI).</p>
+  </div>
+
+  <p class="subsection-title">Q1 FY27 — the Latest Quarter in Full</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Q1 FY27</th><th class="right">YoY</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Total income</td><td class="right">₹3,432 Cr</td><td class="right green">+25%</td><td>Includes treasury gains; inflated by the same mechanism as PAT.</td></tr>
+        <tr><td class="bold">Net operating revenue</td><td class="right">₹1,538 Cr</td><td class="right green">+8%</td><td>The cleaner top line. Single-digit growth is the number bulls have to explain.</td></tr>
+        <tr><td class="bold">Operating PAT</td><td class="right">₹609 Cr</td><td class="right green">+14%</td><td>Profit grew faster than revenue — operating leverage, chiefly in the AMC.</td></tr>
+        <tr><td class="bold">Treasury PAT (through P&amp;L)</td><td class="right">₹664 Cr</td><td class="right">+6%</td><td><strong>52% of reported PAT.</strong> A further ₹240 Cr passed through OCI.</td></tr>
+        <tr><td class="bold">Reported consolidated PAT</td><td class="right">₹1,273 Cr</td><td class="right green">+10%</td><td>EPS ₹21.14.</td></tr>
+        <tr><td class="bold">Total PAT including OCI</td><td class="right green">₹1,513 Cr</td><td class="right muted">record</td><td>The company's headline "highest-ever quarterly PAT". Comprehensive, not operating.</td></tr>
+        <tr><td class="bold">Net worth</td><td class="right">₹14,429 Cr</td><td class="right green">+15%</td><td>~₹239 per share. 28% CAGR over six years.</td></tr>
+        <tr><td class="bold">Total assets</td><td class="right">₹46,465 Cr</td><td class="right muted">—</td><td>Grown by the lending books (MTF, LAS, housing) more than by the treasury book.</td></tr>
+        <tr><td class="bold">Annualised ROE (company-stated)</td><td class="right">44%</td><td class="right muted">—</td><td class="muted">Flattered by treasury. Trailing reported ROE is 15.5%; the decadal <em>operating</em> ROE average is 23%. Use those two, not the 44%.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-red">The market's reaction told the truth about the quarter. Despite a "record" ₹1,513 Cr comprehensive PAT, the stock fell 8.7% on results day (₹940 → ₹868) — investors correctly read past the headline to 8% operating revenue growth, a 25% fall in Capital Markets PAT and a 40% collapse in distribution revenue. It has since recovered to ~₹1,040 on the strength of the AMC narrative.</div>
+</section>
+
+<!-- ═══════════════ S8: INVESTMENT BOOK / BALANCE SHEET ═══════════════ -->
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">The Investment Book, Leverage &amp; Asset Quality</h2></div>
+
+  <p>This section carries the analytical weight of the report. MOFSL's proprietary investment book is simultaneously the group's most distinctive asset, the source of its most impressive long-run compounding, and the reason its reported earnings are close to uninterpretable in any single period.</p>
+
+  <p class="subsection-title">The Treasury Book — Size, Composition, Track Record</p>
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:270px">Book size (Jun 2026)</td><td><strong>₹10,482 Cr</strong>, +22% YoY. Equal to ~73% of the ₹14,429 Cr net worth and ~17% of the current market capitalisation.</td></tr>
+        <tr><td class="bold">Composition</td><td>Per management on the Q1 FY27 call: "our entire treasury book is invested largely in our own funds and very small part in direct equity." That means MOFSL's own mutual funds, PMS and AIF products — i.e. predominantly Indian equity beta with an active-management overlay. There is <strong>no material proprietary trading</strong>, which is why the July 2026 prop-trading regulatory change was a non-event for the group.</td></tr>
+        <tr><td class="bold">Long-run growth</td><td class="green">~41% compounded since inception, of which management attributes ~20% to investment IRR and the balance to <em>reinvestment of operating profits</em> after dividends and three buybacks. Roughly 18% XIRR since listing; ~40% compounded growth measured from March 2014 to June 2026.</td></tr>
+        <tr><td class="bold">Funding</td><td>Essentially equity-funded. Group borrowings of ₹21,255 Cr (Mar 2026) are deployed against the lending books — &gt;₹7,000 Cr wealth MTF, ~₹4,200 Cr private-wealth LAS/MTF and ₹6,164 Cr housing finance. The treasury book sits inside the ₹14,429 Cr of net worth rather than on top of borrowed money.</td></tr>
+        <tr><td class="bold">Stated ambition</td><td>Management has guided to growing the book "from $1 billion to multi-billion dollars" — i.e. the MTM volatility in reported earnings is a permanent design feature, not a phase.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="subsection-title">What the Book Does to Reported Earnings</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Period</th><th class="right">Operating PAT</th><th class="right">Treasury (P&amp;L)</th><th class="right">Reported PAT</th><th class="right">Treasury as % of reported</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Q1 FY26</td><td class="right">~528</td><td class="right green">+628</td><td class="right">1,163</td><td class="right">54%</td></tr>
+        <tr><td class="bold">Q4 FY26</td><td class="right green">661 (record)</td><td class="right red">−491</td><td class="right red">−219</td><td class="right red">turned a record quarter into a loss</td></tr>
+        <tr><td class="bold">Q1 FY27</td><td class="right">609</td><td class="right green">+664</td><td class="right">1,273</td><td class="right">52%</td></tr>
+        <tr><td class="bold">FY26 (full year)</td><td class="right green">2,360</td><td class="right red">−488 (implied)</td><td class="right">1,872</td><td class="right red">−26%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">₹ Cr. Quarterly treasury figures are segment-reported P&amp;L contributions; the FY26 full-year figure is implied arithmetic between disclosed operating PAT and reported PAT and may include minority-interest effects. Treasury contributions including OCI are larger still: ₹904 Cr in Q1 FY27 and −₹1,054 Cr in Q4 FY26.</p>
+  </div>
+
+  <p>Three conclusions follow, and they are the core of our view.</p>
+
+  <ul class="report-list">
+    <li><strong>1. Repeatable earnings are ~₹2,400–2,600 Cr, not ₹1,872 Cr or ₹6,000 Cr annualised.</strong> Strip treasury out entirely and MOFSL earned ₹2,360 Cr in FY26 with a run-rate of ₹609 Cr per quarter entering FY27. That is the number to value the operating business on. FY26's reported ₹1,872 Cr understates it; annualising Q1 FY27's reported ₹1,273 Cr overstates it by more than two-fold.</li>
+    <li><strong>2. The book is real value, but it is not operating value.</strong> An 18% XIRR over a decade-plus is a genuinely excellent record and reflects skill, not luck. But it is beta-heavy, correlated to the same equity market that drives every other line of the group's P&amp;L, and it belongs in a valuation as an <em>asset</em> at a discount — not as an earnings stream capitalised at an operating multiple.</li>
+    <li><strong>3. The correlation is the hidden risk.</strong> MOFSL's AUM, its brokerage volumes, its IB pipeline, its carry income and its treasury book all rise and fall with the same Indian equity market. There is no genuine diversification in this group — only the appearance of it. A sustained 25% market drawdown would compress AMC fees, broking revenue, IB activity, carry accrual <em>and</em> put a nine-figure hole in the investment book, all at once. Q4 FY26 was a rehearsal.</li>
+  </ul>
+
+  <p class="subsection-title">Leverage, Funding Cost &amp; Housing Finance Asset Quality</p>
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:270px">Borrowings (Mar 2026)</td><td>₹21,255 Cr, up from ₹14,732 Cr a year earlier — a 44% increase, driven by growth in the MTF and lending books rather than by treasury leverage. Interest cost of ₹1,336 Cr in FY26 was 14% of revenue.</td></tr>
+        <tr><td class="bold">Funding cost trend</td><td class="green">Improving. Capital-market borrowing spreads have compressed from 75 bps over AAA to 30–35 bps; the CRISIL upgrade to AA+ is expected to deliver a further 15–20 bps over 12–18 months. In a spread business this flows straight to NII.</td></tr>
+        <tr><td class="bold">FY26 operating cash flow</td><td class="red">−₹6,071 Cr, against +₹1,215 Cr in FY25.</td></tr>
+        <tr><td class="bold">Housing finance AUM</td><td>₹6,164 Cr, +23% YoY. Disbursements ₹646 Cr in Q1 FY27, +64% YoY. PAT ₹32.4 Cr, +36%.</td></tr>
+        <tr><td class="bold">Housing finance asset quality</td><td class="green">GNPA 1.1% at Jun 2026 versus 1.4% a year earlier. FY26 credit cost 0.5%. Q1 FY27 credit cost spiked to ~1% from ~10 bps in Q4 FY26 — management attributes this to the normal Q1 seasonal uptick in 1+/30+/90+ DPD buckets and expects it to correct over the year.</td></tr>
+        <tr><td class="bold">Capital adequacy</td><td>Management describes the housing finance business as running a strong CAR and "very low leverage, giving us enough growth levers without any need for further capital infusion."</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">On the −₹6,071 Cr FY26 operating cash outflow: for a capital-market intermediary, operating cash flow is a poor health signal because loans advanced (MTF, LAS, housing) and purchases of investments are classified as operating flows. The outflow tracks a ₹6,523 Cr increase in borrowings deployed into earning assets — a balance-sheet expansion, not a cash burn. It should still be watched, because it means the group is funding growth with debt while its equity is tied up in a marked-to-market investment book.</div>
+</section>
+
+<!-- ═══════════════ S9: GROWTH & GUIDANCE ═══════════════ -->
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">Growth Drivers &amp; Management Guidance</h2></div>
+
+  <p class="subsection-title">Guidance from the Q1 FY27 Concall (24 July 2026)</p>
+  <ul class="report-list">
+    <li><strong>Operating margin 50–52%:</strong> The CFO stated margins have run in a 50–52% band historically, Q1 FY27 was ~52%, and the company expects to sustain that through FY27. Roughly 70% of the Wealth Management cost base is variable, which structurally protects margin in a downturn.</li>
+    <li><strong>ROE above 20% in the operating businesses:</strong> The stated target, against a decadal average of 23% actually delivered. This is the metric to hold management to — not the 44% annualised figure the treasury book produced in Q1.</li>
+    <li><strong>Asset &amp; Private Wealth share of operating PAT to keep rising:</strong> Explicitly guided, from 55% in Q1 FY27, on the basis of low market share and long runway.</li>
+    <li><strong>Alternates carry income ~₹66 Cr per quarter:</strong> Guided to "around similar numbers for the next 3 quarters and a higher number for the next year." Critically, only ~70% of fair value is recognised, leaving a deliberate reserve. This is the most specific and checkable piece of guidance given.</li>
+    <li><strong>AMC vintage unlock:</strong> Two funds cross the 3-year mark by March 2027, eight more by March 2028, lifting addressable industry AUM coverage from 44% to 75%. Four to five new active offerings over the next 12 months, plus more passives.</li>
+    <li><strong>Private wealth cost discipline:</strong> RM headcount additions in FY27 will be "fewer in numbers but much higher in cost, targeted at the family offices" — a deliberate shift from volume hiring to senior hiring. Headcount increase will be lower in FY27 than FY26.</li>
+    <li><strong>Employee cost:</strong> The 16% sequential jump in Q1 FY27 was the annual appraisal cycle effective 1 April, plus headcount. Management confirmed Q1 is the normalised run-rate for the group going forward, not a one-off to be reversed.</li>
+    <li><strong>Investment banking:</strong> "Signed mandate pipeline is very strong… FY27 as a whole, we'll witness growth. However, on a QoQ basis, it really depends on market." An honest refusal to guide quarterly.</li>
+    <li><strong>Treasury:</strong> No return guidance offered, and rightly so. Management reiterated the long-run 40%+ compounded book growth and ~20% IRR, while conceding that "on a month-to-month basis or a week-to-week basis, these things could be quite volatile."</li>
+  </ul>
+
+  <p class="subsection-title">Structural Drivers</p>
+  <ul class="report-list">
+    <li><strong>Financialisation of Indian savings:</strong> The single tailwind under everything. Management frames it as the rise of Indian market cap past ₹100 trillion combined with a rising share of capital markets within it. SIP flows, demat growth and the shift out of physical assets are the mechanism.</li>
+    <li><strong>Cross-sell — the cheapest growth in the group:</strong> Only 18% of MOFSL's clients buy a distributed asset product (MTF excluded from that calculation). Against a 15.8 million client base, closing even part of that gap toward global full-service norms is high-margin, zero-acquisition-cost revenue.</li>
+    <li><strong>Lending penetration:</strong> MTF hit-rate among cash clients is only ~15%. The private-wealth loan book is described by its own CEO as "very, very tiny" and "very under-indexed" versus peers. With borrowing spreads compressing, NII has room to become a much larger share of the recurring base over two to three years.</li>
+    <li><strong>Alternates and private credit:</strong> A maiden ₹3,000 Cr private-credit fund (~₹2,500 Cr at second close), a commercial real-estate fund launching in H2 FY27, and GIFT City vehicles for inbound and outbound flows. Each subsequent fund in a series raises more than the last, and unlisted alternates book fees on capital raised rather than on mark-to-market — a structurally steadier revenue line than listed AUM.</li>
+    <li><strong>Private-wealth productivity ramp:</strong> 441 RMs, only 32% past three years of vintage; bankers break even in two to three years. Wallet size per client has risen to ~₹25 Cr and AUM per banker to ~₹550 Cr. The productivity curve on RMs already hired is a largely paid-for source of future profit.</li>
+  </ul>
+
+  <div class="callout callout-gold">The guidance is unusually specific where it can be checked (₹66 Cr quarterly carry, 50–52% margins, dated vintage milestones) and honestly vague where it cannot (IB timing, treasury returns). That is a credibility marker. The thing management does <em>not</em> address is the one that matters most to the multiple: what the group intends to do about the fact that a third of its market capitalisation is a mark-to-market equity portfolio.</div>
+</section>
+
+<!-- ═══════════════ S10: VALUATION ═══════════════ -->
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation Model</h2></div>
+
+  <p>Because reported EPS is corrupted by treasury marks, we value MOFSL in two pieces: the operating businesses on a multiple of <strong>operating</strong> earnings, plus the investment book as an asset at a holding-company discount. Shares outstanding ~60.25 crore; CMP ₹1,040; FY26 operating PAT ₹2,360 Cr (operating EPS ₹39.2); investment book ₹10,482 Cr, or ₹174 per share.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Component</th><th class="right">Conservative</th><th class="right">Base Case</th><th class="right">Bull Case</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">FY27E operating PAT (₹ Cr)</td><td class="right">2,300</td><td class="right green">2,600</td><td class="right">2,900</td></tr>
+        <tr><td class="bold">Implied growth vs FY26 (₹2,360 Cr)</td><td class="right red">−3%</td><td class="right">+10%</td><td class="right green">+23%</td></tr>
+        <tr><td class="bold">FY27E operating EPS (₹)</td><td class="right">38.2</td><td class="right green">43.2</td><td class="right">48.1</td></tr>
+        <tr><td class="bold">Target P/E on operating EPS</td><td class="right">17x</td><td class="right green">23x</td><td class="right">28x</td></tr>
+        <tr><td class="bold">→ Operating business value (₹/sh)</td><td class="right">649</td><td class="right green">994</td><td class="right">1,347</td></tr>
+        <tr><td class="bold">Investment book (₹174/sh) — discount applied</td><td class="right">40%</td><td class="right green">25%</td><td class="right">10%</td></tr>
+        <tr><td class="bold">→ Investment book value (₹/sh)</td><td class="right">104</td><td class="right green">131</td><td class="right">157</td></tr>
+        <tr><td class="bold" style="border-top:2px solid var(--rule)">12-Month Target Price</td><td class="right bold" style="border-top:2px solid var(--rule)">~₹750</td><td class="right green bold" style="border-top:2px solid var(--rule)">~₹1,125</td><td class="right bold" style="border-top:2px solid var(--rule)">~₹1,505</td></tr>
+        <tr><td class="bold">Upside vs CMP ₹1,040</td><td class="right red">−28%</td><td class="right green">+8%</td><td class="right" style="color:var(--gold)">+45%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">All FY27E figures, target multiples and discount rates are the author's own directional estimates, not company guidance and not consensus. The only company-disclosed inputs are FY26 operating PAT (₹2,360 Cr), the investment book (₹10,482 Cr) and the share count. Target P/E judgements: 23x base reflects a blend of ~55% of profit from high-multiple annuity businesses (AMC, private wealth) and ~45% from cyclical broking, capital markets and lending. The holding-company discount on the investment book reflects the fact that it is equity beta inside an operating company, not distributable cash.</p>
+  </div>
+
+  <p class="subsection-title">Cross-Check 1 — Sum-of-the-Parts</p>
+  <p>Annualising Q1 FY27 segment PAT and applying arena-appropriate multiples gives an independent read:</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Business</th><th class="right">FY27E PAT (ann.)</th><th class="right">Multiple</th><th class="right">Value (₹ Cr)</th><th class="right">₹/share</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Asset Management (AMC + Alternates)</td><td class="right">979</td><td class="right">28x</td><td class="right">27,412</td><td class="right">455</td></tr>
+        <tr><td class="bold">Private Wealth</td><td class="right">360</td><td class="right">25x</td><td class="right">9,000</td><td class="right">149</td></tr>
+        <tr><td class="bold">Wealth Mgmt (broking, distribution, MTF)</td><td class="right">645</td><td class="right">14x</td><td class="right">9,030</td><td class="right">150</td></tr>
+        <tr><td class="bold">Capital Markets (IE + IB)</td><td class="right">303</td><td class="right">12x</td><td class="right">3,636</td><td class="right">60</td></tr>
+        <tr><td class="bold">Housing Finance</td><td class="right">130</td><td class="right">12x</td><td class="right">1,560</td><td class="right">26</td></tr>
+        <tr><td class="bold">Investment book (₹10,482 Cr, 25% discount)</td><td class="right muted">asset</td><td class="right">0.75x</td><td class="right">7,862</td><td class="right">130</td></tr>
+        <tr><td class="bold" style="border-top:2px solid var(--rule)">Sum-of-the-parts</td><td class="right muted" style="border-top:2px solid var(--rule)">2,417</td><td class="right muted" style="border-top:2px solid var(--rule)">—</td><td class="right bold" style="border-top:2px solid var(--rule)">58,500</td><td class="right bold" style="border-top:2px solid var(--rule)">~₹971</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Segment PAT annualised at 4× Q1 FY27 (author's estimate; Q1 carried ₹66 Cr of alternates carry income that management guided would repeat at a similar level in each of the next three quarters, which supports the annualisation). All multiples are the author's own judgements, anchored to the observed peer set: 28x for asset management sits below 360 ONE's 38.7x and above Nuvama's 30.0x on a blended basis; 14x for broking-led Wealth Management is deliberately well below Angel One's 26.6x because that is a trough-earnings multiple struck after a 22% PAT decline. This SOTP lands ~7% <em>below</em> the current price.</p>
+  </div>
+
+  <div class="callout callout-red">The two methods bracket the current price rather than endorse it: the P/E-plus-book approach gives ₹1,125 (+8%), the sum-of-the-parts gives ₹971 (−7%). Both say roughly the same thing — <strong>MOFSL is fairly valued at ₹1,040, not cheap.</strong> To justify materially higher, you must either believe the AMC deserves a multiple well north of 28x, or that FY27 operating profit beats ₹2,600 Cr, or that the market will stop discounting the investment book.</div>
+
+  <p class="subsection-title">Sensitivity — Where the SOTP Is Most Fragile</p>
+  <p>Two inputs carry almost all the swing, and it is worth being explicit about them rather than hiding them inside a point estimate:</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Change to the SOTP</th><th class="right">Impact (₹/sh)</th><th class="right">Revised SOTP</th><th>Comment</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Base SOTP as modelled</td><td class="right muted">—</td><td class="right bold">971</td><td>28x AMC, 14x Wealth Mgmt, 25% book discount.</td></tr>
+        <tr><td class="bold">Wealth Mgmt at 20x instead of 14x</td><td class="right green">+64</td><td class="right">1,035</td><td>Still below Angel One's 26.6x. This single change alone takes the SOTP to the current market price — the market is effectively paying a full broking multiple.</td></tr>
+        <tr><td class="bold">AMC at 35x instead of 28x</td><td class="right green">+114</td><td class="right">1,085</td><td>Approaching 360 ONE's 38.7x. Justifiable only if the vintage unlock is treated as near-certain.</td></tr>
+        <tr><td class="bold">Both of the above together</td><td class="right green">+178</td><td class="right green">1,149</td><td>+10% versus CMP. This is roughly the bull-adjacent case, and it requires paying near-peak multiples on every line.</td></tr>
+        <tr><td class="bold">Investment book at a 50% discount</td><td class="right red">−43</td><td class="right red">927</td><td>What a sceptic who treats the book as trapped, market-correlated capital would pay.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Author's own sensitivity arithmetic on the SOTP above; not company guidance. The point of the table is that even generous multiple assumptions across every segment struggle to generate more than ~10% upside from ₹1,040 without help from earnings upgrades.</p>
+  </div>
+
+  <p class="subsection-title">Cross-Check 2 — Other Angles</p>
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:280px">Trailing P/E (reported)</td><td>31.7x on TTM EPS of ~₹32.9. Distorted: the trailing twelve months contains one treasury-loss quarter and one treasury-gain quarter.</td></tr>
+        <tr><td class="bold">P/E on FY26 <em>operating</em> earnings</td><td class="green">~26.6x on operating EPS of ₹39.2. This is the honest trailing multiple, and it is the one to compare across time — and it sits almost exactly on Angel One's 26.6x while carrying a far better business mix.</td></tr>
+        <tr><td class="bold">Ex-treasury market cap / operating profit</td><td>(₹62,663 Cr − ₹10,482 Cr) ÷ FY27E ₹2,600 Cr = <strong>~20x</strong>. What you actually pay for the operating businesses if you take the investment book at full face value. Reasonable, not cheap, for a franchise growing operating profit in the low-to-mid teens.</td></tr>
+        <tr><td class="bold">Price to book</td><td>~4.35x on the June 2026 net worth of ₹14,429 Cr (₹239/share); ~4.9x on the March 2026 book of ₹214/share. Against a 15.5% reported ROE this is full; against the 23% decadal operating ROE it is defensible.</td></tr>
+        <tr><td class="bold">Market cap / AMC AUM</td><td>2.96% of the ₹2.12 lakh Cr asset-management AUM — but that is the market cap of the <em>whole group</em>, so the AMC alone is being capitalised at well under that. On our SOTP the AMC is ~44% of group value against 40% of operating PAT.</td></tr>
+        <tr><td class="bold">Market cap / assets under advice</td><td>0.79% of the ₹7.9 lakh Cr group AUA.</td></tr>
+        <tr><td class="bold">Position in the 52-week range</td><td class="red">₹1,040 against a ₹1,097 high and ₹615 low — the stock sits in the top 12% of its one-year range after rising ~42% in six months. Entry timing, not business quality, is the live question.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════ S11: SCENARIOS ═══════════════ -->
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Bull &amp; Bear Scenario Analysis</h2></div>
+
+  <div class="scenario-grid">
+    <div class="scenario-card">
+      <div class="sc-header bull">🐂 Bull Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val green">Vintage unlock lands: 10 funds clear 3 years by Mar-28, addressable industry AUM goes 44%→75%; flow share holds above 4%; alternates carry steps up; equity markets rise, lifting AUM, IB activity and the treasury book together</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E Operating PAT</span><span class="sc-val green">₹2,900 Cr (+23%)</span></div>
+        <div class="sc-row"><span class="sc-key">Asset &amp; PW share of PAT</span><span class="sc-val green">60%+</span></div>
+        <div class="sc-row"><span class="sc-key">Target multiple</span><span class="sc-val green">28x operating EPS</span></div>
+        <div class="sc-row"><span class="sc-key">Investment book discount</span><span class="sc-val green">10%</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val green">₹1,470 – ₹1,510</span></div>
+      </div>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-header bear">🐻 Bear Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val red">SEBI's proposed brokerage/transaction fee caps proceed; a market drawdown hits AUM, broking, IB, carry and the treasury book simultaneously; distribution TBR stays depressed; MF flow share slips back toward AUM share</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E Operating PAT</span><span class="sc-val red">₹2,300 Cr (−3%)</span></div>
+        <div class="sc-row"><span class="sc-key">Reported PAT</span><span class="sc-val red">Potentially far lower — treasury MTM can subtract ₹500–1,000 Cr in a single quarter, as Q4 FY26 proved</span></div>
+        <div class="sc-row"><span class="sc-key">Target multiple</span><span class="sc-val red">17x operating EPS</span></div>
+        <div class="sc-row"><span class="sc-key">Investment book discount</span><span class="sc-val red">40%</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val red">₹740 – ₹780</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p>The asymmetry at ₹1,040 is unattractive on a one-year view: roughly +45% to the bull case against −28% to the bear, but with a base case offering only +8%. Note also that the bull and bear cases are <strong>not independent draws</strong> — every input in both columns is driven by the same variable, the direction of Indian equity markets. That correlation is why the bear case's realised downside could exceed the −28% modelled here: in a genuine drawdown, operating profit, the multiple and the investment book all compress at once, and the stock would likely trade closer to its ₹615 fifty-two-week low than to our ₹750 fundamental floor.</p>
+
+  <div class="callout">Framed differently: the ₹615 low was set within the last twelve months, in a market environment that included the Q4 FY26 treasury loss. That is a useful reminder that this stock's realised drawdowns are wider than a fundamental model implies. Position sizing matters more here than in a typical financial.</div>
+</section>
+
+<!-- ═══════════════ S12: RISKS ═══════════════ -->
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risk Factors</h2></div>
+
+  <div class="risk-grid">
+    <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Treasury MTM &amp; Earnings Opacity</div><span class="badge badge-high">HIGH</span><div class="risk-body">A ₹10,482 Cr equity-beta book marked through P&amp;L and OCI makes reported earnings close to unusable in any single period. Q4 FY26 turned a record ₹661 Cr operating quarter into a ₹221 Cr reported loss. Management intends to grow the book to "multi-billion dollars" — so this gets worse, not better. Any index inclusion, screening or passive flow that keys off reported EPS is a permanent source of mispricing in both directions.</div></div>
+    <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Single-Factor Correlation Across the Group</div><span class="badge badge-high">HIGH</span><div class="risk-body">AMC fees, brokerage volumes, IB mandates, alternates carry accrual and the treasury book all key off the same variable — Indian equity market levels. The five-segment structure looks diversified and is not. In a sustained drawdown every line compresses simultaneously, which is why the realised low of ₹615 sits well below any fundamentally-modelled floor.</div></div>
+    <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Regulatory Risk to Broking Economics</div><span class="badge badge-medh">MED–HIGH</span><div class="risk-body">SEBI has already halved options volumes and cut F&amp;O participants by a fifth. Media reports during the year of a further proposal to sharply lower brokerage/transaction fee caps — reportedly toward ~2 bps from 12 bps in cash and ~1 bp from 5 bps in derivatives — knocked ~8% off the stock on the day. This report does not treat that proposal as implemented. Sized honestly, brokerage is ~35% of a segment that is ~26% of group operating PAT, i.e. roughly 9% of the total, so even a halving of the line costs ~4–5% of operating profit. The larger danger is the multiple: regulatory headlines de-rate the whole group, not just the 9%.</div></div>
+    <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">AMC Concentration &amp; Vintage Dependency</div><span class="badge badge-medh">MED–HIGH</span><div class="risk-body">The entire AMC growth case rests on funds crossing a three-year vintage and on continued outperformance in mid/small-cap-flavoured mandates that have driven the SIP share gains. Two or three years of underperformance in those categories would simultaneously stall flow share, stall the vintage unlock's commercial value, and mark down the treasury book — which is invested in the same funds.</div></div>
+    <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Transaction-Based Revenue Volatility</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">Distribution revenue fell from ₹298 Cr to ₹179 Cr year on year despite distribution assets growing 29%. Private-wealth PAT was flat despite 42% ARR growth. TBR — particularly unlisted paper sourcing — is genuinely lumpy, and management has explicitly warned of continued quarter-on-quarter volatility in this line.</div></div>
+    <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Valuation &amp; Entry Point</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">~₹1,040 against a ₹1,097 high, after a ~42% six-month run. Our sum-of-the-parts lands at ₹971, below the current price; the base P/E case gives only +8%. At ~4.35x book against a 15.5% reported ROE and ~26.5x FY26 operating earnings, a good deal of the annuity re-rating has already been paid for.</div></div>
+    <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Rising Leverage &amp; Credit in the Lending Books</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">Borrowings rose 44% to ₹21,255 Cr in FY26, funding a rapidly growing MTF book (+54% YoY to ~₹7,800 Cr), private-wealth LAS and housing finance. MTF is collateralised against equities — the same asset class that drives everything else here. Housing GNPA improved to 1.1%, but Q1 FY27 credit cost spiked to ~1% from ~10 bps, which management calls seasonal and which needs to prove out.</div></div>
+    <div class="risk-row"><div class="risk-num">08</div><div class="risk-name">Key-Person &amp; Promoter Concentration</div><span class="badge badge-low">LOW–MED</span><div class="risk-body">67.2% promoter holding concentrated in two founders now four decades into the business, with the investment philosophy of the treasury book closely identified with them personally. Succession into the professional management layer (Navin Agarwal, Prateek Agrawal, Ashish Shanker, Ajay Menon) appears well advanced, which mitigates but does not eliminate this.</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ S13: SUMMARY ═══════════════ -->
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Investment Summary &amp; Recommendation</h2></div>
+
+  <div class="thesis-box">
+    <p>Motilal Oswal is <strong>the best-executed listed proxy for the financialisation of Indian household savings</strong>, and the mix shift investors have waited a decade for is finally visible in the numbers: annuity revenue at <strong>66% of net revenue versus 51% a year ago</strong>, Asset &amp; Private Wealth at <strong>55% of operating PAT versus 42% two years ago</strong>, and a ₹2.12 lakh crore AMC compounding at 34% since 2020 with net flow share (4.2%) running well above AUM share (2.9%). It gained retail broking market share — 7.0% to 7.6% — through the worst regulatory shock the industry has faced. The dated vintage unlock, taking addressable industry AUM coverage from 44% to 75% by March 2028, is a mechanical catalyst that does not require winning a share fight. The friction is threefold and real: a <strong>₹10,482 Cr treasury book</strong> that made reported earnings uninterpretable — a record ₹661 Cr operating quarter reported as a ₹221 Cr loss in Q4 FY26 — and which correlates with every other line in the group; net operating revenue growth of just 8% in the latest quarter; and a price, ~₹1,040 after a 42% six-month run, at which our sum-of-the-parts lands ₹70 <em>below</em> the market. Own the franchise. Do not chase the entry.</p>
+  </div>
+
+  <p class="subsection-title">The Three Reasons to Own MOTILALOFS</p>
+  <ul class="report-list">
+    <li><strong>1. A genuine, measurable transition from cyclical to annuity earnings:</strong> ARR at 66% of revenue (from 51%), Asset &amp; Private Wealth at 55% of operating PAT (from 42% in FY25), management &amp; advisory fees at 30% of revenue (from 19% in FY22). This is the multiple-expansion mechanism, and it is already working.</li>
+    <li><strong>2. A dated, mechanical AMC catalyst:</strong> Six funds clear a three-year vintage today, addressing 44% of industry AUM; ten will by March 2028, addressing 75%. Two large funds — small-cap and large-cap — cross in the December 2026 to January 2027 window. Combined with a ~₹16,000 Cr annualised SIP run-rate and current AUM already 15% above the FY26 average, this underwrites AMC profit growth without needing a bull market.</li>
+    <li><strong>3. Compounding discipline that is rare in Indian financials:</strong> 33% decadal operating profit growth on a 23% average operating ROE, <strong>zero equity dilution in 19 years as a listed company</strong>, three buybacks, consistent dividends, an AA+ rating and borrowing spreads compressed from 75 bps to 30–35 bps over AAA. The treasury book is a governance artefact of that same discipline — retained profits reinvested rather than squandered — even if it complicates the accounts.</li>
+  </ul>
+
+  <p class="subsection-title">Key Monitorables — Watch Through FY27</p>
+  <div class="monitor-grid">
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Operating PAT versus the ₹609 Cr quarterly run-rate — ignore reported PAT entirely; this is the only earnings number that means anything</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Net MF flow market share — must hold above the 2.9% AUM share; 4.2% in Q1 FY27 is the bar</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Alternates carry income against the ₹66 Cr/quarter guide — the most checkable single piece of guidance given</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>The Dec-26/Jan-27 vintage milestone on the small-cap and large-cap funds, and the flow response in the two quarters after</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Distribution revenue recovering toward the ₹298 Cr comparable — the TBR base effect should wash out through FY27</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Housing finance credit cost normalising from ~1% back toward the FY26 level of 0.5%</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Treasury book size and its ratio to net worth — currently 73%; a rising ratio means rising earnings volatility</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Any movement on the reported SEBI brokerage/transaction fee cap proposal — the single largest binary regulatory risk</div></div>
+  </div>
+
+  <div class="verdict-banner">
+    <h3>RATING: ACCUMULATE ON DIPS</h3>
+    <p>Base Case 12-Month Target: <strong>~₹1,125</strong> &nbsp;|&nbsp; Bull: ₹1,470–1,510 &nbsp;|&nbsp; Bear: ₹740–780 &nbsp;|&nbsp; SOTP cross-check: ~₹971 &nbsp;|&nbsp; CMP ~₹1,040 &nbsp;|&nbsp; Risk Level: MEDIUM–HIGH</p>
+  </div>
+
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:20px;">
+    SOURCE QUALITY: Segment PAT, AUM, market share, flow share, vintage schedule, treasury book size and composition, borrowing-cost commentary, housing finance asset quality and all management guidance are grounded in MOFSL's Q1 FY27 earnings call transcript filed with BSE/NSE on 31 July 2026 (call held 24 July 2026) and the accompanying Q1 FY27 press release and investor presentation. Consolidated annual and quarterly P&amp;L, balance sheet, cash flow, shareholding, CMP, market cap, 52-week range, P/E and book value are from exchange-filed results as aggregated by Screener.in, retrieved 26 August 2026. Industry F&amp;O volume and participation data are from SEBI/exchange disclosures and ICRA commentary as reported in Indian financial media during FY26. FY25 operating PAT is back-solved from a disclosed growth rate and is approximate; the FY26 implied treasury figure is arithmetic between two disclosed numbers. Peer data for Angel One, 360 ONE WAM, Nuvama and ICICI Securities is from Screener.in consolidated pages retrieved 26 August 2026 and cross-checked against a second aggregator; where the two disagreed materially (Nuvama's price-to-book, Angel One's dividend yield, market caps differing ~4% on share-count treatment) the Screener figure is used and the discrepancy is footnoted rather than silently resolved. ICICI Securities' delisting on 24 March 2025 under the ICICI Bank scheme of arrangement is independently verified, and its price-based metrics are explicitly flagged as frozen at that date. All FY27E projections, target multiples, holding-company discounts and sensitivity arithmetic are the author's own directional estimates and are not company guidance or consensus.
+  </p>
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:10px;">
+    DISCLAIMER: This report is prepared for informational and private research purposes only. It does not constitute investment advice or a recommendation to buy or sell any security. The author is not a SEBI-registered investment adviser and may hold positions in the securities discussed. All financial data is sourced from publicly available filings, concall transcripts and exchange disclosures. Investing in equities involves the risk of capital loss. Past performance is not indicative of future results. Please consult a SEBI-registered investment adviser before making any investment decision.
+  </p>
+</section>
+
+</div><!-- /.page -->
+
+<footer class="footer">
+  <div>MOTILAL OSWAL FINANCIAL SERVICES LIMITED (NSE: MOTILALOFS) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results &amp; Investor Presentation (23 Jul 2026) · Q1 FY27 Earnings Call Transcript (24 Jul 2026, filed 31 Jul 2026) · FY26 Audited Results · BSE/NSE Filings · Screener.in · SEBI/Exchange F&amp;O Data · Aggregator Price Data (26 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>
