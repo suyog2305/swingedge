@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JM Financial Limited — Equity Research Report | August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ MASTHEAD ═══════════════ -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: JMFINANCIL &nbsp;|&nbsp; BSE: 523405 &nbsp;|&nbsp; ISIN: INE780C01023 &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026</p>
+    <h1 class="report-title"><span>JM Financial</span> Limited</h1>
+    <p class="report-subtitle">Integrated Financial Services &nbsp;·&nbsp; Kampani Family &nbsp;·&nbsp; Investment Banking, Private Credit, Wealth &amp; Affordable Mortgages</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (Aug 26)</div><div class="kpi-value">~₹133</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹12,756 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">52W H / L</div><div class="kpi-value">₹195.6 / ₹112</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Revenue FY26</div><div class="kpi-value">₹4,261 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">PAT FY26</div><div class="kpi-value">₹1,202 Cr</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Accumulate / Buy on Dips</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Target (1Y)</div><div class="rating-val">₹200 – ₹210</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Target (1Y)</div><div class="rating-val">₹98 – ₹105</div></div>
+  </div>
+</header>
+
+<!-- ═══════════════ STICKY NAV ═══════════════ -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Segments</a>
+    <a href="#s3">Flywheel</a>
+    <a href="#s4">Restructuring</a>
+    <a href="#s5">Regulatory</a>
+    <a href="#s6">The IB Franchise</a>
+    <a href="#s7">Competition</a>
+    <a href="#s8">Financials</a>
+    <a href="#s9">Guidance</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- ═══════════════ S1: OVERVIEW ═══════════════ -->
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:220px">Full Name</td><td>JM Financial Limited</td></tr>
+        <tr><td class="bold">Lineage</td><td>Founded 1973 by Nimesh Kampani as a merchant bank; listed entity incorporated 1986. Formerly the Indian partner in the JM Morgan Stanley joint venture (1999–2007), after which the domestic franchise was retained and rebuilt independently.</td></tr>
+        <tr><td class="bold">ISIN / Codes</td><td style="font-family:'IBM Plex Mono',monospace;font-size:12px">INE780C01023 &nbsp;|&nbsp; NSE: JMFINANCIL &nbsp;|&nbsp; BSE: 523405</td></tr>
+        <tr><td class="bold">Key People</td><td>Nimesh N. Kampani (Chairman) &nbsp;·&nbsp; Vishal Kampani (Vice Chairman) &nbsp;·&nbsp; Adi Patel (Managing Director)</td></tr>
+        <tr><td class="bold">Headquarters</td><td>Cnergy, Appasaheb Marathe Marg, Prabhadevi, Mumbai 400 025</td></tr>
+        <tr><td class="bold">Face Value</td><td>₹1 per share &nbsp;·&nbsp; ~95.7 crore shares outstanding</td></tr>
+        <tr><td class="bold">Sector</td><td>Diversified Financial Services — investment banking &amp; institutional equities, private/distressed credit, wealth management, asset management, affordable housing finance</td></tr>
+        <tr><td class="bold">Shareholding (Jun 26)</td><td>Promoters ~57.0% &nbsp;·&nbsp; FIIs ~17.0% &nbsp;·&nbsp; DIIs ~5.5% &nbsp;·&nbsp; Public &amp; others ~20.5%</td></tr>
+        <tr><td class="bold">Dividend</td><td>FY26 total ₹3.25/share (incl. final ₹1.75). Aggregate payout of ₹5.95/share over the last five quarters; trailing yield ~2.5%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Shareholding per Screener.in (consolidated) as of the June 2026 quarter. Promoter holding is stated as at that date; no view is taken here on the direction of promoter buying or selling.</p>
+  </div>
+
+  <p>JM Financial is one of India's oldest independent investment banks, wrapped inside a diversified financial group that also lends, distributes and manages money. The operating structure runs through wholly or near-wholly owned subsidiaries: <strong>JM Financial Institutional Securities</strong> (100%) for investment banking and institutional equities; <strong>JM Financial Credit Solutions</strong> (100%) and <strong>JM Financial Products</strong> (99.8%) for lending; <strong>JM Financial Asset Reconstruction Company</strong> (81.8%) for distressed credit; <strong>JM Financial Services</strong> (100%) for wealth and broking; <strong>JM Financial Home Loans</strong> (96.5%) for affordable mortgages; and <strong>JM Financial Asset Management</strong> (59.5%) for the mutual fund.</p>
+
+  <p>The reason to look at this name in August 2026 is not growth. It is <strong>change of shape</strong>. Between FY24 and Q1 FY27 the group has cut its standard on-balance-sheet loan book by roughly 60%, more than halved the borrowings sitting in its credit arm, bought out the minority in its wholesale-credit vehicle, and moved the distressed-credit business under the same roof — while a 2024 pair of regulatory actions from the RBI and SEBI, both since resolved, knocked the equity story sideways. The stock is ~32% below its 52-week high and trades at ~1.17x book against a 10.9% annualised Q1 FY27 ROE.</p>
+
+  <div class="callout callout-gold">House view: this is a <em>restructuring-and-redeployment</em> case, not a compounding case. The question is not whether JM Financial is cheap on price-to-book — it plainly is, versus peers — but whether the capital being released from a shrinking wholesale book finds a home that earns more than the ~5% underlying return that book delivered in FY26.</div>
+</section>
+
+<!-- ═══════════════ S2: SEGMENTS ═══════════════ -->
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">Business Segments &amp; Operating Metrics</h2></div>
+
+  <p>JM Financial reports six segments. The spread between them is the whole story: the investment bank earns extraordinary returns on a tiny sliver of capital, while private markets absorbs ~61% of group capital employed for a mid-single-digit underlying return.</p>
+
+  <p class="subsection-title">Segment Revenue, PAT and Capital — Q1 FY27 vs FY26</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Segment</th><th class="right">Q1 FY27 Rev</th><th class="right">Q1 FY27 PAT</th><th class="right">FY26 Rev</th><th class="right">FY26 PAT</th><th class="right">Capital Employed (Q1 FY27)</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Corporate Advisory &amp; Capital Markets</td><td class="right">138</td><td class="right">32</td><td class="right">946</td><td class="right green">347</td><td class="right">861</td></tr>
+        <tr><td class="bold">Private Markets</td><td class="right green">596</td><td class="right green">228</td><td class="right">1,298</td><td class="right green">543</td><td class="right">6,814</td></tr>
+        <tr><td class="bold">Wealth Management</td><td class="right">351</td><td class="right">19</td><td class="right">1,403</td><td class="right">132</td><td class="right">1,179</td></tr>
+        <tr><td class="bold">Affordable Home Loans</td><td class="right green">123</td><td class="right green">17</td><td class="right">455</td><td class="right">74</td><td class="right">851</td></tr>
+        <tr><td class="bold">Asset Management</td><td class="right">20</td><td class="right red">(5)</td><td class="right">56</td><td class="right red">(30)</td><td class="right">103</td></tr>
+        <tr><td class="bold">Treasury &amp; others</td><td class="right">51</td><td class="right">1</td><td class="right">263</td><td class="right">67</td><td class="right">1,389</td></tr>
+        <tr><td class="bold">Total operating segments</td><td class="right bold">1,279</td><td class="right bold">297</td><td class="right bold">4,421</td><td class="right bold">1,124</td><td class="right bold">11,197</td></tr>
+        <tr><td class="bold">Post inter-segment / NCI</td><td class="right bold">1,225</td><td class="right bold">292</td><td class="right bold">4,148</td><td class="right bold">1,133</td><td class="right bold">10,899</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">₹ crore. Source: JM Financial Q1 FY27 Investor Presentation (filed with BSE/NSE, 3 Aug 2026), "Segment Performance" and "Key Parameters" slides. FY26 total consolidated revenue of ₹4,261 Cr and consolidated PAT of ₹1,202 Cr include ₹113 Cr of interest on an income-tax refund and the impact of new labour codes; ₹4,148 Cr / ₹1,133 Cr are the company's own "operating" figures excluding those items.</p>
+  </div>
+
+  <div class="callout">The arithmetic worth memorising: Corporate Advisory &amp; Capital Markets used <strong>7.6% of group capital in FY26 and produced 31% of operating PAT</strong> (₹347 Cr on ₹829 Cr). Private Markets used <strong>61% of capital and produced 48%</strong> — and, as Section 08 shows, roughly two-fifths of that came from a provision write-back rather than operations.</div>
+
+  <p class="subsection-title">Operating Metrics by Segment — Q1 FY27</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Segment</th><th>Scale metric</th><th class="right">Q1 FY27</th><th class="right">Q1 FY26</th><th>Read</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Corp Advisory &amp; Capital Markets</td><td>ECM transactions closed / value</td><td class="right">9 deals · ~₹22,000 Cr</td><td class="right muted">n.d.</td><td>360+ companies under research coverage; 230+ business professionals</td></tr>
+        <tr><td class="bold">Wealth Management</td><td>Total wealth AUM</td><td class="right red">₹1,12,635 Cr</td><td class="right">₹1,14,228 Cr</td><td>Headline AUM <em>fell</em> YoY; recurring AUM +7% to ₹33,394 Cr (29.6% of AUM vs 27.3%)</td></tr>
+        <tr><td class="bold">Wealth Management</td><td>Loan book / distribution</td><td class="right green">₹2,417 Cr (+43%)</td><td class="right">₹1,691 Cr</td><td>203 RMs, 801 sales staff, 71 branches, 872 franchisees; cash market share 2.7%</td></tr>
+        <tr><td class="bold">Affordable Home Loans</td><td>AUM / disbursements</td><td class="right green">₹3,715 Cr (+28%) · ₹360 Cr (+87%)</td><td class="right">₹2,911 Cr · ₹193 Cr</td><td>151 branches in 9 states; avg ticket ~₹10 lakh; LTV 59%; GNPA/NNPA 0.75%/0.50%</td></tr>
+        <tr><td class="bold">Asset Management</td><td>Mutual fund average AUM</td><td class="right red">₹13,205 Cr</td><td class="right">₹13,969 Cr</td><td>SIP book fell to ₹90 Cr/month from ₹120 Cr; folios 8.6 lakh vs 9.2 lakh. Sub-scale and loss-making</td></tr>
+        <tr><td class="bold">Private Markets</td><td>Standard loans / distressed credit investment</td><td class="right">₹4,045 Cr · ₹3,114 Cr</td><td class="right">₹4,923 Cr · ₹3,500 Cr</td><td>Yield ~14%; disbursements ~₹831 Cr, primarily bespoke</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Source: JM Financial Q1 FY27 Investor Presentation. "n.d." = not disclosed for the comparable period. Total group loan book plus AUM across all segments stood at ₹1,48,661 Cr at 30 Jun 2026.</p>
+  </div>
+
+  <p>Two of these deserve a flag. <strong>Wealth management</strong> is the segment the market wants to pay for — and it is not delivering: total AUM slipped year-on-year, segment PAT fell 56% to ₹19 Cr, and the ROE was 12.0% in FY26 against 13.3% in FY25, despite a major recruitment cycle that management now says is complete. <strong>Asset management</strong> is worse: a ₹13,205 Cr mutual fund losing ₹30 Cr a year, with a shrinking SIP book and folio count. Neither is a disaster, but neither yet supports the "capital-markets-linked re-rating" narrative on its own.</p>
+
+  <p>The genuine bright spot outside the investment bank is <strong>affordable home loans</strong>: a pure-play HFC with no developer exposure, 38% five-year AUM CAGR, a 4.7% spread, GNPA down to 0.75% from 1.5% a year ago, and a 2.3% ROA. It is small — ₹3,715 Cr of AUM against a ₹12,756 Cr market cap — but it is exactly the kind of granular, retail, self-funding book the group says it wants more of.</p>
+</section>
+
+<!-- ═══════════════ S3: FLYWHEEL ═══════════════ -->
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Where JM Financial Sits — The Capital &amp; Advice Flywheel</h2></div>
+
+  <p>Unlike a manufacturer, an integrated financial group has no physical value chain. It has a <em>capital chain</em>: a corporate relationship is originated by the advisory business, monetised first through principal capital, then syndicated down to third-party money, and finally converted into recurring management fees. Each step to the right consumes less balance sheet and earns a more durable multiple. JM Financial's entire restructuring is an attempt to walk its capital rightwards along this chain.</p>
+
+  <div class="vc-diagram">
+    <div class="vc-layer l1">
+      <div class="vc-num">STAGE 01</div>
+      <div class="vc-name">Origination &amp; Advice</div>
+      <div class="vc-desc">M&amp;A and restructuring advisory, ECM, private equity syndication, institutional equities and research — the relationship layer</div>
+      <div class="vc-tags"><span class="vc-tag skip">JM FINANCIAL</span><span class="vc-tag">₹861 Cr capital</span><span class="vc-tag">47% FY26 ROE</span></div>
+    </div>
+    <div class="vc-layer l2">
+      <div class="vc-num">STAGE 02</div>
+      <div class="vc-name">Principal Capital</div>
+      <div class="vc-desc">Bespoke corporate credit, real estate lending, distressed credit and security receipts — the group's own balance sheet at risk</div>
+      <div class="vc-tags"><span class="vc-tag skip">JM FINANCIAL</span><span class="vc-tag">₹6,814 Cr capital</span><span class="vc-tag">~14% asset yield</span></div>
+    </div>
+    <div class="vc-layer l3">
+      <div class="vc-num">STAGE 03</div>
+      <div class="vc-name">Syndication &amp; Distribution</div>
+      <div class="vc-desc">Placing that risk with banks, AIFs, foreign funds and HNI clients; wealth distribution and broking</div>
+      <div class="vc-tags"><span class="vc-tag skip">JM FINANCIAL</span><span class="vc-tag">₹1.13 lakh Cr wealth AUM</span></div>
+    </div>
+    <div class="vc-layer l4">
+      <div class="vc-num">STAGE 04</div>
+      <div class="vc-name">Recurring Fee Pools</div>
+      <div class="vc-desc">Mutual fund, equity and debt AIFs, recurring/advisory AUM — annuity revenue that needs almost no capital</div>
+      <div class="vc-tags"><span class="vc-tag">JM: SUB-SCALE</span><span class="vc-tag">MF AAUM ₹13,205 Cr</span></div>
+    </div>
+  </div>
+
+  <p>Read left to right, the diagram is an honest scorecard. JM Financial is genuinely strong at <strong>Stage 01</strong> — five decades of promoter relationships, a top-tier ECM franchise by deal count, and a 47% FY26 segment ROE prove it. It is over-invested at <strong>Stage 02</strong>, where 61% of group capital sits. It is mid-tier at <strong>Stage 03</strong>, with wealth AUM that went sideways this year. And it is <strong>sub-scale at Stage 04</strong>, the very stage that earns the 30–40x multiples the market awards to Nuvama, 360 ONE and Motilal Oswal.</p>
+
+  <div class="callout callout-gold">Management's stated plan maps precisely onto this: a "syndication/co-invest approach to improve risk-adjusted returns" (moving Stage 02 risk into Stage 03), and a priority to "channelize the wholesale expertise into the AIF platform" (converting Stage 02 skill into Stage 04 fees). The strategy is right. The evidence that it is working is, so far, one good quarter and a set of AIF product launches that have not yet shown up in the asset-management P&amp;L.</div>
+</section>
+
+<!-- ═══════════════ S4: RESTRUCTURING ═══════════════ -->
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">The Restructuring — Wholesale Run-Down, Consolidation &amp; Asset Quality</h2></div>
+
+  <p>This is the core of the investment case. Over roughly two and a half years the group has taken its lending balance sheet apart and rebuilt it around a smaller, higher-yielding, corporate-credit core.</p>
+
+  <div class="macro-grid">
+    <div class="macro-card"><div class="macro-co">Standard Loan Book</div><div class="macro-val">₹4,045 Cr</div><div class="macro-label">Down from ₹10,215 Cr at FY24 — a ~60% reduction. Real estate and non-core drove the entire decline</div></div>
+    <div class="macro-card"><div class="macro-co">Private Markets Borrowings</div><div class="macro-val">₹5,766 Cr</div><div class="macro-label">Down from ₹12,741 Cr at FY24; segment gross D/E fell from 1.9x to 0.8x</div></div>
+    <div class="macro-card"><div class="macro-co">Group Gross D/E</div><div class="macro-val">1.0x</div><div class="macro-label">₹10,882 Cr of borrowings against ₹10,899 Cr of net worth at 30 Jun 2026 (1.1x at Mar 26)</div></div>
+    <div class="macro-card"><div class="macro-co">Q1 FY27 ARC Resolutions</div><div class="macro-val">₹2,000 Cr+</div><div class="macro-label">Gross; the group's share of cash flows was over ₹1,200 Cr — "one of the best quarters for the ARC business"</div></div>
+  </div>
+
+  <p class="subsection-title">The Loan Book, Deconstructed</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Standard loans (₹ Cr)</th><th class="right">Q1 FY26</th><th class="right">Q2 FY26</th><th class="right">Q3 FY26</th><th class="right">Q4 FY26</th><th class="right">Q1 FY27</th><th class="right">YoY</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Bespoke (incl. LAS)</td><td class="right">2,941</td><td class="right">2,251</td><td class="right">2,419</td><td class="right">2,685</td><td class="right green">3,037</td><td class="right green">+3.3%</td></tr>
+        <tr><td class="bold">Real Estate</td><td class="right">1,444</td><td class="right">1,236</td><td class="right">1,009</td><td class="right">1,097</td><td class="right red">817</td><td class="right red">−43.4%</td></tr>
+        <tr><td class="bold">Non-core (MSME &amp; FIF)</td><td class="right">538</td><td class="right">391</td><td class="right">297</td><td class="right">228</td><td class="right red">191</td><td class="right red">−64.5%</td></tr>
+        <tr><td class="bold">Total standard loans</td><td class="right bold">4,923</td><td class="right bold">3,878</td><td class="right bold">3,725</td><td class="right bold">4,010</td><td class="right bold">4,045</td><td class="right red">−17.8%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Source: JM Financial Q1 FY27 Investor Presentation, "Private Markets — Standard Loans" chart. LAS = loan against securities. Yield on the Private Markets book was ~14% in Q1 FY27; quarterly disbursements were ~₹831 Cr, "primarily in Bespoke".</p>
+  </div>
+
+  <p>The mix shift is the point. A year ago, real estate and non-core together were 40% of the standard book; today they are 25%, and management expects the non-core book to "substantially run down in the next 12 months". Bespoke corporate lending — which management describes as being at a five-quarter high and targets to grow 15–20% a year — has gone from 60% of the book to 75%. Real estate lending is explicitly <em>paused</em>: management stated on the Q1 FY27 call that risk-adjusted returns in real estate are still not attractive enough to deploy into, and that they will resume when conditions improve.</p>
+
+  <p class="subsection-title">Private Markets Segment Balance Sheet — FY24 to Q1 FY27</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>₹ Cr</th><th class="right">FY24</th><th class="right">FY25</th><th class="right">FY26</th><th class="right">Q1 FY27</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Standard loans</td><td class="right">10,215</td><td class="right">4,788</td><td class="right">4,010</td><td class="right">4,045</td></tr>
+        <tr><td class="bold">Net NPA</td><td class="right">279</td><td class="right">174</td><td class="right">130</td><td class="right">130</td></tr>
+        <tr><td class="bold">Investments (incl. distressed credit)</td><td class="right">8,442</td><td class="right">7,729</td><td class="right">8,593</td><td class="right">8,288</td></tr>
+        <tr><td class="bold">Real estate assets</td><td class="right">237</td><td class="right">245</td><td class="right">236</td><td class="right">235</td></tr>
+        <tr><td class="bold">Net current assets</td><td class="right">177</td><td class="right">214</td><td class="right">262</td><td class="right">181</td></tr>
+        <tr><td class="bold">Total assets</td><td class="right bold">19,350</td><td class="right bold">13,150</td><td class="right bold">13,231</td><td class="right bold">12,879</td></tr>
+        <tr><td class="bold">Net worth (incl. NCI)</td><td class="right">6,538</td><td class="right">6,171</td><td class="right">6,578</td><td class="right">6,814</td></tr>
+        <tr><td class="bold">Borrowings</td><td class="right">12,741</td><td class="right">6,890</td><td class="right">6,245</td><td class="right green">5,766</td></tr>
+        <tr><td class="bold">Segment gross D/E</td><td class="right red">1.9x</td><td class="right">1.1x</td><td class="right">0.9x</td><td class="right green">0.8x</td></tr>
+        <tr><td class="bold muted">Net NPA / standard loans (computed)</td><td class="right muted">2.73%</td><td class="right muted">3.63%</td><td class="right muted">3.24%</td><td class="right muted">3.21%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Source: JM Financial Q1 FY27 Investor Presentation, "Summary Balance Sheet for Private Markets Segment" (stated by the company to be management estimates). The final row is the author's own computation and is <em>not</em> a company-disclosed ratio; JM Financial does not publish a group GNPA/NNPA for this segment.</p>
+  </div>
+
+  <div class="callout callout-red">The honest wrinkle in a good story: net NPA has fallen 53% in absolute terms since FY24 — but the standard book has fallen 60%. Ratio to loans has therefore <em>risen</em>, from ~2.7% to ~3.2%. The residual stress is real, concentrated, and is not shrinking as fast as the good assets are running off. Investors should not read "book down 60%" as "risk down 60%".</div>
+
+  <p class="subsection-title">Structural Consolidation of the Credit Business</p>
+  <ul class="report-list">
+    <li><strong>Buy-out of the credit minority (announced Jul 2024):</strong> JM Financial agreed to acquire a 42.99% stake in JM Financial Credit Solutions (JMFCSL) for approximately ₹1,282 Cr, taking its holding from 46.68% to 89.67%. The Competition Commission of India cleared the transaction in October 2024. JMFCSL is shown at 100.0% effective ownership as of 30 Jun 2026.</li>
+    <li><strong>Distressed credit moved under the same platform:</strong> JMFCSL acquired a 71.79% stake in JM Financial Asset Reconstruction Company (JMFARC) from the parent for approximately ₹856 Cr, consolidating wholesale debt syndication and distressed credit onto one platform. JMFARC sits at 81.8% effective ownership at 30 Jun 2026.</li>
+    <li><strong>Segment relabelled "Private Markets":</strong> what was reported as mortgage/wholesale lending plus alternative &amp; distressed credit is now a single segment offering private credit (corporate, bespoke, distressed, real estate), syndication, and private investments (PE, co-investments, REITs, equities).</li>
+    <li><strong>ARC deleveraging nearly complete:</strong> management guided on the Q1 FY27 call that the ARC business should be debt-free by the end of FY27, after what it described as a seven-year deleveraging cycle. JM's own investment in distressed credit fell to ₹3,114 Cr from ₹3,665 Cr at March 2026 after ~₹1,200 Cr of recoveries against ~₹600 Cr of fresh deployment.</li>
+  </ul>
+
+  <p>The net effect is a group that has swapped a large, cheap-looking, real-estate-heavy wholesale book for a smaller, better-yielding corporate credit book plus an unusually large pile of liquid treasury. Of the ₹8,288 Cr of Private Markets investments at 30 June 2026, ₹3,114 Cr is distressed credit; the remaining ~₹5,174 Cr sits across liquid treasury (cash, liquid mutual funds, G-secs and bonds), alternatives, group inter-corporate deposits and equity. That liquidity is a defence — and simultaneously the single biggest drag on group ROE.</p>
+</section>
+
+<!-- ═══════════════ S5: REGULATORY ═══════════════ -->
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">The 2024 Regulatory Actions — Facts and Current Status</h2></div>
+
+  <p>Any assessment of JM Financial's discount to book has to reckon with March 2024, when two regulators moved against the group inside 48 hours. What follows is stated strictly from the primary orders and contemporaneous reporting; readers should treat the characterisations as the regulators' own, and note that the SEBI matter was closed through a settlement, not an adjudicated finding.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Date</th><th>Regulator / Entity</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">5 Mar 2024</td><td>RBI — JM Financial Products Ltd</td><td>Directed under s.45L(1)(b) of the RBI Act, 1934 to cease and desist with immediate effect from any form of financing against shares and debentures, including sanction and disbursal of loans against IPOs of shares and against subscription to debentures. The company was permitted to continue servicing existing loan accounts.</td></tr>
+        <tr><td class="bold">7 Mar 2024</td><td>SEBI — JM Financial Ltd</td><td>Interim order barring the company from taking <em>new</em> mandates as lead manager for any public issue of debt securities; existing mandates could be serviced for 60 days. Followed a routine examination of 2023 NCD public issues.</td></tr>
+        <tr><td class="bold">20 Jun 2024</td><td>SEBI — confirmatory order</td><td>Restraint confirmed through 31 March 2025. JM Financial had offered voluntary undertakings — no new debt-issue lead-manager mandates until then, a board decision to <em>stop IPO financing entirely</em>, systems and training remediation, and a compliance certificate by 31 Dec 2024 — and elected to pursue SEBI's settlement route rather than contest the investigation.</td></tr>
+        <tr><td class="bold green">18 Oct 2024</td><td>RBI — restrictions lifted</td><td>By letter dated 18 October 2024 the RBI lifted the March 2024 restrictions, permitting JM Financial Products to resume financing against shares and debentures with immediate effect, in compliance with applicable law. The restriction had run roughly seven months.</td></tr>
+        <tr><td class="bold green">19 Sep 2025</td><td>SEBI — settlement orders</td><td>Settled. JM Financial Services Ltd paid ~₹1.92 Cr in settlement plus ~₹1.33 Cr in disgorgement and accepted a three-month debarment from acting as a distributor for public issues of debt securities; JM Financial Products Ltd paid ~₹0.44 Cr and accepted a three-month debarment from IPO financing. Aggregate ~₹3.69 Cr.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">The RBI press release of 5 March 2024 (Press Release 2023-2024/2006) was read in full. The SEBI orders were not read in the original; the March 2024, June 2024 and September 2025 SEBI details are drawn from contemporaneous financial-media reporting and should be verified against the SEBI orders before being relied upon.</p>
+  </div>
+
+  <p class="subsection-title">What the RBI Actually Said</p>
+  <p>The March 2024 press release is unusually blunt, and its language matters more than the seven-month duration of the ban. The RBI conducted a limited review of the company's books on the basis of information shared by SEBI, and observed, among other things, that the company repeatedly helped a group of its customers bid for IPO and NCD offerings using loaned funds; that credit underwriting was <em>"perfunctory"</em>; that financing was done against meagre margins; and that the loan application, demat account and bank accounts were all operated by the company itself under a Power of Attorney and Master Agreement obtained from those customers, so that JM Financial Products was effectively acting as both lender and borrower. The regulator stated there were <em>"serious concerns on governance issues"</em>. Restrictions were to be reviewed after a special audit and rectification to the RBI's satisfaction — which is what happened in October 2024.</p>
+
+  <div class="callout callout-red">This is the part of the story that cannot be modelled away. The RBI's finding was not a technical breach; it was a governance and underwriting critique of an NBFC inside a listed financial group. Both actions have been fully resolved, the IPO-financing business has been voluntarily discontinued, and no further supervisory action has been reported — but a franchise that trades on trust carries a scar that a settlement cheque does not erase.</div>
+
+  <p class="subsection-title">Where That Leaves the Overhang</p>
+  <ul class="report-list">
+    <li><strong>Legally, it is closed.</strong> The RBI restriction was lifted in October 2024; the SEBI matter was settled in September 2025 with modest monetary terms and short, time-bound debarments that have long since run.</li>
+    <li><strong>Commercially, it cost a business line.</strong> IPO financing — a genuinely profitable NBFC product in a hot primary market — was voluntarily exited and has not returned. Capital-market lending now sits inside "Bespoke (incl. LAS)".</li>
+    <li><strong>Structurally, it accelerated the pivot.</strong> The 2024 shock coincided with, and arguably hastened, the decision to consolidate the credit business, buy out the JMFCSL minority and shrink the wholesale book.</li>
+    <li><strong>Valuation-wise, some discount is deserved.</strong> A group whose lending arm was found to have perfunctory underwriting should not, two years later, be granted the multiple of a clean capital-light franchise. The question is how much — addressed in Section 10.</li>
+  </ul>
+</section>
+
+<!-- ═══════════════ S6: IB FRANCHISE ═══════════════ -->
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">The Investment Bank &amp; the Primary-Market Cycle</h2></div>
+
+  <p>Everything attractive about JM Financial's earnings power lives in this segment — and so does its volatility. It is the highest-return business in the group by a wide margin and the one least under the company's control.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Corporate Advisory &amp; Capital Markets (₹ Cr)</th><th class="right">FY24</th><th class="right">FY25</th><th class="right">FY26</th><th class="right">Q1 FY26</th><th class="right">Q1 FY27</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Segment revenue</td><td class="right">592</td><td class="right">788</td><td class="right green">946</td><td class="right">215</td><td class="right red">138</td></tr>
+        <tr><td class="bold">Operating PBT</td><td class="right">328</td><td class="right">421</td><td class="right">452</td><td class="right">96</td><td class="right red">38</td></tr>
+        <tr><td class="bold">Operating margin</td><td class="right">55.4%</td><td class="right">53.4%</td><td class="right">47.8%</td><td class="right muted">—</td><td class="right muted">—</td></tr>
+        <tr><td class="bold">Operating PAT</td><td class="right">242</td><td class="right">322</td><td class="right green">347</td><td class="right">77</td><td class="right red">32</td></tr>
+        <tr><td class="bold">Segment ROE</td><td class="right green">76.8%</td><td class="right green">68.1%</td><td class="right green">47.1%</td><td class="right muted">—</td><td class="right">14.9% ann.</td></tr>
+        <tr><td class="bold">Segment capital employed</td><td class="right muted">n.d.</td><td class="right">714 (Q1)</td><td class="right">829</td><td class="right">714</td><td class="right">861</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Source: JM Financial Q1 FY27 Investor Presentation. FY24 figures are labelled by the company as unaudited management estimates provided for relative comparison. FY26 PBT/PAT adjusted for a ₹3 Cr statutory labour-code impact.</p>
+  </div>
+
+  <p>Read that table twice. A business that earned a <strong>47% ROE in FY26 and 68–77% in the two years before</strong> collapsed to a 14.9% annualised ROE in a single quarter — because, in the company's own words, the quarter was "impacted by lack of primary issuances". Revenue fell 36% year-on-year and PAT 59%. This is not a franchise problem; it is the nature of an ECM-heavy revenue mix in a market where issuance stops.</p>
+
+  <p class="subsection-title">The Pipeline — Real, Large, and Entirely Market-Dependent</p>
+  <div class="macro-grid">
+    <div class="macro-card"><div class="macro-co">Filed IPO Pipeline</div><div class="macro-val">~₹1.5 lakh Cr</div><div class="macro-label">60 filed IPO transactions, excluding the filed Jio Platforms and NSE offerings; IPOs yet to be filed are additional</div></div>
+    <div class="macro-card"><div class="macro-co">Pipeline incl. NSE &amp; Jio</div><div class="macro-val">~₹2.2 lakh Cr</div><div class="macro-label">Per management commentary on the Q1 FY27 call — two of the largest listings India has queued</div></div>
+    <div class="macro-card"><div class="macro-co">Q1 FY27 Executed</div><div class="macro-val">9 deals</div><div class="macro-label">~₹22,000 Cr of ECM transactions closed in a quarter management described as issuance-starved</div></div>
+    <div class="macro-card"><div class="macro-co">Capital Employed</div><div class="macro-val">₹861 Cr</div><div class="macro-label">7.7% of group capital employed — producing 31% of FY26 operating PAT</div></div>
+  </div>
+
+  <p>Management's tone on the call was cautiously constructive: transaction-side revenue in corporate advisory for July 2026 already exceeded the whole of June; there were early signs of a reversal in foreign portfolio flows; and if conditions hold, they expect to execute the majority of the pipeline over the remainder of FY27. Management also characterised capital markets as inherently a <strong>35–40% ROE business over a full cycle</strong>, and pointed out it still generated a 15% ROE in a weak market.</p>
+
+  <div class="callout callout-gold">The two-sided read: at ₹861 Cr of capital, the investment bank could plausibly be worth ₹4,500–5,200 Cr on a through-cycle 13–15x multiple — a third to two-fifths of the entire market capitalisation — from 7.7% of the balance sheet. But its FY27 earnings depend almost entirely on whether ₹1.5–2.2 lakh crore of filed paper actually prices. A single quarter took segment ROE from 47% to 15%. Size the position accordingly.</div>
+</section>
+
+<!-- ═══════════════ S7: COMPETITION ═══════════════ -->
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Competitive Positioning</h2></div>
+
+  <p>JM Financial has no clean comparable. It competes with Kotak, Axis Capital, ICICI Securities and SBI Capital in investment banking; with 360 ONE, Nuvama and Motilal Oswal in wealth; with wholesale NBFCs and ARCs in credit. The listed set below is the closest available, and the read-across is uncomfortable in one direction and encouraging in another.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Company</th><th class="right">CMP (₹)</th><th class="right">M-Cap (₹ Cr)</th><th class="right">P/E</th><th class="right">BVPS (₹)</th><th class="right">P/B</th><th class="right">ROE</th><th class="right">Div Yld</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">JM Financial</td><td class="right">133</td><td class="right">12,756</td><td class="right green">12.0</td><td class="right">111</td><td class="right green">1.17</td><td class="right red">11.9%</td><td class="right green">2.51%</td></tr>
+        <tr><td class="bold">Motilal Oswal Fin. Services</td><td class="right">1,040</td><td class="right">62,663</td><td class="right">31.7</td><td class="right">214</td><td class="right">4.86</td><td class="right">15.5%</td><td class="right">0.59%</td></tr>
+        <tr><td class="bold">360 ONE WAM</td><td class="right">1,197</td><td class="right">48,785</td><td class="right">38.7</td><td class="right">242</td><td class="right">5.04</td><td class="right">14.4%</td><td class="right">1.00%</td></tr>
+        <tr><td class="bold">Nuvama Wealth Management</td><td class="right">1,765</td><td class="right">32,408</td><td class="right">30.0</td><td class="right">226</td><td class="right red">7.69</td><td class="right green">27.4%</td><td class="right">1.56%</td></tr>
+        <tr><td class="bold">Edelweiss Financial Services</td><td class="right">128</td><td class="right">12,073</td><td class="right">19.1</td><td class="right">48.8</td><td class="right">2.65</td><td class="right">13.5%</td><td class="right">1.15%</td></tr>
+        <tr><td class="bold">IIFL Capital Services</td><td class="right">336</td><td class="right">10,593</td><td class="right">18.6</td><td class="right">98.4</td><td class="right">3.41</td><td class="right">16.2%</td><td class="right">0.90%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Source: Screener.in consolidated pages, all retrieved 26 August 2026. ROE is the latest reported annual figure on each page and is not adjusted for one-offs. JM Financial's book value of ₹111 is the March 2026 consolidated figure; the company reported BVPS of ₹113.9 at 30 June 2026, on which P/B is 1.17x.</p>
+  </div>
+
+  <p class="subsection-title">The Read-Across, Honestly</p>
+  <p>On a naive screen JM Financial is the cheapest name in the group on every metric that matters — lowest P/E, lowest P/B, highest dividend yield — and by a wide margin. Normalising for profitability, the picture is more interesting still: JM trades at roughly <strong>0.10x price-to-book per point of ROE</strong>, against a peer range of 0.20–0.35x. Even after fully penalising the ROE gap, the discount is roughly 50–65%.</p>
+
+  <p>But three things justify a meaningful part of that gap, and they should not be waved away:</p>
+  <ul class="report-list">
+    <li><strong>Capital intensity.</strong> Nuvama, 360 ONE and Motilal Oswal earn their returns on fee pools and float; JM earns roughly 61% of its capital's return by putting the balance sheet at credit risk. Capital-light annuity businesses simply command higher multiples, permanently.</li>
+    <li><strong>Earnings lumpiness.</strong> Peer earnings compound; JM's swing between a ₹258 Cr provision write-back one year and a ₹2,000 Cr ARC resolution quarter the next. Lumpy earnings get discounted multiples, and correctly so.</li>
+    <li><strong>The 2024 scar.</strong> Neither Nuvama nor 360 ONE has had a regulator publish the word "perfunctory" about its underwriting. Some governance discount is rational.</li>
+  </ul>
+
+  <div class="callout">Where JM genuinely wins the comparison: it is the only name in the set with a top-tier <em>corporate</em> investment bank — promoter relationships, M&amp;A, large-cap ECM — rather than a wealth-and-broking franchise with a banking bolt-on. That asset is worth a premium multiple and is currently being valued as though it were part of an NBFC.</div>
+</section>
+
+<!-- ═══════════════ S8: FINANCIALS ═══════════════ -->
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">Financial Performance</h2></div>
+
+  <p class="subsection-title">Three-Year Segment Trajectory — FY24 to FY26</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Segment</th><th class="right">FY24 Rev</th><th class="right">FY25 Rev</th><th class="right">FY26 Rev</th><th class="right">FY24 PAT</th><th class="right">FY25 PAT</th><th class="right">FY26 PAT</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Corp Advisory &amp; Capital Markets</td><td class="right">592</td><td class="right">788</td><td class="right green">946</td><td class="right">242</td><td class="right">322</td><td class="right green">347</td></tr>
+        <tr><td class="bold">Private Markets</td><td class="right">2,819</td><td class="right">1,834</td><td class="right red">1,298</td><td class="right red">(43)</td><td class="right">151</td><td class="right green">543</td></tr>
+        <tr><td class="bold">Wealth Management</td><td class="right">1,022</td><td class="right">1,317</td><td class="right">1,403</td><td class="right">65</td><td class="right">130</td><td class="right">132</td></tr>
+        <tr><td class="bold">Affordable Home Loans</td><td class="right">243</td><td class="right">363</td><td class="right green">455</td><td class="right">24</td><td class="right">50</td><td class="right green">74</td></tr>
+        <tr><td class="bold">Asset Management</td><td class="right">29</td><td class="right">43</td><td class="right">56</td><td class="right red">(17)</td><td class="right red">(26)</td><td class="right red">(30)</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">₹ crore. Source: JM Financial Q1 FY27 Investor Presentation segment charts. FY24 figures are labelled by the company as unaudited management estimates provided for relative comparison. Treasury &amp; others is excluded here as FY24/FY25 comparatives were not disclosed on the same basis.</p>
+  </div>
+
+  <p>This is the restructuring in a single frame. Private Markets revenue was <em>halved</em> across two years — from ₹2,819 Cr to ₹1,298 Cr — as the wholesale book ran off, while its PAT went from −₹43 Cr to +₹543 Cr. Corporate advisory revenue rose 60% over the same period. Affordable home loans nearly doubled. Asset management got steadily worse.</p>
+
+  <p class="subsection-title">FY26 Consolidated P&amp;L — and What Flattered It</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>₹ Cr</th><th class="right">FY26 (as reported)</th><th>Comment</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Net revenue</td><td class="right">2,749</td><td>Total consolidated revenue ₹4,261 Cr; net revenue is stated after finance and direct costs</td></tr>
+        <tr><td class="bold">Employee cost</td><td class="right">1,054</td><td>38% of net revenue</td></tr>
+        <tr><td class="bold">Operating expenses</td><td class="right">443</td><td></td></tr>
+        <tr><td class="bold">Pre-provision operating profit</td><td class="right bold">1,252</td><td>The cleanest measure of FY26 operating earnings</td></tr>
+        <tr><td class="bold">Impairment on financial instruments</td><td class="right green">(237)</td><td class="red">A net <em>write-back</em>, not a charge — it added ₹237 Cr to pre-tax profit</td></tr>
+        <tr><td class="bold">Profit before tax</td><td class="right">1,489</td><td>19% above pre-provision profit purely because of the write-back</td></tr>
+        <tr><td class="bold">Tax</td><td class="right">380</td><td>Effective rate ~25.5%</td></tr>
+        <tr><td class="bold">Operating net profit (post NCI)</td><td class="right bold">1,133</td><td>The company's own "operating" figure</td></tr>
+        <tr><td class="bold">Consolidated net profit</td><td class="right bold">1,202</td><td>Includes ₹69 Cr post-tax of one-offs (₹113 Cr income-tax refund interest, less new labour-code impact)</td></tr>
+        <tr><td class="bold">EPS / BVPS</td><td class="right">₹12.6 / ₹110.9</td><td></td></tr>
+        <tr><td class="bold">Consolidated ROE</td><td class="right">11.7%</td><td class="muted">On a zero-provision basis rather than a write-back, we compute FY26 PAT nearer ₹950–960 Cr and ROE nearer 9%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Source: JM Financial Q1 FY27 Investor Presentation, "Summary Consolidated Profit &amp; Loss Statement". The ₹950–960 Cr / ~9% figures in the last row are the author's own computation (PPoP of ₹1,252 Cr taxed at the FY26 effective rate of 25.5%, plus ₹24 Cr share of associates) and are not company-disclosed. Management stated FY26 consolidated PAT was up 46% year-on-year, implying an FY25 base of roughly ₹823 Cr.</p>
+  </div>
+
+  <p class="subsection-title">Q1 FY27 — The Latest Quarter</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>₹ Cr</th><th class="right">Q1 FY27</th><th class="right">Q1 FY26</th><th class="right">YoY</th><th class="right">Q4 FY26</th><th class="right">QoQ</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Net revenue</td><td class="right">883</td><td class="right">779</td><td class="right green">+13.3%</td><td class="right">584</td><td class="right green">+51.2%</td></tr>
+        <tr><td class="bold">Pre-provision operating profit</td><td class="right">469</td><td class="right">389</td><td class="right green">+20.9%</td><td class="right">241</td><td class="right green">+94.3%</td></tr>
+        <tr><td class="bold">Impairment on financial instruments</td><td class="right">13</td><td class="right green">(204)</td><td class="right muted">n/m</td><td class="right">(2)</td><td class="right muted">n/m</td></tr>
+        <tr><td class="bold">Profit before tax</td><td class="right">456</td><td class="right">593</td><td class="right red">−23.1%</td><td class="right">243</td><td class="right green">+87.4%</td></tr>
+        <tr><td class="bold">PAT (before minorities)</td><td class="right">369</td><td class="right">458</td><td class="right red">−19.4%</td><td class="right">159</td><td class="right green">2.3x</td></tr>
+        <tr><td class="bold">Non-controlling interests</td><td class="right">(77)</td><td class="right">(5)</td><td class="right muted">n/m</td><td class="right">3</td><td class="right muted">n/m</td></tr>
+        <tr><td class="bold">Consolidated net profit</td><td class="right bold">292</td><td class="right bold">454</td><td class="right red">−35.7%</td><td class="right bold">165</td><td class="right green">+76.5%</td></tr>
+        <tr><td class="bold">EPS (₹) / BVPS (₹)</td><td class="right">3.0 / 113.9</td><td class="right">4.7 / 106.4</td><td class="right muted">BV +7.0%</td><td class="right">1.7 / 110.9</td><td class="right muted">—</td></tr>
+        <tr><td class="bold">Annualised consolidated ROE</td><td class="right">10.9%</td><td class="right muted">—</td><td class="right muted">—</td><td class="right muted">—</td><td class="right muted">—</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Source: JM Financial Q1 FY27 Investor Presentation (3 Aug 2026). Note the two swing items: the prior-year quarter carried a ₹204 Cr provision <em>write-back</em>, and the current quarter carried a ₹77 Cr minority-interest deduction (largely SR holders in the ARC). Both distort the headline −35.7% comparison. The company's preferred "PAT ex-provisions before NCI" measure rose 24% to ₹379 Cr.</p>
+  </div>
+
+  <div class="callout callout-gold">The single most useful sentence about this quarter: Q1 FY27's 10.9% ROE is the sum of a <strong>trough investment bank</strong> (segment ROE 14.9% versus 47% in FY26) and a <strong>peak distressed-credit quarter</strong> (₹2,000 Cr of gross resolutions, described by management as one of the ARC's best ever). Neither leg is the run-rate. The good news is that the group still cleared ~11% ROE with a clean provision line while half its earnings engine was idling.</div>
+</section>
+
+<!-- ═══════════════ S9: GUIDANCE ═══════════════ -->
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">Growth Drivers &amp; Management Guidance</h2></div>
+
+  <p class="subsection-title">From the Q1 FY27 Earnings Call (August 2026)</p>
+  <ul class="report-list">
+    <li><strong>Group ROE target — "mid to high teens" over the medium term,</strong> against ~11% annualised today. This is the single number the equity story turns on.</li>
+    <li><strong>Bespoke corporate lending to grow 15–20% per year,</strong> with the book already at a five-quarter high of ₹3,037 Cr.</li>
+    <li><strong>Non-core book to substantially run down over the next 12 months;</strong> real estate lending remains paused until risk-adjusted returns improve.</li>
+    <li><strong>ARC to be debt-free by the end of FY27,</strong> completing a seven-year deleveraging cycle. Distressed credit recoveries expected to stay strong through FY27, with new-book transactions at 18%+ IRRs and portfolio expected returns of 16–18%.</li>
+    <li><strong>Capital markets: majority of the pipeline to be executed in the remainder of FY27</strong> if conditions hold; ~₹1.5 lakh Cr of filed IPOs excluding NSE and Jio Platforms.</li>
+    <li><strong>Wealth management: a minimum of ₹6,000 Cr of net new money for the full year,</strong> with the recruitment phase complete and the focus shifting to RM productivity. At the FY26 call, management also targeted 20–25% growth in wealth AUM.</li>
+    <li><strong>Leverage: group gross D/E of 1.0x today, expected to reach ~2.0x within three years</strong> as syndication volumes scale — i.e. management intends to <em>use</em> the balance sheet capacity rather than return it.</li>
+    <li><strong>Dividend constrained by regulation:</strong> NBFC payout norms cap distributions at 50% of PAT. FY26 payout was ₹3.25/share, with ₹5.95/share aggregate over five quarters.</li>
+  </ul>
+
+  <div class="callout">The tension inside the guidance: management wants to take leverage from 1.0x to 2.0x <em>and</em> take ROE from 11% to the mid-to-high teens. Those are compatible only if the incremental assets are genuinely high-return. The last time this group ran a leveraged wholesale book at scale, it ended in a ₹43 Cr segment loss in FY24 and a regulator's letter. Investors should want the ROE improvement to come from mix and fees first, and leverage second.</div>
+
+  <p class="subsection-title">The Structural Drivers Worth Underwriting</p>
+  <ul class="report-list">
+    <li><strong>Capital release from a shrinking wholesale book.</strong> Private Markets borrowings have fallen ₹6,975 Cr since FY24 and segment D/E is down to 0.8x. Every rupee of equity freed from a ~5% underlying-return book and redeployed into advisory, syndication or fee businesses is pure ROE accretion.</li>
+    <li><strong>A primary-market pipeline of genuine size.</strong> ₹1.5–2.2 lakh crore of filed paper — including two of the largest listings India has ever queued — against an investment bank operating on ₹861 Cr of capital.</li>
+    <li><strong>Affordable mortgages compounding quietly.</strong> 38% five-year AUM CAGR, 87% YoY disbursement growth, GNPA halved to 0.75%, 2.3% ROA, no developer exposure. Small today, but the cleanest growth asset in the group.</li>
+    <li><strong>Syndication as the business model.</strong> Management's "syndication/co-invest" framing — originate, take a slice, place the rest — converts a capital-consuming activity into a fee-earning one. This is the mechanism by which mid-teens ROE could actually be reached.</li>
+  </ul>
+</section>
+
+<!-- ═══════════════ S10: VALUATION ═══════════════ -->
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation Model</h2></div>
+
+  <p>For a diversified financial, price-to-book anchored to normalised ROE is the right primary lens, with a sum-of-the-parts and an earnings multiple as cross-checks. Shares outstanding ~95.7 crore; BVPS ₹113.9 at 30 June 2026; FY26 EPS ₹12.6 (reported) / ~₹11.8 (operating).</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Conservative</th><th class="right">Base Case</th><th class="right">Bull Case</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">FY27E consolidated PAT (₹ Cr)</td><td class="right">~900</td><td class="right green">~1,200</td><td class="right">~1,500</td></tr>
+        <tr><td class="bold">FY27E EPS (₹)</td><td class="right">~9.4</td><td class="right green">~12.5</td><td class="right">~15.7</td></tr>
+        <tr><td class="bold">FY27E ROE</td><td class="right">~8%</td><td class="right green">~10.7%</td><td class="right">~13.2%</td></tr>
+        <tr><td class="bold">Mar-27E BVPS (₹)</td><td class="right">~117</td><td class="right green">~120</td><td class="right">~122</td></tr>
+        <tr><td class="bold">Target P/B</td><td class="right">0.85x</td><td class="right green">1.33x</td><td class="right">1.70x</td></tr>
+        <tr><td class="bold">12-Month Target Price</td><td class="right">~₹98–105</td><td class="right green bold">~₹155–165</td><td class="right">~₹200–210</td></tr>
+        <tr><td class="bold">Implied P/E on FY27E EPS</td><td class="right">~10.6x</td><td class="right">~12.8x</td><td class="right">~13.1x</td></tr>
+        <tr><td class="bold">Upside vs CMP ~₹133</td><td class="right red">−21% to −26%</td><td class="right green">+17% to +24%</td><td class="right" style="color:var(--gold)">+50% to +58%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">FY27E PAT, EPS, BVPS and target multiples are the author's own directional projections built off Q1 FY27 actuals and management guidance. They are not forecasts and may differ materially from outcomes. Mar-27E BVPS assumes FY27 earnings retained net of a dividend broadly in line with FY26's ₹3.25/share.</p>
+  </div>
+
+  <p class="subsection-title">Cross-Check 1 — Sum of the Parts</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Business</th><th>Basis</th><th class="right">Value (₹ Cr)</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Corp Advisory &amp; Capital Markets</td><td>13–15x FY26 segment PAT of ₹347 Cr</td><td class="right">4,500–5,200</td></tr>
+        <tr><td class="bold">Private Markets</td><td>1.0x segment net worth ₹6,814 Cr × 96.7% effective holding</td><td class="right">~6,590</td></tr>
+        <tr><td class="bold">Wealth Management</td><td>2.0x segment capital of ₹1,179 Cr</td><td class="right">~2,360</td></tr>
+        <tr><td class="bold">Affordable Home Loans</td><td>2.0x segment capital of ₹851 Cr × 96.5%</td><td class="right">~1,640</td></tr>
+        <tr><td class="bold">Asset Management</td><td>At book — loss-making and sub-scale</td><td class="right">~103</td></tr>
+        <tr><td class="bold">Treasury &amp; others</td><td>At book</td><td class="right">~1,389</td></tr>
+        <tr><td class="bold">Gross SOTP</td><td></td><td class="right bold">16,600–17,300</td></tr>
+        <tr><td class="bold">Less holding-company discount</td><td>15%</td><td class="right red">(2,490)–(2,595)</td></tr>
+        <tr><td class="bold">Implied value per share</td><td>~95.7 Cr shares</td><td class="right bold">₹147–₹154</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Multiples and the holding-company discount are the author's own assumptions; segment net worth and capital-employed figures are from the company's Q1 FY27 "Key Parameters" slide. Private Markets is valued at book because its underlying FY26 return, stripped of the provision write-back, was mid-single-digit.</p>
+  </div>
+
+  <p class="subsection-title">Cross-Check 2 — Is the Discount to Book Justified?</p>
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:260px">Current P/B vs ROE</td><td>1.17x book on a 10.9% annualised Q1 FY27 ROE. On a Gordon framework (justified P/B = (ROE − g) / (COE − g)) with a 13% cost of equity and 6% growth, the current price already embeds a sustainable ROE of roughly <strong>14%</strong> — above what the group earns today. On that lens alone, the stock is not cheap.</td></tr>
+        <tr><td class="bold">Peer-relative P/B per point of ROE</td><td>JM at ~0.10x versus a peer range of 0.20–0.35x. On this lens, JM is 50–65% cheaper than the group even after fully penalising its lower ROE.</td></tr>
+        <tr><td class="bold">Verdict</td><td>The two lenses disagree, and both are right about something. <strong>Roughly half the discount is deserved</strong> — for capital intensity, earnings lumpiness and the 2024 governance scar. The other half is a genuine mispricing of a 47%-ROE investment bank carried inside an NBFC wrapper.</td></tr>
+        <tr><td class="bold">Consensus cross-check</td><td>The single published one-year price target we could locate is <strong>₹165</strong> (Trendlyne, one contributing analyst) — ~24% above CMP and consistent with our base case. Coverage is thin; treat as corroboration, not confirmation.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Our base case of ₹155–165 sits at or just above the top of our own SOTP range of ₹147–154. That gap is deliberate and is worth naming: it is the option value on <strong>capital release</strong> — equity freed from the shrinking wholesale book being redeployed at higher returns or returned to shareholders — which the SOTP does not capitalise. If that option is not exercised, ~₹150 is the fair value, not ₹165.</p>
+</section>
+
+<!-- ═══════════════ S11: SCENARIOS ═══════════════ -->
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Bull &amp; Bear Scenario Analysis</h2></div>
+
+  <div class="scenario-grid">
+    <div class="scenario-card">
+      <div class="sc-header bull">🐂 Bull Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val green">Primary market reopens and the ₹1.5–2.2 lakh Cr pipeline prices; IB segment ROE returns toward 40%+; ARC turns debt-free; non-core and real estate books go to near zero without new slippage; released capital funds syndication and AIF fees</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E PAT</span><span class="sc-val green">~₹1,500 Cr</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E ROE</span><span class="sc-val green">~13%, on a path to mid-teens</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E EPS</span><span class="sc-val green">~₹15.7</span></div>
+        <div class="sc-row"><span class="sc-key">Target P/B</span><span class="sc-val green">1.70x on ~₹122 BVPS</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val green">₹200 – ₹210</span></div>
+      </div>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-header bear">🐻 Bear Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val red">IPO window stays shut into FY28; ARC recoveries normalise after an exceptional Q1; fresh slippage in the residual ₹817 Cr real estate book; wealth AUM keeps sliding and asset management stays loss-making; leverage rebuilt into the wrong assets</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E PAT</span><span class="sc-val red">~₹900 Cr</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E ROE</span><span class="sc-val red">~8%</span></div>
+        <div class="sc-row"><span class="sc-key">FY27E EPS</span><span class="sc-val red">~₹9.4</span></div>
+        <div class="sc-row"><span class="sc-key">Target P/B</span><span class="sc-val red">0.85x on ~₹117 BVPS</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val red">₹98 – ₹105</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p>The asymmetry is close to balanced — roughly +20% base-case upside against −24% in the bear — but the <em>shape</em> of the distribution is unusual. The downside is capped by a hard floor: at ₹100 the stock would trade at ~0.85x a book value that is now backed by a 0.8x-levered credit segment, ₹3,077 Cr of liquid treasury inside Private Markets, and a 2.5% dividend yield. The upside is not a re-rating of a stable business; it is a single binary — whether India's primary market reopens inside the next four quarters.</p>
+
+  <div class="callout callout-green">A useful frame for position sizing: you are buying a de-risked, over-capitalised balance sheet at a discount to book, and getting a call option on a 40%-ROE investment bank for free. The premium on that option is the ~9% underlying ROE you tolerate while you wait.</div>
+</section>
+
+<!-- ═══════════════ S12: RISKS ═══════════════ -->
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risk Factors</h2></div>
+
+  <div class="risk-grid">
+    <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Primary-Market Dependence</div><span class="badge badge-high">HIGH</span><div class="risk-body">Corporate advisory revenue fell 36% YoY and PAT 59% in Q1 FY27 on "lack of primary issuances", taking segment ROE from 47% to 14.9%. The ₹1.5–2.2 lakh Cr pipeline is filed, not priced. If the IPO/QIP window stays shut through FY27, the earnings engine that justifies the re-rating simply does not fire.</div></div>
+    <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Earnings Quality &amp; Lumpiness</div><span class="badge badge-high">HIGH</span><div class="risk-body">FY26's ₹1,489 Cr PBT included a ₹237 Cr provision <em>write-back</em>; Q1 FY26 included another ₹204 Cr. Q1 FY27's profit leant on ₹2,000 Cr of ARC resolutions management itself called one of the best quarters ever. Reported ROE of 11.7% flatters an underlying figure we compute nearer 9%. Neither write-backs nor exceptional recoveries are repeatable.</div></div>
+    <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Residual Wholesale / Real Estate Stress</div><span class="badge badge-medh">MED–HIGH</span><div class="risk-body">₹817 Cr of real estate and ₹191 Cr of non-core loans remain. Net NPA of ₹130 Cr has stopped falling and, as a share of the shrunken standard book, has <em>risen</em> from ~2.7% (FY24) to ~3.2%. The bad assets are running off more slowly than the good ones.</div></div>
+    <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Sub-par Return on Equity</div><span class="badge badge-medh">MED–HIGH</span><div class="risk-body">10.9% annualised against a "mid to high teens" ambition and peers at 14–27%. Roughly 61% of group capital sits in Private Markets, which on our computation earned a mid-single-digit underlying return in FY26. Without a mix shift, the discount to book is permanent rather than temporary.</div></div>
+    <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Regulatory &amp; Reputational Tail</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">Both 2024 actions are resolved — RBI lifted its restriction in Oct 2024, SEBI settled in Sep 2025 — but the RBI's findings on underwriting and governance are on the public record. A group whose earnings depend on regulator-facing licences and promoter trust carries an elevated tail risk of renewed scrutiny.</div></div>
+    <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Wealth Franchise Not Compounding</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">Total wealth AUM <em>fell</em> to ₹1,12,635 Cr from ₹1,14,228 Cr YoY; segment PAT dropped 56% to ₹19 Cr; ROE slipped to 12.0% in FY26 from 13.3%. The recruitment cycle is complete, so productivity now has to do the work. This is the leg the market would pay a premium multiple for, and it is not yet earning one.</div></div>
+    <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Sub-scale Asset Management</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">A ₹13,205 Cr mutual fund losing ~₹30 Cr a year, with the SIP book down to ₹90 Cr/month from ₹120 Cr and folios down from 9.2 to 8.6 lakh. The AIF pipeline is the stated fix; until it scales, this is a structurally uncompetitive business consuming management attention.</div></div>
+    <div class="risk-row"><div class="risk-num">08</div><div class="risk-name">Re-leveraging Risk</div><span class="badge badge-low">LOW–MED</span><div class="risk-body">Management intends to take group gross D/E from 1.0x to ~2.0x within three years. Executed through genuine syndication, that is value-accretive. Executed by rebuilding a principal book in a competitive credit market, it would recreate exactly the exposure the last two years were spent unwinding.</div></div>
+    <div class="risk-row"><div class="risk-num">09</div><div class="risk-name">Thin Coverage &amp; Liquidity of View</div><span class="badge badge-low">LOW</span><div class="risk-body">We could locate only a single published one-year analyst target. Sparse sell-side coverage cuts both ways: it is part of why the discount persists, and it means there is little external validation of any thesis, including this one.</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ S13: SUMMARY ═══════════════ -->
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Investment Summary &amp; Recommendation</h2></div>
+
+  <div class="thesis-box">
+    <p>JM Financial has spent two and a half years turning itself into a different company. The standard loan book is down ~60% from ₹10,215 Cr to <strong>₹4,045 Cr</strong>, the credit arm's borrowings are down 55%, segment gearing has fallen from 1.9x to <strong>0.8x</strong>, the minority in the wholesale-credit vehicle has been bought out, distressed credit has been consolidated onto the same platform, and both the 2024 regulatory actions — <strong>RBI's restriction lifted in October 2024, SEBI's matter settled in September 2025</strong> — are closed. What is left is a de-risked, over-capitalised balance sheet trading at <strong>1.17x book</strong> with a 2.5% dividend yield, wrapped around a corporate investment bank that earned a <strong>47% ROE in FY26</strong> on 7.6% of group capital and is presently idling at 14.9% because India's primary market has gone quiet. The case against is equally concrete: group ROE of 10.9% flattered by provision write-backs and an exceptional ARC quarter, net NPA that has stopped falling, a wealth franchise whose AUM went backwards, and a sub-scale asset manager losing money. This is an <strong>Accumulate on weakness</strong>, not a chase — you are paid to wait, but the upside is a single binary on when the IPO window reopens.</p>
+  </div>
+
+  <p class="subsection-title">The Three Reasons to Own JMFINANCIL</p>
+  <ul class="report-list">
+    <li><strong>1. A genuinely de-risked balance sheet at a discount to book:</strong> 1.17x P/B, group gross D/E of 1.0x, Private Markets D/E of 0.8x, ₹3,077 Cr of liquid treasury inside the credit segment, a 2.5% dividend yield, and a book value that grew 7% year-on-year to ₹113.9 while the stock fell 32%.</li>
+    <li><strong>2. A free option on a 40%-ROE investment bank:</strong> ₹861 Cr of capital producing 31% of FY26 operating PAT, with ~₹1.5 lakh Cr of filed IPO paper (₹2.2 lakh Cr including NSE and Jio Platforms) waiting on a market window. Management already sees July transaction revenue above the whole of June.</li>
+    <li><strong>3. Capital release as the ROE mechanism:</strong> ₹6,975 Cr of Private Markets borrowings retired since FY24 and a wholesale book still shrinking. Every rupee freed from a mid-single-digit-return book and moved into advisory, syndication, affordable mortgages or AIF fees is direct ROE accretion — the stated path from 11% to the mid-teens.</li>
+  </ul>
+
+  <p class="subsection-title">Key Monitorables — Watch Through FY27</p>
+  <div class="monitor-grid">
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Corporate advisory revenue run-rate — the ₹138 Cr Q1 print needs to at least double back toward the FY26 quarterly average</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Real estate (₹817 Cr) and non-core (₹191 Cr) books — management says non-core substantially runs off within 12 months</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Net NPA at ₹130 Cr — it has been flat for two quarters while the book shrank; any rise is the first real warning</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>The impairment line — a genuine quarter needs profits without a provision write-back, as Q1 FY27 delivered</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>ARC reaching debt-free status by FY27-end, and whether resolutions normalise after an exceptional Q1</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Wealth net new money against the ₹6,000 Cr full-year target, and whether total AUM stops falling</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Group ROE trajectory from 10.9% toward the mid-teens guidance — the variable the entire P/B rerating depends on</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>How the move from 1.0x to 2.0x leverage is executed — syndicated fee income, or a rebuilt principal book</div></div>
+  </div>
+
+  <div class="verdict-banner">
+    <h3>RATING: ACCUMULATE / BUY ON DIPS</h3>
+    <p>Base Case 12-Month Target: <strong>₹155–165</strong> &nbsp;|&nbsp; Bull: ₹200–210 &nbsp;|&nbsp; Bear: ₹98–105 &nbsp;|&nbsp; CMP ~₹133 &nbsp;|&nbsp; Risk Level: MEDIUM–HIGH</p>
+  </div>
+
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:20px;">
+    SOURCE QUALITY: All segment, balance-sheet, loan-book, AUM and asset-quality figures are taken directly from JM Financial's <strong>Q1 FY27 Investor Presentation filed with BSE and NSE on 3 August 2026</strong>, which was read in full as a primary document. Management guidance is drawn from coverage of the Q1 FY27 and Q4 FY26 earnings calls. The RBI action of 5 March 2024 is quoted from the RBI's own press release (2023-2024/2006), read in full; the October 2024 lifting of that restriction and the SEBI interim (Mar 2024), confirmatory (Jun 2024) and settlement (Sep 2025) orders are sourced from contemporaneous financial-media reporting and have <em>not</em> been verified against the original SEBI orders — readers relying on the regulatory chronology should check the primary documents. Market data (CMP, market cap, 52-week range, book value, P/E, P/B, shareholding) and all peer comparables are from Screener.in consolidated pages retrieved on 26 August 2026; the ₹165 consensus target is from Trendlyne and reflects a single contributing analyst. FY24 segment figures are labelled by the company itself as unaudited management estimates. Items explicitly identified as the author's own computation — the net-NPA-to-loans ratio, the ex-write-back FY26 PAT and ROE, the sum-of-the-parts, the justified-P/B analysis and all FY27E projections and target multiples — are directional estimates, not forecasts, and may differ materially from outcomes. Intraday price sources differed between ₹129.5 and ₹133 on 26 August 2026; ₹133 is used throughout.
+  </p>
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:10px;">
+    DISCLAIMER: This report is prepared for informational and private research purposes only. It does not constitute investment advice or a recommendation to buy or sell any security. The author is not a SEBI-registered investment adviser and may hold positions in the securities discussed. All financial data is sourced from publicly available filings, investor presentations, concall coverage and exchange disclosures. Investing in equities involves the risk of capital loss. Past performance is not indicative of future results. Please consult a SEBI-registered investment adviser before making any investment decision.
+  </p>
+</section>
+
+</div><!-- /.page -->
+
+<footer class="footer">
+  <div>JM FINANCIAL LIMITED (NSE: JMFINANCIL) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Investor Presentation (BSE/NSE filing, 3 Aug 2026) · Q1 FY27 &amp; Q4 FY26 Earnings Call Coverage · RBI Press Release 2023-2024/2006 · SEBI Order Reporting · Screener.in · Trendlyne (26 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>
