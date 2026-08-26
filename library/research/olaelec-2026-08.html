@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ola Electric Mobility Ltd — Equity Research Report | August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ MASTHEAD ═══════════════ -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: OLAELEC &nbsp;|&nbsp; BSE: 544225 &nbsp;|&nbsp; ISIN: INE0LXG01040 &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026</p>
+    <h1 class="report-title"><span>Ola</span> Electric Mobility</h1>
+    <p class="report-subtitle">Electric Two-Wheelers &amp; Cells &nbsp;·&nbsp; Bhavish Aggarwal &nbsp;·&nbsp; A volume story where the registration data, not the narrative, decides the outcome</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (Aug 26)</div><div class="kpi-value">~₹38</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹17,583 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">52W H / L</div><div class="kpi-value">₹71.2 / ₹21.2</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Revenue FY26</div><div class="kpi-value">₹2,253 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">PAT FY26</div><div class="kpi-value">−₹1,833 Cr</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Avoid / High-Risk Speculative</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Target (1Y)</div><div class="rating-val">₹68 – ₹75</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Target (1Y)</div><div class="rating-val">₹9 – ₹12</div></div>
+  </div>
+</header>
+
+<!-- ═══════════════ STICKY NAV ═══════════════ -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Business</a>
+    <a href="#s3">Value Chain</a>
+    <a href="#s4">Vaahan Data</a>
+    <a href="#s5">Network</a>
+    <a href="#s6">Competition</a>
+    <a href="#s7">Financials</a>
+    <a href="#s8">Cash &amp; Funding</a>
+    <a href="#s9">Product &amp; Guidance</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- ═══════════════ S1: OVERVIEW ═══════════════ -->
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:220px">Full Name</td><td>Ola Electric Mobility Limited</td></tr>
+        <tr><td class="bold">Lineage</td><td>Incorporated 2017 as the EV arm of the ANI Technologies (Ola Cabs) founder ecosystem; scaled through the Futurefactory in Krishnagiri, Tamil Nadu. Listed August 2024 — the first pure-play Indian EV manufacturer on the exchanges.</td></tr>
+        <tr><td class="bold">ISIN / Codes</td><td style="font-family:'IBM Plex Mono',monospace;font-size:12px">INE0LXG01040 &nbsp;|&nbsp; NSE: OLAELEC &nbsp;|&nbsp; BSE: 544225</td></tr>
+        <tr><td class="bold">Listed</td><td>NSE/BSE — IPO August 2024 at ₹76 per share. The stock traded above ₹150 within weeks of listing and has since fallen to ~₹38, roughly half the issue price.</td></tr>
+        <tr><td class="bold">Promoter</td><td>Bhavish Aggarwal (Chairman &amp; MD). Promoter-group holding <strong>32.96%</strong> as of June 2026, down ~1.6pp QoQ (a combination of QIP dilution and a limited stake monetisation)</td></tr>
+        <tr><td class="bold">Promoter Pledge</td><td class="green">Nil at the promoter level. In December 2025 Aggarwal monetised a small part of his holding to fully release ₹260 Cr of pledges covering ~3.93% of shares; management has indicated no further promoter pledges are expected.</td></tr>
+        <tr><td class="bold">Headquarters</td><td>Bengaluru, Karnataka &nbsp;·&nbsp; Manufacturing: Futurefactory + Gigafactory, Krishnagiri, Tamil Nadu</td></tr>
+        <tr><td class="bold">Face Value</td><td>₹10 per share &nbsp;·&nbsp; ~462.7 crore shares outstanding (implied from market cap ÷ CMP, post-QIP)</td></tr>
+        <tr><td class="bold">Sector</td><td>Automobiles — Electric two-wheelers; plus in-house lithium-ion cell manufacturing and a nascent stationary-storage (BESS) line</td></tr>
+        <tr><td class="bold">Shareholding (Jun 26)</td><td>Promoters ~32.96% &nbsp;·&nbsp; FIIs ~4.11% &nbsp;·&nbsp; DIIs ~12.16% &nbsp;·&nbsp; Public &amp; others ~50.8%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Ola Electric is India's most vertically integrated electric two-wheeler company and, until early 2025, its largest. It designs and builds its own vehicles, its own motors and battery packs, and — uniquely among listed Indian E2W makers — its own lithium-ion cells. The company sells the S1 scooter family (S1 X through S1 Pro+) and the Roadster series of electric motorcycles, and has extended into home energy storage under the Ola Shakti brand.</p>
+
+  <p>The investment question is not whether the technology works. It is whether the company can sell enough of it. Ola's own stated breakeven threshold is <strong>20,000–25,000 vehicles per month</strong>. Its best month in the last fifteen was 16,183 registrations (June 2026), and July 2026 fell back to ~14,100. Everything in this report — the margins, the burn, the cell ramp, the funding runway — sits downstream of that single number.</p>
+
+  <div class="callout callout-gold">House view: this report is built deliberately around Vaahan registration data rather than company-disclosed "sales", because Ola's own volume disclosures have been the subject of a SEBI review after a February-2025 filing claimed 25,000+ units against roughly 5,341 Vaahan registrations in the same month. Registrations are the number a buyer of this equity should underwrite.</div>
+</section>
+
+<!-- ═══════════════ S2: BUSINESS ═══════════════ -->
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">Business Segments &amp; Revenue Mix</h2></div>
+
+  <p>FY26 consolidated revenue of ₹2,253 Cr was down 50.1% from ₹4,514 Cr in FY25 — the second consecutive year of decline, and by far the sharper one. The business remains overwhelmingly a vehicle business; the cell and energy lines are strategically important but not yet material to the top line.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Segment</th><th class="right">FY26 Contribution</th><th>Profile</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Electric Vehicles (S1 scooters, Roadster motorcycles)</td><td class="right red">~₹2,253 Cr total revenue (−50% YoY)</td><td>The near-entirety of reported revenue. 1,73,794 vehicles delivered in FY26. Gen-3 platform with mid-drive motor and chain drive; the Roadster motorcycle range accounted for roughly 15% of gross orders in April 2026 per company disclosure.</td></tr>
+        <tr><td class="bold">Cells — 4680 "Bharat Cell"</td><td class="right muted">Not separately material</td><td>In-house NMC 4680 cells in mass production since November 2025 (S1 Pro+ first). Installed capacity ~6 GWh largely complete with ~2.5 GWh operational. A 46100-format LFP cell has been declared ready for product integration. Goldman Sachs flagged that no material cell revenue is expected in Q2 FY27.</td></tr>
+        <tr><td class="bold">Energy / Ola Shakti (BESS)</td><td class="right muted">Launch stage</td><td>Residential battery storage announced at Prarambh 2026: 3 kW / 5.2 kWh at ₹1,49,999 and 6 kW / 9.1 kWh at ₹2,49,999. Also selling 4680 cells and 1.5 kWh modular packs B2B. Optionality, not yet a revenue line.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Ola does not publish a clean segmental revenue split in its quarterly press releases; the FY26 ₹2,253 Cr is consolidated revenue from operations. Segment attribution above is directional.</p>
+  </div>
+
+  <p class="subsection-title">Realisation Per Vehicle — A Quiet Deterioration</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Period</th><th class="right">Revenue (₹ Cr)</th><th class="right">Vehicles Delivered</th><th class="right">Implied Realisation</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">FY26 (full year)</td><td class="right">2,253</td><td class="right">1,73,794</td><td class="right">~₹1.30 lakh</td></tr>
+        <tr><td class="bold">Q1 FY27 (Apr–Jun 26)</td><td class="right">455</td><td class="right">39,192</td><td class="right red">~₹1.16 lakh</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Implied realisation is the author's arithmetic (revenue ÷ deliveries) and mixes vehicle, accessory, service and any non-auto revenue. The ~11% sequential decline is consistent with mix shifting toward the cheaper S1 X range and with promotional pricing — including a ₹60,000 price cut on the Roadster.</p>
+  </div>
+
+  <div class="callout">Volume is falling <em>and</em> realisation is falling. That combination is why revenue halved while unit deliveries fell by a smaller proportion — and it is the mechanism by which the breakeven volume threshold keeps moving away from the company rather than toward it.</div>
+</section>
+
+<!-- ═══════════════ S3: VALUE CHAIN ═══════════════ -->
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Where Ola Sits in the E2W Value Chain</h2></div>
+
+  <p>Ola's strategic bet was to own every stage of the electric two-wheeler chain — cells, powertrain, vehicle, and the customer relationship. On paper this is the most integrated position in the Indian industry. In practice, the company is strongest exactly where the market is <em>least</em> being decided, and weakest where it is.</p>
+
+  <div class="vc-diagram">
+    <div class="vc-layer l1">
+      <div class="vc-num">STAGE 01</div>
+      <div class="vc-name">Cells &amp; Chemistry</div>
+      <div class="vc-desc">Lithium-ion cell manufacture — cathode, anode, electrolyte, format engineering</div>
+      <div class="vc-tags"><span class="vc-tag skip">OLA (4680 / 46100)</span><span class="vc-tag">Imports · LG · CATL</span></div>
+    </div>
+    <div class="vc-layer l2">
+      <div class="vc-num">STAGE 02</div>
+      <div class="vc-name">Powertrain &amp; Packs</div>
+      <div class="vc-desc">Motor, motor control unit, BMS, battery pack assembly, vehicle software</div>
+      <div class="vc-tags"><span class="vc-tag skip">OLA (in-house)</span><span class="vc-tag">Bosch · Napino</span></div>
+    </div>
+    <div class="vc-layer l3">
+      <div class="vc-num">STAGE 03</div>
+      <div class="vc-name">Vehicle Assembly</div>
+      <div class="vc-desc">Scooter and motorcycle manufacture, quality systems, homologation, warranty</div>
+      <div class="vc-tags"><span class="vc-tag skip">OLA (Futurefactory)</span><span class="vc-tag">TVS · Bajaj · Ather</span></div>
+    </div>
+    <div class="vc-layer l4">
+      <div class="vc-num">STAGE 04</div>
+      <div class="vc-name">Distribution &amp; Service</div>
+      <div class="vc-desc">Dealers, finance tie-ups, RTO/registration, after-sales service, spares</div>
+      <div class="vc-tags"><span class="vc-tag">TVS · BAJAJ · HERO</span><span class="vc-tag">Ather (500 centres)</span></div>
+    </div>
+  </div>
+
+  <p>Ola dominates Stages 01–03 and is the only listed Indian E2W maker with an operating cell plant. But the Indian electric two-wheeler market in 2025–26 has been won at Stage 04. TVS, Bajaj and Hero arrived with decades-old dealer and service networks already paid for; Ather has methodically doubled its service network to 500 centres. Ola built 4,000 direct outlets in a rush, discovered that a little over 100 of ~3,400 had the trade certificates required under the Motor Vehicles Act, and has spent the last eighteen months dismantling them.</p>
+
+  <div class="callout callout-red">The uncomfortable structural read: vertical integration is a <em>cost</em> advantage that only pays off at volume, while distribution is a <em>revenue</em> advantage that determines whether volume happens at all. Ola optimised the half of the chain that requires scale to matter, and under-built the half that creates scale.</div>
+</section>
+
+<!-- ═══════════════ S4: VAAHAN DATA — THE SPINE ═══════════════ -->
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">Vaahan Registrations &amp; Market Share — The Spine of the Thesis</h2></div>
+
+  <p>India's Vaahan portal records every vehicle actually registered with an RTO. It is the only volume series for this sector that cannot be presented as an order, a booking, or a "confirmed customer intent". For Ola in particular, that distinction is not academic: SEBI is reviewing a February-2025 exchange filing in which the company described 25,000+ units, against roughly 5,341 Vaahan registrations and revenue recognised on 2,848 units in the same month. Ola has since filed a settlement application. Whatever the outcome, the practical consequence for an analyst is simple — <strong>use Vaahan.</strong></p>
+
+  <p class="subsection-title">Monthly E2W Registrations &amp; Market Share — Jun 2025 to Aug 2026</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Month</th><th class="right">Industry E2W</th><th class="right">Ola Units</th><th class="right">Ola Share</th><th class="right">TVS</th><th class="right">Bajaj</th><th class="right">Ather</th><th class="right">Hero Vida</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Jun 2025</td><td class="right">1,10,721</td><td class="right">20,697</td><td class="right green">18.7%</td><td class="right">26,734</td><td class="right">23,987</td><td class="right">16,016</td><td class="right">7,921</td></tr>
+        <tr><td class="bold">Jul 2025</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td><td class="right">~17%</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td></tr>
+        <tr><td class="bold">Aug 2025</td><td class="right">1,04,453</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td></tr>
+        <tr><td class="bold">Sep 2025</td><td class="right">96,031</td><td class="right">12,223</td><td class="right red">12.7%</td><td class="right">21,052</td><td class="right">17,972</td><td class="right">16,558</td><td class="right">11,856</td></tr>
+        <tr><td class="bold">Oct 2025 (festive)</td><td class="right">~1,52,000</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td></tr>
+        <tr><td class="bold">Nov 2025</td><td class="right">1,10,761</td><td class="right">8,254</td><td class="right red">7.2%</td><td class="right">30,309</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td><td class="right">12,199</td></tr>
+        <tr><td class="bold">Dec 2025</td><td class="right">~93,000</td><td class="right">9,020</td><td class="right red">9.3%</td><td class="right">24,317</td><td class="right">18,197</td><td class="right">16,391</td><td class="right muted">n.a.</td></tr>
+        <tr><td class="bold">Jan 2026</td><td class="right">1,22,477</td><td class="right">7,512</td><td class="right red">6.1%</td><td class="right">34,558</td><td class="right">25,520</td><td class="right">21,999</td><td class="right">13,274</td></tr>
+        <tr><td class="bold">Feb 2026</td><td class="right">~1,12,900</td><td class="right red">3,968</td><td class="right red">~3.5%</td><td class="right">31,601</td><td class="right">25,323</td><td class="right">20,582</td><td class="right muted">n.a.</td></tr>
+        <tr><td class="bold">Mar 2026</td><td class="right">1,90,941</td><td class="right">10,117</td><td class="right red">5.3%</td><td class="right">46,859</td><td class="right">42,931</td><td class="right">33,621</td><td class="right muted">n.a.</td></tr>
+        <tr><td class="bold">Apr 2026</td><td class="right">1,48,740</td><td class="right">12,171</td><td class="right">8.2%</td><td class="right">37,683</td><td class="right">32,898</td><td class="right">27,034</td><td class="right">15,238</td></tr>
+        <tr><td class="bold">May 2026</td><td class="right">1,72,623</td><td class="right">15,229</td><td class="right">8.8%</td><td class="right">43,060</td><td class="right">39,524</td><td class="right">28,523</td><td class="right">19,225</td></tr>
+        <tr><td class="bold">Jun 2026</td><td class="right">1,94,300</td><td class="right">16,183</td><td class="right">8.3%</td><td class="right">47,220</td><td class="right">43,392</td><td class="right">31,318</td><td class="right">21,879</td></tr>
+        <tr><td class="bold">Jul 2026</td><td class="right">1,73,294</td><td class="right">11,880</td><td class="right red">6.9%</td><td class="right">47,242</td><td class="right">38,974</td><td class="right">25,907</td><td class="right">18,611</td></tr>
+        <tr><td class="bold">Aug 2026 (1–24)</td><td class="right muted">n.a.</td><td class="right red">8,466</td><td class="right muted">n.a.</td><td class="right">35,304</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note"><strong>Vintage warning — read this before using the units column.</strong> Vaahan figures are revised upward for several weeks after month-end as RTOs complete uploads, and different trackers use slightly different cuts (high-speed E2W only vs all E2W). July 2026 illustrates the effect: the month-end snapshot above shows 1,73,294 industry / 11,880 Ola, while fully-revised data puts July at ~2,04,201 industry / 14,106 Ola / 30,357 Ather. Critically, <strong>Ola's share is ~6.9% on both vintages</strong> — market share is stable across revisions even when unit counts are not. Read the share column, not the units column, for trend. "n.a." means the author could not verify a figure from a citable source and has deliberately left it blank rather than interpolate. Feb-2026 industry total is derived from TVS's reported 31,601 units at a reported ~28% share.</p>
+  </div>
+
+  <p class="subsection-title">The Annual Picture — A Three-Year Collapse in Share</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Period</th><th class="right">Industry E2W</th><th class="right">Ola Units</th><th class="right">Ola Share</th><th class="right">TVS</th><th class="right">Bajaj</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">CY2024</td><td class="right">~11,50,000</td><td class="right">3,88,313</td><td class="right green">~33.8%</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td></tr>
+        <tr><td class="bold">CY2025</td><td class="right">~12,75,000</td><td class="right">1,96,767</td><td class="right red">~15.4%</td><td class="right">2,95,315 (~23.2%)</td><td class="right">2,66,919 (~20.9%)</td></tr>
+        <tr><td class="bold">CY2026 YTD (to 24 Aug)</td><td class="right">~13,00,000+</td><td class="right red">88,910</td><td class="right red">~7%</td><td class="right">3,42,958 (~26%)</td><td class="right muted">n.a.</td></tr>
+        <tr><td class="bold">FY2025</td><td class="right">11,50,790</td><td class="right">~3,44,000</td><td class="right">~29.9%</td><td class="right">2,37,929 (~20.7%)</td><td class="right">~2,31,300 (~20.1%)</td></tr>
+        <tr><td class="bold">FY2026</td><td class="right">14,01,663</td><td class="right red">1,73,794</td><td class="right red">~12.4%</td><td class="right">3,41,513 (~24.4%)</td><td class="right">2,89,349 (~20.6%)</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Share percentages marked "~" are the author's arithmetic from sourced numerators and denominators. Ola's FY26 figure of 1,73,794 is company-stated <em>deliveries</em>, not Vaahan registrations, and is used here for want of a clean full-year Vaahan number; FY25's ~3.44 lakh is company-stated registrations. Bajaj FY25 is derived from FY26 of 2,89,349 units at a stated +25.1% YoY.</p>
+  </div>
+
+  <div class="macro-grid">
+    <div class="macro-card"><div class="macro-co">Share, Jun 2025 → Jul 2026</div><div class="macro-val">18.7% → 6.9%</div><div class="macro-label">−11.8 percentage points in thirteen months, in a market that grew 68–75% YoY over the same window</div></div>
+    <div class="macro-card"><div class="macro-co">Cumulative Crown Lost</div><div class="macro-val">11,27,873</div><div class="macro-label">TVS's cumulative E2W registrations as of 25 Aug 2026, overtaking Ola's 11,17,031 — Ola is no longer India's largest E2W maker even on lifetime volume</div></div>
+    <div class="macro-card"><div class="macro-co">June 2026: The Diagnostic Month</div><div class="macro-val">−21.8%</div><div class="macro-label">Ola's YoY change in the best month the Indian E2W industry has ever recorded (+75.5% YoY, 1.94 lakh units). Every top-4 peer set a record; Ola sold fewer units than a year earlier.</div></div>
+    <div class="macro-card"><div class="macro-co">H1 CY2026 Incremental Growth</div><div class="macro-val">95.6%</div><div class="macro-label">Share of the industry's incremental registrations captured by TVS, Bajaj, Hero and Ather combined. Ola's H1 share: 6.8%, versus 18.6% in H1 CY2025.</div></div>
+  </div>
+
+  <p class="subsection-title">How to Read the 2026 Sequence Honestly</p>
+  <p>There are two defensible readings of the 2026 monthly series, and an even-handed report should state both.</p>
+
+  <ul class="report-list">
+    <li><strong>The bull reading:</strong> February 2026 (3,968 units, ~3.5% share) was the bottom, caused by a store shutdown, a registration-process breakdown and a collapse in customer confidence. From there Ola went 10,117 → 12,171 → 15,229 → 16,183 — a fourfold recovery in four months. Q1 FY27 registrations rose 97% QoQ against 17% industry growth, and share recovered from 5.1% to 8.4%. The Gen-3 platform, the Bharat cell and the warranty reset are real; warranty cost fell from over ₹500 Cr in FY25 to ₹59 Cr in FY26. On that trajectory the 20,000-unit breakeven line is one or two good quarters away.</li>
+    <li><strong>The bear reading:</strong> the recovery stalled in June and reversed in July (share 8.3% → 6.9%) and August month-to-date is tracking materially below June. The Q1 FY27 "97% QoQ growth" is measured off the worst quarter in the company's listed history — 22,252 registrations in Q4 FY26 — and Q1 FY27's 43,908 is still <em>down 25% year-on-year</em>. Every peer grew 70–175% YoY in the same quarter. Ola has now not gained a percentage point of annual share in three calendar years.</li>
+  </ul>
+
+  <div class="callout callout-red">The single fact that settles the argument for now: Ola's best month in the last fifteen (16,183 in June 2026) was still below the bottom of its own stated breakeven band of 20,000–25,000 units. The company has never, since its share collapse began, produced a month that would have made it profitable.</div>
+</section>
+
+<!-- ═══════════════ S5: NETWORK ═══════════════ -->
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Distribution, Service &amp; the Network Reset</h2></div>
+
+  <p>The volume story in Section 04 has a physical cause. Between 2022 and 2024 Ola opened stores faster than it could licence, staff or supply them — famously 3,200 in a single day. The consequences arrived in 2025 and are still being worked through.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Phase</th><th class="right">Outlets</th><th>What Happened</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Peak build-out (2022–24)</td><td class="right">~4,000</td><td>Direct-to-consumer land grab. Of roughly 3,400 outlets for which data was available, a little over 100 held the trade certificate required under the Motor Vehicles Act.</td></tr>
+        <tr><td class="bold">Regulatory reckoning (2025)</td><td class="right red">Closures</td><td>Maharashtra RTOs inspected 146 stores; ~121 (≈83%) lacked a valid trade certificate. 75 showrooms were shut and 192 vehicles seized. Separately, the CCPA logged 10,000+ consumer complaints between Sep 2023 and Aug 2024 and issued a show-cause notice under the Consumer Protection Act, 2019.</td></tr>
+        <tr><td class="bold">Structural reset (2025–26)</td><td class="right">~700</td><td>Warehouse model abandoned in favour of a retail model; network cut to ~700 as part of a declared "structural reset". Cost savings of roughly ₹90 Cr per month were claimed from the broader cost programme.</td></tr>
+        <tr><td class="bold">Current target</td><td class="right">~550</td><td>A further ~150 closures announced in February 2026, targeting ~550 outlets. Remaining company stores are to become brand experience centres; service to be consolidated into "Hyperservice Centres", starting in Bengaluru.</td></tr>
+        <tr><td class="bold">Strategic reversal (2026)</td><td class="right">Dealer-led</td><td>Ola is now moving from D2C to independent dealer partners handling local sales, service and geographic expansion — an explicit acknowledgement that "technology may change the vehicle, but it does not necessarily eliminate the importance of automotive distribution."</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Two things are true at once here. The reset was <em>necessary</em>: an unlicensed, undersupplied, unserviceable network was destroying the brand faster than any product could rebuild it, and the FY26 warranty collapse from ₹500 Cr+ to ₹59 Cr suggests the quality problem is genuinely being fixed. But the reset is also <em>the mechanism of the share loss</em>. Going from 4,000 points of sale to 550 while Ather doubles to 500 service centres and TVS/Bajaj/Hero deploy networks measured in thousands is not a neutral trade.</p>
+
+  <div class="callout">The dealer pivot is the right decision arriving late. It converts a fixed-cost problem into a variable-cost one and buys reach Ola cannot fund directly — but it means the next twelve months of volume depend on persuading independent dealers to back a brand whose share has fallen for three straight years. Dealer sign-ups are the leading indicator to watch, ahead of monthly registrations.</div>
+</section>
+
+<!-- ═══════════════ S6: COMPETITION ═══════════════ -->
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Competitive Positioning</h2></div>
+
+  <p>Ola competes against two very different kinds of opponent: legacy ICE manufacturers cross-subsidising EV volume off enormous profit pools and paid-for dealer networks, and one venture-backed pure-play that has executed better than Ola on almost every operational metric.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Peer</th><th class="right">Jul 2026 E2W Units</th><th class="right">Market Cap</th><th>Read-across for Ola</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">TVS Motor (iQube)</td><td class="right">47,242</td><td class="right">~₹1.72 lakh Cr</td><td>Now #1 on both monthly and cumulative E2W volume. FY26 E2W 3,41,513 units (+43.5%). Profitable parent, ~66x P/E — the EV business is an option inside a going concern, not the whole company.</td></tr>
+        <tr><td class="bold">Bajaj Auto (Chetak)</td><td class="right">38,974</td><td class="right">~₹2.48 lakh Cr</td><td>FY26 E2W 2,89,349 units (+25.1%). Deepest dealer reach in the country and ~30x P/E. Bajaj can price aggressively for as long as it chooses to.</td></tr>
+        <tr><td class="bold">Ather Energy</td><td class="right">30,357</td><td class="right">~₹58,464 Cr</td><td>The direct comparison that matters. FY26 revenue ₹3,672 Cr, Q1 FY27 revenue ₹1,217 Cr with OPM of just −2.7% and a net loss of only ₹51 Cr. Ather is ~2x Ola's volume, ~2.7x its quarterly revenue, and is approaching breakeven while Ola is not.</td></tr>
+        <tr><td class="bold">Hero MotoCorp (Vida)</td><td class="right">18,611</td><td class="right muted">not tabulated</td><td>The fastest riser: +176% YoY in June 2026. Overtook Ola in monthly volume for the first time in November 2025 and has stayed ahead. Evidence that late entrants with distribution can leapfrog Ola at will.</td></tr>
+        <tr><td class="bold" style="color:var(--red)">Ola Electric</td><td class="right red">11,880 (14,106 revised)</td><td class="right">~₹17,583 Cr</td><td>Fifth. Roughly one-quarter of TVS's monthly volume, with the only in-house cell plant in the group and the weakest distribution.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">July 2026 units are the month-end Vaahan snapshot except Ather and the Ola revised figure, which are from fully-revised data. Market caps: Ola and Ather as of 26 Aug 2026; TVS and Bajaj as cited in late-Aug 2026 market commentary.</p>
+  </div>
+
+  <p class="subsection-title">The Ather Comparison, Run Properly</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Ola Electric</th><th class="right">Ather Energy</th><th>Comment</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Market cap (26 Aug 26)</td><td class="right">₹17,583 Cr</td><td class="right">₹58,464 Cr</td><td>Ather is valued at 3.3x Ola</td></tr>
+        <tr><td class="bold">FY26 revenue</td><td class="right">₹2,253 Cr</td><td class="right">₹3,672 Cr</td><td>Ather 1.6x larger and growing</td></tr>
+        <tr><td class="bold">Q1 FY27 revenue</td><td class="right">₹455 Cr</td><td class="right">₹1,217 Cr</td><td>Ather 2.7x larger</td></tr>
+        <tr><td class="bold">Q1 FY27 net loss</td><td class="right red">−₹336 Cr</td><td class="right">−₹51 Cr</td><td>Ather's loss is 15% of Ola's on 2.7x the revenue</td></tr>
+        <tr><td class="bold">Q1 FY27 OPM</td><td class="right red">~−43% (derived)</td><td class="right">−2.7%</td><td>Ather is within touching distance of operating breakeven</td></tr>
+        <tr><td class="bold">P/S on annualised Q1 FY27</td><td class="right">~9.7x</td><td class="right">~12.0x</td><td>Ola screens cheaper — the bull's best single argument</td></tr>
+        <tr><td class="bold">Market cap per monthly unit</td><td class="right">~₹1.25 Cr</td><td class="right">~₹1.93 Cr</td><td>Using July 2026 revised registrations. Ola is cheaper per unit of volume — but the volume is shrinking, not growing.</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Ola OPM derived as (gross profit ₹139 Cr − opex ₹333 Cr) ÷ revenue ₹455 Cr. P/S and per-unit ratios are the author's arithmetic on sourced inputs.</p>
+  </div>
+
+  <div class="callout callout-gold">The honest competitive verdict: Ola is not obviously mispriced <em>relative to Ather</em> — it screens ~20% cheaper on forward sales. But that discount is doing a lot of work. Ather is 40 basis points from operating breakeven with rising volume; Ola is 43 percentage points from it with falling volume. A 20% discount does not compensate for that gap.</div>
+</section>
+
+<!-- ═══════════════ S7: FINANCIALS ═══════════════ -->
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Financial Performance</h2></div>
+
+  <p>Ola has never reported a profitable year. FY26 was described by management as a "reset year", and the reset is visible in the numbers — losses narrowed, gross margins expanded sharply — but so is the cost of it: revenue halved.</p>
+
+  <p class="subsection-title">Annual — FY24 to FY26</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric (₹ Cr)</th><th class="right">FY24</th><th class="right">FY25</th><th class="right">FY26</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Revenue from Operations</td><td class="right">5,010</td><td class="right">4,514</td><td class="right red">2,253</td></tr>
+        <tr><td class="bold">YoY change</td><td class="right muted">—</td><td class="right red">−9.9%</td><td class="right red">−50.1%</td></tr>
+        <tr><td class="bold">Operating Profit</td><td class="right red">−1,266</td><td class="right red">−1,735</td><td class="right red">−972</td></tr>
+        <tr><td class="bold">Operating Margin</td><td class="right red">−25%</td><td class="right red">−38%</td><td class="right red">−43%</td></tr>
+        <tr><td class="bold">Net Loss</td><td class="right red">−1,584</td><td class="right red">−2,276</td><td class="right red">−1,833</td></tr>
+        <tr><td class="bold">Consolidated Gross Margin</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td><td class="right green">30.6%</td></tr>
+        <tr><td class="bold">Warranty Cost</td><td class="right muted">n.a.</td><td class="right red">&gt;500</td><td class="right green">59</td></tr>
+        <tr><td class="bold">Cash Flow from Operations</td><td class="right muted">n.a.</td><td class="right red">−2,391</td><td class="right red">−775</td></tr>
+        <tr><td class="bold">Free Cash Flow</td><td class="right muted">n.a.</td><td class="right muted">n.a.</td><td class="right red">−1,301</td></tr>
+        <tr><td class="bold">Vehicles Delivered</td><td class="right muted">n.a.</td><td class="right">~3,44,000*</td><td class="right red">1,73,794</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">P&amp;L lines from standardised aggregator data (Screener.in, consolidated). *FY25 volume is company-stated registrations (3.44 lakh); FY26 is company-stated deliveries — the two are not strictly like-for-like and the comparison should be treated as directional.</p>
+  </div>
+
+  <p class="subsection-title">Quarterly — The Last Five Quarters</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Quarter</th><th class="right">Revenue (₹ Cr)</th><th class="right">Op. Profit (₹ Cr)</th><th class="right">OPM</th><th class="right">Net Loss (₹ Cr)</th><th class="right">Vaahan Regns</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Q1 FY26 (Jun 25)</td><td class="right">828</td><td class="right red">−237</td><td class="right red">−29%</td><td class="right red">−428</td><td class="right">~58,500 (derived)</td></tr>
+        <tr><td class="bold">Q2 FY26 (Sep 25)</td><td class="right">690</td><td class="right red">−203</td><td class="right red">−29%</td><td class="right red">−418</td><td class="right muted">n.a.</td></tr>
+        <tr><td class="bold">Q3 FY26 (Dec 25)</td><td class="right">470</td><td class="right red">−271</td><td class="right red">−58%</td><td class="right red">−487</td><td class="right muted">n.a.</td></tr>
+        <tr><td class="bold">Q4 FY26 (Mar 26)</td><td class="right red">265</td><td class="right red">−281</td><td class="right red">−106%</td><td class="right red">−500</td><td class="right red">22,252</td></tr>
+        <tr><td class="bold">Q1 FY27 (Jun 26)</td><td class="right green">455</td><td class="right red">~−194</td><td class="right red">~−43%</td><td class="right">−336</td><td class="right">43,908</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Q1 FY27 operating profit and OPM are the author's derivation from disclosed gross profit (₹139 Cr) and opex (₹333 Cr); all other P&amp;L lines are as reported by standardised aggregators. Q1 FY26 registrations derived from Ola's statement that Q1 FY27's 43,908 was down 25% YoY. Q1 FY27 also saw 39,192 deliveries against ~44,000 orders.</p>
+  </div>
+
+  <p class="subsection-title">Gross Margin — The One Genuinely Good Line</p>
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:280px">Q4 FY25</td><td>13.7% consolidated gross margin</td></tr>
+        <tr><td class="bold">Q3 FY26</td><td>34.3%</td></tr>
+        <tr><td class="bold">Q4 FY26</td><td class="green">38.5% (33.5% excluding PLI benefits)</td></tr>
+        <tr><td class="bold">FY26 full year</td><td>30.6%</td></tr>
+        <tr><td class="bold">Q1 FY27</td><td>30.5% automotive gross margin, "held despite commodity headwinds"</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Note the sequential step down from 38.5% in Q4 FY26 to 30.5% in Q1 FY27. Part of that gap is the PLI benefit recognised in Q4; the rest reflects mix and pricing. Management frames it as "held"; a stricter read is that the peak margin quarter is not repeating.</p>
+  </div>
+
+  <div class="callout callout-green">What is genuinely working: gross margin has more than doubled in five quarters, warranty cost has collapsed by ~88%, opex fell 22% QoQ in Q1 FY27, and the net loss has narrowed for two consecutive quarters. The cost side of this turnaround has been executed well. Q4 FY26 even produced the company's first operating-cash-flow-positive quarter (+₹91 Cr) — though Q1 FY27 gave it straight back at −₹215 Cr.</div>
+</section>
+
+<!-- ═══════════════ S8: CASH & FUNDING ═══════════════ -->
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">Cash Burn, Balance Sheet &amp; Funding Runway</h2></div>
+
+  <p>This is where the volume shortfall becomes an existential rather than a valuation question. A company with negative reserves, gross borrowings approaching ₹2,800 Cr and roughly ₹200–350 Cr of quarterly cash consumption does not have unlimited time to reach 20,000 units a month.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Item</th><th class="right">Figure</th><th>Context</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Reserves (Mar 2026)</td><td class="right red">−₹1,060 Cr</td><td>Accumulated losses have consumed reserves entirely; equity is sustained by ~₹4,410 Cr of paid-up share capital</td></tr>
+        <tr><td class="bold">Book value per share (Mar 26)</td><td class="right">₹7.60</td><td>P/B of ~4.8x at CMP ₹38. Adjusting for the ₹780 Cr QIP less the Q1 loss, the author estimates post-QIP book at roughly ₹8.2 (~4.6x)</td></tr>
+        <tr><td class="bold">Borrowings (Mar 2026)</td><td class="right red">₹2,763 Cr</td><td>Sanctioned facilities of ₹2,520 Cr across Ola and material subsidiaries as of 20 May 2026, with ₹1,637.6 Cr drawn</td></tr>
+        <tr><td class="bold">Total assets (Mar 2026)</td><td class="right">₹7,788 Cr</td><td>Of which fixed assets ₹3,352 Cr — a heavily capitalised manufacturing base running well below capacity</td></tr>
+        <tr><td class="bold">CFO — FY25 / FY26 / Q1 FY27</td><td class="right red">−₹2,391 / −₹775 / −₹215 Cr</td><td>Burn has slowed materially, but Q4 FY26's +₹91 Cr positive quarter did not repeat</td></tr>
+        <tr><td class="bold">FY26 free cash flow</td><td class="right red">−₹1,301 Cr</td><td>Implies ~₹526 Cr of FY26 capex on top of the operating burn</td></tr>
+        <tr><td class="bold">QIP (June 2026)</td><td class="right green">₹780 Cr</td><td>Floor price ₹37.74; oversubscribed 56%; priced at a discount to market. Earmarked for debt repayment, capex and working capital. Part of a ₹1,500 Cr board authorisation from October 2025.</td></tr>
+        <tr><td class="bold">Cash &amp; equivalents (Jun 2026)</td><td class="right muted">Not verifiable</td><td>The author could not verify a clean, consistently-denominated cash-and-equivalents figure for 30 June 2026 from citable public sources. It is deliberately left blank rather than estimated. This is itself a disclosure-quality observation.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="subsection-title">Runway Arithmetic — Author's Estimate</p>
+  <p>Taking the Q1 FY27 run-rate at face value: operating burn of ~₹215 Cr plus maintenance and cell-ramp capex of, conservatively, ₹100–150 Cr per quarter gives total cash consumption of roughly <strong>₹315–365 Cr per quarter</strong>. On that basis the ₹780 Cr QIP alone funds a little over two quarters. Even if the burn halves as volumes recover, the company is likely to need either another equity raise or a further debt facility inside FY28 unless it crosses breakeven first.</p>
+
+  <div class="callout callout-red">Goldman Sachs, which has been constructive on the FY27 EBITDA-breakeven path, has nonetheless flagged that free cash flow remains negative and that no material cell revenue is expected in Q2 FY27. Both the bull and the bear on this stock agree on the mechanism: <strong>breakeven or dilution.</strong> They disagree only on which arrives first.</div>
+
+  <p>One genuine positive deserves equal weight. The promoter pledge overhang — a recurring source of forced-selling anxiety through 2025, when Aggarwal's pledged portion rose from ~8.1% to ~13% of his stake as the stock fell — has been fully cleared. In December 2025 he monetised a small part of his holding and released all ₹260 Cr of promoter-level pledges, covering ~3.93% of shares, and the company has indicated no further promoter pledges are expected. That removes one of the three ways this equity could have unravelled.</p>
+</section>
+
+<!-- ═══════════════ S9: PRODUCT & GUIDANCE ═══════════════ -->
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">Platform, Cells &amp; Management Guidance</h2></div>
+
+  <p class="subsection-title">Gen 3 and the 4680 Bharat Cell</p>
+  <ul class="report-list">
+    <li><strong>Gen 3 platform:</strong> unveiled 31 January 2025 — mid-drive motor, chain drive, integrated motor control unit. Portfolio spans S1 X 2 kWh at ₹79,999 to S1 Pro+ 5.3 kWh at ₹1,69,999 (introductory prices). The FY26 warranty collapse from ₹500 Cr+ to ₹59 Cr is the best available evidence that Gen 3 fixed the reliability problem that destroyed the brand.</li>
+    <li><strong>4680 Bharat Cell:</strong> India's first indigenous large-format cell in mass production. ARAI-certified; mass deliveries began November 2025 with the S1 Pro+. Company states thousands of vehicles on 4680 cells have covered millions of real-world kilometres.</li>
+    <li><strong>Gigafactory:</strong> ~6 GWh of capacity installation largely complete, of which ~2.5 GWh operational as of the Q4 FY26 update — against an original aspiration of 20 GWh by 2026. The gap between the 2024 roadmap and the 2026 reality is the single clearest illustration of this company's execution-versus-ambition pattern.</li>
+    <li><strong>46100 LFP cell:</strong> declared ready under Regulation 30; larger than the current NMC 4680 and slated for product integration "starting next quarter", subject to regulatory approvals. LFP is the cheaper, safer, longer-cycle chemistry — the right choice for both mass-market scooters and stationary storage.</li>
+    <li><strong>Gen 3 Upgrade Programme:</strong> lets Gen 1 and Gen 2 owners switch to Bharat-cell S1 scooters and Roadster motorcycles — a direct attempt to convert an installed base of unhappy early customers into repeat buyers.</li>
+  </ul>
+
+  <p class="subsection-title">Management Guidance — Q4 FY26 and Q1 FY27 Calls</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Guidance</th><th>Stated</th><th class="right">Reality Check</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Q1 FY27 orders / revenue</td><td>40,000–45,000 orders; ₹500–550 Cr revenue</td><td class="right red">~44,000 orders achieved; revenue ₹455 Cr — a miss on the revenue guide</td></tr>
+        <tr><td class="bold">Monthly run-rate</td><td>~17,000–18,000 on volume rebound alone; 20,000–22,000 "over the next quarter" with better service stability and inventory</td><td class="right red">Peak achieved 16,183 (Jun 26); Jul ~14,100; Aug MTD tracking lower</td></tr>
+        <tr><td class="bold">Breakeven volume</td><td>Consolidated adjusted EBITDA breakeven at 20,000–25,000 units/month, subject to mix and commodity prices</td><td class="right muted">Not yet achieved in any month</td></tr>
+        <tr><td class="bold">Auto EBITDA</td><td>Auto business turned EBITDA positive in June 2026; expected to stay positive from Q2 FY27</td><td class="right">A real milestone if it holds — but a single month, on a definition that excludes corporate and cell costs</td></tr>
+        <tr><td class="bold">FY27 profitability</td><td>Targeting an FY27 turnaround on demand recovery, cost reset and margin gains</td><td class="right muted">Goldman Sachs sees FY27 EBITDA breakeven as achievable; consensus targets sit at ₹28.50–₹42.50</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Guidance is quoted from concall coverage rather than transcripts the author could access directly. "Reality check" comparisons are the author's own, using Vaahan data and reported results.</p>
+  </div>
+
+  <div class="callout callout-gold">The pattern that should govern how much weight an investor gives management guidance: Ola guided EBITDA breakeven in automotive "by Q1 FY26" in March 2025. It guided 20,000–22,000 units per month "over the next quarter" in mid-2026. Neither arrived on schedule. The strategy is not wrong; the timelines have been consistently optimistic, and the market has stopped paying for them in advance.</div>
+</section>
+
+<!-- ═══════════════ S10: VALUATION ═══════════════ -->
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation Model</h2></div>
+
+  <p>Ola has no earnings, so P/E is meaningless and book value is nearly so — reserves are negative and the equity is essentially paid-up capital less accumulated losses. The only defensible frame is EV/Sales on a normalised future year, anchored to a monthly volume assumption. We model FY28E because FY27 is a transition year and because the breakeven question resolves within it.</p>
+
+  <p>Shares outstanding ~462.7 crore (implied from market cap ÷ CMP, post-QIP). Assumed realisation ₹1.05–1.08 lakh per vehicle, consistent with the declining Q1 FY27 implied ASP.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th class="right">Conservative</th><th class="right">Base Case</th><th class="right">Bull Case</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">FY28E avg monthly registrations</td><td class="right">~12,000</td><td class="right">~22,000</td><td class="right">~32,000</td></tr>
+        <tr><td class="bold">FY28E units</td><td class="right">~1.44 lakh</td><td class="right">~2.64 lakh</td><td class="right">~3.84 lakh</td></tr>
+        <tr><td class="bold">FY28E revenue (₹ Cr)</td><td class="right">~1,900</td><td class="right green">~3,200</td><td class="right">~5,000</td></tr>
+        <tr><td class="bold">Implied realisation basis</td><td class="right muted">₹1.05 lakh + minimal cell</td><td class="right muted">₹1.05 lakh + cell/BESS</td><td class="right muted">₹1.08 lakh + cell/BESS</td></tr>
+        <tr><td class="bold">FY28E EBITDA margin</td><td class="right red">~−15%</td><td class="right">~0%</td><td class="right green">~+8%</td></tr>
+        <tr><td class="bold">Target EV / Sales</td><td class="right">3.5x</td><td class="right green">5.0x</td><td class="right">7.0x</td></tr>
+        <tr><td class="bold">Implied Enterprise Value (₹ Cr)</td><td class="right">~6,650</td><td class="right">~16,000</td><td class="right">~35,000</td></tr>
+        <tr><td class="bold">Less: net debt (₹ Cr, assumed)</td><td class="right">~2,000</td><td class="right">~1,600</td><td class="right">~1,200</td></tr>
+        <tr><td class="bold">Equity value (₹ Cr)</td><td class="right">~4,650</td><td class="right">~14,400</td><td class="right">~33,800</td></tr>
+        <tr><td class="bold">Shares outstanding (Cr)</td><td class="right">462.7</td><td class="right">462.7</td><td class="right">462.7</td></tr>
+        <tr><td class="bold">Implied value per share</td><td class="right red">~₹10.0</td><td class="right green">~₹31.1</td><td class="right">~₹73.0</td></tr>
+        <tr><td class="bold">12-Month Target Band</td><td class="right red">~₹9 – ₹12</td><td class="right green bold">~₹31 – ₹34</td><td class="right">~₹68 – ₹75</td></tr>
+        <tr><td class="bold">Upside vs CMP ~₹38</td><td class="right red">−68% to −76%</td><td class="right red">−11% to −18%</td><td class="right green">+79% to +97%</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Every figure in this table other than the CMP and share count is the author's own directional estimate, not a forecast. The target <em>band</em> around each point estimate is generated by flexing the EV/Sales multiple ±0.5x (conservative 3.0–4.0x, base 5.0–5.5x, bull 6.5–7.2x). Net debt is an assumption, not a disclosure — the author could not verify Ola's 30 June 2026 cash balance (see Section 08), so the net-debt line is anchored on ₹2,763 Cr of March-2026 gross borrowings less the portion of the ₹780 Cr QIP earmarked for repayment. Sensitivity is high: a ±1x change in the target EV/Sales multiple moves the base-case target by roughly ±₹6.9.</p>
+  </div>
+
+  <p class="subsection-title">Cross-Checks</p>
+  <div class="tbl-wrap">
+    <table>
+      <tbody>
+        <tr><td class="bold" style="width:260px">P/S on FY26 actuals</td><td>₹17,583 Cr ÷ ₹2,253 Cr ≈ <strong>7.8x</strong> — a full multiple for a business whose revenue halved that year</td></tr>
+        <tr><td class="bold">P/S on annualised Q1 FY27</td><td>₹17,583 Cr ÷ ₹1,820 Cr ≈ <strong>9.7x</strong>, versus Ather at ~12.0x on the same basis. Ola is ~20% cheaper — but Ather's OPM is −2.7% against Ola's ~−43%.</td></tr>
+        <tr><td class="bold">Price to book</td><td>~4.8x on Mar-26 book of ₹7.60; ~4.6x on the author's estimated post-QIP book of ~₹8.2. For context, the bear case at ₹9–12 implies ~1.1–1.5x book — the stock would have to fall a long way before it were cheap on assets.</td></tr>
+        <tr><td class="bold">Market cap per monthly unit</td><td>~₹1.25 Cr for Ola versus ~₹1.93 Cr for Ather (July 2026 revised registrations). Ola is the cheaper option on volume — the question is whether that volume compounds or erodes.</td></tr>
+        <tr><td class="bold">Sell-side consensus</td><td>Roughly ₹28.50 (Simply Wall St consensus) to ₹42.50 (a 6-analyst consensus with a ₹25–₹55 range). Our base case of ₹31–34 sits inside that band, closer to the cautious end.</td></tr>
+        <tr><td class="bold">Distance from IPO</td><td>CMP ~₹38 versus the August 2024 issue price of ₹76 — roughly half. The equity has already de-rated hard; the model says it is still not cheap on fundamentals.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">The asymmetry here is unusual and worth stating plainly: the base case is <em>below</em> the current price, but the bull case is nearly double it. That is the payoff profile of an option, not a compounder. It argues for position sizing appropriate to a binary outcome, and for waiting for either a lower entry price or hard evidence in the monthly registration data — not for buying the narrative at ₹38.</div>
+</section>
+
+<!-- ═══════════════ S11: SCENARIOS ═══════════════ -->
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Bull &amp; Bear Scenario Analysis</h2></div>
+
+  <div class="scenario-grid">
+    <div class="scenario-card">
+      <div class="sc-header bull">🐂 Bull Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val green">Dealer network signs up fast; Gen-3 quality reputation compounds; Ola simply <em>holds</em> ~8% share in a market growing 60%+ and reaches 22–32k/month on industry growth alone. 46100 LFP cuts cell cost; Ola Shakti adds a second revenue leg.</span></div>
+        <div class="sc-row"><span class="sc-key">FY28E monthly volume</span><span class="sc-val green">~32,000 units</span></div>
+        <div class="sc-row"><span class="sc-key">FY28E revenue</span><span class="sc-val green">~₹5,000 Cr</span></div>
+        <div class="sc-row"><span class="sc-key">EBITDA margin</span><span class="sc-val green">~+8%</span></div>
+        <div class="sc-row"><span class="sc-key">Funding</span><span class="sc-val green">No further dilution required</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val green">₹68 – ₹75</span></div>
+      </div>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-header bear">🐻 Bear Case</div>
+      <div class="sc-body">
+        <div class="sc-row"><span class="sc-key">Key Trigger</span><span class="sc-val red">July/August 2026 marks a resumed decline, not a pause. Dealers decline to invest behind the brand; TVS/Bajaj/Hero price aggressively; share drifts toward 4–5%. Cash runs low in FY28, forcing a dilutive raise at a depressed price. SEBI matter or CCPA action resurfaces.</span></div>
+        <div class="sc-row"><span class="sc-key">FY28E monthly volume</span><span class="sc-val red">~12,000 units</span></div>
+        <div class="sc-row"><span class="sc-key">FY28E revenue</span><span class="sc-val red">~₹1,900 Cr</span></div>
+        <div class="sc-row"><span class="sc-key">EBITDA margin</span><span class="sc-val red">~−15%</span></div>
+        <div class="sc-row"><span class="sc-key">Funding</span><span class="sc-val red">Further equity raise at ≤ CMP; meaningful dilution</span></div>
+        <div class="sc-row"><span class="sc-key">Target Price (1Y)</span><span class="sc-val red">₹9 – ₹12</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p>The distribution of outcomes is wide and genuinely two-sided. What tilts our probability weighting toward caution is not the bear case's severity but the base case's location: at ₹31–34 against a ₹38 price, an investor buying today is paying <em>above</em> the outcome we consider most likely, in exchange for exposure to a bull case that requires Ola to double its current run-rate. The bull case is not implausible — a market growing 60–75% a year can lift a stable-share participant a long way. It just requires the share line in Section 04 to stop falling first, and it has not.</p>
+
+  <div class="info-box">
+    <p><strong>The one-line test.</strong> Ola needs 20,000–25,000 registrations in a month to break even. Track the Vaahan monthly print. Three consecutive months above 18,000 with share holding at or above 8% would move this report to a constructive stance regardless of price. Three consecutive months below 12,000 would move the bear case to the base case.</p>
+  </div>
+</section>
+
+<!-- ═══════════════ S12: RISKS ═══════════════ -->
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risk Factors</h2></div>
+
+  <div class="risk-grid">
+    <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Market Share Erosion</div><span class="badge badge-high">HIGH</span><div class="risk-body">Share has fallen from ~33.8% of CY2024 volumes to ~15.4% in CY2025 to ~7% CY2026-to-date, and from 18.7% in June 2025 to 6.9% in July 2026. Ola has lost share in a market that grew 68–75% YoY. This is the master risk from which every other risk in this table follows.</div></div>
+    <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Funding &amp; Dilution</div><span class="badge badge-high">HIGH</span><div class="risk-body">Negative reserves (−₹1,060 Cr), ₹2,763 Cr of gross borrowings, ~₹215 Cr quarterly operating burn plus capex. The ₹780 Cr QIP covers roughly two quarters at the current run-rate. If breakeven volume is not reached, another raise — likely dilutive and likely at a depressed price — becomes necessary within FY28.</div></div>
+    <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Distribution Transition Execution</div><span class="badge badge-high">HIGH</span><div class="risk-body">The network is being cut from ~4,000 outlets to ~550 while simultaneously pivoting from D2C to independent dealers. Both moves are correct in principle; together they mean the entire FY27–28 volume plan depends on third parties choosing to invest behind a brand in decline.</div></div>
+    <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Disclosure Quality &amp; Regulatory</div><span class="badge badge-medh">MED–HIGH</span><div class="risk-body">SEBI is reviewing the February-2025 sales disclosure (25,000+ claimed vs ~5,341 Vaahan registrations, revenue recognised on 2,848 units) and has reportedly examined insider-trading allegations from Oct–Dec 2024. A settlement application has been filed. Separately, the CCPA show-cause notice under the Consumer Protection Act and the state trade-certificate actions remain live reputational and operational exposures.</div></div>
+    <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Competitive Pricing from Profitable Incumbents</div><span class="badge badge-medh">MED–HIGH</span><div class="risk-body">TVS (~₹1.72 lakh Cr market cap) and Bajaj (~₹2.48 lakh Cr) can fund EV share gains from ICE profit pools indefinitely. Ola cannot match a price war it has to finance from equity raises. The ₹60,000 Roadster price cut shows the direction of travel on realisation.</div></div>
+    <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Cell Ramp Delay / Capital Sunk</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">Original roadmap: 6.4 GWh by 2025, 20 GWh by 2026. Actual: ~6 GWh installed, ~2.5 GWh operational. ₹3,352 Cr of fixed assets sits substantially underutilised, and Goldman Sachs expects no material cell revenue in Q2 FY27. Vertical integration only pays at volume Ola does not currently have.</div></div>
+    <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Gross Margin Sustainability</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">Gross margin stepped down from 38.5% in Q4 FY26 (33.5% ex-PLI) to 30.5% in Q1 FY27. With mix shifting toward cheaper S1 X variants and commodity headwinds flagged by management, the margin gains that underpin the breakeven maths are not yet proven durable.</div></div>
+    <div class="risk-row"><div class="risk-num">08</div><div class="risk-name">Policy / Subsidy Dependence</div><span class="badge badge-med">MEDIUM</span><div class="risk-body">PLI benefits materially flattered Q4 FY26 gross margin (38.5% reported vs 33.5% ex-PLI). Changes to PLI, FAME-successor schemes or GST treatment of EVs would hit Ola's economics harder than better-capitalised peers.</div></div>
+    <div class="risk-row"><div class="risk-num">09</div><div class="risk-name">Key-Person Concentration</div><span class="badge badge-low">LOW–MED</span><div class="risk-body">Strategy, capital allocation and brand are tightly bound to Bhavish Aggarwal, whose attention also spans Krutrim and Ola Consumer. Mitigating: promoter pledges were fully released in Dec 2025 and promoter holding remains a substantial ~33%, which aligns incentives.</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ S13: SUMMARY ═══════════════ -->
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Investment Summary &amp; Recommendation</h2></div>
+
+  <div class="thesis-box">
+    <p>Ola Electric is a company whose <strong>cost problem is being solved and whose demand problem is not</strong>. Gross margin has more than doubled in five quarters, warranty cost has fallen ~88%, opex is down 22% QoQ, and the loss has narrowed for two consecutive quarters — genuine, measurable operational repair. But the Vaahan record is unambiguous: share has gone from <strong>~33.8% of CY2024 volumes to ~15.4% in CY2025 to ~7% so far in CY2026</strong>, and in June 2026 — the single best month the Indian E2W industry has ever had, up 75.5% YoY — Ola's registrations fell 21.8% year-on-year while every top-four rival set a record. TVS has now overtaken Ola even on cumulative lifetime registrations. Management's own breakeven threshold is 20,000–25,000 units a month; Ola's best month in the last fifteen was 16,183, and July fell back to ~14,100. At ~₹38 the market already pays ~9.7x annualised sales for a business with a ~−43% operating margin, when Ather trades at ~12x with a −2.7% margin and rising volume. The bull case is real and large — a market growing 60–75% a year could carry a share-stable Ola to breakeven without it winning anything. But it has to stop losing share first, and it has not. <strong>Avoid at this price; watch the monthly Vaahan print, not the guidance.</strong></p>
+  </div>
+
+  <p class="subsection-title">Three Reasons Someone Could Reasonably Own OLAELEC</p>
+  <ul class="report-list">
+    <li><strong>1. The market does the work:</strong> Indian E2W registrations grew 68–75% YoY through mid-2026 and penetration hit a record 11.24% in July. If Ola merely holds ~8% share, industry growth alone can carry it to the 20,000–25,000/month breakeven band without any share gain at all.</li>
+    <li><strong>2. The cost reset is verifiable, not narrative:</strong> gross margin 13.7% → 30.5%, warranty ₹500 Cr+ → ₹59 Cr, opex −22% QoQ, loss narrowing two quarters running, and one operating-cash-flow-positive quarter already delivered (Q4 FY26, +₹91 Cr). The auto business reportedly turned EBITDA-positive in June 2026.</li>
+    <li><strong>3. Assets nobody else has, at a discount:</strong> the only operating in-house cell plant among listed Indian E2W makers (~2.5 GWh live of ~6 GWh installed), a 46100 LFP cell ready for integration, an energy-storage optionality in Ola Shakti — and a market cap per unit of monthly volume (~₹1.25 Cr) roughly 35% below Ather's.</li>
+  </ul>
+
+  <p class="subsection-title">Key Monitorables — Watch Through FY27</p>
+  <div class="monitor-grid">
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Monthly Vaahan registrations and share — the only number that matters. Bull confirmation: 3 months &gt;18,000 with share ≥8%.</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Dealer sign-ups under the new partner model — the leading indicator that precedes volume by a quarter or two</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Quarterly cash burn and any fresh fundraise announcement — the ₹780 Cr QIP buys roughly two quarters at the Q1 FY27 run-rate</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Gross margin — does 30.5% hold, or was Q4 FY26's 38.5% the peak? Ex-PLI margin is the cleaner read.</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Auto EBITDA staying positive from Q2 FY27 as guided — and whether consolidated EBITDA follows</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Cell ramp beyond 2.5 GWh, 46100 LFP integration, and the first month of material cell revenue</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>SEBI settlement outcome and any further CCPA or state transport-authority action</div></div>
+    <div class="monitor-item"><div class="monitor-dot"></div><div>Promoter holding — it has drifted from stake monetisation and QIP dilution; further decline would be a signal</div></div>
+  </div>
+
+  <div class="verdict-banner">
+    <h3>RATING: AVOID / HIGH-RISK SPECULATIVE</h3>
+    <p>Base Case 12-Month Target: <strong>₹31–34</strong> &nbsp;|&nbsp; Bull: ₹68–75 &nbsp;|&nbsp; Bear: ₹9–12 &nbsp;|&nbsp; CMP ~₹38 &nbsp;|&nbsp; Risk Level: VERY HIGH</p>
+  </div>
+
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:20px;">
+    SOURCE QUALITY: Monthly and annual registration data is drawn from Vaahan-derived reporting published by Autocar India, Autocar Professional, Autopunditz, EVreporter, Entrackr, Inc42, Business Standard, DriveSpark, Rushlane and BikeAdvice, each attributed to the month it covers; where two vintages of the same month exist, both are shown and the discrepancy is explained rather than smoothed. Financial statements, market cap, 52-week range, book value and shareholding are from Screener.in (consolidated, retrieved 26 August 2026) cross-checked against exchange-results coverage in Business Standard, Entrackr and Free Press Journal. Guidance is from published coverage of the Q4 FY26 and Q1 FY27 earnings calls, not from transcripts the author accessed directly. Ola's 30 June 2026 cash-and-equivalents balance could not be verified from a citable source and is deliberately left blank; the net-debt line in the valuation is an explicit assumption. FY28E volumes, revenue, margins and target multiples are the author's own directional estimates and may differ materially from outcomes. Cells marked "n.a." indicate figures the author could not verify and chose not to interpolate.
+  </p>
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:10px;">
+    DISCLAIMER: This report is prepared for informational and private research purposes only. It does not constitute investment advice or a recommendation to buy or sell any security. The author is not a SEBI-registered investment adviser and may hold positions in the securities discussed. All financial data is sourced from publicly available filings, concall coverage and exchange disclosures. Investing in equities involves the risk of capital loss, and loss-making, cash-consuming companies carry a materially elevated risk of permanent capital impairment. Past performance is not indicative of future results. Please consult a SEBI-registered investment adviser before making any investment decision.
+  </p>
+</section>
+
+</div><!-- /.page -->
+
+<footer class="footer">
+  <div>OLA ELECTRIC MOBILITY LIMITED (NSE: OLAELEC) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Vaahan Registration Data (to 24 Aug 2026) · Q1 FY27 Results (7 Aug 2026) · FY26 Audited Results · Q4 FY26 &amp; Q1 FY27 Concall Coverage · BSE/NSE Filings · Screener.in (26 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>
