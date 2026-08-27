@@ -1093,6 +1093,24 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
 .dg-news-ico i{font-size:14px;}
 .dg-growth{display:block;font-family:var(--mono);font-size:9.5px;color:var(--t3);margin-top:2px;white-space:nowrap;}
 
+/* ---- expert-feedback pass: slicers, bands, segregated cells, big quadrant ---- */
+.se-slicers{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:10px 14px;margin:0 0 14px;background:linear-gradient(90deg,var(--bg2),var(--bg1));border:1px solid var(--b1);border-left:3px solid var(--b3);border-radius:var(--r3);}
+.se-slicers.on{border-left-color:var(--lime);background:linear-gradient(90deg,var(--lime-soft),var(--bg1));}
+.se-slicer-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);}
+.se-slicers.on .se-slicer-tag{color:var(--lime);}
+.se-slicers select{font-size:11.5px;font-family:var(--mono);background:var(--bg1);border:1px solid var(--b2);border-radius:var(--r2);padding:6px 10px;color:var(--t1);cursor:pointer;max-width:260px;}
+.se-slicers select:focus{outline:none;border-color:var(--lime);}
+.se-slicer-on{font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:.05em;}
+.se-slicer-hint{font-size:10.5px;color:var(--t4);}
+.se-band{display:inline-block;font-family:var(--mono);font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.03em;}
+.se-band.large{background:var(--sky-soft);color:var(--sky2);} .se-band.mid{background:var(--teal-soft);color:var(--teal2);}
+.se-band.small{background:var(--gold-soft);color:var(--gold2);} .se-band.micro{background:var(--neutral-soft);color:var(--t3);}
+.se-yes{display:inline-block;font-family:var(--mono);font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--sage-soft);color:var(--sage2);}
+.se-newhigh{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--sage2);white-space:nowrap;}
+.se-quad-wrap{margin-top:4px;}
+.se-quad svg{width:100%;height:auto;display:block;max-height:none;}
+.se-quad{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r3);padding:10px;}
+.wr-twrap .scan-table .nm{max-width:230px;font-weight:600;color:var(--t1);}
 /* ============= RESEARCH DESK ============= */
 .rd-featured{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;}
 .rd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:10px;}
@@ -6917,6 +6935,22 @@ function wrNameCell(r){
               + (r.near_ath ? '<span class="wr-sup" title="Within 5% of all-time high">*</span>' : '');
   return `<span class="nm" title="${wrAttr(r.name||'')}">${wrEsc(r.name || '—')}</span>${marks}${wrOwned(r)}`;
 }
+function wrActCell(r, industry){
+  const sym = r.code || r.name || '';
+  if(!sym) return '<span class="flat">\u2014</span>';
+  const ind = industry || r.industry || r.bucket || '';
+  const rep = (typeof rdForCode === 'function') ? rdForCode(r.code) : null;
+  return (rep ? `<button class="wr-act rd-has" title="Research report: ${wrAttr(rep.title || '')}${rep.rating ? ' \u00b7 ' + wrAttr(rep.rating) : ''}" onclick="event.stopPropagation();rdGo('${wrAttr(rep.id)}')"><i class="ti ti-file-text"></i></button>` : '')
+    + `<button class="wr-act" title="Add ${wrAttr(sym)} to Watchlist" onclick="event.stopPropagation();wrToWatch('${wrAttr(sym)}','${wrAttr(ind)}')"><i class="ti ti-eye-plus"></i></button>`
+    + `<button class="wr-act" title="Start research on ${wrAttr(sym)}" onclick="event.stopPropagation();convToResearch('${wrAttr(sym)}','${wrAttr(ind)}')"><i class="ti ti-microscope"></i></button>`;
+}
+const SE_BAND_ORD = {Large: 4, Mid: 3, Small: 2, Micro: 1};
+function seBandCell(r){ return r.band ? `<span class="se-band ${String(r.band).toLowerCase()}">${wrEsc(r.band)}</span>` : '<span class="flat">\u2014</span>'; }
+function seYesCell(v, label, title){ return v ? `<span class="se-yes" title="${wrAttr(title || '')}">${wrEsc(label || 'Yes')}</span>` : '<span class="flat">\u2014</span>'; }
+function seHighCell(v){
+  if(!wrIsNum(v)) return '<span class="flat">\u2014</span>';
+  return (+v >= -SE_NEWHIGH) ? `<span class="se-newhigh" title="At / near a new 52-week high">${wrPct(v, 1, {plain: true})} \u2605</span>` : wrPct(v, 1, {plain: true});
+}
 function wrCodeCell(r, industry){
   const sym = r.code || r.name || '';
   const ind = industry || r.industry || r.bucket || '';
@@ -7467,12 +7501,14 @@ function wrPrint(){
 const SE = {
   scans: [], cur: null, data: {}, loaded: false, loading: false, error: null,
   c: null,                     // computed bundle for the selected week
-  ui: { rsq:'', rsmin:'0', rss2:'all', rsgroup:'all', rsband:'all', rsnew:false, rsath:false, rspead:'all',
-        s2q:'', s2status:'all', s2ind:'all', s2minrs:'0', s2minmcap:'0', s2scan:false,
+  gf: { sector:'all', band:'all' },
+  ui: { rsq:'', rsmin:'0', rss2:'all', rsgroup:'all', rsband:'all', rsnew:false, rsath:false, rspead:'all', quad:'all',
+        s2q:'', s2status:'all', s2ind:'all', s2minrs:'0', s2minmcap:'0', s2scan:false, s2band:'all', s2new:false,
         secGroup:null, secView:'group' },
   weights: { r3m: 0.5, r1m: 0.3, r1w: 0.2 }   // fallback composite when only 3-month history is available
 };
 const SE_BANDS = [['Large', 50000], ['Mid', 15000], ['Small', 3000], ['Micro', 0]];
+const SE_NEWHIGH = 1.5;   // within this % of the 52-week high counts as 'at a new high'
 const SE_GROUP_COLORS = ['#10B981','#3B82F6','#F59E0B','#8B5CF6','#EC4899','#14B8A6','#F97316','#6366F1','#84CC16','#06B6D4','#E11D48','#A855F7'];
 
 // ---------- loading ----------
@@ -7630,6 +7666,18 @@ function seCompute(){
   const s2ind = new Map(); S2.forEach(r => { const k = r.industry || 'Other'; if(!s2ind.has(k)) s2ind.set(k, []); s2ind.get(k).push(r); });
   const s2Industries = [...s2ind.entries()].map(([name, v]) => ({name, n: v.length, entered: v.filter(r => r.state === 'entered' || r.state === 'reentry').length, medWeeks: med(v.map(r => r.weeks)), medRS: med(v.map(r => r.rs_pct)), avgRet: avg(v.map(r => r.ret)), inScan: v.filter(r => r.inScan).length})).sort((a, b) => b.n - a.n);
   if(typeof PD !== 'undefined' && PD.loaded && typeof pdStampUniverse === 'function') pdStampUniverse(U);
+  // Stage 2 rows inherit sector, cap band and recent returns from their matched screener row,
+  // plus their sector's median RS, so the list can be segregated and sorted like the source sheet.
+  const secRS = new Map(sectors.map(g => [g.name, g.medRS]));
+  S2.forEach(r => {
+    const u = r.uni;
+    r.sector = (u && (u.group || u.industry)) || r.industry || '';
+    r.band = u ? u.band : null;
+    r.r1w = u ? u.r1w : null;
+    r.from_52wh = u ? u.from_52wh : null;
+    r.newHigh = !!(u && wrIsNum(u.from_52wh) && +u.from_52wh >= -SE_NEWHIGH);
+    r.sectorRS = secRS.has(r.sector) ? secRS.get(r.sector) : null;
+  });
   SE.c = { d, date: d.date, U, S2, exits, sectors, s2Industries, prevU, prevS2, hasPrevU: !!prevU, hasPrevS2: !!prevS2,
     stats: { n: U.length, s2list: S2.length, entered: S2.filter(r => r.state === 'entered').length, reentry: S2.filter(r => r.state === 'reentry').length, exited: exits.length,
       ttPass: U.filter(r => r.s2calc).length, inBoth: U.filter(r => r.s2list).length, medR1w: med(U.map(r => r.r1w)), medR3m: med(U.map(r => r.r3m)), medFrom52: med(U.map(r => r.from_52wh)),
@@ -7660,10 +7708,14 @@ function seStateCell(state){
   return `<span class="scan-status"><span class="scan-dot ${m[0]}"></span>${m[1]}</span>`;
 }
 function seStockCell(r){
-  const nm = r.name && r.name !== r.code ? `<div class="se-nm">${wrEsc(r.name)}</div>` : '';
-  return `<div class="se-stock"><div><span class="tk">${wrEsc(r.code || r.name || '—')}</span>${wrOwned(r)}${r.near_ath ? '<span class="wr-sup" title="Within 5% of all-time high">*</span>' : ''}${r.isNew ? '<span class="se-pill new" title="Not in last week\'s scan">NEW</span>' : ''}</div>${nm}</div>`;
+  // Stock = company name only (the ticker lives in its own column / tooltips) + tiny status marks
+  const nm = r.name || r.code || '\u2014';
+  return `<span class="nm" title="${wrAttr((r.code ? r.code + ' \u00b7 ' : '') + nm)}">${wrEsc(nm)}</span>`
+    + wrOwned(r)
+    + (r.near_ath ? '<span class="wr-sup" title="Within 5% of all-time high">*</span>' : '')
+    + (r.isNew ? '<span class="se-pill new" title="Not in last week\'s scan">NEW</span>' : '');
 }
-function seActCell(r){ return wrCodeCell({code: r.code || r.name, name: r.name, industry: r.industry || r.group}, r.industry || r.group); }
+function seActCell(r){ return wrActCell({code: r.code || r.name, name: r.name, industry: r.industry || r.group}, r.industry || r.group); }
 function seKpi(label, value, sub, tone, count){
   return `<div class="se-kpi ${tone || ''}"><div class="k">${wrEsc(label)}</div><div class="v" ${count != null ? `data-count="${count}"` : ''}>${value}</div>${sub ? `<div class="d">${sub}</div>` : ''}</div>`;
 }
@@ -7681,6 +7733,30 @@ function seEmpty(title, body){
 }
 const SE_EMPTY_BODY = 'Publish a week with <code>python tools/build_scan.py --date YYYY-MM-DD --screener &lt;screener export&gt; --stage2 &lt;Stage 2 list&gt;</code>, commit <code>data/scans/</code>, then Refresh.';
 function seSectionTop(sectionId){ return ''; }
+// ---------- global slicers: chosen once, applied on every Edge page ----------
+function seGfPass(r){
+  const g = SE.gf; if(!g) return true;
+  if(g.sector !== 'all' && (r.group || r.sector || r.industry || '') !== g.sector) return false;
+  if(g.band !== 'all' && r.band !== g.band) return false;
+  return true;
+}
+function seGfSet(k, v){
+  if(k === 'reset') SE.gf = {sector: 'all', band: 'all'}; else SE.gf[k] = v;
+  seRenderAll();
+  if(typeof renderDG === 'function' && typeof DG !== 'undefined' && DG.loaded && document.getElementById('dg-body')) renderDG();
+  if(typeof renderPD === 'function' && typeof PD !== 'undefined' && PD.loaded && document.getElementById('pd-body')) renderPD();
+}
+function seGfBar(){
+  const c = SE.c; if(!c) return '';
+  const on = SE.gf.sector !== 'all' || SE.gf.band !== 'all';
+  const sectors = c.sectors.map(g => g.name);
+  return `<div class="se-slicers${on ? ' on' : ''}">
+    <span class="se-slicer-tag"><i class="ti ti-filter"></i>Dashboard filters</span>
+    <select onchange="seGfSet('sector',this.value)"><option value="all">All sectors</option>${sectors.map(g => `<option value="${wrAttr(g)}" ${SE.gf.sector === g ? 'selected' : ''}>${wrEsc(g)}</option>`).join('')}</select>
+    <select onchange="seGfSet('band',this.value)"><option value="all">All market caps</option>${SE_BANDS.map(([b]) => `<option value="${b}" ${SE.gf.band === b ? 'selected' : ''}>${b} cap</option>`).join('')}</select>
+    ${on ? `<button class="btn btn-ghost btn-sm" onclick="seGfSet('reset')"><i class="ti ti-x"></i>Clear</button><span class="se-slicer-on">applied to every page</span>` : '<span class="se-slicer-hint">applies across Market Pulse, Daily Gainers, RS Screen, Sectors, Stage 2 and PEAD</span>'}
+  </div>`;
+}
 function seRenderAll(){ seRenderPulse(); seRenderRS(); seRenderSectors(); seRenderS2(); if(typeof renderPD === 'function' && typeof PD !== 'undefined' && PD.loaded && document.getElementById('pd-body')) renderPD(); if(typeof renderDG === 'function' && typeof DG !== 'undefined' && DG.loaded && document.getElementById('dg-body')) renderDG(); }
 function seRerender(tableId){
   if(tableId.startsWith('se-rs')) seRenderRSTable();
@@ -7695,6 +7771,17 @@ function seGo(section, opts){
 }
 
 // ---------- Market Pulse ----------
+const SE_S2_MINI_COLS = [
+  {k:'code', t:'Stock', type:'html', html: r => `<span class="nm">${wrEsc(r.code)}</span>${wrOwned({code: r.code})}`},
+  {k:'act', t:'', type:'html', html: r => wrActCell({code: r.code, name: r.code, industry: r.industry}, r.industry)},
+  {k:'sector', t:'Sector', type:'text', fn: r => r.sector || r.industry},
+  {k:'band', t:'Cap', type:'html', sortType:'num', fn: r => SE_BAND_ORD[r.band] || 0, html: seBandCell},
+  {k:'rs_pct', t:'RS%', type:'num', dec:0},
+  {k:'weeks', t:'Wks in S2', type:'int'},
+  {k:'ret', t:'Return', type:'pct', dec:0},
+  {k:'from_52wh', t:'vs 52WH', type:'html', sortType:'num', fn: r => r.from_52wh, html: r => seHighCell(r.from_52wh)},
+  {k:'state', t:'Status', type:'html', html: r => seStateCell(r.state)}
+];
 function seRenderPulse(){
   const el = document.getElementById('se-pulse-body'); if(!el) return;
   if(!SE.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading scan data…</p></div>'; return; }
@@ -7740,6 +7827,7 @@ function seRenderPulse(){
       <div class="se-kpis">${kpis.join('')}</div>
     </div></div>
     <div class="se-body">
+      ${seGfBar()}
       <div class="se-row-h"><div><div class="se-eyebrow">Sector rotation intelligence</div><h2>Industry momentum leaders</h2></div><button class="btn btn-sm" onclick="seGo('sectors')">Explore all ${c.sectors.length} groups →</button></div>
       <div class="se-leads">${leaderCards || '<div class="wr-hint">No industry groups with 3+ stocks in this scan.</div>'}</div>
       <div class="se-grid2">
@@ -7749,16 +7837,19 @@ function seRenderPulse(){
         </div>
         <div class="se-panel">
           <div class="se-row-h"><div><div class="se-eyebrow">Weinstein Stage 2</div><h2>Stage 2 list — this week</h2></div><button class="btn btn-ghost btn-sm" onclick="seGo('s2track')">Tracker →</button></div>
-          ${hasS2 ? `${c.hasPrevS2 ? `<div class="wr-hint" style="margin:-2px 0 8px;">Entries are the provider's own New/Re-entry flags for this week; exits are stocks on the list of w/e ${wrDate(c.prevS2.date)} that have since dropped off.</div>` : ''}<div class="se-cols3">
-            <div><div class="se-sub up">Entered (${ins.length}${c.S2.filter(r => r.state === 'entered' || r.state === 'reentry').length > ins.length ? ' of ' + c.S2.filter(r => r.state === 'entered' || r.state === 'reentry').length : ''})</div><ul class="se-list">${ins.map(r => li(r, `RS ${wrNum(r.rs_pct, 0)}`)).join('') || '<li class="flat">None</li>'}</ul></div>
-            <div><div class="se-sub dn" title="stocks on the list of w/e ${c.hasPrevS2 ? wrDate(c.prevS2.date) : ''} no longer present">Exited (${outs.length}${c.exits.length > outs.length ? ' of ' + c.exits.length : ''})</div><ul class="se-list">${outs.map(r => li(r, `${r.weeks || '?'}w · ${wrPct(r.ret, 0, {plain: true})}`)).join('') || `<li class="flat">${c.hasPrevS2 ? 'None' : 'Need a previous list to detect exits'}</li>`}</ul></div>
-            <div><div class="se-sub">Longest runners</div><ul class="se-list">${runners.map(r => li(r, `${r.weeks}w · ${wrPct(r.ret, 0, {plain: true})}`)).join('')}</ul></div>
-          </div>` : `<div class="wr-note"><div class="lab">Stage 2 list missing for this week</div>Publish it with <code>python tools/build_scan.py --date ${wrEsc(c.date)} --stage2 "&lt;Stage 2 xlsx&gt;"</code> — entries, exits and weeks-in-stage will light up automatically.</div>`}
+          ${hasS2 ? `${c.hasPrevS2 ? `<div class="wr-hint" style="margin:-2px 0 8px;">Entries are the provider's own New/Re-entry flags for this week; exits are stocks on the list of w/e ${wrDate(c.prevS2.date)} that have since dropped off.</div>` : ''}
+            <div class="wr-sub" style="margin-top:2px;">Entered this week (${c.S2.filter(r => r.state === 'entered' || r.state === 'reentry').length})</div>
+            ${wrTable('se-pulse-in', SE_S2_MINI_COLS, c.S2.filter(r => r.state === 'entered' || r.state === 'reentry').filter(seGfPass), {sort:{col:'rs_pct', dir:'desc'}, maxHeight:'260px', cap:60, empty:'No entries flagged.'})}
+            <div class="wr-sub">Exited since the last list (${c.exits.length})</div>
+            ${wrTable('se-pulse-out', SE_S2_MINI_COLS, c.exits.filter(seGfPass), {sort:{col:'weeks', dir:'desc'}, maxHeight:'240px', cap:60, empty: c.hasPrevS2 ? 'No exits.' : 'Need a previous list to detect exits.'})}
+            <div class="wr-sub">Longest runners</div>
+            ${wrTable('se-pulse-run', SE_S2_MINI_COLS, c.S2.slice().filter(seGfPass).sort((a, b) => (b.weeks || 0) - (a.weeks || 0)).slice(0, 25), {sort:null, maxHeight:'240px', empty:'None.'})}
+          ` : `<div class="wr-note"><div class="lab">Stage 2 list missing for this week</div>Publish it with <code>python tools/build_scan.py --date ${wrEsc(c.date)} --stage2 "&lt;Stage 2 xlsx&gt;"</code> — entries, exits and weeks-in-stage will light up automatically.</div>`}
         </div>
       </div>
-      <div class="se-grid2">
-        <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Distribution</div><h2>RS rating spread</h2></div><span class="wr-hint">${hasU ? `${c.U.filter(r => r.rs >= 80).length} stocks at RS 80+` : ''}</span></div>${hasU ? distro : '<div class="wr-hint">No universe.</div>'}</div>
-        <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Rotation</div><h2>Sector quadrant</h2></div><span class="wr-hint">${c.hasPrevU ? 'median RS vs change since last scan' : 'needs two scans with a universe'}</span></div>${quad}</div>
+      <div class="se-panel">
+        <div class="se-row-h"><div><div class="se-eyebrow">Sector rotation</div><h2>Where money is moving</h2></div><span class="wr-hint">${c.hasPrevU ? `median RS (x) vs change since w/e ${wrDate(c.prevU.date)} (y) \u00b7 bubble = stocks in group \u00b7 click a bubble to dive in` : 'needs two scans with a universe'}</span></div>
+        ${quad}
       </div>
       <div class="se-panel se-pipeline">
         <div class="se-row-h"><div><div class="se-eyebrow">Pipeline</div><h2>Data loaded</h2></div><button class="btn btn-ghost btn-sm" onclick="loadSE(true)"><i class="ti ti-refresh"></i>Refresh</button></div>
@@ -7770,19 +7861,65 @@ function seRenderPulse(){
 }
 function seQuadrantSvg(groups, id){
   if(!groups.length) return '<div class="wr-hint">No groups to plot.</div>';
+  const sel = SE.ui.quad || 'all';
   const hasDelta = groups.some(g => g.delta != null);
-  const W = 640, H = 300, L = 44, R = 16, T = 18, B = 34;
-  const xs = groups.map(g => g.medRS), ys = groups.map(g => g.delta || 0);
-  const ymax = Math.max(10, ...ys.map(Math.abs));
-  const x = (v) => L + (W - L - R) * (v - 1) / 98, y = (v) => T + (H - T - B) * (1 - (v + ymax) / (2 * ymax));
-  let g = `<rect x="${L}" y="${T}" width="${W - L - R}" height="${H - T - B}" fill="var(--bg2)" rx="8"/>`;
-  g += `<line x1="${x(50)}" y1="${T}" x2="${x(50)}" y2="${H - B}" stroke="var(--b2)" stroke-dasharray="4 4"/><line x1="${L}" y1="${y(0)}" x2="${W - R}" y2="${y(0)}" stroke="var(--b2)" stroke-dasharray="4 4"/>`;
-  const lab = (tx, ty, t, anchor) => `<text x="${tx}" y="${ty}" font-family="JetBrains Mono, monospace" font-size="9.5" fill="var(--t4)" text-anchor="${anchor || 'start'}" letter-spacing=".08em">${t}</text>`;
-  g += lab(x(50) + 8, T + 14, 'LEADING') + lab(L + 8, T + 14, 'IMPROVING') + lab(L + 8, H - B - 6, 'LAGGING') + lab(x(50) + 8, H - B - 6, 'WEAKENING');
-  g += lab(W / 2, H - 8, 'MEDIAN RS RATING →', 'middle') + `<text x="12" y="${H / 2}" font-family="JetBrains Mono, monospace" font-size="9.5" fill="var(--t4)" text-anchor="middle" transform="rotate(-90 12 ${H / 2})" letter-spacing=".08em">${hasDelta ? 'RS CHANGE →' : 'NO HISTORY'}</text>`;
-  groups.forEach(gr => { const cx = x(gr.medRS), cy = y(gr.delta || 0), r = 6 + Math.min(14, Math.sqrt(gr.n) * 2.2), sel = SE.ui.secGroup === gr.name;
-    g += `<g class="se-dot" onclick="seGo('sectors',{group:'${wrAttr(gr.name)}'})" style="cursor:pointer"><circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${r.toFixed(1)}" fill="${gr.color}" fill-opacity="${sel ? 0.9 : 0.55}" stroke="${sel ? 'var(--t1)' : gr.color}" stroke-width="${sel ? 2 : 1}"><title>${wrEsc(gr.name)} — median RS ${gr.medRS.toFixed(0)}${gr.delta != null ? `, ${gr.delta >= 0 ? '+' : ''}${gr.delta.toFixed(0)} vs last scan` : ''}, ${gr.n} stocks, ${Math.round(gr.s2pct)}% Stage 2</title></circle><text x="${(cx + r + 3).toFixed(1)}" y="${(cy + 3.5).toFixed(1)}" font-family="Manrope, Inter, sans-serif" font-size="10" fill="var(--t2)">${wrEsc(gr.name.length > 22 ? gr.name.slice(0, 21) + '…' : gr.name)}</text></g>`; });
-  return `<div class="se-quad"><svg id="${id}" viewBox="0 0 ${W} ${H}" role="img">${g}</svg></div>`;
+  const W = 1080, H = 560, Lm = 62, R = 210, T = 34, B = 46;   // R leaves a gutter for labels
+  const ys = groups.map(g => g.delta || 0);
+  const ymax = Math.max(8, ...ys.map(Math.abs)) * 1.15;
+  const x = (v) => Lm + (W - Lm - R) * (v - 1) / 98;
+  const y = (v) => T + (H - T - B) * (1 - (v + ymax) / (2 * ymax));
+  const x50 = x(50), y0 = y(0);
+  let g = '';
+  // quadrant tints so the four regimes read at a glance
+  const tint = (x1, y1, x2, y2, fill, q) => `<rect x="${x1.toFixed(0)}" y="${y1.toFixed(0)}" width="${(x2-x1).toFixed(0)}" height="${(y2-y1).toFixed(0)}" fill="${fill}" opacity="${sel === 'all' || sel === q ? 1 : 0.25}"/>`;
+  g += tint(x50, T, W - R, y0, 'rgba(34,197,94,.10)', 'Leading');
+  g += tint(Lm, T, x50, y0, 'rgba(96,165,250,.10)', 'Improving');
+  g += tint(x50, y0, W - R, H - B, 'rgba(245,158,11,.10)', 'Weakening');
+  g += tint(Lm, y0, x50, H - B, 'rgba(244,63,94,.09)', 'Lagging');
+  // gridlines + axes
+  for(let v = 10; v <= 90; v += 10){ if(v === 50) continue; g += `<line x1="${x(v).toFixed(1)}" y1="${T}" x2="${x(v).toFixed(1)}" y2="${H-B}" stroke="var(--b1)" stroke-width="1" opacity=".5"/>`; }
+  g += `<line x1="${x50.toFixed(1)}" y1="${T}" x2="${x50.toFixed(1)}" y2="${H-B}" stroke="var(--b3)" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+  g += `<line x1="${Lm}" y1="${y0.toFixed(1)}" x2="${W-R}" y2="${y0.toFixed(1)}" stroke="var(--b3)" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+  // axis ticks
+  for(let v = 10; v <= 90; v += 20) g += `<text x="${x(v).toFixed(1)}" y="${H-B+18}" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--t4)" text-anchor="middle">${v}</text>`;
+  const qlab = (tx, ty, t, q, anchor) => `<text x="${tx}" y="${ty}" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="var(--t3)" text-anchor="${anchor}" letter-spacing=".1em" opacity="${sel === 'all' || sel === q ? 1 : .3}">${t}</text>`;
+  g += qlab(W - R - 10, T + 18, 'LEADING', 'Leading', 'end') + qlab(Lm + 10, T + 18, 'IMPROVING', 'Improving', 'start');
+  g += qlab(Lm + 10, H - B - 10, 'LAGGING', 'Lagging', 'start') + qlab(W - R - 10, H - B - 10, 'WEAKENING', 'Weakening', 'end');
+  g += `<text x="${((Lm + W - R) / 2).toFixed(0)}" y="${H - 8}" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--t4)" text-anchor="middle" letter-spacing=".1em">MEDIAN RS RATING \u2192</text>`;
+  g += `<text x="16" y="${(H/2).toFixed(0)}" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--t4)" text-anchor="middle" transform="rotate(-90 16 ${(H/2).toFixed(0)})" letter-spacing=".1em">${hasDelta ? 'RS CHANGE VS LAST SCAN \u2192' : 'NO PRIOR SCAN'}</text>`;
+  // Only the most significant groups get a name label - everything else stays a hoverable dot.
+  // Labelling all 50+ groups is what made this chart unreadable; the labelled set is then spread
+  // vertically so no two labels can collide.
+  const pts = groups.map(gr => {
+    const q = gr.quadrant || '';
+    return { gr, q, cx: x(gr.medRS), cy: y(gr.delta || 0), r: 7 + Math.min(16, Math.sqrt(gr.n) * 2.4),
+             dim: !(sel === 'all' || sel === q) };
+  });
+  const MINGAP = 16, room = Math.floor((H - B - T - 8) / MINGAP);
+  const focus = pts.filter(p => !p.dim);
+  const labelled = new Set(focus.slice().sort((a, b) => b.gr.n - a.gr.n)
+                                .slice(0, Math.max(6, Math.min(room, 20))).map(p => p.gr.name));
+  pts.forEach(p => { p.label = labelled.has(p.gr.name); });
+  const stack = pts.filter(p => p.label).sort((a, b) => a.cy - b.cy);
+  let lastY = -1e9;
+  stack.forEach(p => { p.ly = Math.max(p.cy, lastY + MINGAP); lastY = p.ly; });
+  const overflow = stack.length ? stack[stack.length - 1].ly - (H - B - 4) : 0;
+  if(overflow > 0) stack.forEach(p => { p.ly = Math.max(T + 12, p.ly - overflow); });
+  pts.forEach(p => {
+    const gr = p.gr, o = p.dim ? 0.16 : 1, selg = SE.ui.secGroup === gr.name;
+    const lx = W - R + 12;
+    g += `<g class="se-dot" opacity="${o}" onclick="seGo('sectors',{group:'${wrAttr(gr.name)}'})" style="cursor:pointer">`
+      + (p.label ? `<line x1="${p.cx.toFixed(1)}" y1="${p.cy.toFixed(1)}" x2="${(lx - 6).toFixed(1)}" y2="${p.ly.toFixed(1)}" stroke="${gr.color}" stroke-width="1" opacity=".35"/>` : '')
+      + `<circle cx="${p.cx.toFixed(1)}" cy="${p.cy.toFixed(1)}" r="${p.r.toFixed(1)}" fill="${gr.color}" fill-opacity="${selg ? .95 : .6}" stroke="${selg ? 'var(--t1)' : gr.color}" stroke-width="${selg ? 2.5 : 1.2}">`
+      + `<title>${wrEsc(gr.name)} \u2014 median RS ${gr.medRS.toFixed(0)}${gr.delta != null ? `, ${gr.delta >= 0 ? '+' : ''}${gr.delta.toFixed(0)} vs last scan` : ''}, ${gr.n} stocks, ${Math.round(gr.s2pct)}% Stage 2</title></circle>`
+      + (p.label ? `<text x="${lx}" y="${(p.ly + 4).toFixed(1)}" font-family="Manrope, Inter, sans-serif" font-size="11.5" fill="var(--t2)">${wrEsc(gr.name.length > 26 ? gr.name.slice(0, 25) + '\u2026' : gr.name)}</text>`
+        + `<text x="${W - 8}" y="${(p.ly + 4).toFixed(1)}" font-family="JetBrains Mono, monospace" font-size="10.5" font-weight="600" fill="${gr.color}" text-anchor="end">${gr.medRS.toFixed(0)}</text>` : '')
+      + `</g>`;
+  });
+  const unlabelled = pts.filter(p => !p.dim && !p.label).length;
+  const chips = ['all', 'Leading', 'Improving', 'Weakening', 'Lagging'].map(q =>
+    `<button class="wr-chip ${sel === q ? 'active' : ''}" onclick="SE.ui.quad='${q}';seRenderPulse();seRenderSectors()">${q === 'all' ? 'All quadrants' : q}</button>`).join('');
+  return `<div class="se-quad-wrap"><div class="wr-chips">${chips}</div><div class="se-quad"><svg id="${wrAttr(id)}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Sector rotation quadrant">${g}</svg></div>${unlabelled ? `<div class="wr-hint" style="margin-top:6px;">Showing names for the ${pts.filter(p => p.label).length} largest groups · ${unlabelled} smaller group${unlabelled === 1 ? '' : 's'} plotted as dots (hover for detail, or pick a quadrant above).</div>` : ''}</div>`;
 }
 
 // ---------- RS Screen ----------
@@ -7793,6 +7930,7 @@ function seRenderRS(){
   const groups = c.sectors.map(g => g.name);
   const u = SE.ui;
   el.innerHTML = `
+    ${seGfBar()}
     <div class="se-filters">
       <input type="text" placeholder="Search stock, code, industry…" value="${wrAttr(u.rsq)}" oninput="SE.ui.rsq=this.value;seRenderRSTable()">
       <select onchange="SE.ui.rsmin=this.value;seRenderRSTable()">${[['0', 'Any RS'], ['50', 'RS 50+'], ['70', 'RS 70+'], ['80', 'RS 80+'], ['90', 'RS 90+']].map(([v, t]) => `<option value="${v}" ${u.rsmin === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
@@ -7823,6 +7961,7 @@ function seRSFiltered(){
     if(u.rspead === '3' && !(r.pead === 3)) return false;
     if(u.rspead === '2' && !(r.pead >= 2)) return false;
     if(u.rspead === '1' && !(r.pead >= 1)) return false;
+    if(!seGfPass(r)) return false;
     return true;
   });
 }
@@ -7833,15 +7972,17 @@ function seRenderRSTable(){
     {k:'_i', t:'#', type:'idx'},
     {k:'code', t:'Stock', type:'html', html: seStockCell},
     {k:'act', t:'', type:'html', html: seActCell},
-    {k:'group', t:'Group / Industry', type:'html', html: r => `<span class="ind" title="${wrAttr(r.industry || '')}">${wrEsc(r.group)}${r.industry && r.industry !== r.group ? `<br><small>${wrEsc(r.industry)}</small>` : ''}</span>`},
-    {k:'band', t:'Size', type:'text'},
+    {k:'group', t:'Sector', type:'text'},
+    {k:'industry', t:'Industry', type:'text'},
+    {k:'band', t:'Cap', type:'html', sortType:'num', fn: r => SE_BAND_ORD[r.band] || 0, html: seBandCell},
     {k:'mcap', t:'MCap (₹Cr)', type:'int'},
     {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => seRsBar(r.rs, {delta: r.rsDelta != null ? Math.round(r.rsDelta) : null})},
     {k:'rsSector', t:'RS vs sector', type:'num', fn: r => r.rsSector},
     {k:'trend', t:'Trend', type:'html', sortType:'num', fn: r => r.trend.total ? r.trend.pass + r.trend.pass / (r.trend.total + 1) : null, html: seTrendCell},
-    {k:'s2', t:'Stage 2', type:'html', sortType:'num', fn: r => (r.s2list ? 2 : 0) + (r.s2calc ? 1 : 0), html: seS2Cell},
+    {k:'s2', t:'In Stage 2', type:'html', sortType:'num', fn: r => (r.s2list ? 2 : 0) + (r.s2calc ? 1 : 0), html: seS2Cell},
+    {k:'s2weeks', t:'Wks in S2', type:'int', fn: r => r.s2list ? r.s2list.weeks : null},
     {k:'pead', t:'Earnings', type:'html', sortType:'num', fn: r => r.pead != null ? r.pead : null, html: r => r.pead != null && typeof pdTierCell === 'function' ? pdTierCell(r.pead) : '<span class="flat">—</span>'},
-    {k:'r1w', t:'1W', type:'pct', dec:1}, {k:'r1m', t:'1M', type:'pct', dec:1}, {k:'r3m', t:'3M', type:'pct', dec:0},
+    {k:'r1w', t:'1W %', type:'pct', dec:1}, {k:'r1m', t:'1M %', type:'pct', dec:1}, {k:'r3m', t:'3M %', type:'pct', dec:0},
     {k:'from_52wh', t:'vs 52WH', type:'pct0', dec:1},
     {k:'eps_yoy', t:'EPS YoY', type:'pct', dec:0}, {k:'sales_yoy', t:'Sales YoY', type:'pct', dec:0}, {k:'pe', t:'P/E', type:'num', dec:1}
   ];
@@ -7883,6 +8024,7 @@ function seRenderSectors(){
         {k:'trend', t:'Trend', type:'html', sortType:'num', fn: r => r.trend.total ? r.trend.pass : null, html: seTrendCell}, {k:'s2', t:'Stage 2', type:'html', sortType:'num', fn: r => (r.s2list ? 2 : 0) + (r.s2calc ? 1 : 0), html: seS2Cell}, {k:'r1w', t:'1W', type:'pct', dec:1}, {k:'r3m', t:'3M', type:'pct', dec:0}, {k:'from_52wh', t:'vs 52WH', type:'pct0', dec:1}
       ], sel.rows, {sort:null, maxHeight:'520px'})}` : '';
   el.innerHTML = `
+    ${seGfBar()}
     <div class="se-grid-sec">
       <div class="se-panel">
         <div class="se-row-h"><div><div class="se-eyebrow">Industry view</div><h2>Industry groups</h2></div><span class="wr-hint">${c.sectors.length} groups · ranked by median RS</span></div>
@@ -7922,7 +8064,9 @@ function seRenderS2(){
         <select onchange="SE.ui.s2ind=this.value;seRenderS2Table()"><option value="all">All industries</option>${inds.map(i => `<option value="${wrAttr(i)}" ${u.s2ind === i ? 'selected' : ''}>${wrEsc(i)}</option>`).join('')}</select>
         <select onchange="SE.ui.s2minrs=this.value;seRenderS2Table()">${[['0', 'Any list RS%'], ['25', 'RS% 25+'], ['50', 'RS% 50+'], ['75', 'RS% 75+'], ['100', 'RS% 100+']].map(([v, t]) => `<option value="${v}" ${u.s2minrs === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
         <select onchange="SE.ui.s2minmcap=this.value;seRenderS2Table()">${[['0', 'Any mcap'], ['1000', '≥ ₹1,000 Cr'], ['3000', '≥ ₹3,000 Cr'], ['10000', '≥ ₹10,000 Cr']].map(([v, t]) => `<option value="${v}" ${u.s2minmcap === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
+        <select onchange="SE.ui.s2band=this.value;seRenderS2Table()"><option value="all">All caps</option>${SE_BANDS.map(([b]) => `<option value="${b}" ${u.s2band === b ? 'selected' : ''}>${b} cap</option>`).join('')}</select>
         <label class="se-check"><input type="checkbox" ${u.s2scan ? 'checked' : ''} onchange="SE.ui.s2scan=this.checked;seRenderS2Table()"> Also in weekly scan</label>
+        <label class="se-check"><input type="checkbox" ${u.s2new ? 'checked' : ''} onchange="SE.ui.s2new=this.checked;seRenderS2Table()"> At a new 52W high</label>
       </div>
       <div id="se-s2-table"></div>
     </div>
@@ -7942,18 +8086,29 @@ function seRenderS2Table(){
     if(+u.s2minrs && !(wrIsNum(r.rs_pct) && r.rs_pct >= +u.s2minrs)) return false;
     if(+u.s2minmcap && !(wrIsNum(r.mcap) && r.mcap >= +u.s2minmcap)) return false;
     if(u.s2scan && !r.inScan) return false;
+    if(u.s2band && u.s2band !== 'all' && r.band !== u.s2band) return false;
+    if(u.s2new && !r.newHigh) return false;
+    if(!seGfPass(r)) return false;
     return true;
   });
   const cols = [
-    {k:'code', t:'Stock', type:'html', html: r => `<span class="tk">${wrEsc(r.code)}</span>${wrOwned({code: r.code})}${r.inScan ? '<span class="se-pill calc" title="Also in this week\'s screener scan">scan</span>' : ''}${r.asm ? ` <span class="scan-flag" title="${wrAttr(r.asm)}${r.asm_days ? ' for ' + r.asm_days + ' days' : ''}">${wrEsc(r.asm)}</span>` : ''}`},
-    {k:'act', t:'', type:'html', html: r => wrCodeCell({code: r.code, name: r.code, industry: r.industry}, r.industry)},
+    {k:'code', t:'Stock', type:'html', html: r => `<span class="nm">${wrEsc(r.code)}</span>${wrOwned({code: r.code})}`},
+    {k:'act', t:'', type:'html', html: r => wrActCell({code: r.code, name: r.code, industry: r.industry}, r.industry)},
+    {k:'sector', t:'Sector', type:'text'},
     {k:'industry', t:'Industry', type:'text'},
+    {k:'band', t:'Cap', type:'html', sortType:'num', fn: r => SE_BAND_ORD[r.band] || 0, html: seBandCell},
+    {k:'sectorRS', t:'Sector RS', type:'html', sortType:'num', fn: r => r.sectorRS, html: r => r.sectorRS != null ? seRsBar(Math.round(r.sectorRS)) : '<span class="flat">—</span>'},
     {k:'rs_pct', t:'RS% (list)', type:'num', dec:1},
     {k:'rsCalc', t:'RS (scan)', type:'html', sortType:'num', fn: r => r.rsCalc, html: r => r.rsCalc != null ? seRsBar(r.rsCalc) : '<span class="flat">—</span>'},
     {k:'mcap', t:'MCap (₹Cr)', type:'int'}, {k:'vol_cr', t:'Wk vol (₹Cr)', type:'num', dec:1},
-    {k:'ret', t:'Return since entry', type:'pct', dec:1}, {k:'weeks', t:'Weeks', type:'int'},
+    {k:'r1w', t:'1W %', type:'pct', dec:1},
+    {k:'from_52wh', t:'vs 52WH', type:'html', sortType:'num', fn: r => r.from_52wh, html: r => seHighCell(r.from_52wh)},
+    {k:'ret', t:'Return since entry', type:'pct', dec:1}, {k:'weeks', t:'Wks in S2', type:'int'},
     {k:'since', t:'Since', type:'html', html: r => r.since ? `<span class="num">${wrDate(r.since)}</span>` : '<span class="flat">—</span>'},
-    {k:'state', t:'Status', type:'html', html: r => seStateCell(r.state)}
+    {k:'state', t:'Status', type:'html', html: r => seStateCell(r.state)},
+    {k:'inScan', t:'In scan', type:'html', sortType:'num', fn: r => r.inScan ? 1 : 0, html: r => seYesCell(r.inScan, 'Yes', 'Also in this week\'s screener scan')},
+    {k:'asm', t:'ASM / GSM', type:'html', sortType:'text', fn: r => r.asm || '', html: r => r.asm ? `<span class="scan-flag" title="${wrAttr(r.asm)}${r.asm_days ? ' for ' + r.asm_days + ' days' : ''}">${wrEsc(r.asm)}</span>` : '<span class="flat">—</span>'},
+    {k:'asm_days', t:'ASM days', type:'int'}
   ];
   host.innerHTML = wrTable('se-s2', cols, list, {sort:{col:'rs_pct', dir:'desc'}, tall:true, empty:'No stocks match the filters.'});
   const cnt = document.getElementById('se-s2-count'); if(cnt) cnt.textContent = `${wrNum(list.length)} of ${wrNum(SE.c.S2.length)} shown`;
@@ -8160,9 +8315,11 @@ function pdXrefCell(r){
   return s || '<span class="flat">—</span>';
 }
 function pdNameCell(r){
-  return `<div class="se-stock"><div><span class="tk">${wrEsc(r.name)}</span>${r.converge ? '<span class="se-pill new" title="Strong/Moderate PEAD + near 52W high + Stage 2">★</span>' : ''}${wrOwned({code:r.code, stock:r.name})}</div>${r.industry ? `<div class="se-nm">${wrEsc(r.industry)}</div>` : ''}</div>`;
+  return `<span class="nm" title="${wrAttr((r.code ? r.code + ' \u00b7 ' : '') + (r.name || ''))}">${wrEsc(r.name)}</span>`
+    + (r.converge ? '<span class="se-pill new" title="Strong/Moderate PEAD + near 52W high + Stage 2">\u2605</span>' : '')
+    + wrOwned({code: r.code, stock: r.name});
 }
-function pdActCell(r){ return r.code ? wrCodeCell({code:r.code, name:r.name, industry:r.industry}, r.industry) : '<span class="flat" title="not matched to a ticker in the current scan">—</span>'; }
+function pdActCell(r){ return r.code ? wrActCell({code: r.code, name: r.name, industry: r.industry}, r.industry) : '<span class="flat" title="not matched to a ticker in the current scan">\u2014</span>'; }
 
 // ---------- render ----------
 function renderPD(){
@@ -8193,9 +8350,10 @@ function renderPD(){
     {k:'name', t:'Company', type:'html', html: pdNameCell},
     {k:'code', t:'Code', type:'html', html: pdActCell},
     {k:'pead', t:'PEAD', type:'html', sortType:'num', fn: r => r.tier, html: r => pdTierCell(r.tier)},
-    {k:'xref', t:'Momentum', type:'html', sortType:'num', fn: r => (r.nearHigh?2:0)+(r.inS2?1:0), html: pdXrefCell},
+    {k:'nearHigh', t:'Near 52W high', type:'html', sortType:'num', fn: r => r.from_52wh, html: r => r.inScan ? seHighCell(r.from_52wh) : '<span class="flat">-</span>'},
+    {k:'inS2', t:'In Stage 2', type:'html', sortType:'num', fn: r => r.inS2 ? 1 : 0, html: r => seYesCell(r.inS2, 'Yes', 'On the Stage 2 list')},
+    {k:'s2weeks', t:'Wks in S2', type:'int', fn: r => r.s2weeks},
     {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs != null ? seRsBar(r.rs) : '<span class="flat">—</span>'},
-    {k:'from_52wh', t:'vs 52WH', type:'pct0', dec:1},
     {k:'eps_yoy', t:'EPS YoY', type:'pct', dec:0}, {k:'pat_yoy', t:'PAT YoY', type:'pct', dec:0},
     {k:'sales_yoy', t:'Sales YoY', type:'pct', dec:0}, {k:'mcap', t:'MCap (₹Cr)', type:'int'}, {k:'peg', t:'PEG', type:'num', dec:2}
   ], spot, {sort:{col:'xref', dir:'desc'}, maxHeight:'460px', empty: stats.hasScan ? 'No strong/moderate PEAD names are near a high or in Stage 2 in the current scan.' : 'Load a weekly scan (Edge) to light up the cross-reference.'});
@@ -8273,6 +8431,7 @@ function pdRenderTable(){
     if(u.xref === 'converge' && !r.converge) return false;
     if(u.ind !== 'all' && (r.industry||'Other') !== u.ind) return false;
     if(+u.minmcap && !(wrIsNum(r.mcap) && r.mcap >= +u.minmcap)) return false;
+    if(typeof seGfPass === 'function' && r.uni && !seGfPass(r.uni)) return false;
     return true;
   });
   host.innerHTML = wrTable('pd-all', [
@@ -8280,7 +8439,10 @@ function pdRenderTable(){
     {k:'code', t:'Code', type:'html', html: pdActCell},
     {k:'industry', t:'Industry', type:'text'},
     {k:'pead', t:'PEAD', type:'html', sortType:'num', fn: r => r.tier, html: r => pdTierCell(r.tier)},
-    {k:'xref', t:'Momentum', type:'html', sortType:'num', fn: r => (r.nearHigh?4:r.inScan?2:0)+(r.inS2?1:0), html: pdXrefCell},
+    {k:'band', t:'Cap', type:'html', sortType:'num', fn: r => SE_BAND_ORD[(r.uni||{}).band] || 0, html: r => seBandCell(r.uni || {})},
+    {k:'nearHigh', t:'Near 52W high', type:'html', sortType:'num', fn: r => r.from_52wh, html: r => r.inScan ? seHighCell(r.from_52wh) : '<span class="flat">—</span>'},
+    {k:'inS2', t:'In Stage 2', type:'html', sortType:'num', fn: r => r.inS2 ? 1 : 0, html: r => seYesCell(r.inS2, 'Yes', 'On the Stage 2 list')},
+    {k:'s2weeks', t:'Wks in S2', type:'int', fn: r => r.s2weeks},
     {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs != null ? seRsBar(r.rs) : '<span class="flat">—</span>'},
     {k:'eps_yoy', t:'EPS YoY', type:'pct', dec:0}, {k:'eps_qoq', t:'EPS QoQ', type:'pct', dec:0},
     {k:'pat_yoy', t:'PAT YoY', type:'pct', dec:0}, {k:'sales_yoy', t:'Sales YoY', type:'pct', dec:0},
@@ -8385,17 +8547,21 @@ function renderDG(){
   const spot = gainers.filter(r => r.pead >= 2 || r.s2list).slice(0, 12);
   const cols = (withRank) => [
     ...(withRank ? [{k:'_i', t:'#', type:'idx'}] : []),
-    {k:'name', t:'Stock', type:'html', html: r => `<div class="se-stock"><div><span class="tk">${wrEsc(r.code || r.name || '—')}</span>${typeof wrOwned==='function'?wrOwned(r):''}${(+r.r1d)>=3 && r.pead>=2 && (r.s2list||r.s2calc) ? '<span class="se-pill new" title="Big move + strong earnings + Stage 2">★</span>':''}</div>${r.name && r.name!==r.code ? `<div class="se-nm">${wrEsc(r.name)}</div>`:''}</div>`},
-    {k:'act', t:'', type:'html', html: r => typeof wrCodeCell==='function' ? wrCodeCell({code:r.code||r.name, name:r.name, industry:r.industry||r.group}, r.industry||r.group) : ''},
-    {k:'industry', t:'Industry', type:'text', fn: r => r.industry || r.group},
+    {k:'name', t:'Stock', type:'html', html: r => `<span class="nm" title="${wrAttr((r.code?r.code+' \u00b7 ':'')+(r.name||''))}">${wrEsc(r.name || r.code || '—')}</span>${typeof wrOwned==='function'?wrOwned(r):''}${(+r.r1d)>=3 && r.pead>=2 && (r.s2list||r.s2calc) ? '<span class="se-pill new" title="Big move + strong earnings + Stage 2">★</span>':''}`},
+    {k:'act', t:'', type:'html', html: r => typeof wrActCell==='function' ? wrActCell({code:r.code||r.name, name:r.name, industry:r.industry||r.group}, r.industry||r.group) : ''},
+    {k:'group', t:'Sector', type:'text', fn: r => r.group || r.industry},
+    {k:'industry', t:'Industry', type:'text'},
+    {k:'band', t:'Cap', type:'html', sortType:'num', fn: r => SE_BAND_ORD[r.band] || 0, html: seBandCell},
     {k:'r1d', t:'Day %', type:'pct', dec:1},
+    {k:'r1w', t:'1W %', type:'pct', dec:1},
     {k:'price', t:'Price', type:'num', dec:0},
     {k:'mcap', t:'MCap (₹Cr)', type:'int'},
     {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs!=null && typeof seRsBar==='function' ? seRsBar(r.rs) : '<span class="flat">—</span>'},
-    {k:'mom', t:'Momentum', type:'html', sortType:'num', fn: r => (r.s2list?2:0)+(r.s2calc?1:0), html: dgMomentumCell},
-    {k:'pead', t:'Earnings (PEAD)', type:'html', sortType:'num', fn: r => r.pead, html: dgPeadCell},
-    {k:'r1w', t:'1W', type:'pct', dec:1},
-    {k:'from_52wh', t:'vs 52WH', type:'pct0', dec:1},
+    {k:'s2', t:'In Stage 2', type:'html', sortType:'num', fn: r => (r.s2list?2:0)+(r.s2calc?1:0), html: r => r.s2list ? seYesCell(true,'Yes','On the Stage 2 list') : (r.s2calc ? '<span class="se-pill calc">calc</span>' : '<span class="flat">—</span>')},
+    {k:'s2weeks', t:'Wks in S2', type:'int', fn: r => r.s2list ? r.s2list.weeks : null},
+    {k:'pead', t:'Earnings', type:'html', sortType:'num', fn: r => r.pead, html: r => r.pead != null && typeof pdTierCell==='function' ? pdTierCell(r.pead) : '<span class="flat">—</span>'},
+    {k:'eps_yoy', t:'EPS YoY', type:'pct', dec:0, fn: r => r.peadRow ? r.peadRow.eps_yoy : null},
+    {k:'from_52wh', t:'vs 52WH', type:'html', sortType:'num', fn: r => r.from_52wh, html: r => seHighCell(r.from_52wh)},
     {k:'news', t:'News', type:'html', html: dgNewsCell}
   ];
   el.innerHTML = `
@@ -8406,6 +8572,7 @@ function renderDG(){
       <div class="se-kpis">${kpis.join('')}</div>
     </div></div>
     <div class="se-body">
+      ${seGfBar()}
       ${spot.length ? `<div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Why they moved</div><h2>Movers with an earnings or momentum reason</h2></div><span class="wr-hint">gainers that are on the Stage 2 list or had Strong/Moderate PEAD results</span></div>${wrTable('dg-spot', cols(false), spot, {sort:null, maxHeight:'440px'})}</div>` : ''}
       <div class="se-panel">
         <div class="se-row-h"><div><div class="se-eyebrow">Ranked by 1-day move</div><h2>All advancers</h2></div><span class="wr-count" id="dg-count"></span></div>
@@ -8437,21 +8604,26 @@ function dgRenderTable(){
     if(u.flt === 's2' && !(r.s2list || r.s2calc)) return false;
     if(u.flt === 'conv' && !(+r.r1d >= 3 && r.pead >= 2 && (r.s2list || r.s2calc))) return false;
     if(u.flt === 'news' && !dgNewsFor(r.code)) return false;
+    if(typeof seGfPass === 'function' && !seGfPass(r)) return false;
     return true;
   });
   const cols = [
     {k:'_i', t:'#', type:'idx'},
-    {k:'name', t:'Stock', type:'html', html: r => `<div class="se-stock"><div><span class="tk">${wrEsc(r.code || r.name || '—')}</span>${typeof wrOwned==='function'?wrOwned(r):''}${(+r.r1d)>=3 && r.pead>=2 && (r.s2list||r.s2calc) ? '<span class="se-pill new" title="Big move + strong earnings + Stage 2">★</span>':''}</div>${r.name && r.name!==r.code ? `<div class="se-nm">${wrEsc(r.name)}</div>`:''}</div>`},
-    {k:'act', t:'', type:'html', html: r => typeof wrCodeCell==='function' ? wrCodeCell({code:r.code||r.name, name:r.name, industry:r.industry||r.group}, r.industry||r.group) : ''},
-    {k:'industry', t:'Industry', type:'text', fn: r => r.industry || r.group},
+    {k:'name', t:'Stock', type:'html', html: r => `<span class="nm" title="${wrAttr((r.code?r.code+' \u00b7 ':'')+(r.name||''))}">${wrEsc(r.name || r.code || '—')}</span>${typeof wrOwned==='function'?wrOwned(r):''}${(+r.r1d)>=3 && r.pead>=2 && (r.s2list||r.s2calc) ? '<span class="se-pill new" title="Big move + strong earnings + Stage 2">★</span>':''}`},
+    {k:'act', t:'', type:'html', html: r => typeof wrActCell==='function' ? wrActCell({code:r.code||r.name, name:r.name, industry:r.industry||r.group}, r.industry||r.group) : ''},
+    {k:'group', t:'Sector', type:'text', fn: r => r.group || r.industry},
+    {k:'industry', t:'Industry', type:'text'},
+    {k:'band', t:'Cap', type:'html', sortType:'num', fn: r => SE_BAND_ORD[r.band] || 0, html: seBandCell},
     {k:'r1d', t:'Day %', type:'pct', dec:1},
+    {k:'r1w', t:'1W %', type:'pct', dec:1},
     {k:'price', t:'Price', type:'num', dec:0},
     {k:'mcap', t:'MCap (₹Cr)', type:'int'},
     {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs!=null && typeof seRsBar==='function' ? seRsBar(r.rs) : '<span class="flat">—</span>'},
-    {k:'mom', t:'Momentum', type:'html', sortType:'num', fn: r => (r.s2list?2:0)+(r.s2calc?1:0), html: dgMomentumCell},
-    {k:'pead', t:'Earnings (PEAD)', type:'html', sortType:'num', fn: r => r.pead, html: dgPeadCell},
-    {k:'r1w', t:'1W', type:'pct', dec:1},
-    {k:'from_52wh', t:'vs 52WH', type:'pct0', dec:1},
+    {k:'s2', t:'In Stage 2', type:'html', sortType:'num', fn: r => (r.s2list?2:0)+(r.s2calc?1:0), html: r => r.s2list ? seYesCell(true,'Yes','On the Stage 2 list') : (r.s2calc ? '<span class="se-pill calc">calc</span>' : '<span class="flat">—</span>')},
+    {k:'s2weeks', t:'Wks in S2', type:'int', fn: r => r.s2list ? r.s2list.weeks : null},
+    {k:'pead', t:'Earnings', type:'html', sortType:'num', fn: r => r.pead, html: r => r.pead != null && typeof pdTierCell==='function' ? pdTierCell(r.pead) : '<span class="flat">—</span>'},
+    {k:'eps_yoy', t:'EPS YoY', type:'pct', dec:0, fn: r => r.peadRow ? r.peadRow.eps_yoy : null},
+    {k:'from_52wh', t:'vs 52WH', type:'html', sortType:'num', fn: r => r.from_52wh, html: r => seHighCell(r.from_52wh)},
     {k:'news', t:'News', type:'html', html: dgNewsCell}
   ];
   host.innerHTML = wrTable('dg-all', cols, list, {sort: DG.ui.sort, tall:true, cap:400, empty:'No advancers match the filters.'});
