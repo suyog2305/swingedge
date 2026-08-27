@@ -126,3 +126,34 @@ The Stage 2 list stays in your hands — keep producing it however you do today 
 ## Sample weeks
 
 `2026-05-08`, `2026-05-22`, `2026-06-05` (Stage 2 lists + two near-52W-high scans) and `2026-08-21` (near-52W-high scan) are seeded from your own exports so every Edge module renders and the diffs/rotation work out of the box.
+
+## Daily shortlist (the decision loop)
+
+`tools/build_shortlist.py` ranks the whole scan for **convergence** and emits the 15-20 names worth a
+research report, with the reason each one qualified. It needs **no model and no API key** - it runs on
+data already committed (the scan, the Stage 2 list, the latest PEAD quarter and `data/daily/news.json`).
+
+```bash
+python tools/build_shortlist.py                    # newest scan, top 20
+python tools/build_shortlist.py --top 15 --min-mcap 1000 --min-score 6
+```
+
+Writes `data/daily/shortlist.json` (what the app reads) plus a dated copy in `data/daily/shortlist/`.
+Open **Edge -> Shortlist**, tick up to five names, and hit *Copy brief* - that produces the exact
+prompt (with each name's reasons, latest results and news trigger) to hand to the report generator.
+Picks are remembered per scan date in the browser.
+
+Scoring is deliberately transparent, and every point becomes a human-readable reason on the row:
+
+| Factor | Points |
+|---|---|
+| at a new 52-week high / within 5% of it | +3 / +2 |
+| entered or re-entered Stage 2 this week | +3 |
+| on the Stage 2 list (else) / still early (<=8 wks) | +2 / +1 |
+| passes the 7-point trend template | +2 |
+| Strong / Moderate PEAD earnings | +3 / +2 |
+| up >=5% / >=2% today | +2 / +1 |
+| up >=10% on the week | +1 |
+| RS >=90 / >=80 | +2 / +1 |
+| a news trigger on file | +2 |
+| leading sector (median RS >=60) | +1 |

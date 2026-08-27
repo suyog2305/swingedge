@@ -1111,6 +1111,16 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
 .se-quad svg{width:100%;height:auto;display:block;max-height:none;}
 .se-quad{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r3);padding:10px;}
 .wr-twrap .scan-table .nm{max-width:230px;font-weight:600;color:var(--t1);}
+/* ---- shortlist ---- */
+.sl-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 12px;}
+.sl-actions .btn[disabled]{opacity:.45;cursor:not-allowed;}
+.sl-pick{display:inline-flex;align-items:center;justify-content:center;cursor:pointer;}
+.sl-pick input{width:16px;height:16px;accent-color:var(--lime);cursor:pointer;}
+.sl-score{display:inline-flex;align-items:center;gap:7px;}
+.sl-score-bar{display:inline-block;width:52px;height:6px;border-radius:99px;background:var(--bg3);overflow:hidden;}
+.sl-score-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#F59E0B,#34D399);}
+.sl-score b{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--t1);min-width:26px;}
+.sl-why{font-size:11px;line-height:1.45;color:var(--t3);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;max-width:330px;white-space:normal;}
 /* ============= RESEARCH DESK ============= */
 .rd-featured{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;}
 .rd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:10px;}
@@ -1163,7 +1173,8 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
   </div>
   <div class="sb-scroll">
     <div class="sb-group">Edge</div>
-    <div class="nav active" id="nav-pulse" onclick="show('pulse')"><i class="ti ti-activity-heartbeat"></i>Market Pulse</div>
+    <div class="nav active" id="nav-pulse" onclick="show('pulse')"><i class="ti ti-activity-heartbeat"></i>Market Pulse</div>    <div class="nav" id="nav-shortlist" onclick="show('shortlist')"><i class="ti ti-list-check"></i>Shortlist<span class="nav-badge" id="sl-badge">0</span></div>
+
     <div class="nav" id="nav-dg" onclick="show('dg')"><i class="ti ti-flame"></i>Daily Gainers</div>
     <div class="nav" id="nav-rsscreen" onclick="show('rsscreen')"><i class="ti ti-chart-arrows-vertical"></i>RS Screen</div>
     <div class="nav" id="nav-sectors" onclick="show('sectors')"><i class="ti ti-chart-pie-2"></i>Sectors</div>
@@ -1251,6 +1262,17 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
     </div>
   </div>
   <div class="content se-content"><div id="rd-body"></div></div>
+</div>
+
+<!-- ── EDGE: SHORTLIST ── -->
+<div class="sec" id="sec-shortlist">
+  <div class="topbar">
+    <div class="tb-left"><span class="tb-title">Shortlist</span><span class="tb-crumb">/ end-of-day candidates for a report</span></div>
+    <div class="tb-right">
+      <button class="btn btn-sm" onclick="loadSL(true)"><i class="ti ti-refresh"></i>Refresh</button>
+    </div>
+  </div>
+  <div class="content se-content"><div id="sl-body"></div></div>
 </div>
 
 <!-- ── EDGE: MARKET PULSE ── -->
@@ -8879,6 +8901,132 @@ function rdRenderReader(el){
     <div class="rd-frame-wrap"><iframe class="rd-frame" src="library/research/${wrAttr(r.file)}" title="${wrAttr(r.title)}" loading="lazy"></iframe></div>`;
 }
 
+// ============= SHORTLIST — the end-of-day decision loop =============
+// Reads data/daily/shortlist.json (built by tools/build_shortlist.py, no LLM involved):
+// the market ranked for convergence — new 52-week high + Stage 2 + earnings + today's move
+// + a news trigger — with the reason each name qualified. You tick the ones you want written
+// up; the picks are remembered in this browser and the brief for them can be copied out.
+const SL = { doc: null, loaded: false, loading: false, error: null, picks: new Set(), max: 5 };
+
+function slKey(){ return 'swingedge.picks.' + ((SL.doc && SL.doc.scan_date) || 'x'); }
+function slLoadPicks(){
+  try{ const raw = localStorage.getItem(slKey()); SL.picks = new Set(raw ? JSON.parse(raw) : []); }
+  catch(e){ SL.picks = new Set(); }
+}
+function slSavePicks(){ try{ localStorage.setItem(slKey(), JSON.stringify([...SL.picks])); }catch(e){} }
+
+async function loadSL(manual){
+  if(SL.loading) return;
+  SL.loading = true;
+  try{
+    const res = await fetch('data/daily/shortlist.json', {cache: manual ? 'reload' : 'default'});
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    SL.doc = await res.json();
+    SL.error = null;
+    slLoadPicks();
+    if(manual) toast(`Shortlist refreshed — ${(SL.doc.rows || []).length} names`, 'success');
+  }catch(err){ SL.doc = null; SL.error = err.message || String(err); if(manual) toast('No shortlist yet — run tools/build_shortlist.py', 'error'); }
+  finally{ SL.loading = false; SL.loaded = true; }
+  renderSL();
+}
+
+function slToggle(code){
+  if(SL.picks.has(code)) SL.picks.delete(code);
+  else if(SL.picks.size >= SL.max) { toast(`Pick at most ${SL.max} — untick one first`, 'error'); return; }
+  else SL.picks.add(code);
+  slSavePicks(); renderSL();
+}
+function slClearPicks(){ SL.picks.clear(); slSavePicks(); renderSL(); }
+
+function slBrief(){
+  if(!SL.doc) return '';
+  const rows = (SL.doc.rows || []).filter(r => SL.picks.has(r.code));
+  if(!rows.length) return '';
+  const lines = [`Generate a SwingEdge research report for each of these ${rows.length} names (scan ${SL.doc.scan_date}).`,
+    `Follow the house template and rules in scratchpad/REPORT_SPEC.md; verify every number against primary sources; never invent a figure.`, ''];
+  rows.forEach((r, i) => {
+    lines.push(`${i + 1}. ${r.name || r.code} (NSE: ${r.code}) — ${r.sector || ''}${r.band ? ' · ' + r.band + ' cap' : ''}`);
+    lines.push(`   Why it surfaced: ${(r.reasons || []).join('; ')}.`);
+    if(r.pead) lines.push(`   Latest results (${r.pead.quarter}): ${r.pead.label}${wrIsNum(r.pead.eps_yoy) ? `, EPS YoY ${r.pead.eps_yoy}%` : ''}${wrIsNum(r.pead.pat_yoy) ? `, PAT YoY ${r.pead.pat_yoy}%` : ''}.`);
+    if(r.news) lines.push(`   Trigger on file: ${r.news.t} (${r.news.src || ''}${r.news.date ? ', ' + r.news.date : ''}) ${r.news.url || ''}`);
+    lines.push('');
+  });
+  return lines.join('\n');
+}
+function slCopyBrief(){
+  const t = slBrief();
+  if(!t){ toast('Tick some names first', 'error'); return; }
+  navigator.clipboard.writeText(t).then(() => toast(`Brief for ${SL.picks.size} name${SL.picks.size === 1 ? '' : 's'} copied`, 'success'),
+                                        () => toast('Could not copy', 'error'));
+}
+
+function slScoreCell(r){
+  const pct = Math.max(6, Math.min(100, (r.score / 18) * 100));
+  return `<span class="sl-score"><span class="sl-score-bar"><i style="width:${pct.toFixed(0)}%"></i></span><b>${r.score}</b></span>`;
+}
+
+function renderSL(){
+  const el = document.getElementById('sl-body'); if(!el) return;
+  if(!SL.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading shortlist…</p></div>'; return; }
+  const d = SL.doc;
+  if(!d || !(d.rows || []).length){
+    el.innerHTML = `<div class="wr-empty"><i class="ti ti-list-check"></i><h4>No shortlist built yet</h4>
+      <p>The shortlist ranks the whole scan for convergence — new 52-week high, Stage 2, earnings, today's move and a news trigger — and needs no model or API key. Build it with:</p>
+      <p><code>python tools/build_shortlist.py</code></p>
+      <p>then commit <code>data/daily/shortlist.json</code> and hit Refresh.</p>
+      ${SL.error ? `<p style="margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--rose2);">${wrEsc(SL.error)}</p>` : ''}</div>`;
+    return;
+  }
+  const rows = d.rows;
+  const picked = rows.filter(r => SL.picks.has(r.code));
+  const kpis = [
+    seKpi('Shortlisted', wrNum(rows.length), `from ${wrNum(d.universe)} scanned · ${wrNum(d.considered)} scored`, 'accent', rows.length),
+    seKpi('Top score', String(rows[0].score), `${wrEsc(rows[0].name || rows[0].code)} · ${(rows[0].reasons || []).length} reasons`, 'ok'),
+    seKpi('At a new 52W high', wrNum(rows.filter(r => r.new_high).length), 'of the shortlist', ''),
+    seKpi('With strong earnings', wrNum(rows.filter(r => r.pead && r.pead.tier >= 2).length), d.quarter ? `${wrEsc(d.quarter)} PEAD` : '', ''),
+    seKpi('You have picked', `${SL.picks.size} / ${SL.max}`, picked.length ? picked.map(r => wrEsc(r.code)).join(', ') : 'tick rows below', SL.picks.size ? 'ok' : '')
+  ];
+  const cols = [
+    {k:'_i', t:'#', type:'idx'},
+    {k:'pick', t:'Pick', type:'html', html: r => `<label class="sl-pick"><input type="checkbox" ${SL.picks.has(r.code) ? 'checked' : ''} onclick="event.stopPropagation();slToggle('${wrAttr(r.code)}')"></label>`},
+    {k:'name', t:'Stock', type:'html', html: r => `<span class="nm" title="${wrAttr(r.code + ' · ' + (r.name || ''))}">${wrEsc(r.name || r.code)}</span>${typeof wrOwned === 'function' ? wrOwned(r) : ''}`},
+    {k:'act', t:'', type:'html', html: r => typeof wrActCell === 'function' ? wrActCell({code: r.code, name: r.name, industry: r.industry || r.sector}, r.industry || r.sector) : ''},
+    {k:'score', t:'Score', type:'html', sortType:'num', fn: r => r.score, html: slScoreCell},
+    {k:'sector', t:'Sector', type:'text'},
+    {k:'industry', t:'Industry', type:'text'},
+    {k:'band', t:'Cap', type:'html', sortType:'num', fn: r => SE_BAND_ORD[r.band] || 0, html: r => r.band ? `<span class="se-band ${String(r.band).toLowerCase()}">${wrEsc(r.band)}</span>` : '<span class="flat">—</span>'},
+    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs != null ? seRsBar(r.rs) : '<span class="flat">—</span>'},
+    {k:'r1d', t:'Day %', type:'pct', dec:1},
+    {k:'r1w', t:'1W %', type:'pct', dec:1},
+    {k:'from_52wh', t:'vs 52WH', type:'html', sortType:'num', fn: r => r.from_52wh, html: r => seHighCell(r.from_52wh)},
+    {k:'s2w', t:'Wks in S2', type:'int', fn: r => r.s2 ? r.s2.weeks : null},
+    {k:'pead', t:'Earnings', type:'html', sortType:'num', fn: r => r.pead ? r.pead.tier : null, html: r => r.pead && typeof pdTierCell === 'function' ? pdTierCell(r.pead.tier) : '<span class="flat">—</span>'},
+    {k:'eps', t:'EPS YoY', type:'pct', dec:0, fn: r => r.pead ? r.pead.eps_yoy : null},
+    {k:'trend', t:'Trend', type:'text'},
+    {k:'news', t:'Trigger', type:'html', sortType:'num', fn: r => r.news ? 1 : 0, html: r => r.news ? `<a class="dg-headline" href="${wrAttr(r.news.url || '#')}" target="_blank" rel="noopener" title="${wrAttr((r.news.src || '') + (r.news.date ? ' · ' + r.news.date : ''))}">${wrEsc(r.news.t)}</a>` : '<span class="flat">—</span>'},
+    {k:'why', t:'Why it surfaced', type:'html', html: r => `<span class="sl-why" title="${wrAttr((r.reasons || []).join(' · '))}">${wrEsc((r.reasons || []).join(' · '))}</span>`}
+  ];
+  el.innerHTML = `
+    <div class="se-hero"><div class="se-hero-inner">
+      <div class="wr-tags"><span class="wr-tag am">Shortlist</span><span class="wr-tag tl">End-of-day decision loop</span><span class="wr-tag">scan ${wrDate(d.scan_date)}</span></div>
+      <h1>Today's candidates for a report</h1>
+      <div class="wr-lead">${wrNum(d.universe)} stocks ranked for convergence — <b>new 52-week high + Stage 2 + earnings + today's move + a news trigger</b> — and the ${wrNum(rows.length)} strongest are below with the reason each one qualified. Tick up to ${SL.max}, then copy the brief and hand it to the report generator. Computed from committed data: no model, no API key.</div>
+      <div class="se-kpis">${kpis.join('')}</div>
+    </div></div>
+    <div class="se-body">
+      <div class="sl-actions">
+        <button class="btn btn-lime" onclick="slCopyBrief()" ${SL.picks.size ? '' : 'disabled'}><i class="ti ti-clipboard-text"></i>Copy brief for ${SL.picks.size} pick${SL.picks.size === 1 ? '' : 's'}</button>
+        ${SL.picks.size ? `<button class="btn btn-ghost btn-sm" onclick="slClearPicks()"><i class="ti ti-x"></i>Clear picks</button>` : ''}
+        <span class="wr-hint" style="margin:0;">Picks are remembered in this browser for scan ${wrDate(d.scan_date)}.</span>
+      </div>
+      ${wrTable('sl-all', cols, rows, {sort:{col:'score', dir:'desc'}, tall:true, empty:'Nothing scored above the threshold.'})}
+      <div class="wr-foot" style="border:none;padding:14px 0 0;">Scoring is transparent and deterministic — new high +3, fresh Stage 2 entry +3, trend template +2, Strong PEAD +3, big day +2, RS 90+ +2, news trigger +2, leading sector +1 (see tools/build_shortlist.py). Rebuild after each scan with <code>python tools/build_shortlist.py</code>. Not investment advice.</div>
+    </div>`;
+  const badge = document.getElementById('sl-badge');
+  if(badge){ badge.textContent = SL.picks.size; badge.classList.toggle('show', SL.picks.size > 0); }
+  if(typeof seCountUp === 'function') seCountUp(el);
+}
+
 // ============= INIT =============
 function init(){
   load();
@@ -8903,7 +9051,8 @@ function init(){
   loadPD(false);
   loadDG(false);
   loadTR(false);
-  loadRD(false);
+  loadRD(false);
+  loadSL(false);
   seApplyTheme();
   updateMarket();
   setInterval(updateMarket, 30000);

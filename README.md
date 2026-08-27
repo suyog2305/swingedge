@@ -45,3 +45,10 @@ Upload one file per quarter and build it with `python tools/build_pead.py --file
 Curated, full-length equity-research reports — a **Today's Reads** strip (3–5 featured) plus a searchable archive. Each report is a self-contained HTML page shown in an isolated iframe (rich styling preserved), and every report cross-links to the stock's live RS / Stage 2 / earnings via its NSE code.
 
 Add one with `python tools/build_research.py --file "<report>.html" --feature` (auto-extracts title/code/sector/rating/targets/summary). Contract: [library/research/README.md](library/research/README.md).
+
+## Shortlist - the end-of-day decision loop
+
+`python tools/build_shortlist.py` ranks the whole scan for convergence (new 52-week high + Stage 2 +
+earnings + today's move + a news trigger) and writes the top 15-20 names, each with the reason it
+qualified. No model, no API key, no cost. Open **Edge -> Shortlist**, tick up to five, and copy the
+brief to hand to the report generator. Details in [data/scans/README.md](data/scans/README.md).
