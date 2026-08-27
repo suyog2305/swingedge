@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-26",
+  "updated": "2026-08-27",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -144,6 +144,70 @@
         "src": "Univest",
         "url": "https://univest.in/blogs/why-tribhovandas-bhimji-zaveri-ltd-share-price-rise-2026-08-21",
         "date": "2026-08-21"
+      }
+    ],
+    "VOEPL": [
+      {
+        "t": "Virtuoso Optoelectronics allots ₹84 cr in shares & warrants to Malabar India Fund, promoters",
+        "src": "Business Upturn",
+        "url": "https://businessupturn.com/business/virtuoso-optoelectronics-issues-shares-and-warrants-worth-over-rs84-crore/",
+        "date": "2026-08-13"
+      }
+    ],
+    "WEL": [
+      {
+        "t": "Wonder Electricals Q1 FY27 profit jumps to ₹4.04 crore on strong sales growth",
+        "src": "Multibagg",
+        "url": "https://www.multibagg.ai/market-pulse/articles/wonder-electricals-q1fy27-results-profit-cmsrfdtdc00i50znwc2pyplb8",
+        "date": "2026-08-12"
+      }
+    ],
+    "OAL": [
+      {
+        "t": "Oriental Aromatics Q1 FY27 consolidated net profit jumps 5x YoY to ₹2.51 crore",
+        "src": "EquityBulls",
+        "url": "https://www.equitybulls.com/category.php?id=373717",
+        "date": "2026-07-30"
+      }
+    ],
+    "PVP": [
+      {
+        "t": "PVP Ventures pivots to healthcare, plans rebrand to Evervie Health Limited",
+        "src": "Whalesbook",
+        "url": "https://www.whalesbook.com/corporate-news/English/healthcarebiotech/PVP-Ventures-Pivots-to-Healthcare-Plans-Name-Change-to-Evervie-Health/6a07256ce125a601ebdc41e0",
+        "date": "2026-08-14"
+      }
+    ],
+    "TVSSRICHAK": [
+      {
+        "t": "TVS Srichakra Q1 FY27 revenue up 30% YoY to ₹1,067 crore, PAT at ₹34 crore",
+        "src": "Univest",
+        "url": "https://univest.in/blogs/tvs-srichakra-q1-results-fy27-pat-34-crore",
+        "date": "2026-08-13"
+      }
+    ],
+    "OMAXE": [
+      {
+        "t": "Omaxe announces ₹6,200 crore hospitality push with 19 hotels across 5 states",
+        "src": "TradingView (Reuters)",
+        "url": "https://www.tradingview.com/news/reuters.com,2026:newsml_FWN42Y12O:0-omaxe-announces-dedicated-hospitality-vertical-with-plans-for-19-hotels-in-five-states/",
+        "date": "2026-08-05"
+      }
+    ],
+    "SBFC": [
+      {
+        "t": "SBFC Finance Q1 FY27 PAT jumps 29% YoY to ₹130 crore on AUM growth",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/capital-market-news/sbfc-finance-q1-pat-jumps-29-yoy-to-rs-130-crore-126072700367_1.html",
+        "date": "2026-07-27"
+      }
+    ],
+    "GKENERGY": [
+      {
+        "t": "GK Energy gains after bagging ₹455 crore rooftop solar project order",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/capital-market-news/gk-energy-gains-after-receiving-rs-455-cr-solar-project-order-126082601007_1.html",
+        "date": "2026-08-26"
       }
     ]
   }
