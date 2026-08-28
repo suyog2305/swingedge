@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-27",
+  "updated": "2026-08-28",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -208,6 +208,62 @@
         "src": "Business Standard",
         "url": "https://www.business-standard.com/markets/capital-market-news/gk-energy-gains-after-receiving-rs-455-cr-solar-project-order-126082601007_1.html",
         "date": "2026-08-26"
+      }
+    ],
+    "TEMPSENS": [
+      {
+        "t": "Tempsens Instruments shares rally over 111% on stock market debut",
+        "src": "Business Today",
+        "url": "https://www.businesstoday.in/markets/stocks/story/multibagger-listing-tempsens-instruments-shares-rally-over-111-on-debut-551939-2026-08-28",
+        "date": "2026-08-28"
+      }
+    ],
+    "MVELECTRO": [
+      {
+        "t": "MV Electrosystems stock up 37% in two days, trades 80% above IPO price",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/mv-electrosystems-this-stock-listed-in-august-trades-at-80-premium-up-37-in-two-days-126082800578_1.html",
+        "date": "2026-08-28"
+      }
+    ],
+    "PRECWIRE": [
+      {
+        "t": "Precision Wires India clarifies surge in share trading volume amid stock rally",
+        "src": "TipRanks",
+        "url": "https://www.tipranks.com/news/company-announcements/precision-wires-india-limited-clarifies-share-volume-surge",
+        "date": "2026-08-27"
+      }
+    ],
+    "SUNSHINE": [
+      {
+        "t": "Sunshine Pictures shares jump 10% in market debut trade",
+        "src": "Outlook Business",
+        "url": "https://www.outlookbusiness.com/corporate/sunshine-pictures-shares-jump-10-in-market-debut-trade",
+        "date": "2026-08-25"
+      }
+    ],
+    "JUSTDIAL": [
+      {
+        "t": "Just Dial shares surge 10% after Kotak reiterates 'Buy' rating, target Rs 1,175",
+        "src": "Business Today",
+        "url": "https://www.businesstoday.in/markets/stocks/story/just-dial-share-price-surged-10-today-heres-why-551947-2026-08-28",
+        "date": "2026-08-28"
+      }
+    ],
+    "ATHERENERG": [
+      {
+        "t": "Ather Energy shares rise 7% after Rs 1,758 crore block deal as Hero MotoCorp raises stake",
+        "src": "Business Today",
+        "url": "https://www.businesstoday.in/markets/stocks/story/ather-energy-shares-rise-7-after-rs-1758-crore-block-deals-heres-why-551941-2026-08-28",
+        "date": "2026-08-28"
+      }
+    ],
+    "TEJASNET": [
+      {
+        "t": "Tejas Networks shares rally 10% on Rs 1,537 crore TCS order for BSNL 4G network",
+        "src": "Business Today",
+        "url": "https://www.businesstoday.in/markets/stocks/story/tejas-networks-shares-rally-10-on-rs-1537-crore-tcs-order-win-key-details-551937-2026-08-28",
+        "date": "2026-08-28"
       }
     ]
   }
