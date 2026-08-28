@@ -1111,6 +1111,11 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
 .se-quad svg{width:100%;height:auto;display:block;max-height:none;}
 .se-quad{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r3);padding:10px;}
 .wr-twrap .scan-table .nm{max-width:230px;font-weight:600;color:var(--t1);}
+/* ---- stage 2 journal ---- */
+.sj-controls{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:12px 14px;background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r3);}
+.sj-track,.sj-day{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.sj-day select{font-size:11.5px;font-family:var(--mono);background:var(--bg1);border:1px solid var(--b2);border-radius:var(--r2);padding:6px 10px;color:var(--t1);cursor:pointer;}
+.sj-daylink{color:var(--lime);cursor:pointer;font-family:var(--mono);font-size:12px;border-bottom:1px dotted var(--lime);}
 /* ---- shortlist ---- */
 .sl-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 12px;}
 .sl-actions .btn[disabled]{opacity:.45;cursor:not-allowed;}
@@ -1179,6 +1184,7 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
     <div class="nav" id="nav-rsscreen" onclick="show('rsscreen')"><i class="ti ti-chart-arrows-vertical"></i>RS Screen</div>
     <div class="nav" id="nav-sectors" onclick="show('sectors')"><i class="ti ti-chart-pie-2"></i>Sectors</div>
     <div class="nav" id="nav-s2track" onclick="show('s2track')"><i class="ti ti-stairs-up"></i>Stage 2 Tracker</div>
+    <div class="nav" id="nav-s2journal" onclick="show('s2journal')"><i class="ti ti-history"></i>Stage 2 Journal</div>
     <div class="nav" id="nav-pead" onclick="show('pead')"><i class="ti ti-report-money"></i>PEAD Radar</div>
     <div class="nav" id="nav-tr" onclick="show('tr')"><i class="ti ti-target-arrow"></i>Track Record</div>
     <div class="nav" id="nav-rdesk" onclick="show('rdesk')"><i class="ti ti-news"></i>Research Desk</div>
@@ -1273,6 +1279,15 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
     </div>
   </div>
   <div class="content se-content"><div id="sl-body"></div></div>
+</div>
+
+<!-- ── EDGE: STAGE 2 JOURNAL ── -->
+<div class="sec" id="sec-s2journal">
+  <div class="topbar">
+    <div class="tb-left"><span class="tb-title">Stage 2 Journal</span><span class="tb-crumb">/ who joined, who left, day by day</span></div>
+    <div class="tb-right"><button class="btn btn-sm" onclick="loadSJ(true)"><i class="ti ti-refresh"></i>Refresh</button></div>
+  </div>
+  <div class="content se-content"><div id="sj-body"></div></div>
 </div>
 
 <!-- ── EDGE: MARKET PULSE ── -->
@@ -9027,6 +9042,156 @@ function renderSL(){
   if(typeof seCountUp === 'function') seCountUp(el);
 }
 
+// ============= STAGE 2 JOURNAL — the day-by-day memory =============
+// Reads data/daily/s2history.json (built by tools/build_s2history.py from the scan archive).
+// Answers, for any day: who is in Stage 2, who joined, who dropped out — and for any stock,
+// its whole history in Stage 2. Written to be readable by someone new to Stage 2 investing.
+const SJ = { doc: null, loaded: false, loading: false, error: null,
+             ui: { track: 'calc', day: null, q: '', tab: 'today' } };
+
+async function loadSJ(manual){
+  if(SJ.loading) return;
+  SJ.loading = true;
+  try{
+    const res = await fetch('data/daily/s2history.json', {cache: manual ? 'reload' : 'default'});
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    SJ.doc = await res.json();
+    SJ.error = null;
+    if(!SJ.ui.day) SJ.ui.day = SJ.doc.last_scan;
+    if(manual) toast(`Stage 2 history refreshed — ${(SJ.doc.scans || []).length} scans`, 'success');
+  }catch(err){ SJ.doc = null; SJ.error = err.message || String(err); if(manual) toast('No Stage 2 history yet — run tools/build_s2history.py', 'error'); }
+  finally{ SJ.loading = false; SJ.loaded = true; }
+  renderSJ();
+}
+
+function sjTrackLabel(t){ return t === 'list' ? "your provider's weekly list" : 'computed daily from price action'; }
+function sjDay(date){ return (SJ.doc.days || []).find(d => d.date === date) || null; }
+function sjStock(code){ return (SJ.doc.stocks || {})[code] || null; }
+function sjSet(k, v){ SJ.ui[k] = v; renderSJ(); }
+
+// a stock row for the entered/exited tables, joined to whatever we know about it
+function sjRow(code){
+  const s = sjStock(code) || {};
+  const t = s[SJ.ui.track] || {};
+  const u = (typeof SE !== 'undefined' && SE.c) ? SE.c.U.find(x => (x.code || '').toUpperCase() === code) : null;
+  return { code, name: s.name || code, sector: s.sector || (u ? (u.group || u.industry) : ''), band: s.band || (u ? u.band : null),
+           rs: u ? u.rs : null, from_52wh: u ? u.from_52wh : null, r1d: u ? u.r1d : null, r1w: u ? u.r1w : null,
+           since: t.since || null, days: t.days != null ? t.days : null, spells: t.spells || null, total_days: t.total_days || null,
+           current: !!t.current };
+}
+const SJ_COLS = () => [
+  {k:'name', t:'Stock', type:'html', html: r => `<span class="nm" title="${wrAttr(r.code + ' · ' + r.name)}">${wrEsc(r.name)}</span>${typeof wrOwned === 'function' ? wrOwned(r) : ''}`},
+  {k:'act', t:'', type:'html', html: r => typeof wrActCell === 'function' ? wrActCell({code: r.code, name: r.name, industry: r.sector}, r.sector) : ''},
+  {k:'sector', t:'Sector', type:'text'},
+  {k:'band', t:'Cap', type:'html', sortType:'num', fn: r => (typeof SE_BAND_ORD !== 'undefined' ? SE_BAND_ORD[r.band] : 0) || 0, html: r => r.band ? `<span class="se-band ${String(r.band).toLowerCase()}">${wrEsc(r.band)}</span>` : '<span class="flat">—</span>'},
+  {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs != null ? seRsBar(r.rs) : '<span class="flat">—</span>'},
+  {k:'r1d', t:'Day %', type:'pct', dec:1},
+  {k:'r1w', t:'1W %', type:'pct', dec:1},
+  {k:'from_52wh', t:'vs 52WH', type:'html', sortType:'num', fn: r => r.from_52wh, html: r => seHighCell(r.from_52wh)},
+  {k:'since', t:'In Stage 2 since', type:'html', sortType:'text', fn: r => r.since || '', html: r => r.since ? `<span class="num">${wrDate(r.since)}</span>` : '<span class="flat">—</span>'},
+  {k:'days', t:'Days in', type:'int'},
+  {k:'spells', t:'Times in S2', type:'int'}
+];
+
+function renderSJ(){
+  const el = document.getElementById('sj-body'); if(!el) return;
+  if(!SJ.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading Stage 2 history…</p></div>'; return; }
+  const d = SJ.doc;
+  if(!d || !(d.days || []).length){
+    el.innerHTML = `<div class="wr-empty"><i class="ti ti-history"></i><h4>No Stage 2 history yet</h4>
+      <p>This is rebuilt from the scan archive — no database needed. Run:</p><p><code>python tools/build_s2history.py</code></p>
+      <p>then commit <code>data/daily/s2history.json</code> and hit Refresh.</p>
+      ${SJ.error ? `<p style="margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--rose2);">${wrEsc(SJ.error)}</p>` : ''}</div>`;
+    return;
+  }
+  const track = SJ.ui.track, day = sjDay(SJ.ui.day) || d.days[d.days.length - 1];
+  const T = day[track] || {};
+  const unknown = !!T.unknown, first = !!T.first;
+  const entered = (T.entered || []).map(sjRow), exited = (T.exited || []).map(sjRow);
+  const inNow = Object.entries(d.stocks || {}).filter(([, s]) => (s[track] || {}).current).map(([c]) => c);
+
+  const kpis = [
+    seKpi('In Stage 2 right now', wrNum(T.count || 0), `on ${wrDate(day.date)} · ${sjTrackLabel(track)}`, 'accent', T.count || 0),
+    seKpi('Joined that day', unknown || first ? '—' : wrNum(entered.length), first ? 'first scan on record' : (unknown ? 'no data on this scan' : 'stocks that entered Stage 2'), entered.length ? 'ok' : '', entered.length),
+    seKpi('Dropped out', unknown || first ? '—' : wrNum(exited.length), first ? '' : (unknown ? '' : 'stocks that left Stage 2'), exited.length ? 'bad' : '', exited.length),
+    seKpi('Net change', unknown || first ? '—' : `${entered.length - exited.length >= 0 ? '+' : ''}${entered.length - exited.length}`, 'in minus out', entered.length - exited.length >= 0 ? 'ok' : 'bad'),
+    seKpi('Ever been in Stage 2', wrNum(Object.values(d.stocks || {}).filter(s => (s[track] || {}).spells).length), `on this track, across ${(d.scans || []).length} scans`, '')
+  ];
+
+  const dayOpts = d.days.slice().reverse().map(x => `<option value="${x.date}" ${x.date === day.date ? 'selected' : ''}>${wrDate(x.date)}</option>`).join('');
+  const tabs = [['today', 'Movements'], ['timeline', 'Day by day'], ['stocks', 'Every stock']]
+    .map(([k, t]) => `<div class="wr-chip ${SJ.ui.tab === k ? 'active' : ''}" onclick="sjSet('tab','${k}')">${t}</div>`).join('');
+
+  // --- tab bodies ---
+  let body = '';
+  if(SJ.ui.tab === 'today'){
+    body = unknown
+      ? `<div class="wr-note"><div class="lab">No data on this track for ${wrDate(day.date)}</div>Your provider's list is weekly, so it only changes on the days you upload a new one. Switch to the computed track above to see daily movement.</div>`
+      : first
+      ? `<div class="wr-note"><div class="lab">First scan on record</div>Everything counts as "already in" on the first scan — movements start from the next one.</div>`
+      : `<div class="wr-sub">Joined Stage 2 on ${wrDate(day.date)} (${entered.length})</div>
+         <div class="wr-hint">These stocks were not in Stage 2 on the previous scan and are now. A fresh entry is usually the most interesting moment in the whole cycle.</div>
+         ${wrTable('sj-in', SJ_COLS(), entered, {sort:{col:'rs', dir:'desc'}, maxHeight:'420px', cap:200, empty:'Nobody joined on this day.'})}
+         <div class="wr-sub">Dropped out of Stage 2 on ${wrDate(day.date)} (${exited.length})</div>
+         <div class="wr-hint">These were in Stage 2 on the previous scan and no longer qualify — the trend has weakened. Worth checking if you hold any.</div>
+         ${wrTable('sj-out', SJ_COLS(), exited, {sort:{col:'days', dir:'desc'}, maxHeight:'420px', cap:200, empty:'Nobody dropped out on this day.'})}`;
+  } else if(SJ.ui.tab === 'timeline'){
+    const rows = d.days.slice().reverse().map(x => {
+      const t = x[track] || {};
+      return { date: x.date, count: t.unknown ? null : (t.count || 0), inn: t.unknown || t.first ? null : (t.entered || []).length,
+               out: t.unknown || t.first ? null : (t.exited || []).length,
+               net: t.unknown || t.first ? null : (t.entered || []).length - (t.exited || []).length, note: t.unknown ? 'no data' : (t.first ? 'first scan' : '') };
+    });
+    body = `<div class="wr-hint">Every scan on record, newest first. "In Stage 2" is the size of the list that day; the arrows are how it changed since the previous scan.</div>
+      ${wrTable('sj-tl', [
+        {k:'date', t:'Scan date', type:'html', sortType:'text', fn: r => r.date, html: r => `<a class="sj-daylink" onclick="SJ.ui.day='${r.date}';sjSet('tab','today')">${wrDate(r.date)}</a>`},
+        {k:'count', t:'In Stage 2', type:'int'},
+        {k:'inn', t:'Joined', type:'html', sortType:'num', fn: r => r.inn, html: r => r.inn == null ? '<span class="flat">—</span>' : `<span class="up">+${r.inn}</span>`},
+        {k:'out', t:'Dropped out', type:'html', sortType:'num', fn: r => r.out, html: r => r.out == null ? '<span class="flat">—</span>' : `<span class="dn">−${r.out}</span>`},
+        {k:'net', t:'Net', type:'html', sortType:'num', fn: r => r.net, html: r => r.net == null ? '<span class="flat">—</span>' : `<b class="${r.net >= 0 ? 'up' : 'dn'}">${r.net >= 0 ? '+' : ''}${r.net}</b>`},
+        {k:'note', t:'Note', type:'text'}
+      ], rows, {sort:null, maxHeight:'520px', empty:'No scans.'})}`;
+  } else {
+    const q = SJ.ui.q.trim().toLowerCase();
+    const list = Object.keys(d.stocks || {}).map(sjRow)
+      .filter(r => !q || (r.code + ' ' + r.name + ' ' + (r.sector || '')).toLowerCase().includes(q))
+      .filter(r => r.spells);
+    body = `<div class="se-filters"><input type="text" placeholder="Search a stock…" value="${wrAttr(SJ.ui.q)}" oninput="SJ.ui.q=this.value;renderSJ()">
+        <span class="wr-count">${wrNum(list.length)} stocks have been in Stage 2 on this track</span></div>
+      <div class="wr-hint">"Times in S2" counts separate spells — a stock that entered, left, and came back shows 2. "Days in" is the current run; "Total days" adds up every spell.</div>
+      ${wrTable('sj-stocks', SJ_COLS().concat([
+        {k:'total_days', t:'Total days', type:'int'},
+        {k:'current', t:'In now?', type:'html', sortType:'num', fn: r => r.current ? 1 : 0, html: r => r.current ? seYesCell(true, 'In') : '<span class="flat">out</span>'}
+      ]), list, {sort:{col:'total_days', dir:'desc'}, tall:true, cap:600, empty:'Nothing tracked yet.'})}`;
+  }
+
+  el.innerHTML = `
+    <div class="se-hero"><div class="se-hero-inner">
+      <div class="wr-tags"><span class="wr-tag am">Stage 2 Journal</span><span class="wr-tag tl">Day-by-day memory</span><span class="wr-tag">${(d.scans || []).length} scans on record</span></div>
+      <h1>Who is in Stage 2 — and who just changed</h1>
+      <div class="wr-lead"><b>Stage 2</b> is Stan Weinstein's name for the phase when a stock has finished basing and is trending up with institutional money behind it — historically where most of the gain happens. This page remembers who is in it, who joined, and who dropped out, for every scan on record.</div>
+      <div class="se-kpis">${kpis.join('')}</div>
+    </div></div>
+    <div class="se-body">
+      <div class="sj-controls">
+        <div class="sj-track">
+          <span class="se-slicer-tag"><i class="ti ti-git-compare"></i>Which Stage 2?</span>
+          <button class="wr-chip ${track === 'calc' ? 'active' : ''}" onclick="sjSet('track','calc')">Computed daily</button>
+          <button class="wr-chip ${track === 'list' ? 'active' : ''}" onclick="sjSet('track','list')">Provider's list</button>
+          <span class="wr-hint" style="margin:0;">${track === 'calc'
+            ? 'Worked out here from each day\'s prices using the 7-point trend template — so it updates every single scan.'
+            : 'Your uploaded Stage 2 file. It is weekly, so it only moves when you upload a new one.'}</span>
+        </div>
+        <div class="sj-day"><span class="se-slicer-tag"><i class="ti ti-calendar"></i>Scan</span>
+          <select onchange="SJ.ui.day=this.value;renderSJ()">${dayOpts}</select></div>
+      </div>
+      <div class="wr-chips" style="margin:14px 0 10px;">${tabs}</div>
+      ${body}
+      <div class="wr-foot" style="border:none;padding:16px 0 0;">Rebuilt from the dated scans in <code>data/scans/</code> — that archive is the database, so this can always be regenerated and never drifts. Refresh it with <code>python tools/build_s2history.py</code> after each scan. Not investment advice.</div>
+    </div>`;
+  if(typeof seCountUp === 'function') seCountUp(el);
+}
+
 // ============= INIT =============
 function init(){
   load();
@@ -9052,7 +9217,8 @@ function init(){
   loadDG(false);
   loadTR(false);
   loadRD(false);
-  loadSL(false);
+  loadSL(false);
+  loadSJ(false);
   seApplyTheme();
   updateMarket();
   setInterval(updateMarket, 30000);

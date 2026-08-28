@@ -37,14 +37,18 @@ rem ---- 2. shortlist --------------------------------------------------------
 "%PY%" tools\build_shortlist.py >> "%LOG%" 2>&1
 if errorlevel 1 echo [%date% %time%] WARNING: shortlist build failed - committing the scan anyway>> "%LOG%"
 
-rem ---- 3. commit both, rebase, push ---------------------------------------
+rem ---- 2b. Stage 2 day-by-day history -------------------------------------
+"%PY%" tools\build_s2history.py --quiet >> "%LOG%" 2>&1
+if errorlevel 1 echo [%date% %time%] WARNING: s2history build failed>> "%LOG%"
+
+rem ---- 3. commit all, rebase, push ----------------------------------------
 git add data/scans data/daily >> "%LOG%" 2>&1
 git diff --cached --quiet
 if not errorlevel 1 (
   echo [%date% %time%] nothing changed - nothing to commit>> "%LOG%"
   goto :done
 )
-git commit -m "Daily scan + shortlist" >> "%LOG%" 2>&1
+git commit -m "Daily scan + shortlist + Stage 2 history" >> "%LOG%" 2>&1
 git pull --rebase origin main >> "%LOG%" 2>&1
 if errorlevel 1 (
   echo [%date% %time%] ERROR: rebase failed - resolve by hand, nothing pushed>> "%LOG%"

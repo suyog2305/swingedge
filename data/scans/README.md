@@ -112,7 +112,7 @@ If the cookie is missing or expired, screener.in returns its login page instead 
 
 ### Scheduled daily (Windows Task Scheduler)
 
-A scheduled task **"SwingEdge Daily Pull"** runs `tools/daily_pull.cmd` every day at **09:00 IST**. It (1) pulls the broad universe and rebuilds `data/scans/`, (2) rebuilds the convergence shortlist into `data/daily/shortlist.json`, and (3) commits both in a single commit, rebases on origin and pushes — logging to `.secrets/daily_pull.log`. If the cookie is missing or the fetch fails it stops before steps 2-3 and writes nothing; if the data is unchanged it detects that and skips the commit. The rebase in step 3 keeps it from colliding with the gainers-news cloud routine, which pushes `data/daily/news.json` around 18:30 IST. It runs only when you're logged in (no stored password), so `git push` uses your normal credentials. Until you put your `sessionid` in `.secrets/screener_cookie.txt` it exits cleanly without fetching. On non-trading days screener data is unchanged, so the run is a clean no-op (nothing to commit).
+A scheduled task **"SwingEdge Daily Pull"** runs `tools/daily_pull.cmd` every day at **09:00 IST**. It (1) pulls the broad universe and rebuilds `data/scans/`, (2) rebuilds the convergence shortlist into `data/daily/shortlist.json`, (2b) rebuilds the Stage 2 day-by-day history into `data/daily/s2history.json`, and (3) commits all three in a single commit, rebases on origin and pushes — logging to `.secrets/daily_pull.log`. If the cookie is missing or the fetch fails it stops before steps 2-3 and writes nothing; if the data is unchanged it detects that and skips the commit. The rebase in step 3 keeps it from colliding with the gainers-news cloud routine, which pushes `data/daily/news.json` around 18:30 IST. It runs only when you're logged in (no stored password), so `git push` uses your normal credentials. Until you put your `sessionid` in `.secrets/screener_cookie.txt` it exits cleanly without fetching. On non-trading days screener data is unchanged, so the run is a clean no-op (nothing to commit).
 
 - Run it now / test:  `tools\daily_pull.cmd`  (or `Start-ScheduledTask -TaskName "SwingEdge Daily Pull"`)
 - See last result:  `Get-ScheduledTaskInfo -TaskName "SwingEdge Daily Pull"` and the tail of `.secrets\daily_pull.log`
@@ -157,3 +157,38 @@ Scoring is deliberately transparent, and every point becomes a human-readable re
 | RS >=90 / >=80 | +2 / +1 |
 | a news trigger on file | +2 |
 | leading sector (median RS >=60) | +1 |
+
+## Stage 2 day-by-day memory (the Journal)
+
+`tools/build_s2history.py` reconstructs the **whole history of who was in Stage 2, day by day**, by
+walking every dated scan in `data/scans/` oldest-to-newest and diffing consecutive days. It needs no
+database and no new data source - the scan archive in git *is* the time series, so the history can
+always be rebuilt from scratch and can never drift out of sync with the scans.
+
+```bash
+python tools/build_s2history.py            # rebuild + print the day-by-day table
+python tools/build_s2history.py --quiet    # just write the file (what the daily task runs)
+```
+
+It keeps **two independent tracks**, because they answer different questions:
+
+| track | source | cadence | what it tells you |
+|---|---|---|---|
+| `calc` | the 7-point trend template computed on that day's screener rows | **every scan (daily)** | the day-to-day entries and exits - this is what makes daily tracking possible |
+| `list` | your provider's Stage 2 file, as carried in that scan | weekly | the cross-check; only moves on days you upload a fresh list |
+
+Writes `data/daily/s2history.json` (`swingedge-s2history/1`):
+
+| key | shape |
+|---|---|
+| `scans[]` | every scan date, oldest first |
+| `days[]` | per date, per track: `count`, `entered[]`, `exited[]`, `first` (no prior day to diff against), `unknown` (that track had no data that day - **not** "everyone exited") |
+| `stocks{}` | per code: `name`, `sector`, `band`, and per track `current`, `since`, `days` (length of the current run), `spells` (how many separate times it has been in Stage 2), `total_days`, and the last 6 `history[]` spells |
+
+Read it in the app at **Edge -> Stage 2 Journal**, which has three views - *Movements* (who joined and
+who dropped out on a chosen day), *Day by day* (the running count with net change per scan), and
+*Every stock* (each name's full Stage 2 life). The track toggle at the top switches between the
+computed daily track and the provider's weekly list.
+
+A stock that leaves and comes back later shows as a second **spell** rather than overwriting the first,
+so "how many times has this name been in Stage 2, and for how long each time" is answerable years later.
