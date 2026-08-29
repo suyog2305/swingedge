@@ -1,6 +1,22 @@
 {
-  "updated": "2026-08-29",
+  "updated": "2026-08-30",
   "reports": [
+    {
+      "id": "chemtop3-2026-08",
+      "title": "Chemicals Cluster — The Top Three",
+      "subtitle": "Eight names rated on the evidence · And none of the three winners is the H-acid trade",
+      "code": "CLUSTER",
+      "sector": "Comparative note",
+      "date": "2026-08-30",
+      "rating": "Evidence ranking of 8 names — not a recommendation",
+      "targets": {
+        "bull": "GIPCL 18.2 · BHAGERIA 16.6 · FOSECOIND 14.8",
+        "bear": "BODAL 5th · SHREEPUSHK 6th · KIRI 8th"
+      },
+      "summary": "Eight names rated on the evidence · And none of the three winners is the H-acid trade",
+      "file": "chemtop3-2026-08.html",
+      "featured": true
+    },
     {
       "id": "hfcl-2026-08",
       "title": "HFCL",

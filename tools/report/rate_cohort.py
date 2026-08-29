@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 """
-rate_holdings.py — rank the holdings on the evidence in their research reports.
+rate_cohort.py — rank a set of names on the evidence in their research reports.
 
-    python tools/report/rate_holdings.py           # full table
-    python tools/report/rate_holdings.py --top 10
+    python tools/report/rate_cohort.py                        # the holdings
+    python tools/report/rate_cohort.py --cohort chemicals     # the dye-intermediates cluster + GIPCL
+    python tools/report/rate_cohort.py --cohort chemicals --top 3
+
+Cohorts are defined in COHORTS at the top of this file; add one by listing its NSE codes
+and giving each name an entry in JUDGEMENT.
 
 This is a RATING OF EVIDENCE, not a buy list and not an allocation. It answers one
-question: across the 18 holdings, where is the case strongest on the four things the
-reports actually established? It deliberately does not weight position size, cost basis,
+question: across a cohort, where is the case strongest on the four things the reports
+actually established? It deliberately does not weight position size, cost basis,
 or anything about the holder.
 
 Four components, three computed and one stated:
@@ -44,8 +48,11 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 sys.path.insert(0, os.path.join(ROOT, 'tools'))
 from build_s2history import rs_percentiles, trend_pass, num          # noqa: E402
 
-HOLDINGS = ('AKUMS DIVGIITTS EBGNG FCL HAPPYFORGE HFCL IOLCP JYOTICNC KRN MCX '
-            'MOTILALOFS OLAELEC RATEGAIN RBA RKFORGE RPTECH SHADOWFAX TDPOWERSYS').split()
+COHORTS = {
+    'holdings': ('AKUMS DIVGIITTS EBGNG FCL HAPPYFORGE HFCL IOLCP JYOTICNC KRN MCX '
+                 'MOTILALOFS OLAELEC RATEGAIN RBA RKFORGE RPTECH SHADOWFAX TDPOWERSYS').split(),
+    'chemicals': ('BODALCHEM BHAGERIA KIRIINDUS OAL SHREEPUSHK IGPL GIPCL FOSECOIND').split(),
+}
 
 # code: (earnings quality 1-5, durability 1-5, the fact that set the earnings score)
 # Sourced from the August 2026 reports in library/research/.
@@ -68,6 +75,15 @@ JUDGEMENT = {
     'RATEGAIN':   (2, 2, '188% is consolidation; organic segments grew 22.7% and 3.1%'),
     'RBA':        (2, 3, 'still loss-making; Rs 118cr gap between store profit and net loss'),
     'OLAELEC':    (1, 1, 'fails every signal; the report rates it Avoid'),
+    # --- chemicals cluster + GIPCL, from the August 2026 reports ----------
+    'GIPCL':      (5, 4, '+1,807bps margin from solar - STRUCTURAL, 3rd straight quarter'),
+    'BHAGERIA':   (5, 3, '+255bps margin, 7th straight sequential quarter, PRE-dates the squeeze'),
+    'FOSECOIND':  (4, 5, 'PAT +78% on sales +14%; 22.98% margin is structural, not cyclical'),
+    'IGPL':       (4, 3, 'loss to Rs 71 Cr, all operating - but a pure spread, uncontrolled both ends'),
+    'BODALCHEM':  (3, 3, 'intermediates FELL 4%; margin compressed 11.66% -> 9.72% sequentially'),
+    'SHREEPUSHK': (3, 3, '+9.4% PAT on a flat margin, and volumes dipped'),
+    'KIRIINDUS':  (2, 2, 'Rs 286 Cr of Rs 290 Cr profit is treasury income, not operations'),
+    'OAL':        (1, 2, 'margin FELL to 7.62%; company told the exchange there is no news'),
 }
 W_TREND, W_EARN, W_VAL, W_DUR, ASM_PENALTY = 1.0, 1.2, 0.9, 0.9, 0.6
 
@@ -87,6 +103,8 @@ def cohort_score(value, pool):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--cohort', default='holdings', choices=sorted(COHORTS),
+                    help='which set of names to rate (default: holdings)')
     ap.add_argument('--top', type=int, default=0, help='show only the top N')
     a = ap.parse_args()
 
@@ -101,7 +119,7 @@ def main():
         os.path.join(ROOT, 'library', 'research', 'index.json'))['reports'] if r.get('code')}
 
     rows = []
-    for code in HOLDINGS:
+    for code in COHORTS[a.cohort]:
         row = next((x for x in universe if (x.get('code') or '').upper() == code), None)
         if not row:
             continue
@@ -130,7 +148,7 @@ def main():
     rows.sort(key=lambda z: -z['total'])
     shown = rows[:a.top] if a.top else rows
 
-    print(f'Rated against scan {cur.get("date")}   |   weights: trend {W_TREND} · '
+    print(f'Cohort: {a.cohort}   |   scan {cur.get("date")}   |   weights: trend {W_TREND} · '
           f'earnings {W_EARN} · valuation {W_VAL} · durability {W_DUR} · ASM −{ASM_PENALTY}')
     print('An evidence ranking, not a buy list or an allocation.\n')
     hdr = (f'{"#":<3}{"CODE":<12}{"TREND":>6}{"EARN":>6}{"VAL":>5}{"DUR":>5}{"ASM":>5}{"TOTAL":>7}'
