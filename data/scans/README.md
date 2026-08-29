@@ -190,6 +190,26 @@ who dropped out on a chosen day), *Day by day* (the running count with net chang
 *Every stock* (each name's full Stage 2 life). The track toggle at the top switches between the
 computed daily track and the provider's weekly list.
 
+#### New list vs carried-forward list
+
+The provider's list is **weekly**, but scans are **daily** — so a scan built without `--stage2` keeps the
+previous file, and consecutive scans can carry an identical list. `build_s2history.py` detects this by
+comparing the code set with the previous scan and marks those days `carried`, with the source filename.
+
+They are **not** reported as "0 entered, 0 exited" — that would read as *nobody moved* when it actually
+means *no new list arrived*. A real weekly diff is computed only on the days a genuinely new list appears,
+and those dates are listed in `doc.list_updates`. The Journal shows carried days as `—` with the label
+"no new list — carried forward".
+
+**So when you drop in a new weekly Stage 2 file, nothing else needs changing:**
+
+```bash
+python tools/build_scan.py --date <date> --screener <export.csv> --stage2 "<new Stage 2 file.xlsx>"
+python tools/build_s2history.py
+```
+
+The diff runs against the last genuinely new list, not against yesterday's copy of it.
+
 A stock that leaves and comes back later shows as a second **spell** rather than overwriting the first,
 so "how many times has this name been in Stage 2, and for how long each time" is answerable years later.
 

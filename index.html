@@ -8961,7 +8961,7 @@ function slBrief(){
   const rows = pool.filter(r => SL.picks.has(r.code));
   if(!rows.length) return '';
   const lines = [`Generate a SwingEdge research report for each of these ${rows.length} names (scan ${SL.doc.scan_date}).`,
-    `Follow the house template and rules in scratchpad/REPORT_SPEC.md; verify every number against primary sources; never invent a figure.`, ''];
+    `Follow tools/report/REPORT_SPEC.md exactly — house template, rating vocabulary, sourcing rules. Verify every number; never invent one. Publish with tools/report/publish.py, which refuses to push if the cross-check fails.`, ''];
   rows.forEach((r, i) => {
     lines.push(`${i + 1}. ${r.name || r.code} (NSE: ${r.code}) — ${r.sector || ''}${r.band ? ' · ' + r.band + ' cap' : ''}`);
     lines.push(`   Why it surfaced: ${(r.reasons || []).join('; ')}.`);
@@ -9146,14 +9146,17 @@ function renderSJ(){
   const track = SJ.ui.track, day = sjDay(SJ.ui.day) || d.days[d.days.length - 1];
   const T = day[track] || {};
   const unknown = !!T.unknown, first = !!T.first;
+  // The provider's list is weekly. A scan that reused last week's file has no diff to show —
+  // reporting it as "0 joined, 0 dropped" would read as "nobody moved", which is not what happened.
+  const carried = !!T.carried;
   const entered = (T.entered || []).map(sjRow), exited = (T.exited || []).map(sjRow);
   const inNow = Object.entries(d.stocks || {}).filter(([, s]) => (s[track] || {}).current).map(([c]) => c);
 
   const kpis = [
     seKpi('In Stage 2 right now', wrNum(T.count || 0), `on ${wrDate(day.date)} · ${sjTrackLabel(track)}`, 'accent', T.count || 0),
-    seKpi('Joined that day', unknown || first ? '—' : wrNum(entered.length), first ? 'first scan on record' : (unknown ? 'no data on this scan' : 'stocks that entered Stage 2'), entered.length ? 'ok' : '', entered.length),
-    seKpi('Dropped out', unknown || first ? '—' : wrNum(exited.length), first ? '' : (unknown ? '' : 'stocks that left Stage 2'), exited.length ? 'bad' : '', exited.length),
-    seKpi('Net change', unknown || first ? '—' : `${entered.length - exited.length >= 0 ? '+' : ''}${entered.length - exited.length}`, 'in minus out', entered.length - exited.length >= 0 ? 'ok' : 'bad'),
+    seKpi('Joined that day', unknown || first || carried ? '—' : wrNum(entered.length), first ? 'first scan on record' : (unknown ? 'no data on this scan' : (carried ? 'no new list this scan' : 'stocks that entered Stage 2')), entered.length ? 'ok' : '', entered.length),
+    seKpi('Dropped out', unknown || first || carried ? '—' : wrNum(exited.length), first ? '' : (unknown ? '' : (carried ? 'no new list this scan' : 'stocks that left Stage 2')), exited.length ? 'bad' : '', exited.length),
+    seKpi('Net change', unknown || first || carried ? '—' : `${entered.length - exited.length >= 0 ? '+' : ''}${entered.length - exited.length}`, 'in minus out', entered.length - exited.length >= 0 ? 'ok' : 'bad'),
     seKpi('Ever been in Stage 2', wrNum(Object.values(d.stocks || {}).filter(s => (s[track] || {}).spells).length), `on this track, across ${(d.scans || []).length} scans`, '')
   ];
 
@@ -9177,11 +9180,13 @@ function renderSJ(){
   } else if(SJ.ui.tab === 'timeline'){
     const rows = d.days.slice().reverse().map(x => {
       const t = x[track] || {};
-      return { date: x.date, count: t.unknown ? null : (t.count || 0), inn: t.unknown || t.first ? null : (t.entered || []).length,
-               out: t.unknown || t.first ? null : (t.exited || []).length,
-               net: t.unknown || t.first ? null : (t.entered || []).length - (t.exited || []).length, note: t.unknown ? 'no data' : (t.first ? 'first scan' : '') };
+      const skip = t.unknown || t.first || t.carried;
+      return { date: x.date, count: t.unknown ? null : (t.count || 0), inn: skip ? null : (t.entered || []).length,
+               out: skip ? null : (t.exited || []).length,
+               net: skip ? null : (t.entered || []).length - (t.exited || []).length,
+               note: t.unknown ? 'no data' : (t.first ? 'first scan' : (t.carried ? 'no new list — carried forward' : '')) };
     });
-    body = `<div class="wr-hint">Every scan on record, newest first. "In Stage 2" is the size of the list that day; the arrows are how it changed since the previous scan.</div>
+    body = `<div class="wr-hint">Every scan on record, newest first. "In Stage 2" is the size of the list that day; the arrows are how it changed since the previous scan.${track === 'list' ? ` Your provider's list is <b>weekly</b>, so a scan that reused the previous file shows no arrows — that means <b>no new list arrived</b>, not that nobody moved. ${(d.list_updates || []).length} new list${(d.list_updates || []).length === 1 ? ' has' : 's have'} landed so far.` : ''}</div>
       ${wrTable('sj-tl', [
         {k:'date', t:'Scan date', type:'html', sortType:'text', fn: r => r.date, html: r => `<a class="sj-daylink" onclick="SJ.ui.day='${r.date}';sjSet('tab','today')">${wrDate(r.date)}</a>`},
         {k:'count', t:'In Stage 2', type:'int'},

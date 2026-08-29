@@ -97,7 +97,7 @@ def main():
     files = sorted(glob.glob(os.path.join(ROOT, 'data', 'scans', '20*.json')))
     if not files: raise SystemExit('no scans in data/scans')
 
-    days, meta = [], {}                      # meta: code -> latest known name/sector/band
+    days, meta, list_updates = [], {}, []     # meta: code -> latest known name/sector/band
     tracks = {'list': {}, 'calc': {}}        # track -> code -> {spells:[...], in:bool}
     prev_members = {'list': None, 'calc': None}
     prev_universe = None
@@ -107,6 +107,7 @@ def main():
         date = d.get('date') or os.path.basename(p)[:-5]
         U = [r for r in d.get('universe', []) if r.get('code')]
         S2 = d.get('stage2', []) or []
+        s2_src = (d.get('sources') or {}).get('stage2')
         rs_percentiles(U)
         umap = {r['code'].upper(): r for r in U}
 
@@ -131,6 +132,12 @@ def main():
             if not cur and prev:
                 day[tk] = OrderedDict(count=0, entered=[], exited=[], unknown=True)
                 continue
+            # the provider's list is weekly: an identical code set means no new list was
+            # uploaded for this scan, which is not the same as "nothing changed"
+            if tk == 'list' and prev is not None and cur == prev:
+                day[tk] = OrderedDict(count=len(cur), entered=[], exited=[], carried=True,
+                                      source=s2_src)
+                continue
             entered = sorted(cur - prev) if prev is not None else sorted(cur)
             exited = sorted(prev - cur) if prev is not None else []
             for c in entered:
@@ -142,6 +149,9 @@ def main():
                     sp = st['spells'][-1]; sp['to'] = date; sp['days'] = days_between(sp['from'], date)
             day[tk] = OrderedDict(count=len(cur), entered=entered, exited=exited,
                                   first=prev is None)
+            if tk == 'list':
+                day[tk]['source'] = s2_src            # the file this week's list came from
+                if cur: list_updates.append(date)     # a genuinely new list landed today
             prev_members[tk] = cur
         days.append(day)
         if U: prev_universe = umap
@@ -163,7 +173,8 @@ def main():
                 history=st['spells'][-6:])
 
     doc = OrderedDict(schema=SCHEMA, generated=dt.date.today().isoformat(), last_scan=last_date,
-                      scans=[x['date'] for x in days], days=days, stocks=stocks)
+                      scans=[x['date'] for x in days], list_updates=list_updates,
+                      days=days, stocks=stocks)
     outdir = os.path.join(ROOT, 'data', 'daily'); os.makedirs(outdir, exist_ok=True)
     out = os.path.join(outdir, 's2history.json')
     with io.open(out, 'w', encoding='utf-8') as fh:
@@ -176,9 +187,12 @@ def main():
         for x in days:
             l, c = x.get('list', {}), x.get('calc', {})
             lf = 'n/a' if l.get('unknown') else str(l.get('count', 0))
+            carried = l.get('carried')
             cf = 'n/a' if c.get('unknown') else str(c.get('count', 0))
-            print(f'{x["date"]:<12} {lf:>6} {len(l.get("entered", [])):>4} {len(l.get("exited", [])):>4}   '
-                  f'{cf:>6} {len(c.get("entered", [])):>4} {len(c.get("exited", [])):>4}')
+            li, lo = ('  —', '  —') if carried else (f'{len(l.get("entered", [])):>4}', f'{len(l.get("exited", [])):>4}')
+            print(f'{x["date"]:<12} {lf:>6} {li:>4} {lo:>4}   '
+                  f'{cf:>6} {len(c.get("entered", [])):>4} {len(c.get("exited", [])):>4}'
+                  + ('   (no new list — carried forward)' if carried else ''))
         print('-' * 56)
         cur = [s for s in stocks.values() if (s.get('calc') or {}).get('current')]
         print(f'{len(stocks)} stocks have appeared in Stage 2; {len(cur)} are in it on the computed track today.')
