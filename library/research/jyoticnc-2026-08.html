@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jyoti CNC Automation — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: Jyoti CNC Automation — Equity Research Report — August 2026 -->
+
+<!-- ═══════════════ MASTHEAD ═══════════════ -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: JYOTICNC &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026</p>
+    <h1 class="report-title"><span>Jyoti CNC</span> Automation</h1>
+    <p class="report-subtitle">India&rsquo;s largest listed CNC machine-tool maker &nbsp;·&nbsp; Rajkot, Gujarat &nbsp;·&nbsp; Huron Graffenstaden (France) subsidiary</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹1,040</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹23,651 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Revenue FY26</div><div class="kpi-value">₹2,093 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">PAT FY26 (cons.)</div><div class="kpi-value">₹336 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Order Book</div><div class="kpi-value">₹4,848 Cr</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — Execution Must Catch Up With the Multiple</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">Guidance delivered, Huron cleared</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">A second year of missed guidance</div></div>
+  </div>
+</header>
+
+<!-- ═══════════════ STICKY NAV ═══════════════ -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Business</a>
+    <a href="#s3">Order Book</a>
+    <a href="#s4">Huron</a>
+    <a href="#s5">Capacity</a>
+    <a href="#s6">Competition</a>
+    <a href="#s7">Financials</a>
+    <a href="#s8">Q1 FY27</a>
+    <a href="#s9">Guidance</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- ═══════ S1 ═══════ -->
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>Jyoti CNC Automation Limited</td></tr>
+    <tr><td class="bold">Lineage</td><td>Rajkot, Gujarat. Listed January 2024. Grew from a domestic machine-tool builder into a group with a European high-end footprint via the acquisition of <b>Huron Graffenstaden</b> (France).</td></tr>
+    <tr><td class="bold">What it makes</td><td>CNC machine tools — vertical and horizontal machining centres, turning centres, multi-tasking and 5-axis machines. Sold into aerospace &amp; defence, automotive, EMS, general engineering, dies &amp; moulds, and increasingly railways, heavy engineering and power.</td></tr>
+    <tr><td class="bold">Why it appears here</td><td>Capital-goods import-substitution play with a visible order book, riding the same defence, railways and power capex wave as much of the rest of this watchlist. RS 97 and passing the trend template on the 27 Aug scan.</td></tr>
+    <tr><td class="bold">Position in your book</td><td>251 shares · avg cost ₹1,042.52 · LTP ₹1,039.40 — essentially flat at cost.</td></tr>
+  </tbody></table></div>
+  <p class="tbl-note">Position data from the holdings screenshot of 27 Aug 2026. Price, market cap and moving averages from the SwingEdge scan of 27 Aug 2026.</p>
+</section>
+
+<!-- ═══════ S2 ═══════ -->
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">The Business: Machine Tools as a Capex Derivative</h2></div>
+  <p>A machine-tool maker is a <b>second-derivative capex play</b>. It does not benefit when its customers&rsquo; end-markets grow; it benefits when those customers decide to <em>add capacity</em>. That makes revenue more volatile than the underlying industrial cycle, and it makes the order book — not the quarterly P&amp;L — the number that carries the information.</p>
+  <h3 class="subsection-title">Where the demand is coming from</h3>
+  <p>Management has pointed consistently at three structural pools: <b>aerospace and defence</b>, where indigenisation mandates force domestic machining capacity; <b>railways and heavy engineering</b>, riding public capex; and <b>power</b>, where the transmission and generation build-out needs precision components. The FY27 order-intake guidance of ₹2,500–3,000 crore is framed explicitly against this demand.</p>
+  <h3 class="subsection-title">The two-tier product strategy</h3>
+  <p>The domestic Jyoti-branded business sells volume machines into Indian general engineering. Huron sells low-volume, high-value 5-axis machines into European aerospace and dies-and-moulds. The logic is to use Huron technology to move the Indian range up the value curve while using Indian manufacturing cost to make Huron competitive. <b>The thesis is sound in principle and has so far been more expensive than advertised</b> — see Section 04.</p>
+</section>
+
+<!-- ═══════ S3 ═══════ -->
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">The Order Book — The Number That Matters</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Date</th><th class="right">Order Book</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>31 March 2026</td><td class="right bold">₹4,732 Cr</td><td>FY26 close</td></tr>
+      <tr><td>Q1 FY27 earnings call (Aug 2026)</td><td class="right bold">₹4,848 Cr</td><td>+₹116 Cr over the quarter</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Management has also referred publicly to the book crossing ₹5,000 crore; ₹4,848 Cr is the figure stated on the Q1 FY27 call and is the one used throughout this report.</p>
+  <p>Against FY26 consolidated revenue of ₹2,093 crore, a ₹4,848 crore book is roughly <b>2.3× annual revenue</b>. That is genuine multi-year visibility, and it is the strongest single fact in the bull case.</p>
+  <p>The caution: <b>an order book is a ceiling on revenue, not a floor.</b> It converts only as fast as capacity, supply chain and customer readiness allow. Jyoti&rsquo;s problem for two years has not been winning orders — it has been converting them. FY26 revenue growth of 15% against a book worth 2.3 years of sales is the entire argument in one line.</p>
+</section>
+
+<!-- ═══════ S4 ═══════ -->
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">Huron: The Overhang You Are Underwriting</h2></div>
+  <p>An investigation by export-control authorities into certain export orders at the Huron subsidiary has caused a <b>revenue deferment of ₹67 crore</b>. This is why consolidated and standalone results have diverged so sharply, and why the headline consolidated numbers look weak while the Indian business looks strong.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>FY26</th><th class="right">Consolidated</th><th class="right">Standalone (India)</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue</td><td class="right">₹2,093 Cr <span class="green">(+15%)</span></td><td class="right">₹1,949 Cr <span class="green">(+20%)</span></td></tr>
+      <tr><td>PAT</td><td class="right">₹336 Cr <span class="green">(+6.3%)</span></td><td class="right bold">₹391 Cr</td></tr>
+      <tr><td>PAT margin</td><td class="right muted">—</td><td class="right">20.1%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Consolidated PAT is <em>below</em> standalone PAT — the overseas arm is a net drag on group earnings, not an addition to them.</p>
+  <p>Three things follow, and an investor should hold all three at once:</p>
+  <ul>
+    <li><b>The Indian business is performing.</b> 20% revenue growth at a 20.1% PAT margin is a good year for a machine-tool builder.</li>
+    <li><b>The European business is currently value-destructive at the earnings line</b>, before considering whatever the export-control matter ultimately costs.</li>
+    <li><b>The outcome is genuinely unknown.</b> Export-control investigations can end in clean resolution, in penalties, or in restrictions on specific customers or geographies. Anyone assigning a number to that outcome today is guessing.</li>
+  </ul>
+  <p>This is the crux of the report. <b>At 73× earnings you are paying a premium multiple for a business with an unresolved regulatory investigation inside it.</b> That is not a reason to avoid the stock. It is a reason not to size it as though the risk were quantified.</p>
+</section>
+
+<!-- ═══════ S5 ═══════ -->
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Capacity: The Constraint Being Removed</h2></div>
+  <p>Jyoti&rsquo;s binding constraint has been factory capacity, not demand. Two commitments address it:</p>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:240px">Near-term capex</td><td>₹450 Cr, taking capacity toward <b>10,000 machines</b>, targeted for completion by end-September 2026.</td></tr>
+    <tr><td class="bold">MeitY-approved capex</td><td><b>₹1,020.65 Cr</b> approval secured — a materially larger, longer-dated expansion.</td></tr>
+  </tbody></table></div>
+  <p>The September capacity milestone is the near-term catalyst worth watching, because it is the gate on H2 FY27 revenue conversion. If the 10,000-machine capacity lands on schedule, the 25–30% growth guidance becomes arithmetically reachable. If it slips, guidance almost certainly slips with it.</p>
+</section>
+
+<!-- ═══════ S6 ═══════ -->
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Competitive Position</h2></div>
+  <p>Jyoti competes on two fronts at once. Domestically it is the largest listed Indian CNC builder, competing against imports from Japanese, Taiwanese, Korean and German makers and against unlisted domestic players. Its structural advantage is <b>cost plus service density</b> — a machine tool needs local application engineering, spares and uptime support, and an Indian builder with a domestic service network holds a real, durable edge over an importer in the mid-market.</p>
+  <p>In Europe, through Huron, it is a small player in a mature market and holds no comparable advantage.</p>
+  <p>The import-substitution tailwind is real and policy-supported. Its limit is that it applies mainly to the <b>mid-range</b> of the machine spectrum; the highest-precision, highest-value machines remain import-dominated — which is precisely why Huron was bought.</p>
+</section>
+
+<!-- ═══════ S7 ═══════ -->
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Financial Performance</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Metric</th><th class="right">FY26 (cons.)</th><th class="right">YoY</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue</td><td class="right bold">₹2,093 Cr</td><td class="right green">+15%</td></tr>
+      <tr><td>PAT</td><td class="right bold">₹336 Cr</td><td class="right green">+6.3%</td></tr>
+      <tr><td>Order book (31 Mar 26)</td><td class="right bold">₹4,732 Cr</td><td class="right muted">—</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The shape of these numbers is the problem.</b> Revenue +15%, PAT +6.3% — earnings growing at less than half the rate of sales, in a year when the order book was worth more than two years of revenue. Operating leverage is running backwards at the group level, and Huron is why.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Screener metrics (27 Aug 2026)</th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right bold">73.6×</td></tr>
+      <tr><td>Price / Book</td><td class="right">11.8×</td></tr>
+      <tr><td>Quarterly operating margin</td><td class="right">21.4%</td></tr>
+      <tr><td>Sales growth (YoY, latest quarter)</td><td class="right green">+24.0%</td></tr>
+      <tr><td>Net profit growth (YoY, latest quarter)</td><td class="right red">−20.0%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">The −20% net-profit line is the consolidated Q1 FY27 print, depressed by the Huron deferment. Standalone PAT for the same quarter was <span class="green">up 21%</span>.</p>
+</section>
+
+<!-- ═══════ S8 ═══════ -->
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">Q1 FY27 in Detail</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (quarter to June 2026)</th><th class="right">Value</th><th class="right">YoY</th></tr></thead>
+    <tbody>
+      <tr><td>Consolidated revenue</td><td class="right bold">₹508.5 Cr</td><td class="right muted">Huron deferral</td></tr>
+      <tr><td>Standalone adjusted EBITDA</td><td class="right bold">₹145 Cr</td><td class="right green">margin 28.4%, +190 bps</td></tr>
+      <tr><td>Standalone PAT</td><td class="right bold">₹87.5 Cr</td><td class="right green">+21% (vs ₹72.1 Cr)</td></tr>
+      <tr><td>Standalone PAT margin</td><td class="right">17.2%</td><td class="right muted">—</td></tr>
+    </tbody>
+  </table></div>
+  <p>Read the standalone column and this is an excellent quarter: 190 basis points of margin expansion and 21% profit growth. Read the consolidated column and it is a poor one. <b>Both are true.</b> The market is currently choosing to read the standalone column — a defensible choice while the Huron matter is treated as one-time, and an expensive one if it is not.</p>
+</section>
+
+<!-- ═══════ S9 ═══════ -->
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">FY27 Guidance</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:280px">Consolidated revenue growth</td><td><b>25% – 30%</b></td></tr>
+    <tr><td class="bold">EBITDA margin</td><td>~25%</td></tr>
+    <tr><td class="bold">Order intake</td><td>₹2,500 – 3,000 Cr</td></tr>
+    <tr><td class="bold">Capacity</td><td>10,000 machines by end-September 2026</td></tr>
+  </tbody></table></div>
+  <p>25–30% consolidated growth on FY26&rsquo;s ₹2,093 crore implies roughly <b>₹2,616–2,721 crore of FY27 revenue</b>. The order book comfortably covers it. Coverage has never been the question; conversion is.</p>
+  <p class="tbl-note">FY26 revenue growth of 15% was itself described in coverage as missing guidance. <b>This is a management team asking to be trusted on a second consecutive aggressive number.</b> The September capacity milestone and the Q2 FY27 print are the tests of whether that trust is earned.</p>
+</section>
+
+<!-- ═══════ S10 ═══════ -->
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right bold">73.6×</td><td>Rich in absolute terms; consistent with the Indian capital-goods cohort in this cycle</td></tr>
+      <tr><td>Price / Book</td><td class="right">11.8×</td><td>Demanding for an asset-heavy manufacturer</td></tr>
+      <tr><td>Market cap / order book</td><td class="right">4.9×</td><td>Not cheap against a book that converts over 2–3 years</td></tr>
+      <tr><td>Price vs 200-DMA (₹831)</td><td class="right green">+25%</td><td>Extended</td></tr>
+      <tr><td>Price vs all-time high (₹1,504)</td><td class="right red">−31%</td><td>The 2024 listing-era high has not been recovered</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>What the price is embedding.</b> At 73.6× trailing earnings on a consolidated base that is currently depressed, the market is implicitly assuming that (a) Huron is a one-time item that reverses, (b) FY27 guidance of 25–30% is delivered, and (c) the September capacity gate is cleared on time. All three can happen. <b>The multiple leaves no room for any of them to fail.</b></p>
+  <p>The 50-DMA at ₹840 and the 200-DMA at ₹831 sit unusually close together — they converged during the long consolidation after the 2024 high and have only recently begun to separate. The practical implication is that there is very little trend-following support between spot and ₹840: a failed breakout has roughly 19% of air underneath it.</p>
+</section>
+
+<!-- ═══════ S11 ═══════ -->
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">Capacity lands by September; FY27 revenue comes in at the top of the 25–30% band; the export-control matter resolves without material penalty and the ₹67 Cr reverses. Consolidated earnings growth reconnects with sales growth and the multiple is retrospectively justified. The all-time high at ₹1,504 becomes the reference point.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">Capacity slips a quarter, as capacity milestones usually do. FY27 growth lands in the high teens to low twenties — good, but below guidance. Huron drags for another two to three quarters and then normalises. The stock consolidates in a range while earnings grow into the multiple.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">A second consecutive year of missed guidance, with the export-control matter producing a penalty or a restriction on specific customers or geographies. At 73.6× trailing and 11.8× book, a de-rating does not need a collapse in the business to be severe. The 200-DMA at ₹831 is the first structural reference, ~20% below spot.</div></div>
+  <p class="tbl-note">No probability weights are assigned. The Huron outcome is a regulatory process with a genuinely unknown distribution, and attaching percentages to it would give this analysis a false precision.</p>
+</section>
+
+<!-- ═══════ S12 ═══════ -->
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Export-control investigation at Huron</div><div class="risk-body">Unresolved, unquantified, and inside a subsidiary already dilutive to group earnings. The single largest identifiable risk in the story.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Guidance credibility</div><div class="risk-body">FY26 growth of 15% is described as having missed guidance. FY27&rsquo;s 25–30% is a larger ask. A second miss would damage the multiple more than the earnings.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Capacity execution</div><div class="risk-body">The 10,000-machine milestone by end-September is the gate on H2 revenue. Manufacturing capacity milestones slip more often than they land early.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Second-derivative cyclicality</div><div class="risk-body">Machine-tool demand turns down before the industrial cycle does, because customers cancel capacity plans before they cut output. Order intake is the early-warning indicator, not revenue.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Valuation risk</div><div class="risk-body">73.6× trailing earnings and 11.8× book price in successful execution. The de-rating risk is independent of, and larger than, the operational risk.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Capital intensity</div><div class="risk-body">₹450 Cr near-term and over ₹1,000 Cr approved. Heavy, continuous capex against an order book that has been converting slowly compresses free cash flow.</div></div>
+</section>
+
+<!-- ═══════ S13 ═══════ -->
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: HOLD — EXECUTION MUST CATCH UP WITH THE MULTIPLE</div>
+    <p>Jyoti CNC is a real business with a real order book in a genuinely favourable policy environment. It is also a company where, for two consecutive years, <b>orders have grown faster than the ability to convert them</b>, and where an unresolved export-control investigation sits inside a subsidiary that is currently reducing group earnings rather than adding to them.</p>
+    <p>The Indian standalone business — 20% revenue growth, 20.1% PAT margin, 190 bps of Q1 margin expansion — performs well enough to justify optimism. The consolidated entity, which is what you actually own, is growing earnings at 6.3%. At 73.6× trailing earnings, the price underwrites the standalone column and treats the consolidated one as noise.</p>
+    <p><b>What would change this view:</b> the September capacity milestone landing on time, a clean resolution of the Huron matter, and a Q2 FY27 consolidated print in which earnings growth reconnects with sales growth. Any two of those three would make the multiple defensible.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span>End-September 2026 — the 10,000-machine capacity milestone</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Q2 FY27 results — consolidated PAT growth against revenue growth; does operating leverage turn positive</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Any disclosure on the Huron export-control investigation</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Quarterly order intake against the ₹2,500–3,000 Cr annual guidance</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Deployment pace of the ₹1,020.65 Cr MeitY-approved capex</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Technical: ₹840 (50-DMA) and ₹831 (200-DMA) — the first real supports, ~20% below spot</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>JYOTI CNC AUTOMATION LIMITED (NSE: JYOTICNC) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results &amp; Earnings Call (7 Aug 2026) &middot; FY26 Audited Results &amp; Q4 FY26 Earnings Call &middot; Company disclosures on the Huron export-control matter and MeitY capex approval &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>
