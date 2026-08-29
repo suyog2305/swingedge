@@ -15,6 +15,13 @@ Runs on data already in the repo — no LLM, no API key, no cost:
 Writes data/daily/shortlist.json (latest, what the app reads) and a dated copy under
 data/daily/shortlist/<date>.json. Prints a readable table unless --quiet.
 
+PINNED WATCHLIST — data/daily/watchlist.json, if present, lists names to surface every day
+even when they do not earn a top-N slot. They are scored exactly like everything else and
+get NO bonus: the ranking stays honest, they simply always appear, carrying their real
+score and their true rank out of all scored names. They also bypass the --min-mcap and
+--min-score floors, so a pinned name never silently vanishes. Emitted as doc.watchlist,
+and any pinned name that DOES earn a top-N slot is tagged `pinned` in doc.rows.
+
 SCORING — every point is explainable; each contributing factor becomes a `reason` string:
   new 52-week high / near high        +3 / +2
   Stage 2 (fresh entry or re-entry)   +3, else on the list +2, early in the move (<=8 wks) +1
@@ -84,6 +91,19 @@ def main():
     if not U: raise SystemExit(f'{os.path.basename(path)} has no universe rows')
     S2 = scan.get('stage2', []) or []
     scan_date = scan.get('date') or os.path.basename(path)[:-5]
+
+    # ---- pinned watchlist (optional) -----------------------------------------
+    watch, watch_note = set(), {}
+    wpath = os.path.join(ROOT, 'data', 'daily', 'watchlist.json')
+    if os.path.exists(wpath):
+        try:
+            for n in (jload(wpath).get('names') or []):
+                c = str(n.get('code', '')).upper()
+                if c:
+                    watch.add(c)
+                    if n.get('note'): watch_note[c] = n['note']
+        except Exception:
+            pass                              # a malformed watchlist must never break the build
 
     # previous scan, for "new to the scan" and DMA-slope
     prev = None
@@ -175,9 +195,10 @@ def main():
     # ---- score ----------------------------------------------------------------
     rows = []
     for r in U:
-        mcap = num(r.get('mcap'))
-        if a.min_mcap and (mcap is None or mcap < a.min_mcap): continue
         code = str(r['code']).upper()
+        mcap = num(r.get('mcap'))
+        pinned = code in watch                 # pinned names bypass both floors
+        if not pinned and a.min_mcap and (mcap is None or mcap < a.min_mcap): continue
         rs = r.get('_rs')
         f52, r1d, r1w = num(r.get('from_52wh')), num(r.get('r1d')), num(r.get('r1w'))
         s2 = s2map.get(code)
@@ -215,7 +236,7 @@ def main():
         if nw: score += 2; reasons.append('news trigger on file')
         if srs is not None and srs >= 60: score += 1; reasons.append(f'{g} is a leading sector')
 
-        if score < a.min_score: continue
+        if score < a.min_score and not pinned: continue
         item = OrderedDict(code=code, name=r.get('name'), sector=g, industry=r.get('industry'),
                            band=band_of(mcap), mcap=round(mcap) if mcap is not None else None,
                            price=num(r.get('price')), score=round(score, 1), rs=rs, sector_rs=round(srs) if srs is not None else None,
@@ -231,15 +252,23 @@ def main():
                                        sales_yoy=num(pd.get('sales_yoy')))
         if nw: item['news'] = nw
         item['reasons'] = reasons
+        if pinned:
+            item['pinned'] = True
+            if code in watch_note: item['pin_note'] = watch_note[code]
         rows.append(item)
 
     rows.sort(key=lambda x: (-x['score'], -(x['rs'] or 0), -(x['r1d'] or 0)))
+    for i, r in enumerate(rows, 1):
+        r['rank'] = i                          # true rank among all scored names
     top = rows[:a.top]
+    in_top = {r['code'] for r in top}
+    # pinned names that did NOT earn a slot - surfaced separately, never mixed into the ranking
+    watched = [r for r in rows if r.get('pinned') and r['code'] not in in_top]
 
     doc = OrderedDict(schema=SCHEMA, date=dt.date.today().isoformat(), scan_date=scan_date,
                       quarter=quarter, universe=len(U), considered=len(rows), count=len(top),
                       params=OrderedDict(top=a.top, min_mcap=a.min_mcap, min_score=a.min_score),
-                      rows=top)
+                      rows=top, watchlist=watched)
 
     outdir = os.path.join(ROOT, 'data', 'daily')
     os.makedirs(os.path.join(outdir, 'shortlist'), exist_ok=True)
@@ -248,6 +277,13 @@ def main():
     for p in (latest, dated):
         with io.open(p, 'w', encoding='utf-8') as fh:
             json.dump(doc, fh, ensure_ascii=False, separators=(',', ':'))
+
+    if not a.quiet and watched:
+        print()
+        print(f'Pinned watchlist ({len(watched)}) - surfaced every day, no score bonus:')
+        for r in watched:
+            print(f"  {r['code']:<12} score {r['score']:>5}   rank #{r['rank']} of {len(rows)}   RS {r.get('rs') or '-'}")
+            print(f"     {' | '.join(r.get('reasons') or []) or 'no qualifying factors today'}")
 
     if not a.quiet:
         print(f'Shortlist for scan {scan_date}  ({len(U)} stocks scanned, {len(rows)} scored >= {a.min_score}, top {len(top)} shown)')

@@ -8955,7 +8955,9 @@ function slClearPicks(){ SL.picks.clear(); slSavePicks(); renderSL(); }
 
 function slBrief(){
   if(!SL.doc) return '';
-  const rows = (SL.doc.rows || []).filter(r => SL.picks.has(r.code));
+  // picks can come from the ranked table OR the pinned watchlist
+  const pool = (SL.doc.rows || []).concat(SL.doc.watchlist || []);
+  const rows = pool.filter(r => SL.picks.has(r.code));
   if(!rows.length) return '';
   const lines = [`Generate a SwingEdge research report for each of these ${rows.length} names (scan ${SL.doc.scan_date}).`,
     `Follow the house template and rules in scratchpad/REPORT_SPEC.md; verify every number against primary sources; never invent a figure.`, ''];
@@ -8978,6 +8980,35 @@ function slCopyBrief(){
 function slScoreCell(r){
   const pct = Math.max(6, Math.min(100, (r.score / 18) * 100));
   return `<span class="sl-score"><span class="sl-score-bar"><i style="width:${pct.toFixed(0)}%"></i></span><b>${r.score}</b></span>`;
+}
+
+// Pinned watchlist — names from data/daily/watchlist.json that are surfaced every day even
+// when they do not earn a top-N slot. They are scored identically to everything else and get
+// no bonus, so the ranking above stays honest; this panel just makes sure they never vanish.
+function slWatchPanel(d, cols){
+  const w = d.watchlist || [];
+  if(!w.length) return '';
+  const wcols = cols.filter(c => c.k !== '_i').concat([
+    {k:'rank', t:'True rank', type:'html', sortType:'num', fn: r => r.rank,
+     html: r => r.rank ? `<span class="num">#${r.rank}</span><span class="flat"> / ${wrNum(d.considered)}</span>` : '<span class="flat">—</span>'}
+  ]);
+  const notes = w.filter(r => r.pin_note).map(r =>
+    `<div class="monitor-item" style="align-items:flex-start;"><span class="monitor-dot" style="margin-top:7px;"></span>
+       <span><b>${wrEsc(r.code)}</b> — ${wrEsc(r.pin_note)}</span></div>`).join('');
+  return `
+    <div class="se-panel" style="margin-top:18px;">
+      <div class="se-row-h">
+        <div><div class="se-eyebrow">Pinned watchlist</div><h2>Names you are tracking regardless of rank</h2></div>
+        <span class="wr-hint">scored the same as everything else — no bonus, real score, true rank</span>
+      </div>
+      <p class="wr-lead" style="margin:0 0 12px;">These ${w.length === 1 ? 'is a name' : 'are names'} you pinned in
+        <code>data/daily/watchlist.json</code>. ${w.length === 1 ? 'It did' : 'They did'} not score into the top
+        ${wrNum((d.rows || []).length)} today, so ${w.length === 1 ? 'it appears' : 'they appear'} here instead —
+        with the same columns, the same score, and the rank ${w.length === 1 ? 'it' : 'they'} actually placed at.
+        Tick to include in the brief.</p>
+      ${wrTable('sl-watch', wcols, w, {sort:{col:'score', dir:'desc'}, empty:'Nothing pinned.'})}
+      ${notes ? `<div style="margin-top:12px;">${notes}</div>` : ''}
+    </div>`;
 }
 
 function renderSL(){
@@ -9035,6 +9066,7 @@ function renderSL(){
         <span class="wr-hint" style="margin:0;">Picks are remembered in this browser for scan ${wrDate(d.scan_date)}.</span>
       </div>
       ${wrTable('sl-all', cols, rows, {sort:{col:'score', dir:'desc'}, tall:true, empty:'Nothing scored above the threshold.'})}
+      ${slWatchPanel(d, cols)}
       <div class="wr-foot" style="border:none;padding:14px 0 0;">Scoring is transparent and deterministic — new high +3, fresh Stage 2 entry +3, trend template +2, Strong PEAD +3, big day +2, RS 90+ +2, news trigger +2, leading sector +1 (see tools/build_shortlist.py). Rebuild after each scan with <code>python tools/build_shortlist.py</code>. Not investment advice.</div>
     </div>`;
   const badge = document.getElementById('sl-badge');

@@ -1,0 +1,17 @@
+{
+  "schema": "swingedge-watchlist/1",
+  "updated": "2026-08-30",
+  "_comment": "Names pinned to the daily shortlist. They are scored exactly like every other stock and are NOT given a bonus - they simply always surface, with their real score and true rank, even when they do not earn a top-20 slot. Remove a name by deleting its entry. Read by tools/build_shortlist.py, which emits them as doc.watchlist.",
+  "names": [
+    {
+      "code": "GIPCL",
+      "added": "2026-08-30",
+      "note": "Ranked 1st of 8 in the chemicals-cluster comparative note. Cheapest name there at 6.3x earnings and 0.83x book, with a 48.4% operating margin that is structural (Khavda solar, near-zero marginal cost) rather than cyclical. Watching the Rs 7,000 Cr lignite decision and the Q3 FY27 500 MW commissioning."
+    },
+    {
+      "code": "BHAGERIA",
+      "added": "2026-08-30",
+      "note": "Ranked 2nd of 8. Seven consecutive quarters of sequential revenue growth, margin +255bps - and it pre-dates the H-acid squeeze, so the thesis is optionality rather than the whole case. Watching Q2 FY27 (around November) for the eighth quarter with H-acid realisations in the numbers."
+    }
+  ]
+}

@@ -192,3 +192,19 @@ computed daily track and the provider's weekly list.
 
 A stock that leaves and comes back later shows as a second **spell** rather than overwriting the first,
 so "how many times has this name been in Stage 2, and for how long each time" is answerable years later.
+
+### Pinning a name to the daily shortlist
+
+`data/daily/watchlist.json` lists names to surface **every day**, even when they do not score into the
+top 20. They are scored exactly like every other stock and get **no bonus** — the ranking stays honest;
+they simply always appear, carrying their real score and their true rank out of all scored names. Pinned
+names also bypass the `--min-mcap` and `--min-score` floors, so one can never silently vanish.
+
+```json
+{ "schema": "swingedge-watchlist/1",
+  "names": [ { "code": "GIPCL", "added": "2026-08-30", "note": "why you are watching it" } ] }
+```
+
+They are emitted as `doc.watchlist` in `shortlist.json` and render in **Edge → Shortlist** in a separate
+*Pinned watchlist* panel below the ranked table, with a **True rank** column and your note. Ticking one
+adds it to the *Copy brief* output exactly like a ranked name. Remove a name by deleting its entry.
