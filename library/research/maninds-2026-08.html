@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Man Industries (India) — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: Man Industries (India) — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: MANINDS &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026 &nbsp;|&nbsp; Updates the June 2026 edition</p>
+    <h1 class="report-title"><span>Man</span> Industries (India)</h1>
+    <p class="report-subtitle">Large-diameter LSAW and HSAW line pipes &nbsp;·&nbsp; MAN Group, Mumbai &nbsp;·&nbsp; Now with a wholly owned Saudi manufacturer</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹757.20</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹5,680 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 Income</div><div class="kpi-value">₹1,065 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 PAT</div><div class="kpi-value">₹61 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Order Book</div><div class="kpi-value">₹3,600 Cr</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Accumulate on Dips — Saudi Is Not Yet in the Numbers</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">Full-quarter Saudi plus a ₹24,000 Cr bid book</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">Lumpy project orders, 5.8% net margin</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">What Changed</a>
+    <a href="#s3">Q1 FY27</a>
+    <a href="#s4">The 40 Days</a>
+    <a href="#s5">Order Book</a>
+    <a href="#s6">The Bid Book</a>
+    <a href="#s7">Financials</a>
+    <a href="#s8">New Verticals</a>
+    <a href="#s9">Guidance</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>Man Industries (India) Limited — flagship of the MAN Group (est. 1988, Mumbai)</td></tr>
+    <tr><td class="bold">What it makes</td><td>Large-diameter carbon-steel line pipes — <b>LSAW</b> (longitudinal) and <b>HSAW</b> (helical/spiral) — plus coatings, linings, ERW pipes and hot-induction bends. High-pressure transmission pipelines for oil, gas, petrochemicals, water and city gas distribution.</td></tr>
+    <tr><td class="bold">Capacity</td><td>~1.2 million tonnes across three Indian plants, plus National Pipe Company in Saudi Arabia</td></tr>
+    <tr><td class="bold">Customers</td><td>GAIL, ONGC, Shell, Kinder Morgan</td></tr>
+    <tr><td class="bold">Credit rating</td><td>CRISIL A/Stable (upgraded)</td></tr>
+    <tr><td class="bold">Why it appears here</td><td>RS 97 — joint-highest on your watchlist — passes the trend template, 3.3% from its 52-week high, up 45% in a month. It also scores 12 on the current SwingEdge shortlist, tied for the top.</td></tr>
+  </tbody></table></div>
+  <p class="tbl-note">This report updates the June 2026 edition in your library with Q1 FY27 results, the completed Saudi acquisition and current market data.</p>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">What Changed Since the Last Report</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Item</th><th class="right">June 2026 report</th><th class="right">Now (Aug 2026)</th></tr></thead>
+    <tbody>
+      <tr><td>Saudi acquisition</td><td class="right muted">announced</td><td class="right bold green">100% closed, 21 May 2026</td></tr>
+      <tr><td>Order book</td><td class="right">~₹3,000 Cr</td><td class="right bold green">₹3,600 Cr</td></tr>
+      <tr><td>Bid book / pipeline</td><td class="right">₹15,000–16,000 Cr</td><td class="right bold green">₹24,000 Cr</td></tr>
+      <tr><td>Quarterly EBITDA margin</td><td class="right">14.0% (FY26 standalone)</td><td class="right bold green">14.6% (Q1 FY27 cons.)</td></tr>
+      <tr><td>Share price</td><td class="right muted">—</td><td class="right bold">₹757.20, +45% in a month</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The bid book has grown by roughly half in two months</b>, from ₹15,000–16,000 crore to ₹24,000 crore. That is the most consequential change and it is not visible in any reported financial line yet.</p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Q1 FY27</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (quarter to June 2026, consolidated)</th><th class="right">Q1 FY27</th><th class="right">Q1 FY26</th><th class="right">Change</th></tr></thead>
+    <tbody>
+      <tr><td>Total income</td><td class="right bold">₹1,065 Cr</td><td class="right">₹774 Cr</td><td class="right green">+37.6%</td></tr>
+      <tr><td>EBITDA</td><td class="right bold">₹155 Cr</td><td class="right">~₹81 Cr</td><td class="right bold green">+91.3%</td></tr>
+      <tr><td>EBITDA margin</td><td class="right bold">14.6%</td><td class="right">10.4%</td><td class="right green">+420 bps</td></tr>
+      <tr><td>PAT</td><td class="right bold">₹61 Cr</td><td class="right">₹28 Cr</td><td class="right green">+118%</td></tr>
+      <tr><td>PAT margin</td><td class="right">5.8%</td><td class="right">~3.6%</td><td class="right green">+220 bps</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">The Q1 FY26 EBITDA figure is derived from the reported 91.3% growth and the 10.4% prior-year margin. Screener records net profit growth of +122.4% and sales growth of +41.9% for the latest quarter, consistent with these figures.</p>
+  <p>EBITDA nearly doubled on 37.6% revenue growth — <b>the margin did the heavy lifting, expanding 420 basis points</b>. For a line-pipe maker, that combination usually reflects a better order mix (higher-value coated and large-diameter pipe) rather than volume alone.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">The 40 Days — The Most Important Detail in the Quarter</h2></div>
+  <p>The 100% acquisition of <b>National Pipe Company</b> in Saudi Arabia closed on <b>21 May 2026</b>. The June quarter therefore captured only about <b>40 days</b> of Saudi contribution, and management has been explicit that the fuller earnings impact begins in Q2 FY27.</p>
+  <p><b>Read what that implies.</b> A quarter that grew income 37.6% and nearly doubled EBITDA did so while consolidating the new business for less than half the period. Q2 FY27 will be the first quarter with a full three months of Saudi contribution, and the arithmetic of that step-up is mechanical rather than speculative.</p>
+  <p>Two cautions belong alongside it:</p>
+  <ul>
+    <li><b>Acquired revenue is not organic growth.</b> Part of the Q2 increase will be consolidation, exactly as it was at RateGain with Sojern. The like-for-like Indian business is the number to isolate.</li>
+    <li><b>Integration risk is real</b> — a first overseas acquisition, in a different regulatory and labour environment, run by a management team whose experience is domestic.</li>
+  </ul>
+  <p>That said, the strategic logic is strong. Saudi Arabia is one of the largest pipeline markets in the world, and local manufacturing presence is frequently a precondition for winning Aramco and regional utility work. <b>This is buying access, not just capacity.</b></p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Order Book</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:300px">Consolidated order book</td><td><b>₹3,600 Cr</b> (India and Saudi Arabia)</td></tr>
+    <tr><td class="bold">Execution horizon</td><td>Majority expected within <b>6–12 months</b></td></tr>
+    <tr><td class="bold">Coverage of FY27 guidance</td><td>~0.65–0.72× the ₹5,000–5,500 Cr guided revenue</td></tr>
+  </tbody></table></div>
+  <p><b>Note the short execution horizon.</b> Unlike HFCL, whose ₹26,665 crore book converts over years, Man Industries&rsquo; book is designed to turn over within twelve months. That is characteristic of project pipe supply — orders are won, manufactured and delivered on relatively tight cycles.</p>
+  <p>The practical consequence: <b>the order book is a working figure, not a multi-year cushion.</b> It has to be continuously replenished, which makes the bid pipeline in Section 06 more important than the book itself.</p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">The ₹24,000 Crore Bid Book</h2></div>
+  <p>The combined bid pipeline stands at <b>₹24,000 crore</b> — up from ₹15,000–16,000 crore reported two months ago, and more than four times the guided FY27 revenue.</p>
+  <p><b>A bid book is not an order book, and the distinction matters more here than anywhere else in this batch.</b> It measures tenders the company has bid for or is pursuing. Conversion rates in project pipe supply are typically a modest fraction, and both timing and win rate are outside the company&rsquo;s control.</p>
+  <p>What it does tell you is <b>the size of the addressable opportunity in front of the company right now</b>, and that this opportunity grew by roughly ₹8,000 crore in two months. For a business with ₹5,680 crore of market capitalisation, a pipeline of that scale is the reason the stock has risen 45% in a month.</p>
+  <p class="tbl-note">This report does not estimate a conversion rate. Watch quarterly order inflow against the bid book — that ratio, observed over two or three quarters, is the only reliable way to size what the pipeline is worth.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Financial Position</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>FY26 (from the prior report)</th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>Consolidated revenue</td><td class="right">₹3,564 Cr <span class="muted">(+1.7%)</span></td></tr>
+      <tr><td>PAT</td><td class="right">₹170 Cr <span class="green">(+11.3%)</span></td></tr>
+      <tr><td>Standalone EBITDA margin</td><td class="right">14.0% <span class="green">(all-time high, +360 bps)</span></td></tr>
+      <tr><td>Net cash</td><td class="right bold green">₹158 Cr</td></tr>
+      <tr><td>Cash</td><td class="right">₹657 Cr</td></tr>
+      <tr><td>Free cash flow</td><td class="right">₹132 Cr</td></tr>
+      <tr><td>3-year ROE</td><td class="right red">~9%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Two facts here deserve equal weight, and they point in opposite directions.</b></p>
+  <p><b>The balance sheet is genuinely strong.</b> Net cash of ₹158 crore and positive free cash flow put Man Industries in a different class from most of this batch — it funded a foreign acquisition without becoming financially stretched. Compare Happy Forgings spending ₹460 crore against ₹302 crore of profit, or TD Power at 21.8× book.</p>
+  <p><b>The historical return on equity is poor.</b> A three-year ROE of about 9% is below the cost of equity for an Indian industrial. That is the honest reason this company has traded at a modest multiple for years, and it is what the current margin expansion has to change to justify a re-rating.</p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">The New Verticals — Treat With Care</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:280px">Jammu stainless steel</td><td>Greenfield project</td></tr>
+    <tr><td class="bold">Merino Shelters</td><td>Real estate</td></tr>
+  </tbody></table></div>
+  <p>Both were flagged in the June report and neither is yet material to earnings.</p>
+  <p><b>A pipe manufacturer diversifying into real estate warrants scepticism as a default position.</b> There is no operational overlap, no shared customer base and no manufacturing synergy — real estate competes for capital and management attention against a core business that is currently doing well. It may be a sensible use of surplus land or cash; the point is that the burden of proof sits with the company.</p>
+  <p>Stainless steel is a closer adjacency — similar metallurgy, similar industrial customers — and is easier to justify on strategic grounds.</p>
+  <p><b>Neither should feature in the investment case at this stage.</b> The reason to be interested in Man Industries is line pipe, Saudi Arabia and a ₹24,000 crore bid book. If the new verticals begin absorbing meaningful capital before the core opportunity is captured, that is a signal worth acting on.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">FY27 Guidance</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:300px">Consolidated revenue</td><td><b>₹5,000 – 5,500 Cr</b></td></tr>
+    <tr><td class="bold">India contribution</td><td>~₹4,000 Cr</td></tr>
+    <tr><td class="bold">Saudi Arabia contribution</td><td>~₹1,000 – 1,500 Cr (implied)</td></tr>
+  </tbody></table></div>
+  <p>Against FY26 revenue of ₹3,564 crore, the midpoint of ₹5,250 crore implies roughly <b>47% growth</b>. Q1 delivered 37.6%, so the guidance requires acceleration through the year — which is exactly what a full Saudi quarter from Q2 provides.</p>
+  <p><b>The guidance is internally consistent</b>, which is more than can be said for several names in your book. India at ~₹4,000 crore against FY26&rsquo;s ₹3,564 crore is 12% organic growth; the rest is the acquisition. That is a modest and credible organic assumption rather than a stretch.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">MANINDS</th><th>Context in this batch</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right bold green">27.8×</td><td><b>The cheapest of the five watchlist names by a wide margin</b></td></tr>
+      <tr><td>Price / Book</td><td class="right bold green">2.74×</td><td>Against 29.2× (SIGMAADV), 26.2× (MTARTECH), 20.4× (QPOWER), 15.5× (STLTECH)</td></tr>
+      <tr><td>Market cap / FY27 guided revenue</td><td class="right bold green">1.08×</td><td>Just over one year of guided sales</td></tr>
+      <tr><td>Market cap / order book</td><td class="right">1.58×</td><td>Second-best coverage after HFCL&rsquo;s 1.44×</td></tr>
+      <tr><td>Price vs 50-DMA (₹592)</td><td class="right red">+28%</td><td>Extended</td></tr>
+      <tr><td>Price vs 200-DMA (₹498)</td><td class="right red">+52%</td><td>Very extended</td></tr>
+      <tr><td>1-month return</td><td class="right red">+45.0%</td><td>The move has been fast</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>On fundamentals this is the most reasonably valued name in the whole exercise.</b> 27.8× earnings and 2.74× book for a business with net cash, expanding margins, a closed foreign acquisition not yet in the numbers and a ₹24,000 crore bid pipeline is a genuinely different proposition from paying 88.7× and 29.2× book for Sigma or 157.9× for MTAR.</p>
+  <p><b>On the chart it is the opposite.</b> Up 45% in a single month and 52% above its 200-DMA, this has moved a long way very fast. The 50-DMA at ₹592 is 22% below spot. A stock that rises 45% in a month has priced in a good deal of the Saudi step-up before it has been reported.</p>
+  <p>The reconciliation: <b>the valuation is defensible and the entry timing is not obviously so.</b> Those are separate questions, and this report answers only the first.</p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">Q2 FY27 delivers the first full Saudi quarter and the step-up is visible. The ₹24,000 Cr bid book converts at a normal rate, replenishing the order book faster than it depletes. Margins hold near 14.6% and FY27 lands at the top of the ₹5,000–5,500 Cr guidance. ROE finally rises from ~9% toward a level that justifies re-rating — and at 27.8× earnings and 2.74× book, the re-rating room is real.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">Saudi consolidates as expected and FY27 lands within guidance. Margin holds in the low-to-mid teens. The bid book converts at an unremarkable rate and the order book stays around ₹3,500–4,000 Cr. The business is genuinely better than it was, and the stock consolidates the 45% one-month move while earnings catch up.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">Project awards slip, as pipeline tenders routinely do, and the short-cycle order book depletes faster than it refills. Saudi integration proves harder or lower-margin than modelled. A 5.8% net margin gives little absorption for a bad quarter. With the stock 52% above its 200-DMA after a 45% month, a disappointment would retrace quickly — ₹592 (50-DMA) is 22% below.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Short-cycle order book</div><div class="risk-body">₹3,600 Cr executing mostly within 6–12 months. There is no multi-year cushion; the book must be continuously replenished from a bid pipeline whose conversion is outside the company&rsquo;s control.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Thin net margin</div><div class="risk-body">5.8% PAT margin. Project pipe supply carries steel-price, execution and penalty exposure, and a thin margin absorbs little before turning negative.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">First overseas acquisition</div><div class="risk-body">National Pipe Company is a 100% foreign acquisition by a management team with domestic experience. Only ~40 days are in the reported numbers, so integration performance is essentially unobserved.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Historically weak returns</div><div class="risk-body">Three-year ROE of ~9%, below the cost of equity. The bull case requires this to change, and one quarter of margin expansion does not establish that it has.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Unrelated diversification</div><div class="risk-body">Real estate (Merino Shelters) has no operational overlap with pipe manufacturing and competes for capital and attention with a core business that is currently performing.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Customer and project concentration</div><div class="risk-body">A small number of large buyers — GAIL, ONGC, Shell, Kinder Morgan, Saudi utilities — each capable of moving revenue materially through a single award or deferral.</div></div>
+  <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Fast recent move</div><div class="risk-body">+45% in one month, +52% above the 200-DMA. Much of the anticipated Saudi step-up may already be in the price before it appears in a reported quarter.</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: ACCUMULATE ON DIPS — SAUDI IS NOT YET IN THE NUMBERS</div>
+    <p>Man Industries is the most reasonably valued name across everything reviewed in this exercise: <b>27.8× earnings and 2.74× book, with net cash of ₹158 crore</b>, against a watchlist cohort trading at 83× to 158× earnings and up to 29× book. It grew Q1 income 37.6%, nearly doubled EBITDA, and expanded margin 420 basis points.</p>
+    <p>The most important fact is what is <em>not</em> in those numbers. <b>The Saudi acquisition closed on 21 May and contributed roughly 40 days</b> — Q2 FY27 is the first full quarter, and that step-up is mechanical. Alongside it, the bid pipeline has grown from ₹15,000–16,000 crore to <b>₹24,000 crore in two months</b>, more than four times guided FY27 revenue.</p>
+    <p>Two things keep this at Accumulate on Dips rather than anything stronger. <b>The stock has risen 45% in a month</b> and sits 52% above its 200-DMA, so a good deal of the Saudi anticipation is already priced. And the <b>three-year ROE of ~9%</b> is the reason this company has been cheap for years — the margin expansion has to prove durable before the low multiple becomes a re-rating rather than a fair reflection of returns.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Q2 FY27</b> — the first full quarter of Saudi consolidation, and the India business disclosed separately from it</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Quarterly order inflow against the ₹24,000 Cr bid book — the conversion rate is the number that sizes the pipeline</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Order book holding above ₹3,600 Cr — a short-cycle book that shrinks is an early warning</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>EBITDA margin sustaining 14.6% with Saudi fully consolidated</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Return on equity moving above the historical ~9% — the metric that governs any re-rating</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Capital committed to Jammu stainless steel and Merino Shelters versus the core business</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Technical: ₹592 (50-DMA, −22%) and ₹498 (200-DMA, −34%)</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>MAN INDUSTRIES (INDIA) LIMITED (NSE: MANINDS) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results (11 Aug 2026) and Earnings Call (12 Aug 2026) &middot; Company disclosures on the National Pipe Company acquisition (closed 21 May 2026), order book and bid pipeline &middot; Prior in-house research report, June 2026, for FY26 figures &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

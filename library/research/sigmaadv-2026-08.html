@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sigma Advanced Systems — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: Sigma Advanced Systems — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: SIGMAADV &nbsp;|&nbsp; formerly MEGASOFT &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026</p>
+    <h1 class="report-title"><span>Sigma</span> Advanced Systems</h1>
+    <p class="report-subtitle">Tier-1 integrated aerospace &amp; defence &nbsp;·&nbsp; Hyderabad and the UK &nbsp;·&nbsp; A twelve-month-old listed identity on a ₹8,000 Cr order book</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹777.00</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹14,758 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 Revenue</div><div class="kpi-value">₹374.3 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Order Book</div><div class="kpi-value">&gt;₹8,000 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Price / Book</div><div class="kpi-value">29.2×</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — Real Order Book, Unreadable Financial History</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">£425M of Rolls-Royce work converts</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">29× book, +515% off the low, LT-ASM III</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Read This First</a>
+    <a href="#s3">The Screener Trap</a>
+    <a href="#s4">Q1 FY27</a>
+    <a href="#s5">Order Book</a>
+    <a href="#s6">Rolls-Royce</a>
+    <a href="#s7">Artillery</a>
+    <a href="#s8">UK + India</a>
+    <a href="#s9">What We Cannot Say</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Current name</td><td>Sigma Advanced Systems Limited</td></tr>
+    <tr><td class="bold">Former name</td><td><b>Megasoft Limited</b> — symbol changed MEGASOFT → SIGMAADV, effective <b>9 February 2026</b></td></tr>
+    <tr><td class="bold">Base</td><td>Hyderabad, incorporated 1999. Dual manufacturing footprint in <b>India and the United Kingdom</b>.</td></tr>
+    <tr><td class="bold">What it does</td><td>Tier-1 integrated aerospace and defence — precision-engineered platforms, subsystems and components across the defence and aerospace value chain.</td></tr>
+    <tr><td class="bold">Why it appears here</td><td>RS 97 — joint-highest on your watchlist — passing the trend template, 2.9% from its 52-week high, and <b>up 515% from its 52-week low</b>, the largest such move of any name reviewed.</td></tr>
+    <tr><td class="bold" style="color:#b45309">Surveillance flag</td><td><b>LT-ASM Stage III</b> as of the 27 Aug Stage 2 file — the second-most severe surveillance status in this exercise.</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">Read This First: You Are Not Looking at a Continuous Company</h2></div>
+  <p><b>Megasoft Limited changed its name to Sigma Advanced Systems Limited after amalgamating Sigma Advanced Systems into itself.</b> Ministry of Corporate Affairs approval came on 12 January 2026, exchange approvals on 3 February 2026, and the new symbol took effect on 9 February 2026.</p>
+  <p>This single fact governs how every historical number on this company should be read, and it is the reason this report leads with it rather than with the order book.</p>
+  <ul>
+    <li><b>The listed entity has a long history; the business inside it does not.</b> The share registry, listing date and legal continuity trace back to a company that was doing something entirely different. The aerospace and defence operation arrived through amalgamation.</li>
+    <li><b>Year-on-year comparisons are meaningless.</b> Comparing Q1 FY27 to a prior-year quarter compares an aerospace manufacturer to whatever the predecessor entity was.</li>
+    <li><b>Multi-year charts are not one company&rsquo;s price history.</b> The +515% move from the 52-week low spans the period across which the identity changed.</li>
+  </ul>
+  <p><b>This is not a criticism of the business.</b> Reverse-merger and amalgamation routes to listing are legitimate and common in Indian aerospace and defence. It is a statement about what the data can and cannot tell you — and about why the usual screening metrics produce nonsense here.</p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">The Screener Trap — Worked Example</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Screener field (27 Aug 2026)</th><th class="right">Value</th><th>What it actually means</th></tr></thead>
+    <tbody>
+      <tr><td>Sales growth YoY</td><td class="right bold red">+7,083.9%</td><td><b>An amalgamation artefact.</b> Not growth of any kind.</td></tr>
+      <tr><td>Net profit growth YoY</td><td class="right red">−74.0%</td><td>Comparing incomparable entities</td></tr>
+      <tr><td>EPS growth YoY</td><td class="right red">−92.6%</td><td>Also distorted by share issuance in the amalgamation</td></tr>
+      <tr><td>Up from 52-week low</td><td class="right">+515.0%</td><td>Spans the identity change</td></tr>
+      <tr><td>Trailing P/E</td><td class="right">88.7×</td><td>Calculated on a trailing base that mixes two businesses</td></tr>
+      <tr><td>Price / Book</td><td class="right bold red">29.2×</td><td><b>The one number that is meaningful — and it is the highest in this entire exercise</b></td></tr>
+    </tbody>
+  </table></div>
+  <p><b>A sales growth figure of +7,084% is the single clearest signal in your whole screening universe that a company needs manual investigation rather than automated ranking.</b> Any screen that treats that as a momentum input is being fed noise.</p>
+  <p>The practical takeaway for your own scans: <b>this is the failure mode to watch for in the SwingEdge shortlist too.</b> Amalgamations, reverse mergers and demergers produce enormous, meaningless growth percentages that will score highly on any growth-weighted factor.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">Q1 FY27 — Reported Sequentially, and Correctly So</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (quarter to June 2026)</th><th class="right">Q1 FY27</th><th class="right">Q4 FY26</th><th class="right">QoQ</th></tr></thead>
+    <tbody>
+      <tr><td>Consolidated revenue</td><td class="right bold">₹374.28 Cr</td><td class="right">₹322.82 Cr</td><td class="right green">+16%</td></tr>
+      <tr><td>Operational EBITDA</td><td class="right bold">₹61 Cr</td><td class="right">~₹55 Cr</td><td class="right green">+11%</td></tr>
+      <tr><td>PAT from continuing operations</td><td class="right bold">₹38 Cr</td><td class="right muted">—</td><td class="right muted">—</td></tr>
+      <tr><td>Operating margin</td><td class="right">16.3%</td><td class="right muted">—</td><td class="right muted">—</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">The Q4 FY26 EBITDA figure is derived from the reported 11% sequential growth. Note that the company reports growth <b>quarter on quarter</b> rather than year on year — which, given Section 02, is the honest way to present it.</p>
+  <p>Two observations that matter more than the growth rate:</p>
+  <ul>
+    <li><b>Revenue grew 16% but EBITDA only 11%</b> — the operating margin compressed sequentially. The same pattern flagged at Rashi Peripherals, and it is worth watching for a second quarter.</li>
+    <li><b>&ldquo;PAT from continuing operations&rdquo;</b> is a deliberate phrase. It implies discontinued operations exist — almost certainly the legacy Megasoft software business being wound down or divested. That is orderly, but it means the reported bottom line still contains transition effects.</li>
+  </ul>
+  <p>Annualising Q1 revenue gives roughly ₹1,497 crore. Against a ₹14,758 crore market capitalisation, that is <b>9.9× annualised sales</b> for a manufacturer.</p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">The Order Book — The Genuine Asset</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:300px">Total order book</td><td><b>&gt; ₹8,000 Cr</b></td></tr>
+    <tr><td class="bold">Aerospace share</td><td><b>75 – 80%</b></td></tr>
+    <tr><td class="bold">International share</td><td><b>&gt; 90%</b></td></tr>
+    <tr><td class="bold">Coverage of annualised Q1 revenue</td><td><b>~5.3×</b></td></tr>
+  </tbody></table></div>
+  <p><b>An order book at more than five times annualised revenue is genuine, substantial visibility</b> — comparable to HFCL and the strongest of the five watchlist names here. Whatever the complications in the financial history, this is a real number attached to real, named counterparties.</p>
+  <p>The composition tells you what kind of company this is. <b>Over 90% international and 75–80% aerospace</b> means Sigma is not an Indian defence-procurement play riding domestic budget cycles. It is a supplier into global aerospace supply chains, and the qualification barriers there are among the highest in manufacturing.</p>
+  <p>That cuts both ways, and the second edge deserves as much attention as the first: <b>more than 90% international exposure means currency risk, foreign customer concentration, and dependence on global aerospace demand rather than Indian policy.</b> It is the same structural concentration flagged at TD Power Systems, at a similar magnitude.</p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">The Rolls-Royce Agreements</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Agreement</th><th class="right">Value</th><th>Route</th></tr></thead>
+    <tbody>
+      <tr><td>Long-term agreement (announced earlier in 2026)</td><td class="right bold">~£300M</td><td>~₹3,800 Cr</td></tr>
+      <tr><td>Additional long-term agreement (Aug 2026)</td><td class="right bold">~£125M</td><td>~₹1,600 Cr, via UK subsidiary <b>Bromford Precision Solutions</b></td></tr>
+      <tr><td class="bold">Combined</td><td class="right bold">~£425M</td><td>~₹5,400 Cr</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>This is the substance of the story.</b> Rolls-Royce is one of the world&rsquo;s three major aero-engine manufacturers, and its supplier qualification process is among the most demanding in industry. Winning one long-term agreement is meaningful; winning a second, larger cumulative package months later is stronger evidence still — repeat business from a customer of that calibre is the clearest external validation a component manufacturer can get.</p>
+  <p>Combined, the two agreements represent roughly <b>₹5,400 crore, or about two-thirds of the entire order book</b>, and the stock hit its upper circuit on the second announcement.</p>
+  <p><b>The concentration this creates should be stated plainly.</b> A single customer accounting for something close to two-thirds of the book is a dependency, however prestigious that customer is. Long-term aerospace agreements are typically framework arrangements with volume commitments over many years — real, but with delivery schedules driven by the customer&rsquo;s own build rates, which Sigma does not control.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">The Artillery Order</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:300px">Product</td><td>155mm base bleed artillery shells</td></tr>
+    <tr><td class="bold">Value</td><td><b>USD 104.9 million</b> (~₹1,013 Cr)</td></tr>
+    <tr><td class="bold">Type</td><td>Export order</td></tr>
+  </tbody></table></div>
+  <p>A ₹1,013 crore export order for artillery ammunition is roughly <b>12–13% of the order book</b> and, importantly, sits in a completely different business from the Rolls-Royce aerospace work.</p>
+  <p>155mm ammunition is a genuinely large global market with elevated demand, and base-bleed shells are a higher-specification product than standard rounds. Winning an export order at this scale requires production capability and export clearance — both real barriers.</p>
+  <p><b>It also diversifies the book away from the aerospace concentration described in Section 06</b>, which is the more valuable point. Watch whether defence ammunition becomes a repeatable second line or stays a single large win.</p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">The UK and India Structure</h2></div>
+  <p>Sigma operates a dual manufacturing footprint across <b>India and the United Kingdom</b>, with Bromford Precision Solutions as the named UK subsidiary through which the second Rolls-Royce agreement was secured.</p>
+  <p>The logic is straightforward and sound: <b>a UK presence gives proximity, qualification standing and supply-chain credibility with European aerospace primes</b> that an India-only manufacturer would struggle to establish, while Indian manufacturing provides the cost base. It is structurally the same play Jyoti CNC attempted with Huron.</p>
+  <p>That comparison is worth holding deliberately. <b>Jyoti CNC&rsquo;s European subsidiary is currently reducing group earnings and carries an unresolved export-control investigation.</b> Cross-border manufacturing structures are harder to run than they are to describe. Sigma&rsquo;s UK arm is currently winning business rather than dragging — but it is early, and this report has no visibility into segment-level UK profitability.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">What This Report Cannot Tell You</h2></div>
+  <p>Reports are more useful when they state their gaps. For Sigma, these are material:</p>
+  <ul>
+    <li><b>Comparable historical financials.</b> Because of the amalgamation, there is no clean multi-year record of this business as it currently exists.</li>
+    <li><b>The balance sheet.</b> Debt, cash and working capital are not established in the sources reviewed. At 29.2× book with a large order book to fund, this is a significant gap.</li>
+    <li><b>Order book execution schedule.</b> Whether ₹8,000 crore converts over three years or seven changes the annual revenue implication enormously.</li>
+    <li><b>Segment profitability.</b> UK versus India, aerospace versus defence — none disclosed in what was reviewed.</li>
+    <li><b>The discontinued operations.</b> What remains of the legacy business and what winding it down costs.</li>
+  </ul>
+  <p><b>These are answerable from the company&rsquo;s annual report and quarterly filings, and doing so would materially improve the quality of any decision here.</b> This report does not estimate them.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Price / Book</td><td class="right bold red">29.2×</td><td><b>The highest book multiple in this entire exercise</b>, above TD Power&rsquo;s 21.8×</td></tr>
+      <tr><td>Trailing P/E</td><td class="right">88.7×</td><td>Calculated across an entity change — treat as indicative only</td></tr>
+      <tr><td>Market cap / annualised Q1 revenue</td><td class="right red">9.9×</td><td>Very rich for a manufacturer</td></tr>
+      <tr><td>Market cap / order book</td><td class="right">1.84×</td><td>Reasonable — the one supportive valuation measure</td></tr>
+      <tr><td>Price vs 50-DMA (₹600)</td><td class="right red">+30%</td><td>Extended</td></tr>
+      <tr><td>Price vs 200-DMA (₹379)</td><td class="right bold red">+105%</td><td><b>More than double its 200-day average</b></td></tr>
+      <tr><td>Up from 52-week low</td><td class="right bold red">+515%</td><td>Largest move of any name reviewed</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The valuation measures disagree sharply, and which one you weight determines the conclusion.</b></p>
+  <p>On <b>price to book at 29.2×</b> and <b>9.9× annualised sales</b>, this is the most expensive company in the exercise. On <b>market cap to order book at 1.84×</b>, it is reasonable — comparable to Man Industries at 1.58× and far better than TD Power at 10.6×.</p>
+  <p>The reconciliation is that <b>Sigma has a large contracted future and a small realised present.</b> The order book is five times current revenue, so the company is being valued on what it will deliver rather than on what it has delivered. That can be entirely correct — and it is exactly the situation where the execution schedule (Section 09) matters most, and is exactly what is not disclosed.</p>
+  <p>At 105% above its 200-DMA, there is also no technical reference anywhere near the current price. ₹600 (50-DMA) is 23% below; ₹379 (200-DMA) is 51% below.</p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">The £425M of Rolls-Royce work begins converting into revenue on schedule, and the ₹8,000 Cr book delivers the ~5× revenue step-up it implies. The artillery order proves repeatable, diversifying the book. The UK-India structure works as designed. Revenue grows into a valuation currently based almost entirely on contracted future work, and the amalgamation history becomes irrelevant as a clean multi-year record accumulates.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">The order book converts, but over a longer horizon than the market is discounting — aerospace framework agreements deliver on the customer&rsquo;s build rate, not the supplier&rsquo;s ambition. Revenue grows steadily from ₹374 Cr a quarter. The stock consolidates the 515% move for an extended period while the business grows into 29.2× book.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">Rolls-Royce build rates slip, or the concentration in one customer at ~two-thirds of the book proves costly. Margin compression seen in Q1 continues. The undisclosed balance sheet turns out to carry more debt or working capital strain than assumed. At 29.2× book, 105% above the 200-DMA, +515% off the low and on LT-ASM Stage III, there is no valuation or technical support for a long way down.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">No comparable financial history</div><div class="risk-body">The Megasoft amalgamation means there is no clean multi-year record of this business. Screener growth figures (+7,084% sales) are artefacts. Any factor model or automated screen will misread this company.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Price to book of 29.2×</div><div class="risk-body">The highest asset multiple in this exercise, on a balance sheet whose debt and working capital are not established in the sources reviewed.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Customer concentration</div><div class="risk-body">Rolls-Royce agreements total ~₹5,400 Cr against an ~₹8,000 Cr book — roughly two-thirds with one customer whose build rates Sigma does not control.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Over 90% international exposure</div><div class="risk-body">Currency, foreign demand cycles and cross-border execution, with no domestic buffer. The same structural concentration flagged at TD Power Systems.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Undisclosed execution schedule</div><div class="risk-body">Whether ₹8,000 Cr converts over three years or seven changes the annual revenue implication by more than double. Not established.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Sequential margin compression</div><div class="risk-body">Q1 revenue +16% QoQ against EBITDA +11% QoQ. One quarter is not a trend, but it runs against the operating-leverage story.</div></div>
+  <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">LT-ASM Stage III surveillance</div><div class="risk-body">A more severe surveillance stage than most names reviewed. Surveillance-listed scrips typically attract raised margin requirements and are commonly excluded from broker margin-funding approved lists. <b>Confirm eligibility with your broker before assuming this can be held on margin.</b></div></div>
+  <div class="risk-row"><div class="risk-num">08</div><div class="risk-name">Extreme technical extension</div><div class="risk-body">+515% from the 52-week low and 105% above the 200-DMA — the most extended chart in this exercise. No support within 23%.</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: HOLD — REAL ORDER BOOK, UNREADABLE FINANCIAL HISTORY</div>
+    <p>Sigma Advanced Systems has an order book of more than ₹8,000 crore — over five times annualised revenue — of which roughly ₹5,400 crore is Rolls-Royce long-term agreements and ₹1,013 crore is a 155mm artillery export order. <b>Repeat business from Rolls-Royce is about as strong an external validation as an aerospace component manufacturer can obtain</b>, and it is not in dispute.</p>
+    <p>Everything else about this company requires care. <b>It was Megasoft Limited until 9 February 2026</b>, and the amalgamation means there is no comparable financial history — the screener&rsquo;s +7,084% sales growth is an artefact, not information. The balance sheet, the order-book execution schedule and segment profitability are all undisclosed in what was reviewed. It trades at <b>29.2× book, the highest multiple in this entire exercise</b>, sits 105% above its 200-DMA after a 515% move, and carries LT-ASM Stage III surveillance.</p>
+    <p><b>The order book is real and the history is unreadable — both at once.</b> That combination argues for treating this as a position sized to genuine uncertainty rather than to the strength of the Rolls-Royce headline, and for doing the filing-level work in Section 09 before treating it as anything more settled.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>The annual report</b> — debt, cash, working capital, and segment profitability by geography. The biggest gap in this analysis.</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Order book execution schedule — over how many years does ₹8,000 Cr convert</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Quarterly revenue trajectory from ₹374 Cr — the pace at which the book becomes sales</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Operating margin — does the Q1 sequential compression continue</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>What the discontinued operations are, and what winding them down costs</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Whether the artillery win repeats — the route to diversifying away from Rolls-Royce concentration</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Technical: ₹600 (50-DMA, −23%) and ₹379 (200-DMA, −51%)</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>LT-ASM Stage III status — affects margin eligibility and position sizing</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>SIGMA ADVANCED SYSTEMS LIMITED (NSE: SIGMAADV, formerly MEGASOFT) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results (2026) &middot; Exchange and MCA filings on the Megasoft-to-Sigma name change and amalgamation (symbol effective 9 Feb 2026) &middot; Company disclosures on the Rolls-Royce long-term agreements and the 155mm artillery export order &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

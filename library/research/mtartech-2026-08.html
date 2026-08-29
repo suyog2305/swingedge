@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MTAR Technologies — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: MTAR Technologies — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: MTARTECH &nbsp;|&nbsp; BSE: 543270 &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026</p>
+    <h1 class="report-title"><span>MTAR</span> Technologies</h1>
+    <p class="report-subtitle">Precision engineering for clean energy, civil nuclear, space and defence &nbsp;·&nbsp; Hyderabad &nbsp;·&nbsp; Record order book, broken price trend</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹7,049.50</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹21,684 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 Revenue</div><div class="kpi-value">₹360.7 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 PAT</div><div class="kpi-value">₹50.2 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Order Book</div><div class="kpi-value">₹5,143 Cr</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — Record Order Book, Failed Trend Template</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">80% growth guidance on a 2.9× book inflow</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">158× earnings, 26× book, −19% from the high</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Your Own Signal</a>
+    <a href="#s3">Q1 FY27</a>
+    <a href="#s4">Order Book</a>
+    <a href="#s5">Clean Energy</a>
+    <a href="#s6">Civil Nuclear</a>
+    <a href="#s7">Capacity</a>
+    <a href="#s8">Guidance</a>
+    <a href="#s9">The Divergence</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>MTAR Technologies Limited</td></tr>
+    <tr><td class="bold">Base</td><td>Hyderabad, Telangana</td></tr>
+    <tr><td class="bold">What it makes</td><td>Precision-engineered components and assemblies for <b>clean energy</b> (fuel cells, electrolysers), <b>civil nuclear</b> (reactor components), <b>space and defence</b>, and industrial applications. A tier-one supplier of critical, high-tolerance hardware.</td></tr>
+    <tr><td class="bold">Why it appears here</td><td>It is on your 52-week-high watchlist — but see Section 02, because on the 27 Aug scan it is <b>the only one of your five requested names that fails your own trend template</b>.</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">What Your Own System Says — Read Before the Fundamentals</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (27 Aug 2026 scan)</th><th class="right">MTARTECH</th><th class="right">The other four you asked for</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating</td><td class="right bold red">60</td><td class="right green">87 – 97</td></tr>
+      <tr><td>Trend template (7-point)</td><td class="right bold red">FAILS</td><td class="right green">All pass</td></tr>
+      <tr><td>In Stage 2 (computed track)</td><td class="right bold red">No</td><td class="right green">All yes</td></tr>
+      <tr><td>On the provider&rsquo;s Stage 2 list</td><td class="right bold red">No</td><td class="right green">All yes</td></tr>
+      <tr><td>Below 52-week high</td><td class="right bold red">−19.1%</td><td class="right">−0.9% to −3.3%</td></tr>
+      <tr><td>3-month return</td><td class="right bold red">−10.1%</td><td class="right green">+28% to +80%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>This is the most important table in the report, and it is worth being blunt about it.</b> MTAR is a stock you are watching under a &ldquo;52-week high&rdquo; heading that is 19% below its 52-week high, has fallen 10% over three months while the rest of your list rose 28–80%, carries an RS rating of 60 against a book where almost everything is above 90, and is <b>not in Stage 2 on either track</b>.</p>
+  <p>Your own framework has already excluded this name. The fundamental analysis that follows is genuinely strong — but it describes a company whose share price is in a different phase from everything else you own or watch.</p>
+  <p class="tbl-note">Note also that the stock trades in the <b>BE (trade-to-trade) series</b> as shown on your watchlist. T2T scrips are generally not eligible for broker margin funding at all, which is a hard constraint rather than a preference.</p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Q1 FY27 — An Excellent Quarter</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (quarter to June 2026, consolidated)</th><th class="right">Value</th><th class="right">YoY</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue</td><td class="right bold">₹360.71 Cr</td><td class="right bold green">+130.37%</td></tr>
+      <tr><td>PAT</td><td class="right bold">₹50.22 Cr</td><td class="right bold green">+364.57%</td></tr>
+      <tr><td>EBITDA margin</td><td class="right bold">23.58%</td><td class="right green">from 18.12% (+546 bps)</td></tr>
+    </tbody>
+  </table></div>
+  <p>Revenue more than doubled, profit more than quadrupled, and margin expanded 546 basis points. <b>On the operating numbers alone this is among the best quarters of any company in this entire exercise.</b></p>
+  <p>The base effect caution applies as it does elsewhere: PAT of ₹50.22 crore against roughly ₹10.8 crore a year earlier means the prior quarter was weak, and quadrupling from a low base is partly recovery. But unlike Ramkrishna Forgings, where revenue was flat sequentially, MTAR&rsquo;s revenue genuinely more than doubled — <b>this is volume growth, not just margin repair.</b></p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">The Order Book — A Record Inflow</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:320px">Total order book (30 June 2026)</td><td><b>₹5,143.30 Cr</b> — a record</td></tr>
+    <tr><td class="bold">Quarterly order inflow</td><td><b>₹2,895.10 Cr</b> — a record</td></tr>
+    <tr><td class="bold">Coverage of annualised Q1 revenue</td><td><b>~3.6×</b></td></tr>
+    <tr><td class="bold">Separately announced order upsize</td><td>Total value ~₹3,100 Cr (USD 324.62 million)</td></tr>
+  </tbody></table></div>
+  <p><b>An order inflow of ₹2,895 crore in a single quarter, against ₹361 crore of revenue recognised, is a book-to-bill of roughly 8×.</b> That is an extraordinary ratio and the single strongest fundamental fact in the report.</p>
+  <p>To put the scale in context: MTAR won more orders in one quarter than it will recognise as revenue in two years at the current run-rate. The order book at 3.6× annualised revenue now sits between Quality Power (1.9×) and HFCL (5×).</p>
+  <p class="tbl-note">The ~₹3,100 Cr order upsize is announced separately from the Q1 disclosure; whether it is included within the ₹5,143.30 Cr book or additional to it is not established in the sources reviewed. This report does not assume either way.</p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Clean Energy — Fuel Cells</h2></div>
+  <p>The clean energy segment, particularly <b>fuel cells</b>, is described as seeing record order inflows, with a <b>multi-fold capacity expansion on track for commissioning by March 2027</b>.</p>
+  <p>MTAR&rsquo;s position here is as a precision manufacturer of fuel-cell components for a small number of global technology owners rather than as a fuel-cell company itself. That distinction matters in both directions:</p>
+  <ul>
+    <li><b>It avoids technology risk.</b> MTAR does not need to bet on which fuel-cell chemistry wins; it manufactures to specification for whoever is scaling.</li>
+    <li><b>It creates dependency.</b> Revenue tracks the commercial success of the customers whose products it builds, and those decisions sit entirely outside MTAR&rsquo;s control.</li>
+  </ul>
+  <p>&ldquo;Multi-fold capacity expansion&rdquo; commissioning by March 2027 tells you the customer commitments are large enough to justify substantial capital ahead of delivery. <b>That is a real signal — manufacturers do not multiply capacity on hope.</b></p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Civil Nuclear — The Structural Story</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:300px">Kaiga units 5 and 6</td><td><b>Highest-ever order inflow</b> for the civil nuclear vertical</td></tr>
+    <tr><td class="bold">Refurbishment pipeline</td><td>Described as robust</td></tr>
+    <tr><td class="bold">Mahimaswada</td><td>Proposed four reactors — a significant future opportunity</td></tr>
+  </tbody></table></div>
+  <p>Management describes civil nuclear as being <b>at an inflection point</b>, and the structural case is one of the more credible in Indian capital goods.</p>
+  <p>Nuclear component manufacture has among the highest qualification barriers of any industry — certification cycles run for years, and the approved supplier list for reactor-grade components is very short. Once qualified, an incumbent is exceptionally difficult to displace. <b>MTAR&rsquo;s nuclear qualification is a genuine, durable asset in a way that few competitive advantages in this batch are.</b></p>
+  <p>The counterweight is timing. Nuclear projects run on decade-long horizons, and the Mahimaswada reactors are <b>proposed</b> rather than sanctioned. This is a real opportunity on a schedule that no supplier controls.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Capacity and Execution</h2></div>
+  <p>The fuel-cell capacity expansion targets commissioning by <b>March 2027</b>, supported by proactive manpower training and automation.</p>
+  <p><b>The mention of manpower training is more meaningful than it first appears.</b> Precision engineering to nuclear and aerospace tolerances is skill-constrained, not just machine-constrained. A company that flags workforce development alongside capex is acknowledging the real bottleneck — and a company scaling 8× book-to-bill will hit that bottleneck before it hits a machine one.</p>
+  <p>This is where the risk in the story actually sits. <b>An order book at 3.6× revenue and an inflow at 8× book-to-bill is only valuable if it can be manufactured</b>, and the gap between winning ₹2,895 crore of orders in a quarter and delivering them is where precision manufacturers most often disappoint.</p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">Guidance</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:300px">FY27 revenue growth</td><td><b>80%</b> — maintained</td></tr>
+    <tr><td class="bold">FY27 EBITDA margin</td><td><b>22 – 24%</b>, ±100 bps</td></tr>
+  </tbody></table></div>
+  <p><b>80% revenue growth guidance is the most aggressive in this entire exercise</b>, and it is being <em>maintained</em> rather than raised or trimmed after a quarter that delivered 130%.</p>
+  <p>Q1&rsquo;s 23.58% EBITDA margin sits inside the guided 22–24% band, so the margin guidance is consistent with delivery. The revenue guidance implies deceleration from 130% to 80% across the year — which, as with almost every company reviewed here, means management expects the current pace to moderate.</p>
+  <p><b>The order book supports the number.</b> Unlike Jyoti CNC, which guides 25–30% after delivering 15%, MTAR is guiding 80% after delivering 130% with a book at 3.6× revenue behind it. The guidance is ambitious but it is backed.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">The Divergence — Best Fundamentals, Worst Chart</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Fundamentals</th><th class="right">Value</th><th>Price action</th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue growth</td><td class="right green">+130.4%</td><td>3-month return</td><td class="right red">−10.1%</td></tr>
+      <tr><td>PAT growth</td><td class="right green">+364.6%</td><td>Below 52-week high</td><td class="right red">−19.1%</td></tr>
+      <tr><td>Order book</td><td class="right green">record ₹5,143 Cr</td><td>RS rating</td><td class="right red">60</td></tr>
+      <tr><td>Quarterly inflow</td><td class="right green">record ₹2,895 Cr</td><td>Trend template</td><td class="right red">FAILS</td></tr>
+      <tr><td>Margin</td><td class="right green">+546 bps</td><td>Stage 2</td><td class="right red">Not in</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>No other company in this exercise shows a divergence this wide.</b> Record results and a record order book, against a stock that has fallen 10% in three months and sits 19% below its high.</p>
+  <p>Two readings are available, and this report will not pretend to know which is correct:</p>
+  <ul>
+    <li><b>The market is wrong or slow</b>, and a stock with 130% revenue growth and an 8× book-to-bill will eventually reflect it. In that case the current weakness is opportunity.</li>
+    <li><b>The market is pricing something the results do not show</b> — most plausibly the valuation. At 157.9× trailing earnings and 26.2× book, the stock had already discounted extraordinary growth <em>before</em> it arrived, and is now de-rating toward the fundamentals rather than falling below them.</li>
+  </ul>
+  <p><b>The second reading is supported by one specific fact:</b> the stock is up 407% from its 52-week low. The re-rating already happened. What is occurring now may simply be that a 158× multiple was too far ahead even of 130% growth.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right bold red">157.9×</td><td><b>Highest P/E of the five watchlist names</b></td></tr>
+      <tr><td>P/E on annualised Q1 PAT</td><td class="right">~108×</td><td>Still extreme</td></tr>
+      <tr><td>Price / Book</td><td class="right bold red">26.2×</td><td>Second-highest in this exercise, behind SIGMAADV</td></tr>
+      <tr><td>Market cap / annualised Q1 revenue</td><td class="right red">15.0×</td><td>Very rich for a component manufacturer</td></tr>
+      <tr><td>Market cap / order book</td><td class="right">4.22×</td><td>Expensive; HFCL is at 1.44×</td></tr>
+      <tr><td>Price vs 50-DMA (₹6,714)</td><td class="right">+5%</td><td>Barely above — the short-term trend is being tested</td></tr>
+      <tr><td>Price vs 200-DMA (₹5,178)</td><td class="right">+36%</td><td>Extended</td></tr>
+      <tr><td>Below all-time high (₹8,715)</td><td class="right red">−19.1%</td><td>Well off the peak</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>157.9× trailing earnings and 26.2× book is the crux.</b> Even granting that trailing earnings are depressed and that the annualised figure of ~108× is fairer, this remains among the most expensive stocks in the exercise on every measure except order-book coverage.</p>
+  <p>Consider what 108× on annualised current earnings requires: for the multiple to fall to a still-rich 40× without the price declining, <b>earnings must roughly treble again from an already quadrupled base.</b> The 80% growth guidance does not get there in one year.</p>
+  <p>That arithmetic is a reasonable explanation for why the stock has fallen 10% over three months while reporting its best-ever results. <b>The business is executing; the multiple is deflating. Both can continue simultaneously.</b></p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">The ₹5,143 Cr book converts and FY27 delivers the guided 80% growth. Fuel-cell capacity commissions on time in March 2027, and civil nuclear moves from inflection to sustained order flow as Kaiga and then Mahimaswada progress. Earnings grow fast enough that a 158× multiple deflates through earnings rather than price, and the current 19% drawdown proves to have been the entry point.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">Growth lands near the guided 80% — excellent in absolute terms, below the 130% just reported. The multiple continues compressing toward the growth rate, so the stock goes sideways or drifts while earnings catch up. This is what the last three months have already looked like, and it can persist for a long time.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">Execution becomes the constraint — an 8× book-to-bill quarter means the bottleneck moves from winning orders to manufacturing them, and precision engineering is skill-constrained. Nuclear timelines slip, as nuclear timelines do. At 157.9× earnings and 26.2× book with the trend template already failing, RS at 60 and only 5% above the 50-DMA, the de-rating has room to continue well below current levels.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Fails your own trend template</div><div class="risk-body">RS 60, not in Stage 2 on either track, 19.1% below its 52-week high, −10.1% over three months. On the framework you use to select every other position, this name does not qualify.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Valuation at 157.9× earnings, 26.2× book</div><div class="risk-body">Even on annualised current earnings (~108×), the multiple requires several more years of exceptional growth simply to become ordinary. The de-rating risk is independent of operating performance.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Execution is now the bottleneck</div><div class="risk-body">An 8× book-to-bill quarter shifts the constraint from demand to manufacturing. Precision engineering to nuclear and aerospace tolerances is skill-constrained, which is slower to scale than machinery.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Customer dependency in clean energy</div><div class="risk-body">MTAR manufactures fuel-cell components to specification for a small number of global technology owners. Revenue tracks their commercial success, over which MTAR has no control.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Nuclear timelines</div><div class="risk-body">Kaiga 5 and 6 are real; Mahimaswada&rsquo;s four reactors are proposed. Civil nuclear runs on decade horizons that no supplier controls.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">BE series — margin ineligibility</div><div class="risk-body">The stock trades in the trade-to-trade (BE) series on your watchlist. T2T scrips are generally excluded from broker margin funding entirely — a hard constraint, not a raised requirement.</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: HOLD — RECORD ORDER BOOK, FAILED TREND TEMPLATE</div>
+    <p>MTAR Technologies reported revenue up 130%, profit up 365%, margin up 546 basis points, a record order book of ₹5,143 crore and a record quarterly inflow of ₹2,895 crore — a book-to-bill near 8×. Its civil nuclear qualification is one of the most durable competitive advantages in this exercise, and its fuel-cell capacity is being multiplied for commissioning by March 2027.</p>
+    <p>And <b>the stock has fallen 10% over three months, sits 19% below its 52-week high, carries an RS rating of 60, and fails the trend template you use to select every other name in your book.</b> It is not in Stage 2 on either track.</p>
+    <p>The most likely explanation is not that the market has missed something, but that <b>at 157.9× trailing earnings and 26.2× book the price had already discounted extraordinary growth before it arrived</b>, and is now deflating toward it. That process can continue while the company keeps reporting excellent results — indeed, that is precisely what the last three months have been.</p>
+    <p><b>This is the one name of the five where the fundamental case and your own system disagree outright.</b> The fundamentals are genuinely strong. The signal you built to keep you out of exactly this situation is currently saying no.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>RS rating and the trend template</b> — the specific conditions under which your own system would re-admit this name</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Revenue conversion against the ₹5,143 Cr book — execution is now the constraint, not demand</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>March 2027</b> — fuel-cell capacity commissioning</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Whether the ~₹3,100 Cr order upsize is inside or additional to the reported book</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Civil nuclear order flow beyond Kaiga 5 and 6; any sanction of the Mahimaswada reactors</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>EBITDA margin holding the guided 22–24% band as volume scales</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Technical: ₹6,714 (50-DMA, only −5%) is the level being tested; ₹5,178 (200-DMA, −27%)</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>BE-series status — confirms margin funding is unavailable</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>MTAR TECHNOLOGIES LIMITED (NSE: MTARTECH | BSE: 543270) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results and Earnings Call (Aug 2026) &middot; Company disclosures on the record order book, order inflow, clean energy capacity expansion and civil nuclear pipeline &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>
