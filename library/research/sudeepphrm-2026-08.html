@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sudeep Pharma — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: Sudeep Pharma — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: SUDEEPPHRM &nbsp;|&nbsp; BSE: 544619 &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026 &nbsp;|&nbsp; Updates the 31 May 2026 note</p>
+    <h1 class="report-title"><span>Sudeep</span> Pharma</h1>
+    <p class="report-subtitle">Mineral excipients and specialty ingredients &nbsp;·&nbsp; Vadodara &nbsp;·&nbsp; A battery-materials option attached to a nutrition franchise</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹1,128.65</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹12,748 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 Revenue</div><div class="kpi-value">₹158 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 PAT</div><div class="kpi-value">₹40.6 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Op. Margin</div><div class="kpi-value">34.7%</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold at CMP — Target Overshot by 31%</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">Battery funnel of eight converts</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">₹158 Cr a quarter at 14.4× book</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">The May Note</a>
+    <a href="#s3">Q1 FY27</a>
+    <a href="#s4">Segments</a>
+    <a href="#s5">Bisglycinate</a>
+    <a href="#s6">Battery Materials</a>
+    <a href="#s7">The Margin</a>
+    <a href="#s8">Goldman Sachs</a>
+    <a href="#s9">Your Signals</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>Sudeep Pharma Limited</td></tr>
+    <tr><td class="bold">What it makes</td><td>Excipients and high-purity mineral ingredients — <b>calcium carbonate, dicalcium phosphate, tricalcium phosphate, magnesium stearate, iron phosphate and zinc oxide</b> — for pharmaceutical formulations, dietary supplements and food fortification. Plus a growing specialty-ingredients line.</td></tr>
+    <tr><td class="bold">Why it appears here</td><td>RS 95 — the highest of the ten imported names — <b>passes the trend template</b>, in Stage 2, 5.1% from its 52-week high and up 52.8% over three months.</td></tr>
+    <tr><td class="bold">Listed</td><td>Recently listed; the 31 May 2026 note was an initiating view</td></tr>
+  </tbody></table></div>
+  <p class="tbl-note">This report updates the 31 May 2026 initiating note in your library with Q1 FY27 results and current market data.</p>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">The May Note — Scored Honestly</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>The 31 May 2026 note said</th><th class="right">Then</th><th class="right">Now (27 Aug)</th><th class="right">Outcome</th></tr></thead>
+    <tbody>
+      <tr><td>CMP</td><td class="right">₹742</td><td class="right bold">₹1,128.65</td><td class="right green">+52.1%</td></tr>
+      <tr><td>12-month base target</td><td class="right">₹860 (+16%)</td><td class="right bold green">exceeded</td><td class="right green">+31% past target, in 3 months</td></tr>
+      <tr><td>Preferred entry</td><td class="right">₹645 – 685</td><td class="right red">never revisited</td><td class="right red">the entry never came</td></tr>
+      <tr><td>Positional stop</td><td class="right">₹585</td><td class="right muted">never tested</td><td class="right muted">—</td></tr>
+      <tr><td>Market cap</td><td class="right">~₹8,200 Cr</td><td class="right">₹12,748 Cr</td><td class="right green">+55%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The directional call was right and the entry discipline was wrong.</b> The note said &ldquo;accumulate on pullbacks&rdquo; with a preferred entry of ₹645–685 — roughly 8–13% below the then-price of ₹742. That pullback never arrived. The stock went straight up 52% and passed the twelve-month ₹860 target inside three months.</p>
+  <p>This is a genuinely useful lesson to record rather than gloss: <b>in a strong trend, waiting for a pullback to a defined entry band is a way of never owning the position.</b> The note&rsquo;s analysis was sound; its execution rule cost the entire move.</p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Q1 FY27</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (quarter to June 2026, consolidated)</th><th class="right">Q1 FY27</th><th class="right">Q1 FY26</th><th class="right">Change</th></tr></thead>
+    <tbody>
+      <tr><td>Operational revenue</td><td class="right bold">₹158 Cr</td><td class="right">₹125 Cr</td><td class="right green">+26.4%</td></tr>
+      <tr><td>Net profit</td><td class="right bold">₹40.55 Cr</td><td class="right">₹30.8 Cr</td><td class="right green">+31.7%</td></tr>
+      <tr><td>Operating margin</td><td class="right bold green">34.69%</td><td class="right muted">—</td><td class="right muted">—</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note"><b>A source-error worth flagging.</b> At least one outlet reported this as &ldquo;net profit rises 30% YoY to ₹405.87 lakh&rdquo;. ₹405.87 lakh is ₹4.06 crore, which is off by a factor of ten — the correct figure is ₹40.55 crore (₹4,055 lakh). This report uses the crore figure, which is consistent with the ₹158 crore revenue base and a 25.7% net margin.</p>
+  <p><b>An operating margin of 34.69% is exceptional for an ingredients manufacturer</b> — higher than Happy Forgings (31.3%), and in the top handful across this entire library. Profit grew faster than revenue, so the margin is still expanding.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">Segment Mix</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Segment</th><th class="right">Share of Q1 FY27 revenue</th><th class="right">YoY growth</th></tr></thead>
+    <tbody>
+      <tr><td><b>Pharma, Food &amp; Nutrition</b></td><td class="right bold">69%</td><td class="right green">+30%, predominantly volume-driven</td></tr>
+      <tr><td><b>Specialty Ingredients</b></td><td class="right">31%</td><td class="right muted">not separately disclosed</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>&ldquo;Predominantly volume-driven&rdquo; is the phrase that matters.</b> Growth achieved through volume rather than price is the more durable kind — it means customers are buying more, not that the company raised prices into a favourable market. Contrast this with Balaji Amines, where a large share of the margin gain came from commodity realisations.</p>
+  <p>The core franchise is a genuinely defensible business. Pharmaceutical excipients require regulatory qualification: once an excipient is written into a drug formulation and approved, changing supplier means revalidation. <b>That produces long, sticky customer relationships and is the reason a mineral-processing business can earn a 34.7% margin.</b></p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Bisglycinate — The Standout Operating Datapoint</h2></div>
+  <p>On the Q1 FY27 call, management disclosed that <b>bisglycinate sales in the quarter surpassed the full-year FY26 total</b>.</p>
+  <p>Read that carefully — it means one product line did more business in three months than in the preceding twelve. Mineral bisglycinates are chelated minerals used in premium nutritional supplements, valued for higher bioavailability than simple mineral salts. They sit at the higher-value end of the ingredient spectrum.</p>
+  <p><b>This is the single most informative disclosure in the quarter</b>, and it explains both the volume-driven growth and the margin. A rapid mix shift toward chelated minerals lifts realisations without needing price increases.</p>
+  <p>The caution: <b>a line that quadruples in a quarter is coming off a small base</b>, and one quarter does not establish a run-rate. Watch whether Q2 sustains it.</p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Battery Materials — The Optionality</h2></div>
+  <p>Management disclosed that the <b>battery customer funnel has expanded to eight</b>.</p>
+  <p>The link between mineral excipients and battery materials is not obvious but is real: <b>iron phosphate</b>, already in Sudeep&rsquo;s product list for nutrition, is the precursor for <b>lithium iron phosphate (LFP)</b> cathode material — the dominant chemistry in energy storage and increasingly in EVs. A company that already makes high-purity iron phosphate at scale has a genuine technical starting point.</p>
+  <p><b>Hold this at the right weight.</b> &ldquo;A funnel of eight customers&rdquo; is a pipeline, not revenue. Battery-material qualification is long and demanding, and the competitive field includes large Chinese incumbents with enormous scale. The May note framed this as the re-rating driver, and it is a legitimate option — but it is an option, and the 52% move has already priced a good deal of optimism about it.</p>
+  <p class="tbl-note">Neither the size of the funnel in revenue terms nor the stage of qualification is established in the sources reviewed. This report does not estimate them.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">The Margin</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Comparison (Q1 FY27 operating margin)</th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td><b>Sudeep Pharma</b></td><td class="right bold green">34.69%</td></tr>
+      <tr><td>Sanghvi Movers</td><td class="right">33.05%</td></tr>
+      <tr><td>Happy Forgings</td><td class="right">31.34%</td></tr>
+      <tr><td>Balaji Amines</td><td class="right">25.42%</td></tr>
+      <tr><td>Supriya Lifescience</td><td class="right">25.01%</td></tr>
+      <tr><td>Astra Microwave</td><td class="right">18.72%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Sudeep earns the highest operating margin of any name in this import batch</b>, and among the highest in the library. For a company processing minerals — not an obviously high-margin activity — that is the clearest evidence that the regulatory-qualification moat described in Section 04 is real.</p>
+  <p>The question a holder should keep asking is whether the margin survives scale. As the specialty-ingredients and battery lines grow, mix will shift, and battery materials in particular is a market with large, low-cost competitors. <b>A 34.7% margin is not a natural resting state for a materials business, and defending it is the operational challenge of the next three years.</b></p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">The Goldman Sachs Purchase</h2></div>
+  <p>Following the Q1 results, <b>Goldman Sachs bought a stake reported at around ₹100 crore</b>, and the stock rose about 8%.</p>
+  <p>Two things this does and does not tell you:</p>
+  <ul>
+    <li><b>It does signal institutional validation.</b> A ₹100 crore position against a ₹12,748 crore market capitalisation is roughly 0.8% of the company — meaningful for a recently listed small-cap, and it implies the story survived institutional diligence.</li>
+    <li><b>It does not signal a view on price.</b> Institutional purchases occur across many mandates and time horizons, and this one was made after a 52% run. It is not a valuation opinion.</li>
+  </ul>
+  <p class="tbl-note">The stock is also reported as a holding in a well-known individual investor&rsquo;s portfolio. That is a sentiment factor, not an analytical one, and it can amplify moves in both directions in a low-float recent listing.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">What Your Own System Says</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (27 Aug 2026)</th><th class="right">SUDEEPPHRM</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating</td><td class="right bold green">95 — the highest of the ten imported names</td></tr>
+      <tr><td>Trend template</td><td class="right bold green">PASSES</td></tr>
+      <tr><td>In Stage 2 (computed)</td><td class="right green">Yes — 2 days (a fresh entry)</td></tr>
+      <tr><td>Below 52-week high</td><td class="right green">−5.1%</td></tr>
+      <tr><td>3-month return</td><td class="right bold green">+52.8%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>RS 95 is the strongest relative strength in this batch</b>, and the stock has only just entered Stage 2 on the computed track — two days, against Balaji&rsquo;s 83. A fresh Stage 2 entry after a 52% move is a different setup from an established trend: it means the longer-term moving averages have only recently caught up.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right">69.8×</td><td>High</td></tr>
+      <tr><td>P/E on annualised Q1 PAT</td><td class="right">~79×</td><td>Higher than trailing — earnings are still ramping into a rising price</td></tr>
+      <tr><td>Price / Book</td><td class="right bold red">14.4×</td><td>Very high for a materials manufacturer</td></tr>
+      <tr><td>Market cap / annualised Q1 revenue</td><td class="right bold red">20.2×</td><td><b>The highest revenue multiple in this entire library</b></td></tr>
+      <tr><td>Below 52-week high</td><td class="right">−5.1%</td><td>Near the highs</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Twenty times revenue is the number that should stop you.</b> Sudeep generates ₹158 crore of quarterly revenue — ₹632 crore annualised — against a ₹12,748 crore market capitalisation. That is a software multiple applied to a mineral-processing business.</p>
+  <p>The 34.7% margin justifies a premium to ordinary materials companies, and the excipient qualification moat is real. <b>But 20.2× sales and 14.4× book require the battery-materials option to become a business, not just a funnel of eight.</b> The May note put a base target of ₹860 at 43× FY27 earnings; the stock is at ₹1,128.65 and the earnings have not yet arrived to match.</p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">The bisglycinate ramp sustains rather than proving a one-quarter spike, and the battery funnel of eight converts into qualified, contracted volume. Sudeep becomes a genuine LFP-precursor supplier alongside a high-margin nutrition franchise, and revenue grows fast enough to make 20× sales retrospectively reasonable. The second half is historically stronger, which supports the &ldquo;year of strong growth&rdquo; management is guiding to.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">The core excipients business compounds at 25–30% with margins near 34%. Battery materials progress slowly, as qualification cycles dictate. The business performs well and the stock consolidates a 52% three-month move while revenue grows toward a 20× sales multiple that currently prices several years of it.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">Bisglycinate proves a base-effect spike rather than a run-rate. The battery funnel does not convert — Chinese LFP-precursor incumbents have overwhelming scale advantages. Margin compresses as mix shifts toward lower-value volume. At 20.2× revenue and 14.4× book in a recently listed low-float stock, the de-rating would be severe and fast.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">20.2× annualised revenue</div><div class="risk-body">The highest sales multiple in this library, on a mineral-processing business generating ₹158 Cr a quarter. The valuation requires the battery option to become a business.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Battery materials is a funnel, not revenue</div><div class="risk-body">Eight customers in a pipeline. Qualification is long, and Chinese LFP-precursor incumbents hold enormous scale advantages.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Bisglycinate base effect</div><div class="risk-body">A line that exceeded its full prior-year total in one quarter is growing off a small base. One quarter does not establish a run-rate.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Margin defence at scale</div><div class="risk-body">34.7% is exceptional for materials processing and not a natural resting state. Mix shift toward battery volume would likely dilute it.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Recent listing, low float</div><div class="risk-body">Limited public track record. Concentrated well-known holders can amplify moves in both directions.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">The entry discipline already failed once</div><div class="risk-body">The May note&rsquo;s ₹645–685 preferred entry never arrived and the stock is now 65% above it. Setting another pullback band carries the same risk of never being filled — or of being filled only because the thesis broke.</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: HOLD AT CMP — TARGET OVERSHOT BY 31%</div>
+    <p>Sudeep Pharma is operationally excellent. Revenue +26.4%, profit +31.7%, and an operating margin of <b>34.69% — the highest in this import batch</b>, earned on a regulatory-qualification moat that is genuinely defensible. Growth is predominantly volume-driven, bisglycinate sales in one quarter exceeded the entire prior year, and Goldman Sachs bought in after the print. On your own signals it carries <b>RS 95, the highest of the ten</b>.</p>
+    <p>The problem is entirely price. At <b>20.2× annualised revenue and 14.4× book — the richest sales multiple in this library</b> — the market is valuing a ₹632 crore revenue business at ₹12,748 crore. That requires the battery-materials funnel of eight to become a real business, and today it is a pipeline.</p>
+    <p>The May note deserves a note of its own: it was directionally right and set a preferred entry of ₹645–685 that never came. The stock went up 52% without a pullback. <b>That is worth remembering as a general lesson about entry bands in strong trends</b> — and it is also why setting another one here would be the wrong response.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span>Whether bisglycinate volumes sustain in Q2 or prove a one-quarter spike</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Battery funnel converting from eight prospects into qualified contracted volume</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Operating margin holding 34.7% as the specialty and battery mix grows</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Specialty Ingredients segment growth, disclosed separately from Pharma/Food/Nutrition</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>H2 FY27 — management flags a historically stronger second half</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Stage 2 tenure — only 2 days on the computed track; a fresh entry, not an established trend</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>SUDEEP PHARMA LIMITED (NSE: SUDEEPPHRM | BSE: 544619) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results and Earnings Call (2026) &middot; Company disclosures on segment mix, bisglycinate volumes and the battery customer funnel &middot; Prior in-house research report, 31 May 2026, for FY26 figures &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

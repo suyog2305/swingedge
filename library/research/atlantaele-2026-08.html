@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlanta Electricals — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: Atlanta Electricals — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: ATLANTAELE &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026 &nbsp;|&nbsp; Updates the 11 May 2026 Q4 note</p>
+    <h1 class="report-title"><span>Atlanta</span> Electricals</h1>
+    <p class="report-subtitle">Power, inverter-duty and auto transformers &nbsp;·&nbsp; Anand, Gujarat &nbsp;·&nbsp; Order book up 25% while the stock fell 22%</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹1,713.65</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹13,177 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 Revenue</div><div class="kpi-value">₹466.3 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 PAT (cons.)</div><div class="kpi-value">₹46.8 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Order Book</div><div class="kpi-value">₹3,117 Cr</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — Business Delivering, Trend Broken</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">EHV qualification plus a 25% QoQ book</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">RS 15, −22% from high, 14.2× book</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Your Signals</a>
+    <a href="#s3">The May Call</a>
+    <a href="#s4">Q1 FY27</a>
+    <a href="#s5">Order Book</a>
+    <a href="#s6">Product Mix</a>
+    <a href="#s7">EHV</a>
+    <a href="#s8">The Divergence</a>
+    <a href="#s9">Balance Sheet</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>Atlanta Electricals Limited</td></tr>
+    <tr><td class="bold">What it makes</td><td>Power transformers, inverter-duty transformers (for solar), auto transformers and reactors, serving transmission &amp; distribution utilities, renewable developers and industrial customers.</td></tr>
+    <tr><td class="bold">Why it appears here</td><td>It was a strong performer when the May note was written. <b>On the 27 Aug scan it carries RS 15 and fails the trend template</b> — see Section 02.</td></tr>
+  </tbody></table></div>
+  <p class="tbl-note">This report updates the 11 May 2026 Q4 FY26 post-concall note in your library with Q1 FY27 results and current market data.</p>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">What Your Own System Says</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (27 Aug 2026)</th><th class="right">ATLANTAELE</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating</td><td class="right bold red">15</td></tr>
+      <tr><td>Trend template</td><td class="right bold red">FAILS</td></tr>
+      <tr><td>In Stage 2</td><td class="right bold red">No</td></tr>
+      <tr><td>Below 52-week high</td><td class="right red">−22.1%</td></tr>
+      <tr><td>1-week return</td><td class="right red">−9.3%</td></tr>
+      <tr><td>3-month return</td><td class="right red">−15.1%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>RS 15 places this stock in the weakest 15% of the market on relative strength</b> — a striking position for a company that grew Q1 revenue 48% and profit 50%. It has fallen 15% over three months and 9.3% in the final week alone.</p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">The May Call — Scored Honestly</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>The 11 May 2026 note said</th><th class="right">Then</th><th class="right">Now (27 Aug)</th><th class="right">Outcome</th></tr></thead>
+    <tbody>
+      <tr><td>CMP</td><td class="right">₹1,541.70</td><td class="right">₹1,713.65</td><td class="right green">+11.2%</td></tr>
+      <tr><td>Revised target (12–18M)</td><td class="right">₹1,820 (+18%)</td><td class="right red">not reached</td><td class="right muted">still 6% below</td></tr>
+      <tr><td>Recommendation</td><td class="right">Buy, reiterated</td><td class="right muted">—</td><td class="right muted">modestly positive</td></tr>
+      <tr><td>Market cap</td><td class="right">₹12,208 Cr</td><td class="right">₹13,177 Cr</td><td class="right green">+7.9%</td></tr>
+      <tr><td>Order book</td><td class="right">₹2,493 Cr</td><td class="right bold green">₹3,117 Cr</td><td class="right green">+25%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The call is modestly ahead but the path was not straight.</b> The stock is up 11% from the May price, yet it is now 22% below its 52-week high — meaning it rose substantially after the note and has since given most of it back. RS 15 and a −15% three-month return confirm the second half of that round trip.</p>
+  <p>The May note said the debate was &ldquo;purely about multiple and EHV prototype timing&rdquo;. <b>Three months on, that framing has proved exactly right — and the multiple side of it has been resolved downward.</b></p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">Q1 FY27</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (quarter to June 2026)</th><th class="right">Value</th><th class="right">YoY</th></tr></thead>
+    <tbody>
+      <tr><td>Standalone revenue from operations</td><td class="right bold">₹466.33 Cr</td><td class="right green">+47.99%</td></tr>
+      <tr><td>Standalone net profit</td><td class="right bold">₹53.1 Cr</td><td class="right green">from ₹31.1 Cr</td></tr>
+      <tr><td>Consolidated net profit</td><td class="right bold">₹46.84 Cr</td><td class="right green">+50.42%</td></tr>
+      <tr><td>Consolidated EBITDA</td><td class="right bold">₹77.10 Cr</td><td class="right green">+58.06%</td></tr>
+      <tr><td>Consolidated EBITDA margin</td><td class="right bold">16.5%</td><td class="right green">+105 bps</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>This is a good quarter by any measure</b> — revenue +48%, EBITDA +58%, profit +50%, margin expanding. Earnings grew faster than revenue, which is the right shape.</p>
+  <p class="tbl-note">Note that standalone net profit (₹53.1 Cr) exceeds consolidated (₹46.84 Cr), meaning subsidiaries are a modest drag at the earnings line — the same pattern flagged at Jyoti CNC, though far smaller in magnitude here.</p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Order Book</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:300px">Consolidated order book (30 June 2026)</td><td><b>₹3,116.63 Cr</b></td></tr>
+    <tr><td class="bold">Quarter-on-quarter growth</td><td><b>+25%</b></td></tr>
+    <tr><td class="bold">Fresh orders won in Q1</td><td><b>₹972.42 Cr</b></td></tr>
+    <tr><td class="bold">Book-to-bill (Q1)</td><td>~2.1×</td></tr>
+    <tr><td class="bold">Additional LOI</td><td>₹193.92 Cr from APTRANSCO for 12 auto transformers</td></tr>
+  </tbody></table></div>
+  <p><b>₹972 crore of fresh orders against ₹466 crore of revenue is a book-to-bill above 2×</b> — orders arriving at more than twice the rate they are being executed. The book now covers roughly 1.7 years of the current run-rate.</p>
+  <p>Coming from ₹2,493 crore in May to ₹3,117 crore in June, this is the strongest order momentum in the imported batch after MTAR.</p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Product Mix</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 revenue mix</th><th class="right">Share</th></tr></thead>
+    <tbody>
+      <tr><td>Power transformers</td><td class="right bold">79%</td></tr>
+      <tr><td>Inverter-duty transformers (solar)</td><td class="right">14%</td></tr>
+      <tr><td>Auto transformers</td><td class="right">6%</td></tr>
+      <tr><td>Others</td><td class="right">1%</td></tr>
+    </tbody>
+  </table></div>
+  <p>The inverter-duty line at 14% is the renewable-linked segment — solar developers need these to step voltage up from inverter output to grid level. It ties Atlanta directly to India&rsquo;s solar build-out, and management has flagged a new inverter-duty facility as a strategic priority.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">EHV — The Value-Chain Question</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Order book by voltage class</th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>220 kV transformers</td><td class="right bold">&gt;55% of the order book</td></tr>
+      <tr><td>400 kV transformers and reactors</td><td class="right bold">~₹275 Cr</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Voltage class is the single best measure of a transformer maker&rsquo;s technical standing.</b> Higher voltage means tighter insulation engineering, fewer qualified competitors and better margins. Moving from distribution transformers to 220 kV to 400 kV EHV is the value ladder in this industry.</p>
+  <p>More than 55% of the book at 220 kV is a genuinely strong position, and ~₹275 crore at 400 kV — roughly 9% of the book — shows real progress into EHV. The May note identified &ldquo;EHV prototype timing&rdquo; as one of the two open debates; <b>₹275 crore of 400 kV work in the book is evidence that side of the debate is resolving favourably.</b></p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">The Divergence — Good Company, Bad Chart</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Operating</th><th class="right">Value</th><th>Price</th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue growth</td><td class="right green">+48.0%</td><td>RS rating</td><td class="right red">15</td></tr>
+      <tr><td>Consolidated PAT growth</td><td class="right green">+50.4%</td><td>Below 52-week high</td><td class="right red">−22.1%</td></tr>
+      <tr><td>EBITDA growth</td><td class="right green">+58.1%</td><td>3-month return</td><td class="right red">−15.1%</td></tr>
+      <tr><td>Order book QoQ</td><td class="right green">+25%</td><td>1-week return</td><td class="right red">−9.3%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>This is the sharpest good-company/bad-chart divergence in the imported batch</b>, wider even than MTAR&rsquo;s. Every operating line is strongly positive; every price measure is negative.</p>
+  <p>The most likely explanation is the one the May note itself named: <b>multiple compression.</b> The stock was up 87% year-to-date at the time of that report and traded at ~57× trailing earnings. A de-rating from that level does not require anything to go wrong with the business — only for the market to decide 57× was too much. At 60.3× today the compression is still working through.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">Balance Sheet</h2></div>
+  <p>The May note recorded a <b>fully repaid term-loan stack</b> — the company de-leveraged faster than expected during FY26 — alongside an FY27 capex plan described as bolder than modelled.</p>
+  <p>That combination is favourable: a debt-free-ish balance sheet funding its own expansion into a strong order cycle is the right position for a capital-goods company. It is also, at 14.2× book, priced as though it will continue indefinitely.</p>
+  <p class="tbl-note">Current net debt and the FY27 capex figure are not established in the sources reviewed for this update. Worth confirming from the Q1 filing before sizing.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right">60.3×</td><td>Down from ~57× on higher earnings — still full</td></tr>
+      <tr><td>P/E on annualised Q1 consolidated PAT</td><td class="right">~70×</td><td>Higher than trailing</td></tr>
+      <tr><td>Price / Book</td><td class="right bold red">14.2×</td><td>High for a transformer manufacturer</td></tr>
+      <tr><td>Market cap / order book</td><td class="right">4.23×</td><td>Expensive coverage</td></tr>
+      <tr><td>Market cap / annualised Q1 revenue</td><td class="right">7.1×</td><td>Rich</td></tr>
+      <tr><td>Below 52-week high</td><td class="right red">−22.1%</td><td>Already de-rated meaningfully</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The de-rating is real but incomplete.</b> The stock has fallen 22% from its high, yet still trades at 60.3× earnings and 14.2× book. For comparison within this batch: Balaji Amines at 3.88× book, Sanghvi Movers at 2.91×, Paramount at 2.45×.</p>
+  <p>A high-quality transformer maker in a strong T&amp;D cycle deserves a premium. <b>Whether it deserves 14.2× book while carrying RS 15 is the open question, and the market has been answering it in one direction for three months.</b></p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">The order book keeps compounding at a 2× book-to-bill and the EHV progression continues past ₹275 Cr of 400 kV work into a genuine high-voltage franchise. India&rsquo;s T&amp;D and solar build-out runs multi-year. Earnings grow into the 60× multiple rather than the price falling to meet it, and the RS 15 reading proves to be a consolidation within a longer uptrend.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">The business keeps delivering 40–50% growth while the multiple keeps compressing. The stock goes sideways or drifts for several more quarters as 60× earnings normalises toward the growth rate. Nothing goes wrong operationally; the return simply does not arrive until the valuation resets.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">T&amp;D ordering slows, or competition in 220 kV transformers intensifies as capacity is added across the sector. Growth decelerates from 48% just as the market is already de-rating the stock. At 14.2× book with RS 15 and no Stage 2 support, there is nothing technical to arrest a decline.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">RS 15 — the weakest signal despite the strongest numbers</div><div class="risk-body">Bottom 15% of the market on relative strength while growing revenue 48%. The market is pricing something the results do not show, most plausibly the multiple.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Multiple compression still in progress</div><div class="risk-body">Down 22% from the high and still at 60.3× earnings and 14.2× book. The de-rating has room to continue without any operational deterioration.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Project-order lumpiness</div><div class="risk-body">Transformer orders are discrete and tender-driven. A ₹972 Cr quarter of inflow is not a run-rate, and a quiet quarter would show immediately.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Sector capacity additions</div><div class="risk-body">The Indian transformer sector is adding capacity into the same T&amp;D cycle. 220 kV is where most competitors are targeting.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Subsidiary drag</div><div class="risk-body">Standalone profit (₹53.1 Cr) exceeds consolidated (₹46.84 Cr), so subsidiaries currently reduce group earnings.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Undisclosed capex and net debt</div><div class="risk-body">The May note flagged an FY27 capex plan &ldquo;bolder than modelled&rdquo;. Current figures are not established here and should be confirmed before sizing.</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: HOLD — BUSINESS DELIVERING, TREND BROKEN</div>
+    <p>Atlanta Electricals is executing well. Q1 revenue +48%, EBITDA +58%, consolidated profit +50%, margin +105 basis points, order book up <b>25% in a quarter to ₹3,117 crore on a book-to-bill above 2×</b>, and ~₹275 crore of 400 kV EHV work now in the backlog — resolving the EHV question the May note flagged as open.</p>
+    <p>And the stock carries <b>RS 15, sits 22% below its 52-week high, and has fallen 15% over three months and 9.3% in the final week.</b> It fails your trend template and is not in Stage 2.</p>
+    <p>The May note said the debate was &ldquo;purely about multiple and EHV prototype timing&rdquo;. Both have been answered since: <b>EHV favourably, the multiple unfavourably.</b> At 60.3× earnings and 14.2× book after a 22% fall, the de-rating from ~57× on a stock that had run 87% YTD looks incomplete rather than finished. The business is not the problem here; the price it was carrying is.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span>Quarterly order inflow — can it repeat ₹972 Cr, or was that a peak</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>400 kV EHV work growing beyond ₹275 Cr — the value-ladder progression</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>The new inverter-duty transformer facility, and solar-linked revenue beyond 14% of mix</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>RS rating — at 15 this is deeply out of favour; recovery would be the signal your system needs</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Net debt and FY27 capex, confirmed from the Q1 filing</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Whether consolidated profit catches up with standalone as subsidiaries mature</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>ATLANTA ELECTRICALS LIMITED (NSE: ATLANTAELE) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results (Jul 2026) &middot; Company disclosures on order book, product and voltage-class mix, and the APTRANSCO letter of intent &middot; Prior in-house research report, 11 May 2026, for FY26 figures &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

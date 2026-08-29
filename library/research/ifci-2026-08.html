@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IFCI Limited — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: IFCI Limited — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: IFCI &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026 &nbsp;|&nbsp; Updates the June 2026 edition</p>
+    <h1 class="report-title"><span>IFCI</span> Limited</h1>
+    <p class="report-subtitle">India&rsquo;s oldest development finance institution &nbsp;·&nbsp; Government-owned &nbsp;·&nbsp; Priced as a listed proxy for the NSE, not as a lender</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹90.10</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹24,276 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 PAT (cons.)</div><div class="kpi-value">₹60.3 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Gross NPA</div><div class="kpi-value">95.68%</div></div>
+      <div class="kpi-cell"><div class="kpi-label">CRAR</div><div class="kpi-value">−17.58%</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — A Structure Trade, Not a Lender</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">SHCIL merger collapses the holding discount</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">₹24,276 Cr for a ~2.3% look-through NSE stake</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Read This First</a>
+    <a href="#s3">Q1 FY27</a>
+    <a href="#s4">The Balance Sheet</a>
+    <a href="#s5">The NSE Chain</a>
+    <a href="#s6">The SHCIL Merger</a>
+    <a href="#s7">Capital Infusion</a>
+    <a href="#s8">What You Are Buying</a>
+    <a href="#s9">Your Signals</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>IFCI Limited — established 1948 as the Industrial Finance Corporation of India, the country&rsquo;s first development finance institution</td></tr>
+    <tr><td class="bold">Ownership</td><td>Majority Government of India</td></tr>
+    <tr><td class="bold">What it does now</td><td>It stopped fresh lending around FY22. The legacy loan book is in run-off. <b>Its equity value derives almost entirely from a 52.86% stake in Stock Holding Corporation of India (SHCIL)</b>, which in turn holds roughly 4.44% of the National Stock Exchange.</td></tr>
+    <tr><td class="bold">Why it appears here</td><td>RS 83, <b>passes the trend template</b>, in Stage 2 (6 days), 6.0% from its 52-week high, and up 7.0% on the final scan day.</td></tr>
+  </tbody></table></div>
+  <p class="tbl-note">This report updates the June 2026 edition in your library with Q1 FY27 results, the SHCIL merger approval and current market data.</p>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">Read This First: The Lending Business Is Not the Investment</h2></div>
+  <p><b>IFCI is the most unusual name in this entire library, and applying normal financial analysis to it will produce a badly wrong answer.</b></p>
+  <p>Look at the operating metrics honestly:</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Metric</th><th class="right">Value</th><th>What it would normally mean</th></tr></thead>
+    <tbody>
+      <tr><td>Gross NPA ratio</td><td class="right bold red">95.68%</td><td>Almost the entire loan book is non-performing</td></tr>
+      <tr><td>CRAR</td><td class="right bold red">−17.58%</td><td><b>Negative capital adequacy</b>, against an RBI minimum of 15%</td></tr>
+      <tr><td>Fresh lending</td><td class="right red">stopped ~FY22</td><td>No new business being written</td></tr>
+      <tr><td>Q1 FY27 revenue from operations</td><td class="right red">₹327.06 Cr</td><td>down from ₹407.18 Cr</td></tr>
+    </tbody>
+  </table></div>
+  <p>By any conventional measure this is a failed lender. <b>A negative capital adequacy ratio means the institution has negative regulatory capital</b> — for a private NBFC that would be terminal.</p>
+  <p>It is not terminal here because IFCI is government-owned and is being restructured rather than resolved. <b>The market is not pricing the lending book at all. It is pricing a look-through claim on the National Stock Exchange</b>, and everything in Sections 05 to 08 follows from that.</p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Q1 FY27</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (quarter to June 2026)</th><th class="right">Q1 FY27</th><th class="right">Q1 FY26</th><th class="right">Change</th></tr></thead>
+    <tbody>
+      <tr><td>Consolidated net profit</td><td class="right bold">₹60.27 Cr</td><td class="right">~₹62 Cr</td><td class="right red">−3%</td></tr>
+      <tr><td>Revenue from operations</td><td class="right">₹327.06 Cr</td><td class="right">₹407.18 Cr</td><td class="right red">−19.7%</td></tr>
+      <tr><td>Standalone net profit</td><td class="right">₹8.64 Cr</td><td class="right">₹7.38 Cr</td><td class="right green">+17%</td></tr>
+      <tr><td>Gross NPA</td><td class="right red">95.68%</td><td class="right">95.79% (Mar-26)</td><td class="right muted">marginally lower</td></tr>
+      <tr><td>CRAR</td><td class="right red">−17.58%</td><td class="right">−18.78% (Mar-26)</td><td class="right green">improving</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Board approved 11 August 2026. Q1 FY26 consolidated profit is derived from the reported −3% change.</p>
+  <p><b>Note the gap between consolidated (₹60.27 Cr) and standalone (₹8.64 Cr) profit.</b> Almost all of IFCI&rsquo;s earnings come from subsidiaries — principally SHCIL — rather than from the parent. That is the numerical confirmation of Section 02: the holding structure <em>is</em> the business.</p>
+  <p>Two metrics moved in the right direction: gross NPA edged down from 95.79% to 95.68%, and CRAR improved from −18.78% to −17.58%. <b>Both are improvements from catastrophic to slightly less catastrophic</b>, and they matter mainly as evidence that the restructuring is progressing.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">The Balance Sheet</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>From the prior report (March 2026)</th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>Net worth</td><td class="right">₹1,786 Cr</td></tr>
+      <tr><td>Total assets</td><td class="right">₹10,064 Cr</td></tr>
+      <tr><td>FY26 net profit (standalone)</td><td class="right">₹51.7 Cr</td></tr>
+      <tr><td>FY26 total income</td><td class="right">₹2,134 Cr <span class="green">(+3.4%)</span></td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Set net worth against market capitalisation and the whole picture becomes clear.</b> IFCI reports roughly ₹1,786 crore of net worth and trades at ₹24,276 crore — <b>about 13.6× stated book</b>, on a lender with 95.68% gross NPAs and negative regulatory capital.</p>
+  <p>The screener shows price-to-book at 2.79×, which reflects a different (consolidated) book value. Either way, <b>no analysis of IFCI as a balance-sheet lender can justify the market capitalisation.</b> The value is entirely in the SHCIL–NSE chain, and the accounting book value does not capture it because the NSE stake is not marked to any market price — the NSE is unlisted.</p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">The NSE Chain</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Link</th><th class="right">Stake</th></tr></thead>
+    <tbody>
+      <tr><td>IFCI &rarr; SHCIL</td><td class="right bold">52.86%</td></tr>
+      <tr><td>SHCIL &rarr; National Stock Exchange</td><td class="right bold">~4.44%</td></tr>
+      <tr><td><b>IFCI&rsquo;s effective look-through NSE stake</b></td><td class="right bold">~2.3%</td></tr>
+    </tbody>
+  </table></div>
+  <p>The NSE is India&rsquo;s dominant equity exchange and is unlisted, with a long-anticipated IPO. Exchanges are among the best businesses in finance — near-monopoly network effects, high margins, capital-light. <b>A listed vehicle offering exposure to a pre-IPO NSE stake is a genuinely scarce asset, and that scarcity is what the price reflects.</b></p>
+  <p>Three cautions on the arithmetic:</p>
+  <ul>
+    <li><b>2.3% is a look-through figure, twice removed.</b> IFCI does not own NSE shares; it owns just over half of a company that owns 4.44% of them.</li>
+    <li><b>The NSE IPO has been anticipated for years.</b> Regulatory approval, timing and eventual valuation are all outside IFCI&rsquo;s control.</li>
+    <li><b>A holding-company discount normally applies</b> to exactly this structure — which is what makes Section 06 the most important development in the story.</li>
+  </ul>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">The SHCIL Merger — The Real News Since June</h2></div>
+  <p><b>The Finance Ministry has approved the merger of SHCIL into IFCI.</b></p>
+  <p>This is the single most consequential change since the June report, and the mechanism is worth stating precisely: <b>a merger removes the holding-company discount, because the assets come directly onto IFCI&rsquo;s balance sheet rather than sitting one layer down in a 52.86%-owned subsidiary.</b></p>
+  <p>Three effects follow:</p>
+  <ul>
+    <li><b>The look-through NSE stake becomes a direct stake.</b> Post-merger, IFCI would hold the NSE shares itself rather than through SHCIL, converting an indirect ~2.3% into a directly held position.</li>
+    <li><b>It brings SHCIL&rsquo;s capital onto IFCI&rsquo;s balance sheet</b>, which is directly relevant to the −17.58% CRAR problem. Merging a well-capitalised subsidiary into an under-capitalised parent is a route to repairing capital adequacy without fresh cash.</li>
+    <li><b>It simplifies a structure that has been the main analytical obstacle</b> to valuing the company.</li>
+  </ul>
+  <p class="tbl-note">Ministry approval is not completion. Scheme approval, creditor and shareholder consents, NCLT sanction and a record date all lie between approval and effect, and the timetable is not established in the sources reviewed. Treat this as a sanctioned intention with real execution ahead of it.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Government Support</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:300px">Equity infusion approved</td><td><b>₹500 Cr</b>, January 2026</td></tr>
+    <tr><td class="bold">Approving authority</td><td>Government of India</td></tr>
+  </tbody></table></div>
+  <p>A ₹500 crore infusion against ₹1,786 crore of net worth is a meaningful addition — roughly 28% — and it is the practical reason a lender with negative capital adequacy continues as a going concern.</p>
+  <p><b>This is the fact that underwrites the entire investment case and it deserves to be named plainly: IFCI is solvent because the Government of India chooses to keep it solvent.</b> That is a policy dependency, not a commercial one. It has been reliable, and the merger approval suggests continued intent — but it is discretionary, and a change in policy priorities is a genuine, if low-probability, risk that has no analogue in any other name in this library.</p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">What You Are Actually Buying</h2></div>
+  <p>Stripping the analysis to its structure, an IFCI holder at ₹24,276 crore is buying:</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Component</th><th>Character</th></tr></thead>
+    <tbody>
+      <tr><td>A ~2.3% look-through stake in the unlisted NSE</td><td class="green">The asset — scarce, high quality, no public mark</td></tr>
+      <tr><td>Control of SHCIL (custody and depository services)</td><td class="green">A real operating business, source of most consolidated profit</td></tr>
+      <tr><td>A loan book with 95.68% gross NPAs in run-off</td><td class="red">A liability wearing an asset&rsquo;s clothing</td></tr>
+      <tr><td>Negative regulatory capital (−17.58% CRAR)</td><td class="red">Repaired by government support and, prospectively, the merger</td></tr>
+      <tr><td>Government ownership and policy support</td><td class="muted">The thing that holds the structure together</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>This is a structure trade, not an operating-company investment.</b> Nothing in the quarterly P&amp;L will tell you whether it works. The variables that matter are the merger completing, the NSE IPO happening, and the valuation the NSE eventually achieves — and none of the three is under IFCI&rsquo;s control or visible in its results.</p>
+  <p>That is an unusual thing to own, and it should be sized as such rather than as a financial-sector position.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">What Your Own System Says</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (27 Aug 2026)</th><th class="right">IFCI</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating</td><td class="right green">83</td></tr>
+      <tr><td>Trend template</td><td class="right bold green">PASSES</td></tr>
+      <tr><td>In Stage 2 (computed)</td><td class="right green">Yes — 6 days</td></tr>
+      <tr><td>Below 52-week high</td><td class="right green">−5.95%</td></tr>
+      <tr><td>1-day return</td><td class="right bold green">+7.0%</td></tr>
+      <tr><td>3-month return</td><td class="right green">+23.0%</td></tr>
+    </tbody>
+  </table></div>
+  <p>IFCI is one of only three names in this import batch still passing the trend template, and it rose 7.0% on the final scan day — the largest single-day move in the batch. A Stage 2 tenure of six days makes this a recent entry.</p>
+  <p class="tbl-note">A caution specific to this name: the trend template measures price momentum, and IFCI&rsquo;s price momentum responds to structural news — merger approvals, IPO speculation — rather than to earnings. The signal is real, but what it is tracking here is a policy narrative, not a business.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right bold red">135.4×</td><td>Meaningless — earnings are incidental to the thesis</td></tr>
+      <tr><td>Price / Book (screener, consolidated)</td><td class="right">2.79×</td><td>The only conventionally reasonable metric</td></tr>
+      <tr><td>Market cap / stated net worth (₹1,786 Cr)</td><td class="right bold red">~13.6×</td><td>Reflects assets not carried at market</td></tr>
+      <tr><td>Market cap per 1% look-through NSE</td><td class="right">~₹10,555 Cr</td><td><b>The number that actually matters</b></td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">The last line divides the ₹24,276 Cr market capitalisation by the ~2.3% effective NSE stake. It attributes the entire market value to the NSE holding and gives zero credit to SHCIL&rsquo;s operating business or the residual loan book, so it overstates the implied NSE valuation. It is shown as a framing device, not a valuation.</p>
+  <p><b>The honest position is that IFCI cannot be valued from its financial statements.</b> A P/E of 135× on a company whose earnings are incidental tells you nothing. The only way to form a view is to take a position on what the NSE is worth, apply the ~2.3% look-through, discount for the structure and the wait, and compare that to ₹24,276 crore — and the first term in that chain is a private valuation nobody can observe.</p>
+  <p>That is not a reason to dismiss it. <b>It is a reason to recognise that this is a bet on a private-market valuation, dressed in a listed wrapper, and to hold it with the uncertainty that implies.</b></p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">The SHCIL merger completes, collapsing the holding-company discount and bringing the NSE stake directly onto IFCI&rsquo;s balance sheet while repairing capital adequacy. The NSE IPO proceeds and prices at a strong valuation, giving the ~2.3% stake a public mark for the first time. A structural discount becomes a visible asset value, and the re-rating is mechanical.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">The merger proceeds through its regulatory steps over several quarters. The NSE IPO stays anticipated rather than executed, as it has for years. The stock continues trading on news flow around both events, with no earnings anchor to hold it in either direction. Government support continues and CRAR keeps improving slowly.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">The NSE IPO is delayed again or prices below expectations. The merger encounters regulatory or NCLT delay. Attention returns to the underlying entity: 95.68% gross NPAs, negative capital adequacy, no fresh lending, and a market capitalisation many times stated net worth. There is no earnings floor and no asset mark to defend the price.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">The underlying lender is not viable on its own</div><div class="risk-body">95.68% gross NPAs, −17.58% CRAR against an RBI minimum of 15%, no fresh lending since ~FY22. For a private NBFC this combination would be terminal.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Dependence on government support</div><div class="risk-body">Solvency rests on a policy choice — the ₹500 Cr infusion and the merger approval. Reliable so far, discretionary by nature, and without parallel elsewhere in this library.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">NSE IPO timing and valuation</div><div class="risk-body">Long anticipated, repeatedly delayed, and entirely outside IFCI&rsquo;s control. The central variable in the thesis is unobservable until it happens.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Merger execution</div><div class="risk-body">Ministry approval is not completion. Scheme sanction, consents and NCLT process lie ahead on an unstated timetable.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Twice-removed exposure</div><div class="risk-body">~2.3% look-through, through a 52.86% subsidiary. Any structural change dilutes or complicates the claim.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">No valuation anchor</div><div class="risk-body">135× trailing earnings on incidental profits, and a market capitalisation many times stated net worth. Price is set by narrative, which means it can move a long way without any change in facts.</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: HOLD — A STRUCTURE TRADE, NOT A LENDER</div>
+    <p>IFCI is the one name in this library where conventional analysis actively misleads. Gross NPAs of <b>95.68%</b> and a capital adequacy ratio of <b>−17.58%</b> would be terminal for any private lender. It survives because it is government-owned and being restructured — a ₹500 crore infusion in January and, now, <b>Finance Ministry approval to merge SHCIL into IFCI</b>.</p>
+    <p>That merger is the real development since the June report, and it is a genuine positive: it collapses the holding-company discount, brings the NSE stake directly onto the balance sheet, and helps repair capital adequacy without fresh cash. Ministry approval is not completion, though, and the steps between are not on a stated timetable.</p>
+    <p>What you are buying at ₹24,276 crore is <b>a ~2.3% look-through claim on the unlisted NSE, plus control of SHCIL, minus a loan book that is 96% non-performing.</b> Nothing in the quarterly results will tell you whether that works — the variables are the merger completing, the NSE listing, and the valuation it achieves, none of which IFCI controls. Your own signals have it passing the trend template on RS 83, but what that momentum is tracking is a policy narrative rather than a business.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>The SHCIL merger</b> — scheme filing, NCLT process, record date. The most checkable milestone in the story.</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Any concrete development on the NSE IPO — the central and least controllable variable</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>CRAR improving from −17.58% toward the RBI minimum — the measure of restructuring progress</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Further government capital infusions beyond the ₹500 Cr approved in January 2026</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Recovery on the legacy loan book — any reduction in the 95.68% gross NPA</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>The consolidated-to-standalone profit gap, which measures how much comes from SHCIL</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>IFCI LIMITED (NSE: IFCI) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results (board approved 11 Aug 2026) &middot; Disclosures on the SHCIL shareholding, the Finance Ministry approval of the SHCIL merger and the Government equity infusion &middot; Prior in-house research report, June 2026, for FY26 figures &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

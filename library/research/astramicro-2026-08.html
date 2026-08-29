@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astra Microwave Products — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: Astra Microwave Products — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: ASTRAMICRO &nbsp;|&nbsp; BSE: 532493 &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026 &nbsp;|&nbsp; Updates the June 2026 edition</p>
+    <h1 class="report-title"><span>Astra</span> Microwave Products</h1>
+    <p class="report-subtitle">RF and microwave subsystems for radar, EW, space and meteorology &nbsp;·&nbsp; Hyderabad &nbsp;·&nbsp; A record order book on a weak quarter</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹1,684.50</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹15,994 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 Revenue</div><div class="kpi-value">₹176 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 PAT</div><div class="kpi-value">₹12 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Order Book</div><div class="kpi-value">₹4,300 Cr</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — Record Book, Weak Quarter, MD Departing</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">₹2,205 Cr HAL Uttam radar order converts</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">Revenue and profit both fell; template failed</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Your Signals</a>
+    <a href="#s3">Q1 FY27</a>
+    <a href="#s4">The HAL Order</a>
+    <a href="#s5">Order Book</a>
+    <a href="#s6">Leadership</a>
+    <a href="#s7">The Business</a>
+    <a href="#s8">Guidance</a>
+    <a href="#s9">Since June</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>Astra Microwave Products Limited</td></tr>
+    <tr><td class="bold">Founded</td><td>1991, Hyderabad, by a group of RF/microwave scientists</td></tr>
+    <tr><td class="bold">What it makes</td><td>RF and microwave subsystems — <b>AESA radar T/R modules</b>, electronic warfare systems, space-borne hardware, Doppler weather radar, GNSS/NavIC and anti-drone systems. Tier-1/Tier-2 strategic supplier across defence, space, meteorology and exports. Rafael joint venture (ARC).</td></tr>
+    <tr><td class="bold">Why it appears here</td><td>It is on your 52-week-high watchlist. <b>On the 27 Aug scan it no longer qualifies</b> — see Section 02.</td></tr>
+    <tr><td class="bold">Promoter holding</td><td><b>~6.5%</b> — unusually low; the company is widely held</td></tr>
+    <tr><td class="bold" style="color:#b45309">Surveillance flag</td><td><b>LT-ASM Stage I</b> as of the 27 Aug Stage 2 file</td></tr>
+  </tbody></table></div>
+  <p class="tbl-note">This report updates the June 2026 edition in your library with Q1 FY27 results, the HAL order and current market data.</p>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">What Your Own System Says</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (27 Aug 2026)</th><th class="right">ASTRAMICRO</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating</td><td class="right red">69</td></tr>
+      <tr><td>Trend template</td><td class="right bold red">FAILS</td></tr>
+      <tr><td>In Stage 2 (computed track)</td><td class="right bold red">No</td></tr>
+      <tr><td>On the provider&rsquo;s Stage 2 list</td><td class="right green">Yes</td></tr>
+      <tr><td>Below 52-week high</td><td class="right red">−14.06%</td></tr>
+      <tr><td>3-month return</td><td class="right green">+20.4%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Astra is the one name in this batch where your two Stage 2 tracks disagree.</b> The provider&rsquo;s weekly list still carries it; the computed trend template — run daily on price action — does not. When the two diverge, the computed track is the more current, because the provider&rsquo;s list is a weekly snapshot.</p>
+  <p>The stock sits 14% below its 52-week high on RS 69, having <b>fallen 9% on the day of the Q1 results</b>. Section 03 explains why.</p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Q1 FY27 — Revenue and Profit Both Fell</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (quarter to June 2026)</th><th class="right">Q1 FY27</th><th class="right">Q1 FY26</th><th class="right">Change</th></tr></thead>
+    <tbody>
+      <tr><td>Standalone revenue</td><td class="right bold red">₹176 Cr</td><td class="right">₹197 Cr</td><td class="right red">−10.7%</td></tr>
+      <tr><td>Consolidated net profit</td><td class="right bold red">₹12 Cr</td><td class="right">₹16 Cr</td><td class="right red">−25%</td></tr>
+      <tr><td>Quarterly operating margin</td><td class="right">18.72%</td><td class="right muted">—</td><td class="right muted">—</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>This is the only company in the entire library whose latest quarter shows both revenue and profit declining.</b> Every other name reported growth on at least one line.</p>
+  <p>Management described the quarter as &ldquo;modest&rdquo;, attributing it to <b>temporary delays in customer approvals and last-stage technical issues</b>, and said these are expected to normalise in coming quarters.</p>
+  <p>That explanation is plausible for a defence supplier — approvals and acceptance testing genuinely do slip, and revenue recognition in this industry is lumpy. <b>But it is also the standard explanation for a weak defence quarter, and it is unfalsifiable until the next print.</b> Q2 is where it gets tested.</p>
+  <p class="tbl-note">Context worth holding: FY26 operating margin was roughly 28%, with Q4 FY26 at 33.3%. The 18.72% recorded this quarter is a sharp step down, consistent with under-absorption on lower revenue.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">The ₹2,205 Crore HAL Order</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:280px">Announced</td><td><b>17 August 2026</b></td></tr>
+    <tr><td class="bold">Customer</td><td>Hindustan Aeronautics Limited (HAL)</td></tr>
+    <tr><td class="bold">Value</td><td><b>~₹2,205 Cr</b></td></tr>
+    <tr><td class="bold">Scope</td><td>Critical subsystems for the <b>Uttam radar</b></td></tr>
+    <tr><td class="bold">Scale check</td><td>~1.9× FY26 revenue of ₹1,163 Cr, in a single order</td></tr>
+  </tbody></table></div>
+  <p><b>This is the most important development at Astra since the June report, and it is a genuinely large win.</b> Uttam is India&rsquo;s indigenous AESA fire-control radar programme for combat aircraft, and supplying its critical subsystems places Astra at the centre of the country&rsquo;s most strategically significant radar programme.</p>
+  <p>Three things make it more than a headline:</p>
+  <ul>
+    <li><b>It is nearly two years of revenue in one order</b>, from a single creditworthy domestic customer.</li>
+    <li><b>AESA T/R modules are Astra&rsquo;s core capability</b> — this is the company&rsquo;s strongest technical franchise, not an adjacency.</li>
+    <li><b>Indigenous radar programmes are policy-protected</b>, which makes the revenue durable once the programme is committed.</li>
+  </ul>
+  <p>The caution is timing. <b>A ₹2,205 crore order on a defence programme converts over many years, not quarters</b>, and the Q1 miss was itself caused by approval and acceptance delays. The order improves the multi-year picture and does nothing for the next two prints.</p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Order Book</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">June 2026 report</th><th class="right">Now</th></tr></thead>
+    <tbody>
+      <tr><td>Consolidated order book</td><td class="right">₹2,610 Cr (incl. ₹231 Cr services)</td><td class="right bold">₹2,849 Cr (incl. ~₹244 Cr services)</td></tr>
+      <tr><td>Total order book (as on date)</td><td class="right muted">—</td><td class="right bold green">₹4,300 Cr — a record</td></tr>
+    </tbody>
+  </table></div>
+  <h3 class="subsection-title">Composition of the order book</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Segment</th><th class="right">Share</th></tr></thead>
+    <tbody>
+      <tr><td>Defence and public sector</td><td class="right bold">71.3%</td></tr>
+      <tr><td>Space</td><td class="right">26.3%</td></tr>
+      <tr><td>Exports</td><td class="right">2.0%</td></tr>
+      <tr><td>Meteorological</td><td class="right">0.4%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The record ₹4,300 crore total book is 3.7× FY26 revenue</b> — strong visibility, and materially better than the ₹2,610 crore reported in June.</p>
+  <p>The composition tells you the risk profile precisely: <b>97.6% of the book is Indian defence, public sector and space.</b> Exports are 2%. This is a pure play on Indian strategic procurement — insulated from global cycles, entirely exposed to domestic programme timing, budget allocation and the acceptance delays that produced the Q1 miss.</p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">The Managing Director Is Stepping Down</h2></div>
+  <p>Announced alongside the Q1 results: <b>the Managing Director is stepping down</b>, with a leadership transition ahead.</p>
+  <p>A leadership change is not automatically negative, and this report will not speculate on the reason, which is not established in the sources reviewed. Two things make it worth flagging as more than routine:</p>
+  <ul>
+    <li><b>The timing.</b> It was announced with a quarter in which revenue fell 10.7% and profit fell 25%, and the stock dropped 9%. A weak print plus an MD departure is a harder combination for the market to read than either alone.</li>
+    <li><b>The ownership structure.</b> Promoter holding is roughly <b>6.5%</b> — unusually low. In a widely held company with minimal promoter stake, professional management <em>is</em> the continuity. There is no controlling family to anchor strategy through a transition.</li>
+  </ul>
+  <p><b>Watch who is appointed and from where.</b> An internal technical successor signals continuity in a company whose value rests on RF engineering depth; an external commercial appointment would signal a different intent.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">The Business and Its Moat</h2></div>
+  <p>Astra&rsquo;s advantage is genuine and narrow. RF and microwave subsystem design for radar and electronic warfare requires deep specialist engineering, and the company has been building it since 1991. Qualification into Indian strategic programmes takes years and, once achieved, is durable.</p>
+  <p>The June report recorded FY26 ROCE of <b>19.4%, up from a ~14.6% historical average</b> — evidence the franchise had begun earning properly on its capital. Q1&rsquo;s revenue decline and margin step-down interrupt that trajectory rather than reverse it, provided management&rsquo;s &ldquo;temporary delays&rdquo; framing proves correct.</p>
+  <p><b>The structural limitation is customer concentration by construction.</b> With 97.6% of the book domestic defence, space and public sector, Astra has one effective customer — the Indian state, in several forms. That is a high-quality, policy-supported customer, and it is also one whose procurement timing no supplier controls. The 2% export share is the honest measure of how little diversification exists today.</p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">Guidance</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:300px">FY27 revenue guidance</td><td>Lifted to <b>~₹1,350 Cr</b></td></tr>
+    <tr><td class="bold">Implied growth on FY26 (₹1,163 Cr)</td><td><b>15 – 20%</b></td></tr>
+  </tbody></table></div>
+  <p><b>Management lifted guidance in the same quarter that revenue fell 10.7%.</b> That is an unusual combination and it is the clearest statement of the company&rsquo;s own view: the Q1 shortfall is timing, and the year is intact.</p>
+  <p>The arithmetic makes the claim checkable. Q1 delivered ₹176 crore standalone. Reaching ~₹1,350 crore requires roughly <b>₹1,174 crore across the remaining three quarters — about ₹391 crore a quarter, more than double the Q1 run-rate.</b></p>
+  <p><b>That is a demanding back-loading, and it is the single number to test the guidance against.</b> Defence revenue genuinely is H2-weighted, so it is not implausible. But Q2 needs to show a substantial step up for the full-year figure to remain credible, and if it does not, the guidance goes with it.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">What Changed Since June</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Item</th><th class="right">June 2026</th><th class="right">Now</th><th class="right">Direction</th></tr></thead>
+    <tbody>
+      <tr><td>Order book (total)</td><td class="right">₹2,610 Cr</td><td class="right">₹4,300 Cr</td><td class="right green">strongly better</td></tr>
+      <tr><td>Quarterly revenue trend</td><td class="right">FY26 +10.7%</td><td class="right">Q1 −10.7%</td><td class="right red">worse</td></tr>
+      <tr><td>Operating margin</td><td class="right">FY26 ~28%</td><td class="right">Q1 18.7%</td><td class="right red">worse</td></tr>
+      <tr><td>Leadership</td><td class="right">stable</td><td class="right">MD stepping down</td><td class="right red">uncertainty</td></tr>
+      <tr><td>Trend template</td><td class="right muted">—</td><td class="right">fails</td><td class="right red">worse</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The order book improved dramatically and everything else got worse.</b> That is the whole update in one table, and it is why the stock is 14% below its high despite a record backlog.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right red">84.6×</td><td>High, and on declining earnings</td></tr>
+      <tr><td>Price / Book</td><td class="right red">12.2×</td><td>Demanding</td></tr>
+      <tr><td>Market cap / FY27 guided revenue</td><td class="right">11.8×</td><td>Rich</td></tr>
+      <tr><td>Market cap / order book</td><td class="right">3.72×</td><td>Expensive coverage; HFCL is at 1.44×</td></tr>
+      <tr><td>Below 52-week high</td><td class="right red">−14.06%</td><td>Well off the peak</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>84.6× trailing earnings on a quarter where profit fell 25% is the uncomfortable combination.</b> Unlike HFCL or Sterlite, where a high trailing P/E reflects a depressed <em>past</em> and a recovering present, Astra&rsquo;s multiple is being applied to earnings that are currently going the wrong way.</p>
+  <p>The defence sector premium is real and Astra has earned a share of it — the Uttam order is exactly the kind of win that justifies one. <b>But a 12.2× book multiple with revenue declining, margin compressing and the MD departing leaves no room for the &ldquo;temporary delays&rdquo; explanation to be wrong.</b></p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">The approval and technical delays clear, Q2 steps up sharply toward the ~₹391 Cr quarterly run-rate the guidance requires, and FY27 lands near ₹1,350 Cr. The ₹2,205 Cr Uttam order begins converting and the record ₹4,300 Cr book gives multi-year visibility. Leadership transitions smoothly to an internal technical successor. Margin returns toward the FY26 ~28%.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">Revenue recovers through the year but full-year lands below the ~₹1,350 Cr guidance, because doubling the Q1 run-rate for three consecutive quarters is a high bar. The order book keeps growing and provides real visibility into FY28-29. The stock consolidates while execution catches up with the backlog.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">The delays are not purely temporary and Q2 disappoints again. Margin stays near 18.7% rather than recovering to 28%, indicating a structural rather than absorption issue. The leadership transition unsettles execution at a company with 6.5% promoter holding and no controlling anchor. At 84.6× earnings and 12.2× book with the trend template already failing, there is no support.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Both revenue and profit declined</div><div class="risk-body">The only company in this library with both lines falling in the latest quarter. Revenue −10.7%, profit −25%, margin down from ~28% to 18.7%.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Guidance requires doubling the Q1 run-rate</div><div class="risk-body">~₹1,350 Cr FY27 guidance needs roughly ₹391 Cr per quarter for three quarters against ₹176 Cr delivered. Defence revenue is H2-weighted, but this is a demanding back-load.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Leadership transition</div><div class="risk-body">MD stepping down, announced with a weak quarter, at a company with ~6.5% promoter holding and therefore no controlling family to provide continuity.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">97.6% domestic public-sector concentration</div><div class="risk-body">Defence, public sector and space are 97.6% of the order book; exports 2%. One effective customer, whose procurement and acceptance timing caused the Q1 miss.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Order-to-revenue conversion</div><div class="risk-body">A record ₹4,300 Cr book means nothing if acceptance delays persist. The gap between winning orders and recognising revenue is precisely what went wrong this quarter.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Valuation on falling earnings</div><div class="risk-body">84.6× trailing and 12.2× book while profit declines 25%. Unlike the turnaround names here, the multiple is not being applied to a depressed base that is recovering.</div></div>
+  <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">LT-ASM Stage I surveillance</div><div class="risk-body">Surveillance-listed scrips typically attract raised margin requirements and are commonly excluded from broker margin-funding approved lists.</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: HOLD — RECORD BOOK, WEAK QUARTER, MD DEPARTING</div>
+    <p>Astra Microwave won a <b>₹2,205 crore order from HAL for Uttam radar subsystems on 17 August</b> — nearly two years of revenue in a single award, on the company&rsquo;s strongest technical franchise, in India&rsquo;s most strategically significant radar programme. The total order book is a record <b>₹4,300 crore, 3.7× FY26 revenue</b>. That is a genuinely strong multi-year position.</p>
+    <p>In the same window, <b>Q1 revenue fell 10.7%, profit fell 25%, operating margin dropped from roughly 28% to 18.7%, the stock fell 9% on the print, and the Managing Director announced he is stepping down.</b> It is the only company in this library with both revenue and profit declining. On your own framework it has failed the trend template and left the computed Stage 2 track, though the provider&rsquo;s weekly list still carries it.</p>
+    <p>Management calls the shortfall temporary and <em>lifted</em> FY27 guidance to ~₹1,350 crore in the same breath. That requires roughly ₹391 crore a quarter for the rest of the year against ₹176 crore delivered — <b>a specific, checkable claim that Q2 will settle.</b> At 84.6× earnings and 12.2× book, the price leaves no room for it to be wrong.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Q2 FY27 revenue</b> — the step up toward ~₹391 Cr that the guidance requires. The decisive number.</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Operating margin recovering from 18.7% toward the FY26 ~28%</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Who succeeds the MD, and whether the appointment is internal and technical</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Execution start on the ₹2,205 Cr Uttam programme</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Export share moving beyond 2% — the only route to reducing single-customer dependence</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>RS and the trend template — the conditions under which your own system would re-admit it</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>LT-ASM Stage I status — affects margin eligibility and sizing</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>ASTRA MICROWAVE PRODUCTS LIMITED (NSE: ASTRAMICRO | BSE: 532493) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results and Earnings Call (Aug 2026) &middot; Company announcement of the ~Rs 2,205 Cr HAL order for Uttam radar subsystems (17 Aug 2026) &middot; Prior in-house research report, June 2026, for FY26 figures &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

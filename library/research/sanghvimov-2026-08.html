@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanghvi Movers — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: Sanghvi Movers — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: SANGHVIMOV &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026 &nbsp;|&nbsp; Updates the 15 June 2026 edition</p>
+    <h1 class="report-title"><span>Sanghvi</span> Movers</h1>
+    <p class="report-subtitle">Asia&rsquo;s largest crane-rental operator &nbsp;·&nbsp; Pune &nbsp;·&nbsp; A wind-capex proxy with 485+ cranes and a Saudi arm turning positive</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹442.75</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹3,833 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 Revenue</div><div class="kpi-value">₹380 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 PAT</div><div class="kpi-value">₹65 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Order Book</div><div class="kpi-value">₹1,250 Cr</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — Cheapest Quality Here, Margin Slipping</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">18.7× earnings, 2.91× book, wind capex running</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">Margin 40.1% → 35%, ₹629 Cr capex, rising debt cost</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Your Signals</a>
+    <a href="#s3">Q1 FY27</a>
+    <a href="#s4">The Margin Slip</a>
+    <a href="#s5">The Capex Engine</a>
+    <a href="#s6">Order Book</a>
+    <a href="#s7">Saudi</a>
+    <a href="#s8">Guidance</a>
+    <a href="#s9">The Wind Bet</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>Sanghvi Movers Limited (SML), est. 1989, Pune — flagship of the Sanghvi Group</td></tr>
+    <tr><td class="bold">Position</td><td>Per the IC Cranes Index 2025, the <b>world&rsquo;s 5th-largest and Asia&rsquo;s largest crane-rental operator</b></td></tr>
+    <tr><td class="bold">Fleet</td><td><b>485+ hydraulic and crawler cranes</b> (20 to 1,600 MT) across 15 Indian depots, plus units in Saudi Arabia, Botswana and Qatar. 175 acres of owned parking land.</td></tr>
+    <tr><td class="bold">Segments</td><td>Crane Hiring · Wind EPC · Project EPC — an integrated heavy-lift services group rather than a pure crane hirer</td></tr>
+    <tr><td class="bold">Why it appears here</td><td>RS 71, 16.8% below its 52-week high, <b>fails the trend template</b> — see Section 02.</td></tr>
+  </tbody></table></div>
+  <p class="tbl-note">This report updates the 15 June 2026 edition in your library with Q1 FY27 results and current market data.</p>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">What Your Own System Says</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (27 Aug 2026)</th><th class="right">SANGHVIMOV</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating</td><td class="right">71</td></tr>
+      <tr><td>Trend template</td><td class="right bold red">FAILS</td></tr>
+      <tr><td>In Stage 2</td><td class="right bold red">No</td></tr>
+      <tr><td>Below 52-week high</td><td class="right red">−16.8%</td></tr>
+      <tr><td>1-week return</td><td class="right red">−7.2%</td></tr>
+      <tr><td>3-month return</td><td class="right green">+22.1%</td></tr>
+    </tbody>
+  </table></div>
+  <p>RS 71 is the second-strongest of the seven failing names in this batch — this is a stock that has been performing reasonably but has pulled back 7.2% in the final week and sits 16.8% off its high.</p>
+  <p class="tbl-note">Context from the June report: the stock was then roughly <b>53% below its all-time high of ₹741 (May 2024)</b>. At ₹442.75 it remains around 40% below that peak, so this is a name still working back from a large multi-year drawdown.</p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Q1 FY27</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (quarter to June 2026, consolidated)</th><th class="right">Q1 FY27</th><th class="right">Q1 FY26</th><th class="right">Change</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue from operations</td><td class="right bold">₹380 Cr</td><td class="right">₹273 Cr</td><td class="right bold green">+39%</td></tr>
+      <tr><td>EBITDA</td><td class="right bold">₹139 Cr</td><td class="right">~₹107 Cr</td><td class="right green">+30%</td></tr>
+      <tr><td>EBITDA margin</td><td class="right bold">35%</td><td class="right">~39.2%</td><td class="right red">−420 bps</td></tr>
+      <tr><td>Consolidated net profit</td><td class="right bold">₹65 Cr</td><td class="right">₹50.26 Cr</td><td class="right green">+29%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Prior-year EBITDA and margin are derived from the reported 30% growth and 35% current margin.</p>
+  <p><b>Revenue +39%, EBITDA +30%, profit +29% — a good quarter, with one flaw: earnings grew more slowly than revenue.</b> That is the signature of margin compression, and it is developed in Section 04.</p>
+  <p>A 35% EBITDA margin remains exceptional in absolute terms — the third-highest in this import batch behind Sudeep Pharma (34.7% operating) and comfortably above most manufacturers here. Crane rental is an asset-heavy business where the asset, once bought, generates high-margin recurring revenue.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">The Margin Slip — 40.1% to 35%</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Period</th><th class="right">EBITDA margin</th></tr></thead>
+    <tbody>
+      <tr><td>FY26 (full year)</td><td class="right bold">40.1%</td></tr>
+      <tr><td>Q1 FY27</td><td class="right bold red">35.0%</td></tr>
+      <tr><td class="bold">Change</td><td class="right red">−510 bps</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>A 510 basis point margin decline against the FY26 full year is the most significant negative in this update</b>, and it is easy to miss behind 39% revenue growth.</p>
+  <p>For an asset-heavy rental business, the plausible causes are specific:</p>
+  <ul>
+    <li><b>Mix.</b> Wind EPC and Project EPC are lower-margin than pure crane hiring — EPC involves subcontracted work and materials, crane hire is almost pure asset utilisation. Growth weighted toward EPC dilutes the blended margin.</li>
+    <li><b>New fleet not yet fully utilised.</b> FY26 capex of ~₹629 Cr adds depreciation and cost before those cranes reach mature utilisation.</li>
+    <li><b>Overseas ramp.</b> Saudi, Botswana and Qatar operations at sub-scale utilisation dilute group margin while they build.</li>
+  </ul>
+  <p>All three are consistent with a growing business rather than a deteriorating one, and the Saudi datapoint in Section 07 supports the third. <b>But margin is the entire investment case in crane rental — a 40% margin business and a 30% margin business are valued very differently — so this is the number to watch above all others.</b></p>
+  <p class="tbl-note">One commentary source characterised the quarter as &ldquo;robust revenue growth masks margin pressure and rising debt costs&rdquo;. The margin point is confirmed by the figures above; the debt-cost element is consistent with ~₹629 Cr of FY26 capex but the current interest charge is not established in the sources reviewed.</p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">The Capex Engine — And Its Arithmetic</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>FY26</th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue</td><td class="right">₹1,070 Cr <span class="green">(+36.8%)</span></td></tr>
+      <tr><td>EBITDA</td><td class="right">₹429 Cr <span class="green">(40.1% margin)</span></td></tr>
+      <tr><td>PAT</td><td class="right">₹184 Cr <span class="green">(17.2% margin, EPS ~₹20)</span></td></tr>
+      <tr><td><b>Capex</b></td><td class="right bold red">~₹629 Cr</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Read those last two lines together.</b> Sanghvi spent roughly ₹629 crore on fleet and overseas build-out in a year when it earned ₹184 crore — <b>capex at 3.4× profit, and 59% of revenue.</b></p>
+  <p>That is the most aggressive capex-to-profit ratio in this entire library. For comparison: Happy Forgings spent ₹460 crore against ₹302 crore of profit (1.5×), and that was flagged as a significant cycle bet.</p>
+  <p>Crane rental genuinely works this way — the fleet <em>is</em> the business, and growth requires buying cranes. A 1,600 MT crawler crane is a multi-year asset generating high-margin revenue for a decade or more. <b>But the arithmetic means growth is debt-funded or cash-consuming, which is why the margin slip and any rise in interest cost matter more here than at an asset-light company.</b></p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Order Book</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Date</th><th class="right">Order book</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>FY26 close (June report)</td><td class="right">₹1,053 Cr</td><td>FY27 visibility</td></tr>
+      <tr><td>Q1 FY27</td><td class="right bold green">₹1,250 Cr</td><td><b>Fully executable within FY27</b></td></tr>
+    </tbody>
+  </table></div>
+  <p>The book grew ₹197 crore in a quarter while ₹380 crore of revenue was recognised — orders arriving faster than execution, which is the right direction.</p>
+  <p><b>The critical qualifier is &ldquo;fully executable within FY27&rdquo;.</b> Against guided FY27 revenue of ₹1,400–1,500 crore, a ₹1,250 crore book covers roughly 85% of the year. That is strong near-term visibility and <b>no visibility beyond it.</b> Like Man Industries and Paramount, this is a short-cycle book that must be continuously replenished — not a multi-year backlog like HFCL&rsquo;s.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Saudi Arabia Turns Positive</h2></div>
+  <p><b>The Saudi operations under the Middle East subsidiary transitioned to positive monthly EBITDA in early FY27</b>, improving international margins.</p>
+  <p>This is a genuinely important milestone and it deserves more weight than its size suggests. Overseas expansion in crane rental is capital-intensive and slow — cranes must be shipped, depots established, and local relationships built before utilisation reaches breakeven. <b>A subsidiary crossing into positive EBITDA marks the point where it stops consuming group margin and starts adding to it.</b></p>
+  <p>It also partially explains, and partially resolves, the margin question in Section 04: if overseas sub-scale utilisation was diluting the blended margin, Saudi turning positive is the first evidence that dilution is ending.</p>
+  <p>Saudi Arabia is a well-chosen market — heavy infrastructure and energy construction on a large scale, with limited local heavy-lift capacity. Botswana and Qatar remain smaller and their status is not disclosed in the sources reviewed.</p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">FY27 Guidance</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:300px">Consolidated revenue</td><td><b>₹1,400 – 1,500 Cr</b> (reiterated)</td></tr>
+    <tr><td class="bold">EBITDA</td><td><b>₹525 – 575 Cr</b> (unchanged)</td></tr>
+    <tr><td class="bold">Implied EBITDA margin</td><td><b>~37.5%</b> at the midpoints</td></tr>
+    <tr><td class="bold">Return on capital</td><td>Blended <b>16.25% – 16.5%</b> (reiterated)</td></tr>
+  </tbody></table></div>
+  <p><b>The guidance implicitly forecasts a margin recovery.</b> Q1 delivered 35%; the guided midpoints imply roughly 37.5% for the full year. Management is therefore signalling that the Q1 compression is temporary — consistent with the new-fleet-utilisation and overseas-ramp explanations.</p>
+  <p>On revenue, ₹1,400–1,500 crore against FY26&rsquo;s ₹1,070 crore implies 31–40% growth. Q1&rsquo;s 39% is at the top of that range, so the guidance is achievable on the current run-rate without acceleration.</p>
+  <p><b>The reiterated 16.25–16.5% return on capital is the most useful disclosure</b>, because in an asset-heavy business that is the number that actually matters. It tells you what ₹629 crore of capex is expected to earn.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">The Wind Bet</h2></div>
+  <p>The June report described Sanghvi as a <b>wind-capex proxy</b>, and that framing remains correct. Erecting a wind turbine requires very large mobile cranes — few operators in India own enough of them, and Sanghvi&rsquo;s 485+ fleet with capacity up to 1,600 MT is the scarce asset.</p>
+  <p>Management attributes the operational acceleration to consistent utilisation in domestic heavy-lift rental <b>and scaling wind power installations</b>.</p>
+  <p><b>The dependency runs both ways.</b> India&rsquo;s renewable build-out is policy-supported and multi-year, which is a strong tailwind. But wind installation is lumpy, seasonal and tied to policy auctions and tariff decisions — a slow year in wind capex would leave a large, expensive fleet under-utilised, and utilisation is exactly what drives the 35–40% margin. <b>This is the operating leverage that makes the business work and the exposure that makes it risky.</b></p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right bold green">18.7×</td><td><b>The cheapest name in this import batch on earnings</b></td></tr>
+      <tr><td>P/E on annualised Q1 PAT</td><td class="right bold green">~14.7×</td><td>Genuinely low</td></tr>
+      <tr><td>Price / Book</td><td class="right green">2.91×</td><td>Modest for a 35%-margin asset owner</td></tr>
+      <tr><td>Market cap / annualised Q1 revenue</td><td class="right green">2.5×</td><td>Reasonable</td></tr>
+      <tr><td>Market cap / order book</td><td class="right green">3.07×</td><td>Reflects a one-year book</td></tr>
+      <tr><td>Below 52-week high</td><td class="right red">−16.8%</td><td>Already de-rated</td></tr>
+      <tr><td>Below all-time high (₹741, May 2024)</td><td class="right red">~−40%</td><td>Still recovering from a multi-year drawdown</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>On earnings, Sanghvi is the cheapest name in this import batch</b> — 18.7× trailing and ~14.7× on annualised Q1 profit, for a business earning a 35% EBITDA margin with a guided 16.25–16.5% return on capital.</p>
+  <p>The discipline is to ask why an asset with those characteristics trades at 2.91× book. Two honest answers: <b>the fleet is depreciating capital that must be continuously replaced</b> — ₹629 crore of capex against ₹184 crore of profit is the cost of standing still and growing — and <b>the business is a leveraged bet on one lumpy end-market.</b> The ~40% drawdown from the 2024 peak is the market&rsquo;s memory of what happens when wind capex slows.</p>
+  <p>That said, cheap-with-a-reason is different from cheap-and-broken. Unlike Aurionpro at RS 10 with collapsing growth, <b>Sanghvi is growing 39% with a 35% margin and a book covering 85% of guided revenue.</b> The valuation reflects the capital intensity, not a failing business.</p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">The ~₹629 Cr fleet reaches mature utilisation and margin recovers toward the guided ~37.5% and then FY26&rsquo;s 40.1%. Saudi builds on its move to positive EBITDA and Botswana and Qatar follow. India&rsquo;s wind build-out runs multi-year, keeping the large-crane fleet fully utilised. At ~14.7× annualised earnings and 2.91× book with a 16%+ return on capital, this re-rates meaningfully.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">FY27 lands inside the ₹1,400–1,500 Cr guidance. Margin recovers partially from 35% but settles below FY26&rsquo;s 40.1% as the EPC mix grows. Capex continues at a high rate, consuming the cash the business generates. Returns come from earnings growth rather than re-rating, and the stock stays cheap because the capital intensity is real.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">Wind capex slows on a policy or auction gap, leaving a fleet expanded by ₹629 Cr under-utilised. Margin falls further from 35%, and in an asset-heavy business with rising debt cost that flows straight to the bottom line. The short-cycle order book offers no cushion beyond FY27. The stock has already shown, in the ~40% drawdown from ₹741, how far it can fall when utilisation disappoints.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Margin down 510 bps against FY26</div><div class="risk-body">40.1% to 35.0%. In crane rental the margin is the business; a sustained move to the low thirties would materially change the valuation.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Capex at 3.4× profit</div><div class="risk-body">~₹629 Cr spent in FY26 against ₹184 Cr of PAT — the most aggressive capex-to-profit ratio in this library. Growth here consumes cash and adds depreciation and interest ahead of utilisation.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Wind capex concentration</div><div class="risk-body">A large fleet levered to one lumpy, policy-driven end-market. Utilisation drives the margin, and wind installation timing is set by auctions and tariffs.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Short-cycle order book</div><div class="risk-body">₹1,250 Cr fully executable within FY27 — strong near-term visibility, none beyond it. Must be continuously replenished.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Rising debt cost</div><div class="risk-body">Flagged in commentary and consistent with the capex programme, though the current interest charge is not established here. Directly checkable in the Q1 filing.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">EPC mix dilution</div><div class="risk-body">Wind EPC and Project EPC carry lower margins than pure crane hiring. Growth weighted toward EPC structurally lowers the blended margin.</div></div>
+  <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">A demonstrated drawdown</div><div class="risk-body">Still ~40% below the May 2024 all-time high of ₹741. The market has priced a bad utilisation cycle before and can again.</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: HOLD — CHEAPEST QUALITY HERE, MARGIN SLIPPING</div>
+    <p>Sanghvi Movers is Asia&rsquo;s largest crane-rental operator, running 485+ cranes up to 1,600 MT, and it grew Q1 revenue 39% with a 35% EBITDA margin and profit up 29%. Its Saudi subsidiary <b>turned positive on monthly EBITDA in early FY27</b> — a real milestone in a slow, capital-intensive overseas build. FY27 guidance of ₹1,400–1,500 crore was reiterated, backed by a ₹1,250 crore book covering 85% of it.</p>
+    <p>On valuation it is <b>the cheapest name in this import batch: 18.7× trailing earnings, ~14.7× annualised, 2.91× book</b>, for a business guiding to a 16.25–16.5% return on capital.</p>
+    <p>Two things keep it at Hold. <b>EBITDA margin has fallen 510 basis points from FY26&rsquo;s 40.1% to 35%</b> — and in crane rental the margin <em>is</em> the investment case. And <b>capex of ~₹629 crore against ₹184 crore of profit is the most aggressive ratio in this library</b>: the fleet must keep being bought, which means growth consumes cash and levers the business to wind-capex utilisation. Management guides to a margin recovery toward ~37.5%; Q2 is where that gets tested. Your own framework currently has it failing the trend template, 16.8% below its high and still ~40% under the 2024 peak.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>EBITDA margin recovering from 35% toward the guided ~37.5%</b> — the decisive number</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Fleet utilisation as the ~₹629 Cr of new cranes matures</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Interest cost and net debt from the Q1 filing</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Saudi building on positive monthly EBITDA; status of Botswana and Qatar</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Indian wind installation volumes and auction activity — the demand driver</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>EPC versus crane-hire revenue split, which drives the blended margin</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Order book rebuilding beyond FY27 execution</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>SANGHVI MOVERS LIMITED (NSE: SANGHVIMOV | BSE: 530073) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results and Earnings Call (3 Aug 2026) &middot; Company disclosures on order book, FY27 guidance and Middle East operations &middot; Prior in-house research report, 15 June 2026, for FY26 figures &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

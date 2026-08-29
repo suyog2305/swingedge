@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kirloskar Oil Engines — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: Kirloskar Oil Engines — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: KIRLOSENG &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026 &nbsp;|&nbsp; Updates the 22 June 2026 edition</p>
+    <h1 class="report-title"><span>Kirloskar</span> Oil Engines</h1>
+    <p class="report-subtitle">India&rsquo;s genset market leader &nbsp;·&nbsp; Est. 1946 &nbsp;·&nbsp; Engines, pumps and an NBFC in one holding structure</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹2,134.15</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹31,056 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 Revenue (cons.)</div><div class="kpi-value">₹2,000 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 PAT (cons.)</div><div class="kpi-value">₹111.1 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Genset Share</div><div class="kpi-value">~24%</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — Revenue Grew, Every Profit Line Fell</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">Domestic +19% and a 24%-share franchise</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">Margin −230bps, exports −11%, Arka fading</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Your Signals</a>
+    <a href="#s3">Q1 FY27</a>
+    <a href="#s4">The Margin Squeeze</a>
+    <a href="#s5">Exports vs Domestic</a>
+    <a href="#s6">Arka Fincap</a>
+    <a href="#s7">The Structure Problem</a>
+    <a href="#s8">Since June</a>
+    <a href="#s9">The Franchise</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>Kirloskar Oil Engines Limited (KOEL), est. 1946 — flagship of the Kirloskar Group</td></tr>
+    <tr><td class="bold">What it makes</td><td>Air- and water-cooled diesel and gas engines (2.5 HP to 740 HP) and gensets (5 kVA to 3,000 kVA). Plants at Kagal, Pune, Nashik and Rajkot. Serves power generation, industrial (marine, defence, railways, construction), agriculture and exports to 70+ countries.</td></tr>
+    <tr><td class="bold">Three segments</td><td><b>B2B</b> (the core engine/genset business) · <b>B2C / Fluid Dynamics</b> (pumps, formerly La-Gajjar) · <b>Financial Services</b> (Arka Fincap, an RBI-registered NBFC)</td></tr>
+    <tr><td class="bold">Market position</td><td><b>~24% domestic genset share</b> — India&rsquo;s market leader; among the world&rsquo;s largest genset manufacturers</td></tr>
+  </tbody></table></div>
+  <p class="tbl-note">This report updates the 22 June 2026 edition in your library with Q1 FY27 results and current market data.</p>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">What Your Own System Says</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (27 Aug 2026)</th><th class="right">KIRLOSENG</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating</td><td class="right red">52</td></tr>
+      <tr><td>Trend template</td><td class="right bold red">FAILS</td></tr>
+      <tr><td>In Stage 2</td><td class="right bold red">No</td></tr>
+      <tr><td>Below 52-week high</td><td class="right red">−21.6%</td></tr>
+      <tr><td>3-month return</td><td class="right green">+8.9%</td></tr>
+    </tbody>
+  </table></div>
+  <p>RS 52 is close to the market median — this is not a collapsing stock like Aurionpro or Supriya, but it has been going sideways-to-down. It sits 21.6% below its high and fails the trend template.</p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Q1 FY27 — Revenue Up, Profit Down at Every Level</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (quarter to June 2026)</th><th class="right">Standalone</th><th class="right">Consolidated</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue from operations</td><td class="right bold">₹1,471 Cr <span class="green">(+16%)</span></td><td class="right bold">₹1,999.53 Cr <span class="green">(+13%)</span></td></tr>
+      <tr><td>Net profit</td><td class="right bold red">₹99 Cr <span class="red">(−9%)</span></td><td class="right bold red">₹111.06 Cr <span class="red">(−17%)</span></td></tr>
+      <tr><td>EBITDA</td><td class="right red">₹166 Cr <span class="red">(−4%)</span></td><td class="right muted">—</td></tr>
+      <tr><td>EBITDA margin</td><td class="right bold red">11.2%</td><td class="right muted">—</td></tr>
+      <tr><td>Prior-year EBITDA margin</td><td class="right">13.5%</td><td class="right muted">−230 bps</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Revenue grew double digits and every profit measure fell.</b> Standalone EBITDA down 4% on revenue up 16% means the entire volume gain and more was absorbed by cost. This is negative operating leverage — the opposite of what every other well-performing name in this library reported.</p>
+  <p>The consolidated decline (−17%) is steeper than standalone (−9%), which points at the subsidiaries — principally Arka. Section 06 covers it.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">The Margin Squeeze</h2></div>
+  <p>Standalone EBITDA margin fell from <b>13.5% to 11.2% — a 230 basis point compression</b> in a quarter when revenue grew 16%.</p>
+  <p>Management attributes this to <b>raw material costs and export lag</b>. Both are credible for an engine manufacturer:</p>
+  <ul>
+    <li><b>Raw material</b> — engines are steel, castings and copper intensive. Input cost inflation hits before it can be passed through, because genset pricing is negotiated against competitors and contracts.</li>
+    <li><b>Export lag</b> — a mix effect. Exports typically carry better realisations; when they fall (as they did, by 11%) and lower-margin domestic volume replaces them, the blended margin falls even at constant pricing.</li>
+  </ul>
+  <p><b>Put in context, an 11.2% EBITDA margin is a modest number in absolute terms.</b> Within this library it sits well below Sudeep Pharma (34.7%), Sanghvi Movers (33.1%) or Happy Forgings (31.3%), and below Atlanta Electricals (16.5%) in the same broad capital-goods space. Engine manufacturing is a genuinely competitive business, and market leadership at 24% share has not translated into pricing power.</p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Exports Down, Domestic Up</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 sales</th><th class="right">Change</th></tr></thead>
+    <tbody>
+      <tr><td>Export sales</td><td class="right bold red">−11%</td></tr>
+      <tr><td>Domestic sales</td><td class="right bold green">+19%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>This mix shift is the mechanical explanation for most of the margin compression.</b> KOEL sells to 70+ countries, and an 11% export decline while domestic grows 19% moves the blend toward lower-realisation volume.</p>
+  <p>The domestic strength is genuinely encouraging — 19% growth in the Indian genset market, from a 24%-share incumbent, indicates the core franchise is healthy and that data-centre, infrastructure and commercial demand is real.</p>
+  <p><b>The question is whether the export decline is cyclical or competitive.</b> A cyclical dip in overseas demand reverses; losing share to Chinese or other low-cost genset makers does not. Nothing in the disclosed material settles which, and it is the most important open question on this name.</p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Arka Fincap — The Drag</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Arka Financial Holdings (AFHPL)</th><th class="right">Q1 FY27</th><th class="right">Q1 FY26</th><th class="right">Change</th></tr></thead>
+    <tbody>
+      <tr><td>Consolidated revenue</td><td class="right">₹210 Cr</td><td class="right">~₹193 Cr</td><td class="right green">+9%</td></tr>
+      <tr><td>PAT</td><td class="right bold red">₹6.9 Cr</td><td class="right">₹10.1 Cr</td><td class="right bold red">−32%</td></tr>
+      <tr><td>KOEL&rsquo;s total investment</td><td class="right bold">₹1,053 Cr</td><td class="right muted">—</td><td class="right muted">—</td></tr>
+      <tr><td>AUM (June 2026 report)</td><td class="right">~₹7,600 Cr</td><td class="right muted">—</td><td class="right muted">—</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>This is the number that deserves the most scrutiny in the update.</b> KOEL has ₹1,053 crore invested in a financial-services business that earned ₹6.9 crore in the quarter — an annualised return on that investment of roughly <b>2.6%</b>.</p>
+  <p class="tbl-note">That is a simple annualisation of quarterly PAT against total invested capital, not a formal ROI. NBFCs build book before they earn on it, and one quarter is not a verdict. But the direction — profit down 32% while revenue grew 9% — is the wrong one.</p>
+  <p>The strategic question is sharper than the arithmetic. <b>An engine manufacturer with 24% genset share operating an RBI-registered NBFC is an unrelated diversification</b>, in the same category as Man Industries&rsquo; real-estate venture flagged elsewhere in this library. It competes for capital and management attention with a core business whose margin is currently compressing, and it is the principal reason consolidated profit fell 17% against standalone&rsquo;s 9%.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">The Structure Problem</h2></div>
+  <p>KOEL is three businesses in one listed entity:</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Segment</th><th>Character</th><th>Q1 read</th></tr></thead>
+    <tbody>
+      <tr><td><b>B2B</b> — engines and gensets</td><td>The core; market-leading; cyclical industrial</td><td class="green">Domestic +19%, margin squeezed</td></tr>
+      <tr><td><b>B2C / Fluid Dynamics</b> — pumps</td><td>Consumer-adjacent, brand-led</td><td class="muted">not separately disclosed here</td></tr>
+      <tr><td><b>Financial Services</b> — Arka Fincap</td><td>An NBFC. Different capital structure, different regulator, different risk.</td><td class="red">PAT −32%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Conglomerate structures of this kind normally attract a valuation discount</b>, and for good reason — an investor wanting genset exposure is forced to also own a lending book, and the two cannot be valued on the same basis. The June report recorded FY26 group revenue of ₹7,701 crore (+22%) and PAT of ₹574 crore (+17%), with the core B2B business growing 26% — noticeably faster than the group. <b>The core has been carrying the structure.</b></p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">What Changed Since June</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">FY26 (June report)</th><th class="right">Q1 FY27</th><th class="right">Direction</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue growth (cons.)</td><td class="right green">+22%</td><td class="right">+13%</td><td class="right red">slower</td></tr>
+      <tr><td>PAT growth (cons.)</td><td class="right green">+17%</td><td class="right red">−17%</td><td class="right red">reversed</td></tr>
+      <tr><td>B2B growth</td><td class="right green">+26%</td><td class="right muted">domestic +19%, exports −11%</td><td class="right red">mixed</td></tr>
+      <tr><td>Arka</td><td class="right">AUM ~₹7,600 Cr</td><td class="right red">PAT ₹6.9 Cr, −32%</td><td class="right red">worse</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Every line moved in the wrong direction.</b> FY26 was a 22% revenue, 17% profit year; Q1 FY27 is 13% revenue and −17% profit. That inflection is why the stock sits 21.6% below its high.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">The Franchise Is Still Real</h2></div>
+  <p>It is worth stating clearly what has <em>not</em> changed. KOEL holds roughly <b>24% of the Indian genset market</b>, an eighty-year-old brand, a plant network across Kagal, Pune, Nashik and Rajkot, and a product range from 5 kVA to 3,000 kVA. Domestic sales grew 19% in the quarter.</p>
+  <p>The structural demand case is intact and arguably improving: data-centre construction, infrastructure build-out, and unreliable grid supply in parts of India all support genset demand, and emission-norm transitions periodically force fleet replacement — which favours the incumbent with the widest range.</p>
+  <p><b>This is a margin and capital-allocation problem, not a franchise problem.</b> That distinction is what separates KOEL from Aurionpro elsewhere in this batch, where the franchise itself is in question.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right">54.5×</td><td>Full, and on declining earnings</td></tr>
+      <tr><td>P/E on annualised Q1 consolidated PAT</td><td class="right red">~70×</td><td>Higher than trailing — earnings falling into a flat price</td></tr>
+      <tr><td>Price / Book</td><td class="right">8.56×</td><td>Demanding for a manufacturer at 11.2% EBITDA margin</td></tr>
+      <tr><td>Market cap / annualised Q1 revenue</td><td class="right green">3.9×</td><td>Moderate</td></tr>
+      <tr><td>Below 52-week high</td><td class="right red">−21.6%</td><td>Already de-rated</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The annualised P/E being higher than the trailing P/E is the signature of falling earnings</b>, and it is the same pattern flagged at Astra Microwave. Where HFCL or Sterlite carry high trailing multiples on recovering earnings, KOEL carries one on deteriorating earnings.</p>
+  <p>At 54.5× trailing and 8.56× book for a business earning an 11.2% EBITDA margin, with roughly ₹1,053 crore tied up in an NBFC returning ~2.6% annualised, <b>the valuation asks a lot of a franchise that is currently being squeezed.</b> A 21.6% de-rating has already happened; whether it is sufficient depends entirely on whether Q1&rsquo;s margin was a trough or a level.</p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">Raw material costs stabilise and the 230 bps of margin compression reverses as pricing catches up. Exports recover from −11%, restoring the favourable mix. Domestic strength at +19% continues on data-centre and infrastructure demand. Arka&rsquo;s book matures and starts earning properly on the ₹1,053 Cr invested. Earnings resume the FY26 trajectory and a 54.5× multiple on recovering profit is defensible.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">Margins recover partially but settle below the 13.5% of a year ago as competition holds pricing down. Domestic growth continues, exports stay soft. Arka remains a low-return use of ₹1,053 Cr. Group earnings grow modestly and the stock stays range-bound while the multiple compresses toward the growth rate.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">The export decline proves competitive rather than cyclical — share lost to lower-cost genset makers. Margin stays near 11.2% or falls further, confirming that 24% domestic share does not confer pricing power. Arka requires more capital rather than returning it. At 54.5× trailing, ~70× annualised and 8.56× book with earnings falling, the de-rating has a long way it could run.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Negative operating leverage</div><div class="risk-body">Revenue +16% standalone with EBITDA −4% and margin −230 bps. The volume gain was entirely absorbed by cost, which is the opposite of what scale should deliver.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Export decline of unknown cause</div><div class="risk-body">−11% while domestic grew 19%. Whether this is a cyclical dip or share loss to lower-cost competitors is the most important unresolved question, and it drives both revenue and mix.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">₹1,053 Cr in Arka earning ~2.6% annualised</div><div class="risk-body">PAT of ₹6.9 Cr, down 32%, on more than a thousand crore of invested capital. An unrelated diversification competing for capital with a core business whose margins are compressing.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Conglomerate structure</div><div class="risk-body">Engines, pumps and an NBFC in one entity, requiring three valuation frameworks. Such structures typically carry a discount, and the core has been carrying the group.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Thin margins despite market leadership</div><div class="risk-body">11.2% EBITDA at ~24% domestic share suggests limited pricing power in a competitive engine market.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Valuation on falling earnings</div><div class="risk-body">54.5× trailing and ~70× on annualised Q1, at 8.56× book. The annualised multiple exceeding the trailing one is the signature of deterioration.</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: HOLD — REVENUE GREW, EVERY PROFIT LINE FELL</div>
+    <p>Kirloskar Oil Engines grew Q1 revenue 16% standalone and 13% consolidated, and <b>reported lower profit at every level</b>: standalone PAT −9%, consolidated PAT −17%, EBITDA −4%, and margin down 230 basis points to 11.2%. Exports fell 11% while domestic rose 19%, and that mix shift explains much of the squeeze.</p>
+    <p>The core franchise is not in question — <b>~24% domestic genset share, an eighty-year-old brand, 19% domestic growth</b>, and structural demand from data centres and infrastructure. This is a margin and capital-allocation problem, not a business in decline, which distinguishes it from the deeper breakdowns elsewhere in this batch.</p>
+    <p>The capital-allocation part is the sharper concern. <b>₹1,053 crore is invested in Arka Fincap, which earned ₹6.9 crore in the quarter — down 32% — an annualised return of roughly 2.6%.</b> An engine maker running an NBFC is an unrelated diversification, and it is the main reason consolidated profit fell almost twice as fast as standalone. At 54.5× trailing earnings and 8.56× book on an 11.2% margin, the price still assumes the FY26 trajectory resumes.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span>EBITDA margin recovering from 11.2% toward the 13.5% of a year ago — the decisive number</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Whether the 11% export decline reverses, or continues as share loss</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Arka Fincap PAT against the ₹1,053 Cr invested — and any signal on capital being returned or redeployed</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Domestic genset growth holding near 19%</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Raw material cost pass-through into genset pricing</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Any move to simplify the three-segment structure</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>RS rating recovering from 52, and a return to the trend template</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>KIRLOSKAR OIL ENGINES LIMITED (NSE: KIRLOSENG) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results, Investor Presentation and Earnings Call (7 Aug 2026) &middot; Company disclosures on segment performance and the Arka Financial Holdings investment &middot; Prior in-house research report, 22 June 2026, for FY26 figures &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>
