@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I G Petrochemicals — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: I G Petrochemicals — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: IGPL &nbsp;|&nbsp; BSE: 500199 &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026 &nbsp;|&nbsp; Chemicals Cluster 6/6</p>
+    <h1 class="report-title"><span>I G</span> Petrochemicals</h1>
+    <p class="report-subtitle">India&rsquo;s largest phthalic anhydride producer &nbsp;·&nbsp; Taloja, Maharashtra &nbsp;·&nbsp; A loss turned into ₹71 crore in one year</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹532.00</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹1,638 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 Revenue</div><div class="kpi-value">₹620 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 PAT</div><div class="kpi-value">₹71 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Margin Swing</div><div class="kpi-value">+1,778 bps</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Accumulate on Dips — The Spread Recovery Is Already Banked</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">Plasticizer plant lands Sept 2026</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">Commodity spreads that swing 1,778bps up can reverse</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Read This First</a>
+    <a href="#s3">Q1 FY27</a>
+    <a href="#s4">The Spread</a>
+    <a href="#s5">Plasticizers</a>
+    <a href="#s6">The CBG Project</a>
+    <a href="#s7">Dye Adjacency</a>
+    <a href="#s8">Your Signals</a>
+    <a href="#s9">The 48% Gap</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>I G Petrochemicals Limited</td></tr>
+    <tr><td class="bold">What it makes</td><td><b>Phthalic anhydride (PAN)</b> — India&rsquo;s largest producer — plus maleic anhydride and downstream derivatives. PAN feeds plasticizers, unsaturated polyester resins, paints, and <b>phthalocyanine pigments</b>.</td></tr>
+    <tr><td class="bold">Why it matters here</td><td>The most dramatic operational turnaround in the cluster: a loss of ₹8.2 crore a year ago became a <b>₹71 crore profit</b>, with operating margin swinging <b>1,778 basis points</b>.</td></tr>
+    <tr><td class="bold">Signals (27 Aug)</td><td>RS 82, passes the trend template, 1.7% below its 52-week high. Up 9.8% on the week. <b>No surveillance flag.</b></td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">Read This First: This One Is Different</h2></div>
+  <p>Across this cluster the recurring caution has been that <b>Q1 FY27 predates the H-acid squeeze</b>, so the thesis is not yet in the numbers. IGPL is the exception, and for a specific reason.</p>
+  <p><b>IGPL is not primarily a dye-intermediates play.</b> Its product is phthalic anhydride, whose main markets are plasticizers, resins and paints. It has a genuine but secondary adjacency to pigments (Section 07). What drove its quarter was <b>its own spread recovery</b> — the gap between PAN prices and orthoxylene feedstock — not H-acid.</p>
+  <p>That makes IGPL the one name here whose <b>turnaround is already visible in reported numbers rather than anticipated.</b> The ₹71 crore is banked. The question is durability, not arrival.</p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Q1 FY27 — A Fifty-Fold EBITDA Swing</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (standalone, quarter to June 2026)</th><th class="right">Q1 FY27</th><th class="right">Q1 FY26</th><th class="right">Change</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue</td><td class="right bold">₹620 Cr</td><td class="right">~₹470 Cr</td><td class="right green">+31.9%</td></tr>
+      <tr><td>Operating EBITDA</td><td class="right bold">₹113 Cr</td><td class="right red">~₹2.3 Cr</td><td class="right bold green">~50×</td></tr>
+      <tr><td>EBITDA margin</td><td class="right bold green">18.25%</td><td class="right red">~0.5%</td><td class="right bold green">+1,778 bps</td></tr>
+      <tr><td>PAT</td><td class="right bold green">₹71 Cr</td><td class="right bold red">−₹8.2 Cr (loss)</td><td class="right green">loss → profit</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Our scan confirms the shape independently: operating margin of 18.16% this quarter against 12.71% last quarter and <b>−0.15% a year ago</b>. The nonsensical −611% &ldquo;net profit growth&rdquo; in the screener is the standard artefact of a percentage change from a negative base — the underlying fact is a swing from loss to a ₹71 crore profit.</p>
+  <p><b>A 1,778 basis point margin swing is the largest single-year move in this entire library</b> — larger than Balaji Amines&rsquo; celebrated 1,010 bps expansion, and larger in the opposite direction than Supriya&rsquo;s 1,090 bps collapse.</p>
+  <p>Management attributes the improvement to <b>better realisations, recovery in core chemical spreads, and robust domestic demand</b>.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">The Spread — What Actually Drives This Business</h2></div>
+  <p>Phthalic anhydride economics are simple and brutal: <b>IGPL buys orthoxylene, converts it to PAN, and earns the spread.</b> Volume is relatively stable; the spread is everything.</p>
+  <p>That structure explains both halves of the story:</p>
+  <ul>
+    <li><b>Why it lost money.</b> When PAN prices are compressed — by Chinese oversupply, or by orthoxylene costs rising faster than PAN can pass through — the spread collapses and a high-fixed-cost plant goes to a loss. That is where IGPL was a year ago at a −0.15% margin.</li>
+    <li><b>Why the recovery is violent.</b> When the spread widens, virtually all of it drops to EBITDA. Revenue grew 32% and EBITDA grew fiftyfold — the incremental rupee of revenue carried almost pure margin.</li>
+  </ul>
+  <p><b>The essential caution follows directly.</b> A margin that moved 1,778 basis points in one direction can move comparably in the other, and IGPL does not control either side of its spread. Orthoxylene is a crude derivative; PAN pricing is set by regional supply. <b>This is a price-taker at both ends.</b></p>
+  <p>Maleic anhydride revenue is disclosed at roughly ₹17–18 crore, with improved realisations noted at the GEP facility — a small but growing second product line.</p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">The Plasticizer Plant — The Forward Catalyst</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:300px">Capacity</td><td><b>75,000 tonnes</b></td></tr>
+    <tr><td class="bold">Status</td><td><b>Mechanically completed</b></td></tr>
+    <tr><td class="bold">Commercial production</td><td>Expected by <b>September 2026</b></td></tr>
+    <tr><td class="bold">FY27 target output</td><td>15,000 – 20,000 tonnes</td></tr>
+  </tbody></table></div>
+  <p><b>This is forward integration, and it is the most strategically important development on this name.</b> Plasticizers are made <em>from</em> phthalic anhydride — IGPL currently sells PAN to plasticizer producers, and will now convert some of it itself.</p>
+  <p>Two consequences follow:</p>
+  <ul>
+    <li><b>It captures a second margin.</b> Instead of earning only the orthoxylene-to-PAN spread, IGPL earns the PAN-to-plasticizer spread as well on the integrated volume.</li>
+    <li><b>It reduces spread dependence.</b> When PAN pricing is weak, an integrated producer can push volume downstream rather than sell into a poor market. That is the structural answer to the vulnerability described in Section 04.</li>
+  </ul>
+  <p><b>&ldquo;Mechanically completed&rdquo; with commercial production due in September is about as de-risked as a capacity milestone gets</b> — the plant is built, not planned. The FY27 target of 15,000–20,000 tonnes is 20–27% utilisation, so this is a ramp story into FY28 rather than an immediate earnings event.</p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">The Compressed Biogas Project</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:300px">Project</td><td>Compressed biogas (CBG) from organic waste</td></tr>
+    <tr><td class="bold">Location</td><td>Raichur, Karnataka</td></tr>
+    <tr><td class="bold">Mechanical completion target</td><td><b>Q2 FY27</b></td></tr>
+  </tbody></table></div>
+  <p>An organic waste-to-biogas project is <b>unrelated diversification</b> of the kind this library has flagged repeatedly — Man Industries into real estate, Kirloskar into an NBFC, Kiri into copper.</p>
+  <p>The case for treating it more leniently here: CBG in India carries policy support through blending mandates, the scale appears modest relative to the core business, and energy self-supply has some logic for a chemical manufacturer.</p>
+  <p class="tbl-note">The capital committed, capacity and expected returns are not established in the sources reviewed. Given the pattern across your library, the thing to watch is not whether it exists but <b>how much capital it absorbs relative to the plasticizer plant</b> — which is the investment with a clear strategic rationale.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">The Dye Adjacency — Real but Secondary</h2></div>
+  <p>Phthalic anhydride is a precursor to <b>phthalocyanine pigments</b> — the blue and green pigment family used in inks, paints, plastics and textiles. That gives IGPL a genuine link to the colourants value chain.</p>
+  <p><b>Keep it in proportion.</b> Pigments are one of several PAN end-markets, and plasticizers and resins are larger. The H-acid squeeze described in the circulating note concerns <em>dye</em> intermediates for reactive and disperse dyes — a different chemistry from phthalocyanine pigments.</p>
+  <p>So IGPL sits between the two ends of this cluster: <b>more connected to colourants than Oriental Aromatics or Foseco, materially less connected than Bodal, Bhageria, Kiri or Shree Pushkar.</b> Its recovery is a phthalic anhydride spread story that happens to be occurring at the same time.</p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">What Your Own System Says</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (27 Aug 2026)</th><th class="right">IGPL</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating</td><td class="right">82</td></tr>
+      <tr><td>Trend template</td><td class="right green">PASSES</td></tr>
+      <tr><td>In Stage 2 (computed)</td><td class="right green">Yes — a fresh entry</td></tr>
+      <tr><td>Below 52-week high</td><td class="right green">−1.66%</td></tr>
+      <tr><td>1-week return</td><td class="right green">+9.8%</td></tr>
+      <tr><td>3-month return</td><td class="right green">+22.8%</td></tr>
+      <tr><td>Price vs 50-DMA (₹465.61)</td><td class="right green">+14%</td></tr>
+      <tr><td>Price vs 200-DMA (₹433.33)</td><td class="right green">+23%</td></tr>
+      <tr><td>Below all-time high (₹1,018.60)</td><td class="right red">−48%</td></tr>
+      <tr><td>Surveillance flag</td><td class="right bold green">None</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>At 14% above its 50-DMA, IGPL is among the least extended names in the cluster</b> — a measured advance rather than the compressed spikes seen at Oriental Aromatics (+30%) or Bodal (+38%). Combined with no surveillance flag, the technical setup is the most orderly here.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">The 48% Gap</h2></div>
+  <p>IGPL trades at ₹532 against an all-time high of <b>₹1,018.60 — 48% below the peak</b>, while sitting within 2% of its 52-week high.</p>
+  <p>That gap is the record of the downcycle the company has just emerged from. A business that fell to a −0.15% operating margin was priced accordingly, and the recovery has retraced only part of it.</p>
+  <p><b>The constructive reading is that the earnings power that justified ₹1,018 has returned</b> — a ₹71 crore quarterly profit annualises to roughly ₹284 crore against a ₹1,638 crore market capitalisation. <b>The cautionary reading is that the previous peak was itself set on a favourable spread environment</b>, and a cyclical business should not be valued on its best conditions.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right">20.1×</td><td>Inflated by loss-making quarters in the trailing base</td></tr>
+      <tr><td>P/E on annualised Q1 PAT</td><td class="right bold green">~5.8×</td><td><b>Extremely low — if the spread holds</b></td></tr>
+      <tr><td>Price / Book</td><td class="right bold green">1.22×</td><td>Second-lowest in the cluster after Kiri</td></tr>
+      <tr><td>Market cap / annualised Q1 revenue</td><td class="right bold green">0.66×</td><td>Two-thirds of a year of sales</td></tr>
+      <tr><td>Below all-time high</td><td class="right">−48%</td><td>Substantial recovery room</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Annualising Q1 assumes the current spread persists for four quarters. For a commodity spread business that is a strong assumption — it is shown to illustrate the gap between trailing and current earnings power, not as a forecast.</p>
+  <p><b>The ~5.8× annualised multiple is the single most striking valuation number in this cluster</b>, and it is also the one most dependent on an assumption. If PAN spreads hold, IGPL is trading at under six times current earnings with a plasticizer plant about to add a second margin layer. If spreads normalise halfway back, the multiple doubles and the stock is ordinary.</p>
+  <p>At 1.22× book the downside is better protected than the earnings multiple suggests — you are paying close to asset value for India&rsquo;s largest PAN producer.</p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">PAN spreads hold near current levels on continued domestic demand and disciplined regional supply. The plasticizer plant starts in September and ramps through FY28, adding a second margin layer and reducing spread dependence. Annualised earnings of roughly ₹284 Cr against a ₹1,638 Cr market cap prove sustainable, and the stock closes a good part of the 48% gap to its all-time high.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">Spreads narrow from an unusually wide Q1 level but stay well above the loss-making conditions of a year ago. Margin settles somewhere between 18.25% and mid-single digits. The plasticizer ramp proceeds slowly, hitting the low end of the 15,000–20,000 tonne FY27 target. Earnings are good but not annualisable at the Q1 rate.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">Orthoxylene costs rise or regional PAN capacity returns, and the spread compresses as violently as it expanded. A 1,778 bps swing runs in reverse and a high-fixed-cost plant returns toward breakeven, as it was twelve months ago. The plasticizer plant adds depreciation before it adds volume, and the CBG project absorbs capital that the core business needs.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Pure spread exposure, both ends uncontrolled</div><div class="risk-body">Orthoxylene input is a crude derivative; PAN output pricing is set by regional supply. IGPL is a price-taker on both sides, and the entire result is the gap between them.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">A 1,778 bps swing can reverse</div><div class="risk-body">The company was at a −0.15% operating margin twelve months ago. High fixed costs mean the same leverage that produced a fiftyfold EBITDA gain works identically downward.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Annualising Q1 is heroic</div><div class="risk-body">The ~5.8× multiple assumes an unusually wide spread persists for a year. Commodity spreads rarely hold at their extremes.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Plasticizer ramp is slow</div><div class="risk-body">A 75,000-tonne plant targeting 15,000–20,000 tonnes in FY27 is 20–27% utilisation. Depreciation arrives before the volume does.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Unrelated CBG diversification</div><div class="risk-body">An organic waste-to-biogas project at Raichur, with undisclosed capital commitment, in a business unrelated to petrochemicals.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Limited dye-intermediates leverage</div><div class="risk-body">The link to colourants runs through phthalocyanine pigments, not the reactive-dye chemistry driving the H-acid squeeze. Anyone buying this for the note&rsquo;s thesis is buying the wrong exposure.</div></div>
+  <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Microcap scale</div><div class="risk-body">₹1,638 Cr, with the liquidity constraints that implies.</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: ACCUMULATE ON DIPS — THE SPREAD RECOVERY IS ALREADY BANKED</div>
+    <p>I G Petrochemicals is the one name in this cluster whose <b>turnaround is in the reported numbers rather than in front of them.</b> A ₹8.2 crore loss became a ₹71 crore profit, operating EBITDA rose roughly fiftyfold to ₹113 crore, and the margin swung <b>1,778 basis points</b> — the largest single-year move in this entire library.</p>
+    <p>It trades at <b>1.22× book and roughly 5.8× annualised current earnings</b>, and the <b>75,000-tonne plasticizer plant is mechanically complete with commercial production due in September</b> — forward integration that captures a second margin and directly reduces the spread dependence that caused the loss in the first place.</p>
+    <p>Two disciplines. <b>This is a pure spread business with no control over either end</b> — orthoxylene in, PAN out — and a margin that moves 1,778 basis points up can move comparably down. And it is <b>not the dye-intermediates play the circulating note describes</b>: its colourants link runs through phthalocyanine pigments, not the reactive-dye chemistry behind the H-acid squeeze. Own it for the PAN spread and the plasticizer ramp, not for H-acid.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>PAN–orthoxylene spread</b> — the single variable that determines earnings</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Q2 FY27 margin holding near 18.25%, or reverting</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>September 2026</b> — plasticizer plant commercial production actually starting</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Plasticizer volumes against the 15,000–20,000 tonne FY27 target</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Capital committed to the Raichur CBG project relative to the core business</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Regional PAN capacity additions, which would compress the spread</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Technical: ₹466 (50-DMA, −12%) and ₹433 (200-DMA, −19%)</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>I G PETROCHEMICALS LIMITED (NSE: IGPL | BSE: 500199) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results and Earnings Call (2026) &middot; Company disclosures on the 75,000 t plasticizer plant and the Raichur CBG project &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

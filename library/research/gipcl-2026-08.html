@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gujarat Industries Power Company — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: Gujarat Industries Power Company — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: GIPCL &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026 &nbsp;|&nbsp; Breakout Scan #7</p>
+    <h1 class="report-title"><span>Gujarat</span> Industries Power</h1>
+    <p class="report-subtitle">Lignite, gas and solar generation &nbsp;·&nbsp; Vadodara &nbsp;·&nbsp; Gujarat state undertaking &nbsp;·&nbsp; Trading below book at a 48% operating margin</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹203.75</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹3,163 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 Revenue</div><div class="kpi-value">₹500 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 PAT</div><div class="kpi-value">₹157.9 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">P/E · P/B</div><div class="kpi-value">6.3× · 0.83×</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Accumulate on Dips — Cheapest Name in the Batch</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">600 MW solar live, ₹600 Cr EBITDA target</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">A ₹7,000 Cr lignite plant on a ₹3,163 Cr company</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Q1 FY27</a>
+    <a href="#s3">The Margin Transformation</a>
+    <a href="#s4">Khavda Solar</a>
+    <a href="#s5">The ₹7,000 Cr Question</a>
+    <a href="#s6">The Pipeline</a>
+    <a href="#s7">State Ownership</a>
+    <a href="#s8">Your Signals</a>
+    <a href="#s9">Below Book</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>Gujarat Industries Power Company Limited</td></tr>
+    <tr><td class="bold">Ownership</td><td>Gujarat state undertaking</td></tr>
+    <tr><td class="bold">What it does</td><td>Power generation and distribution — <b>lignite-based thermal, gas, and a rapidly scaling solar portfolio</b> at the Khavda Renewable Energy Park.</td></tr>
+    <tr><td class="bold">Why it appears here</td><td>It was #7 on the breakout scan and is, by a wide margin, <b>the cheapest name on it</b> — 6.3× earnings and <b>0.83× book</b>. It is also the only name in this batch trading below its own book value.</td></tr>
+    <tr><td class="bold">Signals (27 Aug)</td><td>RS 86, passes the trend template, in Stage 2 six days, 1.0% below its 52-week high. Up 16.1% on the week and 23.3% over a month. <b>No surveillance flag.</b></td></tr>
+  </tbody></table></div>
+  <p class="tbl-note">GIPCL is not a chemicals company and has no connection to the H-acid thesis. It is included because it was flagged as the standout value name on the scan.</p>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">Q1 FY27</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (standalone, quarter to June 2026)</th><th class="right">Q1 FY27</th><th class="right">Q1 FY26</th><th class="right">Change</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue from operations</td><td class="right bold">₹500 Cr</td><td class="right">₹370 Cr</td><td class="right green">+35.1%</td></tr>
+      <tr><td>EBITDA</td><td class="right bold">₹240 Cr</td><td class="right">₹113 Cr</td><td class="right bold green">+112.4%</td></tr>
+      <tr><td>EBITDA margin</td><td class="right bold green">48.39%</td><td class="right">~30.5%</td><td class="right bold green">+1,807 bps</td></tr>
+      <tr><td>Net profit</td><td class="right bold">₹157.89 Cr</td><td class="right">~₹57.4 Cr</td><td class="right bold green">+175%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Our scan independently confirms the margin path: 30.33% in the year-ago quarter, 45.53% last quarter, <b>48.40% now</b>. Sales growth of +34.39% and net profit growth of +174.75% in the scan match the reported figures.</p>
+  <p>Prior context: Q4 FY26 net profit rose 368.7% to ₹326.85 crore on sales up 26.6% to ₹428.26 crore. <b>This is the third consecutive quarter of transformed profitability, not a one-quarter event.</b></p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">The Margin Transformation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Operating margin</th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>Q1 FY26 (a year ago)</td><td class="right">30.33%</td></tr>
+      <tr><td>Q4 FY26 (last quarter)</td><td class="right">45.53%</td></tr>
+      <tr><td><b>Q1 FY27</b></td><td class="right bold green">48.40%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>A 48.4% operating margin is the highest of any company in this entire library</b> — above Sudeep Pharma at 34.7%, Sanghvi Movers at 33.1% and Happy Forgings at 31.3%.</p>
+  <p>The reason is structural rather than cyclical, and it is the core of the investment case: <b>solar generation has almost no marginal cost.</b> Once a plant is built and connected, sunlight is free — there is no lignite to mine, no gas to buy, no fuel-price risk. Every rupee of solar revenue arrives at close to a 90% EBITDA margin.</p>
+  <p>So the margin move from 30.3% to 48.4% is essentially a <b>mix shift from fuel-burning generation to solar</b>. That is durable in a way a commodity-price margin is not, and it does not mean-revert. <b>It is the single most important distinction between GIPCL and the chemicals names in this batch, whose margins are cyclical.</b></p>
+  <p>The offsetting reality: solar revenue is capped by installed capacity and irradiation. Growth requires building more plants, which is why Section 05 matters.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">Khavda — What Is Already Live</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:320px">Solar capacity fully commercialised</td><td><b>600 MW</b> at the Khavda Renewable Energy Park</td></tr>
+    <tr><td class="bold">FY27 solar EBITDA target</td><td><b>₹600 Cr</b></td></tr>
+    <tr><td class="bold">Additional capacity under construction</td><td><b>500 MW</b>, commissioning expected post-monsoon in <b>Q3 FY27</b></td></tr>
+    <tr><td class="bold">Full financial impact of that 500 MW</td><td>FY28</td></tr>
+    <tr><td class="bold">Expected FY27 revenue addition from full-year operation</td><td>~₹420 Cr</td></tr>
+    <tr><td class="bold">Third-party activity at the park</td><td>KPI Green commissioned a 200 MW plant for Coal India at GIPCL&rsquo;s Khavda park, July 2026</td></tr>
+  </tbody></table></div>
+  <p><b>Two things make this more concrete than most capacity stories in your library.</b></p>
+  <p>First, <b>the 600 MW is already fully commercialised</b> — built, connected and generating. It is not a plan. The ₹420 crore of expected FY27 revenue addition is simply the arithmetic of a full year of operation replacing a partial one, which is mechanical.</p>
+  <p>Second, a <b>₹600 crore solar EBITDA target for FY27 against a ₹3,163 crore market capitalisation</b> is a striking ratio. If delivered, the solar business alone would generate EBITDA equal to roughly 19% of the entire market value in one year.</p>
+  <p>The 500 MW under construction, commissioning post-monsoon in Q3 FY27, extends the same mechanism into FY28.</p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">The ₹7,000 Crore Question</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:320px">Project</td><td>New <b>750 MW lignite-based thermal plant</b></td></tr>
+    <tr><td class="bold">Indicated capital cost</td><td><b>₹7,000 Cr</b></td></tr>
+    <tr><td class="bold">Relative to market capitalisation</td><td><b>~2.2×</b> the entire company</td></tr>
+  </tbody></table></div>
+  <p><b>This is the largest single risk on this name and it deserves to be stated plainly.</b> A company valued at ₹3,163 crore has outlined a thermal expansion costing more than twice that.</p>
+  <p>Three specific concerns follow:</p>
+  <ul>
+    <li><b>Funding.</b> ₹7,000 crore cannot come from a balance sheet this size without substantial debt, equity issuance, or both. Either dilutes the current shareholder or levers the company materially. The funding structure is the thing to establish before anything else.</li>
+    <li><b>Direction of travel.</b> The margin transformation in Section 03 came <em>from shifting toward solar</em>. A ₹7,000 crore lignite plant shifts the mix decisively back toward fuel-burning generation — lower margin, fuel-price exposed, and carrying long-term carbon and regulatory risk.</li>
+    <li><b>Timeline.</b> Thermal plants take years to build. Capital is committed and depreciation begins well before revenue does.</li>
+  </ul>
+  <p><b>The tension is direct: the market is currently paying 6.3× earnings for a business whose margin doubled because it went solar, and management has proposed spending 2.2× the market capitalisation going back to lignite.</b> That is a legitimate strategic choice for a state utility with baseload obligations — Gujarat needs dispatchable power — but it is not obviously value-accretive to a minority shareholder.</p>
+  <p class="tbl-note">The financing structure, timeline, expected returns and board approval status of the ₹7,000 Cr project are not established in the sources reviewed. This is the highest-value item to obtain from the investor presentation.</p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">The Pipeline in Sequence</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>When</th><th>What</th><th>Certainty</th></tr></thead>
+    <tbody>
+      <tr><td><b>Now</b></td><td>600 MW solar fully commercialised, generating</td><td class="green">Done</td></tr>
+      <tr><td><b>FY27</b></td><td>~₹420 Cr revenue addition from a full year of operation; ₹600 Cr solar EBITDA target</td><td class="green">Largely mechanical</td></tr>
+      <tr><td><b>Q3 FY27</b></td><td>500 MW commissioning, post-monsoon</td><td>Under construction</td></tr>
+      <tr><td><b>FY28</b></td><td>Full financial impact of the 500 MW</td><td>Follows from above</td></tr>
+      <tr><td><b>Multi-year</b></td><td>₹7,000 Cr / 750 MW lignite plant</td><td class="red">Outlined, funding unclear</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The near-term pipeline is unusually well de-risked</b> — the capacity that drives FY27 and FY28 earnings is either already built or under construction. That is rare. Most capacity stories in this library (Jyoti CNC, Happy Forgings, Quality Power) depend on plants that are still being installed.</p>
+  <p>The long-dated item is the one that is neither funded nor, on the evidence available, clearly accretive.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">State Ownership — Both Sides</h2></div>
+  <p>GIPCL is a Gujarat state undertaking, and that shapes the investment in ways worth naming explicitly.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Advantage</th><th>Constraint</th></tr></thead>
+    <tbody>
+      <tr><td>Preferential access to land and to sites like the Khavda park</td><td>Capital allocation may serve state energy policy rather than shareholder returns</td></tr>
+      <tr><td>Creditworthy offtake through state discoms and long-tenor PPAs</td><td>Tariffs are regulated; upside on power prices is capped</td></tr>
+      <tr><td>Low financing cost and implicit sovereign comfort</td><td>Minority shareholders have limited influence over decisions like the ₹7,000 Cr plant</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The 0.83× book multiple is, in substantial part, the market pricing that second column.</b> State-owned utilities across India trade at discounts to book for exactly these reasons, and GIPCL is not an exception to that pattern — it is an example of it.</p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">What Your Own System Says</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (27 Aug 2026)</th><th class="right">GIPCL</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating</td><td class="right green">86</td></tr>
+      <tr><td>Trend template</td><td class="right green">PASSES</td></tr>
+      <tr><td>In Stage 2 (computed)</td><td class="right green">Yes — 6 days</td></tr>
+      <tr><td>Below 52-week high</td><td class="right green">−1.04%</td></tr>
+      <tr><td>1-week return</td><td class="right green">+16.1%</td></tr>
+      <tr><td>1-month return</td><td class="right green">+23.3%</td></tr>
+      <tr><td>Price vs 50-DMA (₹168.06)</td><td class="right">+21%</td></tr>
+      <tr><td>Price vs 200-DMA (₹162.38)</td><td class="right">+25%</td></tr>
+      <tr><td>Below all-time high (₹270)</td><td class="right">−25%</td></tr>
+      <tr><td>Surveillance flag</td><td class="right bold green">None</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The 50-DMA and 200-DMA are unusually close together — ₹168 and ₹162</b> — meaning the stock spent a long period going nowhere before this move. It has broken out of a genuine base rather than extending an existing trend, which is the more constructive of the two patterns.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">Below Book</h2></div>
+  <p>At <b>0.83× book, GIPCL trades below the accounting value of its own assets</b> — the only name in this batch to do so, and one of only two in the entire library alongside Kiri Industries at 0.45×.</p>
+  <p>For an asset-heavy utility this is meaningful in a way it would not be for an asset-light business. GIPCL owns power plants, land and grid connections. <b>The market is valuing the entire generating fleet — including 600 MW of freshly commissioned, near-zero-marginal-cost solar — at 83 paise on the rupee of stated book value.</b></p>
+  <p>The honest counterweight is that book value for a utility reflects historical cost of plant, some of which is ageing lignite and gas capacity whose economic life and future utilisation are genuinely uncertain in a decarbonising grid. <b>Book value is not liquidation value here.</b> But at a 48.4% operating margin and 175% profit growth, the discount is hard to justify purely on asset quality.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">GIPCL</th><th>Context in this batch</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right bold green">6.3×</td><td><b>By far the lowest — next cheapest is Bhageria at 14.0×</b></td></tr>
+      <tr><td>P/E on annualised Q1 PAT</td><td class="right bold green">~5.0×</td><td>Extraordinarily low</td></tr>
+      <tr><td>Price / Book</td><td class="right bold green">0.83×</td><td><b>Below book — only Kiri is lower</b></td></tr>
+      <tr><td>Market cap / annualised Q1 revenue</td><td class="right green">1.58×</td><td>Modest</td></tr>
+      <tr><td>Market cap / FY27 solar EBITDA target</td><td class="right bold green">5.3×</td><td>Solar alone would cover the market cap in ~5 years of EBITDA</td></tr>
+      <tr><td>Operating margin</td><td class="right bold green">48.40%</td><td><b>The highest in the entire library</b></td></tr>
+    </tbody>
+  </table></div>
+  <p><b>This is the most striking valuation in the batch and it is not close.</b> A business earning a 48.4% operating margin, growing profit 175%, with capacity already built and generating, trading at 6.3× earnings and below book.</p>
+  <p>The market is telling you why, and the reasons are legible: <b>it is a state undertaking with regulated tariffs, capped upside, minority shareholders with no say, and a proposed ₹7,000 crore thermal project worth 2.2× the market capitalisation.</b> Utilities of this type do not re-rate on earnings alone; they re-rate when capital allocation becomes shareholder-friendly, or they do not re-rate at all.</p>
+  <p><b>The question is not whether GIPCL is cheap — it plainly is — but whether anything will close the gap.</b> The 600 MW solar delivering ₹600 crore of EBITDA is the strongest candidate.</p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">The 600 MW delivers the ₹600 Cr FY27 solar EBITDA target and the 500 MW commissions on schedule in Q3 FY27, carrying earnings into FY28. The 48.4% margin holds because it is structural, not cyclical. The ₹7,000 Cr lignite project is deferred, scaled down, or funded without dilution. A utility earning these returns re-rates from 0.83× book toward parity, closing much of the 25% gap to its all-time high.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">Solar delivers close to target and earnings grow strongly through FY27–28 on already-built capacity. But the state-undertaking discount persists, as it does across the sector, and the multiple stays low. Returns come from earnings growth rather than re-rating, which at 6.3× is still a respectable outcome.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">The ₹7,000 Cr lignite plant proceeds and is funded through equity dilution or heavy leverage on a ₹3,163 Cr company. The mix shifts back toward fuel-burning generation, reversing the margin gain that drove the re-rating. Regulated tariffs cap any offset. The discount to book widens rather than closes, and the stock returns toward the ₹162–168 base it broke out of.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">The ₹7,000 Cr lignite project</div><div class="risk-body">2.2× the market capitalisation, funding structure undisclosed. It would reverse the solar mix shift that produced the 1,807 bps margin gain, and cannot be funded from this balance sheet without dilution or substantial leverage.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">State ownership and minority influence</div><div class="risk-body">Capital allocation may serve Gujarat&rsquo;s energy policy rather than shareholder returns. Minority holders have limited say — which is the principal reason for the discount to book.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Regulated tariffs cap the upside</div><div class="risk-body">Power tariffs are set by regulators under long-tenor PPAs. Unlike the chemicals names here, GIPCL cannot capture a price upcycle.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Growth requires capital</div><div class="risk-body">Solar revenue is capped by installed capacity. Beyond the 500 MW under construction, more growth means more capex — and the capex on the table is thermal.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Legacy lignite and gas assets</div><div class="risk-body">Book value includes ageing fuel-burning capacity whose economic life and utilisation are uncertain in a decarbonising grid. Book value is not liquidation value.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Commissioning slippage</div><div class="risk-body">The 500 MW is expected post-monsoon in Q3 FY27. Grid connection and monsoon timing are both outside the company&rsquo;s control.</div></div>
+  <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Persistent sector discount</div><div class="risk-body">State-owned utilities trade below book across India. Being cheap has not historically been sufficient to re-rate this cohort.</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: ACCUMULATE ON DIPS — CHEAPEST NAME IN THE BATCH</div>
+    <p>GIPCL delivered Q1 revenue +35%, EBITDA +112%, net profit +175%, and an operating margin of <b>48.4% — the highest of any company in this library</b>. It is the third consecutive quarter of transformed profitability, and the cause is structural rather than cyclical: <b>600 MW of solar at Khavda, fully commercialised, generating at near-zero marginal cost.</b></p>
+    <p>It trades at <b>6.3× earnings and 0.83× book</b> — below the accounting value of its own assets, and less than half the multiple of anything else on the breakout scan. A ₹600 crore FY27 solar EBITDA target against a ₹3,163 crore market capitalisation is a remarkable ratio, and the near-term pipeline is unusually de-risked: the capacity driving FY27 and FY28 is either built or under construction.</p>
+    <p>The discount has a legible cause, and it is not asset quality. <b>This is a state undertaking with regulated tariffs, capped upside, and a proposed ₹7,000 crore lignite plant worth 2.2× the entire market capitalisation</b> — a project that would reverse the very mix shift that doubled the margin. Whether that project proceeds, and how it is funded, matters more to the outcome here than anything in the quarterly numbers.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>The ₹7,000 Cr lignite project</b> — board approval, funding structure, and whether it proceeds. The decisive item.</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Progress toward the ₹600 Cr FY27 solar EBITDA target</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Q3 FY27</b> — commissioning of the 500 MW at Khavda, post-monsoon</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Operating margin holding near 48.4% as the mix settles</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Any equity issuance or major debt raise — the dilution signal</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Dividend policy — the most direct route to closing a discount to book</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Technical: ₹168 (50-DMA, −18%) and ₹162 (200-DMA, −20%) — the base it broke out of</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>GUJARAT INDUSTRIES POWER COMPANY LIMITED (NSE: GIPCL) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results (Aug 2026) &middot; July 2026 analyst meet - solar EBITDA target and thermal expansion blueprint &middot; Company disclosures on Khavda Renewable Energy Park commissioning &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

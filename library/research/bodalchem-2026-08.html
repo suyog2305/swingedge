@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bodal Chemicals — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: Bodal Chemicals — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: BODALCHEM &nbsp;|&nbsp; BSE: 524370 &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026 &nbsp;|&nbsp; Dye Intermediates Cluster 1/6</p>
+    <h1 class="report-title"><span>Bodal</span> Chemicals</h1>
+    <p class="report-subtitle">Dyestuff and dye intermediates &nbsp;·&nbsp; Ahmedabad &nbsp;·&nbsp; The DGTR anti-dumping applicant, and the purest H-acid exposure on the list</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹98.67</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹1,243 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 Revenue</div><div class="kpi-value">₹704 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 PAT</div><div class="kpi-value">₹28.8 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Trailing P/E</div><div class="kpi-value">18.1×</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Accumulate on Dips — The Thesis Is Not in the Numbers Yet</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">H-acid pricing lands in Q2 FY27</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">Intermediates fell 4% in Q1; ESM-I flagged</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Read This First</a>
+    <a href="#s3">The H-Acid Squeeze</a>
+    <a href="#s4">Q1 FY27</a>
+    <a href="#s5">The 4% Problem</a>
+    <a href="#s6">Beta Naphthol</a>
+    <a href="#s7">Product Range</a>
+    <a href="#s8">Your Signals</a>
+    <a href="#s9">ESM-I</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>Bodal Chemicals Limited</td></tr>
+    <tr><td class="bold">Position</td><td>One of the world&rsquo;s market leaders in dyestuff and dye intermediates, with <b>eight manufacturing units</b> serving textiles, paper, plastics, leather and specialty chemicals.</td></tr>
+    <tr><td class="bold">Why it matters here</td><td>Bodal is the <b>only company in this cluster that is itself the applicant</b> in a live DGTR anti-dumping investigation, and it manufactures H-acid directly — the molecule at the centre of the current supply squeeze.</td></tr>
+    <tr><td class="bold">Signals (27 Aug)</td><td>RS 93, passes the trend template, in Stage 2 six days, and trading <b>exactly at its 52-week high</b>. Up 19.6% on the week.</td></tr>
+    <tr><td class="bold" style="color:#b45309">Surveillance flag</td><td><b>ESM Stage I</b> — the Enhanced Surveillance Measure, a more restrictive framework than ASM. See Section 09.</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">Read This First: The Rally and the Results Do Not Overlap</h2></div>
+  <p><b>This is the single most important point across this entire cluster, and it applies to every chemicals report in this batch.</b></p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Period</th><th>What happened</th></tr></thead>
+    <tbody>
+      <tr><td><b>Q1 FY27 = April – June 2026</b></td><td>The quarter every company here has just reported</td></tr>
+      <tr><td><b>28 July 2026</b></td><td>H-acid rose more than 30% in a single move</td></tr>
+      <tr><td><b>August 2026</b></td><td>Prices continued higher; the equity rally you are looking at</td></tr>
+      <tr><td><b>Q2 FY27 = July – Sept 2026</b></td><td><b>The first quarter that will contain any of this.</b> Reported around November.</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>No reported number in this cluster reflects the H-acid thesis.</b> The price spike began roughly four weeks after Q1 closed. Anyone reading Q1 results as confirmation of the supply squeeze is reading the wrong quarter.</p>
+  <p>Bodal proves the point in the sharpest possible way: its <b>Dye Intermediates segment actually declined 4% year on year in Q1 FY27</b> — the very segment that should benefit. That is not a contradiction of the thesis; it is evidence that the thesis has not arrived yet.</p>
+  <p><b>What you are buying, if you buy this cluster today, is an expectation about Q2 — not a fact about Q1.</b></p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">The H-Acid Squeeze — Verified, With One Correction</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Claim</th><th class="right">Status</th></tr></thead>
+    <tbody>
+      <tr><td>H-acid roughly 45,000 → ~120,000 per tonne</td><td class="right green">Corroborated</td></tr>
+      <tr><td>Reduction intermediates ~25,000 → ~100,000 per tonne (~300%)</td><td class="right green">Corroborated</td></tr>
+      <tr><td>Effective H-acid capacity below 60,000 tpa</td><td class="right green">Corroborated</td></tr>
+      <tr><td>Supply deficit above 10%</td><td class="right green">Corroborated</td></tr>
+      <tr><td>Driven by tighter EHS norms and plant shutdowns</td><td class="right green">Corroborated</td></tr>
+      <tr><td>Single-day move of over 30% on 28 July</td><td class="right green">Corroborated</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note"><b>One correction that materially changes the reading.</b> The circulating note quotes these prices in rupees. <b>They are Chinese yuan.</b> H-acid moved from roughly CNY 45,000 to CNY 120,000 per tonne — which at prevailing rates is closer to ₹5.5 lakh → ₹14.6 lakh per tonne, not ₹45,000 → ₹1.2 lakh. The <em>direction and magnitude of the move</em> in the note are right; the absolute price level is understated roughly twelve-fold if read literally.</p>
+  <h3 class="subsection-title">Why the squeeze is structural rather than speculative</h3>
+  <p>H-acid production runs on <b>sulfonation and nitration</b> — among the most polluting processes in chemistry. Each tonne of H-acid generates roughly <b>seven tonnes of industrial wastewater</b>. When environmental enforcement tightens in China, this is one of the first products where capacity comes offline, and it does not come back quickly because the permitting is the constraint, not the plant.</p>
+  <p>That is the same mechanism identified in the Balaji Amines report in your library — Chinese capacity discipline reversing years of dumping that suppressed Indian realisations. <b>H-acid is a sharper, more concentrated version of the same force.</b></p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">Q1 FY27</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (quarter to June 2026)</th><th class="right">Value</th><th class="right">YoY</th></tr></thead>
+    <tbody>
+      <tr><td>Standalone total revenue</td><td class="right bold">₹704 Cr</td><td class="right bold green">+57%</td></tr>
+      <tr><td>Standalone EBITDA</td><td class="right bold">₹74 Cr</td><td class="right green">+43%</td></tr>
+      <tr><td>Standalone PAT</td><td class="right bold">₹28.78 Cr</td><td class="right green">+178%</td></tr>
+      <tr><td>Consolidated PAT growth</td><td class="right muted">—</td><td class="right bold green">+218.8%</td></tr>
+      <tr><td>Operating margin (quarter)</td><td class="right bold red">9.72%</td><td class="right red">from 11.66% last quarter</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Reported PAT figures vary across sources (₹9.53 Cr, ₹28.78 Cr, ₹30.38 Cr) on standalone-versus-consolidated bases. The +218.78% consolidated growth reconciles exactly with the net-profit growth in our own scan data, and standalone revenue of ₹704 Cr reconciles with the +56.11% sales growth recorded there. Both are used above; the ₹9.53 Cr figure does not reconcile with either and is not used.</p>
+  <p>FY26 context: PAT of ₹47.83 crore (+158.5%) on sales of ₹2,012 crore (+15.1%).</p>
+  <p><b>Revenue +57% with EBITDA only +43% means the margin fell</b>, and the sequential figures confirm it: 11.66% last quarter to 9.72% this quarter. That is the opposite of what a supply-squeeze beneficiary should show — and again, it is because the squeeze had not started.</p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">The 4% Problem</h2></div>
+  <p><b>Bodal&rsquo;s Dye Intermediates segment declined 4% year on year in Q1 FY27.</b></p>
+  <p>Sit with that. The company whose intermediates business is supposed to be the primary beneficiary of a global H-acid shortage reported that segment <em>shrinking</em> in its most recent quarter, while total revenue grew 57% on the back of other lines.</p>
+  <p>There are two readings and the distinction decides the investment case:</p>
+  <ul>
+    <li><b>Timing.</b> Q1 predates the squeeze entirely. Intermediates were still being sold into a depressed, Chinese-dumped price environment. Q2 realisations will be transformed. <b>This is the more likely explanation and it is supported by the dates.</b></li>
+    <li><b>Positioning.</b> Bodal&rsquo;s intermediates capacity or product mix may not be levered to H-acid specifically in the way the thesis assumes — the segment covers many molecules, and H-acid is one.</li>
+  </ul>
+  <p><b>Q2 FY27 distinguishes them, and nothing before then will.</b> A Dye Intermediates segment that swings from −4% to strongly positive with margin expansion confirms the thesis. One that stays soft says Bodal is not the right vehicle for it, whatever the H-acid price does.</p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Beta Naphthol — Bodal Is the Applicant</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:280px">Authority</td><td>Directorate General of Trade Remedies (DGTR)</td></tr>
+    <tr><td class="bold">Product</td><td><b>Beta Naphthol</b></td></tr>
+    <tr><td class="bold">Origin under investigation</td><td>China</td></tr>
+    <tr><td class="bold">Applicant</td><td><b>Bodal Chemicals Limited</b></td></tr>
+    <tr><td class="bold">Allegation</td><td>Dumping at unfairly low prices causing material injury to the domestic industry</td></tr>
+  </tbody></table></div>
+  <p><b>This is a distinct and separately valuable lever from the H-acid squeeze, and Bodal is the only name in the cluster that has it.</b> Beta Naphthol is in Bodal&rsquo;s product range, and a successful anti-dumping duty would raise the landed cost of Chinese imports directly — a durable, policy-backed protection rather than a cyclical price spike.</p>
+  <p>Two disciplines apply:</p>
+  <ul>
+    <li><b>An investigation is not a duty.</b> DGTR proceedings run for many months, can conclude without a duty, and any recommendation still requires Finance Ministry notification.</li>
+    <li><b>Being the applicant signals injury, not strength.</b> A company files because dumping has been hurting it. The filing is evidence of a problem the company hopes to fix, and the fix is not yet in place.</li>
+  </ul>
+  <p>A separate DGTR probe on an industrial pigment, filed by Sudarshan Chemical, is running in parallel — indicating this is a sector-wide push rather than a one-company action.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Product Range and Integration</h2></div>
+  <p>Bodal&rsquo;s dye intermediates include <b>H-Acid, vinyl sulphone, K-Acid, gamma acid, DASA, FC acid, SPVS, OA sulpho VS and beta naphthol</b>, alongside a dyestuff business and a broader specialty chemicals line across eight units.</p>
+  <p>Two structural observations:</p>
+  <ul>
+    <li><b>The breadth is a hedge and a dilution at once.</b> Holding H-acid alongside eight other intermediates means Bodal captures the squeeze but not purely — a pure-play H-acid producer would see far more of the price move drop to its margin.</li>
+    <li><b>Backward integration into intermediates that feed its own dyestuffs</b> means part of any H-acid price rise is an internal transfer, not external revenue. Higher intermediate prices help the intermediates segment and simultaneously raise the input cost of the downstream dye business.</li>
+  </ul>
+  <p><b>That second point is under-appreciated and it caps the upside.</b> Vertically integrated dye makers benefit less from an intermediates squeeze than standalone intermediate producers, because they are their own customer.</p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">What Your Own System Says</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (27 Aug 2026)</th><th class="right">BODALCHEM</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating</td><td class="right bold green">93</td></tr>
+      <tr><td>Trend template</td><td class="right bold green">PASSES</td></tr>
+      <tr><td>In Stage 2 (computed)</td><td class="right green">Yes — 6 days</td></tr>
+      <tr><td>Below 52-week high</td><td class="right bold green">0.0% — at the high</td></tr>
+      <tr><td>1-week return</td><td class="right bold green">+19.6%</td></tr>
+      <tr><td>1-month return</td><td class="right green">+32.1%</td></tr>
+      <tr><td>Price vs 50-DMA (₹71.31)</td><td class="right red">+38%</td></tr>
+      <tr><td>Price vs 200-DMA (₹64.75)</td><td class="right red">+52%</td></tr>
+      <tr><td>Below all-time high (₹193.75)</td><td class="right">−49%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Two facts sit in tension.</b> The stock is at a 52-week high with strong signals — and it is <b>still 49% below its all-time high of ₹193.75</b>, which tells you how severe the 2022–25 dumping cycle was for this business. There is a great deal of overhead supply between here and that level, and equally a great deal of recovery room if the cycle has genuinely turned.</p>
+  <p>At 38% above its 50-DMA, the near-term move has been violent. The first technical reference is a long way below.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">ESM Stage I — More Restrictive Than ASM</h2></div>
+  <p>Bodal carries an <b>ESM Stage I</b> flag, and this deserves separate treatment because it is not the same as the ASM flags on other names in your library.</p>
+  <p>The Enhanced Surveillance Measure applies to small-cap securities showing unusual price behaviour, and typically brings <b>100% margin requirements</b> and, at higher stages, periodic call-auction trading rather than continuous trading. It is a tighter regime than Additional Surveillance Measure.</p>
+  <p><b>The practical consequences:</b></p>
+  <ul>
+    <li><b>Margin funding is very unlikely to be available.</b> ESM scrips are routinely excluded from broker MTF approved lists, and the 100% margin requirement removes the leverage entirely even where trading is permitted.</li>
+    <li><b>Liquidity can be constrained</b> if the stage escalates, which matters for exit far more than for entry.</li>
+    <li><b>It is a signal in itself.</b> The exchange has flagged this price action as unusual — on a ₹1,243 crore company that rose 32% in a month.</li>
+  </ul>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right green">18.1×</td><td>Reasonable, and on earnings that predate the squeeze</td></tr>
+      <tr><td>Price / Book</td><td class="right bold green">1.07×</td><td><b>Barely above book — the cheapest asset multiple in the cluster</b></td></tr>
+      <tr><td>Market cap / annualised Q1 revenue</td><td class="right bold green">0.44×</td><td>Under half a year of sales</td></tr>
+      <tr><td>Market cap</td><td class="right">₹1,243 Cr</td><td>Small — liquidity is a real constraint</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>At 1.07× book, Bodal is priced almost exactly at the replacement value of its assets</b> — for a company operating eight plants in a business where new capacity is the binding global constraint. That is the strongest single argument here.</p>
+  <p>The counterweight is that 18.1× trailing earnings is calculated on a base that <em>does not include</em> the squeeze. If Q2 delivers what the thesis implies, the forward multiple collapses and the stock is cheap. If Q2 shows intermediates still soft, 18.1× on a ₹1,243 crore microcap that has risen 32% in a month is not obviously supportive.</p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">Q2 FY27 shows the Dye Intermediates segment swinging from −4% to strongly positive with sharp margin expansion, as H-acid realisations flow through. The DGTR beta naphthol investigation results in a duty, adding durable protection on a second product. Seasonal textile restocking extends the demand leg. At 1.07× book with eight plants in a capacity-constrained global market, the re-rating room toward the ₹193.75 all-time high is substantial.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">Q2 improves materially on realisations but the vertical integration caps the benefit — higher intermediate prices help one segment and raise input costs in another. Margin recovers from 9.72% but not to the levels a pure-play would see. The DGTR case runs on without resolution. The stock consolidates a 32% month while the market waits for Q2.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">The Q1 intermediates decline turns out to reflect positioning, not timing — Bodal is not levered to H-acid the way the thesis assumes. Chinese EHS enforcement relaxes and capacity returns, as it has after previous crackdowns. A ₹1,243 Cr microcap 38% above its 50-DMA, on ESM Stage I with 100% margin requirements, has very little support beneath it.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">The thesis is entirely forward-looking</div><div class="risk-body">Q1 FY27 predates the H-acid spike by about four weeks. No reported number supports the case yet, and the intermediates segment actually fell 4%.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Margin compressed sequentially</div><div class="risk-body">Operating margin 11.66% → 9.72% while revenue grew 57%. Growth is currently coming at a lower margin, not a higher one.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Vertical integration caps the upside</div><div class="risk-body">Bodal consumes its own intermediates in its dyestuff business. Higher H-acid prices are partly an internal transfer, so it captures less of the squeeze than a standalone intermediates producer would.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Chinese capacity can return</div><div class="risk-body">The squeeze rests on EHS enforcement, which is a policy choice. Previous Chinese environmental crackdowns have relaxed, and capacity has come back.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">DGTR outcome is unresolved</div><div class="risk-body">An investigation, not a duty. It may conclude without one, and any recommendation needs separate notification.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">ESM Stage I surveillance</div><div class="risk-body">More restrictive than ASM — typically 100% margin requirement, effectively removing margin funding, with escalation risk to call-auction trading that would impair exit liquidity.</div></div>
+  <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Microcap liquidity</div><div class="risk-body">₹1,243 Cr market cap. Position sizing and exit speed are constrained in a way they are not for the larger names in your book.</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: ACCUMULATE ON DIPS — THE THESIS IS NOT IN THE NUMBERS YET</div>
+    <p>Bodal is the most direct way to express the dye-intermediates thesis and the only name in the cluster with a second, independent lever: <b>it is the applicant in a live DGTR anti-dumping investigation into Beta Naphthol from China.</b> It trades at <b>1.07× book</b> — barely above the value of eight plants in a business where global capacity is the binding constraint — and 49% below its all-time high.</p>
+    <p>The essential discipline is timing. <b>Q1 FY27 ended in June; H-acid spiked on 28 July.</b> Nothing reported so far contains the thesis, and Bodal&rsquo;s Dye Intermediates segment actually <b>declined 4%</b> in the quarter while operating margin compressed from 11.66% to 9.72%. The 57% revenue growth came from elsewhere.</p>
+    <p><b>Q2 FY27, reported around November, is the whole test.</b> Intermediates swinging strongly positive with margin expansion confirms it; intermediates staying soft says Bodal is not the right vehicle whatever H-acid does. Until then this is a position in an expectation — held on a ₹1,243 crore microcap that is 38% above its 50-DMA and carries an ESM Stage I flag that all but rules out margin funding.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Q2 FY27 Dye Intermediates segment growth</b> — the single decisive number, reported around November</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Operating margin recovering from 9.72% — realisations should show up here first</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>DGTR beta naphthol investigation — preliminary findings, and whether a duty is recommended</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Chinese H-acid pricing and any sign of EHS enforcement relaxing</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Saykha facility capacity utilisation</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>ESM stage — escalation would impair liquidity; de-flagging would be a positive</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Technical: ₹71 (50-DMA, −28%) and ₹65 (200-DMA, −34%) are the first supports</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>BODAL CHEMICALS LIMITED (NSE: BODALCHEM) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results (board meeting 5 Aug 2026) &middot; DGTR notice of anti-dumping investigation into Beta Naphthol from China, on Bodal Chemicals&rsquo; application &middot; Independently verified H-acid and reduction-intermediate pricing, Chinese effective capacity and EHS-driven shutdowns &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

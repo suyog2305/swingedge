@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shree Pushkar Chemicals & Fertilizers — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: Shree Pushkar Chemicals & Fertilizers — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: SHREEPUSHK &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026 &nbsp;|&nbsp; Dye Intermediates Cluster 5/6</p>
+    <h1 class="report-title"><span>Shree Pushkar</span> Chemicals &amp; Fertilizers</h1>
+    <p class="report-subtitle">Dye intermediates, fertilisers and animal feed &nbsp;·&nbsp; Mumbai &nbsp;·&nbsp; In the value chain, but the numbers are not moving</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹451.10</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹1,459 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 Revenue</div><div class="kpi-value">₹280.1 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 PAT</div><div class="kpi-value">₹22.9 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Op. Margin</div><div class="kpi-value">11.4%</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — Right Value Chain, Single-Digit Growth</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">Expansion completing into a price squeeze</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">Volumes dipped; +9.4% profit, flat margin</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Read This First</a>
+    <a href="#s3">Q1 FY27</a>
+    <a href="#s4">The Volume Dip</a>
+    <a href="#s5">Three Businesses</a>
+    <a href="#s6">The Expansion</a>
+    <a href="#s7">Cluster Comparison</a>
+    <a href="#s8">Your Signals</a>
+    <a href="#s9">The Price Gap</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>Shree Pushkar Chemicals &amp; Fertilizers Limited</td></tr>
+    <tr><td class="bold">What it makes</td><td><b>Dye intermediates</b>, fertilisers and animal feed / cattle feed — an integrated model where by-products of the chemicals process feed the fertiliser line.</td></tr>
+    <tr><td class="bold">Why it matters here</td><td>It is <b>genuinely in the dye intermediates value chain</b> — unlike Oriental Aromatics or Foseco, which share the sector bucket but not the chemistry. It is a legitimate H-acid-adjacent name.</td></tr>
+    <tr><td class="bold">Signals (27 Aug)</td><td>RS 85, passes the trend template, in Stage 2 six days, 6.3% below its 52-week high. Up 12.7% on the week but <b>−0.4% on the final day</b>.</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">Read This First</h2></div>
+  <p>The timing rule applies as it does across this cluster: <b>Q1 FY27 covers April to June 2026, and H-acid spiked from 28 July.</b> Nothing reported here contains the thesis.</p>
+  <p>But Shree Pushkar poses a sharper question than its peers. Where Bhageria grew revenue 82% and Bodal 57% in that pre-squeeze quarter, <b>Shree Pushkar grew 10.0% — and profit grew 9.4% on a flat margin.</b></p>
+  <p>That matters because the other names were already improving before the squeeze arrived. This one was not. <b>The entire case here rests on Q2, with no operating momentum underneath it.</b></p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Q1 FY27</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (quarter to June 2026)</th><th class="right">Q1 FY27</th><th class="right">Q1 FY26</th><th class="right">Change</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue from operations</td><td class="right bold">₹280.1 Cr</td><td class="right">₹254.5 Cr</td><td class="right">+10.0%</td></tr>
+      <tr><td>EBITDA</td><td class="right">₹31.9 Cr</td><td class="right">~₹29.1 Cr</td><td class="right">+9.7%</td></tr>
+      <tr><td>EBITDA margin</td><td class="right">11.4%</td><td class="right">11.44%</td><td class="right muted">flat</td></tr>
+      <tr><td>PAT</td><td class="right bold">₹22.9 Cr</td><td class="right">~₹20.9 Cr</td><td class="right">+9.4%</td></tr>
+      <tr><td>PAT margin</td><td class="right">8.2%</td><td class="right muted">—</td><td class="right muted">held</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Our scan records sales growth of +10.04% and net profit growth of +9.4%, matching the reported figures exactly. Margin path: 11.44% a year ago, 10.14% last quarter, 11.40% now — a sequential recovery to roughly where it was.</p>
+  <p><b>Everything grew at almost exactly the same rate.</b> Revenue +10.0%, EBITDA +9.7%, PAT +9.4%. Margins are flat, there is no operating leverage, and there is no distortion to unpick. It is an honest, unremarkable quarter.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">The Volume Dip</h2></div>
+  <p>Commentary on the quarter describes <b>growth holding up as volumes dip</b>. That combination is significant and it deserves unpacking.</p>
+  <p>If revenue grew 10% while volumes fell, then <b>realisations rose meaningfully</b> — price did the work, not throughput. For a dye-intermediates producer in a market where Chinese supply discipline was already tightening through Q1, that is exactly the expected signature.</p>
+  <p><b>Read positively:</b> Shree Pushkar was already capturing better prices before the July spike, which is a leading indicator for Q2.</p>
+  <p><b>Read cautiously:</b> falling volumes in a market that is supposed to be supply-short is the wrong direction. If the deficit is real, a producer should be selling everything it can make. A volume decline suggests either capacity constraints — the expansion in Section 06 — or demand-side softness.</p>
+  <p class="tbl-note">The volume decline is not quantified in the sources reviewed, nor is the split between the chemicals and fertiliser segments. Both are needed to resolve which reading applies, and both should be available in the quarterly filing.</p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Three Businesses in One</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Segment</th><th>Character</th></tr></thead>
+    <tbody>
+      <tr><td><b>Dye intermediates</b></td><td>The H-acid-adjacent business. Cyclical, price-driven, currently the reason to look at this name.</td></tr>
+      <tr><td><b>Fertilisers</b></td><td>Price-controlled and subsidy-dependent in India. Low margin, steady volume.</td></tr>
+      <tr><td><b>Animal / cattle feed</b></td><td>Stable, low-growth, consumer-linked.</td></tr>
+    </tbody>
+  </table></div>
+  <p>The integration logic is genuine and unusual: <b>by-products and effluent streams from chemical manufacturing are converted into fertiliser inputs</b>, turning a disposal cost into a revenue line. In an industry where each tonne of H-acid generates roughly seven tonnes of wastewater, a company that monetises its waste stream has a real structural advantage — and a lower environmental risk profile than peers.</p>
+  <p><b>The cost of that integration is dilution.</b> Only part of the business is levered to the dye-intermediates squeeze. Fertilisers, being price-controlled, cannot capture a commodity upcycle at all. That is a plausible explanation for why revenue grew 10% while pure-play peers grew 57% and 82%.</p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">The Expansion</h2></div>
+  <p>The company&rsquo;s capital expansion is described as <b>nearing the finish line</b>, with a capex plan detailed alongside the Q1 results.</p>
+  <p>The timing could be favourable. Capacity arriving into a supply-short market with elevated realisations is the best possible sequence — it is the opposite of Happy Forgings or Jyoti CNC in your library, both of which are building capacity ahead of demand.</p>
+  <p>It also directly addresses the volume question. <b>If volumes dipped because existing capacity is constrained, completing the expansion converts a price-only benefit into a price-and-volume benefit</b> — which is where the real earnings leverage would come from.</p>
+  <p class="tbl-note">The size, product mix, commissioning date and capital cost of the expansion are not established in the sources reviewed. This report does not estimate them. Given that this is the main forward catalyst, obtaining those details from the investor presentation is the highest-value homework on this name.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Cluster Comparison — Q1 FY27</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Company</th><th class="right">Revenue growth</th><th class="right">PAT growth</th><th class="right">Op. margin</th><th class="right">Margin change</th></tr></thead>
+    <tbody>
+      <tr><td>Bhageria Industries</td><td class="right green">+81.9%</td><td class="right green">+211.6%</td><td class="right">14.10%</td><td class="right green">+255 bps</td></tr>
+      <tr><td>Bodal Chemicals</td><td class="right green">+57%</td><td class="right green">+178%</td><td class="right">9.72%</td><td class="right red">−194 bps QoQ</td></tr>
+      <tr><td>Kiri Industries</td><td class="right green">+54.5%</td><td class="right muted">treasury-driven</td><td class="right">5.09%</td><td class="right green">from losses</td></tr>
+      <tr><td class="bold">Shree Pushkar</td><td class="right bold red">+10.0%</td><td class="right bold red">+9.4%</td><td class="right">11.40%</td><td class="right muted">flat</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Shree Pushkar had the weakest quarter of the four genuine dye-intermediates names by a wide margin</b> — single-digit growth against 55–82% elsewhere, with no margin movement.</p>
+  <p>Two explanations are available, and the segment disclosure would settle it: the <b>fertiliser and feed businesses are diluting</b> a strong chemicals performance, or the <b>chemicals business itself is not participating</b>. The first is benign and would resolve as the mix shifts; the second would mean this is the wrong vehicle for the theme.</p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">What Your Own System Says</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (27 Aug 2026)</th><th class="right">SHREEPUSHK</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating</td><td class="right green">85</td></tr>
+      <tr><td>Trend template</td><td class="right green">PASSES</td></tr>
+      <tr><td>In Stage 2 (computed)</td><td class="right green">Yes — 6 days</td></tr>
+      <tr><td>Below 52-week high</td><td class="right">−6.33%</td></tr>
+      <tr><td>1-day return</td><td class="right red">−0.43%</td></tr>
+      <tr><td>1-week return</td><td class="right green">+12.7%</td></tr>
+      <tr><td>3-month return</td><td class="right green">+23.9%</td></tr>
+      <tr><td>Price vs 50-DMA (₹401.44)</td><td class="right">+12%</td></tr>
+      <tr><td>Price vs 200-DMA (₹372.92)</td><td class="right">+21%</td></tr>
+      <tr><td>Below all-time high (₹481.60)</td><td class="right green">−6%</td></tr>
+      <tr><td>Surveillance flag</td><td class="right green">None</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Two things distinguish this technically from the rest of the cluster.</b> It is only 6% below its all-time high — where Bodal is 49% below, Oriental Aromatics 60% and Kiri 44% — so there is very little overhead supply. And at 12% above its 50-DMA it is the least extended after Bhageria.</p>
+  <p>It was also the only name in the cluster to fall on the final scan day.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">The Price Gap Nobody Else Has</h2></div>
+  <p>At ₹451.10 against an all-time high of ₹481.60, Shree Pushkar is within <b>6% of the highest price it has ever traded</b>.</p>
+  <p>That is a materially different position from its peers, and it cuts both ways:</p>
+  <ul>
+    <li><b>No overhead supply.</b> Almost every holder is in profit. There is no trapped population selling into strength, which is the drag on Bodal and Oriental Aromatics.</li>
+    <li><b>No recovery discount either.</b> Bodal at 49% below its peak has an argument that the dumping cycle destroyed value that can return. Shree Pushkar has no such gap to close — any gain from here is genuinely new ground.</li>
+  </ul>
+  <p><b>The interpretation is that this business did not suffer the same destruction in the Chinese dumping cycle</b> — consistent with the integrated fertiliser model providing ballast. It is a steadier company, and correspondingly it has less cyclical upside.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right">20.3×</td><td>Mid-range for the cluster</td></tr>
+      <tr><td>P/E on annualised Q1 PAT</td><td class="right">~15.9×</td><td>Reasonable</td></tr>
+      <tr><td>Price / Book</td><td class="right">2.41×</td><td>Higher than Bodal (1.07×) or Kiri (0.45×)</td></tr>
+      <tr><td>Market cap / annualised Q1 revenue</td><td class="right green">1.30×</td><td>Modest</td></tr>
+      <tr><td>Below all-time high</td><td class="right">−6%</td><td>Near the top of its range</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Shree Pushkar is the most expensive of the four genuine dye names on assets and the slowest-growing on earnings.</b> That is an uncomfortable combination — 2.41× book and 20.3× earnings for 10% growth, against Bhageria at 1.74× book and 14.0× earnings for 82% growth.</p>
+  <p>The defence is quality of earnings. Shree Pushkar&rsquo;s growth is steady, its margin is stable, its business is integrated and partly non-cyclical, and it did not need to recover from a collapse. <b>You are paying more for a business that has been consistently rather than spectacularly profitable</b> — which is a legitimate preference, but it is the opposite of what the H-acid thesis is asking you to buy.</p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">The expansion completes into a supply-short market, converting a price-only benefit into price-and-volume. Q2 shows the chemicals segment accelerating sharply from the 10% blended rate as H-acid realisations land. The fertiliser and feed lines provide ballast so earnings quality stays high. With only 6% of overhead supply above, new highs come easily.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">Growth improves from 10% but stays well below the pure-play peers, because fertilisers and feed cannot capture a commodity upcycle. Margins hold near 11.4%. The expansion adds volume through FY28. A steady business compounds steadily, and the stock tracks earnings without re-rating.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">The Q1 volume dip reflects demand rather than capacity, and the chemicals segment does not participate in the squeeze at all. Growth stays in single digits while the market has priced in a chemicals re-rating. At 2.41× book and 20.3× earnings for 10% growth, and only 6% below an all-time high with no recovery discount to fall back on, there is little valuation support.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Single-digit growth in a cluster growing 55–82%</div><div class="risk-body">Revenue +10.0%, PAT +9.4%, margin flat. The weakest Q1 of the four genuine dye-intermediates names, with no operating momentum ahead of the thesis.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Volumes declined</div><div class="risk-body">Growth came from realisations while volumes dipped. In a market described as supply-short, falling volumes is the wrong direction and its cause is not disclosed.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Segment dilution</div><div class="risk-body">Fertilisers are price-controlled and subsidy-dependent and cannot capture a commodity upcycle. Only part of the business is levered to the thesis, and the split is not disclosed.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Most expensive of the genuine dye names</div><div class="risk-body">2.41× book and 20.3× earnings for 10% growth, against Bhageria at 1.74× and 14.0× for 82% growth.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">No recovery discount</div><div class="risk-body">Only 6% below its all-time high. Unlike Bodal at −49%, there is no cyclical gap to close — every gain is new ground.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Undisclosed expansion details</div><div class="risk-body">Size, mix, timing and cost of the capex are not established. It is the main forward catalyst and it cannot currently be sized.</div></div>
+  <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Microcap scale</div><div class="risk-body">₹1,459 Cr, with the liquidity and volatility that implies.</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: HOLD — RIGHT VALUE CHAIN, SINGLE-DIGIT GROWTH</div>
+    <p>Shree Pushkar is genuinely in the dye-intermediates value chain — unlike Oriental Aromatics or Foseco, which only share the sector label — and its integrated model, converting chemical by-products into fertiliser inputs, is a real structural advantage in an industry defined by effluent.</p>
+    <p>But it had <b>the weakest quarter of the four genuine dye names by a distance: revenue +10.0%, PAT +9.4%, margin flat</b>, against Bhageria at +82%/+212% and Bodal at +57%/+178%. Growth came from realisations while <b>volumes dipped</b> — the wrong direction in a market that is supposed to be short of supply.</p>
+    <p>It is also <b>the most expensive of the four on assets at 2.41× book</b> and has the least room to recover, sitting only 6% below its all-time high where Bodal is 49% below. The steadiness is real and the integrated model is genuinely defensive — but that is an argument for owning a stable compounder, not for expressing a cyclical supply-squeeze thesis. <b>The expansion completing into a short market is the one thing that could change that, and its size and timing are not yet disclosed.</b></p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Segment disclosure</b> — chemicals versus fertilisers versus feed. It resolves whether the 10% is dilution or non-participation</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Q2 FY27 chemicals growth accelerating from the 10% blended rate</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Whether volumes recover, or the dip continues</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Expansion size, product mix, commissioning date and capital cost</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Operating margin moving beyond 11.4%</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Technical: ₹401 (50-DMA, −11%) and ₹373 (200-DMA, −17%); all-time high ₹481.60 just 6% above</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>SHREE PUSHKAR CHEMICALS &amp; FERTILIZERS LIMITED (NSE: SHREEPUSHK) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results and Earnings Call (13 Aug 2026) &middot; Company commentary on volumes, realisations and the capex programme &middot; Independently verified H-acid and reduction-intermediate pricing, Chinese effective capacity and EHS-driven shutdowns &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oriental Aromatics — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: Oriental Aromatics — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: OAL &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026 &nbsp;|&nbsp; Chemicals Cluster 4/6</p>
+    <h1 class="report-title"><span>Oriental</span> Aromatics</h1>
+    <p class="report-subtitle">Aroma chemicals, camphor, fragrances and flavours &nbsp;·&nbsp; Mumbai &nbsp;·&nbsp; Not a dye intermediates company, and the company says there is no news</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹459.30</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹1,546 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Trailing P/E</div><div class="kpi-value">290.5×</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Op. Margin</div><div class="kpi-value">7.62%</div></div>
+      <div class="kpi-cell"><div class="kpi-label">vs All-Time High</div><div class="kpi-value">−60%</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — A Move the Company Itself Cannot Explain</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">₹1,000 Cr milestone, Mahad ramp-up</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">290× earnings, no H-acid exposure, no news</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Two Corrections</a>
+    <a href="#s3">The Exchange Query</a>
+    <a href="#s4">The Business</a>
+    <a href="#s5">Q1 FY27</a>
+    <a href="#s6">The Margin</a>
+    <a href="#s7">Mahad</a>
+    <a href="#s8">Your Signals</a>
+    <a href="#s9">The 60% Gap</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>Oriental Aromatics Limited</td></tr>
+    <tr><td class="bold">What it makes</td><td><b>Aroma chemicals, camphor, fragrances and flavours.</b> Formerly Camphor &amp; Allied Products.</td></tr>
+    <tr><td class="bold">Why it appears here</td><td>It was the <b>#1 gainer</b> on the long-term breakout scan. It sits in the Chemicals sector bucket — but see Section 02, because it is not the company the dye-intermediates thesis is about.</td></tr>
+    <tr><td class="bold">Signals (27 Aug)</td><td>RS 88, passes the trend template, 0.8% below its 52-week high, up 7.1% on the final scan day.</td></tr>
+    <tr><td class="bold">Recent corporate events</td><td>54th AGM held 18 August 2026 via video conferencing — ₹1,000 crore revenue milestone, dividend approval, commercial ramp-up of the Mahad facility.</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">Two Corrections Before Anything Else</h2></div>
+  <h3 class="subsection-title">1. This is not a dye intermediates company</h3>
+  <p><b>Oriental Aromatics has no H-acid exposure.</b> It makes aroma chemicals, camphor, fragrances and flavours — a completely different chemistry, different customers (FMCG, personal care, food) and a different supply chain from the dyestuff value chain.</p>
+  <p>It appears alongside Bodal, Bhageria and Kiri only because the scan groups all of them under &ldquo;Chemicals &amp; Petrochemicals&rdquo;. <b>The circulating note on H-acid, EHS shutdowns and reduction intermediates has nothing to do with this company.</b> Treating the sector cluster as a single theme would be a mistake, and this is where it breaks.</p>
+  <h3 class="subsection-title">2. The company says there is no news</h3>
+  <p>The exchange sought clarification on the price and volume movement. <b>Oriental Aromatics replied that there is no pending information affecting its business operations, and that the movement is market-driven.</b></p>
+  <p>That is a formal disclosure, and it is the most important fact in this report.</p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">The Exchange Query — What It Means</h2></div>
+  <p>When a stock moves sharply, exchanges ask the company whether there is undisclosed price-sensitive information. A company must then either disclose it or state there is none.</p>
+  <p>Oriental Aromatics stated there is none. Take that at face value and the implications are specific:</p>
+  <ul>
+    <li><b>There is no order win, contract, approval, capacity announcement or earnings surprise driving this.</b> If there were, the company would have been obliged to say so.</li>
+    <li><b>The AGM content is not new information.</b> The ₹1,000 crore milestone and Mahad ramp-up were disclosed on 18 August in the ordinary course; they are not a catalyst the company is pointing to.</li>
+    <li><b>What remains is flow.</b> Sector rotation into chemicals, retail momentum following a scan like the one you are reading, or position-building — none of which is a fundamental repricing.</li>
+  </ul>
+  <p><b>A 43% weekly move on a ₹1,546 crore company with a formal &ldquo;no information&rdquo; statement is a description of demand for the shares, not of the business.</b> That can persist for a while and it can reverse just as quickly, because nothing anchors it.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">The Business</h2></div>
+  <p>Aroma chemicals and camphor is a real, established business. Oriental Aromatics is one of India&rsquo;s significant producers, selling into fragrance houses, personal care, food and pharmaceutical customers, with camphor also serving religious and industrial demand.</p>
+  <p>The structural characteristics matter for how it should be valued:</p>
+  <ul>
+    <li><b>Input exposure to turpentine and pine-derived feedstock</b>, which is globally traded and volatile — margins swing with it.</li>
+    <li><b>Fragrance and flavour customers are large and consolidated</b> — a handful of global houses dominate, which limits pricing power.</li>
+    <li><b>Camphor demand is relatively stable</b> but low-growth and price-competitive.</li>
+  </ul>
+  <p>The 7.62% operating margin recorded in the scan is consistent with that description: <b>this is a modest-margin processor, not a specialty franchise.</b> For context within your library, Sudeep Pharma earns 34.7% and Balaji Amines 25.4%.</p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Q1 FY27 and Recent Performance</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Metric (latest quarter, from scan data)</th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>Sales growth YoY</td><td class="right">+15.2%</td></tr>
+      <tr><td>Net profit growth YoY</td><td class="right green">+402%</td></tr>
+      <tr><td>Operating margin (quarter)</td><td class="right">7.62%</td></tr>
+      <tr><td>Operating margin (previous quarter)</td><td class="right">6.89%</td></tr>
+      <tr><td>Operating margin (year-ago quarter)</td><td class="right bold red">8.01%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Read the margin row carefully, because it undercuts the profit headline.</b> Net profit grew 402% — but the operating margin is <em>lower</em> than a year ago (7.62% against 8.01%). Sales grew only 15.2%.</p>
+  <p>A 402% profit increase on 15% revenue growth and a <em>declining</em> operating margin means the gain came from below the operating line, or from a very small prior-year base, or both. <b>This is not operating improvement.</b> It is the same pattern flagged at Rashi Peripherals and Ramkrishna Forgings elsewhere in your library, and it is why the trailing P/E sits at 290×.</p>
+  <p>The company did cross a <b>₹1,000 crore revenue milestone</b>, noted at the August AGM. That is a genuine scale marker for a company with a ₹1,546 crore market capitalisation.</p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">The Margin Problem</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Operating margin comparison (latest quarter)</th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>Gujarat Industries Power</td><td class="right green">48.40%</td></tr>
+      <tr><td>Foseco India</td><td class="right green">22.98%</td></tr>
+      <tr><td>I G Petrochemicals</td><td class="right green">18.16%</td></tr>
+      <tr><td>Bhageria Industries</td><td class="right">14.10%</td></tr>
+      <tr><td>Shree Pushkar Chemicals</td><td class="right">11.40%</td></tr>
+      <tr><td>Bodal Chemicals</td><td class="right">9.72%</td></tr>
+      <tr><td class="bold">Oriental Aromatics</td><td class="right bold red">7.62%</td></tr>
+      <tr><td>Kiri Industries</td><td class="right red">5.09%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Oriental Aromatics earns the second-lowest operating margin in this cluster</b>, and unlike Kiri — which is recovering from losses — its margin is going sideways to down. On roughly ₹1,000 crore of annual revenue, a 7.6% operating margin leaves very little after interest, depreciation and tax, which is exactly why trailing earnings are thin enough to produce a 290× multiple.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">The Mahad Facility</h2></div>
+  <p>The August AGM highlighted the <b>commercial ramp-up of the Mahad facility</b>.</p>
+  <p>A new plant reaching commercial production is a genuine operational milestone and the most plausible fundamental development available. For a company at this margin level, incremental capacity that improves absorption could matter.</p>
+  <p class="tbl-note">The capacity, product mix, capital cost and expected contribution of the Mahad facility are not established in the sources reviewed. This report does not estimate them. Given that the company has formally told the exchange there is no pending information, Mahad should be read as an ordinary-course disclosure rather than the explanation for a 43% week.</p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">What Your Own System Says</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (27 Aug 2026)</th><th class="right">OAL</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating</td><td class="right green">88</td></tr>
+      <tr><td>Trend template</td><td class="right green">PASSES</td></tr>
+      <tr><td>In Stage 2 (computed)</td><td class="right green">Yes — a fresh entry</td></tr>
+      <tr><td>Below 52-week high</td><td class="right green">−0.8%</td></tr>
+      <tr><td>1-day return</td><td class="right green">+7.1%</td></tr>
+      <tr><td>1-week return</td><td class="right bold green">+26.2%</td></tr>
+      <tr><td>1-month return</td><td class="right">+7.65%</td></tr>
+      <tr><td>Price vs 50-DMA (₹353.25)</td><td class="right red">+30%</td></tr>
+      <tr><td>Price vs 200-DMA (₹327.71)</td><td class="right red">+40%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Note the shape: +26.2% in a week against +7.65% over a month.</b> The entire move happened in days. The one-month figure being lower than the one-week figure means the stock actually fell earlier in the month and then spiked — a violent, compressed move rather than a trend.</p>
+  <p class="tbl-note">Your scan window to 27 August records +26.2%; the stockscans screenshot showed +43.5% over a slightly later window. Both describe the same event — the move has accelerated.</p>
+  <p>Your system passes it because RS and the moving averages have caught up. <b>The trend template measures price behaviour, and price behaviour is precisely what the company has said is unexplained.</b></p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">The 60% Gap</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:280px">Current price</td><td>₹459.30</td></tr>
+    <tr><td class="bold">All-time high</td><td><b>₹1,148.00</b></td></tr>
+    <tr><td class="bold">Below all-time high</td><td class="bold" style="color:#b91c1c">−60.0%</td></tr>
+    <tr><td class="bold">Up from 52-week low</td><td>+102.3%</td></tr>
+  </tbody></table></div>
+  <p><b>This is simultaneously at a 52-week high and 60% below its all-time high</b> — the widest such gap in this cluster. The stock has doubled off its low and still sits at less than half its peak.</p>
+  <p>Two readings, and both are informative. <b>The bullish one:</b> there is a great deal of recovery room, and the business has grown to a ₹1,000 crore revenue scale it did not have at the previous peak. <b>The cautionary one:</b> a stock that fell 60% and is now up 102% off the low, on a formally unexplained move, has a large population of holders at higher prices who become supply on the way up.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right bold red">290.5×</td><td><b>The highest multiple in this cluster by a factor of ten</b></td></tr>
+      <tr><td>Price / Book</td><td class="right">2.28×</td><td>Moderate — the only supportive measure</td></tr>
+      <tr><td>Market cap / revenue (~₹1,000 Cr)</td><td class="right green">~1.55×</td><td>Not demanding on sales</td></tr>
+      <tr><td>Operating margin</td><td class="right red">7.62%</td><td>Second-lowest in the cluster, and declining</td></tr>
+      <tr><td>Price vs 50-DMA</td><td class="right red">+30%</td><td>Extended</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>A 290× trailing P/E on a 7.6%-margin chemical processor is not a valuation — it is a signal that earnings are close to zero.</b> The price-to-book of 2.28× and price-to-sales of 1.55× are the more meaningful measures, and on those the stock is not expensive.</p>
+  <p>That is the honest framing: <b>Oriental Aromatics is reasonably priced on assets and sales, and has almost no earnings to speak of.</b> The investment case would have to be that margins normalise from 7.6% toward historical levels on the ₹1,000 crore revenue base — which is plausible and would transform the P/E. Nothing in the current disclosure indicates that is happening, and the margin moved the wrong way this quarter.</p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">The Mahad ramp-up improves absorption and margin recovers from 7.62% toward high single or low double digits on a ₹1,000 Cr revenue base. Earnings normalise, collapsing the 290× multiple through the numerator rather than the price. At 2.28× book with 60% of recovery room to the all-time high, the re-rating would be substantial — and the current move, whatever caused it, would look prescient.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">The business continues at roughly current margins. Revenue grows in the low-to-mid teens. The unexplained portion of the price move unwinds as flows rotate elsewhere, and the stock settles back toward its moving averages. Nothing changes fundamentally in either direction.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">The move was flow, not fundamentals — as the company itself has effectively stated. It reverses as quickly as it came. With the stock 30% above its 50-DMA and 40% above its 200-DMA after a 26% week, and with no earnings to anchor a valuation, there is nothing to arrest a retracement. Turpentine input costs squeeze an already thin 7.6% margin further.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">The company has stated there is no news</div><div class="risk-body">A formal exchange response that the price and volume movement is market-driven with no pending information. The largest move in the cluster has no disclosed fundamental cause.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">No exposure to the dye-intermediates thesis</div><div class="risk-body">Aroma chemicals, camphor, fragrances and flavours. The H-acid squeeze driving Bodal, Bhageria and Kiri does not touch this business. Sector-bucket adjacency is not thesis exposure.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Earnings are negligible</div><div class="risk-body">290× trailing P/E on a 7.62% operating margin that fell from 8.01% a year ago. The 402% profit growth came on a very small base, not from operating improvement.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Extreme short-term extension</div><div class="risk-body">+26% in a week against +7.65% over a month — the whole move happened in days. 30% above the 50-DMA with no nearby support.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Input cost volatility</div><div class="risk-body">Turpentine and pine-derived feedstock are globally traded and volatile. At a 7.6% margin there is minimal buffer.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Customer concentration</div><div class="risk-body">Fragrance and flavour demand is dominated by a small number of large global houses, limiting pricing power.</div></div>
+  <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Overhead supply</div><div class="risk-body">60% below the all-time high after doubling off the 52-week low. Holders from higher levels become sellers into strength.</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: HOLD — A MOVE THE COMPANY ITSELF CANNOT EXPLAIN</div>
+    <p>Oriental Aromatics was the top gainer on the breakout scan, and two facts should govern how that is read.</p>
+    <p><b>First, it is not a dye-intermediates company.</b> It makes aroma chemicals, camphor, fragrances and flavours. The H-acid squeeze, the EHS shutdowns, the reduction-intermediate price move — none of it touches this business. It shares a sector bucket with Bodal and Bhageria and nothing else.</p>
+    <p><b>Second, the company has formally told the exchange there is no pending information and the movement is market-driven.</b> There is no order, no approval, no earnings surprise. What is left is flow.</p>
+    <p>The financials do not fill the gap: a <b>7.62% operating margin that fell from 8.01%</b>, second-lowest in the cluster, and a <b>290× trailing P/E</b> that simply reflects near-zero earnings. On assets it is reasonable at 2.28× book and 1.55× sales, and there is a real recovery case if margins normalise on the new ₹1,000 crore revenue base — but nothing in the current disclosure says that is happening, and the margin moved the wrong way. <b>Sixty percent below its all-time high with 30% of air beneath it to the 50-DMA, this is a position in momentum, and the company has said as much.</b></p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Operating margin recovering from 7.62%</b> — the only route to justifying any earnings-based valuation</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Any subsequent disclosure that would explain the move — none exists as of this report</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Mahad facility contribution, once capacity and product mix are disclosed</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Turpentine and pine-feedstock pricing — the main input-cost driver</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Whether a surveillance flag appears following the move — currently none</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Technical: ₹353 (50-DMA, −23%) and ₹328 (200-DMA, −29%)</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>ORIENTAL AROMATICS LIMITED (NSE: OAL) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Company clarification to the exchange that price and volume movement is market-driven with no pending information &middot; 54th AGM (18 Aug 2026) and August 2026 investor presentation &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

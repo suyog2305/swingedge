@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foseco India — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: Foseco India — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: FOSECOIND &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026 &nbsp;|&nbsp; Breakout Scan #8</p>
+    <h1 class="report-title"><span>Foseco</span> India</h1>
+    <p class="report-subtitle">Foundry chemicals and consumables &nbsp;·&nbsp; Pune &nbsp;·&nbsp; A Vesuvius group subsidiary selling into metal casting, not dyes</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹6,528</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹4,920 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 PAT</div><div class="kpi-value">+78% YoY</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Op. Margin</div><div class="kpi-value">22.98%</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Trailing P/E</div><div class="kpi-value">47.2×</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — Good Business, Wrong Cluster, Full Price</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">23% margins, MNC parentage, foundry recovery</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">47× earnings, 4.8× book, 4.6% from its high</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Not a Dyes Company</a>
+    <a href="#s3">Q1 FY27</a>
+    <a href="#s4">A Naming Caution</a>
+    <a href="#s5">The Business</a>
+    <a href="#s6">The Margin</a>
+    <a href="#s7">MNC Parentage</a>
+    <a href="#s8">Your Signals</a>
+    <a href="#s9">The Real Driver</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>Foseco India Limited</td></tr>
+    <tr><td class="bold">Parentage</td><td>Subsidiary of the <b>Vesuvius group</b>, a global supplier of consumables and technology to the metals industry</td></tr>
+    <tr><td class="bold">What it makes</td><td><b>Foundry chemicals and consumables</b> — binders, coatings, filters, feeding systems and fluxes used in metal casting. Sold to foundries producing castings for automotive, engineering, railways and general industry.</td></tr>
+    <tr><td class="bold">Why it appears here</td><td>It was #8 on the breakout scan, in the Chemicals sector bucket. See Section 02.</td></tr>
+    <tr><td class="bold">Signals (27 Aug)</td><td>RS 86, passes the trend template, 4.65% below its 52-week high. Up 6.8% on the final scan day and 14.3% on the week. <b>No surveillance flag.</b></td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">This Is Not a Dye Intermediates Company</h2></div>
+  <p><b>Foseco has no exposure whatsoever to the H-acid squeeze.</b> It makes chemicals for metal casting — the consumables a foundry uses to pour molten iron or aluminium into a mould. Nothing in its product range touches dyestuff, dye intermediates or the reactive-dye chemistry described in the circulating note.</p>
+  <p>It appears alongside Bodal, Bhageria and Kiri for one reason only: <b>the scan groups every chemical company into a single sector bucket.</b> Of the six &ldquo;chemicals&rdquo; names in the breakout list, only four are genuinely in the dye value chain:</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Company</th><th>Actual exposure to the H-acid thesis</th></tr></thead>
+    <tbody>
+      <tr><td>Bodal Chemicals</td><td class="green">Direct — H-acid producer, DGTR applicant</td></tr>
+      <tr><td>Bhageria Industries</td><td class="green">Direct — dyes and dye intermediates</td></tr>
+      <tr><td>Kiri Industries</td><td class="green">Direct — dyes and dye intermediates</td></tr>
+      <tr><td>Shree Pushkar</td><td class="green">Direct — dye intermediates, diluted by fertilisers</td></tr>
+      <tr><td>I G Petrochemicals</td><td class="muted">Indirect — phthalic anhydride feeds phthalocyanine pigments</td></tr>
+      <tr><td><b>Foseco India</b></td><td class="red"><b>None — foundry chemicals</b></td></tr>
+      <tr><td>Oriental Aromatics</td><td class="red">None — aroma chemicals, camphor, fragrances</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Buying Foseco to express the dye-intermediates thesis would be a category error.</b> It may still be a good business — Sections 05 to 07 argue it largely is — but it must be justified on its own terms.</p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Q1 FY27</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (quarter to June 2026)</th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>Net profit growth</td><td class="right bold green">+78% YoY</td></tr>
+      <tr><td>Sales growth</td><td class="right green">+14% YoY</td></tr>
+      <tr><td>Operating margin (quarter)</td><td class="right bold green">22.98%</td></tr>
+      <tr><td>Operating margin (previous quarter)</td><td class="right">20.48%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Profit grew more than five times as fast as revenue</b>, and the sequential margin improvement from 20.48% to 22.98% confirms the source: operating leverage and mix, not volume.</p>
+  <p class="tbl-note">Our scan does not carry year-on-year sales and net-profit growth fields for Foseco, so the +14% and +78% figures come from results commentary rather than from the scan. The operating margin figures of 22.98% and 20.48% are from the scan and are the more reliable of the two sets. Prior-year margin is not available.</p>
+  <p>This is a good, clean quarter with no adjustment to unpick — the kind of result that needs no defending.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">A Naming Caution</h2></div>
+  <p><b>A source-quality note worth recording, because it is an easy trap.</b> Searching for Foseco India&rsquo;s results returns figures for a separately named entity, <b>&ldquo;Foseco Crucible (India) Ltd&rdquo;</b> — reported PAT of about ₹10.29 crore on revenue of roughly ₹49 crore, with a 37.35% EBITDA margin.</p>
+  <p>Those figures cannot belong to Foseco India Limited, which carries a <b>₹4,920 crore market capitalisation</b>. A company with ₹49 crore of quarterly revenue does not trade at ₹4,920 crore, and a 37.35% margin does not reconcile with the 22.98% recorded in our scan.</p>
+  <p><b>This report does not use those figures.</b> They are flagged here so that anyone repeating this research does not conflate the two entities, and so that the ₹10.29 crore PAT number is not mistakenly attributed to the company in your scan.</p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">The Business</h2></div>
+  <p>Foundry consumables is a genuinely attractive niche, and the reasons are worth being explicit about:</p>
+  <ul>
+    <li><b>Consumable, not capital.</b> Binders, coatings and filters are used up in every casting cycle. Revenue recurs with the customer&rsquo;s production volume rather than with their capex decisions — a fundamentally better revenue model than the equipment makers elsewhere in your library.</li>
+    <li><b>Technical qualification.</b> Foundry chemistry affects casting quality directly. Once a foundry has qualified a binder system and tuned its process around it, switching supplier risks scrap rates. That produces sticky relationships.</li>
+    <li><b>Small share of customer cost, large share of outcome.</b> Consumables are a modest line in a foundry&rsquo;s cost base but determine defect rates. That combination supports pricing power — the classic profile of a good industrial consumables business.</li>
+  </ul>
+  <p>The end-market exposure is the cyclical part: <b>foundries serve automotive, engineering and general industry</b>, so Foseco&rsquo;s volumes track Indian industrial production. It is a picks-and-shovels play on manufacturing rather than a bet on any single sector.</p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">The Margin</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Operating margin — the chemicals names in this batch</th><th class="right">Q1 FY27</th></tr></thead>
+    <tbody>
+      <tr><td><b>Foseco India</b></td><td class="right bold green">22.98%</td></tr>
+      <tr><td>I G Petrochemicals</td><td class="right">18.16%</td></tr>
+      <tr><td>Bhageria Industries</td><td class="right">14.10%</td></tr>
+      <tr><td>Shree Pushkar</td><td class="right">11.40%</td></tr>
+      <tr><td>Bodal Chemicals</td><td class="right">9.72%</td></tr>
+      <tr><td>Oriental Aromatics</td><td class="right">7.62%</td></tr>
+      <tr><td>Kiri Industries</td><td class="right">5.09%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Foseco earns the highest operating margin of any chemicals name in this batch</b>, and — unlike the dye names — <b>it is structural rather than cyclical.</b> The 22.98% does not depend on a Chinese capacity shutdown or a commodity spread; it comes from technical qualification and consumable economics.</p>
+  <p>That is the strongest argument for owning Foseco over any of the dye names: <b>you are buying a margin that persists rather than one that mean-reverts.</b> It is also the reason it trades at 47.2× earnings while Bodal trades at 18.1×.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">MNC Parentage — Both Edges</h2></div>
+  <p>As a Vesuvius group subsidiary, Foseco India benefits from global R&amp;D, product formulations developed across a worldwide foundry business, and the governance standards of a listed multinational parent.</p>
+  <p>The constraints deserve equal weight, and they are the standard ones for Indian MNC subsidiaries:</p>
+  <ul>
+    <li><b>Royalty and related-party payments</b> to the parent are a permanent claim on Indian profits, and their level is set by the controlling shareholder.</li>
+    <li><b>Strategic scope is decided abroad.</b> The Indian entity operates within a mandate — it does not choose its own expansion or export markets freely.</li>
+    <li><b>Delisting and open-offer optionality cuts both ways</b> — MNC subsidiaries periodically attract buyout interest at a premium, which supports the multiple, but minority holders have no control over whether or at what price.</li>
+  </ul>
+  <p>Indian MNC subsidiaries with high margins and low capital intensity routinely trade at premium multiples for exactly these reasons. <b>The 47.2× P/E is more a reflection of that cohort characteristic than of Foseco&rsquo;s growth rate.</b></p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">What Your Own System Says</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (27 Aug 2026)</th><th class="right">FOSECOIND</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating</td><td class="right green">86</td></tr>
+      <tr><td>Trend template</td><td class="right green">PASSES</td></tr>
+      <tr><td>In Stage 2 (computed)</td><td class="right green">Yes — 2 days</td></tr>
+      <tr><td>Below 52-week high</td><td class="right">−4.65%</td></tr>
+      <tr><td>1-day return</td><td class="right green">+6.8%</td></tr>
+      <tr><td>1-week return</td><td class="right green">+14.3%</td></tr>
+      <tr><td>3-month return</td><td class="right green">+22.7%</td></tr>
+      <tr><td>Price vs 50-DMA (₹5,332)</td><td class="right">+22%</td></tr>
+      <tr><td>Price vs 200-DMA (₹5,072)</td><td class="right">+29%</td></tr>
+      <tr><td>Below all-time high (₹6,846)</td><td class="right green">−4.6%</td></tr>
+      <tr><td>Surveillance flag</td><td class="right bold green">None</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Foseco is within 4.6% of its all-time high</b> — the closest of any name in this batch apart from Shree Pushkar. Unlike Bodal (−49%), Oriental Aromatics (−60%) or Kiri (−44%), this is not a recovery story. <b>It is a quality compounder near its peak, with no overhead supply and no recovery discount.</b></p>
+  <p>The 50-DMA and 200-DMA sit close together at ₹5,332 and ₹5,072, so this too is a breakout from an extended base rather than a continuation.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">What Is Actually Driving It</h2></div>
+  <p>With no dye exposure and no company-specific catalyst identified in the sources reviewed, the plausible drivers of a 14.3% week are:</p>
+  <ul>
+    <li><b>The Q1 result itself</b> — a 78% profit increase with margin expanding 250 basis points sequentially is a genuine positive surprise for a business that normally grows steadily.</li>
+    <li><b>Sector rotation into chemicals</b>, which is lifting the whole bucket including names with no thematic connection. Foseco is a beneficiary of the flow, not the thesis.</li>
+    <li><b>Indian foundry and casting demand</b> recovering with industrial production, which would be the durable explanation.</li>
+  </ul>
+  <p class="tbl-note">No order win, capacity announcement, corporate action or parent-level development is established in the sources reviewed. The Q1 result is the only identified fundamental catalyst.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right red">47.2×</td><td>Full — the second-highest in this batch after Oriental Aromatics</td></tr>
+      <tr><td>Price / Book</td><td class="right red">4.77×</td><td><b>The highest book multiple in this batch</b></td></tr>
+      <tr><td>Operating margin</td><td class="right bold green">22.98%</td><td>The highest here, and structural</td></tr>
+      <tr><td>Price vs 50-DMA</td><td class="right">+22%</td><td>Extended</td></tr>
+      <tr><td>Below all-time high</td><td class="right">−4.6%</td><td>Near the peak; no recovery discount</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Foseco is the inverse of everything else in this batch.</b> The dye names are cheap on assets with cyclical margins and large recovery gaps. Foseco is expensive on assets — 4.77× book — with a structural margin and no gap to close.</p>
+  <p>Both can be reasonable positions, but they are entirely different propositions. <b>You buy Bodal or GIPCL because they are cheap. You would buy Foseco because it is good.</b> At 47.2× earnings and 4.77× book, growing sales 14%, the price already reflects the quality, and the 22% premium to its 50-DMA means the near-term entry is not comfortable either.</p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">Indian foundry volumes keep recovering with industrial production, and Foseco&rsquo;s consumable model converts that directly into recurring revenue. The margin holds above 22% or improves as mix and operating leverage compound. MNC-subsidiary buyout optionality provides a floor. A high-quality compounder keeps compounding, and 47× is retrospectively justified by the durability rather than the growth rate.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">Sales continue growing in the low-to-mid teens, as they did this quarter, with margins near 23%. The 78% profit jump proves to be a favourable quarter rather than a new run-rate. The stock consolidates near its all-time high while earnings grow into a 47× multiple that compresses slowly.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">Indian industrial and automotive casting demand slows, and consumable volumes track it down directly. The chemicals sector rotation that lifted the stock reverses, and Foseco — which never had thematic exposure — gives back the flow-driven portion of the move. At 47.2× earnings, 4.77× book and 22% above its 50-DMA with no recovery discount, there is no valuation cushion.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">No exposure to the thesis that lifted the sector</div><div class="risk-body">Foundry chemicals, not dye intermediates. Part of the recent move is sector-bucket flow that has nothing to do with this business, and flow reverses.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Full valuation</div><div class="risk-body">47.2× earnings and 4.77× book — the highest asset multiple in this batch — on 14% sales growth, with no recovery discount at 4.6% below the all-time high.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Industrial cyclicality</div><div class="risk-body">Foundry consumable volumes track casting output, which tracks automotive and engineering production. It is a direct play on Indian industrial cycles.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">MNC-subsidiary constraints</div><div class="risk-body">Royalty and related-party payments to Vesuvius are a permanent claim on Indian profits, and strategic scope is set by the parent. Minority holders have no influence.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">The 78% may not repeat</div><div class="risk-body">Profit grew five times faster than sales. That is operating leverage in a good quarter, not a sustainable relationship — sales growth of 14% is the more durable indicator.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Limited scan coverage</div><div class="risk-body">Year-on-year sales and profit growth fields are absent from the scan for this name, so the +14% and +78% figures are less independently verifiable than for its peers.</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: HOLD — GOOD BUSINESS, WRONG CLUSTER, FULL PRICE</div>
+    <p>Foseco India is the <b>best business in this batch and it has nothing to do with the thesis that lifted the batch.</b> It makes foundry chemicals — consumables for metal casting — and has zero exposure to H-acid, dye intermediates or Chinese EHS shutdowns. It appears alongside Bodal and Kiri only because the scan puts every chemical company in one bucket.</p>
+    <p>On its own terms it is genuinely good. A <b>22.98% operating margin — the highest of any chemicals name here — and structural rather than cyclical</b>, resting on technical qualification and consumable economics rather than on a commodity price. Q1 delivered profit up 78% on sales up 14%, with margin expanding 250 basis points sequentially. Vesuvius parentage brings global R&amp;D and governance.</p>
+    <p>The price reflects all of it. <b>47.2× earnings and 4.77× book — the highest asset multiple in the batch — with the stock 4.6% from its all-time high and 22% above its 50-DMA.</b> There is no recovery discount here and no cheapness argument. This is a quality compounder that has already been recognised as one, and part of the recent 14.3% week is sector flow it did not earn.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span>Sales growth holding in the mid-teens — the durable indicator, more than the 78% profit figure</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Operating margin sustaining 22.98% across further quarters</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Indian foundry and casting volumes, and automotive production data</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Royalty and related-party payments to the Vesuvius parent</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Any open-offer or delisting development — recurring optionality in MNC subsidiaries</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Whether the stock holds up when the chemicals sector rotation fades</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Technical: ₹5,332 (50-DMA, −18%) and ₹5,072 (200-DMA, −22%)</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>FOSECO INDIA LIMITED (NSE: FOSECOIND) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results (2026) &middot; Note: figures reported for the separately named &ldquo;Foseco Crucible (India) Ltd&rdquo; are NOT used in this report&nbsp;- see Section 04 &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>
