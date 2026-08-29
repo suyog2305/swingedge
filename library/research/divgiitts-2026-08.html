@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Divgi TorqTransfer Systems — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: Divgi TorqTransfer Systems — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: DIVGIITTS &nbsp;|&nbsp; BSE: 543812 &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026</p>
+    <h1 class="report-title"><span>Divgi</span> TorqTransfer Systems</h1>
+    <p class="report-subtitle">Transfer cases, torque couplers and drivetrain assemblies &nbsp;·&nbsp; Pune &nbsp;·&nbsp; The smallest company in your book</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹1,162.00</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹3,554 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 Income</div><div class="kpi-value">₹141.8 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 PAT</div><div class="kpi-value">₹25.2 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">EBITDA Margin</div><div class="kpi-value">29.4%</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — Best Quarter Yet, Smallest Balance Sheet</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">The five-year order plus a ₹300 Cr pipeline lands</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">₹142 Cr quarterly revenue, single-programme risk</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Business</a>
+    <a href="#s3">Q1 FY27</a>
+    <a href="#s4">The Margin Jump</a>
+    <a href="#s5">Five-Year Order</a>
+    <a href="#s6">Pipeline</a>
+    <a href="#s7">Financials</a>
+    <a href="#s8">Scale Risk</a>
+    <a href="#s9">EV Transition</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>Divgi TorqTransfer Systems Limited</td></tr>
+    <tr><td class="bold">Base</td><td>Pune, Maharashtra</td></tr>
+    <tr><td class="bold">What it makes</td><td>Transfer cases, torque couplers, synchronisers and drivetrain assemblies — the components that distribute engine torque between axles. Core products serve four-wheel-drive and all-wheel-drive systems, with an expanding EV driveline range.</td></tr>
+    <tr><td class="bold">Why it appears here</td><td>RS 93 and passes the trend template, but is <b>11.9% below its 52-week high</b> — one of only three holdings more than 10% off its high. Carries a Tier-3 PEAD signal.</td></tr>
+    <tr><td class="bold">Position in your book</td><td>1 share · avg cost ₹1,228.40 · LTP ₹1,175.15 · <span class="red">−4.33%</span> — a tracking position, and your worst percentage performer.</td></tr>
+    <tr><td class="bold">Scale</td><td><b>₹3,554 Cr market cap — the smallest company you hold</b>, roughly a twenty-fourth of MCX.</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">The Business</h2></div>
+  <p>A transfer case is the gearbox that splits torque between the front and rear axles in a four-wheel-drive vehicle. It is a <b>safety-relevant, precision-engineered assembly</b>, and it is the kind of component where design validation runs for years and a supplier, once designed in, tends to stay for the life of the vehicle programme.</p>
+  <h3 class="subsection-title">The moat is real but narrow</h3>
+  <p>Divgi is one of a small number of Indian companies with the capability to design and manufacture transfer cases. That is a genuine technical barrier — far more so than, say, making a coil or a forging. Programme wins are sticky and multi-year.</p>
+  <p><b>The narrowness is the problem.</b> A transfer case is only needed on 4WD and AWD vehicles, which are a minority of the Indian market. The addressable pool is therefore structurally limited, and growth requires either winning a larger share of a small market, expanding into adjacent driveline components, or exporting. Divgi is attempting all three.</p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Q1 FY27 — The Best Quarter in the Company&rsquo;s History</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (quarter to June 2026)</th><th class="right">Q1 FY27</th><th class="right">Q1 FY26</th><th class="right">Change</th></tr></thead>
+    <tbody>
+      <tr><td>Total income</td><td class="right bold">₹141.8 Cr</td><td class="right">₹76.6 Cr</td><td class="right bold green">+85%</td></tr>
+      <tr><td>EBITDA</td><td class="right bold">₹41.6 Cr</td><td class="right">₹19.1 Cr</td><td class="right bold green">+118%</td></tr>
+      <tr><td>EBITDA margin</td><td class="right bold">29.4%</td><td class="right">24.9%</td><td class="right green">+450 bps</td></tr>
+      <tr><td>PAT</td><td class="right bold">₹25.2 Cr</td><td class="right">₹8.9 Cr</td><td class="right bold green">+183%</td></tr>
+      <tr><td>PAT margin</td><td class="right bold">17.8%</td><td class="right">11.6%</td><td class="right green">+620 bps</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">EBITDA also rose 50% sequentially, indicating the improvement is recent and steep rather than a gradual trend.</p>
+  <p>This is the company&rsquo;s <b>highest-ever quarterly performance</b>. Management attributes it to strong transfer case volumes, healthy traction in components and exports, and a stronger revenue mix. The stock rose 13% on the result.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">The Margin Jump — 450 Basis Points in One Year</h2></div>
+  <p>EBITDA margin moved from 24.9% to 29.4%, and PAT margin from 11.6% to 17.8%. <b>A 620 basis point expansion in net margin in twelve months is unusually large</b>, and understanding its source determines whether it is repeatable.</p>
+  <p>Management points to mix and operating leverage. Both are credible for this business:</p>
+  <ul>
+    <li><b>Operating leverage.</b> At ₹77 crore of quarterly income the fixed-cost base was poorly covered. At ₹142 crore it is well covered. In a precision-manufacturing business with heavy tooling and validation costs, that alone explains a large share of the margin move.</li>
+    <li><b>Mix.</b> Higher-value transfer cases and export components carry better realisations than base component supply.</li>
+  </ul>
+  <p><b>The caution that applies to every operating-leverage story:</b> the same mechanism that produced +450 basis points on the way up produces a comparable move on the way down. At this revenue scale, a single programme pausing takes a disproportionate share of volume with it — and margin follows volume immediately.</p>
+  <p>A 29.4% EBITDA margin also puts Divgi close to Happy Forgings&rsquo; 31.3%, which is a demanding standard for a company one-sixth its size. That is a genuine achievement and a reason for caution about extrapolating it.</p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">The Five-Year Strategic Order</h2></div>
+  <p>Divgi secured a <b>major five-year strategic order in June 2026</b>, which management describes as the principal source of forward revenue visibility.</p>
+  <p>This is the most important development in the story and also the one with the least public detail. In the sources reviewed, the order&rsquo;s value and customer have not been quantified in a way that can be reported here. <b>This report will not estimate it.</b></p>
+  <p>What can be said about its structure:</p>
+  <ul>
+    <li>A five-year automotive supply agreement is <b>genuinely valuable</b> — it typically means being designed into a vehicle programme, which is difficult to displace.</li>
+    <li>For a company with ₹142 crore of quarterly revenue, a single strategic order large enough to be described as the main visibility driver implies <b>meaningful concentration</b> in one customer and one programme.</li>
+    <li>Programme risk is real: vehicle programmes get delayed, re-specified or cancelled, and a supplier carries that risk without controlling it.</li>
+  </ul>
+  <p><b>The order is a strength and a concentration simultaneously.</b> Getting the actual value and counterparty from the company&rsquo;s disclosures is the highest-value piece of homework on this name.</p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">The Pipeline</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:280px">Business under development and launch</td><td>~<b>₹300 Cr</b></td></tr>
+    <tr><td class="bold">Additional business at quoting stage</td><td>Described as &ldquo;even more&rdquo; — not quantified</td></tr>
+    <tr><td class="bold">Named prospective customers</td><td><b>Ashok Leyland</b>, <b>JCB</b>, and European EV companies</td></tr>
+  </tbody></table></div>
+  <p>Against annualised revenue of roughly ₹567 crore (Q1 × 4), a ₹300 crore pipeline under development is <b>over half a year of additional sales</b> — material for a company this size.</p>
+  <p>The customer names matter more than the number. Ashok Leyland is a large commercial-vehicle OEM; JCB is a global construction-equipment maker; European EV companies represent both export revenue and validation of the EV driveline range. <b>Winning any of these diversifies away from the concentration created by the five-year order.</b></p>
+  <p class="tbl-note">&ldquo;Under development and launch&rdquo; and &ldquo;quoting stage&rdquo; are not orders. Pipeline figures in auto components convert at well below 100% and over multi-year timeframes. Treat this as an indication of direction, not as contracted revenue.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Financial Metrics</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Screener metrics (27 Aug 2026)</th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right bold">56.2×</td></tr>
+      <tr><td>Price / Book</td><td class="right">5.61×</td></tr>
+      <tr><td>Quarterly operating margin</td><td class="right bold">26.99%</td></tr>
+      <tr><td>Sales growth (YoY, latest quarter)</td><td class="right green">+91.3%</td></tr>
+      <tr><td>Net profit growth (YoY, latest quarter)</td><td class="right bold green">+182.6%</td></tr>
+      <tr><td>3-month price return</td><td class="right green">+47.3%</td></tr>
+      <tr><td>Up from 52-week low</td><td class="right green">+103.8%</td></tr>
+      <tr><td>Below 52-week high</td><td class="right red">−11.9%</td></tr>
+      <tr><td>1-day / 1-week return</td><td class="right red">−2.8% / −1.8%</td></tr>
+    </tbody>
+  </table></div>
+  <p>Note the divergence: the strongest profit growth in the batch (+183%) paired with a stock that is 11.9% below its high and fell in both the last day and the last week. <b>The market is not currently rewarding this result the way the numbers alone would suggest.</b></p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">The Scale Problem</h2></div>
+  <p>At ₹3,554 crore of market capitalisation and ₹142 crore of quarterly revenue, Divgi is <b>materially the smallest company in your holdings</b> — roughly half the size of the next smallest, and a twenty-fourth of MCX.</p>
+  <p>Three practical consequences follow, and for a leveraged holder they compound:</p>
+  <ul>
+    <li><b>Liquidity.</b> Smaller companies trade thinner. Exiting a position of meaningful size takes longer and moves the price more, which is precisely the problem during a fast decline.</li>
+    <li><b>Single-programme sensitivity.</b> One customer programme is a large share of a ₹142 crore quarter. Concentration risk that would be immaterial at HFCL&rsquo;s scale is existential here.</li>
+    <li><b>Volatility.</b> The stock is up 104% from its low and already 12% off its high — a wider trading range than the larger names in your book.</li>
+  </ul>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">The EV Transition — Two-Sided</h2></div>
+  <p>Divgi&rsquo;s core product exists to distribute torque from an internal combustion engine through a mechanical driveline. Electrification changes that architecture, and the effect on Divgi is genuinely ambiguous rather than simply negative:</p>
+  <ul>
+    <li><b>Against:</b> Some EV architectures use dual motors — one per axle — and eliminate the mechanical transfer case entirely. Where that design wins, the core product disappears from the vehicle.</li>
+    <li><b>For:</b> Other EV architectures retain a single motor with mechanical distribution, and EV drivelines need new precision components — reduction gearboxes, couplers, disconnect systems — that play to the same engineering capability. The company&rsquo;s engagement with European EV customers indicates it is competing for exactly this.</li>
+  </ul>
+  <p><b>The honest position is that this is unresolved and will be for years.</b> It is a reason to watch the EV component order wins closely rather than a reason to assume decline — but it is a structural question that does not apply to most of the other names you hold.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right">56.2×</td><td>Mid-range for this batch; below KRN, TDPOWERSYS, JYOTICNC</td></tr>
+      <tr><td>Price / Book</td><td class="right bold">5.61×</td><td>Among the more reasonable in your book</td></tr>
+      <tr><td>Market cap / annualised Q1 income</td><td class="right">6.3×</td><td>Full but not extreme</td></tr>
+      <tr><td>Price vs 50-DMA (₹1,039)</td><td class="right green">+12%</td><td>Moderately extended</td></tr>
+      <tr><td>Price vs 200-DMA (₹820)</td><td class="right green">+42%</td><td>Extended</td></tr>
+      <tr><td>Below 52-week high (₹1,319 ATH)</td><td class="right red">−11.9%</td><td>Has already corrected</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The trailing P/E of 56.2× understates how the market is currently valuing forward earnings.</b> With profit up 183% year on year, the trailing figure reflects a much weaker earnings base than the current run-rate. Annualising Q1 PAT of ₹25.2 crore gives roughly ₹101 crore, against which the ₹3,554 crore market cap implies about 35× — meaningfully cheaper than the headline.</p>
+  <p class="tbl-note">Annualising a single quarter is a crude method and assumes no seasonality and full repeatability. It is shown here to illustrate the gap between trailing and forward multiples, not as a valuation.</p>
+  <p>On that basis Divgi is <b>reasonably valued relative to its growth</b>, and it is one of only three names in this batch trading below its 52-week high. The offset is that the growth rate depends heavily on a five-year order whose size is not public and a pipeline that has not yet converted.</p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">The five-year order ramps as planned while the ₹300 Cr pipeline converts — an Ashok Leyland or JCB win would both add revenue and dilute the single-programme concentration. EV driveline components with European customers establish a second growth leg. Margins hold near 29% as scale improves further, and the company grows out of its smallest-in-book status.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">Growth moderates from 85% as the comparison base rises, settling in the 25–40% range. Margins hold in the high twenties but stop expanding — the operating-leverage gain has largely been captured. Pipeline converts partially, as pipelines do. The stock tracks earnings without further multiple expansion.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">The programme behind the five-year order is delayed or re-specified, and at ₹142 Cr of quarterly revenue there is nothing to absorb it. Operating leverage reverses and the 450 bps of margin gain unwinds as fast as it appeared. The EV architecture question resolves against mechanical transfer cases. Thin liquidity in a ₹3,554 Cr company makes the exit worse than the news.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Scale and liquidity</div><div class="risk-body">₹3,554 Cr market cap, ₹142 Cr quarterly revenue — the smallest holding in your book. Thin liquidity makes exits slower and more costly precisely when they are most needed.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Single-programme concentration</div><div class="risk-body">A five-year order described as the main visibility driver, at a company this size, implies substantial dependence on one customer and one vehicle programme — with programme timing outside the company&rsquo;s control.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Margin reversibility</div><div class="risk-body">450 bps of EBITDA margin gain in a year, driven largely by operating leverage. The same mechanism reverses at the same speed if volumes fall.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Narrow addressable market</div><div class="risk-body">Transfer cases serve 4WD and AWD vehicles only — a minority segment. Growth requires share gains, adjacency expansion or exports rather than riding market growth.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">EV architecture uncertainty</div><div class="risk-body">Dual-motor EV designs can eliminate the mechanical transfer case. Unresolved, multi-year, and specific to this holding among the names you own.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Undisclosed order value</div><div class="risk-body">The five-year order&rsquo;s size and counterparty are not publicly quantified in the sources reviewed. A visibility claim that cannot be sized cannot be underwritten.</div></div>
+  <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Price action diverging from results</div><div class="risk-body">The strongest profit growth in this batch, yet the stock is 11.9% below its high and fell over the past day and week. Worth understanding before treating the result as a catalyst.</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: HOLD — BEST QUARTER YET, SMALLEST BALANCE SHEET</div>
+    <p>Divgi delivered the highest-quality quarter of any name in this batch on a percentage basis: income +85%, EBITDA +118%, PAT +183%, EBITDA margin +450 basis points to 29.4%, and PAT margin +620 basis points. For a company operating in a genuinely defensible engineering niche, that is an excellent result.</p>
+    <p>It is also the <b>smallest company you own by a wide margin</b>, with ₹142 crore of quarterly revenue, visibility resting on a five-year order whose value has not been disclosed, a pipeline that is indicative rather than contracted, and an unresolved long-term question about whether EV architectures need its core product at all.</p>
+    <p>The most interesting fact is the divergence: <b>the best profit growth in the batch, and a share price 11.9% below its high and falling on the week.</b> That gap either represents an opportunity the market has not priced, or it reflects something in the detail — programme timing, order specifics, or simply thin liquidity — that the headline numbers do not capture. Resolving which requires the order value, and that is the one number this report could not source.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span>Disclosure of the five-year strategic order&rsquo;s value and customer — the single most important missing fact</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Conversion of the ₹300 Cr pipeline, particularly any Ashok Leyland or JCB win</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>EBITDA margin holding near 29.4% for a second and third quarter</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>EV driveline order wins with European customers — the answer to the architecture question</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Export revenue share — the route out of a narrow domestic addressable market</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Customer concentration disclosure in the annual report</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Technical: ₹1,039 (50-DMA, −11%) and ₹820 (200-DMA, −29%)</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>DIVGI TORQTRANSFER SYSTEMS LIMITED (NSE: DIVGIITTS | BSE: 543812) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results (11 Aug 2026) and Earnings Call (12 Aug 2026) &middot; Company disclosures on the five-year strategic order and business pipeline &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

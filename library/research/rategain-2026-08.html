@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RateGain Travel Technologies — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: RateGain Travel Technologies — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: RATEGAIN &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026</p>
+    <h1 class="report-title"><span>RateGain</span> Travel Technologies</h1>
+    <p class="report-subtitle">SaaS for travel and hospitality &nbsp;·&nbsp; MarTech, DaaS and Distribution &nbsp;·&nbsp; Transformed by the Sojern acquisition</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹934.00</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹11,064 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 Revenue</div><div class="kpi-value">₹785.0 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Adj. EBITDA</div><div class="kpi-value">₹193 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Reported PAT</div><div class="kpi-value">₹94.9 Cr</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — An Acquisition, Not Yet a Track Record</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">Sojern integrates, cross-sell compounds</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">81% of revenue from a business bought last year</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">The Sojern Deal</a>
+    <a href="#s3">Q1 FY27</a>
+    <a href="#s4">Segment Mix</a>
+    <a href="#s5">Adjusted vs Reported</a>
+    <a href="#s6">The Guarantee</a>
+    <a href="#s7">Financials</a>
+    <a href="#s8">Organic Growth</a>
+    <a href="#s9">Cyclicality</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>RateGain Travel Technologies Limited</td></tr>
+    <tr><td class="bold">What it does</td><td>SaaS and data products for the travel and hospitality industry across three segments: <b>MarTech</b> (digital marketing and demand generation), <b>DaaS</b> (rate and market intelligence data), and <b>Distribution</b> (connectivity between hotels and booking channels).</td></tr>
+    <tr><td class="bold">Why it appears here</td><td>RS 70 — <b>the lowest of any name in this batch</b> — though it still passes the trend template and sits in Stage 2. It is 11.3% below its 52-week high and fell 7.2% in the week to 27 Aug, the weakest one-week performance in your book.</td></tr>
+    <tr><td class="bold">Position in your book</td><td>22 shares · avg cost ₹965.00 · LTP ₹933.95 · <span class="red">−3.22%</span> — roughly ₹20,547 at market.</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">The Sojern Acquisition Defines This Company Now</h2></div>
+  <p>Everything about RateGain&rsquo;s reported numbers in Q1 FY27 flows from a single corporate event: <b>the consolidation of Sojern</b>, a travel digital-marketing business.</p>
+  <p>Sojern is why revenue rose 188%. Sojern is why MarTech grew 341% and now represents 81.1% of the revenue mix. Sojern is why adjusted EBITDA is up 289%. <b>None of these figures describe organic performance</b>, and any reading of this quarter that treats them as growth rather than as consolidation is misreading it.</p>
+  <p>That is not a criticism of the deal. Acquiring a demand-generation platform and cross-selling it into an existing hotel and travel customer base is a coherent strategy with real logic. But it changes what RateGain <em>is</em>:</p>
+  <ul>
+    <li><b>Before Sojern:</b> a mid-sized SaaS and data business serving travel, with three roughly balanced segments.</li>
+    <li><b>After Sojern:</b> a company where four-fifths of revenue comes from digital marketing — a business with different margin characteristics, different customer economics, and greater sensitivity to advertising budgets than to software subscriptions.</li>
+  </ul>
+  <p><b>The integration, not the growth rate, is the thing to underwrite.</b></p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Q1 FY27</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (quarter to June 2026)</th><th class="right">Value</th><th class="right">YoY</th></tr></thead>
+    <tbody>
+      <tr><td>Operating revenue</td><td class="right bold">₹785.0 Cr</td><td class="right green">+187.6%</td></tr>
+      <tr><td>Adjusted EBITDA</td><td class="right bold">₹193 Cr</td><td class="right green">+289%</td></tr>
+      <tr><td>Adjusted EBITDA margin</td><td class="right bold">24.6%</td><td class="right green">highest ever</td></tr>
+      <tr><td>Adjusted PAT</td><td class="right bold">₹116.8 Cr</td><td class="right green">+148.8%</td></tr>
+      <tr><td class="bold">Reported PAT</td><td class="right bold">₹94.9 Cr</td><td class="right green">+102%</td></tr>
+    </tbody>
+  </table></div>
+  <p>Management also credits sustained travel demand during the FIFA World Cup period and a record quarter for new business acquisition in Asia-Pacific. <b>The World Cup point deserves flagging: it is a non-recurring demand event</b>, and any part of the quarter attributable to it does not repeat next year.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">Segment Mix — The Most Revealing Table</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Segment</th><th class="right">YoY growth</th><th class="right">Share of revenue</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td><b>MarTech</b></td><td class="right bold green">+341.2%</td><td class="right bold">81.1%</td><td>Sojern consolidation</td></tr>
+      <tr><td><b>DaaS</b></td><td class="right green">+22.7%</td><td class="right">12.6%</td><td>Genuine organic growth</td></tr>
+      <tr><td><b>Distribution</b></td><td class="right">+3.1%</td><td class="right">6.3%</td><td class="muted">Near-stagnant</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Strip out MarTech and the picture changes completely.</b> The two segments RateGain owned before the acquisition grew at 22.7% and 3.1%. That is the organic business: one decent segment and one that is barely moving.</p>
+  <p>Two conclusions follow directly, and they are the core of this report:</p>
+  <ul>
+    <li><b>The 188% headline is acquisition arithmetic.</b> The underlying pre-Sojern business is growing in the low-to-mid teens at best, blended across the two legacy segments.</li>
+    <li><b>Distribution at +3.1% is a concern.</b> Connectivity between hotels and booking channels is a mature, competitive market. A segment growing at 3% inside a company valued as a growth technology business is a drag that will only become more visible as the acquisition anniversary passes.</li>
+  </ul>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Adjusted Versus Reported — A ₹22 Crore Gap</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">Q1 FY27</th><th class="right">YoY</th></tr></thead>
+    <tbody>
+      <tr><td>Adjusted PAT</td><td class="right bold">₹116.8 Cr</td><td class="right green">+148.8%</td></tr>
+      <tr><td>Reported PAT</td><td class="right bold">₹94.9 Cr</td><td class="right green">+102%</td></tr>
+      <tr><td class="bold">Gap</td><td class="right bold red">₹21.9 Cr</td><td class="right red">19% of reported PAT</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Roughly ₹22 crore separates what the company presents from what the accounts report</b> — a gap equal to 19% of reported profit and 47 percentage points of growth rate.</p>
+  <p>Adjustments after a large acquisition are normal and often legitimate: one-time transaction costs, integration expenses, and amortisation of acquired intangibles all commonly get added back. The discipline is to know which:</p>
+  <ul>
+    <li><b>Genuinely one-time</b> — deal fees, advisory costs, restructuring. Adding these back is reasonable.</li>
+    <li><b>Recurring but non-cash</b> — amortisation of acquired intangibles. Adding this back is standard practice and defensible for cash-flow purposes, but it represents real capital that was spent.</li>
+    <li><b>Recurring and cash</b> — integration costs that persist year after year. Adding these back overstates earnings power.</li>
+  </ul>
+  <p>This report notes the gap and its size rather than assuming which category applies; the composition is disclosed in the results and is worth reading directly. The screener figure of +102% profit growth is the reported number — <b>the audited line, not the presented one.</b></p>
+  <p class="tbl-note">Separately, at least one commentary headline described the quarter as showing a &ldquo;profit drop&rdquo;. That reading appears to compare sequentially rather than year on year; on a year-on-year basis reported profit rose 102%.</p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">The USD 65 Million Guarantee</h2></div>
+  <p>Alongside the results, the board approved a <b>USD 65 million guarantee</b> — roughly ₹575 crore at prevailing rates.</p>
+  <p>A corporate guarantee of that scale is a balance-sheet commitment, typically connected to acquisition financing or to a subsidiary&rsquo;s borrowing. Against a ₹11,064 crore market capitalisation it is around 5%, which is not alarming in itself.</p>
+  <p><b>What it tells you is that the Sojern transaction has left financial obligations attached to it.</b> A company that has just made a transformative acquisition, is guaranteeing USD 65 million, and is presenting adjusted rather than reported earnings is a company whose balance sheet deserves as much attention this year as its income statement. The relevant items to check are net debt, the interest line, and the terms under which the guarantee could be called.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Financial Metrics</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Screener metrics (27 Aug 2026)</th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right bold">42.3×</td></tr>
+      <tr><td>Price / Book</td><td class="right">5.51×</td></tr>
+      <tr><td>Quarterly operating margin</td><td class="right">21.85%</td></tr>
+      <tr><td>Sales growth (YoY, latest quarter)</td><td class="right green">+187.6%</td></tr>
+      <tr><td>Net profit growth (YoY, reported)</td><td class="right green">+102.2%</td></tr>
+      <tr><td>3-month price return</td><td class="right green">+23.0%</td></tr>
+      <tr><td>1-week price return</td><td class="right red">−7.2%</td></tr>
+      <tr><td>Below 52-week high</td><td class="right red">−11.3%</td></tr>
+      <tr><td>RS rating</td><td class="right red">70</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>RateGain is the weakest technical setup in your holdings.</b> RS 70 against a book where most names sit above 90; down 7.2% on the week; 11.3% below its 52-week high while several holdings sit within 2%. It still passes the trend template, but it is the name closest to failing it.</p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">What Organic Growth Actually Looks Like</h2></div>
+  <p>The single most useful exercise with this company is to ask what it would have reported without Sojern. Using the disclosed segment shares and growth rates: DaaS at 12.6% of revenue growing 22.7%, and Distribution at 6.3% growing 3.1%, together represent 18.9% of the current revenue base.</p>
+  <p>Those two segments — the pre-acquisition business — are compounding at a <b>blended rate in the mid-to-high teens</b>, weighted toward the faster DaaS line.</p>
+  <p class="tbl-note">This is an inference from disclosed segment data, not a company-reported organic growth figure. RateGain has not, in the sources reviewed, published a clean like-for-like organic number, which is itself worth noting.</p>
+  <p><b>Mid-teens organic growth is respectable and unremarkable.</b> It is not what a 188% headline implies, and it is the rate that will become visible from Q1 FY28 onward once the acquisition laps and the comparison base includes Sojern. That anniversary — roughly four quarters out — is when the market will see RateGain&rsquo;s true growth rate for the first time.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">The Cyclicality Nobody Prices</h2></div>
+  <p>With MarTech at 81.1% of revenue, RateGain is now overwhelmingly a <b>travel advertising and demand-generation business</b>.</p>
+  <p>That matters because advertising and software behave differently in a downturn. A SaaS subscription for rate intelligence is embedded in a hotel&rsquo;s operations and is difficult to cancel mid-contract. A digital marketing budget is discretionary and is among the first lines cut when occupancy falls.</p>
+  <p>RateGain has therefore <b>traded a defensive revenue mix for a faster-growing but more cyclical one</b>. In a strong travel market — which is what the FIFA World Cup quarter reflects — this is clearly the better business. In a travel downturn it is clearly the worse one. The market has not yet observed the company through the second condition.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right">42.3×</td><td>Moderate by this batch&rsquo;s standards; second-cheapest after IOLCP</td></tr>
+      <tr><td>Price / Book</td><td class="right bold">5.51×</td><td>The second-lowest book multiple in the batch</td></tr>
+      <tr><td>Market cap / annualised Q1 revenue</td><td class="right">3.5×</td><td>Reasonable for software; rich if read as an ad business</td></tr>
+      <tr><td>Price vs 50-DMA (₹900)</td><td class="right green">+4%</td><td><b>The least extended name in your book</b></td></tr>
+      <tr><td>Price vs 200-DMA (₹740)</td><td class="right green">+26%</td><td>Moderately extended</td></tr>
+      <tr><td>Below 52-week high</td><td class="right red">−11.3%</td><td>Already corrected from the high</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>On valuation and technical position, RateGain is the most conservative name in this batch</b> — only 4% above its 50-day average, 11% off its high, at 42.3× earnings and 5.51× book. Where KRN and TD Power are priced for perfection, RateGain has already given back part of its move.</p>
+  <p>The offsetting judgement: <b>a multiple applied to acquisition-inflated earnings is not the bargain it appears to be.</b> If the organic business grows in the mid-teens and MarTech proves more cyclical than subscription revenue, then 42.3× on a currently-flattered earnings base is not obviously cheap. The valuation looks reasonable precisely because the denominator is at its most favourable.</p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">Sojern integrates cleanly and the cross-sell thesis works — RateGain&rsquo;s existing hotel and travel customers adopt the demand-generation platform, lifting organic growth above the legacy mid-teens. Adjusted and reported earnings converge as one-time costs roll off. Travel demand stays strong and the combined business proves it is more than the sum of two customer lists.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">Integration proceeds without major issues. Reported growth decelerates sharply from Q1 FY28 as the acquisition laps, revealing a mid-teens organic business. The market re-rates toward that growth rate. Distribution at +3.1% remains a visible drag. The stock does little in either direction while the true run-rate becomes apparent.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">Integration proves harder than planned, or travel advertising budgets tighten and MarTech — 81% of revenue — contracts. The adjusted-to-reported gap persists rather than closing, suggesting recurring rather than one-time costs. With RS already at 70 and the stock 11.3% off its high and falling on the week, this is the name in your book already showing relative weakness.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Acquisition concentration</div><div class="risk-body">81.1% of revenue now comes from a business consolidated within the last year. The company&rsquo;s reported financials have no meaningful history in their current form.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Organic growth is mid-teens, not triple digit</div><div class="risk-body">The pre-acquisition segments grew 22.7% (DaaS) and 3.1% (Distribution). The headline 188% is consolidation arithmetic and will disappear when the deal laps.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">The ₹22 crore adjusted-to-reported gap</div><div class="risk-body">19% of reported profit sits between the presented and audited figures. Whether those adjustments are one-time or recurring determines the real earnings base.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Advertising cyclicality</div><div class="risk-body">MarTech revenue behaves like a discretionary marketing budget, not a locked-in software subscription. The mix shift has made the company more cyclical, and this has not been tested in a travel downturn.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Distribution segment stagnation</div><div class="risk-body">+3.1% growth in a mature, competitive connectivity market. A structural drag that becomes more visible as the acquisition effect fades.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Balance-sheet obligations</div><div class="risk-body">A USD 65 million guarantee approved alongside a transformative acquisition. Net debt, interest cost and guarantee terms warrant direct examination.</div></div>
+  <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Weakest relative strength in your book</div><div class="risk-body">RS 70, down 7.2% on the week, 11.3% below its high. Closest of all your holdings to failing the trend template.</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: HOLD — AN ACQUISITION, NOT YET A TRACK RECORD</div>
+    <p>RateGain reported revenue up 188% and adjusted EBITDA up 289%. Almost all of it is the Sojern consolidation. The two segments the company owned a year ago grew <b>22.7% and 3.1%</b> — that is the organic business, and it is a mid-teens compounder, not a hypergrowth one.</p>
+    <p>What makes this report different from the others in this batch is that <b>RateGain is the only holding where the valuation and the chart are the conservative parts of the story.</b> At 42.3× earnings, 5.51× book, just 4% above its 50-DMA and 11% off its high, it carries none of the technical stretch that KRN, HFCL or TD Power do. The risk here is not that the price has run too far; it is that <b>the earnings base is at its most flattering point and the multiple is being applied to it.</b></p>
+    <p>The specific things to resolve before treating this as a settled position: the composition of the ₹22 crore in adjustments, the balance sheet after the USD 65 million guarantee, and whether Distribution can be fixed or should be written off as a mature drag. The date that matters is <b>Q1 FY28</b>, when the acquisition laps and the real growth rate becomes visible for the first time.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span>Any disclosure of like-for-like organic growth excluding Sojern — the number that settles the thesis</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>The adjusted-to-reported gap narrowing quarter on quarter — proof the costs were one-time</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Distribution segment growth — can +3.1% be improved, or is it structurally mature</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Net debt and interest cost following the USD 65 million guarantee</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>MarTech revenue in a quarter without a FIFA World Cup demand tailwind</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>RS rating — at 70 it is the closest of your holdings to breaking the trend template</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Technical: ₹900 (50-DMA, −4%) and ₹740 (200-DMA, −21%)</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>RATEGAIN TRAVEL TECHNOLOGIES LIMITED (NSE: RATEGAIN) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results and Investor Presentation (6 Aug 2026) &middot; Company press release on Q1 FY27 &middot; Board disclosure on the USD 65M guarantee &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

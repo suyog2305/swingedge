@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KRN Heat Exchanger and Refrigeration — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: KRN Heat Exchanger and Refrigeration — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: KRN &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026</p>
+    <h1 class="report-title"><span>KRN</span> Heat Exchanger</h1>
+    <p class="report-subtitle">Fin-and-tube heat exchangers for HVAC and refrigeration &nbsp;·&nbsp; Neemrana, Rajasthan &nbsp;·&nbsp; Supplier to global HVAC OEMs</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹1,580.40</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹10,345 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 Revenue</div><div class="kpi-value">₹252.3 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 PAT</div><div class="kpi-value">₹32.9 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Trailing P/E</div><div class="kpi-value">106.7×</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — Excellent Growth, Extraordinary Multiple</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">QIP capex doubles capacity into an HVAC boom</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">107× earnings, 17× book, ST-ASM</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Business</a>
+    <a href="#s3">Q1 FY27</a>
+    <a href="#s4">Exports</a>
+    <a href="#s5">The QIP</a>
+    <a href="#s6">Rajasthan Incentive</a>
+    <a href="#s7">Financials</a>
+    <a href="#s8">Customer Position</a>
+    <a href="#s9">Orders</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>KRN Heat Exchanger and Refrigeration Limited</td></tr>
+    <tr><td class="bold">Base</td><td>Neemrana, Rajasthan</td></tr>
+    <tr><td class="bold">What it makes</td><td>Fin-and-tube type heat exchangers — condenser and evaporator coils — for HVAC and commercial refrigeration. Sells primarily to OEMs rather than end users, through the subsidiary KRN HVAC Products among others.</td></tr>
+    <tr><td class="bold">Why it appears here</td><td>RS 92, passes the trend template, and just 1.2% from its 52-week high, up 168% from its low. Q1 revenue more than doubled and profit rose 164%.</td></tr>
+    <tr><td class="bold">Position in your book</td><td>11 shares · avg cost ₹1,470.00 · LTP ₹1,609.70 · <span class="green">+9.50%</span> — your best-performing holding on percentage gain.</td></tr>
+    <tr><td class="bold" style="color:#b45309">Surveillance flag</td><td><b>Short-Term ASM</b> as of the 27 Aug Stage 2 file. See Section 12.</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">The Business</h2></div>
+  <p>A heat exchanger coil is the component that actually moves heat inside an air conditioner or refrigeration unit. KRN makes these for HVAC original equipment manufacturers — it is a <b>tier-one component supplier inside someone else&rsquo;s appliance</b>, in the same structural position as TD Power Systems is to turbine makers.</p>
+  <h3 class="subsection-title">Why the demand is strong</h3>
+  <p>Three things are compounding at once. Indian air-conditioning penetration remains low and is rising quickly with incomes. Global HVAC OEMs are actively diversifying component sourcing away from single-country dependence, which favours qualified Indian suppliers. And commercial refrigeration is expanding with organised retail and cold-chain build-out.</p>
+  <h3 class="subsection-title">Why the position is fragile</h3>
+  <p>Coils are a <b>manufactured commodity with engineering content</b>, not a proprietary product. The customer is an OEM with in-house engineering capability who can qualify a second source, and in some cases can make coils itself. KRN&rsquo;s protection is cost, quality consistency and capacity availability — real advantages, but not the kind that support a triple-digit earnings multiple on their own.</p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Q1 FY27</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (quarter to June 2026)</th><th class="right">Value</th><th class="right">YoY</th></tr></thead>
+    <tbody>
+      <tr><td>Consolidated operating revenue</td><td class="right bold">₹252.32 Cr</td><td class="right bold green">+118.88%</td></tr>
+      <tr><td>Consolidated PAT</td><td class="right bold">₹32.9 Cr</td><td class="right bold green">+164%</td></tr>
+      <tr><td>Net profit margin</td><td class="right bold">13.04%</td><td class="right green">from 10.77%</td></tr>
+      <tr><td>Export revenue</td><td class="right">₹52.38 Cr</td><td class="right green">+177.31%</td></tr>
+      <tr><td>Export share of segment sales</td><td class="right">20.76%</td><td class="right green">from 16.38%</td></tr>
+    </tbody>
+  </table></div>
+  <p>Revenue more than doubled, profit rose two and a half times, and net margin expanded 227 basis points. <b>Operationally this is the strongest growth quarter in your entire holdings list.</b></p>
+  <p>The number to keep in proportion is the base. ₹252 crore of quarterly revenue is a small company growing off a small base, in an industry where capacity can be added by competitors relatively quickly. Triple-digit growth rates on a base this size are common and are rarely sustained for long — the arithmetic gets harder every quarter.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">Exports</h2></div>
+  <p>Exports reached ₹52.38 crore, up 177.31%, lifting the export share from 16.38% to <b>20.76% of segment sales</b>.</p>
+  <p>This is the most strategically encouraging line in the results. Winning export share in HVAC components means passing the qualification processes of global OEMs — a slow, demanding process that, once cleared, is durable. It also directly validates the &ldquo;China-plus-one component sourcing&rdquo; thesis rather than merely asserting it.</p>
+  <p>At 20.76% the export book is <b>balanced rather than concentrated</b> — a healthier profile than TD Power Systems, where 93% of new order inflow is export-driven. KRN retains a large domestic base while building an export franchise, which is the more resilient of the two structures.</p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">The ₹350 Crore QIP</h2></div>
+  <p>KRN completed a <b>₹350 crore qualified institutional placement</b> during the period.</p>
+  <p>Read this carefully, because it cuts in two directions and both matter:</p>
+  <ul>
+    <li><b>The positive.</b> Institutional investors committed ₹350 crore of fresh capital at prevailing prices. That is external validation and it funds capacity expansion without adding debt, which is the right way to finance growth in a capital-intensive component business.</li>
+    <li><b>The dilution.</b> ₹350 crore against a ₹10,345 crore market capitalisation is roughly 3.4% of the company issued to new holders. Existing shareholders own proportionally less of every future rupee of profit, and the per-share earnings arithmetic resets accordingly.</li>
+  </ul>
+  <p>There is also a signalling point worth naming plainly: <b>companies raise equity when management believes the stock is fairly valued or better.</b> A QIP at 107× trailing earnings is a rational corporate decision, and it is information about how management views the price.</p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">The Rajasthan Incentive</h2></div>
+  <p>The company has received a sanctioned incentive of <b>₹182.95 crore</b> from the state of Rajasthan.</p>
+  <p>Against annualised profit of roughly ₹130 crore (Q1 PAT of ₹32.9 crore × 4), an incentive of ₹182.95 crore is a large number — larger than a full year of current earnings. State industrial incentives of this kind typically accrue over several years and are often linked to investment and employment milestones rather than being received upfront.</p>
+  <p><b>The accounting treatment matters more than the headline.</b> Whether this is recognised as revenue, as other income, as a capital reserve, or netted against asset cost changes how it flows through reported earnings — and therefore how much of any future &ldquo;profit growth&rdquo; is operating performance versus subsidy recognition. This is the specific line to check in the annual report before extrapolating margins.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Financial Metrics</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Screener metrics (27 Aug 2026)</th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right bold red">106.7×</td></tr>
+      <tr><td>Price / Book</td><td class="right bold red">17.15×</td></tr>
+      <tr><td>Quarterly operating margin</td><td class="right">19.44%</td></tr>
+      <tr><td>Sales growth (YoY, latest quarter)</td><td class="right green">+118.9%</td></tr>
+      <tr><td>Net profit growth (YoY, latest quarter)</td><td class="right green">+164.9%</td></tr>
+      <tr><td>3-month price return</td><td class="right green">+38.7%</td></tr>
+      <tr><td>Up from 52-week low</td><td class="right green">+168.0%</td></tr>
+      <tr><td>Below 52-week high</td><td class="right">−1.18%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>106.7× trailing earnings is the highest multiple in your entire holdings list</b>, and 17.15× book is second only to TD Power Systems.</p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">Customer Position</h2></div>
+  <p>As an OEM component supplier, KRN&rsquo;s revenue is concentrated among a limited number of HVAC manufacturers. This is inherent to the model and is not a criticism — it is how tier-one supply works — but it carries specific consequences:</p>
+  <ul>
+    <li><b>Order visibility is short.</b> OEM component supply runs on schedules and releases, not multi-year backlogs. There is no order book here to lean on the way HFCL or Jyoti CNC holders can.</li>
+    <li><b>Growth is customer-decision-dependent.</b> A single OEM adding or shifting a programme moves the revenue line materially in either direction.</li>
+    <li><b>Backward integration is a live risk.</b> HVAC OEMs with scale can and sometimes do bring coil manufacturing in-house.</li>
+  </ul>
+  <p>The mitigating factor is that KRN has been winning export qualification, which broadens the customer base beyond domestic OEMs and reduces single-customer dependence over time.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">Recent Orders</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:280px">Order date</td><td>23 July 2026</td></tr>
+    <tr><td class="bold">Entity</td><td>KRN HVAC Products Private Limited (wholly owned subsidiary)</td></tr>
+    <tr><td class="bold">Value</td><td><b>₹50.87 Cr</b> (base ₹43.11 Cr + ₹7.76 Cr IGST)</td></tr>
+    <tr><td class="bold">Scope</td><td>Heat exchanger coils, domestic</td></tr>
+  </tbody></table></div>
+  <p class="tbl-note">Note that the ₹50.87 Cr headline includes ₹7.76 Cr of IGST. The revenue-relevant figure is the base value of ₹43.11 Cr — roughly 17% of one quarter&rsquo;s revenue. Order announcements in this sector frequently quote the tax-inclusive number.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">KRN</th><th class="right">Your holdings context</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right bold red">106.7×</td><td class="right">highest of all 18</td></tr>
+      <tr><td>Price / Book</td><td class="right bold">17.15×</td><td class="right">2nd highest (TDPOWERSYS 21.8×)</td></tr>
+      <tr><td>Market cap / annualised Q1 revenue</td><td class="right">10.2×</td><td class="right">very rich for a component maker</td></tr>
+      <tr><td>Price vs 50-DMA (₹1,314)</td><td class="right green">+20%</td><td class="right">extended</td></tr>
+      <tr><td>Price vs 200-DMA (₹1,086)</td><td class="right green">+46%</td><td class="right">extended</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>What 106.7× requires.</b> For the multiple to compress to a still-rich 40× without the share price falling, earnings must roughly <em>treble</em> — that is, grow by about 165% from here. Q1 delivered 164% profit growth, so a single further year at that pace would do it. The question is whether triple-digit growth is repeatable off a base that has already doubled, against a QIP that has diluted the share count and an incentive that may flatter reported profit.</p>
+  <p><b>The honest framing:</b> KRN is priced for several more years of exceptional growth in a component business with short order visibility, concentrated customers and no proprietary product. Everything about the operating performance is excellent. Nothing about the operating performance justifies 106.7× on its own — that number requires a view about the next three years, not the last quarter.</p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">The ₹350 Cr QIP funds capacity that fills immediately. Indian AC penetration and global component-sourcing diversification keep demand ahead of capacity for two to three years. Export share climbs past 30%, broadening the customer base and reducing OEM concentration. Earnings grow into the multiple rather than the multiple falling to the earnings.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">Growth moderates from 119% toward a still-strong 30–50% as the base rises. Margins hold near current levels. The business is genuinely good, and the stock goes sideways for an extended period while earnings catch up to a 107× starting multiple. Time, not price, does the correcting.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">HVAC demand normalises after a strong cycle, or an OEM in-sources coil production, or competitors add capacity into the same opportunity. Growth decelerates sharply. At 106.7× earnings and 17.15× book with an ST-ASM flag and no order book to cushion, the de-rating would be severe. The 200-DMA at ₹1,086 is 31% below spot.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Valuation at 106.7× earnings</div><div class="risk-body">The highest multiple in your portfolio. It requires multiple further years of exceptional growth simply to become merely expensive. This is the dominant risk and it is independent of how well the company operates.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Growth is off a small base</div><div class="risk-body">₹252 Cr quarterly revenue. Triple-digit growth rates on bases this size are common and rarely persist; the comparison arithmetic gets harder every quarter.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">No order-book visibility</div><div class="risk-body">OEM component supply runs on schedules, not backlogs. Unlike HFCL or Jyoti CNC, there is no contracted revenue to cushion a demand gap.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Customer concentration and backward integration</div><div class="risk-body">A limited set of HVAC OEM customers, any of whom could qualify a second source or bring coil production in-house.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Incentive accounting</div><div class="risk-body">A ₹182.95 Cr state incentive exceeds a full year of current profit. How it is recognised determines how much of reported earnings growth is operating performance versus subsidy.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Short-Term ASM surveillance</div><div class="risk-body">Surveillance-listed scrips typically attract raised margin requirements and are commonly excluded from broker margin-funding approved lists. <b>Confirm eligibility with your broker before assuming this can be held on margin.</b></div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: HOLD — EXCELLENT GROWTH, EXTRAORDINARY MULTIPLE</div>
+    <p>KRN produced the strongest operating quarter in your portfolio: revenue up 119%, profit up 164%, net margin up 227 basis points, exports up 177% and now a fifth of segment sales. It raised ₹350 crore from institutions to fund capacity and secured a large state incentive. Every operating fact is positive, and the stock is your best percentage performer.</p>
+    <p>It is also priced at <b>106.7× trailing earnings and 17.15× book — the most expensive name you own on earnings</b> — in a business that is a component supplier to OEMs, with no order book, concentrated customers, no proprietary product, and a surveillance flag.</p>
+    <p>Those two paragraphs are both accurate, and the tension between them <em>is</em> the analysis. This is not a company with a problem; it is a company whose share price has already extrapolated several years of the current trajectory. <b>The relevant question is not &ldquo;is KRN a good business&rdquo; — it plainly is — but &ldquo;what happens to a 107× multiple when growth decelerates from 119% to a merely excellent 40%&rdquo;.</b></p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span>Q2 FY27 revenue growth — the deceleration path from 119% is the whole story</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Export share progressing beyond 20.76% — the best structural indicator here</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Deployment of the ₹350 Cr QIP proceeds and resulting capacity utilisation</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Accounting treatment of the ₹182.95 Cr Rajasthan incentive in the annual report</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Customer concentration disclosure and any new OEM qualifications</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Indian room-AC and commercial-refrigeration volume data — the upstream demand indicator</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Technical: ₹1,314 (50-DMA, −17%) and ₹1,086 (200-DMA, −31%)</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>ST-ASM status — affects margin eligibility and position sizing</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>KRN HEAT EXCHANGER AND REFRIGERATION LIMITED (NSE: KRN) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results (Aug 2026) &middot; Company disclosures on the Rs 350 Cr QIP, the Rajasthan incentive sanction and the KRN HVAC Products order of 23 Jul 2026 &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

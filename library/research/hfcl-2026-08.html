@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HFCL — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: HFCL — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: HFCL &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026</p>
+    <h1 class="report-title"><span>HFCL</span> Limited</h1>
+    <p class="report-subtitle">Optical fibre cable, telecom equipment and defence electronics &nbsp;·&nbsp; Himachal Futuristic Communications &nbsp;·&nbsp; A loss-to-profit turnaround on a record order book</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹250.65</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹38,365 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 Revenue</div><div class="kpi-value">₹1,915 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 PAT</div><div class="kpi-value">₹245.6 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Order Book</div><div class="kpi-value">₹26,665 Cr</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — A Real Turnaround Already Priced</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">The $1.1bn OFC contract converts on schedule</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">One quarter is not a track record</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">The Turnaround</a>
+    <a href="#s3">Order Book</a>
+    <a href="#s4">The $1.1bn Contract</a>
+    <a href="#s5">Capacity</a>
+    <a href="#s6">Defence</a>
+    <a href="#s7">Q1 FY27</a>
+    <a href="#s8">Exports</a>
+    <a href="#s9">Guidance</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>HFCL Limited (formerly Himachal Futuristic Communications Limited)</td></tr>
+    <tr><td class="bold">What it does</td><td>Manufactures optical fibre and optical fibre cable, telecom equipment and network products; executes turnkey network projects; and is building a defence electronics business.</td></tr>
+    <tr><td class="bold">Why it appears here</td><td>RS 92, passes the trend template, 1.6% from its 52-week high, and up <b>319% from its 52-week low</b> — the largest such move on your entire holdings list. It has been in Stage 2 for <b>83 days</b> on the computed track, one of only two names in your book that entered before the recent cluster.</td></tr>
+    <tr><td class="bold">Position in your book</td><td>61 shares · avg cost ₹238.31 · LTP ₹251.47 · +5.52%</td></tr>
+    <tr><td class="bold" style="color:#b45309">Surveillance flag</td><td><b>Long-Term ASM</b> as of the 27 Aug Stage 2 file. See Section 12.</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">The Turnaround Is Genuine</h2></div>
+  <p>HFCL is not a growth story that got faster. It is a company that was <b>losing money one year ago and is now highly profitable</b>, and the distinction matters for how you read every number in this report.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 (quarter to June)</th><th class="right">Q1 FY26</th><th class="right">Q1 FY27</th><th class="right">Change</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue</td><td class="right">₹871.02 Cr</td><td class="right bold">₹1,914.98 Cr</td><td class="right green">+119.9%</td></tr>
+      <tr><td>EBITDA</td><td class="right">₹42.93 Cr</td><td class="right bold">₹445.27 Cr</td><td class="right green">+937%</td></tr>
+      <tr><td>PAT</td><td class="right red">−₹29.3 Cr (loss)</td><td class="right bold green">₹245.64 Cr</td><td class="right green">loss → profit</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">This is why the screener shows a nonsensical −938% &ldquo;profit growth&rdquo; figure for HFCL: percentage change from a negative base is not meaningful. The underlying fact is a swing from a ₹29 crore loss to a ₹246 crore profit.</p>
+  <p>EBITDA rose from ₹42.93 crore to ₹445.27 crore — <b>a tenfold increase on a doubling of revenue</b>. That is operating leverage of an unusual order, and it tells you the business was running well below the level at which its fixed cost base breaks even. The turnaround is not an accounting effect; it is volume filling an under-utilised plant.</p>
+  <p>Management attributes the swing to demand from hyperscale data centres, export growth and economies of scale from higher production. All three are checkable in the segment data, and all three are consistent with what the rest of the industry is reporting.</p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">The Order Book</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Component</th><th class="right">Value</th><th class="right">Share</th></tr></thead>
+    <tbody>
+      <tr><td>Optical fibre cable</td><td class="right bold">~₹16,000 Cr</td><td class="right">~60%</td></tr>
+      <tr><td>Defence</td><td class="right">~₹300 Cr</td><td class="right">~1%</td></tr>
+      <tr><td>Other (telecom equipment, projects, network products)</td><td class="right">balance</td><td class="right">~39%</td></tr>
+      <tr><td class="bold">Total order book</td><td class="right bold">~₹26,665 Cr</td><td class="right">~5× FY26 revenue</td></tr>
+    </tbody>
+  </table></div>
+  <p>An order book at <b>five times annual revenue</b> is exceptional visibility — roughly double the coverage Jyoti CNC carries and eight times what Happy Forgings has. It is the single most important number in the bull case and it is what the 319% move off the low is discounting.</p>
+  <p class="tbl-note">A separately circulated figure of ₹21,200 Cr appears in some commentary. The ₹26,665 Cr figure is the one reported alongside Q1 FY27 results and is used here. Where sources conflict, this report uses the company-reported quarterly disclosure.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">The $1.1 Billion Contract — Read This Carefully</h2></div>
+  <p>A multi-year global optical fibre cable supply contract valued at approximately <b>USD 1.1 billion (₹10,159 crore)</b> sits inside that order book. Alongside it, exports account for roughly ₹12,250 crore of the total, or 58%.</p>
+  <p>This is transformative if it executes, and it deserves three specific caveats that a buyer should hold consciously:</p>
+  <ul>
+    <li><b>It is multi-year.</b> ₹10,159 crore spread across several years is a materially smaller annual number than the headline suggests. Against FY26 revenue of roughly ₹5,300 crore, it is large; against the ₹26,665 crore book it is 38% concentrated in a single contract.</li>
+    <li><b>Single-contract concentration is a two-sided fact.</b> One contract worth 38% of the book means one counterparty, one set of delivery schedules, and one renegotiation risk carrying an outsized share of the visibility.</li>
+    <li><b>Export contracts carry currency and logistics exposure</b> that domestic orders do not, and they price in a global OFC market where capacity has historically been added quickly when margins are good.</li>
+  </ul>
+  <p><b>None of this makes the contract less real.</b> It makes the difference between the order book and delivered revenue the thing to watch each quarter, rather than the headline value.</p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Capacity Expansion</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:280px">Current optical fibre capacity</td><td>28 million fibre km</td></tr>
+    <tr><td class="bold">Target capacity</td><td><b>33.9 million fkm</b> — a 21% increase</td></tr>
+    <tr><td class="bold">Target date</td><td>December 2026</td></tr>
+    <tr><td class="bold">Additional investment approved</td><td>₹215 Cr manufacturing unit</td></tr>
+  </tbody></table></div>
+  <p>The capacity addition is modest relative to the order book — 21% more fibre capacity against a book worth five years of revenue. That arithmetic tells you the order book cannot convert quickly even if everything goes right. <b>The constraint on HFCL is not demand and not orders; it is how fast fibre can physically be made.</b> Treat the December 2026 capacity date as the gating item on FY28 revenue, not FY27.</p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Defence — The Optionality, Not the Thesis</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Defence revenue</th><th class="right">Figure</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>FY26 actual</td><td class="right">₹77 Cr</td><td>reported</td></tr>
+      <tr><td>FY27</td><td class="right">₹400 Cr</td><td class="muted">management target</td></tr>
+      <tr><td>FY28</td><td class="right">₹1,200 Cr</td><td class="muted">management target</td></tr>
+      <tr><td>FY29</td><td class="right">₹5,000 Cr</td><td class="muted">management target</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Only the FY26 figure of ₹77 Cr is an actual. The FY27–FY29 numbers are management targets, not orders, and the current defence order book stands at approximately ₹300 Cr.</p>
+  <p><b>Be honest about the arithmetic here.</b> A path from ₹77 crore to ₹5,000 crore in three years is a 65-fold increase, against a defence order book today of ₹300 crore. Defence procurement in India runs on multi-year qualification, trials and tender cycles; a target of that shape requires order wins that have not yet happened.</p>
+  <p>The company did secure a ₹102 crore Indian Army order through a subsidiary, which is a real and encouraging data point. <b>Treat defence as free optionality on a story that already works on fibre.</b> If you find yourself paying for the FY29 number, the position is being underwritten on a target rather than a book.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Q1 FY27 and Screener Metrics</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Screener metrics (27 Aug 2026)</th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right bold">67.0×</td></tr>
+      <tr><td>Price / Book</td><td class="right">7.83×</td></tr>
+      <tr><td>Quarterly operating margin</td><td class="right">21.6%</td></tr>
+      <tr><td>Sales growth (YoY, latest quarter)</td><td class="right green">+119.9%</td></tr>
+      <tr><td>3-month price return</td><td class="right green">+36.6%</td></tr>
+      <tr><td>Up from 52-week low</td><td class="right bold green">+319.0%</td></tr>
+      <tr><td>Below 52-week high</td><td class="right">−1.6%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The trailing P/E of 67× is misleading in both directions.</b> It is calculated on twelve months that include the loss-making quarters, so it overstates the multiple on current earnings power. Equally, annualising a single ₹246 crore quarter to claim the stock trades on ~39× understates the risk that the quarter is not repeatable. Neither number is the truth; the honest position is that <b>HFCL does not yet have enough profitable quarters for a trailing multiple to mean anything.</b></p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">Exports</h2></div>
+  <p>Export sales were <b>₹1,063.30 crore in Q1 FY27 — 55.5% of total revenue</b>, and exports account for roughly 58% of the order book.</p>
+  <p>HFCL has structurally shifted from a domestically-driven telecom supplier into an export-led manufacturer within roughly a year. That is the real change in the business, and it is more important than any single contract. It also means the revenue line is now exposed to global OFC demand and pricing rather than to Indian telecom capex — a different, and arguably better-diversified, risk, but a new one that has not been observed through a downcycle.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">Guidance</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:300px">FY27 revenue growth — earlier guidance</td><td>~20%</td></tr>
+    <tr><td class="bold">FY27 revenue growth — raised to</td><td><b>40% and above</b></td></tr>
+  </tbody></table></div>
+  <p>Management has <b>doubled its own growth guidance mid-year</b>. That is the strongest signal in the report — companies raise guidance when the order book is converting faster than they modelled, and it is the opposite of the Jyoti CNC situation where guidance has run ahead of delivery.</p>
+  <p>The counterweight: a guidance raise from 20% to 40% after a quarter that grew 120% means <b>management itself expects the growth rate to decelerate sharply</b> across the remaining three quarters. That is normal and honest, but it is worth internalising before Q2 lands.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Market cap</td><td class="right bold">₹38,365 Cr</td><td>The second-largest company in your book after MCX</td></tr>
+      <tr><td>Market cap / order book</td><td class="right bold">1.44×</td><td><b>The cheapest ratio of any name in this batch</b></td></tr>
+      <tr><td>Price / Book</td><td class="right">7.83×</td><td>High, but below Happy Forgings (10.1×) and Jyoti CNC (11.8×)</td></tr>
+      <tr><td>Price vs 50-DMA (₹208)</td><td class="right green">+21%</td><td>Extended</td></tr>
+      <tr><td>Price vs 200-DMA (₹146)</td><td class="right green">+72%</td><td>Very extended</td></tr>
+      <tr><td>Up from 52-week low</td><td class="right red">+319%</td><td>Has more than quadrupled in a year</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Market cap to order book of 1.44× is the standout valuation fact.</b> The market is paying ₹1.44 for every ₹1 of contracted future revenue. For comparison, Jyoti CNC trades at 4.9× its order book. On that single measure HFCL is materially the cheaper business.</p>
+  <p>The offsetting fact is the chart. Up 319% in twelve months and 72% above the 200-DMA, this is the most extended name in your book. The 200-DMA at ₹146 is 42% below spot. <b>A stock that has quadrupled does not need bad news to fall a long way; it only needs the pace of good news to slow.</b></p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">The order book converts at the pace the raised 40%+ guidance implies. Capacity reaches 33.9 million fkm by December, unlocking FY28. The $1.1bn contract delivers on schedule and defence begins converting toward the ₹400 Cr FY27 target. At 1.44× the order book, this is the name in your book with the most room if execution holds.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">Growth decelerates from 120% toward the guided 40%, which is what management is already signalling. Margins normalise below the exceptional Q1 level as the mix shifts. The business is permanently better than it was — export-led, profitable, with real visibility — and the stock consolidates the 319% move while earnings accumulate a track record.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">Q1 FY27 proves to be a peak quarter rather than a new base. Global OFC pricing softens as capacity is added industry-wide, the $1.1bn contract slips or is renegotiated, and the defence targets stay targets. With one profitable quarter behind it, 72% above the 200-DMA and an LT-ASM flag, a de-rating would be fast and the ₹146 200-DMA is 42% below.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">One quarter is not a track record</div><div class="risk-body">The company lost money in the year-ago quarter. A single ₹246 Cr profit quarter establishes that the business <em>can</em> earn at this level, not that it <em>will</em>. Q2 and Q3 are the tests.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Single-contract concentration</div><div class="risk-body">The $1.1bn OFC contract is ~38% of the order book. One counterparty, one delivery schedule, one renegotiation risk carrying a disproportionate share of the visibility.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Global OFC pricing cyclicality</div><div class="risk-body">With 55.5% of revenue exported, earnings now track global fibre pricing. That market has historically added capacity quickly when margins are attractive, which is exactly the current condition.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Defence targets are not orders</div><div class="risk-body">₹77 Cr actual against a ₹5,000 Cr FY29 target and a ₹300 Cr current defence book. Any valuation that leans on the defence ramp is leaning on an aspiration.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Extended technical position</div><div class="risk-body">+319% off the 52-week low, +72% above the 200-DMA. The most stretched chart in your holdings. First real support is 21% below at the 50-DMA.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Long-Term ASM surveillance</div><div class="risk-body">Surveillance-listed scrips typically attract raised margin requirements and are commonly excluded from broker margin-funding approved lists. <b>Confirm eligibility before assuming this can be held on margin.</b></div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: HOLD — A REAL TURNAROUND ALREADY PRICED</div>
+    <p>HFCL has the best <em>set of facts</em> of any name in this batch: an order book at five times revenue, a swing from loss to a ₹246 crore quarterly profit, exports at 55% of sales, management doubling its own growth guidance, and a market cap at just 1.44× the order book — the cheapest coverage ratio in your entire holdings list.</p>
+    <p>It also has the <em>shortest track record</em> and the <em>most extended chart</em>. One profitable quarter, 319% off the low, 72% above the 200-DMA, an LT-ASM flag, and a defence narrative whose targets exceed its actual order book by more than sixteen times.</p>
+    <p><b>The business case and the entry case point in different directions here, more sharply than for any other holding.</b> If the thesis is the order book at 1.44×, that thesis is measured in quarters of conversion, not in the next few weeks of price action. What would settle it: two more quarters at anything close to Q1 profitability.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span>Q2 FY27 PAT — the single most informative number; does ₹246 Cr repeat</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Order book conversion rate — revenue delivered against the ₹26,665 Cr book each quarter</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>December 2026 — optical fibre capacity reaching 33.9 million fkm</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Defence order wins converting the ₹300 Cr book toward the ₹400 Cr FY27 target</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Global optical fibre pricing and industry capacity additions</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Technical: ₹208 (50-DMA, −21%) and ₹146 (200-DMA, −42%)</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>LT-ASM status — affects margin eligibility and position sizing</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>HFCL LIMITED (NSE: HFCL) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results (Jul 2026) &middot; Company disclosures on the record order book, the multi-year global OFC supply contract, capacity expansion to 33.9 million fkm and the Rs 215 Cr manufacturing investment &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

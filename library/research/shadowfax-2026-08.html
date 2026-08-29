@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shadowfax Technologies — Equity Research Report — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: Shadowfax Technologies — Equity Research Report — August 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: SHADOWFAX &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; August 2026</p>
+    <h1 class="report-title"><span>Shadowfax</span> Technologies</h1>
+    <p class="report-subtitle">Crowdsourced last-mile logistics &nbsp;·&nbsp; Bengaluru &nbsp;·&nbsp; Listed early 2026 &nbsp;·&nbsp; Criticalog subsidiary</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (27 Aug)</div><div class="kpi-value">₹246.05</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹14,432 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 Revenue</div><div class="kpi-value">₹1,358 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 PAT</div><div class="kpi-value">₹65.4 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Op. Margin</div><div class="kpi-value">6.79%</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — Newest Listing, Thinnest History</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">Asset-light model scales with quick commerce</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">6.8% margin, customer concentration, ₹919 Cr idle</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Business</a>
+    <a href="#s3">Q1 FY27</a>
+    <a href="#s4">Profit Base</a>
+    <a href="#s5">IPO Proceeds</a>
+    <a href="#s6">Criticalog</a>
+    <a href="#s7">Customer Risk</a>
+    <a href="#s8">Leadership</a>
+    <a href="#s9">Guidance</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>Shadowfax Technologies Limited</td></tr>
+    <tr><td class="bold">What it does</td><td>Last-mile and express logistics using a <b>crowdsourced, asset-light delivery network</b> — independent riders rather than an owned fleet. Serves e-commerce, quick commerce and direct-to-consumer brands. Owns Criticalog India, a specialised logistics subsidiary.</td></tr>
+    <tr><td class="bold">Listed</td><td><b>Early 2026</b> — the newest listing in your portfolio, with barely two quarters of public history.</td></tr>
+    <tr><td class="bold">Why it appears here</td><td>RS 77 and passes the trend template, but it is 8.4% below its 52-week high and fell 6.6% over the week to 27 Aug.</td></tr>
+    <tr><td class="bold">Position in your book</td><td>1 share · avg cost ₹261.11 · LTP ₹245.36 · <span class="red">−6.03%</span> — <b>your worst-performing holding on percentage</b>, and a tracking position.</td></tr>
+    <tr><td class="bold" style="color:#b45309">Surveillance flag</td><td><b>Long-Term ASM</b> as of the 27 Aug Stage 2 file. See Section 12.</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">The Business: Asset-Light Is Both the Moat and the Limit</h2></div>
+  <p>Shadowfax does not own trucks or employ a delivery fleet in the conventional sense. It operates a <b>crowdsourced network of independent riders</b>, matched to deliveries by software. That structure has a specific and important set of consequences.</p>
+  <h3 class="subsection-title">Why it works</h3>
+  <ul>
+    <li><b>Capacity flexes with demand.</b> Festival peaks and quick-commerce surges are absorbed without carrying idle fleet cost in quiet months — a decisive advantage in a business with extreme demand seasonality.</li>
+    <li><b>Capital efficiency.</b> Growth needs software, network density and working capital, not vehicles and depots. This is why the model can scale revenue 65% without a proportional capital call.</li>
+    <li><b>Network density compounds.</b> More riders in an area means faster delivery, which wins more volume, which supports more riders. Genuine, if local rather than national.</li>
+  </ul>
+  <h3 class="subsection-title">Why it is fragile</h3>
+  <p>The same asset-light structure means <b>Shadowfax owns very little that a competitor cannot assemble.</b> Riders are independent and can work for multiple platforms. The software is replicable. And the model faces a live regulatory question across many jurisdictions about whether gig workers should be classified — and costed — as employees. <b>At a 6.79% operating margin, any material increase in rider cost has an outsized effect on profit.</b></p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Q1 FY27</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (quarter to June 2026)</th><th class="right">Q1 FY27</th><th class="right">Q1 FY26</th><th class="right">Change</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue</td><td class="right bold">₹1,358.12 Cr</td><td class="right">~₹823 Cr</td><td class="right bold green">+65%</td></tr>
+      <tr><td>PAT</td><td class="right bold">₹65.40 Cr</td><td class="right">~₹8 Cr</td><td class="right bold green">~8×</td></tr>
+      <tr><td>Operating margin</td><td class="right">6.79%</td><td class="right muted">—</td><td class="right muted">—</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">The prior-year revenue figure is derived from the reported 65% growth rate. Reported profit growth is variously described as 715% and 725% across sources; both round to approximately eightfold from a small base.</p>
+  <p>Revenue up 65% and profit up roughly eightfold is a striking result, and management describes it as validating the crowdsourced, asset-light model since listing.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">Read the Profit Base Before the Growth Rate</h2></div>
+  <p><b>An eightfold profit increase from ₹8 crore is arithmetically dramatic and economically modest.</b> The year-ago quarter earned ₹8 crore on roughly ₹823 crore of revenue — a net margin under 1%. The company was, in practical terms, close to break-even.</p>
+  <p>Reaching ₹65.4 crore on ₹1,358 crore lifts net margin to about 4.8%. That is a real improvement and the right direction. But framing it as &ldquo;profit up 715%&rdquo; describes the base, not the achievement.</p>
+  <p>The pattern to recognise: <b>this is the same shape as HFCL and Ramkrishna Forgings in this batch</b> — a company emerging from marginal profitability, where percentage growth rates are enormous precisely because the starting point was near zero. Those percentages will not persist, and they should not be extrapolated into a valuation.</p>
+  <p>An operating margin of 6.79% also places Shadowfax firmly in the thin-margin group alongside Rashi Peripherals at 3.04% and GNG at 11.97% — nowhere near the 30%-plus manufacturers you hold. <b>Logistics is a scale-and-density business, and its ceiling on margin is structural.</b></p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">₹919 Crore of Unutilised IPO Proceeds</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:300px">Unutilised IPO proceeds</td><td><b>₹919.19 Cr</b></td></tr>
+    <tr><td class="bold">As a share of market capitalisation</td><td><b>~6.4%</b> of ₹14,432 Cr</td></tr>
+    <tr><td class="bold">Stated purpose</td><td>Infrastructure expansion</td></tr>
+  </tbody></table></div>
+  <p>This is a substantial and genuinely double-edged fact.</p>
+  <ul>
+    <li><b>The positive.</b> ₹919 crore of undeployed capital is a real balance-sheet cushion. It funds expansion without debt or dilution, and for a company barely two quarters into public life, it removes financing risk entirely.</li>
+    <li><b>The question.</b> Capital sitting idle earns a deposit return, not a business return. It depresses return on equity while undeployed, and the pace and quality of its deployment is the main test of management&rsquo;s capital allocation — the first such test this company will face in public.</li>
+  </ul>
+  <p><b>There is also a tension worth naming.</b> The investment case rests on Shadowfax being <em>asset-light</em>. ₹919 crore earmarked for &ldquo;infrastructure expansion&rdquo; is, by definition, spending on assets. If that capital builds sortation hubs, warehouses and fixed infrastructure, the company becomes progressively less asset-light and starts to resemble a conventional logistics operator — a business the market values on quite different multiples. <b>How this money is spent will tell you what kind of company Shadowfax is becoming.</b></p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Criticalog</h2></div>
+  <p>During the quarter Shadowfax acquired the remaining <b>10.42% of Criticalog India Private Limited for ₹7.61 crore</b>, making it a wholly owned subsidiary.</p>
+  <p>The implied valuation of Criticalog from that transaction is approximately <b>₹73 crore</b> — a small addition against a ₹14,432 crore market capitalisation. This is a clean-up transaction rather than a strategic event: simplifying the group structure and removing a minority interest.</p>
+  <p>It is worth noting for what it signals rather than what it costs. <b>Buying out a minority at a modest price is a sign of orderly corporate housekeeping</b>, and it means the whole of Criticalog&rsquo;s profit now accrues to Shadowfax shareholders.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Customer Concentration — The Structural Risk</h2></div>
+  <p>Last-mile logistics in India serves a customer base dominated by a small number of very large platforms: major e-commerce marketplaces, quick-commerce operators and large direct-to-consumer brands.</p>
+  <p>That creates a specific structural problem which applies to every player in the sector, Shadowfax included:</p>
+  <ul>
+    <li><b>Buyer power is extreme.</b> A handful of platforms control the volume, and they negotiate accordingly. This is a principal reason the operating margin is 6.79% rather than 20%.</li>
+    <li><b>In-sourcing is a live threat.</b> Large e-commerce and quick-commerce companies have both the scale and the incentive to build their own delivery networks, and several have done so. A customer can become a competitor.</li>
+    <li><b>Volume shifts are lumpy.</b> Losing or winning a single large platform moves revenue materially.</li>
+  </ul>
+  <p class="tbl-note">Specific customer-concentration percentages are not established in the sources reviewed for this report. This section describes the structural characteristics of the sector rather than Shadowfax&rsquo;s disclosed exposure; the actual figures are in the company&rsquo;s offer document and annual report and are worth reading directly.</p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">Leadership Change</h2></div>
+  <p><b>Nitesh Lohiya, Chief Product Officer and Senior Management Personnel, resigned effective 7 August 2026</b> — announced alongside the Q1 results.</p>
+  <p>A single senior departure is not, in isolation, a thesis-changing event; executives leave companies for many ordinary reasons. It is noted here for two reasons specific to this situation:</p>
+  <ul>
+    <li>Shadowfax is a <b>technology-led logistics business</b>. The product function — the matching algorithms, rider app and routing software — is where the claimed differentiation actually lives. The Chief Product Officer role is closer to the core of the business than the same title would be at a manufacturer.</li>
+    <li>The company listed only in early 2026. <b>Senior departures in the first year after listing warrant more attention than they would at an established company</b>, simply because there is no track record of stability to weigh them against.</li>
+  </ul>
+  <p>The appropriate response is to watch whether this is isolated or the start of a pattern, not to draw a conclusion from one resignation.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">Guidance</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:300px">FY27 revenue growth guidance</td><td>Raised to <b>38% – 40%</b></td></tr>
+    <tr><td class="bold">Margin goals</td><td>Kept intact</td></tr>
+  </tbody></table></div>
+  <p>A guidance raise is a positive signal. Note the shape of it though: Q1 delivered 65% growth, and the full-year guidance is 38–40%. <b>Management is explicitly signalling that the growth rate will roughly halve across the remaining three quarters.</b></p>
+  <p>&ldquo;Margin goals intact&rdquo; is the other half of the message, and it is the more important one. Holding margin while growing 38–40% means the company is <b>not planning to buy volume by cutting price</b> — which, in a sector where buyer power is concentrated, is a meaningful commitment.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Measure</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="right">83.9×</td><td>High, and calculated on a barely-profitable trailing base</td></tr>
+      <tr><td>P/E on annualised Q1 PAT</td><td class="right">~55×</td><td>Still full for a 6.79% margin business</td></tr>
+      <tr><td>Price / Book</td><td class="right">8.27×</td><td>High for a logistics operator</td></tr>
+      <tr><td>Market cap / annualised Q1 revenue</td><td class="right">2.7×</td><td>Rich against thin margins</td></tr>
+      <tr><td>Cash from IPO undeployed</td><td class="right green">₹919 Cr (6.4% of mcap)</td><td>A genuine cushion</td></tr>
+      <tr><td>Price vs 50-DMA (₹231)</td><td class="right green">+6%</td><td>Only just above the short-term trend</td></tr>
+      <tr><td>Price vs 200-DMA (₹176)</td><td class="right green">+40%</td><td>Extended on the longer view</td></tr>
+      <tr><td>Below 52-week high</td><td class="right red">−8.4%</td><td>Has come off the high</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Annualising a single quarter is crude and ignores the pronounced seasonality of Indian logistics — festival-season quarters are materially stronger than others, so a Q1 annualisation may understate the full year. It is shown to illustrate the gap between trailing and current earnings, not as a forecast.</p>
+  <p><b>The valuation problem is the mismatch between multiple and margin.</b> Shadowfax trades near 55× annualised earnings and 8.27× book for a business earning 6.79% at the operating line. Those multiples imply either that margins expand substantially or that volume compounds for many years — and the sector&rsquo;s buyer concentration argues against the first.</p>
+  <p>The offsetting consideration is the ₹919 crore of undeployed IPO cash, which is roughly 6.4% of market capitalisation and reduces the effective enterprise valuation. It also means the company is <b>funded for its next phase without needing the market</b> — worth something in a business that is still proving its model publicly.</p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">Quick commerce and e-commerce volumes keep compounding, and the crowdsourced model captures them without proportional capital. The ₹919 Cr is deployed into density-enhancing infrastructure that lifts margin above 6.79% rather than merely adding fixed cost. Network effects in dense metros prove durable, and the asset-light structure delivers the returns the multiple assumes.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">Growth moderates to the guided 38–40%, as management has already signalled. Margin holds near 6.8% without expanding — buyer power caps it. The IPO cash is deployed steadily into infrastructure, gradually making the company more asset-heavy and more like a conventional logistics operator. Earnings grow into a multiple that slowly compresses.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">A large platform customer in-sources delivery, or gig-worker classification rules raise rider costs. At a 6.79% margin, either event has a disproportionate effect on profit. With barely two quarters of public history, an LT-ASM flag, the stock already 8.4% off its high and only 6% above its 50-DMA, there is very little support and no track record to steady sentiment.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Shortest public track record in your book</div><div class="risk-body">Listed early 2026. Roughly two quarters of reported results. There is no history through a festival cycle, a slowdown, or a competitive shock.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Thin margin against a full multiple</div><div class="risk-body">6.79% operating margin valued near 55× annualised earnings and 8.27× book. Small changes in rider cost or pricing have large effects on profit.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Customer concentration and in-sourcing</div><div class="risk-body">Last-mile logistics serves a handful of very large platforms with strong buyer power and the capability to build competing networks in-house.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Gig-worker classification</div><div class="risk-body">A live regulatory question in many markets. Reclassifying riders as employees would raise the cost base of a 6.79%-margin business materially.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Deployment of ₹919 Cr</div><div class="risk-body">The first real capital-allocation test for this management in public. Spending it on fixed infrastructure also erodes the asset-light characteristic the valuation rests on.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Low barriers to entry</div><div class="risk-body">Independent riders work across platforms and the software is replicable. Network density is a local advantage, not a national moat.</div></div>
+  <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Long-Term ASM surveillance</div><div class="risk-body">Surveillance-listed scrips typically attract raised margin requirements and are commonly excluded from broker margin-funding approved lists. <b>Confirm eligibility with your broker before assuming this can be held on margin.</b></div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: HOLD — NEWEST LISTING, THINNEST HISTORY</div>
+    <p>Shadowfax reported revenue up 65% and profit up roughly eightfold, and raised FY27 guidance to 38–40% while keeping margin goals intact. The crowdsourced, asset-light model is genuinely well suited to a demand pattern as volatile as Indian e-commerce and quick commerce, and ₹919 crore of undeployed IPO cash means it is funded for its next phase without needing anyone&rsquo;s permission.</p>
+    <p>Three facts keep this at Hold. <b>The eightfold profit growth is off a ₹8 crore base</b> — a company that was near break-even a year ago, not one that multiplied strong earnings. <b>The 6.79% operating margin faces structural buyer power</b> from the handful of platforms that control the volume, several of which can build competing networks themselves. And <b>this is the shortest public track record you own</b>, with a senior product departure announced alongside the results.</p>
+    <p>It is also your worst-performing position on percentage, down 6% against cost, sitting only 6% above its 50-day average. <b>The thing that will tell you most about this company over the next year is not the growth rate — management has already guided that down — but how the ₹919 crore is spent.</b> Density-building investment that lifts margin above 6.79% validates the model; fixed infrastructure that simply adds capacity turns an asset-light story into a conventional logistics company at an asset-light multiple.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Deployment of the ₹919.19 Cr</b> — what it buys, and whether margin improves as a result</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Operating margin moving above 6.79% — the test of whether scale translates into profitability</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Customer concentration disclosure in the annual report</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Any move by a major platform customer to in-source last-mile delivery</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Gig-worker classification developments in Indian labour regulation</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Further senior management departures following the CPO resignation</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>The first festival-season quarter as a listed company — the real seasonality test</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Technical: ₹231 (50-DMA, just −6%) and ₹176 (200-DMA, −28%)</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>LT-ASM status — affects margin eligibility and position sizing</div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>SHADOWFAX TECHNOLOGIES LIMITED (NSE: SHADOWFAX) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; AUGUST 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 Results (Jul 2026) &middot; Company disclosures on unutilised IPO proceeds, the Criticalog India stake acquisition and the senior management change &middot; SwingEdge scan / Screener.in (27 Aug 2026)</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>
