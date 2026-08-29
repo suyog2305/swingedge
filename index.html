@@ -885,6 +885,7 @@ tr:hover .wr-act{opacity:1;} .wr-act:hover{background:var(--bg3);color:var(--lim
 .wr-act.rd-has:hover{background:var(--lime);color:#fff;border-color:var(--lime);}
 .wr-own{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;margin-left:5px;vertical-align:middle;letter-spacing:.04em;}
 .wr-own.w{background:var(--sky-soft);color:var(--sky2);} .wr-own.p{background:var(--lime-soft);color:var(--lime2);}
+.wr-own.pin{background:var(--gold-soft,rgba(212,160,23,.14));color:var(--gold2);}
 .wr-sup{font-family:var(--mono);font-size:10px;color:var(--gold2);margin-left:3px;font-weight:700;}
 .wr-ctl{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0 4px;}
 .wr-ctl input[type=text]{font-size:12px;font-family:var(--sans);background:var(--bg1);border:1px solid var(--b2);border-radius:var(--r2);padding:6px 10px;color:var(--t1);min-width:230px;}
@@ -8982,6 +8983,12 @@ function slScoreCell(r){
   return `<span class="sl-score"><span class="sl-score-bar"><i style="width:${pct.toFixed(0)}%"></i></span><b>${r.score}</b></span>`;
 }
 
+// A pinned name that DID earn a ranked slot appears in the table above rather than the panel
+// below, so mark it — otherwise the pin is invisible exactly when the name is doing well.
+function slPinBadge(r){
+  return r.pinned ? `<span class="wr-own pin" title="${wrAttr('Pinned watchlist' + (r.pin_note ? ' — ' + r.pin_note : ''))}">PIN</span>` : '';
+}
+
 // Pinned watchlist — names from data/daily/watchlist.json that are surfaced every day even
 // when they do not earn a top-N slot. They are scored identically to everything else and get
 // no bonus, so the ranking above stays honest; this panel just makes sure they never vanish.
@@ -9035,7 +9042,7 @@ function renderSL(){
   const cols = [
     {k:'_i', t:'#', type:'idx'},
     {k:'pick', t:'Pick', type:'html', html: r => `<label class="sl-pick"><input type="checkbox" ${SL.picks.has(r.code) ? 'checked' : ''} onclick="event.stopPropagation();slToggle('${wrAttr(r.code)}')"></label>`},
-    {k:'name', t:'Stock', type:'html', html: r => `<span class="nm" title="${wrAttr(r.code + ' · ' + (r.name || ''))}">${wrEsc(r.name || r.code)}</span>${typeof wrOwned === 'function' ? wrOwned(r) : ''}`},
+    {k:'name', t:'Stock', type:'html', html: r => `<span class="nm" title="${wrAttr(r.code + ' · ' + (r.name || ''))}">${wrEsc(r.name || r.code)}</span>${typeof wrOwned === 'function' ? wrOwned(r) : ''}${slPinBadge(r)}`},
     {k:'act', t:'', type:'html', html: r => typeof wrActCell === 'function' ? wrActCell({code: r.code, name: r.name, industry: r.industry || r.sector}, r.industry || r.sector) : ''},
     {k:'score', t:'Score', type:'html', sortType:'num', fn: r => r.score, html: slScoreCell},
     {k:'sector', t:'Sector', type:'text'},
