@@ -118,6 +118,8 @@ def main():
                                   band=band_of(num(r.get('mcap'))))
         members = {}
         members['list'] = {str(s.get('code', '')).upper() for s in S2 if s.get('code')}
+        status_map = {str(s.get('code', '')).upper(): s.get('status') for s in S2
+                      if s.get('code') and s.get('status')}
         for s in S2:
             c = str(s.get('code', '')).upper()
             if c and c not in meta:
@@ -137,6 +139,29 @@ def main():
             if tk == 'list' and prev is not None and cur == prev:
                 day[tk] = OrderedDict(count=len(cur), entered=[], exited=[], carried=True,
                                       source=s2_src)
+                continue
+            # a fresh provider list: trust its own status stamps over a set difference,
+            # because export scope varies week to week and a diff cannot tell a genuine
+            # new entry from a name that was merely missing last time
+            if tk == 'list' and prev is not None and status_map:
+                entered = sorted(c for c, st in status_map.items()
+                                 if st in ('New Addition', 'Reentry'))
+                shrunk = len(cur) < len(prev) * 0.9
+                exited = [] if shrunk else sorted(prev - cur)
+                for c in entered:
+                    stt = tracks[tk].setdefault(c, {'spells': []})
+                    if not (stt['spells'] and stt['spells'][-1]['to'] is None):
+                        stt['spells'].append(OrderedDict([('from', date), ('to', None), ('days', None)]))
+                for c in exited:
+                    stt = tracks[tk].get(c)
+                    if stt and stt['spells'] and stt['spells'][-1]['to'] is None:
+                        sp = stt['spells'][-1]; sp['to'] = date; sp['days'] = days_between(sp['from'], date)
+                day[tk] = OrderedDict(count=len(cur), entered=entered, exited=exited,
+                                      source=s2_src, by_status=True)
+                if shrunk:
+                    day[tk]['exits_unreliable'] = True   # narrower export, absence != exit
+                list_updates.append(date)
+                prev_members[tk] = cur
                 continue
             entered = sorted(cur - prev) if prev is not None else sorted(cur)
             exited = sorted(prev - cur) if prev is not None else []

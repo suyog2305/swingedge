@@ -49,7 +49,7 @@ it is never confused with a modelling error.
 Grid-searched over the RS floor, distance-from-high, distance-off-low, whether 50>200 is
 required, whether the 200-DMA slope is required, and the minimum number of evaluable checks.
 """
-import argparse, io, itertools, json, glob, os, sys
+import argparse, datetime as dt, io, itertools, json, glob, os, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'tools'))
@@ -91,18 +91,48 @@ def evaluate(row, prev_row, rs_min, wh_max, low_min, need_50gt200, need_slope, m
     return len(c) >= min_checks and all(c)
 
 
-def usable_scans():
-    """Scans carrying BOTH a broad universe and a provider Stage 2 list."""
-    out, files = [], sorted(glob.glob(os.path.join(ROOT, 'data', 'scans', '20*.json')))
-    for i, p in enumerate(files):
-        d = jload(p)
-        U = [r for r in d.get('universe', []) if r.get('code')]
+def usable_scans(max_gap=4):
+    """Pair every provider Stage 2 list with a broad universe to score it against.
+
+    A list-only scan (the Excel arrives on a day we could not pull a screener export) is
+    paired with the NEAREST EARLIER universe, up to max_gap days away. Stage 2 membership is
+    a weekly property, so a one or two day offset is acceptable — but the gap is recorded and
+    printed, because a fit measured across a gap is weaker evidence than one measured on the
+    same day, and that should be visible rather than assumed.
+    """
+    files = sorted(glob.glob(os.path.join(ROOT, 'data', 'scans', '20*.json')))
+    loaded = [(p, jload(p)) for p in files]
+    # every scan that carries a real universe, newest last
+    unis = [(d.get('date'), [r for r in d.get('universe', []) if r.get('code')])
+            for _, d in loaded if len([r for r in d.get('universe', []) if r.get('code')]) >= 500]
+
+    def nearest(date):
+        best = None
+        for udate, U in unis:
+            if udate > date:
+                continue
+            gap = (dt.date.fromisoformat(date) - dt.date.fromisoformat(udate)).days
+            if gap <= max_gap and (best is None or gap < best[2]):
+                best = (udate, U, gap)
+        return best
+
+    out = []
+    for i, (p, d) in enumerate(loaded):
+        date = d.get('date')
         S2 = {str(s.get('code', '')).upper() for s in (d.get('stage2') or []) if s.get('code')}
-        if len(U) < 500 or not S2:              # a narrow export cannot calibrate a market-wide rule
+        if not S2:
             continue
-        prev = jload(files[i - 1]) if i else None
-        out.append(dict(date=d.get('date'), U=U, S2=S2,
-                        prev={r['code'].upper(): r for r in (prev or {}).get('universe', []) if r.get('code')},
+        own = [r for r in d.get('universe', []) if r.get('code')]
+        if len(own) >= 500:
+            U, udate, gap = own, date, 0
+        else:
+            hit = nearest(date)
+            if not hit:
+                continue                        # no universe within reach — cannot be scored
+            udate, U, gap = hit
+        prev_u = next((uu for ud, uu in reversed(unis) if ud < udate), [])
+        out.append(dict(date=date, U=U, S2=S2, universe_date=udate, gap=gap,
+                        prev={r['code'].upper(): r for r in prev_u},
                         src=(d.get('sources') or {}).get('stage2')))
     return out
 
