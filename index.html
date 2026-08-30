@@ -828,6 +828,7 @@ code{font-family:var(--mono);font-size:11px;background:var(--neutral-soft);paddi
 .wr-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:3px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#E6E1D2;}
 .wr-tag.am{background:rgba(240,230,204,.16);border-color:rgba(240,230,204,.42);color:#F5E9C6;}
 .wr-tag.tl{background:rgba(51,173,172,.16);border-color:rgba(51,173,172,.42);color:#BDE9E8;}
+.wr-tag.stale{background:rgba(234,88,12,.18);border-color:rgba(234,88,12,.5);color:#FBCFA4;}
 .wr-hero h1{font-family:var(--serif);font-size:30px;font-weight:500;color:#FBF8F0;letter-spacing:-.02em;margin-bottom:4px;line-height:1.15;}
 .wr-strap{font-family:var(--serif);font-style:italic;font-size:15px;color:#CDE3D3;margin-bottom:10px;}
 .wr-lead{font-size:13.5px;line-height:1.6;color:#D9D3C4;max-width:860px;margin-bottom:20px;}
@@ -886,6 +887,21 @@ tr:hover .wr-act{opacity:1;} .wr-act:hover{background:var(--bg3);color:var(--lim
 .wr-own{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;margin-left:5px;vertical-align:middle;letter-spacing:.04em;}
 .wr-own.w{background:var(--sky-soft);color:var(--sky2);} .wr-own.p{background:var(--lime-soft);color:var(--lime2);}
 .wr-own.pin{background:var(--gold-soft,rgba(212,160,23,.14));color:var(--gold2);}
+.fb-box{width:100%;font:13px/1.6 var(--sans);background:var(--bg1);border:1px solid var(--b2);border-radius:var(--r2);padding:10px 12px;color:var(--t1);resize:vertical;}
+.fb-box:focus{outline:none;border-color:var(--t1);}
+.fb-thumbs{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;}
+.fb-thumb{position:relative;border:1px solid var(--b2);border-radius:var(--r2);overflow:hidden;background:var(--bg1);}
+.fb-thumb img{display:block;max-width:190px;max-height:120px;}
+.fb-thumb span{position:absolute;left:0;bottom:0;background:rgba(0,0,0,.6);color:#fff;font:9px var(--mono);padding:1px 5px;}
+.fb-thumb button{position:absolute;top:3px;right:3px;border:none;border-radius:3px;background:rgba(0,0,0,.65);color:#fff;cursor:pointer;font-size:14px;line-height:1;padding:2px 6px;}
+.fb-item{border:1px solid var(--b2);border-radius:var(--r2);padding:12px 14px;margin-bottom:12px;background:var(--bg1);}
+.fb-item-hd{display:flex;align-items:center;gap:10px;}
+.fb-meta{font:10px var(--mono);color:var(--t3);margin-left:auto;}
+.fb-text{margin:8px 0 0;font-size:13px;line-height:1.6;white-space:pre-wrap;color:var(--t1);}
+.fb-shots{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+.fb-shots img{max-width:220px;max-height:140px;border:1px solid var(--b2);border-radius:4px;cursor:zoom-in;}
+.eod-card{border:1px solid var(--b2);border-left:3px solid var(--gold2);border-radius:var(--r2);padding:14px 16px;margin-bottom:16px;background:var(--bg1);}
+.eod-card code{font:11px var(--mono);background:var(--bg2);padding:2px 6px;border-radius:3px;}
 .wr-sup{font-family:var(--mono);font-size:10px;color:var(--gold2);margin-left:3px;font-weight:700;}
 .wr-ctl{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0 4px;}
 .wr-ctl input[type=text]{font-size:12px;font-family:var(--sans);background:var(--bg1);border:1px solid var(--b2);border-radius:var(--r2);padding:6px 10px;color:var(--t1);min-width:230px;}
@@ -1209,6 +1225,8 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
     <div class="nav" id="nav-checklist" onclick="show('checklist')"><i class="ti ti-checklist"></i>Checklist</div>
     <div class="nav" id="nav-procedure" onclick="show('procedure')"><i class="ti ti-list-check"></i>Procedure</div>
     <div class="nav" id="nav-monitor" onclick="show('monitor')"><i class="ti ti-activity"></i>Position Monitor<span class="nav-badge" id="alert-badge">0</span></div>
+<div class="sb-group">Feedback</div>
+<div class="nav" id="nav-feedback" onclick="show('feedback')"><i class="ti ti-message-2"></i>Send Feedback<span class="nav-badge" id="fb-badge">0</span></div>
   </div>
   <div class="sb-bottom">
     <div class="mkt-pill">
@@ -1280,6 +1298,17 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
     </div>
   </div>
   <div class="content se-content"><div id="sl-body"></div></div>
+</div>
+
+<!-- ── FEEDBACK ── -->
+<div class="sec" id="sec-feedback">
+  <div class="topbar">
+    <div class="tb-left"><span class="tb-title">Send Feedback</span><span class="tb-crumb">/ notes and screenshots · stays in your browser until you export</span></div>
+    <div class="tb-right">
+      <button class="btn btn-sm" onclick="fbExport()"><i class="ti ti-download"></i>Export</button>
+    </div>
+  </div>
+  <div class="content se-content"><div id="fb-body"></div></div>
 </div>
 
 <!-- ── EDGE: STAGE 2 JOURNAL ── -->
@@ -3032,12 +3061,17 @@ function toast(msg, type){
 }
 
 // ============= NAVIGATION =============
+function fbBadge(){
+  const b = document.getElementById('fb-badge');
+  if(b){ b.textContent = FB.items.length; b.classList.toggle('show', FB.items.length > 0); }
+}
 function show(id){
   document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));
   document.getElementById('sec-'+id).classList.add('active');
   document.getElementById('nav-'+id).classList.add('active');
   if(id === 'wr' && !WR.loaded && !WR.loading) loadWR(false);
+  if(id === 'feedback') renderFB();
   // P&L Analytics: auto-default to snapshot tab if user has snapshots but no P&L statements
   if(id === 'pnl'){
     const hasSnaps = (DB.snapshots || []).length > 0;
@@ -8922,6 +8956,95 @@ function rdRenderReader(el){
 // the market ranked for convergence — new 52-week high + Stage 2 + earnings + today's move
 // + a news trigger — with the reason each name qualified. You tick the ones you want written
 // up; the picks are remembered in this browser and the brief for them can be copied out.
+// ---- EOD pull -------------------------------------------------------------
+// A static site cannot run Python, so this cannot fetch anything by itself. What it CAN do is
+// be the thing that reminds you at 15:40 and hands you the exact command — which is the part
+// that was actually failing, since the cookie means the pull has to happen while you are here.
+const EOD_SCREEN = 'https://www.screener.in/screen/raw/?sort=return+over+1day&order=&source_id=1016109&query=Market+Capitalization+%3E+1000';
+const EOD_CMD = 'python tools/eod.py --push';
+
+function eodAge(d){
+  if(!d || !d.scan_date) return null;
+  const scan = new Date(d.scan_date + 'T00:00:00');
+  const today = new Date(); today.setHours(0,0,0,0);
+  return Math.round((today - scan) / 86400000);
+}
+function eodCopyCmd(){
+  navigator.clipboard.writeText(EOD_CMD).then(
+    () => toast('Command copied — paste it in the repo terminal', 'success'),
+    () => toast('Could not copy', 'error'));
+}
+function eodOpenScreen(){ window.open(EOD_SCREEN, '_blank', 'noopener'); }
+
+function eodCard(d){
+  const age = eodAge(d);
+  const stale = age == null || age >= 2;
+  const label = age == null ? 'no scan loaded'
+              : age <= 0 ? 'today'
+              : age === 1 ? 'yesterday'
+              : `${age} days old`;
+  return `
+  <div class="eod-card">
+    <div class="se-row-h" style="margin-bottom:8px;">
+      <div><div class="se-eyebrow">End of day</div><h2 style="margin:0;">Pull today's data</h2></div>
+      <span class="wr-tag ${stale ? 'stale' : 'tl'}">scan ${wrEsc(d && d.scan_date || '—')} · ${label}</span>
+    </div>
+    <div class="wr-lead" style="margin:0 0 10px;">
+      ${stale
+        ? `This screen is showing <b>${label === 'no scan loaded' ? 'no' : label}</b> data. Run the pull now, while you are at the desk — it needs your screener.in login, so it cannot run on a timer.`
+        : `Data is current. Press this again after tomorrow's close, around <b>15:40 IST</b>.`}
+    </div>
+    <div class="wr-ctl">
+      <button class="btn btn-primary" onclick="eodCopyCmd()"><i class="ti ti-terminal-2"></i>Copy EOD command</button>
+      <button class="btn btn-sm" onclick="eodOpenScreen()"><i class="ti ti-external-link"></i>Open screener.in</button>
+      <code>${wrEsc(EOD_CMD)}</code>
+    </div>
+    <div class="wr-hint" style="margin-top:8px;">
+      Fetches the export, rebuilds the shortlist and the Stage 2 journal, then commits and pushes — one command, and it
+      <b>stops</b> rather than mixing a fresh shortlist with a stale scan. It needs the <code>sessionid</code> cookie in
+      <code>.secrets/screener_cookie.txt</code>; if that has expired the run stops at step 1 and says so.
+    </div>
+  </div>`;
+}
+
+// ---- research handoff -----------------------------------------------------
+// Picking names was already possible; what was missing was the second half — the exact command
+// that turns the picks into published reports, so the flow does not stop at "copied to clipboard".
+function slPickedRows(){
+  if(!SL.doc) return [];
+  const pool = (SL.doc.rows || []).concat(SL.doc.watchlist || []);
+  return pool.filter(r => SL.picks.has(r.code));
+}
+function slCopyPublish(){
+  const rows = slPickedRows();
+  if(!rows.length){ toast('Tick some names first', 'error'); return; }
+  const codes = rows.map(r => r.code.toLowerCase()).join(' ');
+  navigator.clipboard.writeText(`python tools/report/publish.py ${codes}`).then(
+    () => toast('Publish command copied', 'success'), () => toast('Could not copy', 'error'));
+}
+function slHandoff(){
+  const rows = slPickedRows();
+  if(!rows.length) return '';
+  const codes = rows.map(r => r.code.toLowerCase()).join(' ');
+  return `
+  <div class="se-panel" style="margin-top:18px;">
+    <div class="se-row-h"><div><div class="se-eyebrow">Step 2 of 2</div><h2>Turn ${rows.length} pick${rows.length === 1 ? '' : 's'} into research</h2></div>
+      <span class="wr-hint">${rows.map(r => wrEsc(r.code)).join(' · ')}</span></div>
+    <div class="wr-lead" style="margin:0 0 12px;">
+      <b>Copy brief</b> puts everything the generator needs on your clipboard — why each name surfaced, its latest
+      results, and any news trigger on file. Paste it into Claude Code in this repo. When the reports come back,
+      the command below verifies every quoted figure and <b>refuses to push</b> if any of them disagrees with the scan.
+    </div>
+    <div class="wr-ctl">
+      <button class="btn btn-lime" onclick="slCopyBrief()"><i class="ti ti-clipboard-text"></i>1. Copy brief</button>
+      <button class="btn btn-sm" onclick="slCopyPublish()"><i class="ti ti-terminal-2"></i>2. Copy publish command</button>
+      <code>python tools/report/publish.py ${wrEsc(codes)}</code>
+    </div>
+    <div class="wr-hint" style="margin-top:8px;">House rules live in <code>tools/report/REPORT_SPEC.md</code> — 13 sections, the
+      rating vocabulary, and the rule that no number is ever invented. Finished reports land in <b>Research Desk</b>.</div>
+  </div>`;
+}
+
 const SL = { doc: null, loaded: false, loading: false, error: null, picks: new Set(), max: 5 };
 
 function slKey(){ return 'swingedge.picks.' + ((SL.doc && SL.doc.scan_date) || 'x'); }
@@ -9067,6 +9190,7 @@ function renderSL(){
       <div class="se-kpis">${kpis.join('')}</div>
     </div></div>
     <div class="se-body">
+      ${eodCard(d)}
       <div class="sl-actions">
         <button class="btn btn-lime" onclick="slCopyBrief()" ${SL.picks.size ? '' : 'disabled'}><i class="ti ti-clipboard-text"></i>Copy brief for ${SL.picks.size} pick${SL.picks.size === 1 ? '' : 's'}</button>
         ${SL.picks.size ? `<button class="btn btn-ghost btn-sm" onclick="slClearPicks()"><i class="ti ti-x"></i>Clear picks</button>` : ''}
@@ -9074,6 +9198,7 @@ function renderSL(){
       </div>
       ${wrTable('sl-all', cols, rows, {sort:{col:'score', dir:'desc'}, tall:true, empty:'Nothing scored above the threshold.'})}
       ${slWatchPanel(d, cols)}
+      ${slHandoff()}
       <div class="wr-foot" style="border:none;padding:14px 0 0;">Scoring is transparent and deterministic — new high +3, fresh Stage 2 entry +3, trend template +2, Strong PEAD +3, big day +2, RS 90+ +2, news trigger +2, leading sector +1 (see tools/build_shortlist.py). Rebuild after each scan with <code>python tools/build_shortlist.py</code>. Not investment advice.</div>
     </div>`;
   const badge = document.getElementById('sl-badge');
@@ -9081,6 +9206,215 @@ function renderSL(){
   if(typeof seCountUp === 'function') seCountUp(el);
 }
 
+// ============= FEEDBACK — for testers, with screenshots =============
+// A static site has no server to post to, so feedback lives in the tester's own browser
+// (localStorage) until they export it. Screenshots are downscaled and JPEG-compressed on
+// the way in so a handful of them fit inside the storage budget; Export produces ONE
+// self-contained HTML file with the images embedded, which is what gets sent back.
+const FB = { items: [], ui: { sec: '', text: '', shots: [], name: '' }, KEY: 'swingedge.feedback.v1', MAX_MB: 4 };
+
+function fbLoad(){
+  try{ FB.items = JSON.parse(localStorage.getItem(FB.KEY) || '[]'); }
+  catch(e){ FB.items = []; }
+  try{ FB.ui.name = localStorage.getItem(FB.KEY + '.name') || ''; }catch(e){}
+}
+function fbSave(){
+  try{
+    localStorage.setItem(FB.KEY, JSON.stringify(FB.items));
+    if(FB.ui.name) localStorage.setItem(FB.KEY + '.name', FB.ui.name);
+    return true;
+  }catch(e){
+    toast('Browser storage is full — export and clear to free space', 'error');
+    return false;
+  }
+}
+function fbBytes(){ try{ return new Blob([JSON.stringify(FB.items)]).size; }catch(e){ return 0; } }
+
+// Downscale on the way in. A raw screenshot is often 2-4 MB; this brings it to ~150-400 KB
+// with no meaningful loss of legibility, which is what makes several of them fit at all.
+function fbShrink(file, cb){
+  const rd = new FileReader();
+  rd.onload = () => {
+    const img = new Image();
+    img.onload = () => {
+      const max = 1500, sc = Math.min(1, max / Math.max(img.width, img.height));
+      const c = document.createElement('canvas');
+      c.width = Math.round(img.width * sc); c.height = Math.round(img.height * sc);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      cb(c.toDataURL('image/jpeg', 0.82), c.width, c.height);
+    };
+    img.onerror = () => toast('Could not read that image', 'error');
+    img.src = rd.result;
+  };
+  rd.onerror = () => toast('Could not read that file', 'error');
+  rd.readAsDataURL(file);
+}
+function fbAddFiles(files){
+  fbCapture();
+  const list = [...files].filter(f => /^image\//.test(f.type));
+  if(!list.length){ toast('Only images can be attached', 'error'); return; }
+  list.forEach(f => fbShrink(f, (data, w, h) => {
+    FB.ui.shots.push({ data, w, h, name: f.name || 'screenshot.png' });
+    renderFB();
+    toast(`Screenshot attached (${FB.ui.shots.length})`, 'success');
+  }));
+}
+function fbPaste(e){
+  const items = (e.clipboardData || {}).items || [];
+  const imgs = [...items].filter(i => /^image\//.test(i.type)).map(i => i.getAsFile()).filter(Boolean);
+  if(imgs.length){ e.preventDefault(); fbAddFiles(imgs); }
+}
+function fbDropShot(i){ fbCapture(); FB.ui.shots.splice(i, 1); renderFB(); }
+
+// Attaching a screenshot re-renders the panel, which would otherwise blow away a note already
+// typed — so read the form into FB.ui before every re-render, and render it back out.
+function fbCapture(){
+  const g = id => (document.getElementById(id) || {}).value;
+  const n = g('fb-name'), t = g('fb-text'), sec = g('fb-sec');
+  if(n != null) FB.ui.name = n;
+  if(t != null) FB.ui.text = t;
+  if(sec != null) FB.ui.sec = sec;
+}
+
+function fbSubmit(){
+  fbCapture();
+  const t = FB.ui.text || '', sec = FB.ui.sec || '', who = (FB.ui.name || '').trim();
+  if(!t.trim() && !FB.ui.shots.length){ toast('Add a note or a screenshot first', 'error'); return; }
+  FB.ui.name = who;
+  const item = { id: 'fb' + Date.now(), at: new Date().toISOString(), who: who || 'anonymous',
+                 section: sec, text: t.trim(), shots: FB.ui.shots.slice() };
+  FB.items.unshift(item);
+  if(fbBytes() > FB.MAX_MB * 1024 * 1024){
+    FB.items.shift();
+    toast(`That would exceed the ${FB.MAX_MB} MB budget — export first, then clear`, 'error');
+    return;
+  }
+  if(!fbSave()){ FB.items.shift(); return; }
+  FB.ui.shots = []; FB.ui.text = '';
+  renderFB();
+  toast('Feedback saved locally — Export when you are done', 'success');
+}
+function fbDelete(id){
+  FB.items = FB.items.filter(x => x.id !== id);
+  fbSave(); renderFB(); toast('Deleted', 'success');
+}
+function fbClearAll(){
+  if(!FB.items.length) return;
+  if(!confirm(`Delete all ${FB.items.length} feedback item(s)? Export first if you have not sent them.`)) return;
+  FB.items = []; fbSave(); renderFB(); toast('All feedback cleared', 'success');
+}
+
+// One self-contained HTML file, screenshots embedded. This is the thing the tester sends back.
+function fbExport(){
+  if(!FB.items.length){ toast('Nothing to export yet', 'error'); return; }
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const who = FB.items[0].who || 'tester';
+  const body = FB.items.map((x, i) => `
+    <div class="item">
+      <div class="hd"><b>#${FB.items.length - i}</b> &middot; ${esc(x.section || 'general')}
+        <span class="meta">${esc(x.who)} &middot; ${new Date(x.at).toLocaleString()}</span></div>
+      ${x.text ? `<p>${esc(x.text).replace(/\n/g, '<br>')}</p>` : ''}
+      ${x.shots.map(s => `<img src="${s.data}" alt="${esc(s.name)}">`).join('')}
+    </div>`).join('');
+  const html = `<!doctype html><meta charset="utf-8"><title>SwingEdge feedback — ${esc(who)}</title>
+<style>body{font:15px/1.6 -apple-system,Segoe UI,Roboto,sans-serif;max-width:900px;margin:32px auto;padding:0 20px;color:#111;background:#fff}
+h1{font-size:22px;margin:0 0 4px}.sub{color:#666;font-size:13px;margin:0 0 24px}
+.item{border:1px solid #e2e2e2;border-radius:10px;padding:16px 18px;margin:0 0 18px}
+.hd{font-size:13px;color:#333;margin-bottom:8px}.meta{color:#888;font-weight:400;float:right}
+p{margin:8px 0 12px;white-space:pre-wrap}img{max-width:100%;border:1px solid #ddd;border-radius:6px;margin:8px 0;display:block}</style>
+<h1>SwingEdge — tester feedback</h1>
+<p class="sub">${FB.items.length} item(s) &middot; from ${esc(who)} &middot; exported ${new Date().toLocaleString()}</p>
+${body}`;
+  const blob = new Blob([html], { type: 'text/html' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `swingedge-feedback-${(who || 'tester').replace(/\W+/g, '-').toLowerCase()}-${new Date().toISOString().slice(0,10)}.html`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  toast('Exported — send that file back', 'success');
+}
+// Text-only fallback. Screenshots cannot travel through a share link, so this says so.
+function fbWhatsApp(){
+  if(!FB.items.length){ toast('Nothing to share yet', 'error'); return; }
+  const shots = FB.items.reduce((n, x) => n + x.shots.length, 0);
+  const lines = [`SwingEdge feedback — ${FB.items[0].who || 'tester'} (${FB.items.length} item(s))`, ''];
+  FB.items.forEach((x, i) => {
+    lines.push(`${FB.items.length - i}. [${x.section || 'general'}] ${x.text || '(screenshot only)'}`);
+  });
+  if(shots) lines.push('', `${shots} screenshot(s) attached in the exported HTML file — sending separately.`);
+  window.open('https://wa.me/?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
+}
+
+const FB_SECTIONS = ['Market Pulse','Shortlist','Daily Gainers','RS Screen','Sectors','Stage 2 Tracker',
+  'Stage 2 Journal','PEAD Radar','Track Record','Research Desk','Research Library','Overall / general'];
+
+function renderFB(){
+  const el = document.getElementById('fb-body'); if(!el) return;
+  const used = fbBytes(), pct = Math.min(100, 100 * used / (FB.MAX_MB * 1024 * 1024));
+  const shots = FB.items.reduce((n, x) => n + x.shots.length, 0);
+  const kpis = [
+    seKpi('Feedback saved', wrNum(FB.items.length), 'stored in this browser only', FB.items.length ? 'ok' : '', FB.items.length),
+    seKpi('Screenshots', wrNum(shots), 'embedded on export', ''),
+    seKpi('Storage used', used < 1048576 ? `${Math.round(used/1024)} KB` : `${(used/1048576).toFixed(1)} MB`,
+                     `of ${FB.MAX_MB} MB budget`, pct > 80 ? 'bad' : ''),
+    seKpi('Last saved', FB.items.length ? wrDate(FB.items[0].at.slice(0,10)) : '—', FB.items.length ? new Date(FB.items[0].at).toLocaleTimeString() : 'nothing yet', '')
+  ];
+  const pending = FB.ui.shots.map((s, i) => `
+    <div class="fb-thumb"><img src="${s.data}" alt=""><button title="Remove" onclick="fbDropShot(${i})">&times;</button>
+      <span>${s.w}&times;${s.h}</span></div>`).join('');
+  const list = FB.items.length ? FB.items.map((x, i) => `
+    <div class="fb-item">
+      <div class="fb-item-hd">
+        <span class="wr-tag am">${wrEsc(x.section || 'general')}</span>
+        <span class="fb-meta">${wrEsc(x.who)} &middot; ${new Date(x.at).toLocaleString()}</span>
+        <button class="btn btn-sm btn-ghost" onclick="fbDelete('${x.id}')"><i class="ti ti-trash"></i></button>
+      </div>
+      ${x.text ? `<p class="fb-text">${wrEsc(x.text)}</p>` : ''}
+      ${x.shots.length ? `<div class="fb-shots">${x.shots.map(s => `<img src="${s.data}" alt="" onclick="window.open(this.src)">`).join('')}</div>` : ''}
+    </div>`).join('') : '<div class="wr-empty"><i class="ti ti-message-2"></i><h4>No feedback yet</h4><p>Write a note, attach a screenshot, and hit Save. Nothing leaves this browser until you press Export.</p></div>';
+
+  el.innerHTML = `
+    <div class="se-hero"><div class="se-hero-inner">
+      <div class="wr-tags"><span class="wr-tag am">Feedback</span><span class="wr-tag tl">For testers</span><span class="wr-tag">screenshots supported</span></div>
+      <h1>Tell us what is wrong, confusing, or missing</h1>
+      <div class="wr-lead">Pick the screen you are commenting on, write what you saw, and attach a screenshot — you can also just
+        <b>paste</b> one straight into the box with Ctrl+V. Everything is stored <b>in your own browser</b> and nothing is sent
+        anywhere. When you are done, hit <b>Export</b> to get a single HTML file with your notes and screenshots inside, and send
+        that back.</div>
+      <div class="se-kpis">${kpis.join('')}</div>
+    </div></div>
+    <div class="se-body">
+      <div class="se-panel">
+        <div class="se-row-h"><div><div class="se-eyebrow">New feedback</div><h2>What did you find?</h2></div>
+          <span class="wr-hint">Ctrl+V pastes a screenshot straight in</span></div>
+        <div class="wr-ctl">
+          <input type="text" id="fb-name" placeholder="Your name" value="${wrAttr(FB.ui.name)}" style="min-width:170px">
+          <select id="fb-sec">${FB_SECTIONS.map(s => `<option ${s === FB.ui.sec ? 'selected' : ''}>${s}</option>`).join('')}</select>
+          <label class="btn btn-sm"><i class="ti ti-paperclip"></i>Attach screenshot
+            <input type="file" accept="image/*" multiple hidden onchange="fbAddFiles(this.files);this.value=''"></label>
+        </div>
+        <textarea id="fb-text" class="fb-box" rows="5" onpaste="fbPaste(event)"
+          placeholder="What did you expect, and what did you see instead? Which stock or number looked wrong?">${wrEsc(FB.ui.text)}</textarea>
+        ${pending ? `<div class="fb-thumbs">${pending}</div>` : ''}
+        <div class="wr-ctl" style="margin-top:10px;">
+          <button class="btn btn-primary" onclick="fbSubmit()"><i class="ti ti-device-floppy"></i>Save feedback</button>
+          <button class="btn btn-sm" onclick="fbExport()"><i class="ti ti-download"></i>Export all (${FB.items.length})</button>
+          <button class="btn btn-sm" onclick="fbWhatsApp()"><i class="ti ti-brand-whatsapp"></i>Share text on WhatsApp</button>
+          <button class="btn btn-sm btn-ghost" onclick="fbClearAll()"><i class="ti ti-trash"></i>Clear all</button>
+        </div>
+        <div class="wr-hint" style="margin-top:8px;">Export gives you one self-contained HTML file with the screenshots embedded —
+          that is the one to send. The WhatsApp button carries the text only, because a share link cannot carry images.</div>
+      </div>
+      <div class="se-panel" style="margin-top:18px;">
+        <div class="se-row-h"><div><div class="se-eyebrow">Saved locally</div><h2>Your feedback so far</h2></div>
+          <span class="wr-hint">stored in this browser · clearing site data will erase it</span></div>
+        ${list}
+      </div>
+    </div>`;
+  if(typeof seCountUp === 'function') seCountUp(el);
+  fbBadge();
+}
+
 // ============= STAGE 2 JOURNAL — the day-by-day memory =============
 // Reads data/daily/s2history.json (built by tools/build_s2history.py from the scan archive).
 // Answers, for any day: who is in Stage 2, who joined, who dropped out — and for any stock,
@@ -9263,6 +9597,7 @@ function init(){
   loadRD(false);
   loadSL(false);
   loadSJ(false);
+  fbLoad(); fbBadge();
   seApplyTheme();
   updateMarket();
   setInterval(updateMarket, 30000);
