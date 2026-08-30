@@ -1,6 +1,8 @@
 # swingedge
 Personal swing trading intelligence
 
+**[ROADMAP.md](ROADMAP.md)** — what is built, what is blocked, and what is next.
+
 ## Weekly Report
 
 A native, JSON-driven weekly markets digest (FII/DII flows, derivatives, FX, commodities, debt, India & US stock leaders, 52-week-high candidates, DMA breadth with history, a rolling 4-week comparison, and a global ETF heatmap).
