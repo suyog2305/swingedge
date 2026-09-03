@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-28",
+  "updated": "2026-09-03",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -228,10 +228,10 @@
     ],
     "PRECWIRE": [
       {
-        "t": "Precision Wires India clarifies surge in share trading volume amid stock rally",
-        "src": "TipRanks",
-        "url": "https://www.tipranks.com/news/company-announcements/precision-wires-india-limited-clarifies-share-volume-surge",
-        "date": "2026-08-27"
+        "t": "Precision Wires India zooms 20% to 52-week high on strong Q1 profit, expansion plans",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/precision-wires-india-zooms-20-stock-skyrockets-196-in-1-year-126082800644_1.html",
+        "date": "2026-08-28"
       }
     ],
     "SUNSHINE": [
@@ -244,9 +244,9 @@
     ],
     "JUSTDIAL": [
       {
-        "t": "Just Dial shares surge 10% after Kotak reiterates 'Buy' rating, target Rs 1,175",
-        "src": "Business Today",
-        "url": "https://www.businesstoday.in/markets/stocks/story/just-dial-share-price-surged-10-today-heres-why-551947-2026-08-28",
+        "t": "Just Dial locked in upper circuit, spikes 10% on new CEO strategy and Norges Bank-backed AGM optimism",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/just-dial-locked-in-upper-circuit-stock-spikes-10-in-a-single-session-126082800580_1.html",
         "date": "2026-08-28"
       }
     ],
@@ -264,6 +264,46 @@
         "src": "Business Today",
         "url": "https://www.businesstoday.in/markets/stocks/story/tejas-networks-shares-rally-10-on-rs-1537-crore-tcs-order-win-key-details-551937-2026-08-28",
         "date": "2026-08-28"
+      }
+    ],
+    "JGCHEM": [
+      {
+        "t": "J.G. Chemicals posts record Q1 FY27 profit, up 60% YoY, eyes Dahej zinc oxide expansion",
+        "src": "ScanX",
+        "url": "https://scanx.trade/stock-market-news/companies/jg-chemicals-q1-results-net-profit-up-60-yoy-to-261-million/47725057",
+        "date": "2026-08-08"
+      }
+    ],
+    "MASTEK": [
+      {
+        "t": "Mastek shares jump 15% as Anand Rathi sees turnaround potential, target Rs 2,377",
+        "src": "Business Today",
+        "url": "https://www.businesstoday.in/markets/stocks/story/mastek-shares-jump-15-anand-rathi-sees-turnaround-potential-heres-what-it-said-551960-2026-08-28",
+        "date": "2026-08-28"
+      }
+    ],
+    "SYNCOMF": [
+      {
+        "t": "Syncom Formulations consolidated net profit rises 57.78% in June 2026 quarter",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/capital-market-news/syncom-formulations-india-consolidated-net-profit-rises-57-78-in-the-june-2026-quarter-126081200296_1.html",
+        "date": "2026-08-12"
+      }
+    ],
+    "FMGOETZE": [
+      {
+        "t": "Federal-Mogul Goetze surges 10% to 52-week high on Rs 94/share dividend bounty",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/federal-mogul-goetze-surges-10-on-94-per-share-dividend-bounty-126082800381_1.html",
+        "date": "2026-08-28"
+      }
+    ],
+    "EXICOM": [
+      {
+        "t": "Exicom becomes first Indian company to manufacture liquid-cooled power modules for EV chargers",
+        "src": "Outlook Business",
+        "url": "https://www.outlookbusiness.com/news/exicoms-ev-charger-breakthrough-indias-first-liquid-cooled-power-modules-hit-production",
+        "date": "2026-08-19"
       }
     ]
   }
