@@ -162,7 +162,7 @@ localStorage and exported as one self-contained HTML file with the images embedd
   `REPORT_SPEC.md` carries the house rules.
 - **Pinned watchlist** — 5 names surfaced daily regardless of rank, scored identically to
   everything else so the ranking stays honest.
-- **53 research reports**, 13 sections each, every scan-derived figure machine-cross-checked.
+- **55 research reports**, 13 sections each, every scan-derived figure machine-cross-checked.
 - **September 2026 editions** for Bodal, Kiri, GNG Electronics, Syrma SGS and Tejas Networks,
   plus new coverage of Tejas and Syrma. Written against 8 September closing prices and verified
   against the capture that produced them.
