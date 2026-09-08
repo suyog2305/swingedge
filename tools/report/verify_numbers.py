@@ -64,7 +64,11 @@ def money(s):
 # reported as DRIFT, not MISMATCH, and do not fail the run.
 PRICE_LINKED = {'CMP', 'Market cap (Cr)', 'Trailing P/E', 'Price / Book',
                 '% above 50-DMA', '% above 200-DMA', 'Below 52w high', 'Up from 52w low',
-                '3-month return', '1-week return', '1-day return'}
+                '3-month return', '1-month return', '1-week return', '1-day return',
+                # A moving-average LEVEL is a function of recent prices, so it moves with time
+                # exactly as the price does. Treating it as fixed made every older report fail
+                # on two rows that were never wrong, only old.
+                '50-DMA level', '200-DMA level'}
 
 class Check:
     def __init__(self, same_day=True):
@@ -149,12 +153,42 @@ def check_report(path, row, prev_row, same_day=True):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('codes', nargs='*', help='report ids or NSE codes; default = all')
+    ap.add_argument('--snapshot', help='check against a live-page snapshot JSON instead of the '
+                                       'newest scan (same file framework_block.py --snapshot takes)')
     a = ap.parse_args()
 
-    scans = sorted(glob.glob(os.path.join(ROOT, 'data', 'scans', '20*.json')))
-    cur, prev = jload(scans[-1]), jload(scans[-2])
-    umap = {r['code'].upper(): r for r in cur.get('universe', []) if r.get('code')}
-    pmap = {r['code'].upper(): r for r in prev.get('universe', []) if r.get('code')}
+    # A report written today quotes today's prices, and the newest scan on disk may be days old
+    # — every price would then read as a MISMATCH and the report could never be published, or
+    # worse, would be published against figures nobody checked. --snapshot lets the same live
+    # capture that generated the report's framework block also verify it, so the two can never
+    # disagree by construction. Without it, fall back to the newest scan.
+    if a.snapshot:
+        snap = jload(a.snapshot)
+        umap, pmap = {}, {}
+        for r in snap.get('names', []):
+            code = str(r.get('code', '')).upper()
+            if not code:
+                continue
+            row = dict(r)
+            # the live page reports distance below the 52w high as a POSITIVE number;
+            # the scan stores it negative, and every check downstream assumes the scan's sign.
+            if row.get('from_52wh') in (None, '') and row.get('down_52wh') not in (None, ''):
+                row['from_52wh'] = -abs(num(row['down_52wh']) or 0)
+            umap[code] = row
+        cur = {'date': snap.get('date') or snap.get('captured') or a.snapshot}
+        src = f'snapshot {cur["date"]} ({len(umap)} names)'
+    else:
+        # A scan file may carry only a provider Stage 2 list (universe empty). Picking it as "cur"
+        # silently skips EVERY report as "not in scan universe" — and publish.py then sees zero
+        # mismatches and pushes. So walk back to the newest scan that actually has a universe.
+        scans = sorted(glob.glob(os.path.join(ROOT, 'data', 'scans', '20*.json')))
+        withu = [p for p in scans if len(jload(p).get('universe') or []) >= 500]
+        if len(withu) < 2:
+            raise SystemExit('need two scans carrying a universe of 500+ rows to cross-check against')
+        cur, prev = jload(withu[-1]), jload(withu[-2])
+        umap = {r['code'].upper(): r for r in cur.get('universe', []) if r.get('code')}
+        pmap = {r['code'].upper(): r for r in prev.get('universe', []) if r.get('code')}
+        src = f'scan {cur.get("date")} ({len(umap)} stocks)'
 
     idx = jload(os.path.join(ROOT, 'library', 'research', 'index.json'))
     reports = idx['reports']
@@ -163,13 +197,16 @@ def main():
         reports = [r for r in reports if r.get('code', '').upper() in want or r['id'].split('-')[0].upper() in want]
 
     total_bad, total_drift, checked, skipped = 0, 0, 0, []
-    print(f'Cross-checking against scan {cur.get("date")} ({len(umap)} stocks)\n')
+    print(f'Cross-checking against {src}\n')
     for r in reports:
         code = (r.get('code') or '').upper()
         path = os.path.join(ROOT, 'library', 'research', r['file'].split('/')[-1])
         if code not in umap or not os.path.exists(path):
             skipped.append(f'{r["id"]} ({code or "no code"}) — not in scan universe')
             continue
+        # Same rule in both modes: a report published BEFORE the data it is checked against is
+        # stale, and stale prices are DRIFT, not error. A superseded August edition must not block
+        # September's publish, but a report dated today must match today exactly.
         same_day = (r.get('date') or '') >= (cur.get('date') or '')
         c = check_report(path, umap[code], pmap.get(code), same_day)
         checked += 1

@@ -75,6 +75,8 @@ def main():
     ap.add_argument('--all', action='store_true', help='publish every report in the index')
     ap.add_argument('--dry-run', action='store_true', help='verify only; do not touch git')
     ap.add_argument('--no-push', action='store_true', help='commit locally but do not push')
+    ap.add_argument('--snapshot', help='cross-check against a live-page snapshot instead of the newest '
+                                       'scan - use when the report quotes today and the daily pull has not run')
     a = ap.parse_args()
 
     if not a.names and not a.all:
@@ -113,8 +115,10 @@ def main():
 
     # ---- 2. cross-check every quoted figure ---------------------------------
     codes = [r['code'] for r in entries if r.get('code')]
-    print('\nCross-check (tools/report/verify_numbers.py):')
-    v = run([sys.executable, os.path.join('tools', 'report', 'verify_numbers.py')] + codes)
+    print('\nCross-check (tools/report/verify_numbers.py'
+          + (f' --snapshot {os.path.basename(a.snapshot)}' if a.snapshot else '') + '):')
+    vargs = (['--snapshot', a.snapshot] if a.snapshot else []) + codes
+    v = run([sys.executable, os.path.join('tools', 'report', 'verify_numbers.py')] + vargs)
     out = v.stdout or v.stderr
     for line in out.splitlines():
         if line.strip() and ('checks' in line or 'mismatch' in line or '!!' in line or 'not checkable' in line):
