@@ -115,6 +115,20 @@ investment advice, and it is out of scope regardless of how the request is phras
 python tools/report/verify_numbers.py <code>
 ```
 
+**Label collision — the one that bites.** The verifier takes the **first** `<td>Trailing P/E</td>`
+and `<td>Price / Book</td>` in the document. An August-versus-September comparison table placed
+above section 10 will hand it the stale figures and produce a false mismatch. Word comparison rows
+as "Trailing earnings multiple" / "Book value multiple" and reserve the exact labels for the
+current figures.
+
+**When the report quotes today and the daily pull has not run**, verify against the same live
+capture that generated the framework block:
+
+```bash
+python tools/report/verify_numbers.py --snapshot data/daily/snapshots/<date>.json <code>
+python tools/report/publish.py       --snapshot data/daily/snapshots/<date>.json <id>
+```
+
 Recomputes every scan-derived figure — CMP, market cap, P/E, P/B, the DMA levels **and the "+25% above"
 percentages derived from them**, distance from the high, returns, sales growth. Derived percentages are
 where errors hide, because nothing else recalculates them.

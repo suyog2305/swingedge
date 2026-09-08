@@ -1,7 +1,7 @@
 # Roadmap
 
 What's built, what's blocked, and what's next — in dependency order rather than wish order.
-Status as of **2026-08-30**.
+Status as of **2026-09-08**.
 
 ---
 
@@ -30,6 +30,19 @@ Three things unblock the moment the real `sessionid` lands, and none of them can
 > `redirected to login — your sessionid cookie is missing or expired`, and it needs re-pasting.
 > That recurring expiry is exactly why the manual **EOD button** exists next to the scheduled
 > task, and why "just automate it" is not the whole answer.
+
+**2026-09-08 — still unset, and it now costs something measurable.** The daily pull has stopped
+cleanly every morning since 28 Aug, so `data/scans/` ends at 2026-08-27 while seven reports were
+written against 8 September prices. The closing figures for those seven had to be scraped through
+the browser page by page and committed as a partial capture
+(`data/daily/snapshots/2026-09-08.json`) purely so the reports could be verified at all. Pulling
+the full 1,617-row universe that way was measured and rejected: roughly 190k tokens of context to
+work around a two-minute paste. **Until the cookie is set, the app keeps serving the 27 Aug scan
+no matter how current the reports are.**
+
+Also worth knowing: the screener session in the browser profile used for that scrape is signed in
+as a different person. The screen data is identical either way, but a cookie copied from there
+would be their session, not yours.
 
 ---
 
@@ -84,6 +97,45 @@ five distinct weeks.
 
 ---
 
+## 1b. Reports — the cross-check that was not checking
+
+Found by running it on 8 September, not by reading it.
+
+`verify_numbers.py` selected `data/scans/<newest>` unconditionally. That file can carry only a
+provider Stage 2 list with an **empty universe** — and 2026-08-28 does. Every report was then
+skipped as "not in scan universe", `publish.py` saw zero mismatches, and pushed. **The gate had
+been open**, and reports were being published against figures nothing had verified. Three fixes
+went in together (commit `16e7730`):
+
+1. Walk back to the newest scan that actually carries a universe.
+2. `--snapshot` on both `verify_numbers.py` and `publish.py`, so the same live capture that
+   generated a report's framework block also verifies it. The two cannot disagree by construction.
+3. Moving-average **levels** reclassified as price-linked. A 50-DMA is a function of recent prices
+   and drifts exactly as the price does; treating it as fixed failed every older report on two
+   rows that were never wrong, only old.
+
+Negative control, and it should stay in the habit: publishing without the snapshot still refuses,
+13 mismatches on Syrma. With it, six reports check clean.
+
+`framework_block.py` (commit `da21b0e`) is the other half. Every price-linked figure in a report
+now lives in one generated block between `<!--FRAMEWORK:BEGIN-->` / `<!--FRAMEWORK:END-->`, so
+refreshing a report is a re-run rather than a rewrite, and prose never carries a number the next
+scan will contradict. Validated by regenerating August's Kiri table from the 27 Aug scan and
+getting back exactly what had been typed by hand.
+
+### Open, not urgent
+
+- **The masthead rating colour is decorative, not derived.** 35 of 47 reports render a *Hold*
+  rating on the green `rating-cell buy` background, because that class marks the cell's position
+  rather than the call. `rdRatingCls` colours the Research Desk card correctly, so the index is
+  right and the report header is misleading. Fixing one file would make it inconsistent with the
+  rest; it wants a single pass over all of them.
+- A report body must not label a comparison row `Trailing P/E` or `Price / Book`. The verifier
+  takes the **first** match in the document, so an August-versus-September table would feed it the
+  stale figures. Caught during the Bodal rewrite and now called out in the generation brief.
+
+---
+
 ## 2. Testers
 
 The feedback section shipped 2026-08-30: notes plus screenshots, attached or pasted, held in
@@ -110,7 +162,10 @@ localStorage and exported as one self-contained HTML file with the images embedd
   `REPORT_SPEC.md` carries the house rules.
 - **Pinned watchlist** — 5 names surfaced daily regardless of rank, scored identically to
   everything else so the ranking stays honest.
-- **48 research reports**, 13 sections each, every scan-derived figure machine-cross-checked.
+- **53 research reports**, 13 sections each, every scan-derived figure machine-cross-checked.
+- **September 2026 editions** for Bodal, Kiri, GNG Electronics, Syrma SGS and Tejas Networks,
+  plus new coverage of Tejas and Syrma. Written against 8 September closing prices and verified
+  against the capture that produced them.
 
 ---
 
