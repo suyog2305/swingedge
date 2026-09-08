@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tejas Networks — Equity Research Report — September 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: Tejas Networks — Equity Research Report — September 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: TEJASNET &nbsp;|&nbsp; BSE: 540595 &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; September 2026</p>
+    <h1 class="report-title"><span>Tejas</span> Networks</h1>
+    <p class="report-subtitle">Optical, broadband and wireless network equipment &nbsp;·&nbsp; Bengaluru &nbsp;·&nbsp; Tata group (Panatone Finvest) &nbsp;·&nbsp; A Stage 2 chart on a loss-making balance sheet</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (8 Sep)</div><div class="kpi-value">₹590.05</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹10,508 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 Revenue</div><div class="kpi-value">₹402 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Q1 FY27 PAT</div><div class="kpi-value">−₹202 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Receivables (31 Mar 26)</div><div class="kpi-value">₹3,256 Cr</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — Stage 2 Price, Stage 4 Accounts</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">A ₹1,537 Cr LOI that more than doubles the order book</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">Receivables at 2.5× annual sales, ₹4,277 Cr net debt, no earnings</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Read This First</a>
+    <a href="#s3">Q1 FY27</a>
+    <a href="#s4">The Margin Path</a>
+    <a href="#s5">Receivables</a>
+    <a href="#s6">Balance Sheet</a>
+    <a href="#s7">Order Book</a>
+    <a href="#s8">Your Own System</a>
+    <a href="#s9">BSNL</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>Tejas Networks Limited</td></tr>
+    <tr><td class="bold">Base</td><td>Bengaluru, Karnataka</td></tr>
+    <tr><td class="bold">Promoter</td><td><b>Panatone Finvest Limited</b>, a subsidiary of Tata Sons Private Limited. Promoter holding <b>53.33%</b> at 30 June 2026, <b>nil pledged</b>. FII 5.82%, DII 4.04%, public 36.68%.</td></tr>
+    <tr><td class="bold">What it makes</td><td>Carrier-class telecom equipment it designs and manufactures in India — <b>optical transport</b> (100G/400G), <b>broadband access</b> (GPON/FTTx, IP/MPLS routers) and <b>wireless</b> (indigenous 4G and 5G radio access network products, including massive-MIMO radios). Sells to state and private telcos, utilities, defence and internationally.</td></tr>
+    <tr><td class="bold">The defining programme</td><td>BSNL&rsquo;s pan-India 4G/5G network. Tejas won a <b>₹7,492 Cr (~USD 900m)</b> order for roughly 100,000 sites; delivery of that order completed in <b>May 2025</b>, and BSNL&rsquo;s commercial launch on Tejas 4G RAN followed during FY26 with about <b>97,500 towers</b> deployed.</td></tr>
+    <tr><td class="bold">Why it appears here</td><td>It sits on the provider&rsquo;s Stage 2 list while reporting large operating losses. That contradiction is the report — see Section 02.</td></tr>
+    <tr><td class="bold">Surveillance (8 Sep)</td><td><b>No ASM, ESM or GSM measure active.</b> Verified independently of the provider list: Trendlyne&rsquo;s BSE surveillance record for TEJASNET reads &ldquo;Not active in ASM or GSM&rdquo; as of 8 September 2026. It <em>has</em> been flagged twice this year — Short-Term ASM Stage I from 5–30 March 2026 and again 8–18 May 2026. ESM is structurally inapplicable: the framework targets companies below ₹1,000 Cr market capitalisation.</td></tr>
+    <tr><td class="bold">Signals (8 Sep)</td><td><b>The trend template FAILS, 6 of 7 checks passing.</b> The single failure is relative strength: <b>RS 67 against a 70 threshold</b>. Price is above both the 50- and 200-DMA and the 50-DMA is above the 200-DMA, so the price structure itself is intact. On the provider&rsquo;s Stage 2 list of 28 Aug as <b>&ldquo;Reentry&rdquo;, 6 weeks, since 14 June 2026</b>. No surveillance flag. <b>No P/E — the company is loss-making.</b> P/B 3.58×.</td></tr>
+  </tbody></table></div>
+  <p class="tbl-note">The RS failure is not a rounding artefact. The reading was 69 intraday on 8 September and closed the day at 67 — it moved away from the threshold, not toward it.</p>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">Read This First: Stage 2 Price, Stage 4 Accounts</h2></div>
+  <p><b>Your framework and the company&rsquo;s accounts are saying different things, and the framework goes first.</b></p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>What the framework says (8 Sep)</th><th class="right">Reading</th><th>What the narrative says</th><th class="right">Reading</th></tr></thead>
+    <tbody>
+      <tr><td>Trend template</td><td class="right bold red">FAILS 6/7</td><td>Order book, 30 Jun 2026</td><td class="right green">₹1,529 Cr</td></tr>
+      <tr><td>RS rating (threshold 70)</td><td class="right bold red">67</td><td>New LOI, 27 Aug 2026</td><td class="right green">₹1,537 Cr</td></tr>
+      <tr><td>Provider Stage 2 list, 28 Aug</td><td class="right green">&ldquo;Reentry&rdquo;, 6 wks</td><td>Q1 FY27 revenue YoY</td><td class="right green">+99.1%</td></tr>
+      <tr><td>Trailing P/E</td><td class="right bold red">none — loss-making</td><td>Operating margin trend</td><td class="right green">improving 3 qtrs</td></tr>
+      <tr><td>Operating margin, Q1 FY27</td><td class="right bold red">−24.96%</td><td>BSNL 4G, executed</td><td class="right green">~97,500 towers</td></tr>
+      <tr><td>Receivables / annual sales</td><td class="right bold red">~2.5×</td><td>International 5G</td><td class="right green">first commercial wins</td></tr>
+      <tr><td>Net debt, 30 Jun 2026</td><td class="right bold red">₹4,277 Cr</td><td>Promoter</td><td class="right green">Tata, 53.33%, nil pledge</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Both columns are true, and that is the problem.</b> The price is being classified as advancing — the provider has it on the Stage 2 list as a re-entry since mid-June — while the business is losing roughly a quarter of its revenue at the operating line and carrying trade receivables worth two and a half years of current sales.</p>
+  <p>Read plainly, the framework verdict is <b>a fail on one check out of seven, and it is the check that measures whether the market is rewarding this stock more than the rest of the market.</b> Price is above both moving averages and the moving averages are in the right order. What is missing is relative strength — the stock is going up, but not enough, relative to everything else, to qualify.</p>
+  <p>That is a meaningfully different message from MTAR, where the price structure itself was broken. Here <b>the chart is nearly good enough and the accounts are not</b>. The single most useful thing this report can do is establish exactly how far the accounts are from supporting the chart, and what specifically would have to happen — and in which quarter — for that to change.</p>
+  <p class="tbl-note">A note on one screener field before it misleads. The scan reports &ldquo;net profit +4.32% YoY&rdquo; for Q1 FY27. That is not growth. The company lost ₹193.87 Cr in Q1 FY26 and ₹202.24 Cr in Q1 FY27; the loss grew 4.32%. Section 03 shows why even that is the wrong way round.</p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Q1 FY27 — What &ldquo;+99%&rdquo; Actually Contains</h2></div>
+  <p>Reported 27 July 2026 for the quarter ended 30 June 2026, consolidated.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Q1 FY27 (consolidated)</th><th class="right">Q1 FY27</th><th class="right">Q1 FY26</th><th class="right">Change</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue from operations</td><td class="right bold">₹402.16 Cr</td><td class="right">₹201.98 Cr</td><td class="right bold green">+99.10%</td></tr>
+      <tr><td>Operating profit (EBITDA)</td><td class="right bold red">−₹100 Cr</td><td class="right red">−₹136 Cr</td><td class="right green">loss narrowed ₹36 Cr</td></tr>
+      <tr><td>Operating margin</td><td class="right bold red">−24.96%</td><td class="right red">−67.17%</td><td class="right green">+4,221 bps</td></tr>
+      <tr><td>Profit before tax</td><td class="right bold red">−₹270.81 Cr</td><td class="right red">−₹297.35 Cr</td><td class="right green">loss narrowed ₹26.54 Cr</td></tr>
+      <tr><td>Profit after tax</td><td class="right bold red">−₹202.24 Cr</td><td class="right red">−₹193.87 Cr</td><td class="right bold red">loss widened ₹8.37 Cr</td></tr>
+      <tr><td>Implied tax credit <span class="muted">(derived: PBT less PAT)</span></td><td class="right">₹68.57 Cr</td><td class="right">₹103.48 Cr</td><td class="right red">−₹34.91 Cr</td></tr>
+      <tr><td>Order book at quarter end</td><td class="right">₹1,529 Cr</td><td class="right">₹1,241 Cr</td><td class="right green">+23%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The +99.1% is real and it is off a collapsed base.</b> ₹202 Cr in the year-ago quarter was itself down about 87% year-on-year, because FY25&rsquo;s enormous BSNL delivery cycle had just ended. Doubling from the bottom of an air pocket is arithmetic, not a trend — the more useful comparison is that ₹402 Cr is <b>21% above the preceding quarter</b>, which is the fourth consecutive sequential gain.</p>
+  <p><b>The tax line is the part worth stopping on.</b> Pre-tax, the loss actually <em>improved</em> by ₹26.54 Cr year-on-year. After tax, it <em>worsened</em> by ₹8.37 Cr. Nothing operational caused that reversal: the deferred tax credit shrank from ₹103.48 Cr to ₹68.57 Cr (derived). The screener&rsquo;s &ldquo;+4.32%&rdquo; is therefore a comparison of two losses whose direction has been flipped by a tax entry. <b>The honest read is that Q1 FY27 was a better quarter than Q1 FY26 at every line above tax, and the headline says otherwise.</b></p>
+  <p>The counterweight is that a tax credit on accumulated losses is an asset that has to be recovered out of future taxable profit. On a company that has now lost money for five consecutive quarters, that recoverability is an assumption, not a fact, and it is carrying part of the reported bottom line.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>The five-quarter sequence</th><th class="right">Revenue</th><th class="right">Operating margin</th><th class="right">PAT</th><th class="right">Order book</th></tr></thead>
+    <tbody>
+      <tr><td>Q1 FY26 · Jun 2025</td><td class="right">₹202 Cr</td><td class="right red">−67.17%</td><td class="right red">−₹194 Cr</td><td class="right">₹1,241 Cr</td></tr>
+      <tr><td>Q2 FY26 · Sep 2025</td><td class="right">₹262 Cr</td><td class="right red">−112%</td><td class="right red">−₹307 Cr</td><td class="right">₹1,204 Cr</td></tr>
+      <tr><td>Q3 FY26 · Dec 2025</td><td class="right">₹306.79 Cr</td><td class="right red">−44%</td><td class="right red">−₹196.55 Cr</td><td class="right">₹1,329 Cr</td></tr>
+      <tr><td>Q4 FY26 · Mar 2026</td><td class="right">₹333 Cr</td><td class="right red">−35.53%</td><td class="right red">−₹211 Cr</td><td class="right">₹1,514 Cr</td></tr>
+      <tr><td><b>Q1 FY27 · Jun 2026</b></td><td class="right bold">₹402.16 Cr</td><td class="right bold red">−24.96%</td><td class="right bold red">−₹202.24 Cr</td><td class="right bold">₹1,529 Cr</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Q2 FY26&rsquo;s −112% margin includes roughly ₹190 Cr of provisions — about ₹145 Cr of inventory write-downs and ₹44 Cr of warranty provisions — so it is not a clean operating comparison. Q2 FY26 and Q3 FY26 margins are as carried in the scan and on screener.in and are rounded there; Q1 FY26, Q4 FY26 and Q1 FY27 are the precise figures.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">The Margin Path — Improving, and Still Deeply Negative</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Operating margin</th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>Q1 FY26 (a year ago)</td><td class="right red">−67.17%</td></tr>
+      <tr><td>Q4 FY26 (last quarter)</td><td class="right red">−35.53%</td></tr>
+      <tr><td><b>Q1 FY27</b></td><td class="right bold red">−24.96%</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The direction is unambiguous and it is the strongest single fact in the bull case.</b> Four thousand two hundred basis points of margin repair in four quarters is a large move, and it comes almost entirely from operating leverage — the same fixed cost base spread over twice the revenue — rather than from pricing.</p>
+  <p>That mechanism has a clear implication and it is worth stating as arithmetic rather than as hope. At a −24.96% margin on ₹402 Cr, the operating loss is roughly ₹100 Cr per quarter. If the cost base is broadly fixed, <b>revenue would need to rise toward ₹500 Cr a quarter — about a quarter more than Q1 FY27 delivered — for the operating line simply to reach zero</b> (derived, and it assumes no gross-margin change and no cost growth, neither of which is safe). Management&rsquo;s own guidance on the 28 July 2026 call was &ldquo;positive EBITDA and EBIT&rdquo; first, then PAT, with <b>&ldquo;12 to 18 months a reasonable time to expect&rdquo;</b>.</p>
+  <p><b>What that guidance concedes is the timing.</b> Twelve to eighteen months from July 2026 places EBITDA breakeven somewhere between mid-FY28 and late FY28, and PAT profitability after that. Every quarter until then adds to the loss, and — as Section 06 shows — is funded from a balance sheet that is already carrying ₹4,277 Cr of net debt.</p>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Receivables — Two and a Half Years of Sales, Uncollected</h2></div>
+  <p><b>This is the most important number in the report.</b></p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>The receivables position</th><th class="right">Value</th><th>Source and date</th></tr></thead>
+    <tbody>
+      <tr><td>Trade receivables, 31 Mar 2026</td><td class="right bold red">₹3,256 Cr</td><td>FY26 results, reported 15 Apr 2026</td></tr>
+      <tr><td>Debtor days, FY26</td><td class="right bold red">1,077</td><td>screener.in, consolidated</td></tr>
+      <tr><td>Cross-check <span class="muted">(derived)</span></td><td class="right">₹3,255 Cr</td><td>₹1,103 Cr FY26 sales × 1,077 ÷ 365 — reconciles</td></tr>
+      <tr><td>Trailing-twelve-month revenue to 30 Jun 2026 <span class="muted">(derived)</span></td><td class="right">~₹1,304 Cr</td><td>262 + 307 + 333 + 402</td></tr>
+      <tr><td><b>Receivables ÷ TTM revenue</b> <span class="muted">(derived)</span></td><td class="right bold red">~2.50× &nbsp;(≈250%)</td><td>reconciles with the scan&rsquo;s 249.83%</td></tr>
+      <tr><td>Cash conversion cycle, FY26</td><td class="right bold red">2,010 days</td><td>screener.in — debtor 1,077 + inventory 1,160 − payable 227</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Read that ratio slowly. The company is owed two and a half times everything it has sold in the last twelve months.</b> A cash conversion cycle of 2,010 days means that, on FY26 throughput, capital committed to a sale comes back roughly five and a half years later. For an equipment manufacturer that has to buy components before it can ship, this is the binding constraint on the business — more binding than demand, more binding than technology.</p>
+  <h3 class="subsection-title">Management&rsquo;s measure, and why the direction matters more than the level</h3>
+  <p>Management does not present the gross figure. On the Q1 FY27 call (28 July 2026) the CFO gave a <b>net</b> receivable, after adjusting the customer advances held against those balances:</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Net receivables after customer-advance adjustment</th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>30 Jun 2025 <span class="muted">(gross ₹4,453 Cr less ~₹1,460 Cr advances, derived)</span></td><td class="right">~₹2,993 Cr</td></tr>
+      <tr><td>31 Mar 2026</td><td class="right">₹1,905 Cr</td></tr>
+      <tr><td><b>30 Jun 2026</b></td><td class="right bold red">₹2,232 Cr</td></tr>
+      <tr><td>Implied customer advances at 31 Mar 2026 <span class="muted">(derived: ₹3,256 − ₹1,905)</span></td><td class="right">~₹1,351 Cr</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Both readings deserve to be on the page, because they point in opposite directions.</b></p>
+  <ul>
+    <li><b>The favourable one.</b> Gross trade receivables have come down materially — from ₹4,453 Cr at 30 June 2025 to ₹3,256 Cr at 31 March 2026, roughly ₹1,200 Cr collected net over three quarters. On the net measure the improvement was larger still. Collection has been happening.</li>
+    <li><b>The unfavourable one, and it is the more recent.</b> In the June 2026 quarter the net receivable <b>rose by ₹327 Cr</b> (derived), from ₹1,905 Cr to ₹2,232 Cr. Revenue of ₹402 Cr was recognised in that quarter and the amount owed went <em>up</em> by four fifths of it. On the same call, asked about BSNL, the response was that acceptance tests were &ldquo;in a very advanced stage&rdquo; and that &ldquo;we expect a lot of the BSNL receivables to also get cleared during the quarter&rdquo;.</li>
+  </ul>
+  <p><b>That expectation is testable, and the quarter in which it will be tested is Q2 FY27 — the quarter ending 30 September 2026, reporting around October.</b> No reported number available today contains it. If net receivables fall in that quarter, the working-capital thesis is intact and this report&rsquo;s central objection weakens considerably. If they rise again, then the pattern established in Q1 FY27 — revenue growth that converts into receivables rather than cash — is the operating model, and the equity is being asked to fund it.</p>
+  <p class="tbl-note">The audited FY26 balance sheet was not read at source: the BSE filing PDF of 15 April 2026 returned HTTP 403 from this desk. The ₹3,256 Cr figure comes from contemporaneous reporting of the FY26 results and is cross-checked above against screener.in&rsquo;s independently computed debtor-days ratio, which reconciles to within ₹1 Cr. The split of that balance between BSNL and other customers, and any expected-credit-loss provision carried against it, are not established here.</p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">The Balance Sheet Funding All of This</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Debt and cash</th><th class="right">30 Jun 2025</th><th class="right">31 Mar 2026</th><th class="right">30 Jun 2026</th></tr></thead>
+    <tbody>
+      <tr><td>Gross borrowings</td><td class="right">₹3,990 Cr</td><td class="right">₹4,035 Cr</td><td class="right bold">₹4,866 Cr</td></tr>
+      <tr><td>Cash</td><td class="right">₹545 Cr</td><td class="right">₹505 Cr</td><td class="right">₹589 Cr</td></tr>
+      <tr><td><b>Net debt</b></td><td class="right">₹3,445 Cr</td><td class="right">₹3,531 Cr</td><td class="right bold red">₹4,277 Cr</td></tr>
+      <tr><td>Inventory</td><td class="right">₹2,537 Cr</td><td class="right">₹2,438 Cr</td><td class="right">₹2,358 Cr</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Net debt rose ₹746 Cr in a single quarter</b> (derived, March to June 2026) — a quarter in which the company recognised ₹402 Cr of revenue and lost ₹202 Cr. The arithmetic is not mysterious: the loss, plus a ₹327 Cr increase in net receivables, has to be funded, and it is being funded with borrowings.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Capital structure</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Equity capital + reserves, 31 Mar 2026</td><td class="right">₹2,931 Cr</td><td>₹181 Cr capital, ₹2,750 Cr reserves</td></tr>
+      <tr><td>Reserves, 31 Mar 2025</td><td class="right">₹3,667 Cr</td><td>FY26&rsquo;s ₹909 Cr loss consumed a quarter of them</td></tr>
+      <tr><td>Net debt ÷ book equity <span class="muted">(derived)</span></td><td class="right bold red">~1.46×</td><td>₹4,277 Cr against ₹2,931 Cr</td></tr>
+      <tr><td>Receivables + inventory, 31 Mar 2026 <span class="muted">(derived)</span></td><td class="right bold red">₹5,694 Cr</td><td><b>1.94× book equity, 5.2× FY26 revenue</b></td></tr>
+      <tr><td>ROCE / ROE (screener, latest)</td><td class="right red">−14.6% / −26.8%</td><td>Negative on both measures</td></tr>
+      <tr><td>Book value per share</td><td class="right">₹165</td><td>P/B 3.58× — see Section 10</td></tr>
+    </tbody>
+  </table></div>
+  <p>Two consequences follow, and they are the reason this report cannot rate the stock better than Hold on the accounts alone.</p>
+  <ul>
+    <li><b>The gap between the operating loss and the reported loss is financing.</b> Q1 FY27 lost ₹100 Cr at EBITDA and ₹271 Cr before tax. The ₹171 Cr difference is depreciation and net finance cost (derived). Roughly two thirds of the pre-tax loss sits <em>below</em> the operating line — which means operating improvement alone does not fix the bottom line while the debt stays where it is.</li>
+    <li><b>Working capital is the whole balance sheet.</b> ₹5,694 Cr of receivables and inventory against ₹2,931 Cr of book equity means the equity is a minority of the working capital, and the rest is borrowed. Inventory has been written down before — about ₹145 Cr in Q2 FY26 — and ₹2,358 Cr of telecom equipment inventory carries genuine obsolescence risk in a market moving from 4G to 5G.</li>
+  </ul>
+  <p class="tbl-note">The Q1 FY27 press release gives cash of ₹589 Cr, which reconciles exactly with gross ₹4,866 Cr less net ₹4,277 Cr. A transcript of the same call renders the figure as ₹489 Cr and the Q4 FY26 order book as ₹1,314 Cr against the ₹1,514 Cr in the Q4 release; both are treated here as transcription artefacts and the release figures are used. No equity raise, rights issue or preferential allotment has been announced; the only 2026 share issuance found is routine employee stock option allotment.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">The Order Book, and What the ₹1,537 Cr LOI Is</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Order book at quarter end</th><th class="right">Value</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Q4 FY25 · Mar 2025</td><td class="right">₹1,019 Cr</td><td></td></tr>
+      <tr><td>Q1 FY26 · Jun 2025</td><td class="right">₹1,241 Cr</td><td>Excluding the BSNL add-on</td></tr>
+      <tr><td>Q2 FY26 · Sep 2025</td><td class="right">₹1,204 Cr</td><td></td></tr>
+      <tr><td>Q3 FY26 · Dec 2025</td><td class="right">₹1,329 Cr</td><td></td></tr>
+      <tr><td>Q4 FY26 · Mar 2026</td><td class="right">₹1,514 Cr</td><td><b>+49% YoY</b></td></tr>
+      <tr><td>Q1 FY27 · Jun 2026</td><td class="right bold">₹1,529 Cr</td><td>93% India, 7% international</td></tr>
+      <tr><td><b>LOI received 27 Aug 2026</b></td><td class="right bold green">₹1,537 Cr</td><td><b>Not in any figure above</b></td></tr>
+    </tbody>
+  </table></div>
+  <p>On <b>27 August 2026</b> Tejas disclosed a Letter of Intent from <b>Tata Consultancy Services</b> for the supply of RAN equipment, accessories and installation materials for BSNL&rsquo;s 4G mobile network at <b>18,685 sites</b>, valued at <b>₹1,537 Cr</b>. TCS is to issue the detailed purchase order in due course. The stock rose on the disclosure the following session.</p>
+  <p><b>Two things about this order need to be said, and the second one is the reason this is Section 07 and not the headline.</b></p>
+  <h3 class="subsection-title">First, the timing — which quarter contains what</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Event</th><th>Date</th><th>First appears in</th></tr></thead>
+    <tbody>
+      <tr><td>₹1,537 Cr LOI from TCS</td><td>27 Aug 2026</td><td><b>Q2 FY27 order book</b> — quarter ending 30 Sep 2026, reporting ~Oct 2026</td></tr>
+      <tr><td>Revenue from those 18,685 sites</td><td>On delivery and acceptance</td><td><b>Q3 FY27 at the earliest</b>, and spread beyond</td></tr>
+      <tr><td>BSNL receivable collection</td><td>Guided &ldquo;during the quarter&rdquo; on 28 Jul 2026</td><td><b>Q2 FY27 balance sheet</b></td></tr>
+      <tr><td>EBITDA breakeven</td><td>Guided 12–18 months from Jul 2026</td><td><b>Mid- to late FY28</b></td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Nothing reported to date contains any of it.</b> The ₹402 Cr revenue quarter, the ₹1,529 Cr order book, the ₹2,232 Cr net receivable and the −24.96% margin are all measured at 30 June 2026 — two months before the LOI. The price has moved on the announcement; the accounts have not yet been asked to.</p>
+  <h3 class="subsection-title">Second, whether it is new business</h3>
+  <p>In <b>May 2025</b>, Tejas disclosed an add-on Advance Purchase Order routed through TCS under the existing master contract, worth <b>₹1,526 Cr, for 18,685 BSNL 4G sites</b>. Through FY26 the company attributed its revenue collapse to delayed BSNL purchase orders, and the Q3 FY26 shortfall was tied to that ₹1,526 Cr specifically. The order was never carried in the reported order book — the Q1 FY26 book of ₹1,241 Cr was explicitly stated as excluding it.</p>
+  <p><b>The August 2026 LOI covers the same 18,685 sites at ₹1,537 Cr.</b> On the evidence available, the most reasonable reading is that this is the formal conversion of the May 2025 add-on after roughly fifteen months of delay, not a second, incremental award. The company has not stated the relationship either way in the disclosures reviewed here, and this report does not assert it as established.</p>
+  <p>That reading does not make the LOI unimportant — quite the opposite. <b>An order that could not be executed for fifteen months, now formalised, is precisely the thing that unlocks the revenue ramp the margin path needs</b>, and at ₹1,537 Cr it is larger than the entire order book reported at 30 June. But it is a different fact from &ldquo;the order book has doubled on new demand&rdquo;, and the difference matters to anyone extrapolating.</p>
+  <p class="tbl-note">Also pending and not yet awarded: on the 28 July 2026 call management described a further BSNL expansion order covering roughly 26,000 sites as &ldquo;in the final stages of conclusion&rdquo;. Separately, BSNL&rsquo;s proposed ₹77,000 Cr five-year capital programme covering about 2 lakh additional 4G sites was reported on 11 August 2026 — that is BSNL&rsquo;s own proposed capex and explicitly not an order awarded to Tejas.</p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">What Your Own System Says</h2></div>
+<!--FRAMEWORK:BEGIN-->
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (8 Sep 2026 close)</th><th class="right">TEJASNET</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating (1–99, 1,617 stocks)</td><td class="right bold red">67</td></tr>
+      <tr><td>Trend template</td><td class="right bold"><span class="red">FAILS 6/7</span> <span class="muted">(RS >= 70)</span></td></tr>
+      <tr><td>Stage 2 (provider list 28 Aug)</td><td class="right ">Reentry · 6 wks · since 2026-06-14</td></tr>
+      <tr><td>Surveillance</td><td class="right ">None</td></tr>
+      <tr><td>Price vs 50-DMA (₹537.89)</td><td class="right ">+9.7%</td></tr>
+      <tr><td>Price vs 200-DMA (₹526.39)</td><td class="right ">+12.1%</td></tr>
+      <tr><td>Below 52-week high</td><td class="right ">-8.5%</td></tr>
+      <tr><td>Up from 52-week low</td><td class="right ">+100.7%</td></tr>
+      <tr><td>Below all-time high (₹1,495.10)</td><td class="right ">-60.5%</td></tr>
+      <tr><td>3-month return</td><td class="right ">+7.1%</td></tr>
+      <tr><td>1-month return</td><td class="right ">+14.9%</td></tr>
+      <tr><td>1-week return</td><td class="right ">+8.9%</td></tr>
+      <tr><td>1-day return</td><td class="right ">-0.6%</td></tr>
+      <tr><td>Trailing P/E</td><td class="right ">n/m (loss-making)</td></tr>
+      <tr><td>Price / Book</td><td class="right ">3.58×</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Live screener snapshot (8 Sep 2026 close) of 1,617 stocks; 200-DMA slope measured against the 2026-08-27 scan; Stage 2 from the provider list of 2026-08-28. Generated by tools/report/framework_block.py — re-run it after each scan and these rows refresh; nothing here is typed by hand.</p>
+<!--FRAMEWORK:END-->
+  <p><b>Six of seven checks pass. The one that fails is relative strength, at 67 against a threshold of 70.</b> Everything structural is in place — price above both moving averages, the 50-DMA above the 200-DMA, well off the 52-week low and close to the 52-week high. What the template is refusing is the claim that this stock is outperforming the market by enough to qualify as a leader.</p>
+  <p>That refusal deserves to be taken at face value rather than argued around. <b>RS is the check that most directly measures whether other people are buying this more eagerly than they are buying everything else</b>, and on 8 September the answer was no — the reading was 69 during the day and 67 at the close, moving away from the line rather than toward it.</p>
+  <p>Set against that, the provider&rsquo;s Stage 2 list of 28 August carries the name as a <b>&ldquo;Reentry&rdquo;</b> — a stock returning to an advancing stage rather than beginning one — with a mid-June start date. A re-entry is by definition a less-established trend than a long-tenured Stage 2, and the framework&rsquo;s own verdict is consistent with that: the price is advancing, but it has not yet earned leadership.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">BSNL — The Customer, the Concentration and the Cycle</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Financial year</th><th class="right">Revenue</th><th class="right">PAT</th><th>What was happening</th></tr></thead>
+    <tbody>
+      <tr><td>FY24</td><td class="right">₹2,471 Cr</td><td class="right">₹63 Cr</td><td>Pre-ramp</td></tr>
+      <tr><td>FY25</td><td class="right bold">₹8,923 Cr</td><td class="right bold green">₹447 Cr</td><td><b>The ₹7,492 Cr BSNL 4G/5G delivery cycle</b></td></tr>
+      <tr><td>FY26</td><td class="right bold red">₹1,103 Cr</td><td class="right bold red">−₹909 Cr</td><td><b>The air pocket after it</b></td></tr>
+    </tbody>
+  </table></div>
+  <p><b>That is the shape of the business, and no discussion of Tejas is honest without it.</b> Revenue fell 88% in a single year — not because the company lost the customer or the technology failed, but because it finished the job. The ₹7,492 Cr pan-India order for roughly 100,000 4G/5G sites was completed in May 2025, BSNL launched commercially on Tejas RAN with about 97,500 towers deployed, and then there was nothing of comparable size to deliver.</p>
+  <p><b>This is a genuine engineering achievement and a genuinely dangerous revenue profile at the same time.</b> Building indigenous 4G RAN at national scale is something very few companies anywhere have done, and it created a qualified position that is hard to displace. But the order book is <b>93% domestic</b>, and the domestic story is overwhelmingly one customer running a state capital programme on a political and budgetary timetable that Tejas does not control. FY26 is what that dependency costs when the timetable slips.</p>
+  <h3 class="subsection-title">The diversification that is actually happening</h3>
+  <ul>
+    <li><b>Revenue mix in Q1 FY27 was roughly evenly split between India and international</b> — the first quarter in which that has been true, driven by international 5G radio shipments.</li>
+    <li><b>First commercial win for an end-to-end 5G network deployment in South America</b>, and a first significant 5G customer win in Europe.</li>
+    <li>A partnership with <b>NEC</b> for 5G massive-MIMO radios, described on the call as a preferred-partner relationship.</li>
+    <li>Domestically, beyond BSNL: GPON OLT supplies to Indian telcos, 17,000 IP/MPLS routers delivered for BharatNet Phase III (completed 30 March 2026), and a power-utility modernisation vendor selection.</li>
+  </ul>
+  <p><b>The tension is that the revenue mix has diversified while the order book has not</b> — 93% India at 30 June, and the largest single new commitment since then is another BSNL order. International is 7% of the book and roughly half of one quarter&rsquo;s revenue, which means the shipments are being converted almost as fast as they are won. That is good for cash and bad for visibility.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation — With No Earnings to Value</h2></div>
+  <p><b>There is no P/E. The company lost ₹909 Cr in FY26 and has lost money in each of the last five quarters, so every earnings-based multiple is meaningless.</b> That leaves enterprise value against sales, and price against book — both shown with the working.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>The working <span class="muted">(all derived from the 8 Sep scan and reported balance-sheet items)</span></th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>Market capitalisation (8 Sep scan)</td><td class="right">₹10,507.63 Cr</td></tr>
+      <tr><td>Plus net debt at 30 Jun 2026</td><td class="right">₹4,277 Cr</td></tr>
+      <tr><td><b>Enterprise value</b> <span class="muted">(derived)</span></td><td class="right bold">~₹14,785 Cr</td></tr>
+      <tr><td>Trailing-twelve-month revenue to 30 Jun 2026 <span class="muted">(derived)</span></td><td class="right">~₹1,304 Cr</td></tr>
+      <tr><td>Annualised Q1 FY27 revenue <span class="muted">(derived: ₹402.16 × 4)</span></td><td class="right">~₹1,609 Cr</td></tr>
+    </tbody>
+  </table></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Multiple</th><th class="right">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>EV / TTM revenue <span class="muted">(derived)</span></td><td class="right bold red">~11.3×</td><td>Very rich for hardware, on any view</td></tr>
+      <tr><td>EV / annualised Q1 FY27 revenue <span class="muted">(derived)</span></td><td class="right bold red">~9.2×</td><td>The most generous framing available, and still rich</td></tr>
+      <tr><td>Market cap / TTM revenue <span class="muted">(derived)</span></td><td class="right red">~8.1×</td><td>Ignores the debt entirely</td></tr>
+      <tr><td>EV / FY25 revenue <span class="muted">(derived, ₹8,923 Cr)</span></td><td class="right green">~1.66×</td><td><b>What it would look like at peak-cycle throughput</b></td></tr>
+      <tr><td>Price / Book</td><td class="right bold red">3.58×</td><td>On ₹165 book value per share, with ROE −26.8%</td></tr>
+      <tr><td>Trailing P/E</td><td class="right bold red">none</td><td>Loss-making</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The spread between 11.3× and 1.66× is the entire investment question in one line.</b> The market is not valuing this on trailing sales — at 11.3× EV/sales it plainly cannot be. It is valuing it on the belief that FY25-type throughput returns. Whether that is reasonable depends entirely on whether ₹8,923 Cr was a run-rate or a one-off delivery cycle, and Section 09 argues it was the latter.</p>
+  <h3 class="subsection-title">What the market paid at the peak</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>At the all-time high of ₹1,495.10</th><th class="right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>Shares outstanding around the peak <span class="muted">(derived: ₹174 Cr equity capital, ₹10 face value, Mar 2024)</span></td><td class="right">~17.4 Cr</td></tr>
+      <tr><td>Implied market capitalisation <span class="muted">(derived)</span></td><td class="right">~₹26,000 Cr</td></tr>
+      <tr><td>On FY24 revenue of ₹2,471 Cr <span class="muted">(derived)</span></td><td class="right red">~10.5× sales</td></tr>
+      <tr><td>On FY24 PAT of ₹63 Cr <span class="muted">(derived)</span></td><td class="right red">~413× earnings</td></tr>
+      <tr><td>On the FY25 that followed — ₹8,923 Cr revenue, ₹447 Cr PAT <span class="muted">(derived)</span></td><td class="right">~2.9× sales, ~58× earnings</td></tr>
+      <tr><td><b>Today, on TTM revenue</b> <span class="muted">(derived)</span></td><td class="right bold red">~8.1× sales</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>This is the comparison that should change how the drawdown reads.</b> The share price is far below its all-time high — but the <em>valuation</em> is not far below what the market was paying at that high. At the peak the market paid roughly 10.5× trailing sales; today it pays roughly 8.1×. The price has fallen much further than the multiple, because <b>sales fell further than the price did.</b></p>
+  <p>The peak multiple was, for one year, vindicated: FY25 delivered and the ₹1,495 price turned out to be about 58× the earnings that arrived. <b>The bull case here is therefore a specific and legitimate one — that a second FY25 is coming, and the current multiple will be validated the same way.</b> The bear case is the same fact read the other way: the multiple has never been supported by anything except a single delivery cycle, and it is being asked to survive on the promise of another.</p>
+  <p class="tbl-note">Sources conflict on the all-time high. The desk scan carries ₹1,495.10; Business Standard reported an intraday record of ₹1,413.70 on 11 June 2024; one aggregator shows ₹1,034.96, which appears to be adjusted. The scan figure is used here for consistency with Section 08. On ₹1,413.70 the same arithmetic gives a peak market capitalisation of roughly ₹24,600 Cr and about 10.0× FY24 sales — the conclusion is unchanged either way. The exact date and level of the peak are not independently confirmed here.</p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">The ₹1,537 Cr LOI converts to a firm purchase order within Q2 FY27 and the ~26,000-site BSNL expansion is awarded behind it, taking the order book past ₹3,000 Cr. Net receivables fall in the September quarter as the BSNL acceptance tests close, so revenue starts converting to cash rather than to debtors, and net debt stops rising. Revenue climbs toward ₹500 Cr a quarter, EBITDA crosses zero inside the guided 12–18 months, and international 5G — already half of Q1 FY27 revenue — grows into a second leg that reduces the 93% domestic concentration. In that world FY25-type throughput returns, EV/sales collapses through revenue rather than through price, and RS clears 70 as the leadership the framework is currently withholding arrives.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">The LOI converts and executes, but on BSNL&rsquo;s timetable rather than the company&rsquo;s — meaningful revenue lands from Q3 FY27 and runs into FY28. Margin keeps improving on operating leverage and EBITDA breakeven arrives near the far end of the guided window, but PAT stays negative because roughly two thirds of the pre-tax loss sits below the operating line in depreciation and interest on ₹4,866 Cr of gross borrowings. Receivables come down slowly and unevenly, net debt plateaus rather than falls. The stock has no earnings anchor to re-rate against, so it trades on order-flow headlines: sharp moves on announcements, long flat stretches between them. RS oscillates around the threshold and the framework keeps saying not yet.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">The LOI takes months to become a purchase order — as the May 2025 add-on did — and execution slips again. Net receivables rise for a second consecutive quarter, net debt pushes past ₹4,500 Cr, and funding the working capital requires equity: at 3.58× book with reserves already a quarter lower than a year ago, a raise would be dilutive and would land while the stock is well off its high. Some part of the ₹2,358 Cr inventory is written down again, as ₹145 Cr was in Q2 FY26. The deferred tax asset supporting the reported loss becomes harder to justify and is trimmed. On 11.3× EV/sales with no earnings, no P/E floor and a failing trend template, there is nothing structural holding the price up if the order flow pauses.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Receivables at roughly 2.5× annual sales — and rising</div><div class="risk-body">Trade receivables of ₹3,256 Cr at 31 March 2026 against trailing-twelve-month revenue of about ₹1,304 Cr; 1,077 debtor days and a 2,010-day cash conversion cycle. Management&rsquo;s net measure, after customer advances, <b>rose ₹327 Cr in the June 2026 quarter</b> — from ₹1,905 Cr to ₹2,232 Cr — on ₹402 Cr of revenue. Growth that converts to debtors rather than cash has to be funded by borrowing, and it is being.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Loss-making with ₹4,277 Cr of net debt</div><div class="risk-body">Net debt rose ₹746 Cr in one quarter and stands at about 1.46× book equity (derived). Roughly two thirds of the ₹271 Cr pre-tax loss is depreciation and finance cost below the operating line, so operating recovery alone does not reach breakeven at the bottom line. Interest coverage is flagged as low by screener.in. A refinancing or a rate move is a real exposure, not a theoretical one.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">The LOI is not yet a purchase order — and may not be new business</div><div class="risk-body">TCS is to issue the detailed PO &ldquo;in due course&rdquo;. The same 18,685 sites were announced in May 2025 at ₹1,526 Cr and then went undelivered for fifteen months, which is what caused the FY26 revenue collapse. If the August 2026 LOI is that order formalised rather than an additional one, the incremental demand is smaller than the headline implies. The relationship has not been stated by the company in the disclosures reviewed.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Single-customer, single-programme concentration</div><div class="risk-body">The order book is 93% domestic and the domestic business is dominated by BSNL. FY25 revenue of ₹8,923 Cr and FY26 revenue of ₹1,103 Cr are the same customer relationship in two different years. Nothing about that lumpiness has changed.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Inventory of ₹2,358 Cr and obsolescence</div><div class="risk-body">Held against orders that have repeatedly slipped, in a market transitioning from 4G to 5G. Roughly ₹145 Cr of inventory write-downs and ₹44 Cr of warranty provisions went through Q2 FY26 alone. Inventory days of 1,160 leave a great deal of time for equipment to become obsolete.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">It fails your own trend template</div><div class="risk-body">RS 67 against a 70 threshold, six of seven checks passing. It failed intraday at 69 and closed lower, so the reading moved away from the line. The provider&rsquo;s Stage 2 classification is &ldquo;Reentry&rdquo; — a returning trend, not an established one.</div></div>
+  <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">The reported loss depends on a deferred tax credit</div><div class="risk-body">A ₹68.57 Cr credit stands between the ₹270.81 Cr pre-tax loss and the ₹202.24 Cr reported loss (derived). That asset has to be recovered out of future taxable profit at a company that has lost money for five consecutive quarters. A change in that judgement reduces reported profit without any operating cause.</div></div>
+  <div class="risk-row"><div class="risk-num">08</div><div class="risk-name">Surveillance — clear today, flagged twice this year</div><div class="risk-body"><b>No ASM, ESM or GSM measure is active as of 8 September 2026</b>, verified independently of the provider list. But TEJASNET went onto BSE Short-Term ASM Stage I twice in 2026 — 5–30 March and 8–18 May. Given the volatility that repeatedly triggers it, a further ASM spell would raise margin requirements and is a live constraint, not a historical footnote. ESM is structurally inapplicable at this market capitalisation.</div></div>
+  <div class="risk-row"><div class="risk-num">09</div><div class="risk-name">No earnings anchor to the valuation</div><div class="risk-body">About 11.3× EV/sales and 3.58× book with ROE at −26.8% and no P/E. Nothing in the accounts sets a floor. The price is supported by expectations of order flow, and it reprices when order flow news arrives or fails to.</div></div>
+  <div class="risk-row"><div class="risk-num">10</div><div class="risk-name">Dilution</div><div class="risk-body">Reserves fell from ₹3,667 Cr to ₹2,750 Cr over FY26. If working capital keeps absorbing cash and lenders reach their limit, equity is the remaining source. No raise has been announced; the only 2026 issuance found is routine employee stock options.</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: HOLD — STAGE 2 PRICE, STAGE 4 ACCOUNTS</div>
+    <p>Tejas Networks has an appealing turnaround narrative and it is largely true. BSNL&rsquo;s pan-India indigenous 4G network was built and launched on Tejas equipment across roughly 97,500 towers. Revenue has risen for four consecutive quarters and nearly doubled year-on-year. The operating margin has repaired by more than 4,200 basis points in a year. International 5G has produced first commercial wins in Europe and South America and now accounts for about half of quarterly revenue. On 27 August a ₹1,537 crore Letter of Intent arrived that is larger than the entire order book reported at 30 June. The promoter is Tata, at 53.33% with nothing pledged.</p>
+    <p><b>And the accounts say something harder.</b> The company lost ₹909 crore in FY26 and has lost money in each of the last five quarters. There is no P/E. The operating margin is still −24.96%. Net debt rose ₹746 crore in a single quarter to ₹4,277 crore, about 1.46× book equity. Most damning, <b>trade receivables of ₹3,256 crore stand at roughly two and a half times trailing annual revenue, with a 2,010-day cash conversion cycle — and on management&rsquo;s own net measure, receivables went up by ₹327 crore in the June quarter on ₹402 crore of revenue.</b> The business is currently converting growth into debtors and funding the gap with borrowing.</p>
+    <p><b>The framework agrees, narrowly and specifically.</b> Six of seven checks pass; the failure is relative strength at 67 against a threshold of 70, and it failed away from the line rather than toward it. The price structure is intact — this is not MTAR, where the chart was broken. What is missing is leadership, and the provider&rsquo;s own classification of &ldquo;Reentry&rdquo; says the same thing in different words.</p>
+    <p><b>The timing rule settles the rating.</b> The LOI is dated 27 August; the last reported quarter closed 30 June. No reported number contains the order, the revenue from it, or the BSNL collections management said would clear &ldquo;during the quarter&rdquo;. All three are Q2 FY27 or later events, reporting around October. <b>The price has already moved on the announcement; the accounts have not yet been asked to confirm it.</b> A loss-making company with receivables at 2.5× sales, ₹4,277 crore of net debt and a failing trend template does not earn better than Hold on an order that has not yet become a purchase order — particularly when the same 18,685 sites were announced fifteen months earlier and did not execute.</p>
+    <p>Equally, it does not earn worse. The order is real, the margin repair is real, the promoter is solid, no surveillance measure is active, and one clean collection quarter would remove this report&rsquo;s central objection. <b>Hold is not indecision here. It is a statement that the case rests entirely on a quarter that has not been reported yet, and that the framework — for one specific, checkable reason — is still saying wait.</b></p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Q2 FY27 net receivables (quarter ending 30 Sep 2026, reporting ~Oct)</b> — the decisive item. Down from ₹2,232 Cr means BSNL collections landed; up again means the working-capital model is unchanged.</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Conversion of the 27 Aug LOI into a firm purchase order from TCS</b>, and any company statement on whether it is the May 2025 ₹1,526 Cr add-on or additional to it</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Net debt — whether the ₹746 Cr single-quarter increase repeats, plateaus or reverses</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Award of the ~26,000-site BSNL expansion order described as &ldquo;in the final stages of conclusion&rdquo; on 28 July 2026</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Operating margin — the path from −24.96% toward zero, against the guided 12–18 months to positive EBITDA</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Any inventory write-down against the ₹2,358 Cr balance, and any change to the deferred tax asset</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>RS crossing 70</b> — the single condition that would make the trend template pass</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>International order book beyond 7% — whether the 5G wins become backlog rather than pass-through shipments</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>ASM status</b> — clear as of 8 Sep 2026, but flagged twice in 2026 already. Re-check before and after any sharp move.</div>
+  <div class="monitor-item"><span class="monitor-dot"></span>Any equity raise, preferential issue or promoter pledge — none announced as of 8 Sep 2026</div>
+  <h3 class="subsection-title">Source quality</h3>
+  <p class="tbl-note"><b>SOURCE QUALITY.</b> Primary sources used: the company&rsquo;s Q1 FY27 press release of 27 July 2026 (revenue, PBT, PAT, order book, gross debt, cash, net debt) and the Q1 FY27 earnings call of 28 July 2026 (net receivables, inventory, revenue mix, breakeven guidance, BSNL commentary). <b>Not reachable from this desk:</b> BSE corporate-filing PDFs returned HTTP 403 for both the 15 April 2026 FY26 results filing and the 27 August 2026 LOI disclosure, so the audited FY26 balance sheet and the LOI text were not read at source; business-standard.com and communicationstoday.co.in also returned HTTP 403; nseindia.com timed out, so ASM/ESM status was verified instead through Trendlyne&rsquo;s BSE surveillance record for TEJASNET as of 8 September 2026 (&ldquo;Not active in ASM or GSM&rdquo;). <b>Conflicts noted:</b> the ₹3,256 Cr receivables figure is from secondary reporting of the FY26 results, cross-checked to within ₹1 Cr against screener.in&rsquo;s debtor-days ratio; the Q1 FY27 call transcript renders cash as ₹489 Cr and the Q4 FY26 order book as ₹1,314 Cr, against ₹589 Cr and ₹1,514 Cr in the releases, and the release figures are used; at least one aggregator reported the ₹271 Cr pre-tax loss as the net loss; the all-time high is reported variously as ₹1,495.10 (desk scan), ₹1,413.70 (Business Standard, 11 June 2024) and ₹1,034.96 (adjusted); live third-party quote pages showed a marginally different 8 September close and market capitalisation than the desk scan, and the desk&rsquo;s 27 August baseline price is higher than the 27–28 August closes reported in the press by roughly the size of the 28 August order-day move, which is consistent with the baseline having been captured after that session. <b>Not established:</b> the BSNL share of the receivables balance, any expected-credit-loss provision, the audited 30 June 2026 balance sheet, and the exact date of the all-time high. <b>Nothing was found dated between 29 August and 8 September 2026</b> in the news feeds checked — no orders, PLI receipts, block deals, promoter transactions or capital-raise announcements — so the September advance appears to be continuation rather than news.</p>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>TEJAS NETWORKS LIMITED (NSE: TEJASNET | BSE: 540595) &nbsp;|&nbsp; EQUITY RESEARCH REPORT &nbsp;|&nbsp; SEPTEMBER 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Q1 FY27 press release and earnings call, 27-28 Jul 2026 &middot; Q4 FY26 and FY26 results, 15 Apr 2026 &middot; Exchange disclosure of the TCS letter of intent, 27 Aug 2026 &middot; Trendlyne BSE surveillance record for ASM/GSM status, 8 Sep 2026 &middot; SwingEdge scan, 8 Sep 2026</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

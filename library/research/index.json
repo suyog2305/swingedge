@@ -1,6 +1,78 @@
 {
-  "updated": "2026-08-30",
+  "updated": "2026-09-08",
   "reports": [
+    {
+      "id": "syrma-2026-09",
+      "title": "Syrma SGS Technology",
+      "subtitle": "Electronics manufacturing services and ODM · Mumbai · Consumer, automotive, industrial, healthcare, IT and railways · A year-long Stage 2 meeting an 85× multiple",
+      "code": "SYRMA",
+      "sector": "Industrial Manufacturing",
+      "date": "2026-09-08",
+      "rating": "Hold at CMP — Real Growth, Late-Stage Tenure, 85× Price",
+      "cmp": "₹1,639.20",
+      "mcap": "~₹31,617 Cr",
+      "targets": {
+        "bull": "Revenue +67%, ODM doubling, ₹6,770 Cr order book",
+        "bear": "85× trailing, margin −170 bps QoQ, ₹1,000 Cr QIP approved"
+      },
+      "summary": "Syrma SGS passes the trend template 7/7 on RS 87 at an all-time high, with Q1 FY27 revenue up 66.7% and PAT up 111.7%, ODM revenue roughly doubling to 17% of sales and a Rs 6,770 Cr order book. But operating margin fell 170 bps sequentially to 10.2%, net cash dropped from Rs 467 Cr to Rs 122 Cr in…",
+      "file": "syrma-2026-09.html",
+      "featured": true
+    },
+    {
+      "id": "bodalchem-2026-09",
+      "title": "Bodal Chemicals",
+      "subtitle": "Dyestuff and dye intermediates · Ahmedabad · The price has nearly doubled in twelve days on no new reported number",
+      "code": "BODALCHEM",
+      "sector": "Chemicals & Petrochemicals",
+      "date": "2026-09-08",
+      "rating": "Hold at CMP — The Re-Rating Arrived Before the Earnings",
+      "cmp": "₹184.05",
+      "mcap": "~₹2,322 Cr",
+      "targets": {
+        "bull": "H-acid at record yuan levels into Q2 FY27",
+        "bear": "The multiple doubled on an unchanged earnings base"
+      },
+      "summary": "Bodal has nearly doubled in twelve trading days on no new reported number, re-rating from roughly 18x to 34x trailing earnings and from 1.07x to 2.00x book while earnings, book value and share count stayed where they were. The H-acid thesis is better evidenced than in August, but Q2 FY27, reported…",
+      "file": "bodalchem-2026-09.html",
+      "featured": true
+    },
+    {
+      "id": "tejasnet-2026-09",
+      "title": "Tejas Networks",
+      "subtitle": "Optical, broadband and wireless network equipment · Bengaluru · Tata group (Panatone Finvest) · A Stage 2 chart on a loss-making balance sheet",
+      "code": "TEJASNET",
+      "sector": "Telecom - Equipment & Accessories",
+      "date": "2026-09-08",
+      "rating": "Hold — Stage 2 Price, Stage 4 Accounts",
+      "cmp": "₹590.05",
+      "mcap": "~₹10,508 Cr",
+      "targets": {
+        "bull": "A ₹1,537 Cr LOI that more than doubles the order book",
+        "bear": "Receivables at 2.5× annual sales, ₹4,277 Cr net debt, no earnings"
+      },
+      "summary": "Revenue nearly doubled year-on-year to Rs 402 Cr in Q1 FY27 and the operating margin has repaired by more than 4,200 basis points in a year, but Tejas is still loss-making, carries Rs 4,277 Cr of net debt, and is owed trade receivables worth roughly two and a half times its trailing annual sales.…",
+      "file": "tejasnet-2026-09.html",
+      "featured": true
+    },
+    {
+      "id": "ebgng-2026-09",
+      "title": "GNG Electronics",
+      "subtitle": "India’s largest refurbisher of laptops and desktops · Electronics Bazaar · India, USA, Europe, Africa, UAE",
+      "code": "EBGNG",
+      "sector": "IT - Hardware",
+      "date": "2026-09-08",
+      "rating": "Hold at CMP — The Memory Thesis Is Already in the Numbers",
+      "cmp": "₹665.15",
+      "mcap": "~₹7,565 Cr",
+      "targets": {
+        "bull": "Refurbished priced at ~30% of new — so new-PC inflation lifts realisation directly",
+        "bear": "~53× earnings, ~10× book, and ₹743 Cr of inventory bought into a decelerating curve"
+      },
+      "summary": "The memory-shortage thesis behind GNG’s re-rating is not a future catalyst but is already in the reported margin. Management has quoted DDR5 and SSD prices on calls since February, refurbished units are priced at roughly 30% of an equivalent new machine, and Q1 FY27 grew revenue 32% on volume of…",
+      "file": "ebgng-2026-09.html",
+      "featured": true
+    },
     {
       "id": "chemtop3-2026-08",
       "title": "Chemicals Cluster — The Top Three",
