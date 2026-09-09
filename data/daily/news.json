@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-03",
+  "updated": "2026-09-09",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -304,6 +304,70 @@
         "src": "Outlook Business",
         "url": "https://www.outlookbusiness.com/news/exicoms-ev-charger-breakthrough-indias-first-liquid-cooled-power-modules-hit-production",
         "date": "2026-08-19"
+      }
+    ],
+    "NOVARTIND": [
+      {
+        "t": "Novartis India shares jump 4% on Rs 1,250 crore Pfizer trademarks acquisition",
+        "src": "Business Today",
+        "url": "https://www.businesstoday.in/markets/stocks/story/novartis-india-shares-jump-4-on-rs-1250-crore-pfizer-trademarks-acquisition-553599-2026-09-07",
+        "date": "2026-09-07"
+      }
+    ],
+    "GRAPHITE": [
+      {
+        "t": "Graphite India shares rise over 18%, hit fresh 52-week high on GrafTech's 30% electrode price hike",
+        "src": "Business Today",
+        "url": "https://www.businesstoday.in/markets/stocks/story/graphite-india-shares-rise-over-18-percent-hit-fresh-52-week-high-heres-why-554146-2026-09-09",
+        "date": "2026-09-09"
+      }
+    ],
+    "WHEELS": [
+      {
+        "t": "Wheels India shares surge 20% to record high, gain over 40% in five sessions",
+        "src": "TradeBrains",
+        "url": "https://tradebrains.in/indian-markets/wheels-india-shares-surge-20-to-record-high-gain-over-40-in-five-sessions-12510453",
+        "date": "2026-09-09"
+      }
+    ],
+    "ESDS": [
+      {
+        "t": "ESDS Software shares continue bull run post listing, hit upper circuit for third straight session",
+        "src": "India TV News",
+        "url": "https://www.indiatvnews.com/business/markets/esds-software-share-price-continue-bull-run-post-listing-hit-upper-circuit-for-third-consecutive-session-2026-09-08-1053626",
+        "date": "2026-09-08"
+      }
+    ],
+    "HLEGLAS": [
+      {
+        "t": "HLE Glascoat rises after German subsidiary secures Euro 20.56 million supply contract",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/capital-market-news/hle-glascoat-rises-after-securing-supply-contract-worth-20-56-million-euro-126090800266_1.html",
+        "date": "2026-09-08"
+      }
+    ],
+    "ANTELOPUS": [
+      {
+        "t": "Antelopus Selan Energy share price up over 32% in 3 days on new oil & gas block wins",
+        "src": "TradingView",
+        "url": "https://www.tradingview.com/news/moodys:579dbc499c6f9:0-antelopus-selan-energy-share-price-up-over-32-up-in-3-days-what-s-behind-continuous-stock-jump-details-here/",
+        "date": "2026-09-08"
+      }
+    ],
+    "STEELXIND": [
+      {
+        "t": "Steel Exchange India surges on APCRDA approval for Simhadri TMT in Rs 65,000-crore Amaravati project",
+        "src": "TradeBrains",
+        "url": "https://tradebrains.in/steel-exchange-india-surges-on-apcrda-approval-for-simhadri-tmt-in-65000-cr-amaravati-capital-project/",
+        "date": "2026-09-03"
+      }
+    ],
+    "JAYKAY": [
+      {
+        "t": "Jaykay Enterprises subsidiary secures Rs 94.45 crore order from BrahMos Aerospace; shares jump",
+        "src": "Angel One",
+        "url": "https://www.angelone.in/news/market-updates/jaykay-enterprises-subsidiary-secures-94-45-crore-order-from-brahmos-aerospace-share-price-jumps-over-5",
+        "date": "2026-09-08"
       }
     ]
   }
