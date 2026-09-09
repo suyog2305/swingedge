@@ -1,48 +1,48 @@
 # Roadmap
 
 What's built, what's blocked, and what's next — in dependency order rather than wish order.
-Status as of **2026-09-08**.
+Status as of **2026-09-09**.
 
 ---
 
-## 0. Blocked on one thing
+## 0. Unblocked — 2026-09-09
 
-**The screener.in session cookie.** `.secrets/screener_cookie.txt` still holds the scaffolded
-placeholder (`PASTE_YOUR…`), so `load_cookie()` correctly treats it as unset and
-`fetch_screener.py` refuses to fetch rather than downloading a login page and calling it data.
+**The screener cookie is in.** `fetch_screener.py` reads it, the pipeline ran end to end for
+the first time since 27 August, and the app now serves a live 9 September scan of **1,622
+names**. The scheduled task was moved from 09:00 to **15:40 IST**, ten minutes after the close,
+so it captures the same day rather than the previous one.
 
-The `SwingEdge Daily Pull` scheduled task is **Ready** and has been firing daily at 09:00 IST —
-and stopping cleanly every morning since 28 Aug. Nothing else is wrong with the pipeline.
+The cookie still expires on its own schedule. When it does the log line turns from `NOT SET` to
+`redirected to login`, and it needs re-pasting — which is why the manual **EOD button** stays.
+Note the session belongs to the account the subscription is named after, not to a separate login.
 
-Three things unblock the moment the real `sessionid` lands, and none of them can be tested before:
+### What the first real pull taught us, which no browser test had reached
 
-1. **The daily pull starts refreshing at all.** Everything downstream — shortlist, Stage 2
-   journal, freshness badge — is currently frozen against the 2026-08-27 scan.
-2. **The extended query gets its first end-to-end run.** `Return over 6months` and
-   `Return over 1year` were added to the screener query so RS can use the IBD quarterly
-   weighting instead of the short-window fallback. Verified in the browser against the live
-   screen; never run through `fetch_screener.py`.
-3. **The schedule wants retiming.** 09:00 IST is pre-open, so every pull captures the *previous*
-   session's close. Coherent, but a day behind. Move the trigger to ~15:40 IST for same-day
-   closes once the pull is proven to work at all.
+**screener.in appends AT MOST TWO query terms as export columns, in query order.** Terms beyond
+the second still filter but never appear in the file. Proven by swapping `Return over 6months`
+and `Return over 1year` in the query and re-exporting — the first two arrived, the third did not.
 
-> The cookie expires on its own schedule. When it does, the log line turns from `NOT SET` to
-> `redirected to login — your sessionid cookie is missing or expired`, and it needs re-pasting.
-> That recurring expiry is exactly why the manual **EOD button** exists next to the scheduled
-> task, and why "just automate it" is not the whole answer.
+Two routes were tested and ruled out:
 
-**2026-09-08 — still unset, and it now costs something measurable.** The daily pull has stopped
-cleanly every morning since 28 Aug, so `data/scans/` ends at 2026-08-27 while seven reports were
-written against 8 September prices. The closing figures for those seven had to be scraped through
-the browser page by page and committed as a partial capture
-(`data/daily/snapshots/2026-09-08.json`) purely so the reports could be verified at all. Pulling
-the full 1,617-row universe that way was measured and rejected: roughly 190k tokens of context to
-work around a two-minute paste. **Until the cookie is set, the app keeps serving the 27 Aug scan
-no matter how current the reports are.**
+- `/user/columns/` (**EDIT COLUMNS**) changes only the **on-screen table**. It does not affect the
+  export. The earlier roadmap entry recommending it as the fix for missing columns was **wrong**.
+- `DMA 150` still is not a field at all, so Weinstein's 30-week line remains unavailable.
 
-Also worth knowing: the screener session in the browser profile used for that scrape is signed in
-as a different person. The screen data is identical either way, but a cookie copied from there
-would be their session, not yours.
+That created a false choice: full coverage *or* the columns the RS composite needs. The plain
+query sees every name but has no `r6m`/`r1y`, so RS silently falls back to
+`0.5·r3m + 0.3·r1m + 0.2·r1w`; adding the return filters engages IBD quarterly weighting but
+drops ~120 names with no full year of history, twelve of which pass every template check except RS.
+
+**Resolved by unioning two pulls.** `tools/merge_exports.py` takes the broad export as the base —
+it decides who is visible — and overlays the filtered one for the extra columns, matching on
+exact NSE code and never on name. `eod.py` now does both pulls and the merge automatically.
+Result: **1,622 names, IBD quarterly weighting active on 1,500, correct short-window fallback on
+122.** A name with no year of history is now visible and falls back, instead of vanishing.
+
+> The weighting change moves RS materially — Tejas 67 to 47, Kiri 94 to 78 — but flips **zero**
+> trend-template verdicts across the seven names reported on 8 September. Every pass stayed a
+> pass and the one fail stayed a fail, so no published conclusion rests on which weighting
+> produced it. Checked before the change was accepted, not after.
 
 ---
 
