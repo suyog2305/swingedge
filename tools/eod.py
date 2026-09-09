@@ -69,10 +69,31 @@ def main():
     print(f'SwingEdge EOD refresh — {date}')
     before_date, before = snapshot()
 
+    # screener.in appends AT MOST TWO query terms as export columns, so no single pull gives
+    # both full coverage and the r6m/r1y the IBD weighting needs. Pull both and union them:
+    # the broad query decides who is visible, the filtered one supplies the extra columns.
+    BROAD   = 'Market Capitalization > 1000'
+    RETURNS = 'Market Capitalization > 1000 AND Return over 6months > -1000 AND Return over 1year > -1000'
+    exp = os.path.join(ROOT, 'exports')
+    base    = os.path.join('exports', f'screener_{date}_base.csv')
+    overlay = os.path.join('exports', f'screener_{date}_returns.csv')
+    merged  = os.path.join('exports', f'screener_{date}_merged.csv')
+
     steps = []
     if not a.skip_fetch:
-        steps.append(('fetch screener export + build scan',
-                      [py, os.path.join('tools', 'fetch_screener.py'), '--date', date]))
+        steps += [
+            ('pull the broad universe (decides coverage)',
+             [py, os.path.join('tools', 'fetch_screener.py'), '--date', date, '--no-build',
+              '--query', BROAD, '--suffix', '_base']),
+            ('pull the returns variant (supplies r6m + r1y)',
+             [py, os.path.join('tools', 'fetch_screener.py'), '--date', date, '--no-build',
+              '--query', RETURNS, '--suffix', '_returns']),
+            ('union the two exports',
+             [py, os.path.join('tools', 'merge_exports.py'), '--base', base, '--overlay', overlay, '--out', merged]),
+            ('build the scan',
+             [py, os.path.join('tools', 'build_scan.py'), '--date', date, '--screener', merged,
+              '--screen-name', 'Market cap > 1000 (broad + returns, merged)']),
+        ]
     steps += [
         ('rank the daily shortlist', [py, os.path.join('tools', 'build_shortlist.py'), '--date', date,
                                       '--top', str(a.top), '--quiet']),
@@ -82,7 +103,7 @@ def main():
         if not run(name, cmd, a.dry_run):
             print(f'\nSTOPPED at "{name}". Nothing further was rebuilt, so the app still shows '
                   f'the last good data rather than a half-refreshed mix.')
-            if 'fetch' in name:
+            if 'pull' in name or 'fetch' in name:
                 print('If this was the cookie: log in to screener.in, copy the sessionid cookie into '
                       '.secrets/screener_cookie.txt, and run again.')
             return 1

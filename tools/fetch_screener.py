@@ -191,6 +191,11 @@ def main():
     ap.add_argument('--date', default=None, help='week-ending ISO date; default = most recent Friday')
     ap.add_argument('--dry-run', action='store_true', help='show the plan and check the cookie, fetch nothing')
     ap.add_argument('--no-build', action='store_true', help='download only, do not run build_scan.py')
+    ap.add_argument('--query', help="override the screener source raw_query for this run only; the config is "
+                                    "not modified. Used by eod.py to pull the broad and the returns variants in "
+                                    "one session so merge_exports.py can union them.")
+    ap.add_argument('--suffix', default='', help='append to the export filename, so two pulls on one date do not '
+                                                 'overwrite each other')
     ap.add_argument('--commit', action='store_true', help='git add/commit data/scans (and push if config.git.push)')
     a = ap.parse_args()
 
@@ -204,6 +209,15 @@ def main():
     sources = cfg.get('sources') or cfg.get('exports') or []      # accept the old key name too
     if not sources:
         raise SystemExit('config has no "sources" — add at least one {screen_url|url, kind} entry.')
+    if a.query:
+        # Override in memory only. The config on disk stays the record of intent; this is a
+        # per-run variant so the same session can pull two column sets and merge them.
+        sources = [dict(e) for e in sources]
+        for e in sources:
+            if e.get('kind', 'screener') == 'screener' and e.get('raw_query'):
+                e['raw_query'] = a.query
+                e['name'] = (e.get('name') or 'screener') + ' [--query override]'
+                break
 
     raw_cookie, src = load_cookie()
     print(f'week-ending {date}')
@@ -231,7 +245,7 @@ def main():
             data = fetch_direct(e['url'], jar)
         else:
             raise SystemExit(f'  ! source "{e.get("name","?")}" has none of raw_query / screen_url / url.')
-        path, n = save(data, os.path.join(EXPORTS, f'{kind}_{date}'))
+        path, n = save(data, os.path.join(EXPORTS, f'{kind}_{date}{a.suffix}'))
         print(f'  saved {os.path.relpath(path, ROOT)} ({n:,} bytes)')
         built[kind] = (path, e)
 
