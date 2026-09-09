@@ -1,8 +1,8 @@
 {
-  "_comment": "Copy this to tools/screener_config.json (gitignored) and put your screener.in sessionid in .secrets/screener_cookie.txt. Give each source ONE of: raw_query (a query string, no saved screen needed — RECOMMENDED), screen_url (a saved screen's page URL), or url (a direct CSV/XLSX link). kind = 'screener' or 'stage2'.",
+  "_comment": "Copy this to tools/screener_config.json (gitignored) and put your screener.in sessionid in .secrets/screener_cookie.txt. Give each source ONE of: raw_query (a query string, no saved screen needed \u2014 RECOMMENDED), screen_url (a saved screen's page URL), or url (a direct CSV/XLSX link). kind = 'screener' or 'stage2'.",
   "sources": [
     {
-      "raw_query": "Market Capitalization > 1000 AND Volume > 0 AND Return over 1year > -1000 AND Return over 6months > -1000 AND Return over 3months > -1000 AND Return over 1month > -1000 AND Return over 1week > -1000",
+      "raw_query": "Market Capitalization > 1000 AND Return over 6months > -1000 AND Return over 1year > -1000",
       "kind": "screener",
       "name": "Market cap > 1000 (broad market)",
       "min_mcap": 1000,
@@ -12,5 +12,6 @@
   "git": {
     "push": true,
     "branch": "main"
-  }
+  },
+  "_column_note": "screener.in appends AT MOST TWO query terms as export columns, in the order they appear in the query. Novel terms beyond the second are filtered on but NOT exported. So you get any two of {Return over 6months, Return over 1year, Volume} - never all three. 6months+1year is chosen because the RS composite needs r3m+r6m+r1y together to use IBD quarterly weighting; with either missing it silently falls back to 0.5*r3m+0.3*r1m+0.2*r1w. Reordering the query changes which two arrive - verified 2026-09-09 by swapping them and re-exporting. To get all three you must add the column on the SAVED SCREEN via EDIT COLUMNS, which changes the screener account config, not this file."
 }
