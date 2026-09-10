@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-09",
+  "updated": "2026-09-10",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -308,15 +308,15 @@
     ],
     "NOVARTIND": [
       {
-        "t": "Novartis India shares jump 4% on Rs 1,250 crore Pfizer trademarks acquisition",
+        "t": "Novartis India shares soar 18% to record high, extend 9-day gain to 74% on Pfizer Minipress deal",
         "src": "Business Today",
-        "url": "https://www.businesstoday.in/markets/stocks/story/novartis-india-shares-jump-4-on-rs-1250-crore-pfizer-trademarks-acquisition-553599-2026-09-07",
-        "date": "2026-09-07"
+        "url": "https://www.businesstoday.in/markets/stocks/story/novartis-india-shares-soar-18-to-record-high-extend-9-day-gains-to-74-heres-why-554518-2026-09-10",
+        "date": "2026-09-10"
       }
     ],
     "GRAPHITE": [
       {
-        "t": "Graphite India shares rise over 18%, hit fresh 52-week high on GrafTech's 30% electrode price hike",
+        "t": "Graphite India shares surge 18% to 52-week high after GrafTech announces 30% electrode price hike",
         "src": "Business Today",
         "url": "https://www.businesstoday.in/markets/stocks/story/graphite-india-shares-rise-over-18-percent-hit-fresh-52-week-high-heres-why-554146-2026-09-09",
         "date": "2026-09-09"
@@ -324,23 +324,23 @@
     ],
     "WHEELS": [
       {
-        "t": "Wheels India shares surge 20% to record high, gain over 40% in five sessions",
-        "src": "TradeBrains",
+        "t": "Wheels India shares surge 20% to record high, up over 40% in five sessions on preferential issue buzz",
+        "src": "Trade Brains",
         "url": "https://tradebrains.in/indian-markets/wheels-india-shares-surge-20-to-record-high-gain-over-40-in-five-sessions-12510453",
-        "date": "2026-09-09"
+        "date": "2026-09-08"
       }
     ],
     "ESDS": [
       {
-        "t": "ESDS Software shares continue bull run post listing, hit upper circuit for third straight session",
-        "src": "India TV News",
-        "url": "https://www.indiatvnews.com/business/markets/esds-software-share-price-continue-bull-run-post-listing-hit-upper-circuit-for-third-consecutive-session-2026-09-08-1053626",
-        "date": "2026-09-08"
+        "t": "ESDS Software Solution extends rally, hits 20% upper circuit a day after multibagger listing",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/esds-software-share-price-extends-rally-hits-20-upper-band-after-multibagger-listing-126090700189_1.html",
+        "date": "2026-09-07"
       }
     ],
     "HLEGLAS": [
       {
-        "t": "HLE Glascoat rises after German subsidiary secures Euro 20.56 million supply contract",
+        "t": "HLE Glascoat rises after step-down subsidiary bags Euro 20.56 million cladding panel contract",
         "src": "Business Standard",
         "url": "https://www.business-standard.com/markets/capital-market-news/hle-glascoat-rises-after-securing-supply-contract-worth-20-56-million-euro-126090800266_1.html",
         "date": "2026-09-08"
@@ -348,10 +348,10 @@
     ],
     "ANTELOPUS": [
       {
-        "t": "Antelopus Selan Energy share price up over 32% in 3 days on new oil & gas block wins",
-        "src": "TradingView",
+        "t": "Antelopus Selan Energy hits record high, up 32% in 3 days after winning 2 DSF Bid Round-IV blocks",
+        "src": "TradingView News",
         "url": "https://www.tradingview.com/news/moodys:579dbc499c6f9:0-antelopus-selan-energy-share-price-up-over-32-up-in-3-days-what-s-behind-continuous-stock-jump-details-here/",
-        "date": "2026-09-08"
+        "date": "2026-09-03"
       }
     ],
     "STEELXIND": [
@@ -368,6 +368,30 @@
         "src": "Angel One",
         "url": "https://www.angelone.in/news/market-updates/jaykay-enterprises-subsidiary-secures-94-45-crore-order-from-brahmos-aerospace-share-price-jumps-over-5",
         "date": "2026-09-08"
+      }
+    ],
+    "MOLBIO": [
+      {
+        "t": "Molbio Diagnostics hits 20% upper circuit on heavy volume, up 35% in two days post-IPO",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/molbio-diagnostics-hits-20-upper-circuit-on-heavy-volume-up-35-in-2-days-126091000419_1.html",
+        "date": "2026-09-10"
+      }
+    ],
+    "GREENPOWER": [
+      {
+        "t": "Orient Green Power hits day's high after ICRA upgrades credit rating on two subsidiaries",
+        "src": "Equitypandit",
+        "url": "https://www.equitypandit.com/orient-green-power-hits-%E2%82%B910-49-high-on-icra-upgrade/",
+        "date": "2026-09-09"
+      }
+    ],
+    "CHENNPETRO": [
+      {
+        "t": "Chennai Petroleum (CPCL) top Nifty Oil & Gas gainer as crude nears $100/barrel on West Asia tensions",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/chennai-petroleum-mrpl-oil-india-rise-up-to-5-as-crude-price-nears-100-126090900372_1.html",
+        "date": "2026-09-09"
       }
     ]
   }
