@@ -1,66 +1,33 @@
 @echo off
 rem ============================================================================
-rem SwingEdge daily pull — run by Windows Task Scheduler (task "SwingEdge Daily Pull").
+rem SwingEdge daily pull -- run by Windows Task Scheduler (task "SwingEdge Daily Pull"),
+rem weekdays at 15:40 IST, ten minutes after the close.
 rem
-rem   1. fetch the broad screener.in universe (raw_query in tools\screener_config.json)
-rem      using your cookie in .secrets\screener_cookie.txt, and rebuild data\scans\
-rem   2. rebuild the convergence shortlist -> data\daily\shortlist.json
-rem   3. commit BOTH in one commit, rebase on origin, and push
+rem Until 2026-09-10 this file chained fetch_screener -> build_shortlist -> build_s2history
+rem -> git by hand, and called fetch_screener WITHOUT a date. That defaulted to the previous
+rem Friday, so every daily scan was written over one Friday-labelled file (two different
+rem closes were found in data\scans\2026-09-04.json). It also made a single pull, so the
+rem 6-month / 1-year returns and volume never reached the export.
 rem
-rem Logs to .secrets\daily_pull.log (gitignored). If the cookie is missing or the
-rem fetch fails, it stops before step 2 and writes nothing. On non-trading days the
-rem data is unchanged, so the commit is a clean no-op.
-rem The rebase in step 3 keeps this from colliding with the daily gainers-news
-rem cloud routine, which pushes data\daily\news.json around 18:30 IST.
+rem tools\eod.py is now the one maintained path. It dates the scan TODAY, makes three pulls
+rem of the same universe and unions them by exact code (screener exports at most two extra
+rem columns per pull), skips non-trading days when screener is still serving the last close,
+rem rebuilds the shortlist and the Stage 2 journal, then commits, rebases and pushes -- and it
+rem stops rather than mixing a fresh shortlist with a stale scan. This wrapper only logs.
 rem
-rem Run manually any time:  tools\daily_pull.cmd
+rem Logs to .secrets\daily_pull.log (gitignored). Run manually any time:  tools\daily_pull.cmd
 rem ============================================================================
 setlocal
 cd /d "%~dp0.."
 set "PATH=C:\Program Files\Git\cmd;%PATH%"
 set "PY=C:\Python314\python.exe"
+set "PYTHONIOENCODING=utf-8"
 if not exist ".secrets" mkdir ".secrets"
 set "LOG=.secrets\daily_pull.log"
 
 echo(>> "%LOG%"
 echo ====================================================================>> "%LOG%"
-echo [%date% %time%] daily pull start>> "%LOG%"
-
-rem ---- 1. scan -------------------------------------------------------------
-"%PY%" tools\fetch_screener.py >> "%LOG%" 2>&1
-if errorlevel 1 (
-  echo [%date% %time%] fetch failed or no cookie - stopping before shortlist/commit>> "%LOG%"
-  goto :done
-)
-
-rem ---- 2. shortlist --------------------------------------------------------
-"%PY%" tools\build_shortlist.py >> "%LOG%" 2>&1
-if errorlevel 1 echo [%date% %time%] WARNING: shortlist build failed - committing the scan anyway>> "%LOG%"
-
-rem ---- 2b. Stage 2 day-by-day history -------------------------------------
-"%PY%" tools\build_s2history.py --quiet >> "%LOG%" 2>&1
-if errorlevel 1 echo [%date% %time%] WARNING: s2history build failed>> "%LOG%"
-
-rem ---- 3. commit all, rebase, push ----------------------------------------
-git add data/scans data/daily >> "%LOG%" 2>&1
-git diff --cached --quiet
-if not errorlevel 1 (
-  echo [%date% %time%] nothing changed - nothing to commit>> "%LOG%"
-  goto :done
-)
-git commit -m "Daily scan + shortlist + Stage 2 history" >> "%LOG%" 2>&1
-git pull --rebase origin main >> "%LOG%" 2>&1
-if errorlevel 1 (
-  echo [%date% %time%] ERROR: rebase failed - resolve by hand, nothing pushed>> "%LOG%"
-  goto :done
-)
-git push origin main >> "%LOG%" 2>&1
-if errorlevel 1 (
-  echo [%date% %time%] ERROR: push failed>> "%LOG%"
-) else (
-  echo [%date% %time%] committed and pushed>> "%LOG%"
-)
-
-:done
+echo [%date% %time%] daily pull start (tools\eod.py --push)>> "%LOG%"
+"%PY%" tools\eod.py --push >> "%LOG%" 2>&1
 echo [%date% %time%] finished with exit code %errorlevel%>> "%LOG%"
 endlocal

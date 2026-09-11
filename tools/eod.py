@@ -10,7 +10,9 @@ something short to hand you.
 
 WHAT IT RUNS, IN ORDER
 
-  1. fetch_screener.py   pull today's screener export and build data/scans/<date>.json
+  1. fetch_screener.py   three pulls of the same universe (broad / returns / volume),
+     merge_exports.py    unioned by exact code because screener exports at most two
+                         extra columns per pull; then build_scan.py -> data/scans/<date>.json
   2. build_shortlist.py  rank the universe into the 20 daily candidates
   3. build_s2history.py  append today to the Stage 2 journal
 
@@ -55,12 +57,49 @@ def snapshot():
         return None, []
 
 
+def same_data_as_previous(merged_csv, date):
+    """Non-trading-day guard. screener serves the last close on weekends and holidays, so a
+    pull on such a day reproduces yesterday's prices under today's date and quietly pads the
+    archive with duplicates. Compare the merged export against the newest scan carrying a
+    DIFFERENT date; if every shared price matches, there is nothing new."""
+    import csv, glob
+    try:
+        rows = list(csv.reader(io.open(merged_csv, encoding='utf-8-sig', newline='')))
+    except OSError:
+        return False, 0, None
+    h = {c: k for k, c in enumerate(rows[0])}
+    ci, pi = h.get('NSE Code'), h.get('Current Price')
+    if ci is None or pi is None:
+        return False, 0, None
+    today = {r[ci].upper(): r[pi] for r in rows[1:] if len(r) > max(ci, pi) and r[ci]}
+    prev = None
+    for path in sorted(glob.glob(os.path.join(ROOT, 'data', 'scans', '20*.json')), reverse=True):
+        try:
+            d = json.load(io.open(path, encoding='utf-8'))
+        except Exception:
+            continue
+        if d.get('date') != date and len(d.get('universe') or []) >= 500:
+            prev = d; break
+    if not prev:
+        return False, 0, None
+    old = {r['code'].upper(): r.get('price') for r in prev['universe'] if r.get('code')}
+    common = [c for c in today if c in old]
+    if len(common) < 200:
+        return False, len(common), prev.get('date')
+
+    def same(a, b):
+        try: return abs(float(a) - float(b)) < 1e-6
+        except (TypeError, ValueError): return False
+    matches = sum(1 for c in common if same(today[c], old[c]))
+    return matches == len(common), len(common), prev.get('date')
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--date', help='scan date (default: today)')
     ap.add_argument('--push', action='store_true', help='commit and push the refreshed data')
     ap.add_argument('--dry-run', action='store_true', help='print the plan, run nothing')
-    ap.add_argument('--skip-fetch', action='store_true', help='rebuild from the export already on disk')
+    ap.add_argument('--skip-fetch', action='store_true', help='rebuild from the merged export already on disk')
     ap.add_argument('--top', type=int, default=20, help='how many shortlist candidates (default 20)')
     a = ap.parse_args()
 
@@ -69,44 +108,54 @@ def main():
     print(f'SwingEdge EOD refresh — {date}')
     before_date, before = snapshot()
 
-    # screener.in appends AT MOST TWO query terms as export columns, so no single pull gives
-    # both full coverage and the r6m/r1y the IBD weighting needs. Pull both and union them:
-    # the broad query decides who is visible, the filtered one supplies the extra columns.
+    # screener.in appends AT MOST TWO query terms as export columns, in query order — verified
+    # 2026-09-09 by swapping them. So no single pull gives coverage AND the extra columns. Pull
+    # three variants of the same universe and union them: the broad query decides who is
+    # visible; the others only add columns. merge_exports matches on exact code, never on name.
     BROAD   = 'Market Capitalization > 1000'
-    RETURNS = 'Market Capitalization > 1000 AND Return over 6months > -1000 AND Return over 1year > -1000'
-    exp = os.path.join(ROOT, 'exports')
-    base    = os.path.join('exports', f'screener_{date}_base.csv')
-    overlay = os.path.join('exports', f'screener_{date}_returns.csv')
-    merged  = os.path.join('exports', f'screener_{date}_merged.csv')
+    RETURNS = BROAD + ' AND Return over 6months > -1000 AND Return over 1year > -1000'
+    VOLUME  = BROAD + ' AND Volume > 0 AND Volume 1month average > 0'
+    E = lambda sfx: os.path.join('exports', f'screener_{date}{sfx}.csv')
+    base, returns, volume, m1, merged = E('_base'), E('_returns'), E('_volume'), E('_m1'), E('_merged')
+    fetch = [py, os.path.join('tools', 'fetch_screener.py'), '--date', date, '--no-build']
+    merge = [py, os.path.join('tools', 'merge_exports.py')]
 
-    steps = []
+    def go(steps):
+        for name, cmd in steps:
+            if not run(name, cmd, a.dry_run):
+                print(f'\nSTOPPED at "{name}". Nothing further was rebuilt, so the app still shows '
+                      f'the last good data rather than a half-refreshed mix.')
+                if 'pull' in name:
+                    print('If this was the cookie: log in to screener.in, copy the sessionid cookie into '
+                          '.secrets/screener_cookie.txt, and run again.')
+                return False
+        return True
+
     if not a.skip_fetch:
-        steps += [
-            ('pull the broad universe (decides coverage)',
-             [py, os.path.join('tools', 'fetch_screener.py'), '--date', date, '--no-build',
-              '--query', BROAD, '--suffix', '_base']),
-            ('pull the returns variant (supplies r6m + r1y)',
-             [py, os.path.join('tools', 'fetch_screener.py'), '--date', date, '--no-build',
-              '--query', RETURNS, '--suffix', '_returns']),
-            ('union the two exports',
-             [py, os.path.join('tools', 'merge_exports.py'), '--base', base, '--overlay', overlay, '--out', merged]),
-            ('build the scan',
-             [py, os.path.join('tools', 'build_scan.py'), '--date', date, '--screener', merged,
-              '--screen-name', 'Market cap > 1000 (broad + returns, merged)']),
-        ]
-    steps += [
+        if not go([
+            ('pull the broad universe (decides coverage)',        fetch + ['--query', BROAD,   '--suffix', '_base']),
+            ('pull the returns variant (r6m + r1y)',              fetch + ['--query', RETURNS, '--suffix', '_returns']),
+            ('pull the volume variant (volume + 1-month average)', fetch + ['--query', VOLUME,  '--suffix', '_volume']),
+            ('union: broad + returns',                            merge + ['--base', base, '--overlay', returns, '--out', m1]),
+            ('union: + volume',                                   merge + ['--base', m1,   '--overlay', volume,  '--out', merged]),
+        ]):
+            return 1
+        if not a.dry_run:
+            same, n, prev = same_data_as_previous(os.path.join(ROOT, merged), date)
+            if same:
+                print(f'\n--- no new data')
+                print(f'    all {n} shared prices match the {prev} scan exactly — screener is still serving '
+                      f'that close, so today is a non-trading day. Nothing written, nothing committed.')
+                return 0
+
+    if not go([
+        ('build the scan', [py, os.path.join('tools', 'build_scan.py'), '--date', date, '--screener', merged,
+                            '--screen-name', 'Market cap > 1000 (broad + returns + volume, merged)']),
         ('rank the daily shortlist', [py, os.path.join('tools', 'build_shortlist.py'), '--date', date,
                                       '--top', str(a.top), '--quiet']),
         ('append to the Stage 2 journal', [py, os.path.join('tools', 'build_s2history.py'), '--quiet']),
-    ]
-    for name, cmd in steps:
-        if not run(name, cmd, a.dry_run):
-            print(f'\nSTOPPED at "{name}". Nothing further was rebuilt, so the app still shows '
-                  f'the last good data rather than a half-refreshed mix.')
-            if 'pull' in name or 'fetch' in name:
-                print('If this was the cookie: log in to screener.in, copy the sessionid cookie into '
-                      '.secrets/screener_cookie.txt, and run again.')
-            return 1
+    ]):
+        return 1
 
     if a.dry_run:
         print('\n--dry-run: nothing was fetched, built, or pushed.')
@@ -116,7 +165,7 @@ def main():
     after_date, after = snapshot()
     print('\n--- what changed')
     if before_date == after_date:
-        print(f'    scan date unchanged ({after_date}) — the export may be the same one as last run')
+        print(f'    scan date unchanged ({after_date}) — rebuilt in place')
     else:
         print(f'    scan {before_date or "(none)"} -> {after_date}')
     joined = [c for c in after if c not in before]
@@ -135,9 +184,17 @@ def main():
             return 0
         msg = (f'EOD data refresh {after_date}\n\n'
                f'Shortlist {len(after)} names ({len(joined)} new, {len(dropped)} gone). '
-               f'Built by tools/eod.py.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n')
-        subprocess.run(['git', 'commit', '-m', msg], cwd=ROOT)
-        subprocess.run(['git', 'pull', '--rebase', 'origin', 'main'], cwd=ROOT)
+               f'Built by tools/eod.py: three screener pulls unioned by exact code.\n\n'
+               f'Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n')
+        if subprocess.run(['git', 'commit', '-q', '-m', msg], cwd=ROOT).returncode:
+            print('    commit failed'); return 1
+        # A failed rebase must never leave the repo mid-rebase: tomorrow's run would then fail
+        # at git add with no obvious cause. Abort, keep the local commit, and say so.
+        if subprocess.run(['git', 'pull', '--rebase', 'origin', 'main'], cwd=ROOT).returncode:
+            subprocess.run(['git', 'rebase', '--abort'], cwd=ROOT)
+            print('    rebase failed — aborted so the repo is not left mid-rebase. The commit is local; '
+                  'pull by hand and push.')
+            return 1
         if subprocess.run(['git', 'push', 'origin', 'main'], cwd=ROOT).returncode:
             print('    push failed — the commit is local, try again')
             return 1

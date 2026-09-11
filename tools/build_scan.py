@@ -54,6 +54,7 @@ EXTRA = {
     'float':      ['public float', 'free float', 'float'],
     'rec_sales':  ['receivables to sales ratio', 'receivables to sales'],
     'volume':     ['volume', 'avg volume', 'average volume', 'volume 1w', 'avg volume 1w'],
+    'vol_1m':     ['volume 1month average', 'volume 1m average', 'avg volume 1m', 'average volume 1month', 'volume 1month avg'],
     # Stage 2 list
     'tv_code':    ['tradingview code', 'tradingview', 'tv code', 'symbol', 'code', 'ticker', 'nse code'],
     'rs_pct':     ['relative strength %', 'relative strength', 'rs %', 'rs%', 'rs'],
@@ -88,7 +89,7 @@ def build_universe(path, min_mcap):
     cols = map_columns(headers, ['name', 'bse', 'code', 'isin', 'group', 'industry', 'price', 'mcap', 'dma50', 'dma200',
                                  'r3m', 'r6m', 'y1', 'm1', 'w1', 'r1d', 'from_52wh', 'high_52w', 'up_52wl', 'peg', 'pe', 'pb',
                                  'sales_qoq', 'op_qoq', 'eps_qoq', 'np_qoq', 'sales_yoy', 'op_yoy', 'np_yoy', 'eps_yoy',
-                                 'opm_q', 'opm_pq', 'opm_pyq', 'public_hold', 'float', 'rec_sales', 'ath', 'volume'])
+                                 'opm_q', 'opm_pq', 'opm_pyq', 'public_hold', 'float', 'rec_sales', 'ath', 'volume', 'vol_1m'])
     need = [f for f in ('name', 'w1') if f not in cols]
     if need: raise SystemExit(f'--screener {path}: could not find column(s) {need}. Headers seen: {headers}')
     # screener.in has both "Down from 52w high" (positive % below) and "From 52w high" (0..1 ratio); prefer the % one
@@ -115,7 +116,7 @@ def build_universe(path, min_mcap):
                             ('up_52wl', 'up_52wl', 2), ('peg', 'peg', 2), ('pe', 'pe', 2), ('pb', 'pb', 2),
                             ('sales_qoq', 'sales_qoq', 2), ('op_qoq', 'op_qoq', 2), ('eps_qoq', 'eps_qoq', 2), ('np_qoq', 'np_qoq', 2),
                             ('sales_yoy', 'sales_yoy', 2), ('op_yoy', 'op_yoy', 2), ('np_yoy', 'np_yoy', 2), ('eps_yoy', 'eps_yoy', 2),
-                            ('opm_q', 'opm_q', 2), ('opm_pq', 'opm_pq', 2), ('opm_pyq', 'opm_pyq', 2), ('public_hold', 'public_hold', 2), ('float', 'float', 0), ('rec_sales', 'rec_sales', 2), ('ath', 'ath', 2), ('volume', 'volume', 0)):
+                            ('opm_q', 'opm_q', 2), ('opm_pq', 'opm_pq', 2), ('opm_pyq', 'opm_pyq', 2), ('public_hold', 'public_hold', 2), ('float', 'float', 0), ('rec_sales', 'rec_sales', 2), ('ath', 'ath', 2), ('volume', 'volume', 0), ('vol_1m', 'vol_1m', 0)):
             v = num(cell(r, cols, k))
             if v is not None: item[out_k] = rnd(v, d)
         f52 = None

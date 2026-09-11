@@ -149,6 +149,7 @@ def block(code, row, prev_row, s2, s2date, label, universe_n, source_note):
     d50, d200, ath = num(row.get('dma50')), num(row.get('dma200')), num(row.get('ath'))
     f52, up52 = num(row.get('from_52wh')), num(row.get('up_52wl'))
     pe, pb = num(row.get('pe')), num(row.get('pb'))
+    vol, vol1m = num(row.get('volume')), num(row.get('vol_1m'))
     flag = (s2 or {}).get('asm') or ''
     flag = flag.strip() if isinstance(flag, str) else ''
     rs_cls = 'green' if (rs or 0) >= 80 else ('' if (rs or 0) >= 70 else 'red')
@@ -173,6 +174,10 @@ def block(code, row, prev_row, s2, s2date, label, universe_n, source_note):
         ('1-month return', fmt_pct(num(row.get('r1m'))), ''),
         ('1-week return', fmt_pct(num(row.get('r1w'))), ''),
         ('1-day return', fmt_pct(num(row.get('r1d'))), ''),
+        # Weinstein's third condition: a breakout means nothing without volume behind it. 1.5x the
+        # 1-month average is the conventional bar; below 1.0x on an up day is the warning sign.
+        ('Volume vs 1-month average', (f'{vol / vol1m:.2f}×' if vol and vol1m else '—'),
+         ('bold green' if vol and vol1m and vol / vol1m >= 1.5 else ('red' if vol and vol1m and vol / vol1m < 0.7 else ''))),
         ('Trailing P/E', (f'{pe:.1f}×' if pe is not None and pe > 0 else 'n/m (loss-making)'), ''),
         ('Price / Book', (f'{pb:.2f}×' if pb is not None else '—'), ''),
     ]
