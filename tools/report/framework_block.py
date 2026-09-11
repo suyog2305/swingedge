@@ -74,9 +74,13 @@ def scans_on_disk():
 def newest_universe(loaded, before=None):
     """(date, {code: row}) for the newest scan carrying a broad universe."""
     for p, d in reversed(loaded):
-        U = [r for r in d.get('universe', []) if r.get('code')]
+        # Rank over EVERY row, exactly as the app's RS Screen does, then expose the code-bearing ones.
+        # Ranking over code-bearing rows only (the 65 BSE-only names dropped) moved borderline names
+        # across the RS 70 line and made the tools disagree with the app by a point or two.
+        allU = d.get('universe', []) or []
+        U = [r for r in allU if r.get('code')]
         if len(U) >= 500 and (before is None or d.get('date') < before):
-            return d.get('date'), {r['code'].upper(): r for r in U}, U
+            return d.get('date'), {r['code'].upper(): r for r in U}, allU
     return None, {}, []
 
 

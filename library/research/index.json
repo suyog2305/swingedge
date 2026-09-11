@@ -17,7 +17,21 @@
       },
       "summary": "Syrma SGS passes the trend template 7/7 on RS 87 at an all-time high, with Q1 FY27 revenue up 66.7% and PAT up 111.7%, ODM revenue roughly doubling to 17% of sales and a Rs 6,770 Cr order book. But operating margin fell 170 bps sequentially to 10.2%, net cash dropped from Rs 467 Cr to Rs 122 Cr in…",
       "file": "syrma-2026-09.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-09-08",
+        "source": "snapshot",
+        "universe": 7,
+        "rs": 87,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 53 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 1639.2
+      }
     },
     {
       "id": "bodalchem-2026-09",
@@ -35,7 +49,21 @@
       },
       "summary": "Bodal has nearly doubled in twelve trading days on no new reported number, re-rating from roughly 18x to 34x trailing earnings and from 1.07x to 2.00x book while earnings, book value and share count stayed where they were. The H-acid thesis is better evidenced than in August, but Q2 FY27, reported…",
       "file": "bodalchem-2026-09.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-09-08",
+        "source": "snapshot",
+        "universe": 7,
+        "rs": 99,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 3 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": "ESM - I",
+        "price": 184.05
+      }
     },
     {
       "id": "tejasnet-2026-09",
@@ -53,7 +81,23 @@
       },
       "summary": "Revenue nearly doubled year-on-year to Rs 402 Cr in Q1 FY27 and the operating margin has repaired by more than 4,200 basis points in a year, but Tejas is still loss-making, carries Rs 4,277 Cr of net debt, and is owed trade receivables worth roughly two and a half times its trailing annual sales.…",
       "file": "tejasnet-2026-09.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-09-08",
+        "source": "snapshot",
+        "universe": 7,
+        "rs": 67,
+        "template": "FAIL",
+        "passed": 6,
+        "checks": 7,
+        "failed": [
+          "RS"
+        ],
+        "stage2": "Reentry · 6 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 590.05
+      }
     },
     {
       "id": "ebgng-2026-09",
@@ -71,7 +115,21 @@
       },
       "summary": "The memory-shortage thesis behind GNG’s re-rating is not a future catalyst but is already in the reported margin. Management has quoted DDR5 and SSD prices on calls since February, refurbished units are priced at roughly 30% of an equivalent new machine, and Q1 FY27 grew revenue 32% on volume of…",
       "file": "ebgng-2026-09.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-09-08",
+        "source": "snapshot",
+        "universe": 7,
+        "rs": 95,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 30 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 665.15
+      }
     },
     {
       "id": "kiriindus-2026-09",
@@ -89,7 +147,21 @@
       },
       "summary": "Kiri joined the H-acid upper-circuit move and the trend template flipped from FAILS to a full pass with RS 94, but it clears the 52-week-high check by about half a percentage point, so the pass is the thinnest the system can produce. In the same fortnight the board resolved to raise Rs 288.92 crore…",
       "file": "kiriindus-2026-09.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-09-08",
+        "source": "snapshot",
+        "universe": 7,
+        "rs": 94,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 2 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 588.1
+      }
     },
     {
       "id": "iolcp-2026-09",
@@ -107,7 +179,21 @@
       },
       "summary": "The mix-shift thesis is untouched and the screener’s lower 13.69% OPM turns out to be a different definition applied to a different quarter, not a margin collapse. But every rupee of the advance since 27 August is multiple expansion on identical reported earnings, a Rs 1,200-1,400 Cr Badbar…",
       "file": "iolcp-2026-09.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-09-08",
+        "source": "snapshot",
+        "universe": 7,
+        "rs": 95,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 16 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": "LTASM - I",
+        "price": 210.98
+      }
     },
     {
       "id": "shreepushk-2026-09",
@@ -125,7 +211,21 @@
       },
       "summary": "Shree Pushkar rose 13.1% between 27 August and 8 September and set a new all-time high, but no quarter was reported and no announcement of substance was made in that window, so the trailing multiple expanded by almost exactly the price move. The company’s own Q1 FY27 disclosures do resolve the…",
       "file": "shreepushk-2026-09.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-09-08",
+        "source": "snapshot",
+        "universe": 7,
+        "rs": 91,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Reentry · 12 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 510.05
+      }
     },
     {
       "id": "chemtop3-2026-08",
@@ -159,7 +259,21 @@
       },
       "summary": "Optical fibre cable, telecom equipment and defence electronics · Himachal Futuristic Communications · A loss-to-profit turnaround on a record order book",
       "file": "hfcl-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 91,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 20 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": "LTASM - I",
+        "price": 250.65
+      }
     },
     {
       "id": "tdpowersys-2026-08",
@@ -177,7 +291,21 @@
       },
       "summary": "AC generators and electric motors · Bengaluru · An export manufacturer with a Turkey subsidiary and a railway arm",
       "file": "tdpowersys-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 83,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 73 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 751.35
+      }
     },
     {
       "id": "ebgng-2026-08",
@@ -195,7 +323,21 @@
       },
       "summary": "India’s largest refurbisher of laptops and desktops · Electronics Bazaar · India, USA, Europe, Africa, UAE",
       "file": "ebgng-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 80,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 30 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 620.9
+      }
     },
     {
       "id": "krn-2026-08",
@@ -213,7 +355,21 @@
       },
       "summary": "Fin-and-tube heat exchangers for HVAC and refrigeration · Neemrana, Rajasthan · Supplier to global HVAC OEMs",
       "file": "krn-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 91,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 28 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 1580.4
+      }
     },
     {
       "id": "rategain-2026-08",
@@ -231,7 +387,21 @@
       },
       "summary": "SaaS for travel and hospitality · MarTech, DaaS and Distribution · Transformed by the Sojern acquisition",
       "file": "rategain-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 70,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 17 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 934.0
+      }
     },
     {
       "id": "divgiitts-2026-08",
@@ -249,7 +419,21 @@
       },
       "summary": "Transfer cases, torque couplers and drivetrain assemblies · Pune · The smallest company in your book",
       "file": "divgiitts-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 93,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 24 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 1162.0
+      }
     },
     {
       "id": "rba-2026-08",
@@ -267,7 +451,21 @@
       },
       "summary": "Burger King master franchisee for India and Indonesia · 752 restaurants · Still loss-making, but the loss is shrinking fast",
       "file": "rba-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 95,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 8 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": "STASM - I",
+        "price": 100.55
+      }
     },
     {
       "id": "rkforge-2026-08",
@@ -285,7 +483,21 @@
       },
       "summary": "Forgings and castings for commercial vehicles, railways and industry · Jamshedpur · Titagarh railway-wheel joint venture",
       "file": "rkforge-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 80,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 5 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 746.1
+      }
     },
     {
       "id": "rptech-2026-08",
@@ -303,7 +515,21 @@
       },
       "summary": "National distributor of IT and technology products · Mumbai · Moving from components toward enterprise and AI infrastructure",
       "file": "rptech-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 85,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 35 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": "LTASM - I",
+        "price": 816.55
+      }
     },
     {
       "id": "shadowfax-2026-08",
@@ -321,7 +547,21 @@
       },
       "summary": "Crowdsourced last-mile logistics · Bengaluru · Listed early 2026 · Criticalog subsidiary",
       "file": "shadowfax-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 76,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 21 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": "LTASM - I",
+        "price": 246.05
+      }
     },
     {
       "id": "maninds-2026-08",
@@ -339,7 +579,21 @@
       },
       "summary": "Large-diameter LSAW and HSAW line pipes · MAN Group, Mumbai · Now with a wholly owned Saudi manufacturer",
       "file": "maninds-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 96,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 23 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 757.2
+      }
     },
     {
       "id": "sigmaadv-2026-08",
@@ -357,7 +611,21 @@
       },
       "summary": "Tier-1 integrated aerospace & defence · Hyderabad and the UK · A twelve-month-old listed identity on a ₹8,000 Cr order book",
       "file": "sigmaadv-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 97,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 21 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": "LTASM - IV",
+        "price": 777.0
+      }
     },
     {
       "id": "qpower-2026-08",
@@ -375,7 +643,21 @@
       },
       "summary": "High-voltage reactors, FACTS and grid-connection equipment · Sangli, Maharashtra · Endoks (Turkey) subsidiary",
       "file": "qpower-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 87,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 54 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 1430.35
+      }
     },
     {
       "id": "mtartech-2026-08",
@@ -393,7 +675,23 @@
       },
       "summary": "Precision engineering for clean energy, civil nuclear, space and defence · Hyderabad · Record order book, broken price trend",
       "file": "mtartech-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 60,
+        "template": "FAIL",
+        "passed": 6,
+        "checks": 7,
+        "failed": [
+          "RS"
+        ],
+        "stage2": "Continues Trend · 51 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": "LTASM - IV",
+        "price": 7049.5
+      }
     },
     {
       "id": "stltech-2026-08",
@@ -411,7 +709,21 @@
       },
       "summary": "Optical fibre and connectivity solutions · ~9% global OFC share excluding China · A loss-era turnaround on an AI data-centre contract",
       "file": "stltech-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 91,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 30 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": "LTASM - IV",
+        "price": 720.1
+      }
     },
     {
       "id": "balamines-2026-08",
@@ -429,7 +741,21 @@
       },
       "summary": "Aliphatic amines, specialty chemicals and DME · Solapur, Maharashtra · The inflection called in May has arrived",
       "file": "balamines-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 88,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 16 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": "LTASM - I",
+        "price": 2377.0
+      }
     },
     {
       "id": "sudeepphrm-2026-08",
@@ -447,7 +773,21 @@
       },
       "summary": "Mineral excipients and specialty ingredients · Vadodara · A battery-materials option attached to a nutrition franchise",
       "file": "sudeepphrm-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 94,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 20 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 1128.65
+      }
     },
     {
       "id": "ifci-2026-08",
@@ -465,7 +805,21 @@
       },
       "summary": "India’s oldest development finance institution · Government-owned · Priced as a listed proxy for the NSE, not as a lender",
       "file": "ifci-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 82,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 14 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 90.1
+      }
     },
     {
       "id": "astramicro-2026-08",
@@ -483,7 +837,23 @@
       },
       "summary": "RF and microwave subsystems for radar, EW, space and meteorology · Hyderabad · A record order book on a weak quarter",
       "file": "astramicro-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 68,
+        "template": "FAIL",
+        "passed": 6,
+        "checks": 7,
+        "failed": [
+          "RS"
+        ],
+        "stage2": "Continues Trend · 25 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": "LTASM - I",
+        "price": 1684.5
+      }
     },
     {
       "id": "atlantaele-2026-08",
@@ -501,7 +871,23 @@
       },
       "summary": "Power, inverter-duty and auto transformers · Anand, Gujarat · Order book up 25% while the stock fell 22%",
       "file": "atlantaele-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 15,
+        "template": "FAIL",
+        "passed": 6,
+        "checks": 7,
+        "failed": [
+          "RS"
+        ],
+        "stage2": "Continues Trend · 21 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 1713.65
+      }
     },
     {
       "id": "aurionpro-2026-08",
@@ -519,7 +905,29 @@
       },
       "summary": "IP-led enterprise technology · Navi Mumbai · Banking software and smart transit · 48% below its 52-week high",
       "file": "aurionpro-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 10,
+        "template": "FAIL",
+        "passed": 0,
+        "checks": 7,
+        "failed": [
+          "50-DMA",
+          "200-DMA",
+          "50>200",
+          "52w low",
+          "52w band",
+          "RS",
+          "200 slope"
+        ],
+        "stage2": "Not on list",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 700.15
+      }
     },
     {
       "id": "kirloseng-2026-08",
@@ -537,7 +945,23 @@
       },
       "summary": "India’s genset market leader · Est. 1946 · Engines, pumps and an NBFC in one holding structure",
       "file": "kirloseng-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 52,
+        "template": "FAIL",
+        "passed": 6,
+        "checks": 7,
+        "failed": [
+          "RS"
+        ],
+        "stage2": "Continues Trend · 45 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": "LTASM - I",
+        "price": 2134.15
+      }
     },
     {
       "id": "paracables-2026-08",
@@ -555,7 +979,24 @@
       },
       "summary": "Power and telecom cables · New Delhi · India’s largest LV-cable exporter to the US, recovering from a tariff shock",
       "file": "paracables-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 12,
+        "template": "FAIL",
+        "passed": 5,
+        "checks": 7,
+        "failed": [
+          "50-DMA",
+          "RS"
+        ],
+        "stage2": "Continues Trend · 17 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": "LTASM - I",
+        "price": 61.8
+      }
     },
     {
       "id": "sanghvimov-2026-08",
@@ -573,7 +1014,23 @@
       },
       "summary": "Asia’s largest crane-rental operator · Pune · A wind-capex proxy with 485+ cranes and a Saudi arm turning positive",
       "file": "sanghvimov-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 70,
+        "template": "FAIL",
+        "passed": 6,
+        "checks": 7,
+        "failed": [
+          "50-DMA"
+        ],
+        "stage2": "Continues Trend · 16 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 442.75
+      }
     },
     {
       "id": "supriya-2026-08",
@@ -591,7 +1048,25 @@
       },
       "summary": "Backward-integrated niche API manufacturer · Lote Parshuram, Maharashtra · Debt-free, 81% exports, RS 3",
       "file": "supriya-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 3,
+        "template": "FAIL",
+        "passed": 4,
+        "checks": 7,
+        "failed": [
+          "50-DMA",
+          "52w band",
+          "RS"
+        ],
+        "stage2": "Not on list",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 802.15
+      }
     },
     {
       "id": "bodalchem-2026-08",
@@ -609,7 +1084,21 @@
       },
       "summary": "Dyestuff and dye intermediates · Ahmedabad · The DGTR anti-dumping applicant, and the purest H-acid exposure on the list",
       "file": "bodalchem-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 93,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 3 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": "ESM - I",
+        "price": 98.67
+      }
     },
     {
       "id": "kiriindus-2026-08",
@@ -627,7 +1116,24 @@
       },
       "summary": "Dyes, intermediates and basic chemicals · Ahmedabad · A ₹3,215 Cr company holding over ₹5,200 Cr of cash",
       "file": "kiriindus-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 77,
+        "template": "FAIL",
+        "passed": 5,
+        "checks": 7,
+        "failed": [
+          "50>200",
+          "52w band"
+        ],
+        "stage2": "Continues Trend · 2 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 493.3
+      }
     },
     {
       "id": "bhageria-2026-08",
@@ -645,7 +1151,21 @@
       },
       "summary": "Dyes, dye intermediates and solar power · Mumbai · The cleanest Q1 numbers in the cluster",
       "file": "bhageria-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 90,
+        "template": "PASS",
+        "passed": 6,
+        "checks": 6,
+        "failed": [],
+        "stage2": "Reentry · 8 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": "ESM - I",
+        "price": 238.75
+      }
     },
     {
       "id": "oal-2026-08",
@@ -663,7 +1183,21 @@
       },
       "summary": "Aroma chemicals, camphor, fragrances and flavours · Mumbai · Not a dye intermediates company, and the company says there is no news",
       "file": "oal-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 88,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Reentry · 4 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": "STASM - I",
+        "price": 459.3
+      }
     },
     {
       "id": "shreepushk-2026-08",
@@ -681,7 +1215,21 @@
       },
       "summary": "Dye intermediates, fertilisers and animal feed · Mumbai · In the value chain, but the numbers are not moving",
       "file": "shreepushk-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 84,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Reentry · 12 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 451.1
+      }
     },
     {
       "id": "igpl-2026-08",
@@ -699,7 +1247,21 @@
       },
       "summary": "India’s largest phthalic anhydride producer · Taloja, Maharashtra · A loss turned into ₹71 crore in one year",
       "file": "igpl-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 82,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 5 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 532.0
+      }
     },
     {
       "id": "gipcl-2026-08",
@@ -717,7 +1279,21 @@
       },
       "summary": "Lignite, gas and solar generation · Vadodara · Gujarat state undertaking · Trading below book at a 48% operating margin",
       "file": "gipcl-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 86,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 3 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 203.75
+      }
     },
     {
       "id": "fosecoind-2026-08",
@@ -735,7 +1311,21 @@
       },
       "summary": "Foundry chemicals and consumables · Pune · A Vesuvius group subsidiary selling into metal casting, not dyes",
       "file": "fosecoind-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 86,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 15 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 6528.0
+      }
     },
     {
       "id": "jyoticnc-2026-08",
@@ -753,7 +1343,21 @@
       },
       "summary": "India’s largest listed CNC machine-tool maker · Rajkot, Gujarat · Huron Graffenstaden (France) subsidiary",
       "file": "jyoticnc-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 97,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 2 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": null,
+        "price": 1039.95
+      }
     },
     {
       "id": "happyforge-2026-08",
@@ -771,7 +1375,21 @@
       },
       "summary": "Heavy forgings and precision machined components · Ludhiana, Punjab · Crankshafts, front axle beams, transmission parts",
       "file": "happyforge-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 96,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 47 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": "STASM - I",
+        "price": 2284.0
+      }
     },
     {
       "id": "iolcp-2026-08",
@@ -789,7 +1407,21 @@
       },
       "summary": "World’s largest Ibuprofen producer, diversifying out of it · Barnala, Punjab · API manufacturer",
       "file": "iolcp-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-27",
+        "source": "scan",
+        "universe": 1611,
+        "rs": 95,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 16 wks",
+        "stage2_list_date": "2026-08-28",
+        "flag": "LTASM - I",
+        "price": 195.25
+      }
     },
     {
       "id": "welcorp-2026-08",
@@ -808,7 +1440,21 @@
       },
       "summary": "Welspun Corp's earnings are partly rebased and partly cyclical-peak, and the distinction determines what you should pay. The rebased part is real and defensible: a tariff-protected US franchise earning ~US$300/tonne of EBITDA behind Section 232, a 19-year Little Rock presence with Tier-1…",
       "file": "welcorp-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-25",
+        "source": "scan",
+        "universe": 1606,
+        "rs": 98,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 20 wks",
+        "stage2_list_date": "2026-08-25",
+        "flag": null,
+        "price": 2301.0
+      }
     },
     {
       "id": "akums-2026-08",
@@ -827,7 +1473,21 @@
       },
       "summary": "Akums manufactures more than a tenth of the medicine India consumes and holds over 30% of the domestic CDMO market, supplying 26 of the country's 30 largest pharma companies from 12 plants running at roughly 50% utilisation. That is a real, physical, hard-to-replicate moat — and for two years after…",
       "file": "akums-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-25",
+        "source": "scan",
+        "universe": 1606,
+        "rs": 87,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 20 wks",
+        "stage2_list_date": "2026-08-25",
+        "flag": null,
+        "price": 765.45
+      }
     },
     {
       "id": "mcx-2026-08",
@@ -846,7 +1506,21 @@
       },
       "summary": "MCX is a near-monopoly toll booth on Indian commodity risk transfer — over 99% share in bullion, base metals and energy, 56% ROE, 71% ROCE, effectively debt-free — whose earnings are a leveraged call option on the volatility of gold, silver and copper rather than on their price level. The 2026…",
       "file": "mcx-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-25",
+        "source": "scan",
+        "universe": 1606,
+        "rs": 70,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 66 wks",
+        "stage2_list_date": "2026-08-25",
+        "flag": null,
+        "price": 3347.05
+      }
     },
     {
       "id": "netweb-2026-08",
@@ -865,7 +1539,21 @@
       },
       "summary": "Netweb is the listed domestic proxy for India's sovereign-AI compute build-out — the only Indian-origin, Indian-controlled full-stack OEM designing and manufacturing NVIDIA-based AI systems at scale, with a fifteen-year HPC franchise underneath, 90% FY26 revenue growth, 32.8% ROE, 48% Q1 FY27 ROCE…",
       "file": "netweb-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-25",
+        "source": "scan",
+        "universe": 1606,
+        "rs": 87,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 45 wks",
+        "stage2_list_date": "2026-08-25",
+        "flag": null,
+        "price": 5290.0
+      }
     },
     {
       "id": "e2e-2026-08",
@@ -884,7 +1572,21 @@
       },
       "summary": "E2E Networks is India's only listed pure play on sovereign-AI compute, and in Q1 FY27 the business finally worked: revenue ₹157 Cr (+334% YoY), a 75.2% EBITDA margin, ₹43.9 Cr of profit after five quarters of depreciation-driven losses, and exit MRR nearly doubling to ₹71.8 Cr. Larsen & Toubro's…",
       "file": "e2e-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-25",
+        "source": "scan",
+        "universe": 1606,
+        "rs": 92,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 18 wks",
+        "stage2_list_date": "2026-08-25",
+        "flag": null,
+        "price": 619.0
+      }
     },
     {
       "id": "cartrade-2026-08",
@@ -903,7 +1605,21 @@
       },
       "summary": "CarTrade Tech is the best business in Indian auto internet and, at ₹3,142, close to fully priced. The operating-leverage inflection is genuine and quantifiable: FY26 revenue grew 21% against a cost base that grew 6%, taking EBITDA margin from 24% to 33% and PAT up 68% to ₹244 Cr, with essentially…",
       "file": "cartrade-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-25",
+        "source": "scan",
+        "universe": 1606,
+        "rs": 97,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 11 wks",
+        "stage2_list_date": "2026-08-25",
+        "flag": null,
+        "price": 3149.5
+      }
     },
     {
       "id": "olaelec-2026-08",
@@ -922,7 +1638,28 @@
       },
       "summary": "Ola Electric is a company whose cost problem is being solved and whose demand problem is not. Gross margin has more than doubled in five quarters, warranty cost has fallen ~88%, opex is down 22% QoQ, and the loss has narrowed for two consecutive quarters — genuine, measurable operational repair.…",
       "file": "olaelec-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-25",
+        "source": "scan",
+        "universe": 1606,
+        "rs": 21,
+        "template": "FAIL",
+        "passed": 1,
+        "checks": 7,
+        "failed": [
+          "50-DMA",
+          "200-DMA",
+          "50>200",
+          "52w band",
+          "RS",
+          "200 slope"
+        ],
+        "stage2": "Not on list",
+        "stage2_list_date": "2026-08-25",
+        "flag": null,
+        "price": 37.88
+      }
     },
     {
       "id": "jmfinancil-2026-08",
@@ -941,7 +1678,27 @@
       },
       "summary": "JM Financial has spent two and a half years turning itself into a different company. The standard loan book is down ~60% from ₹10,215 Cr to ₹4,045 Cr, the credit arm's borrowings are down 55%, segment gearing has fallen from 1.9x to 0.8x, the minority in the wholesale-credit vehicle has been bought…",
       "file": "jmfinancil-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-25",
+        "source": "scan",
+        "universe": 1606,
+        "rs": 46,
+        "template": "FAIL",
+        "passed": 2,
+        "checks": 7,
+        "failed": [
+          "50>200",
+          "52w low",
+          "52w band",
+          "RS",
+          "200 slope"
+        ],
+        "stage2": "Not on list",
+        "stage2_list_date": "2026-08-25",
+        "flag": null,
+        "price": 133.3
+      }
     },
     {
       "id": "motilalofs-2026-08",
@@ -960,7 +1717,21 @@
       },
       "summary": "Motilal Oswal is the best-executed listed proxy for the financialisation of Indian household savings, and the mix shift investors have waited a decade for is finally visible in the numbers: annuity revenue at 66% of net revenue versus 51% a year ago, Asset & Private Wealth at 55% of operating PAT…",
       "file": "motilalofs-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-25",
+        "source": "scan",
+        "universe": 1606,
+        "rs": 76,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Not on list",
+        "stage2_list_date": "2026-08-25",
+        "flag": null,
+        "price": 1040.35
+      }
     },
     {
       "id": "fcl-2026-08",
@@ -979,7 +1750,21 @@
       },
       "summary": "Fineotex is no longer the business its reputation describes. The asset-light, high-ROCE textile-chemicals compounder levered to China+1 stopped compounding after FY24 — consolidated revenue went ₹569 Cr → ₹533 Cr, and the non-oilfield remainder is still running at roughly ₹132 Cr a quarter against…",
       "file": "fcl-2026-08.html",
-      "featured": true
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-08-25",
+        "source": "scan",
+        "universe": 1606,
+        "rs": 87,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 14 wks",
+        "stage2_list_date": "2026-08-25",
+        "flag": "LTASM - I",
+        "price": 50.85
+      }
     },
     {
       "id": "skipper-2026-05",

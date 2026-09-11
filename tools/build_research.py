@@ -93,6 +93,18 @@ def main():
     rep['file'] = ident + '.html'
     rep['featured'] = bool(a.feature)
 
+    # What the framework said on the day the report's figures were taken. Stamped here so the
+    # Research Desk can set it against the newest scan without ever rewriting the report
+    # (tools/report/signals.py). A failure here must never block registration.
+    try:
+        import sys as _sys
+        _sys.path.insert(0, os.path.join(ROOT, 'tools', 'report'))
+        from signals import signals_for
+        sig = signals_for(rep.get('code'), date) if rep.get('code') else None
+        if sig: rep['signals_at_pub'] = sig
+    except Exception as e:
+        print(f'  (signals_at_pub skipped: {e})')
+
     os.makedirs(OUT, exist_ok=True)
     dest = os.path.join(OUT, rep['file'])
     if os.path.abspath(a.file) != os.path.abspath(dest): shutil.copyfile(a.file, dest)

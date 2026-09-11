@@ -1163,6 +1163,17 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
 .rd-sector{font-size:11.5px;color:var(--t3);font-family:var(--mono);}
 .rd-summary{font-size:12.5px;line-height:1.55;color:var(--t2);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;}
 .rd-card.big .rd-summary{-webkit-line-clamp:5;}
+.rd-sig{display:flex;align-items:center;gap:8px 10px;flex-wrap:wrap;font-family:var(--mono);font-size:10.5px;color:var(--t3);line-height:1.5;}
+.rd-sig .half{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
+.rd-sig .k{color:var(--t3);}
+.rd-sig .v{color:var(--t1);font-weight:600;}
+.rd-sig .pass{color:var(--lime);font-weight:600;}
+.rd-sig .fail{color:var(--rose2);font-weight:600;}
+.rd-sig .na{color:var(--t3);font-style:italic;}
+.rd-sig .arrow{color:var(--t3);}
+.rd-sig.wide{margin-top:4px;}
+.rd-flip{display:inline-block;padding:1px 7px;border-radius:3px;font:600 9.5px var(--mono);letter-spacing:.06em;background:rgba(234,88,12,.18);color:#FBCFA4;border:1px solid rgba(234,88,12,.5);}
+.rd-flip.better{background:rgba(16,185,129,.16);color:#A7F3D0;border-color:rgba(16,185,129,.45);}
 .rd-targets{display:flex;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--t3);font-family:var(--mono);border-top:1px solid var(--b1);padding-top:9px;margin-top:auto;}
 .rd-targets b{color:var(--t1);font-weight:600;}
 .rd-targets .up b{color:var(--sage2);} .rd-targets .dn b{color:var(--rose2);}
@@ -7607,6 +7618,7 @@ async function loadSE(manual){
   seCompute();
   seRenderAll();
   seFeedLegacy();
+  if(typeof RD !== 'undefined' && RD.loaded && !RD.cur) renderRD();   // the desk's "now" column depends on this scan
 }
 async function seFetch(file){
   if(SE.data[file]) return SE.data[file];
@@ -8841,7 +8853,7 @@ function renderTR(){
 // HTML page (any styling), shown in an isolated iframe so its look is untouched. "Today's Reads" =
 // featured reports (or the newest few); the archive is searchable. Reports cross-link to the stock's
 // live data (RS / Stage 2 / earnings) via NSE code.
-const RD = { reports: [], byCode: new Map(), loaded: false, loading: false, cur: null, ui: { q: '', sector: 'all', rating: 'all' } };
+const RD = { reports: [], byCode: new Map(), loaded: false, loading: false, cur: null, ui: { q: '', sector: 'all', rating: 'all', drift: 'all' } };
 const RD_FEATURE_MAX = 5;
 
 async function loadRD(manual){
@@ -8882,6 +8894,86 @@ function rdViewStock(code){
   show('rsscreen');
   if(typeof SE !== 'undefined' && SE.ui){ SE.ui.rsq = code; SE.ui.rsmin = '0'; SE.ui.rss2 = 'all'; SE.ui.rsgroup = 'all'; SE.ui.rsband = 'all'; SE.ui.rspead = 'all'; if(typeof seRenderRS === 'function') seRenderRS(); }
 }
+// ---- live signals -------------------------------------------------------------------------
+// A report is a dated document and is never rewritten. What the framework said AT PUBLICATION is
+// stamped into index.json by tools/report/signals.py (from the data point the report's own figures
+// came from). What it says NOW is computed here from the newest scan, so it refreshes with every
+// daily pull. Showing the two side by side is how a published verdict is allowed to age in public.
+const RD_NOW = { file: null, date: null, byKey: null, prevByKey: null, s2: null, s2date: null, pending: false };
+const RD_CHECK_SHORT = { p50: '50-DMA', p200: '200-DMA', ma: '50>200', low: '52w low', high: '52w band', rs: 'RS', slope: '200 slope' };
+function rdNow(){
+  if(!SE.scans || !SE.scans.length) return null;
+  const newest = SE.scans.find(s => (s.universe || 0) >= 500) || null; if(!newest) return null;
+  const prevMeta = SE.scans.find(s => String(s.date) < String(newest.date) && (s.universe || 0) >= 500) || null;
+  const s2meta = SE.scans.find(s => (s.stage2 || 0) > 0) || null;
+  const need = [newest, prevMeta, s2meta].filter(Boolean).filter(m => !SE.data[m.file]);
+  if(need.length){
+    // the scan files the Edge engine has not pulled yet: fetch, then draw again once
+    if(!RD_NOW.pending){ RD_NOW.pending = true; Promise.allSettled(need.map(m => seFetch(m.file))).then(() => { RD_NOW.pending = false; if(RD.loaded && !RD.cur) renderRD(); }); }
+    return null;
+  }
+  if(RD_NOW.file === newest.file && RD_NOW.byKey) return RD_NOW;
+  const d = SE.data[newest.file];
+  const U = d.universe.map(r => Object.assign({}, r));
+  U.forEach(r => { r.score = seScore(r); }); sePercentiles(U, 'score'); U.forEach(r => { r.rs = r.score_pct == null ? null : r.score_pct; });
+  RD_NOW.file = newest.file; RD_NOW.date = d.date || newest.date;
+  RD_NOW.byKey = new Map(U.map(r => [r._key, r]));
+  RD_NOW.prevByKey = new Map(prevMeta ? SE.data[prevMeta.file].universe.map(r => [r._key, r]) : []);
+  RD_NOW.s2 = new Map(s2meta ? SE.data[s2meta.file].stage2.map(r => [r._key, r]) : []);
+  RD_NOW.s2date = s2meta ? s2meta.date : null;
+  return RD_NOW;
+}
+function rdNowFor(code){
+  const N = rdNow(); if(!N || !code) return null;
+  const key = String(code).toUpperCase(), r = N.byKey.get(key);
+  if(!r) return { missing: true, date: N.date };
+  const t = seTrend(r, N.prevByKey.get(key) || null);
+  const s = N.s2.get(key) || null;
+  const flag = s && typeof s.asm === 'string' && s.asm.trim() && s.asm.trim() !== '-' ? s.asm.trim() : null;
+  return { date: N.date, rs: r.rs, price: r.price, template: t.total >= 5 ? (t.s2 ? 'PASS' : 'FAIL') : null,
+           passed: t.pass, checks: t.total, failed: t.checks.filter(c => !c.ok).map(c => RD_CHECK_SHORT[c.k] || c.label),
+           s2: s, s2date: N.s2date, flag };
+}
+function rdDrift(r){
+  const a = r.signals_at_pub, n = r.code ? rdNowFor(r.code) : null;
+  if(!a || !a.template || !n || n.missing || !n.template) return null;
+  if(a.template === n.template) return 'same';
+  return n.template === 'PASS' ? 'flipped-up' : 'flipped-down';
+}
+function rdSigHalf(label, date, sig){
+  if(!sig) return `<span class="half"><span class="k">${label}</span><span class="na">no scan data</span></span>`;
+  if(sig.missing) return `<span class="half"><span class="k">${label} ${wrEsc(wrDate(date))}</span><span class="na">not in this scan</span></span>`;
+  const verdict = sig.template
+    ? `<span class="${sig.template === 'PASS' ? 'pass' : 'fail'}">${sig.template === 'PASS' ? 'PASSES' : 'FAILS'} ${sig.passed}/${sig.checks}</span>`
+    : '<span class="na">template n/a</span>';
+  const why = sig.template === 'FAIL' && sig.failed && sig.failed.length ? `<span class="k">on ${sig.failed.map(wrEsc).join(', ')}</span>` : '';
+  const flag = sig.flag ? `<span class="fail">${wrEsc(sig.flag)}</span>` : '';
+  return `<span class="half"><span class="k">${label} ${wrEsc(wrDate(date))}</span><span class="v">RS ${sig.rs == null ? '—' : sig.rs}</span>${verdict}${why}${flag}</span>`;
+}
+function rdSigStrip(r, wide){
+  if(!r.code) return '';
+  const a = r.signals_at_pub || null, n = rdNowFor(r.code);
+  if(!a && (!n || n.missing)) return '';   // a cluster note or a code no scan has ever carried: say nothing rather than 'not in this scan'
+  const drift = rdDrift(r);
+  const pill = drift === 'flipped-down' ? '<span class="rd-flip" title="The trend-template verdict has changed since this report was published">FLIPPED · now fails</span>'
+             : drift === 'flipped-up' ? '<span class="rd-flip better" title="The trend-template verdict has changed since this report was published">FLIPPED · now passes</span>' : '';
+  const delta = a && n && !n.missing && wrIsNum(a.rs) && wrIsNum(n.rs) ? (n.rs - a.rs) : null;
+  const dtxt = delta == null ? '' : `<span class="${delta < 0 ? 'fail' : delta > 0 ? 'pass' : 'k'}">${delta > 0 ? '+' : ''}${delta} RS</span>`;
+  return `<div class="rd-sig ${wide ? 'wide' : ''}">${rdSigHalf('At publication', a ? a.date : r.date, a)}<span class="arrow">→</span>${rdSigHalf('Now', n ? n.date : null, n)}${dtxt}${pill}</div>`;
+}
+function rdHeroKpis(){
+  const N = rdNow(); if(!N) return '';
+  const tracked = RD.reports.filter(r => r.code && N.byKey.has(String(r.code).toUpperCase()));
+  const nowPass = tracked.filter(r => { const n = rdNowFor(r.code); return n && n.template === 'PASS'; }).length;
+  const flipped = RD.reports.filter(r => (rdDrift(r) || '').startsWith('flipped'));
+  const down = flipped.filter(r => rdDrift(r) === 'flipped-down').length;
+  return `<div class="se-kpis">
+        ${seKpi('Passing the template now', wrNum(nowPass), `of ${wrNum(tracked.length)} covered names in the ${wrDate(N.date)} scan`, nowPass ? 'ok' : '')}
+        ${seKpi('Verdict flipped since publication', wrNum(flipped.length), flipped.length ? `${down} now fail · ${flipped.length - down} now pass` : 'every published verdict still holds', flipped.length ? 'bad' : 'ok')}
+        ${seKpi('Newest scan', wrDate(N.date), 'signals refresh with each daily pull', '')}
+      </div>`;
+}
+
 function rdCard(r, big){
   const rating = r.rating ? `<span class="rd-rating ${rdRatingCls(r.rating)}">${wrEsc(r.rating)}</span>` : '';
   const tg = r.targets || {};
@@ -8890,6 +8982,7 @@ function rdCard(r, big){
     <div class="rd-card-top">${rating}<span class="rd-date">${wrDate(r.date)}</span></div>
     <h3 class="rd-title">${wrEsc(r.title)}${r.code ? `<span class="rd-code">${wrEsc(r.code)}</span>` : ''}</h3>
     ${r.sector ? `<div class="rd-sector">${wrEsc(r.sector)}${r.cmp ? ` · CMP ${wrEsc(r.cmp)}` : ''}${r.mcap ? ` · ${wrEsc(r.mcap)}` : ''}</div>` : ''}
+    ${rdSigStrip(r)}
     ${r.summary ? `<p class="rd-summary">${wrEsc(r.summary)}</p>` : ''}
     ${targets}
     <div class="rd-open">Read report →</div>
@@ -8912,13 +9005,20 @@ function renderRD(){
     if(q && !((r.title || '') + ' ' + (r.code || '') + ' ' + (r.sector || '') + ' ' + (r.summary || '')).toLowerCase().includes(q)) return false;
     if(u.sector !== 'all' && r.sector !== u.sector) return false;
     if(u.rating !== 'all' && rdRatingCls(r.rating) !== u.rating) return false;
+    if(u.drift !== 'all'){
+      const dr = rdDrift(r), n = r.code ? rdNowFor(r.code) : null;
+      if(u.drift === 'flipped' && !(dr || '').startsWith('flipped')) return false;
+      if(u.drift === 'pass' && !(n && n.template === 'PASS')) return false;
+      if(u.drift === 'fail' && !(n && n.template === 'FAIL')) return false;
+    }
     return true;
   });
   el.innerHTML = `
     <div class="se-hero"><div class="se-hero-inner">
       <div class="wr-tags"><span class="wr-tag am">Research Desk</span><span class="wr-tag tl">Curated equity research</span><span class="wr-tag">${RD.reports.length} report${RD.reports.length === 1 ? '' : 's'}</span></div>
       <h1>Today's reads</h1>
-      <div class="wr-lead">Curated equity-research reports — full write-ups with thesis, valuation, scenarios and risks. ${featured.length ? `${todays.length} featured today.` : `Newest ${todays.length} shown up top.`} Every report links through to the stock's live RS, Stage 2 and earnings.</div>
+      <div class="wr-lead">Curated equity-research reports — full write-ups with thesis, valuation, scenarios and risks. ${featured.length ? `${todays.length} featured today.` : `Newest ${todays.length} shown up top.`} Every report links through to the stock's live RS, Stage 2 and earnings. Each card shows what the framework said <b>at publication</b> against what it says <b>now</b> — a report is never rewritten, so this is how its verdict is allowed to age.</div>
+      ${rdHeroKpis()}
     </div></div>
     <div class="se-body">
       <div class="rd-featured">${todays.map(r => rdCard(r, true)).join('')}</div>
@@ -8927,6 +9027,7 @@ function renderRD(){
         <input type="text" placeholder="Search company, code, sector…" value="${wrAttr(u.q)}" oninput="RD.ui.q=this.value;renderRD()">
         <select onchange="RD.ui.sector=this.value;renderRD()"><option value="all">All sectors</option>${sectors.map(s => `<option value="${wrAttr(s)}" ${u.sector === s ? 'selected' : ''}>${wrEsc(s)}</option>`).join('')}</select>
         <select onchange="RD.ui.rating=this.value;renderRD()">${[['all', 'Any rating'], ['buy', 'Buy / Accumulate'], ['hold', 'Hold / Neutral'], ['sell', 'Sell / Reduce']].map(([v, t]) => `<option value="${v}" ${u.rating === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
+        <select onchange="RD.ui.drift=this.value;renderRD()">${[['all', 'Any signal drift'], ['flipped', 'Verdict flipped since publication'], ['pass', 'Passing the template now'], ['fail', 'Failing the template now']].map(([v, t]) => `<option value="${v}" ${u.drift === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
       </div>
       <div class="rd-grid">${rest.map(r => rdCard(r, false)).join('') || '<div class="wr-hint">No reports match the filters.</div>'}</div>
       <div class="wr-foot" style="border:none;padding:16px 0 0;">Reports are self-contained HTML in library/research/, rendered in an isolated frame. Add one with <code>tools/build_research.py</code>. Informational only — not investment advice.</div>
@@ -8941,7 +9042,7 @@ function rdRenderReader(el){
   el.innerHTML = `
     <div class="rd-reader-bar">
       <button class="btn btn-sm" onclick="rdClose()"><i class="ti ti-arrow-left"></i>All reports</button>
-      <div class="rd-reader-meta"><b>${wrEsc(r.title)}</b><span>${meta}</span></div>
+      <div class="rd-reader-meta"><b>${wrEsc(r.title)}</b><span>${meta}</span>${rdSigStrip(r, true)}</div>
       <div class="rd-reader-actions">
         ${r.rating ? `<span class="rd-rating ${rdRatingCls(r.rating)}">${wrEsc(r.rating)}</span>` : ''}
         ${r.code ? `<button class="btn btn-sm" onclick="rdViewStock('${wrAttr(r.code)}')" title="See this stock's live RS / Stage 2 / earnings"><i class="ti ti-chart-line"></i>View ${wrEsc(r.code)}</button>` : ''}
