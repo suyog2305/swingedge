@@ -201,6 +201,35 @@ def main():
     for r in reports:
         code = (r.get('code') or '').upper()
         path = os.path.join(ROOT, 'library', 'research', r['file'].split('/')[-1])
+        if os.path.exists(path) and code not in umap:
+            # A multi-name note carries one generated block per stock, each on a NAMED marker.
+            # Check every block against its own scan row - a cluster note must not slip past the
+            # gate just because "CLUSTER" is not a ticker.
+            html = io.open(path, encoding='utf-8').read()
+            blocks = re.findall(r'<!--FRAMEWORK:BEGIN ([A-Z0-9&\-]+)-->(.*?)<!--FRAMEWORK:END', html, re.S)
+            hits = [(c2, seg) for c2, seg in blocks if c2 in umap]
+            if hits:
+                import tempfile
+                same_day_b = (r.get('date') or '') >= (cur.get('date') or '')
+                for c2, seg in hits:
+                    with tempfile.NamedTemporaryFile('w', suffix='.html', delete=False, encoding='utf-8') as tf:
+                        tf.write(seg); tmp = tf.name
+                    try:
+                        c = check_report(tmp, umap[c2], pmap.get(c2), same_day_b)
+                    finally:
+                        os.unlink(tmp)
+                    checked += 1; total_bad += c.bad; total_drift += c.drift
+                    shown = [x for x in c.rows if x[0] != 'SKIP']
+                    bits = []
+                    if c.bad: bits.append(f'{c.bad} MISMATCH')
+                    if c.drift: bits.append(f'{c.drift} drift (published {r.get("date")})')
+                    print(f'{code + ":" + c2:<22} {len(shown):>2} checks  {", ".join(bits) if bits else "all clear"}')
+                    for status, lab, a_, b_ in shown:
+                        if status == 'MISMATCH':
+                            print(f'   !! {lab}: report says {a_}, scan says {b_}')
+                        elif status == 'DRIFT':
+                            print(f'   ~  {lab}: report {a_} (as published), now {b_}')
+                continue
         if code not in umap or not os.path.exists(path):
             skipped.append(f'{r["id"]} ({code or "no code"}) — not in scan universe')
             continue
