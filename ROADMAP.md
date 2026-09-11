@@ -1,7 +1,7 @@
 # Roadmap
 
 What's built, what's blocked, and what's next — in dependency order rather than wish order.
-Status as of **2026-09-10**.
+Status as of **2026-09-11**.
 
 ---
 
@@ -63,6 +63,32 @@ The archive was repaired the same day: the mislabelled file deleted, and my own 
 11:52 **intraday** pull — replaced with the true close recovered from git, noted inside the file.
 The archive is end-of-day throughout. `2026-09-10.json` is the first scan carrying everything:
 **1,620 names, IBD weighting on 1,495, volume + 1-month average on 1,615.**
+
+### 2026-09-11 — the first unattended run worked, and exposed that 15:40 is too early
+
+The rewritten wrapper fired at **15:40:01**, made all three pulls, unioned them, built the scan,
+rebuilt the shortlist and journal, committed and pushed. The loop closed. And the data it wrote was
+wrong in a way no earlier test could have shown: **screener refreshes its fields in stages after
+the close.** At 15:40, prices had changed on 98.8% of names and the 52-week distances on 98.6%,
+but the **200-DMA was unchanged on 99.9%**, and 3-month returns, 6-month returns and volume on
+**100%**. Today's prices against yesterday's averages. Every "200-DMA rising" check failed and the
+trend-template pass count collapsed from **388 to 1**. The 9 and 10 Sep scans, pulled at 17:40 and
+22:40, show 99% of averages changed — the refresh completes later in the evening.
+
+Three things followed. The 11 Sep data was **reverted** (`ed78543`) so the app serves the clean
+10 Sep close. `eod.py` gained a **stale-refresh guard**: if prices moved but the 200-DMA did not,
+against the newest scan of a different date, it stops with exit 2 and writes nothing — proven on the
+offending export. And the task moved to **20:00 IST**, which is where it was originally wanted, for
+the reason originally given.
+
+> A process failure is recorded here because it cost something. While repairing this, a patch to
+> `eod.py` missed its anchor and aborted before writing, the "test" that followed ran the unpatched
+> tool and rebuilt the stale scan, the note builder filled its blocks from that scan under a
+> "10 Sep close" label, verification passed vacuously against the same bad data, and publish pushed
+> it. A wrong version of the ibuprofen note was live for roughly fifteen minutes before it was
+> rebuilt against the clean scan and republished. Two rules now hold: patch scripts live in files
+> and parse before they write, and no commit or publish runs in the same command as the change it
+> depends on.
 
 ---
 
@@ -202,7 +228,19 @@ localStorage and exported as one self-contained HTML file with the images embedd
   `REPORT_SPEC.md` carries the house rules.
 - **Pinned watchlist** — 5 names surfaced daily regardless of rank, scored identically to
   everything else so the ranking stays honest.
-- **55 research reports**, 13 sections each, every scan-derived figure machine-cross-checked.
+- **56 research reports**, 13 sections each, every scan-derived figure machine-cross-checked.
+- **Multi-name notes carry one generated technical block per stock** (named markers, commit
+  `be0549b`), and the verifier checks each block against its own scan row — a note registered as
+  `CLUSTER` can no longer slip past the gate. Proven by corrupting one figure and watching it fail.
+- **The ibuprofen thesis audit** (`ibuprofen-2026-09`). Asked for a report on Europe's ibuprofen
+  shortage amid Chinese supply cuts and the Indian beneficiaries, the desk first verified the
+  premise and found it **fails as framed**: 22 finished-dose presentations on five national
+  registers with product-level causes and alternatives available, ibuprofen on no EU or German
+  critical list, and the Chinese makers' own H1 2026 filings reporting oversupply and price cuts.
+  The two articles that launched the theme never mention China. The note says so in its title,
+  maps each of the five names' real exposure — Shree Pushkar has none — and finds the only verified
+  2026 effect is feedstock-driven cost-push, which favours the backward-integrated makers. Vinati,
+  the sole-source IBB maker and purest volume play, fails every technical check.
 - **September 2026 editions** for Bodal, Kiri, GNG Electronics, Syrma SGS and Tejas Networks,
   plus new coverage of Tejas and Syrma. Written against 8 September closing prices and verified
   against the capture that produced them.

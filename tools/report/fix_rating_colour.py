@@ -37,7 +37,9 @@ HEAD = os.path.join(ROOT, 'tools', 'report', 'head.html')
 BODIES = glob.glob(os.path.join(ROOT, 'tools', 'report', 'bodies', '*.html'))
 PUBLISHED = glob.glob(os.path.join(ROOT, 'library', 'research', '*.html'))
 
-CELL = re.compile(r'(<div class="rating-cell )(\w+)("><div class="rating-tag">Rating</div><div class="rating-val">)([^<]*)(</div>)')
+# The first cell is the call whatever its tag says - "Rating" on a company report, "Verdict" on a
+# thesis audit, "Ranking" on a cluster note. Matching only "Rating" left the latter two green.
+CELL = re.compile(r'(<div class="rating-cell )(\w+)("><div class="rating-tag">[^<]*</div><div class="rating-val">)([^<]*)(</div>)')
 BUY_CSS = '.rating-cell.buy  { background: rgba(26,107,53,.4); }'
 NEW_CSS = ('.rating-cell.hold { background: rgba(200,151,58,.38); }\n'
            '  .rating-cell.sell { background: rgba(160,16,32,.5); }')
