@@ -1,6 +1,22 @@
 {
-  "updated": "2026-09-08",
+  "updated": "2026-09-11",
   "reports": [
+    {
+      "id": "ibuprofen-2026-09",
+      "title": "Europe's Ibuprofen \"Shortage\"",
+      "subtitle": "A thesis audit of five Indian names · The registers list 22 finished-dose presentations, China’s own filings describe oversupply, and one of the five has no exposure at all",
+      "code": "CLUSTER",
+      "sector": "Thesis audit",
+      "date": "2026-09-10",
+      "rating": "Thesis audit — the premise fails as framed; not a recommendation",
+      "targets": {
+        "bull": "22 finished-dose presentations listed short in five national registers, with alternatives indicated in every register",
+        "bear": "Any Chinese supply cut — Xinhua and Hendi report oversupply, price cuts and plants at nameplate"
+      },
+      "summary": "The circulated premise, a European ibuprofen shortage driven by Chinese supply cuts, fails as framed: five national registers list 22 finished-dose presentations with product-level causes and alternatives available, ibuprofen is on no EU or German critical list, and the Chinese makers’ own H1 2026…",
+      "file": "ibuprofen-2026-09.html",
+      "featured": true
+    },
     {
       "id": "syrma-2026-09",
       "title": "Syrma SGS Technology",

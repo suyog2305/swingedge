@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Europe's Ibuprofen "Shortage" — A Thesis Audit — September 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.hold { background: rgba(200,151,58,.38); }
+  .rating-cell.sell { background: rgba(160,16,32,.5); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: Europe's Ibuprofen "Shortage" — A Thesis Audit — September 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">IOLCP &nbsp;·&nbsp; SMSPHARMA &nbsp;·&nbsp; SOLARA &nbsp;·&nbsp; VINATIORGA &nbsp;·&nbsp; SHREEPUSHK &nbsp;|&nbsp; Thesis Audit &nbsp;|&nbsp; September 2026</p>
+    <h1 class="report-title"><span>Europe&rsquo;s Ibuprofen</span> &ldquo;Shortage&rdquo;</h1>
+    <p class="report-subtitle">A thesis audit of five Indian names &nbsp;·&nbsp; The registers list 22 finished-dose presentations, China&rsquo;s own filings describe oversupply, and one of the five has no exposure at all</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">Presentations listed, 5 EU registers</div><div class="kpi-value">22</div></div>
+      <div class="kpi-cell"><div class="kpi-label">On EU critical-medicines list</div><div class="kpi-value">No</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Xinhua analgesic API revenue, H1 2026</div><div class="kpi-value">&minus;16.4%</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Names with ibuprofen exposure</div><div class="kpi-value">4 of 5</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Passing the trend template (10 Sep)</div><div class="kpi-value">3 of 5</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell buy"><div class="rating-tag">Verdict</div><div class="rating-val">Thesis audit — the premise fails as framed; not a recommendation</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">What is true</div><div class="rating-val">22 finished-dose presentations listed short in five national registers, with alternatives indicated in every register</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">What is not</div><div class="rating-val">Any Chinese supply cut &mdash; Xinhua and Hendi report oversupply, price cuts and plants at nameplate</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">What This Is</a>
+    <a href="#s2">Verdict</a>
+    <a href="#s3">EU Registers</a>
+    <a href="#s4">China Filings</a>
+    <a href="#s5">Real Shortages</a>
+    <a href="#s6">Who Supplies Europe</a>
+    <a href="#s7">Exposure Map</a>
+    <a href="#s8">Your System</a>
+    <a href="#s9">Who Benefits</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">What This Report Is</h2></div>
+  <p>A request came to this desk for a consolidated report on <b>SMS Pharmaceuticals, IOL Chemicals &amp; Pharmaceuticals, Solara Active Pharma Sciences, Shree Pushkar Chemicals &amp; Fertilisers and Vinati Organics</b>, framed as beneficiaries of &ldquo;the shortage of ibuprofen in Europe amid supply cuts from China&rdquo;. Before writing that report, the premise was tested against primary sources. <b>It did not survive the test as framed, and this note says so in its title, in its verdict and here.</b> What follows is not the case for the thesis. It is an audit of the thesis, and then an answer to the question actually being asked: which of these five has any exposure to ibuprofen at all, and under what conditions any of them benefits.</p>
+  <h3 class="subsection-title">The claim as it circulated</h3>
+  <p>Two articles launched the theme: Equitymaster on 7 September 2026 [1] and Moneypost/NewsX on 8 September 2026 [2]. Both state that ibuprofen has &ldquo;availability problems&hellip; in Germany, Spain, Ireland, Italy and Sweden, covering 21 product presentations&rdquo;, and both source that single fact to one commercial tracker, Mobidoctor [3]. <b>Neither article mentions China, API supply, or supply cuts of any kind.</b> The &ldquo;supply cuts from China&rdquo; leg was added somewhere between those articles and the request that reached this desk; it has no source in either piece.</p>
+  <h3 class="subsection-title">How it was tested</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Leg of the claim</th><th>What was checked</th><th>Sources</th></tr></thead>
+    <tbody>
+      <tr><td class="bold" style="width:200px">&ldquo;Shortage in Europe&rdquo;</td><td>The national shortage registers themselves &mdash; Italy&rsquo;s AIFA list as a CSV, Spain&rsquo;s AEMPS CIMA supply-problem API, the UK DHSC/NHS England notifications, France&rsquo;s ANSM data, Germany&rsquo;s BfArM advisory-board minutes and its two statutory lists &mdash; plus the EU Union list of critical medicines and the Critical Medicines Act texts</td><td>[3]&ndash;[17]</td></tr>
+      <tr><td class="bold">&ldquo;Supply cuts from China&rdquo;</td><td>The two listed Chinese ibuprofen API makers&rsquo; own filings &mdash; Shandong Xinhua&rsquo;s FY2025, Q1 2026 and H1 2026 reports and Hubei Biocause Heilen (Hendi)&rsquo;s FY2025, Q1 2026 and H1 2026 reports, read from the PDFs &mdash; a third maker&rsquo;s environmental filing, and four commercial price trackers (three with quarterly China series)</td><td>[25]&ndash;[42]</td></tr>
+      <tr><td class="bold">&ldquo;Indian beneficiaries&rdquo;</td><td>Earnings-call transcripts and highlights, annual reports, rating-agency releases and the NSE surveillance lists for all five names; a 274-page annual report read for Shree Pushkar specifically</td><td>[47]&ndash;[81]</td></tr>
+      <tr><td class="bold">Historical baseline</td><td>What a documented European ibuprofen shortage looked like in 2018&ndash;19 and 2022, for contrast</td><td>[18]&ndash;[24]</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Every number in this note carries a date and a bracketed source number matching the list at the end of &sect;13. Where sources conflict, both sides are shown; where a figure could not be sourced, it is marked &ldquo;not sourced&rdquo; rather than filled in. Fifteen domains refused or failed fetches and are named in the source-quality note rather than worked around.</p>
+  <h3 class="subsection-title">What this note is and is not</h3>
+  <p>It is a comparative note on five names, of which <b>four have some exposure to the ibuprofen chain and one &mdash; Shree Pushkar &mdash; has none</b>; it is in the note because it was asked about, and &sect;07 explains the finding. It carries <b>no rating and no recommendation</b>; the framework&rsquo;s own signals for each name are generated into &sect;08 from the 10 September close and refresh with each scan. It does not size positions, allocate capital or advise on holdings. The desk&rsquo;s standalone reports on two of these names &mdash; the <b>8 September IOLCP update</b> and the <b>8 September Shree Pushkar update</b>, both in this library &mdash; are cited where useful and are not contradicted here.</p>
+  <p><b>Surveillance, stated up front as the house rule requires:</b> IOLCP is on the NSE Long-Term ASM list, Stage I, as of 11 September 2026 [60]. None of the other four carries an ASM or GSM flag on the same date [60].</p>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">The Verdict</h2></div>
+  <p><b>The premise partly holds at its narrowest and fails as framed.</b> The disagreement between the story and the evidence is the finding, so it comes first.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Leg</th><th>Status</th><th>The evidence, dated</th></tr></thead>
+    <tbody>
+      <tr><td class="bold" style="width:190px">Ibuprofen is short in Europe</td><td class="bold" style="color:#b45309">Partly holds, at its narrowest</td><td>Five of nine tracked national registers list active issues; 22 presentations (11 Sep 2026) [3]; 15 rows in Italy [4], 5 in Spain [5]. But the registers attribute them to product-level manufacturing problems (15 of 16 causes) or high demand (1), alternatives are available in every case, the UK and France list none [6][7], the German advisory board has not mentioned ibuprofen in five sittings to June 2026 [8], and ibuprofen is on neither the EU Union list of critical medicines (v2.1, Dec 2025) [12] nor BfArM&rsquo;s critical-supply list [10]. Some Italian entries date from 2022&ndash;2025 [4].</td></tr>
+      <tr><td class="bold">China has cut supply</td><td class="bold red">Refuted by Chinese primary filings</td><td>Shandong Xinhua&rsquo;s H1 2026 report: analgesic API revenue &minus;16.42%, group profit &minus;33.35%, price cuts &ldquo;to consolidate market share&rdquo;, outlook &ldquo;demand continues weak, competition intense&rdquo; [28]. Hendi cancelled a 5,000 t expansion because the market was &ldquo;saturated&rdquo; and prices &ldquo;low&rdquo;, wording repeated in its H1 2026 report [30][33]. Three price trackers describe Chinese plants running near nameplate with prices firming only 4&ndash;7% a quarter on feedstock costs [39][40][41]. <b>No 2026 evidence of a Chinese ibuprofen plant shutdown, inspection stoppage or export restriction was found.</b></td></tr>
+      <tr><td class="bold">These five Indian names benefit</td><td class="bold red">Not supported as framed</td><td>Solara&rsquo;s ibuprofen runs at a &minus;12% to &minus;23% EBITDA margin and bankers are evaluating &ldquo;strategic options&rdquo; for it [61][64]; IOL is deliberately shrinking ibuprofen from 82% to 57% of pharma revenue [53][54]; SMS is roughly 20% ibuprofen and attributes 2026 price rises to war-driven feedstock [70]; Vinati is upstream, with IBB at 10&ndash;12% of revenue and volumes down 20% [50]; Shree Pushkar has no exposure whatsoever [77].</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout callout-gold"><b>The strongest part of the claim</b> is that dated register entries exist: 22 presentations are genuinely listed, with prognoses running from 30 September 2026 to 31 March 2027 [3]. <b>The weakest part</b> is everything built on top of them &mdash; the China leg, which the Chinese makers&rsquo; own half-year reports contradict, and the implied Indian windfall, which no Indian filing supports. &ldquo;Shortage in Europe&rdquo; is true only in the sense that is true for roughly 900 other presentations in Spain and 2,600 in Italy on the same day [4][5].</div>
+  <p><b>The one verified 2026 phenomenon is cost-push.</b> Ibuprofen prices firmed by 4.3% (Q1) and 5.3&ndash;7.4% (Q2) quarter on quarter in 2026, and the trackers that explain the move attribute it to isobutylbenzene feedstock and Middle East petrochemical disruption, not to scarcity of the API [39][40]. SMS Pharma&rsquo;s CEO said the same thing on 27 May 2026: &ldquo;there is a price increase also that is happening in products like ibuprofen&hellip; because of this war&rdquo; [70]. That is a real effect with real winners and losers among these names &mdash; &sect;09 sets them out &mdash; but it is not the thesis that was circulated, and it is already inside the quarter every one of these companies has reported.</p>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">What the European Registers Actually Say</h2></div>
+  <p>The registers were read directly rather than through the tracker, wherever a machine-readable form existed. The picture is the same in every one of them: <b>a handful of finished-dose presentations, product-level causes, alternatives available, and no statement anywhere about the active ingredient.</b></p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Country</th><th>Register, date</th><th>Ibuprofen entries</th><th>Stated causes and detail</th><th>Alternatives</th></tr></thead>
+    <tbody>
+      <tr><td class="bold">Italy</td><td>AIFA national shortage list, CSV updated 08/09/2026 [4]</td><td class="bold">15 of 2,589 rows</td><td>13 ibuprofen (incl. lysine salt and one IV infusion) and 2 dexibuprofen. &ldquo;Problemi produttivi&rdquo; for most; &ldquo;Elevata richiesta&rdquo; for Towa 600 mg (01/11/2026 to 31/03/2027); one permanent discontinuation (Fenextra). <b>Several rows predate 2026</b>: Zentiva 200 mg since 09/05/2022, Zentiva 400 mg soft capsules since 31/05/2024.</td><td>&ldquo;S&igrave;&rdquo; for most rows</td></tr>
+      <tr><td class="bold">Spain</td><td>AEMPS CIMA supply-problem API, 11 Sep 2026 [5]</td><td class="bold">5 of 909 active problems</td><td>Kern Pharma 600 mg effervescent granules (two entries) and 200 mg granules, starting Nov 2025&ndash;Jan 2026 and ending Oct&ndash;Nov 2026; Codramol and Farmalid ibuprofen-arginine 600 mg sachets from 4 Mar 2026.</td><td>Every row: &ldquo;Existe/n otro/s medicamento/s con el mismo principio activo&rdquo;</td></tr>
+      <tr><td class="bold">Germany</td><td>BfArM &mdash; Beirat minutes, statutory lists [8][9][10][11]</td><td>Counted within the tracker&rsquo;s 22; no separate BfArM count retrieved</td><td>The shortage advisory board&rsquo;s protocols for its 16th&ndash;20th sittings (25 Mar 2025, 4 Sep 2025, 1 Dec 2025, 18 Mar 2026, 18 Jun 2026) contain <b>zero mentions of ibuprofen</b> [8]. Ibuprofen is on the <em>versorgungsrelevant</em> (supply-relevant) list of 28 Apr 2025 [9] but <b>not</b> on the <em>versorgungskritisch</em> (supply-critical) list [10]. The BfArM paediatric fever-syrup page returned HTTP 404 on 11 Sep 2026 [11].</td><td class="muted">&mdash;</td></tr>
+      <tr><td class="bold">Ireland</td><td>HPRA, via the tracker [3]</td><td>Counted within the 22; no per-country count retrieved</td><td class="muted">Not separately read</td><td>Indicated available [3]</td></tr>
+      <tr><td class="bold">Sweden</td><td>L&auml;kemedelsverket, via the tracker [3]</td><td>Counted within the 22; no per-country count retrieved</td><td class="muted">Not separately read</td><td>Indicated available [3]</td></tr>
+      <tr><td class="bold">United Kingdom</td><td>DHSC / NHS England notifications, 10 Sep 2026 [6]</td><td class="bold green">None</td><td>&ldquo;Ibuprofen does not currently have an active shortage notification from DHSC or NHS England.&rdquo;</td><td class="muted">n/a</td></tr>
+      <tr><td class="bold">France</td><td>ANSM ruptures and tensions data, 11 Sep 2026 [7]</td><td class="bold green">None</td><td>No ibuprof&egrave;ne product among the 292 listed ruptures, tensions and discontinuations.</td><td class="muted">n/a</td></tr>
+      <tr><td class="bold">EU level</td><td>Union list of critical medicines v2.1 rev.1, 12 Dec 2025, page updated 19 Jan 2026 [12]</td><td class="bold green">Absent</td><td>The xlsx was downloaded and searched. <b>Ibuprofen is not on it.</b> Paracetamol is. No NSAID at all &mdash; diclofenac, naproxen, ketoprofen, acetylsalicylic acid, metamizole &mdash; appears.</td><td class="muted">n/a</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Fifteen of 2,589 Italian rows is about 0.6% of that list; five of 909 Spanish problems is about 0.55% (both derived). The tracker&rsquo;s per-country counts for Germany, Ireland and Sweden were not retrieved separately and are not estimated here.</p>
+  <h3 class="subsection-title">The tracker the articles relied on</h3>
+  <p>Mobidoctor&rsquo;s page, updated 11 September 2026 [3], shows five of nine tracked registers with active issues and <b>22 presentations</b> &mdash; one more than the articles&rsquo; 21 &mdash; across film-coated tablets of 200&ndash;800 mg, effervescent granules and depot tablets. Its stated causes: <b>15 of 16 manufacturing problems, 1 unexpectedly high demand.</b> Its prognoses run from 30 September 2026 to 31 March 2027. All five registers indicate alternatives available. The page makes <b>no statement about an API shortage</b>; it addresses finished-dose availability only, and it says so in its own words: &ldquo;Availability is national &mdash; a shortage in one country does not mean it is short everywhere.&rdquo;</p>
+  <h3 class="subsection-title">The policy layer, checked</h3>
+  <p>The <b>Critical Medicines Act</b> reached a provisional political agreement between Council and Parliament on <b>12 May 2026</b> (EMA news [13]; Commission IP/26/1017 [14]; Council release [15], which returned HTTP 403 on fetch; European Pharmaceutical Review, 15 May 2026 [16]). The Commission text says that where there is &ldquo;a high dependency on a single or a limited number of third countries, the CMA goes further, foreseeing the obligation for contracting authorities to favour &lsquo;manufacturing in the EU&rsquo;&rdquo;, and provides for Strategic Projects for critical medicines &ldquo;or their active substances&rdquo;; it is &ldquo;now subject to formal approval&rdquo; [14]. <b>No medicine is named in the Commission or EMA text.</b> The Critical Medicines Alliance Strategic Report of 28 February 2025 [17] contains no ibuprofen-specific recommendation, and no HERA statement on ibuprofen was found. One fetched Commission health page carried &ldquo;July 10, 2026&rdquo; as an agreement date; EMA, the Council URL and EPR all give 12 May 2026, which is the date used here. Two European Times pieces (4 May and 12 Jun 2026) [24] speculate about paracetamol and ibuprofen shortages arising from the Iran conflict and cite no data.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">What China&rsquo;s Own Filings Say</h2></div>
+  <p>China&rsquo;s two listed ibuprofen API producers publish audited reports twice a year. Both filed their H1 2026 reports in the last week of August, and <b>both were read from the PDFs</b> because web summaries of the same documents mis-scale the units. Neither describes a supply cut. Both describe the opposite.</p>
+  <h3 class="subsection-title">Shandong Xinhua Pharmaceutical (000756 / 0719.HK)</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Period, filed</th><th class="right">Revenue</th><th class="right">Net profit</th><th>Segment and geography</th><th>Stated reason and outlook</th></tr></thead>
+    <tbody>
+      <tr><td class="bold">FY2025, 29&ndash;31 Mar 2026 [26]</td><td class="right">&yen;8.755bn (+3.41%)</td><td class="right red">&yen;290m (&minus;38.32%)</td><td>API segment &yen;2.646bn (&minus;3.30%); Europe &yen;713m (&minus;10.72%); Americas &yen;746m (&minus;19.09%)</td><td>Prices of some products reduced &ldquo;to consolidate and raise market share&rdquo;. SCMP, 22 Feb 2026 [25]: &ldquo;drug makers are hit by oversupply and weakening demand&rdquo;.</td></tr>
+      <tr><td class="bold">Q1 2026, 29 Apr 2026 [27]</td><td class="right">&yen;2.423bn (&minus;0.28%)</td><td class="right red">&yen;83.9m (&minus;25.15%)</td><td class="muted">&mdash;</td><td class="muted">&mdash;</td></tr>
+      <tr><td class="bold">H1 2026, 26 Aug 2026 [28]</td><td class="right">&yen;4,357.5m (&minus;6.06%)</td><td class="right red">&yen;149.1m (&minus;33.35%)</td><td><b>Analgesic/antipyretic APIs (the ibuprofen family) &yen;1,244.9m (&minus;16.42%)</b>, gross margin 36.17% (&minus;0.89 pp); Europe &yen;431.2m (+7.42%); Americas &yen;282.6m (&minus;35.14%); export receipts USD 129.8m</td><td>&ldquo;Intense international and domestic competition&hellip; prices of some products reduced to consolidate and raise market share.&rdquo; Outlook: &ldquo;market demand continues to be weak, competition intense&rdquo;, H2 &ldquo;faces considerable pressure&rdquo;. <b>No plant closure, environmental stoppage or export restriction is mentioned.</b></td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Translations of the Chinese filing text are this note&rsquo;s own. The analgesic API line is about 29% of H1 2026 group revenue (derived). Xinhua does not disclose ibuprofen-specific volumes or prices, and none are estimated here.</p>
+  <h3 class="subsection-title">Hubei Biocause Heilen Pharmaceutical &mdash; Hendi (301211)</h3>
+  <p>Hendi is the former Granules India joint venture; Granules sold its 50% to Hubei Biocause in October 2019 [43]. It is the smaller of the two Chinese makers and the more ibuprofen-dependent: its anti-inflammatory segment was about 63% of H1 2026 revenue (derived from [30]).</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Period, source</th><th>What the filing says</th></tr></thead>
+    <tbody>
+      <tr><td class="bold" style="width:210px">2021 &rarr; 2022 &rarr; 2024 volumes [31][36]</td><td>Ibuprofen sales <b>3,898 t &rarr; 2,871 t &rarr; 2,222 t</b> (&minus;37.51% in 2024; about &minus;43% over the period, derived). 2024 API revenue &yen;356m (&minus;35.78%). 2022 average export price USD 14.17/kg (Jiemian, 23 Dec 2024) [33].</td></tr>
+      <tr><td class="bold">Jan 2024 [30][32][33]</td><td><b>Terminated its 5,000 t/yr ibuprofen API expansion</b>, citing an international market whose supply and demand are &ldquo;saturated&rdquo; and global prices &ldquo;at a relatively low level&rdquo; &mdash; wording repeated verbatim in the H1 2026 report. A separate 1,200 t API project was cut to 700 t.</td></tr>
+      <tr><td class="bold">FY2025, 31 Mar 2026 [29][35]</td><td>Revenue &yen;453m (+1.67%); net profit &yen;34.9m (<b>&minus;61.87%</b>). January 2026 profit warning: &ldquo;the main product, ibuprofen API&hellip; intensified competition directly reduced gross margin&rdquo;; international prices &ldquo;continue to run at low levels&rdquo; [31].</td></tr>
+      <tr><td class="bold">Q1 2026, 24 Apr 2026 [34]</td><td>Revenue &yen;120m (+5.0%); net profit &yen;9.2m (&minus;10.73%); gross margin 20.93%.</td></tr>
+      <tr><td class="bold">H1 2026, 25 Aug 2026 [30]</td><td>Revenue &yen;247.5m (+5.43%); net profit &yen;30.1m (+62.48%, <b>but 44.6% of pre-tax profit was fair-value gains on wealth-management products</b>). <b>Anti-inflammatory (ibuprofen family) segment revenue &yen;154.8m (&minus;3.12%), gross margin 16.63%.</b> Risk factor: &ldquo;the supplier of one of the company&rsquo;s main raw materials, isobutylbenzene, is in India&rdquo;, and part of its ibuprofen API market is India. Ibuprofen registered in the US, EU, UK, Canada, Japan and Korea; sold to 80+ countries; qualified supplier to Sanofi, GSK and Abbott.</td></tr>
+    </tbody>
+  </table></div>
+  <h3 class="subsection-title">Capacity is being added, not cut</h3>
+  <p>Zhejiang NHU&rsquo;s Shandong subsidiary filed an environmental impact assessment for <b>5,400 t/yr of ibuprofen</b>, published 9 May 2023 and accepted 4 January 2024 [36]. NHU&rsquo;s investor-relations record of 23 January 2026 says it has &ldquo;appropriately slowed the pace of capacity release&rdquo; over the past two years and does not mention ibuprofen [37] &mdash; <b>the project&rsquo;s status is unconfirmed.</b> Pharnexcloud&rsquo;s tally (10 Jan 2024) [36] puts nameplate at Xinhua 8,000 t, Hendi 3,500 t, IOL 10,000&ndash;12,000 t, Solara 5,000 t and NHU 5,400 t planned &mdash; &ldquo;more than 32,000 t&rdquo; against global consumption of about 21,500 t (2022). The same source has Chinese ibuprofen API exports at <b>8,437 t (2020), 8,110 t (2021), 7,161 t (2022)</b> &mdash; a decline of about 15% (derived) that it attributes to demand, not to any restriction.</p>
+  <p class="tbl-note">The 21,500 t global-consumption figure (Pharnexcloud, 2022) [36] does not reconcile with the ~37,000 t global demand figure Apotheke Adhoc carried in 2018 [19]; the two come from different sources four years apart and are both shown rather than reconciled.</p>
+  <h3 class="subsection-title">The price trackers</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Tracker (accessed 11 Sep 2026)</th><th>China series</th><th>Elsewhere</th><th>The tracker&rsquo;s own explanation</th></tr></thead>
+    <tbody>
+      <tr><td class="bold">ChemAnalyst [39]</td><td>FOB Shanghai: Q4 2025 USD 10,453/MT (+0.03% QoQ); Q1 2026 USD 7,320/MT (+4.3%); Q2 2026 USD 11,530/MT (+7.36%)</td><td>Germany USD 11,053 &rarr; 10,857 &rarr; 11,667/MT; India Q2 +12.83%; US Q2 USD 11,730/MT (+7.4%)</td><td>Q4: &ldquo;Major Shandong and Jiangsu plants ran near nameplate rates&rdquo;. Q1: &ldquo;ran near capacity&rdquo;. Q2: &ldquo;Major Chinese API plants operated near nameplate capacity, underpinning stable export flow&rdquo;.</td></tr>
+      <tr><td class="bold">Expert Market Research [40]</td><td>USD 9.4/kg (Q1 2026) &rarr; USD 9.9/kg (Q2 2026, +5.3%)</td><td>Germany 18.8 &rarr; 19.9/kg; India 14.1 &rarr; 14.9; US 15.5 &rarr; 16.4</td><td>Q1: &ldquo;large domestic capacity&rdquo; kept China cheapest. Q2 rise driven by &ldquo;firmer isobutylbenzene feedstock costs from Middle East petrochemical supply disruptions&rdquo;.</td></tr>
+      <tr><td class="bold">IMARC [41]</td><td>USD 12,811/MT (Mar 2026) &rarr; 13,737/MT (Jun 2026)</td><td>Germany 10,952 &rarr; 11,790/MT</td><td>Attributes Q2 to &ldquo;stricter regulatory standards and enhanced certification requirements&rdquo; &mdash; no specifics given.</td></tr>
+      <tr><td class="bold">Procurement Resource [42]</td><td class="muted">Qualitative only</td><td>Europe &ldquo;largely stable&rdquo;; UK generic tablets &ldquo;no significant April-to-June adjustment&rdquo;</td><td>Q2 2026 Asia: &ldquo;soft-to-stable bias&hellip; as upstream chemical costs declined&rdquo;.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note"><b>Use the direction, not the levels.</b> ChemAnalyst&rsquo;s China series does not reconcile with itself &mdash; USD 10,453/MT to USD 7,320/MT is labelled &ldquo;+4.3%&rdquo; &mdash; and the trackers disagree on level by roughly 40%: IMARC puts China <em>above</em> Germany (13,737 vs 11,790 USD/MT in June 2026) while EMR puts China at <em>half</em> of Germany (9.9 vs 19.9 USD/kg). Against Hendi&rsquo;s 2022 average export price of USD 14.17/kg [33], Chinese Q2 2026 prices of USD 9.9&ndash;13.7/kg are at or below where they stood four years ago. All four are commercial index services, a tier below filings. The desk&rsquo;s 8 September IOLCP update reached the same reading of the first two trackers; this audit adds IMARC, Procurement Resource, and the Chinese filings above.</p>
+  <div class="callout callout-red"><b>Stated plainly: no 2026 evidence of Chinese ibuprofen plant shutdowns, environmental inspections or export restrictions was found.</b> The only 2026 text supporting &ldquo;contraction&rdquo; is a vendor blog (Molekula, 6 Aug 2026) [38] describing &ldquo;a gradual but measurable contraction of domestic production, especially for low-margin bulk chemicals like acetylsalicylic acid and ibuprofen&rdquo;, with no ibuprofen-specific source behind it. A narrative of prices firming through June 2026 with Chinese plants &ldquo;near nameplate&rdquo; is inconsistent with supply cuts and consistent with cost-push from feedstock &mdash; which is exactly how SMS Pharma&rsquo;s CEO described it on 27 May 2026: a price increase in ibuprofen &ldquo;because of this war&rdquo; [70].</div>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">What a Real Ibuprofen Shortage Looked Like</h2></div>
+  <p>Europe has had two documented ibuprofen shortages in the last decade. Both are useful because they show <b>what the evidence trail looks like when the API itself is short</b> &mdash; and how different that trail is from the one in &sect;03.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Episode</th><th>What happened</th><th>Where it started</th><th>How it showed up</th></tr></thead>
+    <tbody>
+      <tr><td class="bold" style="width:150px">2018&ndash;19</td><td>BASF&rsquo;s Bishop, Texas plant &mdash; about 5,000 t/yr, roughly <b>one-sixth of global demand</b> &mdash; was down from June 2018 to early 2019 [19][20]. The trade press reported BfArM asking about ibuprofen supply on 27 June 2018 [19], and BASF still &ldquo;slowly ramping back up&rdquo; in March 2019 [20].</td><td class="bold">At the API. One of six plants worldwide [18].</td><td>German wholesalers <b>rationed 600 mg packs</b>; the regulator was making inquiries about supply; the trade press tracked the plant restart [19][20].</td></tr>
+      <tr><td class="bold">2022</td><td>Paediatric fever syrups. 1A Pharma exited the product; demand roughly doubled (+100%). BfArM declared a <em>Versorgungsengpass</em> on 21 July 2022 [21]; Pharmazeutische Zeitung described how the shortage would be managed on 13 December 2022 [22]; AIFA declared ibuprofen syrup &ldquo;carente fino a ottobre&rdquo; in July 2022 [23].</td><td class="bold">At the finished dose, demand-driven, one formulation.</td><td>A formal BfArM shortage declaration; regulator-issued management guidance; national press coverage in two countries.</td></tr>
+      <tr><td class="bold">2026</td><td>22 presentations across five registers with 15 of 16 causes given as manufacturing problems and alternatives available [3]; UK and France clean [6][7]; Union list silent [12]; BfArM advisory board silent through June 2026 [8].</td><td class="bold">At individual products. No API-level notice anywhere.</td><td>One commercial tracker page and two Indian stock-market articles citing it [1][2][3].</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The order of events is the tell.</b> In 2018 the shortage began upstream &mdash; one plant equal to a sixth of world supply &mdash; and showed up in wholesale rationing within weeks, with the regulator making inquiries about supply. In 2026 the sequence is reversed: a scatter of finished-dose entries with product-level causes, an API market that the two Chinese makers themselves describe as saturated, and no regulator anywhere in Europe treating ibuprofen as critical. <b>Nothing comparable to 2018&ndash;19 or 2022 is documented for 2026.</b></p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Who Actually Supplies Europe</h2></div>
+  <p>The claim that a Chinese cut would be felt in Europe presupposes that Europe depends on China for ibuprofen. <b>That dependence could not be sourced.</b> What can be sourced is the structure of the industry, and it is older than one would like.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>API plant (as of June 2018) [18]</th><th>Location</th><th class="right">Capacity then</th><th>Current figure, where disclosed</th></tr></thead>
+    <tbody>
+      <tr><td>Hubei Granules-Biocause (now Hendi)</td><td>Jingmen, China</td><td class="right">~4,800 t</td><td>3,500 t (Pharnexcloud, Jan 2024) [36]; sales 2,222 t in 2024 [31]</td></tr>
+      <tr><td>Shandong Xinhua</td><td>Zibo, China</td><td class="right">3,000 t &mdash; then &ldquo;sold entirely to USA&rdquo;</td><td>8,000 t (Pharnexcloud, Jan 2024) [36]</td></tr>
+      <tr><td>IOL Chemicals &amp; Pharmaceuticals</td><td>Barnala, India</td><td class="right">~6,200 t</td><td>12,000 MTPA [56][58]</td></tr>
+      <tr><td>Solara (ex-Shasun)</td><td>Puducherry, India</td><td class="right">~6,000 t</td><td>10,000&ndash;12,000 t combined incl. mothballed Vizag; ~3,000 t utilised [64]</td></tr>
+      <tr><td>BASF</td><td>Bishop, Texas, USA</td><td class="right">~5,000 t [19]</td><td>Only site named on BASF&rsquo;s current ibuprofen page [45]</td></tr>
+      <tr><td>SI Group</td><td>Orangeburg, South Carolina, USA</td><td class="right">~5,200 t</td><td class="muted">Not sourced</td></tr>
+      <tr><td class="bold">Not in the 2018 list</td><td>SMS Pharmaceuticals, Vizag, India</td><td class="right muted">&mdash;</td><td>500 t/month (~6,000 tpa), going to 800 t/month by Mar 2027 [70][71]</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Apotheke Adhoc, 26 Jun 2018 [18]: shares &ldquo;annähernd gleich verteilt&rdquo; (roughly equally distributed) at 10&ndash;20% each; &ldquo;Europe has no indigenous ibuprofen API production&rdquo;; global demand ~37,000 t [19]. These are 2018 figures and are shown because no later plant-by-plant survey was found.</p>
+  <h3 class="subsection-title">Three things that could not be established</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Question</th><th>Status</th><th>What exists</th></tr></thead>
+    <tbody>
+      <tr><td class="bold" style="width:260px">Does BASF now make ibuprofen in Europe (Ludwigshafen)?</td><td class="bold" style="color:#b45309">UNVERIFIED</td><td>Announced 28 Jun 2017 (~&euro;200m across Ludwigshafen and Bishop, start &ldquo;2021&rdquo;) [45]; March 2019: &ldquo;die neue Ibu-Anlage wird erst 2021 fertig&rdquo; [20]. BASF&rsquo;s current product page names <b>only Bishop, Texas</b> [45]. No source confirming the Ludwigshafen plant ever started was found.</td></tr>
+      <tr><td class="bold">What share of Europe&rsquo;s ibuprofen API comes from India vs China vs domestic?</td><td class="bold red">NOT SOURCED</td><td>No dated source gives the split. A &ldquo;95% of EU-imported ibuprofen made in China&rdquo; claim circulating on a patent-data blog could not be fetched (HTTP 403) and is unsourced &mdash; <b>it is not usable and is not used.</b> The only general datapoint is Pro Generika&rsquo;s CEP count of 8 Oct 2020 [44]: of certificates for 565 commonly used APIs, 63% are held in Asia (India 41%, China 13%), Europe 33% &mdash; a count of certificates across all APIs, not ibuprofen volumes.</td></tr>
+      <tr><td class="bold">Are Indian ibuprofen exports to the EU rising in 2026?</td><td class="bold red">NOT RETRIEVABLE</td><td>No 2026 DGCIS or Pharmexcil ibuprofen-to-EU series could be retrieved. Supplier-side signals only: Xinhua&rsquo;s Europe revenue +7.42% in H1 2026 (group-wide, not ibuprofen-specific) [28]; Solara &ldquo;developed markets 75% of overall sales&rdquo; (FY26) [62]; IOL (Nov 2023): ~80% of ibuprofen sales domestic, export markets &ldquo;Europe and Latin America&rdquo;, ~40% of exports to regulated markets [57].</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Regulated-market credentials are not the constraint.</b> IOL claims an EDQM CEP for ibuprofen among 21 CEPs overall [53][58]; SMS received its ibuprofen CEP in July 2022 [74] and EU GMP for Vizag in October 2024 [75]; Solara lists EDQM among its approvals with regulated markets at 76% of FY25 revenue [67]; Hendi and Xinhua also hold CEP/EU registrations [30][46]. Granules India&rsquo;s current ibuprofen CEP status was not established. All three Indian API names in this note can already sell into Europe; the question is only whether Europe is buying more, and no source answers it.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">The Five Names — Exposure Map</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Name</th><th>Chain position</th><th>Ibuprofen (or IBB) share of revenue</th><th>Capacity</th><th>Regulated-market share</th><th>2026 commentary</th><th>Surveillance, 11 Sep [60]</th></tr></thead>
+    <tbody>
+      <tr><td class="bold">IOLCP</td><td>API maker &mdash; world&rsquo;s largest, claims 35% global share; also makes its own IBB, ~30% global share, second to Vinati [56][57][58]</td><td><b>82%</b> of pharma revenue FY21 &rarr; <b>63%</b> FY26 &rarr; <b>~57%</b> Q1 FY27 [53][54]; roughly 35% of group revenue in Q1 FY27 (derived: 57% of &#8377;469.5 cr pharma on &#8377;756 cr total [53][54])</td><td>12,000 MTPA ibuprofen; 12,000 MTPA IBB [56][58]</td><td>Exports 28.5% of revenue, Q1 FY27 [53]; ~40% of exports to regulated markets; ~80% of ibuprofen sales domestic (Nov 2023) [57]</td><td>&ldquo;Demand for ibuprofen has stabilized after previous overstocking issues, and we expect this level to be maintained for the next four to six quarters&rdquo; (22 May 2026) [55]. No ibuprofen price commentary in the Q1 FY27 highlights [53].</td><td class="bold red">LTASM Stage I</td></tr>
+      <tr><td class="bold">SMSPHARMA</td><td>API maker &mdash; Vizag, &ldquo;largest single-block, single-product ibuprofen plant in Asia&rdquo; [76]</td><td>&ldquo;Roughly around <b>20%</b>&rdquo; of revenue (CEO, 27 May 2026) [70]; about &#8377;177 cr on FY26 revenue of &#8377;887 cr (derived) [71]</td><td>500 t/month (~6,000 tpa) at ~80% utilisation &rarr; <b>800 t/month (~9,600 tpa) by March 2027</b>, inside a &#8377;280 cr capex programme [70][71]</td><td>Undisclosed in accessible materials; Feb 2023 guidance 70% export / 30% domestic for ibuprofen [73]; CEP Jul 2022 [74]; EU GMP Oct 2024 [75]</td><td>Price increase in ibuprofen &ldquo;because of this war&rdquo;; backward integration credited for margin defence [70]. One customer = 28% of FY26 revenue (multi-product).</td><td>None</td></tr>
+      <tr><td class="bold">SOLARA</td><td>API maker &mdash; Puducherry, &ldquo;one of the world&rsquo;s largest ibuprofen facilities&rdquo;; Vizag <b>mothballed since 2024</b>, fixed cost &#8377;12&ndash;15 cr/yr [67][62]</td><td><b>20.9%</b> of FY25 turnover (AR BRSR) [67]; Q3 FY26 ibuprofen &#8377;102.4 cr of &#8377;349 cr &asymp; 29% (derived) [64]; Q4 FY26 implied &asymp;&#8377;85 cr (derived: &#8377;392 cr total &minus; &#8377;307 cr base) [63]</td><td>10,000&ndash;12,000 t combined vs <b>~3,000 t utilised</b> (6 Feb 2026) [64] &mdash; roughly a quarter to a third (derived)</td><td>76% (FY25) [67]; developed markets 75% (FY26) [62]</td><td>Ibuprofen EBITDA margin <b>&minus;22.9%</b> Q3 FY26 [64], <b>&minus;12%</b> Q1 FY27 [61]. &ldquo;Board has appointed bankers to evaluate strategic options&rdquo;, conclusion &ldquo;by the end of H1 FY27&rdquo; [61][63].</td><td>None</td></tr>
+      <tr><td class="bold">VINATIORGA</td><td><b>Upstream</b> &mdash; world&rsquo;s largest IBB (isobutyl benzene) producer, &ldquo;65% global market share in ATBS and IBB&rdquo; [48][49]; ~90% of India&rsquo;s IBB exports, ~9 KTPA in CY24, US 77% [47]</td><td>IBB <b>10&ndash;12%</b> of FY26 revenue (CFO, 27 May 2026) [50] vs 20&ndash;30% cited Feb 2023 [51]; about &#8377;223&ndash;267 cr on FY26 sales of &#8377;2,228 cr (derived) [52]</td><td>No dated primary figure. ICRA c.2009: 14,000 mtpa; later broker notes 25,000 MTPA, not verified [51]</td><td>Long-term IBB/ATBS contracts with Chemtall, BASF, Mitsubishi, SNF, Dow (CARE, Oct 2025) [48]; BASF USA named as IBB buyer; Shasun (now Solara) in client list [51]</td><td>IBB volume <b>&minus;20% in FY26 &ldquo;due to unavailability of key raw materials&rdquo;</b> [50]; FY25 AR: IBB &ldquo;witnessed a downtrend due to specific demand-side challenges&rdquo; [49]</td><td>None</td></tr>
+      <tr><td class="bold">SHREEPUSHK</td><td class="bold red">No disclosed exposure</td><td class="red">None &mdash; zero occurrences of &ldquo;ibuprofen&rdquo;, &ldquo;isobutyl&rdquo;, &ldquo;IBB&rdquo;, &ldquo;API&rdquo; or &ldquo;active pharmaceutical&rdquo; in the 274-page Annual Report 2024-25 [77]</td><td class="muted">n/a</td><td class="muted">n/a</td><td>Q1 FY27 call (13 Aug 2026): fertilisers 51% of &#8377;281 cr, chemicals 49%; sulphur and ammonia shortages from the Hormuz closure; 450,000 MTPA fertiliser and 72,000 MTPA chemical capex. <b>No pharma mention</b> [79].</td><td>None</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Every derived figure is arithmetic on the disclosed pairs shown beside it and is not a forecast. Company-stated global share claims (IOL&rsquo;s 35% in ibuprofen, Vinati&rsquo;s 65% in ATBS and IBB) are the companies&rsquo; own and are not independently verified here.</p>
+
+  <h3 class="subsection-title">IOL Chemicals &amp; Pharmaceuticals &mdash; the volume leader, shrinking the product</h3>
+  <p>IOL is the one name where a genuine European ibuprofen shortage would land on a large volume base: 12,000 MTPA of ibuprofen and its own 12,000 MTPA of IBB behind it [56][58]. It is also the company most deliberately moving away from the molecule. Ibuprofen was 82% of pharma revenue in FY21, 63% in FY26 and about 57% in Q1 FY27, when non-ibuprofen products were 43% [53][54]; the desk&rsquo;s 8 September IOLCP update &mdash; rated <em>Hold at CMP &mdash; Thesis Intact, Price Ahead of the Evidence</em> &mdash; is built on exactly that mix shift toward a 50-50 target, not on ibuprofen. FY26 revenue was &#8377;2,319 cr with PAT of &#8377;138 cr [55] (a second source carries &#8377;2,340.3 cr, likely total income &mdash; both shown); Q1 FY27 revenue &#8377;756 cr (+37%) and PAT &#8377;64.5 cr (+89.9%) [53]. Management&rsquo;s own words on ibuprofen demand in May 2026 were &ldquo;stabilized after previous overstocking issues&rdquo; [55] &mdash; the language of a market returning to normal, not of one running short. Promoter holding has risen from 48.19% (Sep 2023) to 62.28% (Jun 2026) [59], and the stock carries a Long-Term ASM Stage I flag [60].</p>
+
+  <h3 class="subsection-title">Solara Active Pharma Sciences &mdash; a possible seller, not a beneficiary</h3>
+  <p>Solara owns what it calls one of the world&rsquo;s largest ibuprofen facilities and runs it at a quarter to a third of combined capacity (derived), with the Vizag plant mothballed since 2024 at a fixed cost of &#8377;12&ndash;15 cr a year [62][64][67]. The business loses money at the EBITDA line: <b>&minus;22.9% in Q3 FY26</b> on &#8377;102.4 cr of revenue and 23% gross margin [64], <b>&minus;12% in Q1 FY27</b> [61]. In February 2026 the board appointed bankers to evaluate &ldquo;strategic options&rdquo; for ibuprofen, with a conclusion due by the end of H1 FY27 [61][63][64] &mdash; which is to say, a sale or restructuring of the very business this thesis says should be booming is on the table, and a polymers/CRAMS carve-out has been put on hold [61]. The wider record is a FY24 net loss of &#8377;567 cr [69], a &#8377;449.95 cr rights issue at &#8377;375 a share (record date 15 May 2024, allotment 19 Jun 2024) [67], and net debt of &#8377;479 cr at 30 June 2026 [61]. <b>Its FY26 bottom line conflicts across sources</b>: a &#8377;7.41 cr net loss on &#8377;1,369 cr of revenue per the Free Press Journal [65] against a &#8377;17 cr profit on Screener [69]; FY25 likewise (&#8377;0.54 cr profit [65] vs &#8377;1 cr loss [69]). Two further figures in circulation are noted and not used: Business Standard&rsquo;s &ldquo;ibuprofen revenue&hellip; Rs 849 crore&rdquo; for Q4 FY26 is evidently &#8377;84.9 cr, and Moneypost&rsquo;s FY26 ibuprofen revenue of &#8377;334 cr with &minus;&#8377;53 cr EBITDA [2] could not be verified against a filing. A price rise a seller cannot capture at a positive margin is not a windfall.</p>
+
+  <h3 class="subsection-title">SMS Pharmaceuticals &mdash; a capex-led volume story, priced for cost not scarcity</h3>
+  <p>SMS is the most straightforwardly exposed of the three API makers in proportion to its size &mdash; &ldquo;roughly around 20%&rdquo; of revenue is ibuprofen [70], about &#8377;177 cr on FY26 revenue of &#8377;887 cr (derived), with FY26 EBITDA of &#8377;171 cr and PAT of &#8377;102 cr [71] and Q1 FY27 revenue of &#8377;207 cr with PAT of &#8377;21.1 cr [72]. Its story is volume: Vizag running at about 80% of 500 t/month, expanding to <b>800 t/month by March 2027</b> &mdash; a 60% capacity increase (derived) &mdash; within a &#8377;280 cr programme [70][71], with the CEP (July 2022) and EU GMP (October 2024) already in hand [74][75]. On price, the CEO&rsquo;s attribution on 27 May 2026 was explicit: the increase in ibuprofen is happening &ldquo;because of this war&rdquo; &mdash; feedstock, not shortage &mdash; and it is backward integration, not scarcity pricing, that he credits for holding margin [70]. Its regulated-market share of ibuprofen sales is not disclosed in accessible materials; the last guidance was 70% export in February 2023 [73]. One customer accounted for 28% of FY26 revenue across products.</p>
+
+  <h3 class="subsection-title">Vinati Organics &mdash; the upstream tell</h3>
+  <p>Vinati does not make ibuprofen. It makes isobutyl benzene, the raw material every ibuprofen plant in the world consumes, and it is the largest producer of it: &ldquo;65% global market share in ATBS and IBB&rdquo; per its FY25 annual report and CARE [48][49], about 90% of India&rsquo;s IBB exports, some 9 KTPA in CY24, 77% of it to the US [47]. Hendi&rsquo;s own H1 2026 risk factor &mdash; that its IBB supplier is in India [30] &mdash; is consistent with Chinese ibuprofen makers as IBB customers, though Vinati is not named. The exposure is real but small and shrinking: IBB was 20&ndash;30% of revenue in the February 2023 telling [51] and <b>10&ndash;12% of FY26 revenue</b> per the CFO on 27 May 2026 [50], roughly &#8377;223&ndash;267 cr on FY26 sales of &#8377;2,228 cr and PAT of &#8377;488 cr (derived from [52]). And the volume went the wrong way: <b>IBB volume fell 20% in FY26 &ldquo;due to unavailability of key raw materials&rdquo;</b> [50], after an FY25 annual report that described a &ldquo;downtrend due to specific demand-side challenges&rdquo; [49]. If Indian ibuprofen plants were being pulled harder by European buyers, the first place it would appear is in the tonnage of IBB they buy. It fell.</p>
+
+  <h3 class="subsection-title">Shree Pushkar Chemicals &amp; Fertilisers &mdash; not in this thesis</h3>
+  <p><b>Shree Pushkar has no disclosed exposure to the ibuprofen chain.</b> The 274-page Annual Report 2024-25 contains zero occurrences of &ldquo;ibuprofen&rdquo;, &ldquo;isobutyl&rdquo;, &ldquo;IBB&rdquo;, &ldquo;API&rdquo; or &ldquo;active pharmaceutical&rdquo; [77]. The company&rsquo;s website lists reactive dyes, dye intermediates (H-acid, vinyl sulphone, K-acid, gamma acid, sulpho para base), fertilisers (SSP, NPK, SOP, WSF), acids (sulphuric, oleum, chlorosulphonic) and a cattle-feed supplement [78]. Its Q1 FY27 call on 13 August 2026 covered fertilisers (51% of &#8377;281 cr) and chemicals (49%), sulphur and ammonia shortages from the Hormuz closure, and a capex programme of 450,000 MTPA of fertiliser and 72,000 MTPA of chemicals &mdash; and not one pharmaceutical product [79]. The desk&rsquo;s 8 September Shree Pushkar update, rated <em>Hold at CMP &mdash; Re-Rated on the Sector, Not on a Number</em>, treats it as what it is: a dye-intermediates and fertiliser company moving with the H-acid cluster. <b>It does not belong to this thesis and is in this note only because it was asked about.</b> Any move in the name on ibuprofen news would be flow it did not earn.</p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">What Your Own System Says</h2></div>
+  <p>The five tables below are <b>generated, not typed</b>: <span style="font-family:monospace">tools/report/framework_block.py</span> fills each marker pair from the newest scan &mdash; here the 10 September 2026 close, with relative strength ranked across 1,620 stocks &mdash; and they refresh with every scan. The rows carry the RS rating, the trend template with all seven checks, Stage 2 status, surveillance, price against the 50- and 200-day averages, position against the 52-week and all-time highs, returns from one day to one year, volume against its one-month average, and the trailing earnings and book multiples. The prose under each table interprets that picture against the thesis and deliberately carries no figure the table does not.</p>
+  <p><b>The house rule is to lead with the disagreement when the framework and the fundamentals part company.</b> Here they part company in an unusual way: the two strongest technical pictures belong to names whose trends have other explanations, the name whose tape did move on this story has the weakest business, and <b>the purest upstream play on ibuprofen volumes fails every check the system makes.</b></p>
+
+  <h3 class="subsection-title">IOLCP &mdash; IOL Chemicals &amp; Pharmaceuticals</h3>
+<!--FRAMEWORK:BEGIN IOLCP-->
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (10 Sep 2026 close)</th><th class="right">IOLCP</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating (1–99, 1,623 stocks)</td><td class="right bold green">95</td></tr>
+      <tr><td>Trend template</td><td class="right bold"><span class="red">FAILS 6/7</span> <span class="muted">(200-DMA rising)</span></td></tr>
+      <tr><td>Stage 2 (provider list 28 Aug)</td><td class="right ">Continues Trend · 16 wks · since 2026-05-16</td></tr>
+      <tr><td>Surveillance</td><td class="right bold red">LTASM - I</td></tr>
+      <tr><td>Price vs 50-DMA (₹169.99)</td><td class="right ">+14.8%</td></tr>
+      <tr><td>Price vs 200-DMA (₹126.33)</td><td class="right ">+54.5%</td></tr>
+      <tr><td>Below 52-week high</td><td class="right ">-10.9%</td></tr>
+      <tr><td>Up from 52-week low</td><td class="right ">+190.7%</td></tr>
+      <tr><td>Below all-time high (₹219.05)</td><td class="right ">-10.9%</td></tr>
+      <tr><td>1-year return</td><td class="right ">+90.7%</td></tr>
+      <tr><td>6-month return</td><td class="right ">+207.2%</td></tr>
+      <tr><td>3-month return</td><td class="right ">+57.5%</td></tr>
+      <tr><td>1-month return</td><td class="right ">+33.5%</td></tr>
+      <tr><td>1-week return</td><td class="right ">+5.7%</td></tr>
+      <tr><td>1-day return</td><td class="right ">-7.6%</td></tr>
+      <tr><td>Volume vs 1-month average</td><td class="right red">0.69×</td></tr>
+      <tr><td>Trailing P/E</td><td class="right ">32.5×</td></tr>
+      <tr><td>Price / Book</td><td class="right ">3.13×</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Screener scan of 2026-09-11 (1,623 stocks); 200-DMA slope measured against the 2026-09-10 scan; Stage 2 from the provider list of 2026-08-28. Generated by tools/report/framework_block.py — re-run it after each scan and these rows refresh; nothing here is typed by hand.</p>
+<!--FRAMEWORK:END IOLCP-->
+  <p>RS 95, all seven checks passing, 3.5% below its 52-week high and sixteen weeks into a Stage 2 run the provider dates to 16 May 2026 and labels &ldquo;Continues Trend&rdquo; &mdash; the strongest reading of the five, and the one the desk&rsquo;s 8 September update already described in full. Two qualifications sit inside the same table: volume ran at 0.71&times; its one-month average, so the latest leg is not being carried by fresh participation, and the LTASM Stage I flag remains in force. Nothing in this picture distinguishes an ibuprofen-shortage bid from the diversification re-rating the desk&rsquo;s own report attributes the move to; the market was paying 35.1&times; trailing earnings and 3.45&times; book on 10 September for a company that is shrinking the very product this thesis is about.</p>
+
+  <h3 class="subsection-title">SMSPHARMA &mdash; SMS Pharmaceuticals</h3>
+<!--FRAMEWORK:BEGIN SMSPHARMA-->
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (10 Sep 2026 close)</th><th class="right">SMSPHARMA</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating (1–99, 1,623 stocks)</td><td class="right bold red">69</td></tr>
+      <tr><td>Trend template</td><td class="right bold"><span class="red">FAILS 5/7</span> <span class="muted">(RS >= 70, 200-DMA rising)</span></td></tr>
+      <tr><td>Stage 2 (provider list 28 Aug)</td><td class="right red">Not on the list</td></tr>
+      <tr><td>Surveillance</td><td class="right ">None</td></tr>
+      <tr><td>Price vs 50-DMA (₹379.07)</td><td class="right ">+23.0%</td></tr>
+      <tr><td>Price vs 200-DMA (₹359.84)</td><td class="right ">+29.6%</td></tr>
+      <tr><td>Below 52-week high</td><td class="right bold">-0.4%</td></tr>
+      <tr><td>Up from 52-week low</td><td class="right ">+93.9%</td></tr>
+      <tr><td>Below all-time high (₹468.25)</td><td class="right ">-0.4%</td></tr>
+      <tr><td>1-year return</td><td class="right ">+38.9%</td></tr>
+      <tr><td>6-month return</td><td class="right ">+13.2%</td></tr>
+      <tr><td>3-month return</td><td class="right ">+8.9%</td></tr>
+      <tr><td>1-month return</td><td class="right ">+13.0%</td></tr>
+      <tr><td>1-week return</td><td class="right ">+6.4%</td></tr>
+      <tr><td>1-day return</td><td class="right ">+11.2%</td></tr>
+      <tr><td>Volume vs 1-month average</td><td class="right bold green">1.50×</td></tr>
+      <tr><td>Trailing P/E</td><td class="right ">42.6×</td></tr>
+      <tr><td>Price / Book</td><td class="right ">5.55×</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Screener scan of 2026-09-11 (1,623 stocks); 200-DMA slope measured against the 2026-09-10 scan; Stage 2 from the provider list of 2026-08-28. Generated by tools/report/framework_block.py — re-run it after each scan and these rows refresh; nothing here is typed by hand.</p>
+<!--FRAMEWORK:END SMSPHARMA-->
+  <p>RS 75, all seven checks passing, 6.8% below its high, and the only one of the five whose volume is running above its one-month average at 1.54&times; &mdash; the footprint of a name being accumulated rather than merely drifting higher. It is not on the Stage 2 provider list and carries no surveillance flag. At 38.2&times; trailing earnings and 4.98&times; book it is the most expensively valued of the three names that pass, which is consistent with the market pricing the capex-led volume story of &sect;07 &mdash; 500 to 800 tonnes a month &mdash; and is the one place in this group where some of the circulating theme may also be in the price.</p>
+
+  <h3 class="subsection-title">SOLARA &mdash; Solara Active Pharma Sciences</h3>
+<!--FRAMEWORK:BEGIN SOLARA-->
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (10 Sep 2026 close)</th><th class="right">SOLARA</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating (1–99, 1,623 stocks)</td><td class="right bold red">65</td></tr>
+      <tr><td>Trend template</td><td class="right bold"><span class="red">FAILS 5/7</span> <span class="muted">(RS >= 70, 200-DMA rising)</span></td></tr>
+      <tr><td>Stage 2 (provider list 28 Aug)</td><td class="right ">Continues Trend · 2 wks · since 2026-08-22</td></tr>
+      <tr><td>Surveillance</td><td class="right ">None</td></tr>
+      <tr><td>Price vs 50-DMA (₹589.63)</td><td class="right ">+27.5%</td></tr>
+      <tr><td>Price vs 200-DMA (₹554.48)</td><td class="right ">+35.6%</td></tr>
+      <tr><td>Below 52-week high</td><td class="right bold">-0.9%</td></tr>
+      <tr><td>Up from 52-week low</td><td class="right ">+78.2%</td></tr>
+      <tr><td>Below all-time high (₹1,713.95)</td><td class="right ">-56.1%</td></tr>
+      <tr><td>1-year return</td><td class="right ">+4.9%</td></tr>
+      <tr><td>6-month return</td><td class="right ">+60.3%</td></tr>
+      <tr><td>3-month return</td><td class="right ">+16.2%</td></tr>
+      <tr><td>1-month return</td><td class="right ">+39.9%</td></tr>
+      <tr><td>1-week return</td><td class="right ">+10.7%</td></tr>
+      <tr><td>1-day return</td><td class="right ">+6.2%</td></tr>
+      <tr><td>Volume vs 1-month average</td><td class="right bold green">1.77×</td></tr>
+      <tr><td>Trailing P/E</td><td class="right ">846.5×</td></tr>
+      <tr><td>Price / Book</td><td class="right ">2.16×</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Screener scan of 2026-09-11 (1,623 stocks); 200-DMA slope measured against the 2026-09-10 scan; Stage 2 from the provider list of 2026-08-28. Generated by tools/report/framework_block.py — re-run it after each scan and these rows refresh; nothing here is typed by hand.</p>
+<!--FRAMEWORK:END SOLARA-->
+  <p>Solara fails the template on the one check that matters most for a thesis trade &mdash; RS 65 against the 70 threshold &mdash; with the other six passing, 5.7% below its high, on a Stage 2 entry that is only two weeks old (since 22 August 2026) and on volume at 1.84&times; its one-month average. That is the shape of a stock that moved on the story: the volume surge and the fresh Stage 2 date coincide with the weeks the articles circulated, not with any change in a business that loses money on ibuprofen and has bankers reviewing it. The 796.8&times; trailing multiple is not a valuation; it is arithmetic on a near-zero earnings base and should be read as &ldquo;no earnings to price&rdquo;, leaving 2.04&times; book as the only multiple that means anything.</p>
+
+  <h3 class="subsection-title">VINATIORGA &mdash; Vinati Organics</h3>
+<!--FRAMEWORK:BEGIN VINATIORGA-->
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (10 Sep 2026 close)</th><th class="right">VINATIORGA</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating (1–99, 1,623 stocks)</td><td class="right bold red">24</td></tr>
+      <tr><td>Trend template</td><td class="right bold"><span class="red">FAILS 0/7</span> <span class="muted">(price > 50-DMA, price > 200-DMA, 50-DMA > 200-DMA, >= 30% off 52w low, within 25% of 52w high, RS >= 70, 200-DMA rising)</span></td></tr>
+      <tr><td>Stage 2 (provider list 28 Aug)</td><td class="right red">Not on the list</td></tr>
+      <tr><td>Surveillance</td><td class="right ">None</td></tr>
+      <tr><td>Price vs 50-DMA (₹1,324.82)</td><td class="right ">-2.0%</td></tr>
+      <tr><td>Price vs 200-DMA (₹1,412.94)</td><td class="right ">-8.1%</td></tr>
+      <tr><td>Below 52-week high</td><td class="right ">-29.8%</td></tr>
+      <tr><td>Up from 52-week low</td><td class="right ">+7.9%</td></tr>
+      <tr><td>Below all-time high (₹2,377.00)</td><td class="right ">-45.4%</td></tr>
+      <tr><td>1-year return</td><td class="right ">-22.8%</td></tr>
+      <tr><td>6-month return</td><td class="right ">-2.6%</td></tr>
+      <tr><td>3-month return</td><td class="right ">+0.7%</td></tr>
+      <tr><td>1-month return</td><td class="right ">-1.1%</td></tr>
+      <tr><td>1-week return</td><td class="right ">+0.1%</td></tr>
+      <tr><td>1-day return</td><td class="right ">-0.9%</td></tr>
+      <tr><td>Volume vs 1-month average</td><td class="right ">0.71×</td></tr>
+      <tr><td>Trailing P/E</td><td class="right ">27.0×</td></tr>
+      <tr><td>Price / Book</td><td class="right ">4.20×</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Screener scan of 2026-09-11 (1,623 stocks); 200-DMA slope measured against the 2026-09-10 scan; Stage 2 from the provider list of 2026-08-28. Generated by tools/report/framework_block.py — re-run it after each scan and these rows refresh; nothing here is typed by hand.</p>
+<!--FRAMEWORK:END VINATIORGA-->
+  <p><b>This is the block that decides the audit.</b> Vinati is the sole-source IBB maker &mdash; the purest upstream play on ibuprofen <em>volumes</em> there is &mdash; and it fails every one of the seven checks: price below both moving averages, the 50-DMA below the 200-DMA, 29.1% below its 52-week high, RS 23, the 200-DMA falling, on volume at 0.62&times; its one-month average, with no Stage 2 listing and no surveillance flag. If the market believed a European shortage were pulling Indian ibuprofen supply, the raw-material maker would show it first, because every extra tonne of API needs its IBB before it needs a buyer; instead it shows the opposite, at 27.2&times; trailing earnings and 4.23&times; book &mdash; a specialty-chemicals multiple on a tape that says IBB weakness, not IBB scarcity.</p>
+
+  <h3 class="subsection-title">SHREEPUSHK &mdash; Shree Pushkar Chemicals &amp; Fertilisers</h3>
+<!--FRAMEWORK:BEGIN SHREEPUSHK-->
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (10 Sep 2026 close)</th><th class="right">SHREEPUSHK</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating (1–99, 1,623 stocks)</td><td class="right bold green">82</td></tr>
+      <tr><td>Trend template</td><td class="right bold"><span class="red">FAILS 6/7</span> <span class="muted">(200-DMA rising)</span></td></tr>
+      <tr><td>Stage 2 (provider list 28 Aug)</td><td class="right ">Reentry · 12 wks · since 2026-04-25</td></tr>
+      <tr><td>Surveillance</td><td class="right ">None</td></tr>
+      <tr><td>Price vs 50-DMA (₹428.77)</td><td class="right ">+14.1%</td></tr>
+      <tr><td>Price vs 200-DMA (₹383.39)</td><td class="right ">+27.6%</td></tr>
+      <tr><td>Below 52-week high</td><td class="right ">-10.2%</td></tr>
+      <tr><td>Up from 52-week low</td><td class="right ">+79.6%</td></tr>
+      <tr><td>Below all-time high (₹545.20)</td><td class="right ">-10.2%</td></tr>
+      <tr><td>1-year return</td><td class="right ">+49.3%</td></tr>
+      <tr><td>6-month return</td><td class="right ">+60.6%</td></tr>
+      <tr><td>3-month return</td><td class="right ">+37.5%</td></tr>
+      <tr><td>1-month return</td><td class="right ">+22.6%</td></tr>
+      <tr><td>1-week return</td><td class="right ">+3.4%</td></tr>
+      <tr><td>1-day return</td><td class="right ">-0.8%</td></tr>
+      <tr><td>Volume vs 1-month average</td><td class="right red">0.63×</td></tr>
+      <tr><td>Trailing P/E</td><td class="right ">21.9×</td></tr>
+      <tr><td>Price / Book</td><td class="right ">2.59×</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Screener scan of 2026-09-11 (1,623 stocks); 200-DMA slope measured against the 2026-09-10 scan; Stage 2 from the provider list of 2026-08-28. Generated by tools/report/framework_block.py — re-run it after each scan and these rows refresh; nothing here is typed by hand.</p>
+<!--FRAMEWORK:END SHREEPUSHK-->
+  <p>RS 82, all seven checks passing, 9.8% below its high, twelve weeks into a Stage 2 &ldquo;Reentry&rdquo; the provider dates to 25 April 2026, on volume at 0.65&times; its one-month average, at 22.0&times; trailing earnings and 2.61&times; book. It is the second-strongest technical picture in the group and it has nothing to do with ibuprofen: the desk&rsquo;s 8 September update attributes the trend to the dye-intermediates cluster and dates the Stage 2 run three months before the H-acid step change of 28 July. Its presence here is the clearest illustration of what the framework does and does not measure &mdash; it grades price behaviour, not the reason a stock was put on a list.</p>
+
+  <p class="tbl-note">Reading the five together: the name with the most direct exposure to ibuprofen <em>volumes</em> has the weakest tape; the two strongest tapes are explained by a diversification story and a dye-intermediates story respectively; the one tape that did move on this theme belongs to the name that cannot profit from it. A thesis the market believed would produce the reverse ordering.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">If Anything Is Happening, Who Benefits</h2></div>
+  <p>Strip the claim back to what the evidence supports and one thing is left standing: <b>ibuprofen prices firmed through the first half of 2026, and every source that explains why says cost, not scarcity.</b> Isobutylbenzene and petrochemical feedstock rose with the Middle East conflict [40]; Chinese plants kept running near nameplate [39]; the trackers put the move at +4.3% in Q1 and +5.3% to +7.4% in Q2 [39][40][41]; SMS Pharma&rsquo;s CEO called it a price increase &ldquo;because of this war&rdquo; [70]. That is cost-push. Its winners and losers are not the ones the story names.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Name</th><th>Under cost-push &mdash; what is actually observed</th><th>Under a genuine API shortage &mdash; not observed</th></tr></thead>
+    <tbody>
+      <tr><td class="bold">IOLCP</td><td class="green">Makes its own IBB (12,000 MTPA) [56][58], so a feedstock-driven rise in ibuprofen prices widens the spread rather than squeezing it &mdash; the backward-integrated maker passes the cost through and keeps the difference. Consistent with Q1 FY27 margins, which the desk&rsquo;s 8 September update analyses in detail.</td><td>Would be the largest volume beneficiary among the five &mdash; but management is shrinking the product&rsquo;s share, describes demand as &ldquo;stabilized&rdquo; [55], and would need to reverse a stated strategy to lean into it.</td></tr>
+      <tr><td class="bold">SMSPHARMA</td><td class="green">Credits backward integration for margin defence and names the war as the price driver [70]. A cost-pass-through beneficiary in proportion to its ~20% exposure.</td><td>The Vizag expansion to 800 t/month by March 2027 [70][71] would land into a short market &mdash; the one name whose capacity timing would fit the thesis if the thesis were true.</td></tr>
+      <tr><td class="bold">SOLARA</td><td class="red">Does not benefit. A seller at a &minus;12% to &minus;23% EBITDA margin [61][64] cannot capture a price rise driven by its own input costs; the review of &ldquo;strategic options&rdquo; [61][63] is the consequence.</td><td>Would benefit only if utilisation rose from ~3,000 t toward 10,000&ndash;12,000 t [64] <em>and</em> it still owned the business when it did.</td></tr>
+      <tr><td class="bold">VINATIORGA</td><td class="green">Gains on IBB <em>price</em> &mdash; the feedstock that firmed is its product &mdash; but on 10&ndash;12% of revenue [50], and not on volume, which fell 20% in FY26 for raw-material reasons [50].</td><td>Would gain on IBB <em>volume</em>. None is visible; &sect;08 shows the tape saying the opposite.</td></tr>
+      <tr><td class="bold">SHREEPUSHK</td><td class="muted">Unaffected. No product in the chain [77][78].</td><td class="muted">Unaffected.</td></tr>
+    </tbody>
+  </table></div>
+  <h3 class="subsection-title">What would have to be true for the thesis proper</h3>
+  <p>Each of these is checkable, and <b>none is observed today</b>.</p>
+  <ul class="report-list">
+    <li><strong>An API-level shortage notice or critical-list inclusion.</strong> A revision of the EU Union list naming ibuprofen [12], a BfArM Beirat minute mentioning it [8], or its appearance on the <em>versorgungskritisch</em> list [10]. Today: absent from all three.</li>
+    <li><strong>A Chinese plant outage or export curb.</strong> An announcement by Xinhua or Hendi, or a customs measure. Today: both H1 2026 reports describe oversupply and price cuts and mention no stoppage or restriction [28][30].</li>
+    <li><strong>A rise in Indian ibuprofen exports to the EU.</strong> A DGCIS or Pharmexcil series. Today: not retrievable; supplier-side signals are group-level only [28][57][62].</li>
+    <li><strong>IOL or SMS raising prices on scarcity rather than cost.</strong> Today: IOL says demand has &ldquo;stabilized&rdquo; [55]; SMS says the increase is &ldquo;because of this war&rdquo; [70].</li>
+    <li><strong>Solara&rsquo;s utilisation rising from ~3,000 t toward its 10,000&ndash;12,000 t capacity.</strong> Today: bankers are evaluating strategic options for the business instead [61][63][64].</li>
+  </ul>
+  <h3 class="subsection-title">The timing check, as the house rules require</h3>
+  <p>Does the reported quarter contain the catalyst? For all five names the last reported quarter is Q1 FY27, April to June 2026. The cost-push firming of calendar Q2 2026 <b>is</b> inside that quarter &mdash; it is already in IOL&rsquo;s 37% revenue growth and SMS&rsquo;s margin commentary, as the desk&rsquo;s IOLCP update also observed. The articles are dated 7 and 8 September 2026 [1][2]; the register prognoses run to 31 March 2027 [3]. <b>Any shortage effect, if one ever appears, cannot be in a reported number before Q2 FY27, around November 2026</b> &mdash; and on today&rsquo;s evidence there is nothing for that quarter to contain.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation Snapshot</h2></div>
+  <p>What is each name being priced at, and is the thesis in the price? The multiples below are <b>scan figures at the 10 September 2026 close</b>, the same ones the generated blocks in &sect;08 carry; unlike those blocks, this table does not refresh, so treat it as dated. The earnings bases are the reported figures from &sect;07.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Name</th><th class="right">Trailing earnings multiple (scan, 10 Sep close)</th><th class="right">Book value multiple (scan, 10 Sep close)</th><th>Reported earnings base</th><th>What the price appears to be paying for</th></tr></thead>
+    <tbody>
+      <tr><td class="bold">IOLCP</td><td class="right">35.1&times;</td><td class="right">3.45&times;</td><td>FY26 PAT &#8377;138 cr [55]; Q1 FY27 PAT &#8377;64.5 cr, +89.9% [53]</td><td>The diversification re-rating and the Q1 FY27 run-rate. The desk&rsquo;s 8 September update called it a mid-thirties multiple on a quarter not yet repeated. <b>The ibuprofen-shortage thesis is not needed to explain this price and is absent from management&rsquo;s commentary.</b></td></tr>
+      <tr><td class="bold">SMSPHARMA</td><td class="right">38.2&times;</td><td class="right">4.98&times;</td><td>FY26 PAT &#8377;102 cr [71]; Q1 FY27 PAT &#8377;21.1 cr, +16% [72]</td><td>The highest multiple of the three API names on the lowest reported profit growth. The Vizag expansion (800 t/month by Mar 2027) is the stated story; <b>this is the one price in the group where some of the circulating theme may also be embedded.</b></td></tr>
+      <tr><td class="bold">SOLARA</td><td class="right">796.8&times;</td><td class="right">2.04&times;</td><td>FY26 net loss &#8377;7.41 cr (FPJ) [65] vs &#8377;17 cr profit (Screener) [69] &mdash; conflict; FY24 net loss &#8377;567 cr [69]</td><td>The earnings multiple is meaningless &mdash; a near-zero and disputed base, not a valuation. The book multiple is the only usable one: about twice book for a business with &#8377;479 cr of net debt at 30 June 2026 [61] and its largest product under strategic review.</td></tr>
+      <tr><td class="bold">VINATIORGA</td><td class="right">27.2&times;</td><td class="right">4.23&times;</td><td>FY26 PAT &#8377;488 cr on sales of &#8377;2,228 cr [52]</td><td>A specialty-chemicals multiple on ATBS and the wider portfolio. IBB is 10&ndash;12% of revenue [50]; the tape in &sect;08 says the market is pricing IBB weakness, not IBB scarcity.</td></tr>
+      <tr><td class="bold">SHREEPUSHK</td><td class="right">22.0&times;</td><td class="right">2.61&times;</td><td>FY26 PAT &#8377;70.1 cr on revenue of &#8377;976.6 cr, per the desk&rsquo;s 8 September update</td><td>The dye-intermediates cluster re-rating that update analyses. Nothing pharmaceutical is, or could be, in this price.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Row labels are deliberately not the verifier&rsquo;s reserved labels; the checked figures live in the generated &sect;08 blocks. Solara&rsquo;s FY26 result is shown both ways because the sources disagree and neither could be checked against the filing itself.</p>
+  <p><b>The thesis is not in these prices, with one possible exception.</b> IOL&rsquo;s multiple has a documented explanation that has nothing to do with a European shortage. Vinati&rsquo;s price is falling, not rising. Solara has no earnings to capitalise, and Shree Pushkar has no exposure to capitalise. SMS is the only name where a premium multiple, above-average volume and a direct ibuprofen exposure coincide &mdash; and even there the company&rsquo;s own account is capacity and cost, not scarcity.</p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <p>Three paths, with the evidence that would move the reading between them and the dates on which it can arrive. Probabilities are stated in words; no percentages are invented.</p>
+  <div class="sc-row"><div class="sc-key">A &mdash; The thesis proves right</div><div class="sc-val green">An API-level shortage materialises. What would show it: a Union-list revision or BfArM Beirat minute naming ibuprofen [8][12]; a Xinhua or Hendi disclosure of a stoppage or export restriction (Xinhua&rsquo;s Q3 report, late October 2026, is the next scheduled filing) [28]; Mobidoctor entries multiplying with API-supply causes rather than resolving on their 30 Sep 2026&ndash;31 Mar 2027 prognoses [3]; IOL citing scarcity rather than cost at its Q2 FY27 call around November 2026 [53]; Solara&rsquo;s utilisation rising instead of its business being sold [64]. Beneficiaries in that order: IOL on volume and its own IBB, SMS as Vizag ramps toward 800 t/month by March 2027, Vinati on IBB volume, and Solara only if it still owns the plant. <b>Least consistent with the evidence in hand; nothing observed today points here.</b></div></div>
+  <div class="sc-row"><div class="sc-key">B &mdash; Cost-push only (base case)</div><div class="sc-val">Prices stay firm while feedstock stays dear and no shortage of the API appears. Integrated makers hold or widen margins &mdash; IOL and SMS &mdash; while Vinati gains modestly on IBB price against a shrunken volume base [50]. The register entries resolve on their stated prognoses; Xinhua&rsquo;s H2 &ldquo;pressure&rdquo; [28] and Hendi&rsquo;s &ldquo;saturated&rdquo; market [30] keep Chinese prices from running; Solara&rsquo;s strategic review concludes by end-H1 FY27 with a sale, restructuring or continued losses [61][63]. <b>Most consistent with every filing, register and tracker read for this note.</b> It is also already inside the quarter each company has reported.</div></div>
+  <div class="sc-row"><div class="sc-key">C &mdash; Oversupply reasserts</div><div class="sc-val red">The Chinese makers&rsquo; own outlook plays out: demand &ldquo;continues weak&rdquo;, competition &ldquo;intense&rdquo; [28], Xinhua keeps cutting price to defend share, NHU&rsquo;s 5,400 t comes on if it is built [36][37], and the feedstock support fades if the Middle East conflict eases. Prices fall back toward or below the levels the trackers already describe as at or under 2022 [33][40]. IOL&rsquo;s ibuprofen share falls faster than planned; SMS&rsquo;s 800 t/month lands into a soft market; Solara faces impairment rather than exit; Vinati&rsquo;s IBB volumes stay down. <b>Plausible &mdash; the Chinese filings lean this way &mdash; and it is the scenario the 2018&ndash;2022 capacity additions in &sect;04 were built for.</b></div></div>
+  <p class="tbl-note">The pivot between B and C is the feedstock, not the API: the only 2026 support for ibuprofen prices that any source documents is the cost of isobutylbenzene and petrochemicals under the conflict [40][70]. The pivot between B and A is a regulator&rsquo;s document, not a tracker&rsquo;s, and no such document exists as of 11 September 2026.</p>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Acting on an embellished premise</div><div class="risk-body">The two source articles cite a single tracker and never mention China [1][2][3]; the China leg was added afterward with no source. The registers describe 22 finished-dose presentations with product-level manufacturing causes and alternatives available [3][4][5]; the UK and France list none [6][7]; no EU or German critical list carries ibuprofen [10][12]. A position taken on &ldquo;shortage amid Chinese supply cuts&rdquo; is a position on a sentence that no primary source supports.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">Solara &mdash; exit or impairment of the very business the thesis names</div><div class="risk-body">Ibuprofen EBITDA margin &minus;22.9% in Q3 FY26 and &minus;12% in Q1 FY27 [61][64]; Vizag mothballed at &#8377;12&ndash;15 cr a year of fixed cost [62][67]; bankers evaluating &ldquo;strategic options&rdquo; with a conclusion due by end-H1 FY27 [61][63]; net debt &#8377;479 cr [61]; FY24 loss &#8377;567 cr and a rights issue behind it [67][69]. The outcome of the review could be a sale at a distressed price or a write-down &mdash; either is the opposite of a beneficiary &mdash; and the stock&rsquo;s recent volume and fresh Stage 2 entry (&sect;08) suggest it moved on the story regardless.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">IOL &mdash; the LTASM Stage I flag and a shrinking float</div><div class="risk-body">Long-Term ASM Stage I as of 11 September 2026 [60] constrains how a position can be held: raised margin requirements and routine exclusion from broker margin-funding lists. Promoter holding rose from 48.19% (Sep 2023) to 62.28% (Jun 2026) [59], leaving a smaller genuinely trading float and larger moves on ordinary flow. The desk&rsquo;s 8 September update stepped its own rating down to Hold on a price running ahead of evidence; nothing in this audit argues the other way.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">SMS &mdash; customer concentration and capex execution into a saturated market</div><div class="risk-body">One customer accounted for 28% of FY26 revenue [70]. The &#8377;280 cr programme takes Vizag from 500 to 800 t/month by March 2027 [70][71] &mdash; a 60% capacity increase (derived) &mdash; into a market that Hendi&rsquo;s filings call &ldquo;saturated&rdquo; and in which global nameplate already exceeds consumption [30][36]. Its regulated-market share of ibuprofen is undisclosed [73], so how much of that volume can reach Europe at all cannot be sized.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Vinati &mdash; raw-material unavailability and a declining IBB share</div><div class="risk-body">IBB volume fell 20% in FY26 &ldquo;due to unavailability of key raw materials&rdquo; [50], after an FY25 &ldquo;downtrend due to specific demand-side challenges&rdquo; [49]; IBB&rsquo;s share of revenue has halved from the 20&ndash;30% cited in 2023 to 10&ndash;12% [50][51]. No current capacity figure is sourced [51]. The framework fails it on every check (&sect;08); if the raw-material problem persists, a firmer IBB price is worth little on falling tonnage.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Chinese oversupply and price cuts</div><div class="risk-body">Xinhua cut prices in 2025 and H1 2026 &ldquo;to consolidate and raise market share&rdquo; and expects H2 to face &ldquo;considerable pressure&rdquo; [26][28]; Hendi describes international prices as &ldquo;continuing to run at low levels&rdquo; [31]; nameplate of more than 32,000 t stands against ~21,500 t of consumption on one tally [36], and NHU&rsquo;s 5,400 t remains a live filing of unconfirmed status [36][37]. Every Indian ibuprofen maker in this note is a price-taker against that backdrop.</div></div>
+  <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Feedstock reversal if the conflict eases</div><div class="risk-body">The only documented 2026 support for ibuprofen prices is isobutylbenzene and petrochemical cost under Middle East disruption [40][70]. If the conflict eases, the cost floor falls, the +4&ndash;7% quarterly firming reverses, and the cost-pass-through margins that make IOL and SMS the relative winners of &sect;09 compress with it. Procurement Resource already read Q2 2026 Asia as &ldquo;soft-to-stable&hellip; as upstream chemical costs declined&rdquo; [42].</div></div>
+  <div class="risk-row"><div class="risk-num">08</div><div class="risk-name">Data conflicts inside the evidence base</div><div class="risk-body">Solara&rsquo;s FY26 result is a &#8377;7.41 cr loss in one source and a &#8377;17 cr profit in another [65][69], and its FY25 result flips sign the same way; its ibuprofen share is 20.9% in the annual report and &ldquo;~30%&rdquo; in a May 2025 write-up [67][68]. ChemAnalyst&rsquo;s China series does not reconcile with its own percentages, and the trackers disagree on levels by ~40% [39][40][41]. IOL&rsquo;s FY26 revenue appears as &#8377;2,319 cr and &#8377;2,340.3 cr [55]. Web summaries of the Chinese filings mis-scale units; only PDF-read figures are used here. Each conflict is shown rather than resolved, and each limits how precisely any conclusion above can be stated.</div></div>
+  <div class="risk-row"><div class="risk-num">09</div><div class="risk-name">Shree Pushkar &mdash; a name mislabelled into the thesis</div><div class="risk-body">No exposure to the chain [77][78][79]. Any move in the stock on ibuprofen headlines is flow it did not earn and can lose as quickly; its real risks &mdash; a cluster trade in which it was not named, a capex programme pointed at fertilisers, and a Q2 FY27 print that is the whole H-acid case &mdash; are set out in the desk&rsquo;s 8 September update and are unrelated to anything in this note.</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">VERDICT: THESIS AUDIT &mdash; THE PREMISE FAILS AS FRAMED; NOT A RECOMMENDATION</div>
+    <p><b>The claim that reached this desk &mdash; a European ibuprofen shortage caused by Chinese supply cuts, with five Indian names as beneficiaries &mdash; partly holds at its narrowest and fails as framed.</b> Twenty-two finished-dose presentations are genuinely listed short in five national registers, with prognoses running to 31 March 2027 [3]. Everything above that fact was added by the telling. The registers attribute the entries to product-level manufacturing problems, say alternatives are available, and in the UK and France list nothing at all [3][4][5][6][7]. Ibuprofen is on no EU or German critical list and has not been mentioned in five sittings of Germany&rsquo;s shortage board to June 2026 [8][10][12]. Some Italian entries date from 2022&ndash;2025 [4].</p>
+    <p><b>The China leg is refuted by the Chinese makers&rsquo; own audited reports.</b> Shandong Xinhua&rsquo;s analgesic API revenue fell 16.42% in H1 2026 with group profit down 33.35%, prices cut to defend share, and an outlook of weak demand and intense competition [28]. Hendi cancelled a 5,000 t expansion because the market was saturated and repeats that wording in its H1 2026 report [30][33]. The trackers describe Chinese plants at nameplate and prices firming 4&ndash;7% a quarter on feedstock costs from the Middle East conflict [39][40][41]. No 2026 evidence of a Chinese plant shutdown, inspection or export curb was found, and the two articles that launched the theme never claimed one [1][2].</p>
+    <p><b>The one real exposure finding is the map in &sect;07.</b> Four of the five names touch the chain and one does not. IOL is the volume leader and is deliberately shrinking ibuprofen from 82% to 57% of pharma revenue [53][54]. SMS is about 20% ibuprofen on a capex-led volume story and attributes the 2026 price rise to war-driven feedstock, not scarcity [70]. Solara&rsquo;s ibuprofen loses money at a &minus;12% to &minus;23% EBITDA margin and is under a bankers&rsquo; review of &ldquo;strategic options&rdquo; that could end in its sale [61][63][64] &mdash; the opposite of a beneficiary. Vinati is upstream, with IBB at 10&ndash;12% of revenue and volumes down 20% for raw-material reasons [50]. <b>Shree Pushkar has no exposure whatsoever</b> &mdash; not one mention of ibuprofen, IBB or an API in a 274-page annual report [77] &mdash; and is in this note only because it was asked about.</p>
+    <p><b>The framework agrees with the audit, in an unusual way.</b> The purest upstream play on ibuprofen volumes, the sole-source IBB maker, fails every technical check the system makes; if the market believed a European shortage were pulling Indian supply, the raw-material maker would show it first, and it shows the opposite. The two strongest tapes belong to names whose trends the desk&rsquo;s own 8 September reports explain by other stories, and the one tape that did move on this theme belongs to the name that cannot profit from it.</p>
+    <p><b>What is actually happening is cost-push, and it is already in the reported quarter.</b> Under cost-push the relative winners are the backward-integrated makers that pass feedstock through &mdash; IOL with its own IBB, SMS by its own account &mdash; Vinati gains on IBB price rather than volume, Solara cannot capture a price it sells below cost, and Shree Pushkar is unaffected. For the thesis proper to become true, a regulator would have to name ibuprofen, a Chinese maker would have to report an outage or a curb, Indian exports to the EU would have to rise, IOL or SMS would have to cite scarcity rather than cost, and Solara&rsquo;s utilisation would have to climb. <b>None of those is observed as of 11 September 2026.</b> This note carries no rating; the readings it surfaces are the framework&rsquo;s own and are not a recommendation on any of the five.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>30 Sep 2026 &ndash; 31 Mar 2027 &mdash; the register prognoses.</b> Whether the 22 Mobidoctor entries resolve on their stated dates (Kern Pharma Oct&ndash;Nov 2026; Towa 600 mg 01/11/2026&ndash;31/03/2027) or multiply with API-supply causes [3][4][5]</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>End H1 FY27 &mdash; Solara&rsquo;s strategic-options conclusion</b>, disclosed at the latest with Q2 FY27 results around October&ndash;November 2026. A sale, a restructuring or a write-down settles whether the &ldquo;beneficiary&rdquo; still owns the business [61][63]</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>March 2027 &mdash; SMS Vizag at 800 t/month</b>, with capex progress at each quarterly call before then [70][71]</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>~November 2026 &mdash; IOL Q2 FY27:</b> ibuprofen&rsquo;s share of pharma revenue (57% in Q1) and whether any price commentary shifts from &ldquo;stabilized&rdquo; to scarcity [53][55]</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>~Late October 2026 &mdash; Xinhua&rsquo;s Q3 2026 report:</b> the analgesic API revenue trend and any statement on capacity, price or exports [28]</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Critical Medicines Act formal adoption</b> by Council and Parliament, and whether any implementing list or Strategic Project names ibuprofen. No medicine is named in the 12 May 2026 texts [13][14][16]</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>~November 2026 &mdash; Vinati Q2 FY27:</b> IBB volumes and raw-material availability after the 20% FY26 decline [50]</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Any EMA revision of the Union list of critical medicines naming ibuprofen</b> [12], and the minutes of the BfArM Beirat&rsquo;s next sitting [8]</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Surveillance at each scan:</b> IOLCP&rsquo;s LTASM Stage I &mdash; escalation or removal &mdash; and any new ASM or GSM entry on the other four [60]</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>The five &sect;08 blocks after each scan</b> &mdash; above all whether Vinati&rsquo;s template starts passing, the first technical sign that the volume story has changed, and whether Solara&rsquo;s relative strength crosses the threshold</div>
+
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:20px;">
+  SOURCE QUALITY: The register evidence is primary and machine-read &mdash; the AIFA CSV of 08/09/2026, the AEMPS CIMA REST endpoint on 11 Sep 2026, the EMA Union-list xlsx of 12 Dec 2025 &mdash; and the Chinese company figures were read from the Xinhua and Hendi PDFs after web summaries were found to mis-scale units (e.g. &ldquo;435.75亿&rdquo; for Xinhua&rsquo;s H1 2026 revenue). Indian company figures come from earnings-call transcripts and highlights, annual reports and rating-agency releases; bseindia.com and business-standard.com were not fetched directly (only search listings). <b>Failed domains and pages, named and not worked around:</b> consilium.europa.eu (403), fiercepharma.com (403), pharmtech.com (403), pharmacompass.com (403), pharmaoffer.com (403 via fetch; partial via curl), table.media (403), bloominglobal.com (403), drugpatentwatch.com (403), transdatanexus.com (403), apifdf.com (404), cccmhpie.org.cn (connection failed), news.qq.com (connection refused), gelonghui.com (timeout), bfarm.de fever-syrup page (404), kvbawue.de (404), cfi.net.cn (empty body). <b>Not sourced, and not estimated:</b> Europe&rsquo;s ibuprofen API import split by origin; BASF Ludwigshafen&rsquo;s operational status; Granules India&rsquo;s ibuprofen CEP; SMS&rsquo;s regulated-market share; Xinhua&rsquo;s ibuprofen-specific volumes and prices; NHU&rsquo;s project status; 2026 DGCIS/Pharmexcil ibuprofen exports to the EU; a current Vinati IBB capacity figure; the BfArM &ldquo;nahezu 100%&rdquo; fever-syrup statement (page 404). <b>Unresolved conflicts, both sides shown where they appear:</b> ChemAnalyst&rsquo;s China series does not reconcile (Q4 2025 USD 10,453/MT &rarr; Q1 2026 USD 7,320/MT labelled &ldquo;+4.3%&rdquo; &rarr; Q2 2026 USD 11,530/MT labelled &ldquo;+7.36%&rdquo;) &mdash; the percentages and narrative are used, not the levels; IMARC puts China above Germany (13,737 vs 11,790 USD/MT, June 2026) while EMR puts China at half of Germany (9.9 vs 19.9 USD/kg), a ~40% disagreement on level; Solara&rsquo;s FY26 bottom line is a &#8377;7.41 cr net loss (FPJ/Business Standard) against a &#8377;17 cr profit (Screener), and FY25 a &#8377;0.54 cr profit (FPJ) against a &#8377;1 cr loss (Screener); Business Standard&rsquo;s &ldquo;ibuprofen revenue&hellip; Rs 849 crore&rdquo; for Q4 FY26 is evidently &#8377;84.9 cr (392 &minus; 307); Moneypost&rsquo;s FY26 ibuprofen &#8377;334 cr revenue / &minus;&#8377;53 cr EBITDA could not be verified against a filing; Solara&rsquo;s ibuprofen share is 20.9% (AR FY25) against &ldquo;~30%&rdquo; (Substack, May 2025); IOL&rsquo;s FY26 revenue is &#8377;2,319 cr (call highlights) against &#8377;2,340.3 cr (TipRanks, likely total income); an EC health page fetch mentioned &ldquo;July 10, 2026&rdquo; as the Critical Medicines Act agreement date where EMA, the Council URL and EPR all give 12 May 2026, which is used. The &ldquo;95% of EU-imported ibuprofen made in China&rdquo; claim was unfetchable (HTTP 403), is unsourced, and is not used. The price-linked readings in &sect;08 are generated from the SwingEdge scan of the 10 Sep 2026 close and are not typed; the multiples in &sect;10 are the same scan figures and are dated as such.
+  </p>
+
+  <h3 class="subsection-title">Sources</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th class="right">#</th><th>Title</th><th>Publisher</th><th>Date</th></tr></thead>
+    <tbody>
+      <tr><td class="right">1</td><td><a href="https://www.equitymaster.com/detail.asp?date=09%2F07%2F2026&amp;story=8&amp;title=4-Stocks-to-Watch-as-Europe-Faces-Shortage-of-Ibuprofen" target="_blank" rel="noopener">4 Stocks to Watch as Europe Faces Shortage of Ibuprofen</a></td><td>Equitymaster</td><td>7 Sep 2026</td></tr>
+      <tr><td class="right">2</td><td><a href="https://moneypost.newsx.com/en/stock-market/europes-ibuprofen-shortage-sparks-investor-buzz-4-indian-pharma-stocks-in-focus-3088/" target="_blank" rel="noopener">Europe&rsquo;s Ibuprofen Shortage Sparks Investor Buzz: 4 Indian Pharma Stocks in Focus</a></td><td>Moneypost / NewsX</td><td>8 Sep 2026</td></tr>
+      <tr><td class="right">3</td><td><a href="https://www.mobidoctor.eu/medicine-shortages/medicine-shortages/ibuprofen/" target="_blank" rel="noopener">Ibuprofen shortage (September 2026) &mdash; availability by country in Europe</a></td><td>Mobidoctor</td><td>updated 11 Sep 2026</td></tr>
+      <tr><td class="right">4</td><td><a href="https://www.aifa.gov.it/documents/20142/847339/elenco_medicinali_carenti.csv" target="_blank" rel="noopener">Elenco dei farmaci carenti (CSV)</a></td><td>AIFA</td><td>aggiornato 08/09/2026</td></tr>
+      <tr><td class="right">5</td><td><a href="https://cima.aemps.es/cima/rest/psuministro?activos=1&amp;pagina=1" target="_blank" rel="noopener">CIMA &ldquo;psuministro&rdquo; REST (active supply problems)</a></td><td>AEMPS</td><td>accessed 11 Sep 2026</td></tr>
+      <tr><td class="right">6</td><td><a href="https://mediwatch.co.uk/shortages/medicine/ibuprofen" target="_blank" rel="noopener">Is Ibuprofen in Shortage? UK Status</a></td><td>MediWatch UK</td><td>updated 10 Sep 2026</td></tr>
+      <tr><td class="right">7</td><td><a href="https://rupture-medicament.fr/ruptures.php" target="_blank" rel="noopener">Ruptures, tensions &amp; arr&ecirc;ts de commercialisation (ANSM data)</a></td><td>Rupture-Medicament.fr</td><td>accessed 11 Sep 2026</td></tr>
+      <tr><td class="right">8</td><td><a href="https://www.bfarm.de/DE/Arzneimittel/Arzneimittelinformationen/Lieferengpaesse/Beirat/_node.html" target="_blank" rel="noopener">Beirat protocols, 16th&ndash;20th sittings</a></td><td>BfArM</td><td>25 Mar 2025 &ndash; 18 Jun 2026</td></tr>
+      <tr><td class="right">9</td><td><a href="https://www.bfarm.de/SharedDocs/Downloads/DE/Arzneimittel/Zulassung/amInformationen/Lieferengpaesse/ListeVersorgungsrelevanteWirkstoffe.pdf?__blob=publicationFile" target="_blank" rel="noopener">Liste der versorgungsrelevanten Wirkstoffe nach &sect;52b Abs. 3c AMG</a></td><td>BfArM</td><td>Stand 28.04.2025</td></tr>
+      <tr><td class="right">10</td><td><a href="https://www.bfarm.de/SharedDocs/Downloads/DE/Arzneimittel/Zulassung/amInformationen/Lieferengpaesse/Liste_versorgungskritischer_wirkstoffe.pdf?__blob=publicationFile" target="_blank" rel="noopener">Liste der versorgungskritischen Wirkstoffe</a></td><td>BfArM</td><td>Stand 28.04.2025</td></tr>
+      <tr><td class="right">11</td><td><a href="https://www.bfarm.de/DE/Arzneimittel/Arzneimittelinformationen/Lieferengpaesse/mitteilung_fiebersaefte_kinder.html" target="_blank" rel="noopener">Aktuelle Informationen &hellip; Fiebers&auml;ften f&uuml;r Kinder</a> (HTTP 404 on 11 Sep 2026)</td><td>BfArM</td><td>n/a</td></tr>
+      <tr><td class="right">12</td><td><a href="https://www.ema.europa.eu/en/human-regulatory-overview/post-authorisation/medicine-shortages-availability-issues/availability-medicines-during-crises/union-list-critical-medicines" target="_blank" rel="noopener">Union list of critical medicines, v2.1 rev.1</a> &middot; <a href="https://www.ema.europa.eu/en/documents/other/union-list-critical-medicines-en.xlsx" target="_blank" rel="noopener">xlsx</a></td><td>EMA</td><td>12 Dec 2025; page updated 19 Jan 2026</td></tr>
+      <tr><td class="right">13</td><td><a href="https://www.ema.europa.eu/en/news/ema-welcomes-political-agreement-critical-medicines-act" target="_blank" rel="noopener">EMA welcomes political agreement on Critical Medicines Act</a></td><td>EMA</td><td>12 May 2026</td></tr>
+      <tr><td class="right">14</td><td><a href="https://ec.europa.eu/commission/presscorner/detail/en/ip_26_1017" target="_blank" rel="noopener">Commission welcomes political agreement on Critical Medicines Act (IP/26/1017)</a></td><td>European Commission</td><td>May 2026</td></tr>
+      <tr><td class="right">15</td><td><a href="https://www.consilium.europa.eu/en/press/press-releases/2026/05/12/critical-medicines-act-council-and-parliament-reach-provisional-deal/" target="_blank" rel="noopener">Critical medicines act: Council and Parliament reach provisional deal</a> (HTTP 403 on fetch)</td><td>Council of the EU</td><td>12 May 2026</td></tr>
+      <tr><td class="right">16</td><td><a href="https://www.europeanpharmaceuticalreview.com/eu-commission-agree-to-move-critical-medicines-act-towards-approval/2135471.article" target="_blank" rel="noopener">EU Commission agree to move Critical Medicines Act towards approval</a></td><td>European Pharmaceutical Review</td><td>15 May 2026</td></tr>
+      <tr><td class="right">17</td><td><a href="https://health.ec.europa.eu/document/download/3da9dfc0-c5e0-4583-a0f1-1652c7c18c3c_en?filename=hera_cma_strat-report_en.pdf" target="_blank" rel="noopener">Strategic Report of the Critical Medicines Alliance</a></td><td>HERA / European Commission</td><td>28 Feb 2025</td></tr>
+      <tr><td class="right">18</td><td><a href="https://www.apotheke-adhoc.de/nachrichten/detail/pharmazie/sechs-fabriken-fuer-ibuprofen/" target="_blank" rel="noopener">Sechs Fabriken f&uuml;r Ibuprofen</a></td><td>Apotheke Adhoc</td><td>26 Jun 2018</td></tr>
+      <tr><td class="right">19</td><td><a href="https://www.apotheke-adhoc.de/nachrichten/detail/apothekenpraxis/bfarm-fragt-nach-ibuprofen-lieferengpaesse/" target="_blank" rel="noopener">BfArM fragt nach Ibuprofen</a></td><td>Apotheke Adhoc</td><td>27 Jun 2018</td></tr>
+      <tr><td class="right">20</td><td><a href="https://www.apotheke-adhoc.de/nachrichten/detail/pharmazie/ibuprofen-basf-faehrt-langsam-wieder-hoch/" target="_blank" rel="noopener">Ibuprofen: BASF f&auml;hrt langsam wieder hoch</a></td><td>Apotheke Adhoc</td><td>1 Mar 2019</td></tr>
+      <tr><td class="right">21</td><td><a href="https://www.apotheke-adhoc.de/nachrichten/detail/pharmazie/fiebersaefte-bfarm-erklaert-versorgungsengpass/" target="_blank" rel="noopener">Fiebers&auml;fte: BfArM erkl&auml;rt Versorgungsengpass</a></td><td>Apotheke Adhoc</td><td>21 Jul 2022</td></tr>
+      <tr><td class="right">22</td><td><a href="https://www.pharmazeutische-zeitung.de/wie-der-mangel-verwaltet-werden-soll-137281/" target="_blank" rel="noopener">Paracetamol und Ibuprofen: Wie der Mangel verwaltet werden soll</a></td><td>Pharmazeutische Zeitung</td><td>13 Dec 2022</td></tr>
+      <tr><td class="right">23</td><td><a href="https://www.farmacista33.it/farmaci/20261/covid-farmaci-sintomatici-aifa-ibuprofene-carente-fino-a-ottobre-interrogazione-in-e-romagna.html" target="_blank" rel="noopener">Aifa: ibuprofene carente fino a ottobre</a></td><td>Farmacista33</td><td>21 Jul 2022</td></tr>
+      <tr><td class="right">24</td><td><a href="https://europeantimes.news/2026/05/why-might-europe-fear-shortages-of-certain-medications-such-as-paracetamol-or-ibuprofen-negligence-or-business/" target="_blank" rel="noopener">Why might Europe fear shortages &hellip; paracetamol or ibuprofen?</a> &middot; <a href="https://europeantimes.news/2026/06/top-medicines-facing-shortages-europe/" target="_blank" rel="noopener">Top medicines facing shortages in Europe</a></td><td>The European Times</td><td>4 May 2026; 12 Jun 2026</td></tr>
+      <tr><td class="right">25</td><td><a href="https://www.scmp.com/business/china-business/article/3344097/viral-dance-challenge-lifted-chinese-ibuprofen-makers-shares-now-they-are-languishing" target="_blank" rel="noopener">Viral dance challenge lifted Chinese ibuprofen maker&rsquo;s shares &ndash; now they are languishing</a></td><td>SCMP</td><td>22 Feb 2026</td></tr>
+      <tr><td class="right">26</td><td><a href="https://finance.sina.com.cn/wm/2026-03-31/doc-inhswpms3278185.shtml" target="_blank" rel="noopener">鲁股观察 | 新华制药2025年报：增收不增利</a> &middot; <a href="https://finance.sina.com.cn/wm/2026-03-31/doc-inhswicw8961394.shtml" target="_blank" rel="noopener">新华制药产品跌价扣非降40%</a></td><td>Sina Finance</td><td>29&ndash;31 Mar 2026</td></tr>
+      <tr><td class="right">27</td><td><a href="https://disc.static.szse.cn/disc/disk03/finalpage/2026-04-29/f2836f5b-cbfc-463b-89c9-1f407be7cc3c.PDF" target="_blank" rel="noopener">山东新华制药 2026年第一季度报告</a></td><td>SZSE</td><td>29 Apr 2026</td></tr>
+      <tr><td class="right">28</td><td><a href="http://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESZ_STOCK/2026/2026-8/2026-08-26/12534535.PDF" target="_blank" rel="noopener">山东新华制药 2026年半年度报告</a></td><td>Shandong Xinhua Pharmaceutical</td><td>26 Aug 2026</td></tr>
+      <tr><td class="right">29</td><td><a href="https://disc.static.szse.cn/disc/disk03/finalpage/2026-03-31/be939766-c074-458a-8d2e-0310d9b6f0d9.PDF" target="_blank" rel="noopener">湖北亨迪药业 2025年年度报告摘要</a> &middot; <a href="https://disc.static.szse.cn/disc/disk03/finalpage/2026-03-31/0ae79e62-716a-4b62-8615-a4fae10092c0.PDF" target="_blank" rel="noopener">2025年度总经理工作报告</a></td><td>SZSE</td><td>31 Mar 2026</td></tr>
+      <tr><td class="right">30</td><td><a href="http://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESZ_STOCK/2026/2026-8/2026-08-25/12522823.PDF" target="_blank" rel="noopener">湖北亨迪药业 2026年半年度报告全文</a></td><td>Hubei Biocause Heilen Pharmaceutical</td><td>25 Aug 2026</td></tr>
+      <tr><td class="right">31</td><td><a href="https://finance.sina.com.cn/stock/wbstock/2026-01-15/doc-inhhiyxt4343455.shtml" target="_blank" rel="noopener">布洛芬&ldquo;退烧&rdquo;，亨迪药业净利润预降超五成</a></td><td>Sina Finance</td><td>15 Jan 2026</td></tr>
+      <tr><td class="right">32</td><td><a href="https://m.bjnews.com.cn/detail/1754394539168496.html" target="_blank" rel="noopener">亨迪药业上半年净利润同比下降72.92%</a></td><td>Beijing News</td><td>5 Aug 2025</td></tr>
+      <tr><td class="right">33</td><td><a href="https://m.jiemian.com/article/12162232.html" target="_blank" rel="noopener">布洛芬失宠，亨迪药业喊停</a></td><td>Jiemian</td><td>23 Dec 2024</td></tr>
+      <tr><td class="right">34</td><td><a href="https://www.sohu.com/a/1014205585_115377" target="_blank" rel="noopener">亨迪药业（301211）2026年一季报简析</a></td><td>Sohu</td><td>24 Apr 2026</td></tr>
+      <tr><td class="right">35</td><td><a href="https://www.stcn.com/article/detail/3710142.html" target="_blank" rel="noopener">亨迪药业：2025年净利润同比下降61.87%</a></td><td>STCN</td><td>30 Mar 2026</td></tr>
+      <tr><td class="right">36</td><td><a href="https://www.pharnexcloud.com/zixun/sx_7436" target="_blank" rel="noopener">亨迪刹车！新和成进击！看布洛芬市场新格局！</a></td><td>Pharnexcloud</td><td>10 Jan 2024</td></tr>
+      <tr><td class="right">37</td><td><a href="https://file.finance.qq.com/finance/hs/pdf/2026/01/23/1224947435.PDF" target="_blank" rel="noopener">浙江新和成 投资者关系活动记录表 2026-001</a></td><td>Zhejiang NHU</td><td>23 Jan 2026</td></tr>
+      <tr><td class="right">38</td><td><a href="https://molekula.com/articles/china-and-india-api-manufacturing-shifts-in-2026-and-their-implications-for-western-procurement" target="_blank" rel="noopener">China and India API Manufacturing Shifts in 2026&hellip;</a></td><td>Molekula</td><td>6 Aug 2026</td></tr>
+      <tr><td class="right">39</td><td><a href="https://www.chemanalyst.com/Pricing-data/ibuprofen-1331" target="_blank" rel="noopener">Ibuprofen Price Trend, Chart, Index, News and Forecast</a> &middot; <a href="https://www.chemanalyst.com/NewsAndDeals/NewsDetails/us-ibuprofen-prices-incline-0-2-in-jan-2026-check-here-what-it-means-40901" target="_blank" rel="noopener">US Ibuprofen Prices Incline 0.2% in Jan 2026</a></td><td>ChemAnalyst</td><td>accessed 11 Sep 2026; 27 Jan 2026</td></tr>
+      <tr><td class="right">40</td><td><a href="https://www.expertmarketresearch.com/price-forecast/ibuprofen-price-trends" target="_blank" rel="noopener">Ibuprofen Price Trend 2026</a></td><td>Expert Market Research</td><td>accessed 11 Sep 2026</td></tr>
+      <tr><td class="right">41</td><td><a href="https://www.imarcgroup.com/ibuprofen-pricing-report" target="_blank" rel="noopener">Ibuprofen Price Trend</a></td><td>IMARC Group</td><td>accessed 11 Sep 2026</td></tr>
+      <tr><td class="right">42</td><td><a href="https://www.procurementresource.com/resource-center/ibuprofen-price-trends" target="_blank" rel="noopener">Ibuprofen Price Trend</a></td><td>Procurement Resource</td><td>accessed 11 Sep 2026</td></tr>
+      <tr><td class="right">43</td><td><a href="https://in.marketscreener.com/quote/stock/GRANULES-INDIA-LIMITED-46730275/news/Hubei-Biocause-Pharmaceutical-Co-Ltd-entered-into-an-agreement-to-acquire-remaining-50-stake-in-34124473/" target="_blank" rel="noopener">Hubei Biocause &hellip; to acquire remaining 50% stake in Hubei Granules Biocause &hellip; from Granules India</a></td><td>MarketScreener</td><td>14 Oct 2019</td></tr>
+      <tr><td class="right">44</td><td><a href="https://www.aerzteblatt.de/nachrichten/117192/Generika-Zwei-Drittel-der-Wirkstoffe-werden-in-Asien-produziert" target="_blank" rel="noopener">Generika: Zwei Drittel der Wirkstoffe werden in Asien produziert</a> &middot; <a href="https://www.apotheke-adhoc.de/nachrichten/detail/pharmazie/pro-generika-weltkarte-der-wirkstoffe-produktion/" target="_blank" rel="noopener">Pro Generika: Weltkarte der Wirkstoffe</a></td><td>Deutsches &Auml;rzteblatt; Apotheke Adhoc</td><td>8 Oct 2020; 7 Oct 2020</td></tr>
+      <tr><td class="right">45</td><td><a href="https://pharmaceutical.basf.com/global/en/pharma-solutions/platforms/apis/ibuprofen" target="_blank" rel="noopener">Ibuprofen product page</a> &middot; <a href="https://www.basf.com/global/de/media/news-releases/2017/06/p-17-260" target="_blank" rel="noopener">News release P-17-260</a></td><td>BASF Pharma Solutions; BASF</td><td>accessed 11 Sep 2026; 28 Jun 2017</td></tr>
+      <tr><td class="right">46</td><td><a href="https://pharmaoffer.com/api-excipient-supplier/nsaids/ibuprofen/cep" target="_blank" rel="noopener">CEP Certified Ibuprofen API Manufacturers &amp; Suppliers</a> (partial)</td><td>Pharmaoffer</td><td>accessed 11 Sep 2026</td></tr>
+      <tr><td class="right">47</td><td><a href="https://bsmedia.business-standard.com/_media/bs/data/market-reports/equity-brokertips/2025-06/17502379560.01855500.pdf" target="_blank" rel="noopener">Vinati Organics &mdash; Company Update</a></td><td>HDFC Securities</td><td>17 Jun 2025</td></tr>
+      <tr><td class="right">48</td><td><a href="https://www.careratings.com/upload/CompanyFiles/PR/202510121027_Vinati_Organics_Limited.pdf" target="_blank" rel="noopener">Vinati Organics Limited press release</a></td><td>CARE Ratings</td><td>6 Oct 2025</td></tr>
+      <tr><td class="right">49</td><td><a href="https://vinatiorganics.com/wp-content/uploads/2025/09/Vinati-Organics-AR-2024-25_Revised-CtoC_V5_Sept-01-2025-interactive.pdf" target="_blank" rel="noopener">Annual Report 2024-25</a></td><td>Vinati Organics</td><td>Sep 2025</td></tr>
+      <tr><td class="right">50</td><td><a href="https://finance.yahoo.com/markets/stocks/articles/vinati-organics-ltd-bom-524200-010223522.html" target="_blank" rel="noopener">Vinati Organics Ltd Q4 2026 Earnings Call Highlights</a></td><td>Yahoo Finance / GuruFocus</td><td>27 May 2026</td></tr>
+      <tr><td class="right">51</td><td><a href="https://www.icra.in/Rating/ShowRationalReportFilePdf/41643" target="_blank" rel="noopener">ICRA rating rationale</a> (undated, c. FY2009) &middot; <a href="https://www.hdfcsec.com/hsl.docs//Vinati%20Organics%20-%20Resuming%20Coverage%20-%20HDFC%20sec-201806182145099896801.pdf" target="_blank" rel="noopener">HDFC Securities resuming coverage</a> (18 Jun 2018) &middot; <a href="https://images.assettype.com/bloombergquint/2021-07/642602b2-ffb0-4110-9523-f58ee90bfb97/Motilal_Oswal_Vinati_Organics_Annual_Report_Update.pdf" target="_blank" rel="noopener">Motilal Oswal AR update</a> (11 Jul 2021) &middot; <a href="https://www.icicidirect.com/research/equity/vinati-organics-ltd/18243" target="_blank" rel="noopener">ICICI Direct</a> (21 Feb 2023)</td><td>ICRA; HDFC Securities; Motilal Oswal; ICICI Direct</td><td>c. 2009 &ndash; 21 Feb 2023</td></tr>
+      <tr><td class="right">52</td><td><a href="https://www.screener.in/company/VINATIORGA/" target="_blank" rel="noopener">VINATIORGA</a></td><td>Screener.in</td><td>accessed 11 Sep 2026</td></tr>
+      <tr><td class="right">53</td><td><a href="https://www.gurufocus.com/news/9039784/iol-chemicals-and-pharmaceuticals-ltd-bom524164-q1-2027-earnings-call-highlights-record-pat-surge-of-899-and-strategic-shift-toward-nonibuprofen-portfolio" target="_blank" rel="noopener">IOL Chemicals &hellip; Q1 2027 Earnings Call Highlights</a> &middot; <a href="https://finance.yahoo.com/markets/stocks/articles/iol-chemicals-pharmaceuticals-ltd-bom-010304757.html" target="_blank" rel="noopener">Yahoo Finance copy</a></td><td>GuruFocus / Yahoo Finance</td><td>13 Aug 2026</td></tr>
+      <tr><td class="right">54</td><td><a href="https://www.multibagg.ai/market-pulse/articles/iol-q1fy27-97949" target="_blank" rel="noopener">IOL Chemicals and Pharmaceuticals Q1 FY27: Growth With a Clearer Mix</a></td><td>Multibagg.ai</td><td>13 Aug 2026</td></tr>
+      <tr><td class="right">55</td><td><a href="https://finance.yahoo.com/markets/stocks/articles/iol-chemicals-pharmaceuticals-ltd-bom-010229023.html" target="_blank" rel="noopener">IOL Chemicals &hellip; Q4 2026 Earnings Call Highlights</a></td><td>Yahoo Finance</td><td>22 May 2026</td></tr>
+      <tr><td class="right">56</td><td><a href="https://www.careratings.com/upload/CompanyFiles/PR/202411131109_IOL_Chemicals_and_Pharmaceuticals_Limited.pdf" target="_blank" rel="noopener">IOL Chemicals and Pharmaceuticals press release</a></td><td>CARE Ratings</td><td>13 Nov 2024</td></tr>
+      <tr><td class="right">57</td><td><a href="https://www.hdfcsec.com/hsl.research.pdf/HSL_Stock%20Note_IOL_Chemicals_281123.pdf" target="_blank" rel="noopener">IOL Chemicals &amp; Pharmaceuticals Ltd. Stock Note</a></td><td>HDFC Securities</td><td>28 Nov 2023</td></tr>
+      <tr><td class="right">58</td><td><a href="https://www.iolcp.com/ibuprofen" target="_blank" rel="noopener">Ibuprofen API page</a></td><td>IOLCP</td><td>accessed 11 Sep 2026</td></tr>
+      <tr><td class="right">59</td><td><a href="https://www.screener.in/company/IOLCP/" target="_blank" rel="noopener">IOLCP</a></td><td>Screener.in</td><td>accessed 11 Sep 2026</td></tr>
+      <tr><td class="right">60</td><td><a href="https://www.nseindia.com/api/reportASM" target="_blank" rel="noopener">ASM report API</a> &middot; <a href="https://www.nseindia.com/api/reportGSM" target="_blank" rel="noopener">GSM report API</a> &middot; <a href="https://trendlyne.com/equity/asm-dashboard/active-stocks/" target="_blank" rel="noopener">ASM/GSM active-stocks dashboard (BSE)</a></td><td>NSE India; Trendlyne</td><td>11 Sep 2026</td></tr>
+      <tr><td class="right">61</td><td><a href="https://finance.yahoo.com/markets/stocks/articles/solara-active-pharma-sciences-ltd-010141796.html" target="_blank" rel="noopener">Solara Active Pharma Sciences Ltd Q1 2027 Earnings Call Highlights</a></td><td>Yahoo Finance</td><td>23 Jul 2026</td></tr>
+      <tr><td class="right">62</td><td><a href="https://finance.yahoo.com/markets/stocks/articles/solara-active-pharma-sciences-ltd-170032901.html" target="_blank" rel="noopener">Solara Active Pharma Sciences Ltd Q4 2026 Earnings Call Highlights</a></td><td>Yahoo Finance</td><td>15 May 2026</td></tr>
+      <tr><td class="right">63</td><td><a href="https://scanx.trade/stock-market-news/companies/solara-q4-revenue-rises-12-to-inr-392cr/40892525" target="_blank" rel="noopener">Solara Q4 Revenue Rises 12% to INR 392cr</a></td><td>ScanX</td><td>21 May 2026</td></tr>
+      <tr><td class="right">64</td><td><a href="https://scanx.trade/stock-market-news/earnings/solara-active-pharma-sciences-reports-q3-consolidated-net-loss-of-174-million-against-previous-year-profit/31911734" target="_blank" rel="noopener">Solara Active Pharma Q3FY26: &#8377;349 Cr Revenue, Strategic Review of Ibuprofen Business</a></td><td>ScanX</td><td>6 Feb 2026</td></tr>
+      <tr><td class="right">65</td><td><a href="https://www.freepressjournal.in/business/solara-active-pharma-q4-loss-widens-to-17-crore-despite-revenue-growth" target="_blank" rel="noopener">Solara Active Pharma Q4 Loss Widens To &#8377;17 Crore Despite Revenue Growth</a></td><td>Free Press Journal</td><td>15 May 2026</td></tr>
+      <tr><td class="right">66</td><td><a href="https://www.kotakneo.com/financial-results/solara-active-pharma-sciences-share-price-q4fy2025-26-results/" target="_blank" rel="noopener">Solara Q4 FY2025-26 results page</a></td><td>Kotak Neo</td><td>accessed 11 Sep 2026</td></tr>
+      <tr><td class="right">67</td><td><a href="https://solara.co.in/uploads/2025/9/Solara-AR-24-25.pdf" target="_blank" rel="noopener">Annual Report 2024-25 (&ldquo;Repivoting&rdquo;)</a></td><td>Solara Active Pharma Sciences</td><td>Sep 2025</td></tr>
+      <tr><td class="right">68</td><td><a href="https://folokdutta.substack.com/p/solara-active-green-shoots-of-turnaround" target="_blank" rel="noopener">Solara Active: Green Shoots of Turnaround or Just Weeds?</a></td><td>Folokdutta (Substack)</td><td>13 May 2025</td></tr>
+      <tr><td class="right">69</td><td><a href="https://www.screener.in/company/SOLARA/" target="_blank" rel="noopener">SOLARA</a></td><td>Screener.in</td><td>accessed 11 Sep 2026</td></tr>
+      <tr><td class="right">70</td><td><a href="https://smspharma.com/wp-content/uploads/2026/06/SMSPharma-Transcripts-May27-2026.pdf" target="_blank" rel="noopener">Q4 FY26 earnings call transcript</a></td><td>SMS Pharmaceuticals</td><td>27 May 2026</td></tr>
+      <tr><td class="right">71</td><td><a href="https://finance.yahoo.com/markets/stocks/articles/sms-pharmaceuticals-ltd-bom-532815-010019348.html" target="_blank" rel="noopener">SMS Pharmaceuticals Ltd Q4 2026 Earnings Call Highlights</a></td><td>Yahoo Finance</td><td>27 May 2026</td></tr>
+      <tr><td class="right">72</td><td><a href="https://www.indianpharmapost.com/news/sms-pharma-q1-fy27-pat-rises-16-to-rs-211-crore-21191" target="_blank" rel="noopener">SMS Pharma Q1 FY27 PAT rises 16% to Rs. 21.1 crore</a></td><td>Indian Pharma Post</td><td>1 Aug 2026</td></tr>
+      <tr><td class="right">73</td><td><a href="https://alphastreet.com/india/sms-pharmaceuticals-ltd-smspharma-q3-fy23-earnings-concall-transcript/" target="_blank" rel="noopener">SMS Pharmaceuticals Q3 FY23 Earnings Concall Transcript</a></td><td>AlphaStreet</td><td>10 Feb 2023</td></tr>
+      <tr><td class="right">74</td><td><a href="https://investmentguruindia.com/StockMarket/SMS-Pharmaceuticals-gains-on-getting-CEP-approval-for-Ibuprofen" target="_blank" rel="noopener">SMS Pharmaceuticals gains on getting CEP approval for Ibuprofen</a></td><td>InvestmentGuruIndia</td><td>25 Jul 2022</td></tr>
+      <tr><td class="right">75</td><td><a href="https://www.indianpharmapost.com/drug-approval/sms-pharma-receives-edqm-certification-to-supply-ibuprofen-in-europe-16270" target="_blank" rel="noopener">SMS Pharma receives EDQM certification to supply Ibuprofen in Europe</a></td><td>Indian Pharma Post</td><td>2 Oct 2024</td></tr>
+      <tr><td class="right">76</td><td><a href="https://smspharma.com/api/" target="_blank" rel="noopener">API page</a> &middot; <a href="https://www.screener.in/company/SMSPHARMA/" target="_blank" rel="noopener">SMSPHARMA on Screener.in</a></td><td>SMS Pharmaceuticals; Screener.in</td><td>accessed 11 Sep 2026</td></tr>
+      <tr><td class="right">77</td><td><a href="https://www.shreepushkar.com/wp-content/uploads/2025/09/Shree-Pushkar-Chemicals-Fertilisers-Limited__Annual-Report-2025.pdf" target="_blank" rel="noopener">32nd Annual Report 2024-25</a></td><td>Shree Pushkar Chemicals &amp; Fertilisers</td><td>Sep 2025</td></tr>
+      <tr><td class="right">78</td><td><a href="https://www.shreepushkar.com/" target="_blank" rel="noopener">Product pages</a></td><td>Shree Pushkar Chemicals &amp; Fertilisers</td><td>accessed 11 Sep 2026</td></tr>
+      <tr><td class="right">79</td><td><a href="https://finance.yahoo.com/markets/stocks/articles/shree-pushkar-chemicals-fertilisers-ltd-010927117.html" target="_blank" rel="noopener">Shree Pushkar Chemicals &amp; Fertilisers Ltd Q1 2027 Earnings Call Highlights</a></td><td>Yahoo Finance</td><td>13 Aug 2026</td></tr>
+      <tr><td class="right">80</td><td><a href="https://www.screener.in/company/SHREEPUSHK/consolidated/" target="_blank" rel="noopener">SHREEPUSHK (consolidated)</a></td><td>Screener.in</td><td>accessed 11 Sep 2026</td></tr>
+      <tr><td class="right">81</td><td><a href="https://baike.jfinfo.com/4042979.html" target="_blank" rel="noopener">亨迪药业 company profile</a></td><td>jfinfo baike</td><td>accessed 11 Sep 2026</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Sources 26&ndash;37 are in Chinese; every figure taken from them is read from the filing PDFs where one exists (27, 28, 29, 30, 37) and otherwise from the cited article, with this note&rsquo;s own translations of the quoted phrases. The desk&rsquo;s own 8 September 2026 reports on IOLCP and Shree Pushkar, cited in the text, are in this library and are not renumbered here.</p>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>IOLCP · SMSPHARMA · SOLARA · VINATIORGA · SHREEPUSHK &nbsp;|&nbsp; THESIS AUDIT &nbsp;|&nbsp; SEPTEMBER 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Mobidoctor ibuprofen tracker (11 Sep 2026) &middot; AIFA shortage list CSV (08/09/2026) &middot; AEMPS CIMA supply-problem API (11 Sep 2026) &middot; EMA Union list of critical medicines v2.1 (Dec 2025) &middot; BfArM Beirat protocols and statutory lists &middot; Shandong Xinhua and Hubei Biocause Heilen (Hendi) H1 2026 reports (25-26 Aug 2026) &middot; ChemAnalyst, Expert Market Research, IMARC and Procurement Resource price trackers (accessed 11 Sep 2026) &middot; IOL, SMS, Solara, Vinati and Shree Pushkar earnings calls, annual reports and rating releases &middot; NSE ASM/GSM lists (11 Sep 2026) &middot; SwingEdge scan, 10 Sep 2026 close</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>
