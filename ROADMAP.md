@@ -1,7 +1,7 @@
 # Roadmap
 
 What's built, what's blocked, and what's next — in dependency order rather than wish order.
-Status as of **2026-09-09**.
+Status as of **2026-09-10**.
 
 ---
 
@@ -44,6 +44,26 @@ Result: **1,622 names, IBD quarterly weighting active on 1,500, correct short-wi
 > pass and the one fail stayed a fail, so no published conclusion rests on which weighting
 > produced it. Checked before the change was accepted, not after.
 
+### 2026-09-10 — the first automatic runs, and what they exposed
+
+The task fired on time (15:40:01). It ran the old `daily_pull.cmd`, which called
+`fetch_screener.py` with **no date** — defaulting to the previous Friday — so both automatic runs
+wrote to `data/scans/2026-09-04.json`, today's close over yesterday's. `build_shortlist` then
+picked the newest scan **by date string**, built from the 9 Sep file, and left the fresh data
+unused. It was also a single pull, so `r6m`/`r1y` never arrived. Two independent defects, both
+invisible until a run actually succeeded.
+
+Fixed (commit `e0eb231`): the wrapper now calls `eod.py --push`, the one maintained path, which
+dates the scan **today**, makes **three** pulls (broad, returns, **volume**) and unions them by
+exact code, refuses to write on a non-trading day (every price identical to the newest scan of a
+different date — screener keeps serving the last close over weekends), and aborts a failed rebase
+instead of leaving the repo mid-rebase. Trigger narrowed to **weekdays**.
+
+The archive was repaired the same day: the mislabelled file deleted, and my own 9 Sep scan — an
+11:52 **intraday** pull — replaced with the true close recovered from git, noted inside the file.
+The archive is end-of-day throughout. `2026-09-10.json` is the first scan carrying everything:
+**1,620 names, IBD weighting on 1,495, volume + 1-month average on 1,615.**
+
 ---
 
 ## 1. Stage 2 — the main open engineering thread
@@ -70,30 +90,38 @@ five distinct weeks.
 
 ### What's capping the fit — in order of value
 
-1. **The 150-DMA is missing, and it is Weinstein's actual Stage 2 line.** Confirmed against the
-   live screen: `DMA 150` is **not** a screener.in field, so it cannot be added to the query
-   directly. The route worth trying is the saved-screen **EDIT COLUMNS** panel, which also avoids
-   the side effect below.
-2. **No volume**, so a breakout cannot be volume-confirmed — one of the three things Stage 2
-   actually means. `Volume > 0` works as a filter (costs ~10 names) but a volume *column* is the
-   part that matters.
+1. **The 150-DMA is missing, and it is Weinstein's actual Stage 2 line.** `DMA 150` is **not** a
+   screener.in field — confirmed twice, including in the `/user/columns/` catalogue on 9 Sep — and
+   EDIT COLUMNS does not touch exports anyway. Not obtainable from screener. It can, however, be
+   **computed from the archive** once ~150 trading days of daily closes have accumulated (from
+   10 Sep 2026, roughly April 2027) — the same dependency as item 3.
+2. ~~**No volume.**~~ **Solved 10 Sep.** `Volume` and `Volume 1month average` arrive via the third
+   pull, so the volume-confirmed breakout — Weinstein's third condition — is computable for the
+   first time. The framework block shows `Volume vs 1-month average`; 1.5× is the conventional
+   bar. **Not yet wired into the trend template or the shortlist score** — both would change Stage
+   2 classification and rankings, so that is a decision, not a patch. Decide once a few weeks of
+   volume history show how often the bar is actually cleared on entry days.
 3. **No price history.** A single-day snapshot cannot see a *base*, which is half the Stage 1→2
    definition. Structural: it needs stored history, not a better query.
 4. **Coverage ceiling of 66–77%.** A quarter to a third of the provider's names sit below the
    ₹1,000 Cr market-cap floor. Those are out of scope, not misses — the calibrator reports them
    separately so the two never get confused. Lowering `--min-mcap` trades this against noise.
 
-> ⚠️ Adding return filters to the query costs **127 names** — it silently excludes anything listed
-> under a year, which is precisely where fresh Stage 2 entries live. The EDIT COLUMNS route adds
-> the data without the exclusion. Prefer it.
+> ~~⚠️ Adding return filters to the query costs 127 names…~~ **Moot since 9 Sep**: the broad pull
+> decides coverage and the filtered pulls only add columns, so no name is excluded by a filter.
 
 ### Also worth doing here
 
 - `rs_pct` from the provider is a **percentage, not a percentile** (their mean 19.8 vs our 78.7,
   correlation 0.696). Documented, not yet reconciled.
-- The journal has **7 days** (2026-05-08 → 2026-08-28). Entries now come from the provider's
-  `status` field rather than a set diff, which fixed a 366-vs-103 over-count. It needs density
-  before the day-by-day record is worth reading as a series.
+- The journal now grows **one day per trading day automatically** (10 days as of 10 Sep). Entries
+  come from the provider's `status` field rather than a set diff. The provider list itself is
+  still the one dated 28 Aug — a newer weekly Excel is the single input this thread is waiting on.
+- **A published verdict can go stale in two days, and the app should show it.** Kiri passed the
+  template 7/7 at the 8 Sep close, and the report called it the thinnest pass the system can
+  produce. By the 10 Sep close it fails on RS. The report is a dated document and stays as
+  written; what is missing is a *live* signals line on the Research Desk card and the report
+  header — at publication versus now, straight from the newest scan. **Next build item.**
 
 ---
 
@@ -125,11 +153,10 @@ getting back exactly what had been typed by hand.
 
 ### Open, not urgent
 
-- **The masthead rating colour is decorative, not derived.** 35 of 47 reports render a *Hold*
-  rating on the green `rating-cell buy` background, because that class marks the cell's position
-  rather than the call. `rdRatingCls` colours the Research Desk card correctly, so the index is
-  right and the report header is misleading. Fixing one file would make it inconsistent with the
-  rest; it wants a single pass over all of them.
+- ~~**The masthead rating colour is decorative, not derived.**~~ **Fixed 10 Sep** (commit
+  `644430e`): `fix_rating_colour.py` ports `rdRatingCls` verbatim and recoloured 41 Hold and 2
+  Avoid cells that had been green. Header and card can no longer disagree; the tool is idempotent
+  and should be re-run after any batch of new reports.
 - A report body must not label a comparison row `Trailing P/E` or `Price / Book`. The verifier
   takes the **first** match in the document, so an August-versus-September table would feed it the
   stale figures. Caught during the Bodal rewrite and now called out in the generation brief.
