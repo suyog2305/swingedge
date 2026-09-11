@@ -117,11 +117,24 @@ five distinct weeks.
 - The journal now grows **one day per trading day automatically** (10 days as of 10 Sep). Entries
   come from the provider's `status` field rather than a set diff. The provider list itself is
   still the one dated 28 Aug — a newer weekly Excel is the single input this thread is waiting on.
-- **A published verdict can go stale in two days, and the app should show it.** Kiri passed the
-  template 7/7 at the 8 Sep close, and the report called it the thinnest pass the system can
-  produce. By the 10 Sep close it fails on RS. The report is a dated document and stays as
-  written; what is missing is a *live* signals line on the Research Desk card and the report
-  header — at publication versus now, straight from the newest scan. **Next build item.**
+- ~~**A published verdict can go stale in two days, and the app should show it.**~~ **Built 11 Sep**
+  (commit `b53a271`). Every Research Desk card and the reader bar carry one line: what the
+  framework said **at publication** (stamped into `index.json` by `tools/report/signals.py` from
+  the data point the report's own figures came from — a full scan, or the 8 Sep close snapshot for
+  the seven September reports), an arrow, and what it says **now** (computed in the browser from the
+  newest scan, so it refreshes with every pull). A FLIPPED pill marks a changed verdict; the hero
+  counts them; a filter isolates them. No report is ever rewritten.
+
+  On 10 Sep the count is **ten flips**: Kiri, RateGain, Shadowfax, GIPCL, Foseco and Motilal Oswal
+  now fail; MTAR, Astra Micro, Kirloskar Engines and Paramount Cables now pass. GIPCL and Foseco
+  were ranked first and third in the chemicals cluster note thirteen days earlier.
+
+  Found while checking it: the Python tools ranked RS over rows carrying an NSE code while the app
+  ranks over **every** row in the scan, and at the RS 70 line that moved borderline names — the
+  tools said five flips each way, the app six and four. The app's basis is the one every report was
+  written on, so `framework_block.py` and `signals.py` now rank over every row too, and the two
+  agree exactly. `build_s2history.py` still ranks over code-bearing rows for the journal; align it
+  the next time the journal logic is touched.
 
 ---
 
