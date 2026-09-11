@@ -51,6 +51,8 @@
   .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
   .rating-cell { padding: 16px 24px; text-align: center; }
   .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.hold { background: rgba(200,151,58,.38); }
+  .rating-cell.sell { background: rgba(160,16,32,.5); }
   .rating-cell.bull { background: rgba(46,117,182,.25); }
   .rating-cell.bear { background: rgba(160,16,32,.2); }
   .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
@@ -209,7 +211,7 @@
     </div>
   </div>
   <div class="rating-bar">
-    <div class="rating-cell buy"><div class="rating-tag">Rating</div><div class="rating-val">Hold — Real Order Book, Unreadable Financial History</div></div>
+    <div class="rating-cell hold"><div class="rating-tag">Rating</div><div class="rating-val">Hold — Real Order Book, Unreadable Financial History</div></div>
     <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">£425M of Rolls-Royce work converts</div></div>
     <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">29× book, +515% off the low, LT-ASM III</div></div>
   </div>
