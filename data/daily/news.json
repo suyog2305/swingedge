@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-10",
+  "updated": "2026-09-11",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -108,10 +108,10 @@
     ],
     "GENESYS": [
       {
-        "t": "Genesys International appoints Nikhil Alulkar (ex-Tech Mahindra) as CEO to drive AI, geospatial growth",
-        "src": "Autocar Professional",
-        "url": "https://www.autocarpro.in/news/genesys-international-appoints-nikhil-alulkar-as-new-ceo-134143",
-        "date": "2026-08-17"
+        "t": "Genesys International holds 43rd AGM, reports smooth proceedings",
+        "src": "Tipranks",
+        "url": "https://www.tipranks.com/news/company-announcements/genesys-international-holds-43rd-agm-reports-smooth-proceedings",
+        "date": "2026-09-02"
       }
     ],
     "INDSWFTLAB": [
@@ -308,9 +308,9 @@
     ],
     "NOVARTIND": [
       {
-        "t": "Novartis India shares soar 18% to record high, extend 9-day gain to 74% on Pfizer Minipress deal",
-        "src": "Business Today",
-        "url": "https://www.businesstoday.in/markets/stocks/story/novartis-india-shares-soar-18-to-record-high-extend-9-day-gains-to-74-heres-why-554518-2026-09-10",
+        "t": "Novartis India shares zoom 51% in 3 days on Minipress brand acquisition from Pfizer",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/novartis-india-share-price-zooms-51-in-3-days-what-s-driving-the-pharma-stock-126091000274_1.html",
         "date": "2026-09-10"
       }
     ],
@@ -332,7 +332,7 @@
     ],
     "ESDS": [
       {
-        "t": "ESDS Software Solution extends rally, hits 20% upper circuit a day after multibagger listing",
+        "t": "ESDS Software extends rally, hits 20% upper band a day after bumper listing",
         "src": "Business Standard",
         "url": "https://www.business-standard.com/markets/news/esds-software-share-price-extends-rally-hits-20-upper-band-after-multibagger-listing-126090700189_1.html",
         "date": "2026-09-07"
@@ -372,7 +372,7 @@
     ],
     "MOLBIO": [
       {
-        "t": "Molbio Diagnostics hits 20% upper circuit on heavy volume, up 35% in two days post-IPO",
+        "t": "Molbio Diagnostics hits 20% upper circuit on heavy volume; up 35% in two days",
         "src": "Business Standard",
         "url": "https://www.business-standard.com/markets/news/molbio-diagnostics-hits-20-upper-circuit-on-heavy-volume-up-35-in-2-days-126091000419_1.html",
         "date": "2026-09-10"
@@ -392,6 +392,30 @@
         "src": "Business Standard",
         "url": "https://www.business-standard.com/markets/news/chennai-petroleum-mrpl-oil-india-rise-up-to-5-as-crude-price-nears-100-126090900372_1.html",
         "date": "2026-09-09"
+      }
+    ],
+    "INDOCO": [
+      {
+        "t": "Indoco Remedies shares jump 7% after UK regulator clears Goa plant inspection",
+        "src": "Business Today",
+        "url": "https://www.businesstoday.in/markets/stocks/story/indoco-remedies-shares-jump-7-after-5-day-fall-uk-regulator-clears-goa-plant-inspection-554542-2026-09-10",
+        "date": "2026-09-10"
+      }
+    ],
+    "SHAKTIPUMP": [
+      {
+        "t": "Shakti Pumps shares rally 12% on Rs 236-crore MSEDCL solar pump order win",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/shakti-pumps-share-price-rallies-12-on-236-crore-msedcl-order-win-126091000229_1.html",
+        "date": "2026-09-10"
+      }
+    ],
+    "TECHNOCRAF": [
+      {
+        "t": "Technocraft Industries share price hits fresh 52-week high",
+        "src": "Univest",
+        "url": "https://univest.in/blogs/why-technocraft-industries-india-ltd-share-price-52-week-high-2026-08-14",
+        "date": "2026-08-14"
       }
     ]
   }
