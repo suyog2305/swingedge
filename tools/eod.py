@@ -94,6 +94,47 @@ def same_data_as_previous(merged_csv, date):
     return matches == len(common), len(common), prev.get('date')
 
 
+def stale_partial_refresh(merged_csv, date):
+    """screener.in refreshes its fields in STAGES after the close: prices, day/week returns and the
+    52-week distances first; moving averages, 3/6-month returns and volume later in the evening.
+    A pull in between captures today prices against YESTERDAY averages, so every "200-DMA rising"
+    check fails and the trend template empties. Seen 11 Sep 2026 at 15:40: prices changed on 98.8%
+    of names, dma200 unchanged on 99.9%, template passes 388 -> 1. Compare the merged export with
+    the newest scan of a different date and refuse to build if the averages have not moved."""
+    import csv, glob
+    try:
+        rows = list(csv.reader(io.open(merged_csv, encoding='utf-8-sig', newline='')))
+    except OSError:
+        return False, {}
+    h = {c: k for k, c in enumerate(rows[0])}
+    ci, pi, di = h.get('NSE Code'), h.get('Current Price'), h.get('DMA 200')
+    if None in (ci, pi, di):
+        return False, {}
+    today = {r[ci].upper(): (r[pi], r[di]) for r in rows[1:] if len(r) > max(ci, pi, di) and r[ci]}
+    prev = None
+    for path in sorted(glob.glob(os.path.join(ROOT, 'data', 'scans', '20*.json')), reverse=True):
+        try:
+            d = json.load(io.open(path, encoding='utf-8'))
+        except Exception:
+            continue
+        if d.get('date') != date and len(d.get('universe') or []) >= 500:
+            prev = d; break
+    if not prev:
+        return False, {}
+    old = {r['code'].upper(): (r.get('price'), r.get('dma200')) for r in prev['universe'] if r.get('code')}
+    common = [c for c in today if c in old]
+    if len(common) < 200:
+        return False, {}
+
+    def f(v):
+        try: return round(float(v), 4)
+        except (TypeError, ValueError): return None
+    price_changed = sum(1 for c in common if f(today[c][0]) is not None and f(today[c][0]) != f(old[c][0])) / len(common)
+    dma_same = sum(1 for c in common if f(today[c][1]) is not None and f(today[c][1]) == f(old[c][1])) / len(common)
+    return (price_changed > 0.5 and dma_same > 0.95), dict(price_changed=price_changed, dma_same=dma_same,
+                                                            prev=prev.get('date'), n=len(common))
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--date', help='scan date (default: today)')
@@ -140,13 +181,21 @@ def main():
             ('union: + volume',                                   merge + ['--base', m1,   '--overlay', volume,  '--out', merged]),
         ]):
             return 1
-        if not a.dry_run:
-            same, n, prev = same_data_as_previous(os.path.join(ROOT, merged), date)
-            if same:
-                print(f'\n--- no new data')
-                print(f'    all {n} shared prices match the {prev} scan exactly — screener is still serving '
-                      f'that close, so today is a non-trading day. Nothing written, nothing committed.')
-                return 0
+    if not a.dry_run:
+        same, n, prev = same_data_as_previous(os.path.join(ROOT, merged), date)
+        if same:
+            print('\n--- no new data')
+            print(f'    all {n} shared prices match the {prev} scan exactly - screener is still serving '
+                  f'that close, so today is a non-trading day. Nothing written, nothing committed.')
+            return 0
+        stale, det = stale_partial_refresh(os.path.join(ROOT, merged), date)
+        if stale:
+            print('\n--- screener has not finished its end-of-day refresh')
+            print(f'    prices changed on {det["price_changed"]:.0%} of {det["n"]} shared names, but the 200-DMA is '
+                  f'unchanged on {det["dma_same"]:.0%} against the {det["prev"]} scan.')
+            print('    A scan built now would carry today prices against yesterday averages and fail every '
+                  '"200-DMA rising" check. Nothing written, nothing committed. Run again later in the evening.')
+            return 2
 
     if not go([
         ('build the scan', [py, os.path.join('tools', 'build_scan.py'), '--date', date, '--screener', merged,
