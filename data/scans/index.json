@@ -1,23 +1,26 @@
 {
-  "updated": "2026-09-11",
+  "updated": "2026-09-15",
   "scans": [
     {
       "date": "2026-09-11",
       "file": "2026-09-11.json",
       "universe": 1621,
-      "stage2": 0
+      "stage2": 701,
+      "s2asof": "2026-09-13"
     },
     {
       "date": "2026-09-10",
       "file": "2026-09-10.json",
       "universe": 1620,
-      "stage2": 0
+      "stage2": 955,
+      "s2asof": "2026-08-29"
     },
     {
       "date": "2026-09-09",
       "file": "2026-09-09.json",
       "universe": 1629,
-      "stage2": null
+      "stage2": 955,
+      "s2asof": "2026-08-29"
     },
     {
       "date": "2026-08-28",
