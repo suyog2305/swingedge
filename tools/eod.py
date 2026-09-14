@@ -28,7 +28,7 @@ its login page and this stops at step 1 with a clear message — nothing partial
 That is also why this is a button you press while you are at the screen, rather than a
 scheduled job: the cookie expires, and when it does somebody has to notice.
 """
-import argparse, datetime as dt, io, json, os, subprocess, sys
+import argparse, datetime as dt, glob, io, json, os, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SHORTLIST = os.path.join(ROOT, 'data', 'daily', 'shortlist.json')
@@ -135,6 +135,63 @@ def stale_partial_refresh(merged_csv, date):
                                                             prev=prev.get('date'), n=len(common))
 
 
+S2_GLOB = 'Stage 2*.xls*'
+
+
+def week_ending(d):
+    """The Friday on or before d. A Stage 2 file stamped on the weekend describes the week that
+    has just closed, so it applies to that Friday's scan and every daily scan after it."""
+    return d - dt.timedelta(days=(d.weekday() - 4) % 7)
+
+
+def stage2_asof(path):
+    """The list's own date: the newest 'Earliest Date' in the file. The provider stamps that
+    week's New Additions with the day the list was cut, so this needs no filename parsing."""
+    try:
+        import openpyxl
+        ws = openpyxl.load_workbook(path, read_only=True, data_only=True).worksheets[0]
+        rows = ws.iter_rows(values_only=True)
+        hdr = [str(h or '').strip().lower() for h in next(rows)]
+        i = next((k for k, h in enumerate(hdr) if h in ('earliest date', 'entry date', 'since', 'first date', 'date')), None)
+        if i is None:
+            return None
+        best = None
+        for r in rows:
+            v = r[i] if i < len(r) else None
+            if isinstance(v, dt.datetime): v = v.date()
+            if isinstance(v, dt.date) and (best is None or v > best): best = v
+        return best
+    except Exception:
+        return None
+
+
+def newest_stage2_file(date):
+    """The most recent provider list whose week had closed by `date`: (path, asof, dirs searched).
+    The weekly Stage 2 file is downloaded by hand, so this looks where it lands: exports/ in the
+    repo (gitignored), the folder above the repo, and stage2_dir from tools/screener_config.json
+    when set. A list is never attached to a scan dated before the week it describes."""
+    dirs = [os.path.join(ROOT, 'exports'), os.path.dirname(ROOT)]
+    try:
+        cfg = json.load(io.open(os.path.join(ROOT, 'tools', 'screener_config.json'), encoding='utf-8'))
+        if cfg.get('stage2_dir'):
+            dirs.insert(0, cfg['stage2_dir'])
+    except Exception:
+        pass
+    D = dt.date.fromisoformat(date)
+    cands = []
+    for dd in dirs:
+        for p in glob.glob(os.path.join(dd, S2_GLOB)):
+            if os.path.basename(p).startswith('~$'):
+                continue                                   # Excel lock file
+            asof = stage2_asof(p)
+            if asof and week_ending(asof) <= D:
+                cands.append((asof, p))
+    if not cands:
+        return None, None, dirs
+    asof, p = max(cands)
+    return p, asof, dirs
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--date', help='scan date (default: today)')
@@ -142,6 +199,8 @@ def main():
     ap.add_argument('--dry-run', action='store_true', help='print the plan, run nothing')
     ap.add_argument('--skip-fetch', action='store_true', help='rebuild from the merged export already on disk')
     ap.add_argument('--top', type=int, default=20, help='how many shortlist candidates (default 20)')
+    ap.add_argument('--stage2', help='attach this Stage 2 file instead of auto-picking the newest one on disk')
+    ap.add_argument('--no-stage2', action='store_true', help='build the scan without any Stage 2 list')
     a = ap.parse_args()
 
     date = a.date or dt.date.today().isoformat()
@@ -197,9 +256,36 @@ def main():
                   '"200-DMA rising" check. Nothing written, nothing committed. Run again later in the evening.')
             return 2
 
+    # ---- the weekly Stage 2 list rides along on every daily scan --------------------------
+    # The provider's list is weekly and downloaded by hand; the scan is daily. Without this, a
+    # scan built on a Tuesday carried no list at all (9-11 Sep 2026 did not), so the RS Screen
+    # showed no Stage 2 marks, the shortlist scored nobody for being on it, and the tracker was
+    # blank. Now the newest list whose week has closed is attached, and its own date is stamped
+    # on the scan so the app can show how old it is.
+    build_cmd = [py, os.path.join('tools', 'build_scan.py'), '--date', date, '--screener', merged,
+                 '--screen-name', 'Market cap > 1000 (broad + returns + volume, merged)']
+    print('\n--- Stage 2 list')
+    if a.no_stage2:
+        print('    --no-stage2: the scan is built without a provider list')
+    else:
+        s2file, s2asof, s2dirs = (a.stage2, stage2_asof(a.stage2), []) if a.stage2 else newest_stage2_file(date)
+        if s2file:
+            we = week_ending(s2asof) if s2asof else None
+            age = (dt.date.fromisoformat(date) - we).days if we else None
+            print(f'    {os.path.relpath(s2file, ROOT) if s2file.startswith(ROOT) else s2file}')
+            print(f'    list of {s2asof or "?"} for the week ending {we or "?"}'
+                  + (f'; {age} day(s) since that week closed' if age is not None else ''))
+            if age is not None and age > 9:
+                print('    NOTE: more than a week old. The list is weekly - download the newest file and it '
+                      'will be picked up automatically.')
+            build_cmd += ['--stage2', s2file]
+        else:
+            print('    none found in: ' + '; '.join(s2dirs))
+            print('    the scan is built without a Stage 2 list (save the weekly file as "Stage 2_<date>.xlsx" '
+                  'in one of those folders)')
+
     if not go([
-        ('build the scan', [py, os.path.join('tools', 'build_scan.py'), '--date', date, '--screener', merged,
-                            '--screen-name', 'Market cap > 1000 (broad + returns + volume, merged)']),
+        ('build the scan', build_cmd),
         ('rank the daily shortlist', [py, os.path.join('tools', 'build_shortlist.py'), '--date', date,
                                       '--top', str(a.top), '--quiet']),
         ('append to the Stage 2 journal', [py, os.path.join('tools', 'build_s2history.py'), '--quiet']),
@@ -217,6 +303,13 @@ def main():
         print(f'    scan date unchanged ({after_date}) — rebuilt in place')
     else:
         print(f'    scan {before_date or "(none)"} -> {after_date}')
+    try:
+        sc = json.load(io.open(os.path.join(ROOT, 'data', 'scans', f'{after_date}.json'), encoding='utf-8'))
+        n_s2 = len(sc.get('stage2') or [])
+        print(f'    Stage 2 list: {n_s2} names from {(sc.get("sources") or {}).get("stage2") or "-"}'
+              + (f' (list of {sc["stage2_asof"]})' if sc.get('stage2_asof') else ''))
+    except Exception:
+        pass
     joined = [c for c in after if c not in before]
     dropped = [c for c in before if c not in after]
     print(f'    shortlist: {len(after)} names, {len(joined)} new, {len(dropped)} gone')

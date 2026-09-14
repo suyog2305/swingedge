@@ -28,6 +28,12 @@ Writes data/daily/s2history.json (what the app reads).
 import argparse, datetime as dt, io, json, os, glob
 from collections import OrderedDict
 
+# How far above a cut export's RS floor a previously-listed name must have sat for its absence
+# to count as an exit rather than "probably dipped under the cut". The provider's RS% commonly
+# drifts 10 points in a fortnight (its own 4-week trend sheet shows that), so 10 is the width
+# of ordinary noise, not a tuned number.
+S2_FLOOR_MARGIN = 10.0
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCHEMA = 'swingedge-s2history/1'
 
@@ -101,6 +107,7 @@ def main():
     tracks = {'list': {}, 'calc': {}}        # track -> code -> {spells:[...], in:bool}
     prev_members = {'list': None, 'calc': None}
     prev_universe = None
+    prev_rs, prev_src = {}, None             # the previous provider list: code -> its RS%, and which file it was
 
     for p in files:
         d = jload(p)
@@ -108,6 +115,10 @@ def main():
         U = [r for r in d.get('universe', []) if r.get('code')]
         S2 = d.get('stage2', []) or []
         s2_src = (d.get('sources') or {}).get('stage2')
+        cur_rs = {str(s.get('code', '')).upper(): num(s.get('rs_pct')) for s in S2 if s.get('code')}
+        s2_floor = num(d.get('stage2_rs_floor'))
+        if s2_floor is None and any(v is not None for v in cur_rs.values()):
+            s2_floor = min(v for v in cur_rs.values() if v is not None)
         rs_percentiles(U)
         umap = {r['code'].upper(): r for r in U}
 
@@ -134,9 +145,9 @@ def main():
             if not cur and prev:
                 day[tk] = OrderedDict(count=0, entered=[], exited=[], unknown=True)
                 continue
-            # the provider's list is weekly: an identical code set means no new list was
-            # uploaded for this scan, which is not the same as "nothing changed"
-            if tk == 'list' and prev is not None and cur == prev:
+            # the provider's list is weekly: the same file (or an identical code set) means no
+            # new list was uploaded for this scan, which is not the same as "nothing changed"
+            if tk == 'list' and prev is not None and ((s2_src and s2_src == prev_src) or cur == prev):
                 day[tk] = OrderedDict(count=len(cur), entered=[], exited=[], carried=True,
                                       source=s2_src)
                 continue
@@ -146,8 +157,19 @@ def main():
             if tk == 'list' and prev is not None and status_map:
                 entered = sorted(c for c, st in status_map.items()
                                  if st in ('New Addition', 'Reentry'))
-                shrunk = len(cur) < len(prev) * 0.9
-                exited = [] if shrunk else sorted(prev - cur)
+                # Exports are sometimes cut at a Relative Strength floor: the 11 Sep 2026 file
+                # stops at RS 5.07%, the 28 Aug one ran down to -8%. A name absent from a cut
+                # export EITHER left Stage 2 OR is still there with RS below the cut - the file
+                # cannot say which. So a name absent that last sat within S2_FLOOR_MARGIN points
+                # of this file's floor is PRESUMED still in and carried forward unverified until
+                # a wider export can see it; a name absent that last sat well above the floor is
+                # an exit, flagged uncertain whenever the file is cut at all (a full list carries
+                # negative-RS names, so a positive floor means a cut).
+                absent = prev - cur
+                cut = s2_floor is not None and s2_floor > 0
+                presumed = {c for c in absent if cut and prev_rs.get(c) is not None
+                            and prev_rs[c] < s2_floor + S2_FLOOR_MARGIN}
+                exited = sorted(absent - presumed)
                 for c in entered:
                     stt = tracks[tk].setdefault(c, {'spells': []})
                     if not (stt['spells'] and stt['spells'][-1]['to'] is None):
@@ -156,12 +178,25 @@ def main():
                     stt = tracks[tk].get(c)
                     if stt and stt['spells'] and stt['spells'][-1]['to'] is None:
                         sp = stt['spells'][-1]; sp['to'] = date; sp['days'] = days_between(sp['from'], date)
+                # every name on today's list is in Stage 2 today: a name that a narrower earlier
+                # export never showed, or that entered on a week whose file was never downloaded,
+                # arrives as "Continues Trend" with no open spell - open one, marked as first seen
+                seen = 0
+                for c in cur:
+                    stt = tracks[tk].setdefault(c, {'spells': []})
+                    if not (stt['spells'] and stt['spells'][-1]['to'] is None):
+                        stt['spells'].append(OrderedDict([('from', date), ('to', None), ('days', None), ('seen', True)])); seen += 1
                 day[tk] = OrderedDict(count=len(cur), entered=entered, exited=exited,
                                       source=s2_src, by_status=True)
-                if shrunk:
-                    day[tk]['exits_unreliable'] = True   # narrower export, absence != exit
+                if s2_floor is not None: day[tk]['rs_floor'] = s2_floor
+                if cut:
+                    day[tk]['exits_uncertain'] = True     # cut export: an absence above the floor is an exit OR a fall below it
+                    day[tk]['presumed'] = len(presumed)   # absent near or below the floor: not visible, carried as still in
+                if seen: day[tk]['first_seen'] = seen     # on the list with no prior spell (see above)
                 list_updates.append(date)
-                prev_members[tk] = cur
+                prev_members[tk] = cur | presumed
+                prev_rs = {c: r for c, r in prev_rs.items() if c in presumed}; prev_rs.update(cur_rs)
+                prev_src = s2_src
                 continue
             entered = sorted(cur - prev) if prev is not None else sorted(cur)
             exited = sorted(prev - cur) if prev is not None else []
@@ -177,6 +212,7 @@ def main():
             if tk == 'list':
                 day[tk]['source'] = s2_src            # the file this week's list came from
                 if cur: list_updates.append(date)     # a genuinely new list landed today
+                prev_rs, prev_src = dict(cur_rs), s2_src
             prev_members[tk] = cur
         days.append(day)
         if U: prev_universe = umap

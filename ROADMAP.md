@@ -90,6 +90,46 @@ the reason originally given.
 > and parse before they write, and no commit or publish runs in the same command as the change it
 > depends on.
 
+### 2026-09-14 — the guard's first catch, and a holiday
+
+Monday 14 Sep was Ganesh Chaturthi. The 20:00 run pulled all three variants, found every one of
+1,556 shared prices identical to the 11 Sep scan, and stopped with "non-trading day. Nothing
+written, nothing committed." First unattended no-op, exactly as designed.
+
+### 2026-09-15 — the weekly Stage 2 list now rides along on every daily scan
+
+The 9, 10 and 11 Sep scans carried **no Stage 2 list at all**. The provider's list is weekly and
+downloaded by hand; the pull is daily and never knew where to find it. So the RS Screen showed no
+Stage 2 marks, the shortlist scored nobody for being on the list, and the tracker was blank —
+silently, because an empty list is a valid list.
+
+`eod.py` now looks where the weekly file lands (`exports/`, the folder above the repo, or
+`stage2_dir` in `tools/screener_config.json`), reads each file's **own date** — the newest
+"Earliest Date" in it, which is the day the provider cut the list — and attaches the newest list
+**whose week has closed by the scan date** (the Friday on or before the list's date). A Sunday
+list is never attached to the Thursday before it. The scan is stamped with `stage2_asof` and
+`stage2_rs_floor`; the week selector and the tracker say "provider list of 13 Sep" and flag a
+list older than nine days. `--stage2 PATH` overrides the pick, `--no-stage2` skips it. Backfilled
+9 and 10 Sep with the 28 Aug list (the newest whose week had closed) and rebuilt 11 Sep through
+the automated path, which picked the new file on its own. All three universes byte-unchanged.
+
+**The list this week was cut at RS 5.07%; the 28 Aug one ran to −8%.** So 336 names "vanished"
+between the two, and most of them merely fell out of the export, not out of Stage 2. The file
+cannot say which. Both the journal and the tracker now handle this the same way: a name absent
+that last sat within 10 RS points of the new file's floor is **presumed still in** (carried
+forward unverified until a wider export can see it, 242 names); a name absent that last sat well
+above the floor is an **exit, flagged uncertain** because the file is cut (94 names, PURPLEWAVE
+at RS 138 among them). Entries come from the provider's own status stamps (27 new, 32 re-entries),
+never from a set difference — 8 of the "Continues Trend" names that look new entered on the
+5 Sep list that was never downloaded. And every name on today's list gets an open spell whether
+or not an earlier, narrower export ever showed it; that also repaired 225 names on the full
+28 Aug list that the 23 Aug export (cut at 4.42%) had hidden. The 10-point margin is the width
+of ordinary fortnightly drift in the provider's own RS series, not a tuned number.
+
+RS Trend gained the provider's Stage 2 RS% as a column beside our percentile — the two measures
+side by side on purpose — and its Cap column, which had been blank because the band was never
+computed for those rows, now works.
+
 ---
 
 ## 1. Stage 2 — the main open engineering thread
@@ -242,6 +282,9 @@ localStorage and exported as one self-contained HTML file with the images embedd
   page says so. The Volume Trend tab is even younger: `vol_1m` only exists from 9 Sep (when the
   3-pull merge shipped), so its own anchor pool is date-gated separately and currently spans just
   2 days; both will read closer to true weekly spacing as the daily archive fills in.
+- **The weekly Stage 2 list rides along on every daily scan** (see 2026-09-15 above): picked by
+  its own date, stamped on the scan, shown with its age; cut exports handled honestly in both the
+  journal and the tracker instead of reading 336 missing names as 336 exits.
 - **Multi-name notes carry one generated technical block per stock** (named markers, commit
   `be0549b`), and the verifier checks each block against its own scan row — a note registered as
   `CLUSTER` can no longer slip past the gate. Proven by corrupting one figure and watching it fail.

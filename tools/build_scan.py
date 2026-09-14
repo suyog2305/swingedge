@@ -192,7 +192,16 @@ def main():
         rows, headers = build_stage2(a.stage2)
         d['stage2'] = rows
         d['sources']['stage2'] = os.path.basename(a.stage2)
-        done.append(f'stage2: {len(rows)} rows')
+        # The list's own date and its RS floor, stamped on the scan so the app can say "list of
+        # 13 Sep" and can treat a file cut at RS 5% differently from a full one that runs into
+        # negative RS. The date is the newest "Earliest Date" in the file: the provider stamps
+        # that week's New Additions with the day the list was cut.
+        sinces = [r['since'] for r in rows if r.get('since')]
+        floors = [r['rs_pct'] for r in rows if r.get('rs_pct') is not None]
+        for k, v in (('stage2_asof', max(sinces) if sinces else None), ('stage2_rs_floor', min(floors) if floors else None)):
+            if v is None: d.pop(k, None)
+            else: d[k] = v
+        done.append(f'stage2: {len(rows)} rows' + (f' (list of {d["stage2_asof"]}, RS floor {d["stage2_rs_floor"]})' if sinces and floors else ''))
     if not done: print('nothing to build — pass --screener and/or --stage2')
     with io.open(path, 'w', encoding='utf-8') as fh: json.dump(d, fh, ensure_ascii=False, separators=(',', ':'))
     print('wrote', path, f'({os.path.getsize(path):,} bytes)')
@@ -202,7 +211,9 @@ def main():
     if os.path.exists(ipath):
         with io.open(ipath, encoding='utf-8') as fh: idx = json.load(fh, object_pairs_hook=OrderedDict)
     scans = [s for s in idx.get('scans', []) if s.get('file') != f'{a.date}.json']
-    scans.append(OrderedDict(date=a.date, file=f'{a.date}.json', universe=len(d.get('universe', [])), stage2=len(d.get('stage2', []))))
+    entry = OrderedDict(date=a.date, file=f'{a.date}.json', universe=len(d.get('universe', [])), stage2=len(d.get('stage2', [])))
+    if d.get('stage2_asof'): entry['s2asof'] = d['stage2_asof']
+    scans.append(entry)
     scans.sort(key=lambda s: s['date'], reverse=True)
     idx['updated'] = dt.date.today().isoformat(); idx['scans'] = scans
     with io.open(ipath, 'w', encoding='utf-8') as fh: json.dump(idx, fh, ensure_ascii=False, indent=2)

@@ -7660,6 +7660,17 @@ async function seLoadSet(file){
   const priors = SE.scans.slice(i + 1, i + 4);
   const rs = await Promise.allSettled(priors.map(p => seFetch(p.file)));
   rs.forEach((r, k) => { if(r.status === 'rejected') console.warn('Edge: prior scan failed', priors[k].file, r.reason); });
+  // The weekly Stage 2 file rides along on every daily scan until a new one lands, so entries and
+  // exits need the newest prior carrying a DIFFERENT file. Keep fetching (bounded) until one is in.
+  const src = (d.sources || {}).stage2 || null;
+  if(src && Array.isArray(d.stage2) && d.stage2.length){
+    for(let k = i + 1; k < Math.min(SE.scans.length, i + 9); k++){
+      const sc = SE.scans[k]; if(!sc.stage2) continue;
+      if(!SE.data[sc.file]){ try{ await seFetch(sc.file); }catch(e){ console.warn('Edge: prior scan failed', sc.file, e); continue; } }
+      const pr = SE.data[sc.file];
+      if(pr && ((pr.sources || {}).stage2 || null) !== src) break;
+    }
+  }
   return d;
 }
 function sePriors(){
@@ -7674,7 +7685,7 @@ async function seSelectWeek(file){
 }
 function seFillWeekSelects(){
   document.querySelectorAll('select.se-week').forEach(sel => {
-    sel.innerHTML = SE.scans.map(s => `<option value="${wrAttr(s.file)}">w/e ${wrDate(s.date)}${s.universe ? ` · ${s.universe} scan` : ''}${s.stage2 ? ` · ${s.stage2} S2` : ''}</option>`).join('') || '<option value="">No scans published</option>';
+    sel.innerHTML = SE.scans.map(s => `<option value="${wrAttr(s.file)}">w/e ${wrDate(s.date)}${s.universe ? ` · ${s.universe} scan` : ''}${s.stage2 ? ` · ${s.stage2} S2${s.s2asof ? ' (' + wrDate(s.s2asof) + ')' : ''}` : ''}</option>`).join('') || '<option value="">No scans published</option>';
     if(SE.cur) sel.value = SE.cur;
   });
 }
@@ -7719,12 +7730,26 @@ function seTrend(r, prevRow){
   const pass = checks.filter(c => c.ok).length;
   return { checks, pass, total: checks.length, s2: checks.length >= 5 && pass === checks.length };
 }
+// How far above a cut export's RS floor a previously-listed name must have sat for its absence
+// to read as an exit rather than "probably dipped under the cut". Same constant as
+// tools/build_s2history.py; the provider's RS% drifts about this much in a fortnight.
+const SE_S2_FLOOR_MARGIN = 10;
+function seS2Note(c){
+  // "provider list of 13 Sep", how stale that is against this scan, and what it is compared with
+  const prev = c.hasPrevS2 ? `vs ${wrNum(c.prevS2.stage2.length)} on the previous list (w/e ${wrDate(c.prevS2.date)})` : '';
+  if(!c.s2asof) return prev || 'first list loaded';
+  const age = Math.max(0, Math.round((new Date(c.date + 'T00:00:00') - new Date(c.s2asof + 'T00:00:00')) / 86400000));
+  return `provider list of ${wrDate(c.s2asof)}${age > 9 ? ` (${age} days old)` : ''}${prev ? ' · ' + prev : ''}`;
+}
 function seCompute(){
   const d = SE.cur && SE.data[SE.cur];
   if(!d){ SE.c = null; return; }
   const priors = sePriors();
   const prevU = priors.find(p => p.universe.length) || null;          // previous week with a universe
-  const prevS2 = priors.find(p => p.stage2.length) || null;            // previous week with a Stage 2 list
+  // the weekly list rides along on every daily scan until a new file lands, so "previous list"
+  // means the newest prior scan carrying a DIFFERENT file — not yesterday's copy of this one
+  const s2src = (d.sources || {}).stage2 || null;
+  const prevS2 = priors.find(p => p.stage2.length && (!s2src || ((p.sources || {}).stage2 || null) !== s2src)) || null;
   const prevUMap = new Map(prevU ? prevU.universe.map(r => [r._key, r]) : []);
   // --- universe ---
   const U = d.universe.map(r => Object.assign({}, r));
@@ -7750,7 +7775,16 @@ function seCompute(){
     return 'continues';
   };
   S2.forEach(r => { r.state = statusOf(r); const u = U.find(x => x._key === r._key); r.inScan = !!u; r.rsCalc = u ? u.rs : null; r.uni = u || null; r.prev = prevS2Map.get(r._key) || null; });
-  const exits = (S2.length && prevS2) ? prevS2.stage2.filter(r => !s2Map.has(r._key)).map(r => Object.assign({}, r, {state: 'exited'})) : [];
+  // Exports are sometimes cut at an RS floor (the 11 Sep 2026 file stops at 5.07%; the 28 Aug one
+  // ran to -8%). A prior name that is absent AND last sat within SE_S2_FLOOR_MARGIN points of this
+  // file's floor is not visible, not exited — counted separately and said so. Only names last seen
+  // well above the floor are shown as exits, and even those are "left the list or fell under its cut".
+  const s2floor = wrIsNum(d.stage2_rs_floor) ? +d.stage2_rs_floor : (S2.length && S2.some(r => wrIsNum(r.rs_pct)) ? Math.min(...S2.filter(r => wrIsNum(r.rs_pct)).map(r => +r.rs_pct)) : null);
+  const s2cut = s2floor != null && s2floor > 0;
+  const absent = (S2.length && prevS2) ? prevS2.stage2.filter(r => !s2Map.has(r._key)) : [];
+  const belowCut = s2cut ? absent.filter(r => wrIsNum(r.rs_pct) && +r.rs_pct < s2floor + SE_S2_FLOOR_MARGIN) : [];
+  const belowSet = new Set(belowCut.map(r => r._key));
+  const exits = absent.filter(r => !belowSet.has(r._key)).map(r => Object.assign({}, r, {state: 'exited'}));
   U.forEach(r => { const s = s2Map.get(r._key); r.s2list = s || null; r.prevRS = prevRS.has(r._key) ? prevRS.get(r._key) : null; r.rsDelta = r.prevRS != null && r.rs != null ? r.rs - r.prevRS : null; r.isNew = prevU ? !prevUMap.has(r._key) : null; r.trend = seTrend(r, prevUMap.get(r._key)); r.s2calc = r.trend.s2; r.s2any = !!(s || r.s2calc); });
   // --- sectors (industry groups) ---
   const med = (a) => { const s = a.filter(wrIsNum).map(Number).sort((x, y) => x - y); return s.length ? (s.length % 2 ? s[(s.length - 1) / 2] : (s[s.length / 2 - 1] + s[s.length / 2]) / 2) : null; };
@@ -7785,6 +7819,7 @@ function seCompute(){
     r.sectorRS = secRS.has(r.sector) ? secRS.get(r.sector) : null;
   });
   SE.c = { d, date: d.date, U, S2, exits, sectors, s2Industries, prevU, prevS2, hasPrevU: !!prevU, hasPrevS2: !!prevS2,
+    s2src, s2asof: d.stage2_asof || null, s2floor: s2cut ? s2floor : null, s2cut, belowCut: belowCut.length,
     stats: { n: U.length, s2list: S2.length, entered: S2.filter(r => r.state === 'entered').length, reentry: S2.filter(r => r.state === 'reentry').length, exited: exits.length,
       ttPass: U.filter(r => r.s2calc).length, inBoth: U.filter(r => r.s2list).length, medR1w: med(U.map(r => r.r1w)), medR3m: med(U.map(r => r.r3m)), medFrom52: med(U.map(r => r.from_52wh)),
       nearATH: U.filter(r => r.near_ath).length, above200: U.filter(r => r.trend.checks.find(c => c.k === 'p200' && c.ok)).length, medWeeks: med(S2.map(r => r.weeks)), posRet: S2.length ? 100 * S2.filter(r => wrIsNum(r.ret) && r.ret > 0).length / S2.length : null, asm: S2.filter(r => r.asm).length } };
@@ -8121,7 +8156,7 @@ function seExportCsv(){
 // nearest broad scan ON OR BEFORE that date, skipping any scan already used by a nearer target —
 // so two columns can never silently show identical data because of a gap in the archive. Every
 // column header shows its real date; nothing is presented as "1 week ago" when it isn't.
-const RT = { tab: 'rs', ui: { q: '', group: 'all', band: 'all', bucket: 'all' }, cache: {}, anchors: null, pending: false, _lastCur: null, _rows: null, _field: null };
+const RT = { tab: 'rs', ui: { q: '', group: 'all', band: 'all', bucket: 'all', s2: false }, cache: {}, anchors: null, pending: false, _lastCur: null, _rows: null, _field: null };
 
 // screener volume + its 1-month average were only added to the daily pull on this date (the
 // 3-pull merge, tools/eod.py) — Volume Trend's usable archive is genuinely this much shorter
@@ -8161,7 +8196,7 @@ function seTrendUniverse(file){
   if(RT.cache[file]) return RT.cache[file];
   const d = SE.data[file]; if(!d) return null;
   const U = d.universe.map(r => Object.assign({}, r));
-  U.forEach(r => { r.score = seScore(r); });
+  U.forEach(r => { r.score = seScore(r); r.band = seBand(r.mcap); r.group = r.group || r.industry || 'Other'; });
   sePercentiles(U, 'score');
   U.forEach(r => { r.rs = r.score_pct == null ? null : r.score_pct; });
   const map = new Map();
@@ -8185,6 +8220,8 @@ function seTrendBuild(field){
   if(!anchors[0]) return {rows: []};
   const maps = anchors.map(a => a ? seTrendUniverse(a.file) : null);
   if(!maps[0]) return {rows: []};
+  // the provider's weekly Stage 2 list carried on the newest scan: its own RS% sits beside our percentile
+  const s2 = new Map((((SE.data[anchors[0].file] || {}).stage2) || []).map(r => [String(r.code || '').trim().toUpperCase(), r]));
   const val = (row) => {
     if(!row) return null;
     if(field === 'rs') return wrIsNum(row.rs) ? row.rs : null;
@@ -8207,7 +8244,7 @@ function seTrendBuild(field){
       else bucket = 'up';                             // exact zero — arbitrary tie-break, vanishingly rare
     }
     rows.push({code, r0, name: r0.name, group: r0.group || r0.industry || 'Other', industry: r0.industry,
-               band: r0.band, mcap: r0.mcap, v: [vs[3], vs[2], vs[1], vs[0]], dNear, dFar, bucket});
+               band: r0.band, mcap: r0.mcap, s2: s2.get(code) || null, v: [vs[3], vs[2], vs[1], vs[0]], dNear, dFar, bucket});
   });
   return {rows};
 }
@@ -8267,11 +8304,12 @@ function seRenderTrendBody(el, anchors){
       <input type="text" placeholder="Search stock, code, industry…" value="${wrAttr(u.q)}" oninput="RT.ui.q=this.value;seRenderTrendTable()">
       <select onchange="RT.ui.group=this.value;seRenderTrendTable()"><option value="all">All sectors</option>${groups.map(g => `<option value="${wrAttr(g)}" ${u.group === g ? 'selected' : ''}>${wrEsc(g)}</option>`).join('')}</select>
       <select onchange="RT.ui.band=this.value;seRenderTrendTable()"><option value="all">All sizes</option>${SE_BANDS.map(([b]) => `<option value="${b}" ${u.band === b ? 'selected' : ''}>${b} cap</option>`).join('')}</select>
+      <label class="se-check"><input type="checkbox" ${u.s2 ? 'checked' : ''} onchange="RT.ui.s2=this.checked;seRenderTrendTable()"> On Stage 2 list</label>
       <span class="wr-count" id="se-trend-count"></span>
     </div>
     <div id="se-trend-table"></div>
     <div class="wr-hint" style="margin-top:8px;">${field === 'rs'
-      ? 'Δ short / Δ long = change in RS percentile (1–99) versus the nearer / farther column shown. "Strong" needs a 10+ point move confirmed in both windows (not fading); "New" = not enough scan history yet for this stock.'
+      ? 'Δ short / Δ long = change in RS percentile (1–99) versus the nearer / farther column shown. "Strong" needs a 10+ point move confirmed in both windows (not fading); "New" = not enough scan history yet for this stock. S2 list = the provider\'s weekly Stage 2 list carried on the latest scan, showing its own Relative Strength % — a different measure from this page\'s percentile, shown side by side on purpose.'
       : 'Value traded = 1-month average volume × price (₹Cr), a smoother proxy since screener has no true weekly-rolled figure. Δ shown as % change; "Strong" needs a 40%+ move confirmed in both windows.'}</div>`;
   RT._rows = rows; RT._field = field;
   seRenderTrendTable();
@@ -8284,9 +8322,11 @@ function seRenderTrendTable(){
     if(q && !((r.name || '') + ' ' + (r.code || '') + ' ' + (r.industry || '') + ' ' + (r.group || '')).toLowerCase().includes(q)) return false;
     if(u.group !== 'all' && r.group !== u.group) return false;
     if(u.band !== 'all' && r.band !== u.band) return false;
+    if(u.s2 && !r.s2) return false;
     return true;
   });
   const anchors = seTrendAnchors(field);
+  const curAsof = anchors[0] ? ((SE.data[anchors[0].file] || {}).stage2_asof || null) : null;
   const disp = [anchors[3], anchors[2], anchors[1], anchors[0]];
   const fmtVal = (v) => field === 'rs'
     ? (wrIsNum(v) ? seRsBar(Math.round(v)) : '<span class="flat">—</span>')
@@ -8303,6 +8343,8 @@ function seRenderTrendTable(){
     {k: 'act', t: '', type: 'html', html: r => seActCell(r.r0)},
     {k: 'group', t: 'Sector', type: 'text'},
     {k: 'band', t: 'Cap', type: 'html', sortType: 'num', fn: r => SE_BAND_ORD[r.band] || 0, html: seBandCell},
+    {k: 's2', t: 'S2 list', type: 'html', sortType: 'num', fn: r => r.s2 && wrIsNum(r.s2.rs_pct) ? +r.s2.rs_pct : null,
+     html: r => r.s2 ? `<span class="se-pill s2" style="margin-left:0" title="On the provider's Stage 2 list${curAsof ? ' of ' + wrDate(curAsof) : ''} · RS% ${wrNum(r.s2.rs_pct, 1)} · ${r.s2.weeks != null ? r.s2.weeks + ' wks' : '? wks'} · ${wrAttr(r.s2.status || '')}">RS% ${wrNum(r.s2.rs_pct, 0)}</span>` : '<span class="flat">—</span>'},
     {k: 'v0', t: hdr(disp[0]), type: 'html', sortType: 'num', fn: r => r.v[0], html: r => fmtVal(r.v[0])},
     {k: 'v1', t: hdr(disp[1]), type: 'html', sortType: 'num', fn: r => r.v[1], html: r => fmtVal(r.v[1])},
     {k: 'v2', t: hdr(disp[2]), type: 'html', sortType: 'num', fn: r => r.v[2], html: r => fmtVal(r.v[2])},
@@ -8361,16 +8403,16 @@ function seRenderS2(){
   const inds = [...new Set(c.S2.map(r => r.industry || 'Other'))].sort();
   el.innerHTML = `
     <div class="se-kpis">
-      ${seKpi('On the list', wrNum(s.s2list), c.hasPrevS2 ? `vs ${wrNum(c.prevS2.stage2.length)} last list (w/e ${wrDate(c.prevS2.date)})` : 'first list loaded', 'accent', s.s2list)}
+      ${seKpi('On the list', wrNum(s.s2list), seS2Note(c), 'accent', s.s2list)}
       ${seKpi('Entered', wrNum(s.entered + s.reentry), `${s.reentry} re-entries`, 'ok', s.entered + s.reentry)}
-      ${seKpi('Exited', wrNum(s.exited), c.hasPrevS2 ? `dropped since the list of w/e ${wrDate(c.prevS2.date)}` : 'needs a previous list', s.exited ? 'bad' : '', s.exited)}
+      ${seKpi(c.s2cut ? 'Left the list or fell under its cut' : 'Exited', wrNum(s.exited), c.hasPrevS2 ? (c.s2cut ? `since w/e ${wrDate(c.prevS2.date)} · ${wrNum(c.belowCut)} more absent names last sat near or under this file's RS ${wrNum(c.s2floor, 1)}% cut — not visible, not counted` : `dropped since the list of w/e ${wrDate(c.prevS2.date)}`) : 'needs a previous list', s.exited ? 'bad' : '', s.exited)}
       ${seKpi('Median weeks in stage', s.medWeeks != null ? wrNum(s.medWeeks) : '—', `${s.posRet != null ? Math.round(s.posRet) + '% positive since entry' : ''}`, '', s.medWeeks)}
       ${seKpi('Also in weekly scan', wrNum(c.S2.filter(r => r.inScan).length), c.U.length ? `of ${c.U.length} scanned · convergence` : 'no scan this week', '', c.S2.filter(r => r.inScan).length)}
       ${seKpi('Under ASM / GSM', wrNum(s.asm), 'surveillance flags', s.asm ? 'warn' : '', s.asm)}
     </div>
     <div class="se-grid2">
       <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">This week</div><h2>Entries</h2></div></div><ul class="se-list tall">${c.S2.filter(r => r.state === 'entered' || r.state === 'reentry').sort((a, b) => (b.rs_pct || 0) - (a.rs_pct || 0)).map(r => `<li onclick="SE.ui.s2q='${wrAttr(r.code)}';seRenderS2Table();document.getElementById('se-s2-q').value='${wrAttr(r.code)}'"><span class="tk">${wrEsc(r.code)}</span>${r.state === 'reentry' ? '<span class="se-pill re">re-entry</span>' : ''}${r.inScan ? '<span class="se-pill calc">scan</span>' : ''}<span class="ind">${wrEsc(r.industry || '')}</span><span class="num">RS ${wrNum(r.rs_pct, 0)} · ₹${wrNum(r.mcap, 0)} Cr</span></li>`).join('') || '<li class="flat">No entries flagged.</li>'}</ul></div>
-      <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">This week</div><h2>Exits</h2></div></div><ul class="se-list tall">${c.exits.slice().sort((a, b) => (b.weeks || 0) - (a.weeks || 0)).map(r => `<li><span class="tk">${wrEsc(r.code)}</span><span class="ind">${wrEsc(r.industry || '')}</span><span class="num">${r.weeks || '?'}w · ${wrPct(r.ret, 0)} at exit</span></li>`).join('') || `<li class="flat">${c.hasPrevS2 ? 'No exits.' : 'Load a previous list to detect exits.'}</li>`}</ul></div>
+      <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">${c.s2cut ? `Absent, last seen ${SE_S2_FLOOR_MARGIN}+ pts above this file's RS ${wrNum(c.s2floor, 1)}% cut` : 'This week'}</div><h2>Exits</h2></div></div><ul class="se-list tall">${c.exits.slice().sort((a, b) => (b.weeks || 0) - (a.weeks || 0)).map(r => `<li><span class="tk">${wrEsc(r.code)}</span><span class="ind">${wrEsc(r.industry || '')}</span><span class="num">${r.weeks || '?'}w · ${wrPct(r.ret, 0)} at exit</span></li>`).join('') || `<li class="flat">${c.hasPrevS2 ? (c.s2cut && c.belowCut ? `No exits above the cut · ${wrNum(c.belowCut)} absent under it, not visible.` : 'No exits.') : 'Load a previous list to detect exits.'}</li>`}</ul></div>
     </div>
     <div class="se-panel">
       <div class="se-row-h"><div><div class="se-eyebrow">Full list</div><h2>Stage 2 stocks</h2></div><span class="wr-count" id="se-s2-count"></span></div>
