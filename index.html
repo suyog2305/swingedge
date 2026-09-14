@@ -1053,6 +1053,16 @@ html[data-theme="lab"] .card,html[data-theme="lab"] .metric,html[data-theme="lab
 .se-pill.new{background:rgba(139,92,246,.16);color:#C4B5FD;border-color:rgba(139,92,246,.35);} html:not([data-theme="lab"]) .se-pill.new{color:#5B21B6;}
 .se-pill.re{background:var(--gold-soft);color:var(--gold2);border-color:rgba(245,158,11,.3);}
 .se-pill.q{margin-left:0;} .se-pill.q.leading{background:var(--sage-soft);color:var(--sage2);} .se-pill.q.improving{background:var(--sky-soft);color:var(--sky2);} .se-pill.q.weakening{background:var(--gold-soft);color:var(--gold2);} .se-pill.q.lagging{background:var(--rose-soft);color:var(--rose2);}
+.se-pill.trend{margin-left:0;} .se-pill.trend.strongup{background:var(--lime);color:#fff;border-color:transparent;} .se-pill.trend.up{background:var(--lime-soft);color:var(--lime2);border-color:rgba(16,185,129,.3);} .se-pill.trend.down{background:var(--rose-soft);color:var(--rose2);border-color:rgba(244,63,94,.3);} .se-pill.trend.strongdown{background:var(--rose);color:#fff;border-color:transparent;} .se-pill.trend.na{background:var(--bg3);color:var(--t3);border-color:var(--b2);}
+.se-seg{display:inline-flex;background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r3);padding:2px;gap:2px;}
+.se-seg button{border:none;background:transparent;color:var(--t3);font:600 12px var(--sans);padding:6px 14px;border-radius:calc(var(--r3) - 2px);cursor:pointer;transition:background .15s,color .15s;}
+.se-seg button.active{background:var(--bg1);color:var(--t1);box-shadow:var(--shadow-1);}
+.se-tabs-bucket{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:10px 0 14px;}
+.se-tabs-bucket button{border:1px solid var(--b1);background:var(--bg1);color:var(--t2);padding:11px 8px;border-radius:var(--r3);cursor:pointer;font:600 12px var(--sans);transition:border-color .15s,background .15s;text-align:center;}
+.se-tabs-bucket button b{display:block;font:700 18px var(--mono);margin-top:3px;color:var(--t1);}
+.se-tabs-bucket button.active{border-color:var(--lime2);background:var(--lime-soft);}
+.se-tabs-bucket button.active b{color:var(--lime2);}
+@media(max-width:900px){.se-tabs-bucket{grid-template-columns:repeat(2,1fr);}}
 .se-tt{display:inline-flex;align-items:center;gap:2px;cursor:help;}
 .se-tt i{display:inline-block;width:7px;height:10px;border-radius:2px;background:var(--bg4);}
 .se-tt i.ok{background:var(--lime);} .se-tt.full i.ok{background:#34D399;} .se-tt.weak i.ok{background:var(--t4);}
@@ -1210,6 +1220,7 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
 
     <div class="nav" id="nav-dg" onclick="show('dg')"><i class="ti ti-flame"></i>Daily Gainers</div>
     <div class="nav" id="nav-rsscreen" onclick="show('rsscreen')"><i class="ti ti-chart-arrows-vertical"></i>RS Screen</div>
+    <div class="nav" id="nav-rstrend" onclick="show('rstrend')"><i class="ti ti-trending-up"></i>RS Trend</div>
     <div class="nav" id="nav-sectors" onclick="show('sectors')"><i class="ti ti-chart-pie-2"></i>Sectors</div>
     <div class="nav" id="nav-s2track" onclick="show('s2track')"><i class="ti ti-stairs-up"></i>Stage 2 Tracker</div>
     <div class="nav" id="nav-s2journal" onclick="show('s2journal')"><i class="ti ti-history"></i>Stage 2 Journal</div>
@@ -1353,6 +1364,17 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
     </div>
   </div>
   <div class="content se-content se-pad"><div id="se-rs-body"></div></div>
+</div>
+
+<!-- ── EDGE: RS TREND ── -->
+<div class="sec" id="sec-rstrend">
+  <div class="topbar">
+    <div class="tb-left"><span class="tb-title">RS Trend</span><span class="tb-crumb">/ momentum over the last few scans</span></div>
+    <div class="tb-right">
+      <button class="btn btn-sm" onclick="loadSE(true)"><i class="ti ti-refresh"></i>Refresh</button>
+    </div>
+  </div>
+  <div class="content se-content se-pad"><div id="se-trend-body"></div></div>
 </div>
 
 <!-- ── EDGE: SECTORS ── -->
@@ -7841,9 +7863,10 @@ function seGfBar(){
     ${on ? `<button class="btn btn-ghost btn-sm" onclick="seGfSet('reset')"><i class="ti ti-x"></i>Clear</button><span class="se-slicer-on">applied to every page</span>` : '<span class="se-slicer-hint">applies across Market Pulse, Daily Gainers, RS Screen, Sectors, Stage 2 and PEAD</span>'}
   </div>`;
 }
-function seRenderAll(){ seRenderPulse(); seRenderRS(); seRenderSectors(); seRenderS2(); if(typeof renderPD === 'function' && typeof PD !== 'undefined' && PD.loaded && document.getElementById('pd-body')) renderPD(); if(typeof renderDG === 'function' && typeof DG !== 'undefined' && DG.loaded && document.getElementById('dg-body')) renderDG(); }
+function seRenderAll(){ seRenderPulse(); seRenderRS(); seRenderTrend(); seRenderSectors(); seRenderS2(); if(typeof renderPD === 'function' && typeof PD !== 'undefined' && PD.loaded && document.getElementById('pd-body')) renderPD(); if(typeof renderDG === 'function' && typeof DG !== 'undefined' && DG.loaded && document.getElementById('dg-body')) renderDG(); }
 function seRerender(tableId){
   if(tableId.startsWith('se-rs')) seRenderRSTable();
+  else if(tableId.startsWith('se-trend')) seRenderTrendTable();
   else if(tableId.startsWith('se-s2')) seRenderS2Table();
   else if(tableId.startsWith('se-sec')) seRenderSectors();
   else seRenderPulse();
@@ -8081,6 +8104,215 @@ function seExportCsv(){
   const csv = [head].concat(rows).map(r => r.map(v => v == null ? '' : /[",\n]/.test(String(v)) ? '"' + String(v).replace(/"/g, '""') + '"' : String(v)).join(',')).join('\n');
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv'})); a.download = `swingedge-rs-screen-${SE.c.date}.csv`; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
   toast(`Exported ${list.length} rows`, 'success');
+}
+
+// ============= RS TREND — momentum over the last few scans =============
+// Same idea as the "Scanners" trend matrix a swing trader would recognise: for every stock,
+// show its Relative Strength across the last few weeks side by side, so a rising or fading
+// score is visible at a glance instead of buried in one week's snapshot.
+//
+// RS at each point is recomputed from THAT week's own universe (same engine as seCompute:
+// seScore + sePercentiles) — never one week's rank compared against another week's raw score,
+// which would be comparing two different distributions.
+//
+// Anchors are picked from BROAD-MARKET scans only (1,000+ names). A narrow near-52W-high pull
+// ranks a stock against a completely different peer group, so mixing it in would make the
+// percentile trend meaningless. Target dates are today, -7d, -14d, -21d, but each snaps to the
+// nearest broad scan ON OR BEFORE that date, skipping any scan already used by a nearer target —
+// so two columns can never silently show identical data because of a gap in the archive. Every
+// column header shows its real date; nothing is presented as "1 week ago" when it isn't.
+const RT = { tab: 'rs', ui: { q: '', group: 'all', band: 'all', bucket: 'all' }, cache: {}, anchors: null, pending: false, _lastCur: null, _rows: null, _field: null };
+
+// screener volume + its 1-month average were only added to the daily pull on this date (the
+// 3-pull merge, tools/eod.py) — Volume Trend's usable archive is genuinely this much shorter
+// than RS Trend's, and pretending otherwise would show a trend the data cannot support.
+const SE_TREND_VOL_SINCE = '2026-09-09';
+function seTrendAnchors(field){
+  field = field === 'val' ? 'val' : 'rs';
+  const basePool = SE.scans.filter(s => (s.universe || 0) >= 1000);
+  const newest = basePool.length ? basePool.slice().sort((a, b) => String(b.date).localeCompare(String(a.date)))[0].date : null;
+  if(newest !== RT._lastCur){ RT.anchors = {}; RT.cache = {}; RT._lastCur = newest; }      // a fresh pull invalidates the old picks
+  if(!RT.anchors) RT.anchors = {};
+  if(RT.anchors[field]) return RT.anchors[field];
+  let pool = basePool.slice().sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  if(field === 'val') pool = pool.filter(s => s.date >= SE_TREND_VOL_SINCE);
+  if(!pool.length) return (RT.anchors[field] = []);
+  const curDate = pool[0].date, used = new Set([pool[0].file]);
+  const gap = (s) => Math.round((new Date(curDate + 'T00:00:00') - new Date(s.date + 'T00:00:00')) / 86400000);
+  const anchors = [Object.assign({}, pool[0], {gapDays: 0, targetDays: 0})];
+  [7, 14, 21].forEach(days => {
+    const t = new Date(curDate + 'T00:00:00'); t.setDate(t.getDate() - days);
+    let pick = null;
+    for(const s of pool){ if(used.has(s.file)) continue; if(new Date(s.date + 'T00:00:00') <= t){ pick = s; break; } }
+    if(!pick) pick = pool.find(s => !used.has(s.file)) || null;   // archive doesn't reach that far back yet — use the next real point instead of leaving this column blank
+    if(pick){ used.add(pick.file); anchors.push(Object.assign({}, pick, {targetDays: days, gapDays: gap(pick)})); }
+    else anchors.push(null);
+  });
+  return (RT.anchors[field] = anchors);
+}
+function seTrendGapLabel(days){
+  if(days == null) return '';
+  if(days <= 0) return 'today';
+  if(days <= 3) return days + 'd ago';
+  const w = days / 7;
+  return (w < 1.5 ? '~1w' : w < 2.5 ? '~2w' : w < 3.5 ? '~3w' : '~' + Math.round(w) + 'w') + ' ago';
+}
+function seTrendUniverse(file){
+  if(RT.cache[file]) return RT.cache[file];
+  const d = SE.data[file]; if(!d) return null;
+  const U = d.universe.map(r => Object.assign({}, r));
+  U.forEach(r => { r.score = seScore(r); });
+  sePercentiles(U, 'score');
+  U.forEach(r => { r.rs = r.score_pct == null ? null : r.score_pct; });
+  const map = new Map();
+  U.forEach(r => { const k = String(r.code || r.name || '').trim().toUpperCase(); if(k) map.set(k, r); });
+  return (RT.cache[file] = map);
+}
+async function seTrendEnsure(){
+  const field = RT.tab === 'vol' ? 'val' : 'rs';
+  const need = seTrendAnchors(field).filter(Boolean).filter(a => !SE.data[a.file]);
+  if(!need.length || RT.pending) return;
+  RT.pending = true;
+  await Promise.allSettled(need.map(a => seFetch(a.file)));
+  RT.pending = false;
+  if(document.getElementById('se-trend-body')) seRenderTrend();
+}
+// field: 'rs' = percentile 1-99 (absolute-point deltas) · 'val' = 1-month avg volume x price in
+// ₹Cr, our proxy for "typical" traded value since screener gives no true weekly-rolled figure
+// (percentage deltas, since raw ₹Cr differences aren't comparable across small vs large names).
+function seTrendBuild(field){
+  const anchors = seTrendAnchors(field);             // [now, ~1w, ~2w, ~3w]
+  if(!anchors[0]) return {rows: []};
+  const maps = anchors.map(a => a ? seTrendUniverse(a.file) : null);
+  if(!maps[0]) return {rows: []};
+  const val = (row) => {
+    if(!row) return null;
+    if(field === 'rs') return wrIsNum(row.rs) ? row.rs : null;
+    return (wrIsNum(row.vol_1m) && wrIsNum(row.price)) ? row.vol_1m * row.price / 1e7 : null;
+  };
+  const STRONG = field === 'rs' ? 10 : 40;           // RS: 10 percentile points · Value: 40% change
+  const rows = [];
+  maps[0].forEach((r0, code) => {
+    const vs = maps.map(m => val(m ? m.get(code) : null));           // [now, a1, a2, a3]
+    const now = vs[0];
+    const priorIdx = [1, 2, 3].filter(i => wrIsNum(vs[i]));
+    const nearI = priorIdx[0], farI = priorIdx[priorIdx.length - 1];
+    const delta = (a, b) => field === 'rs' ? a - b : (b ? (a / b - 1) * 100 : null);
+    const dNear = (nearI != null && wrIsNum(now)) ? delta(now, vs[nearI]) : null;
+    const dFar = (farI != null && wrIsNum(now)) ? delta(now, vs[farI]) : null;
+    let bucket = 'na';
+    if(dFar != null){
+      if(dFar > 0) bucket = (dFar >= STRONG && (dNear == null || dNear > 0)) ? 'strongup' : 'up';
+      else if(dFar < 0) bucket = (dFar <= -STRONG && (dNear == null || dNear < 0)) ? 'strongdown' : 'down';
+      else bucket = 'up';                             // exact zero — arbitrary tie-break, vanishingly rare
+    }
+    rows.push({code, r0, name: r0.name, group: r0.group || r0.industry || 'Other', industry: r0.industry,
+               band: r0.band, mcap: r0.mcap, v: [vs[3], vs[2], vs[1], vs[0]], dNear, dFar, bucket});
+  });
+  return {rows};
+}
+const SE_TREND_META = {strongup: ['↑↑ Strong Up', 'strongup'], up: ['↑ Up', 'up'], down: ['↓ Down', 'down'],
+                        strongdown: ['↓↓ Strong Down', 'strongdown'], na: ['New', 'na']};
+function seTrendPill(b){ const m = SE_TREND_META[b] || SE_TREND_META.na; return `<span class="se-pill trend ${m[1]}">${m[0]}</span>`; }
+
+function seRenderTrend(){
+  const el = document.getElementById('se-trend-body'); if(!el) return;
+  if(!SE.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading…</p></div>'; return; }
+  const field = RT.tab === 'vol' ? 'val' : 'rs';
+  const anchors = seTrendAnchors(field);
+  if(!anchors.filter(Boolean).length){
+    el.innerHTML = seEmpty('No scan data yet', SE_EMPTY_BODY); return;
+  }
+  if(anchors.filter(Boolean).length < 2){
+    el.innerHTML = seEmpty('Not enough scan history yet',
+      (field === 'val'
+        ? `Volume Trend needs at least two scans from ${wrDate(SE_TREND_VOL_SINCE)} onward — that is when 1-month average volume was added to the daily pull, so it has no earlier history to compare. `
+        : 'RS Trend needs at least two broad-market scans (1,000+ names) on different dates to show any trend. ') + SE_EMPTY_BODY);
+    return;
+  }
+  if(anchors.some(a => a && !SE.data[a.file])){
+    el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading earlier scans…</p></div>';
+    seTrendEnsure();
+    return;
+  }
+  seRenderTrendBody(el, anchors);
+}
+function seRenderTrendBody(el, anchors){
+  const field = RT.tab === 'vol' ? 'val' : 'rs';
+  const {rows} = seTrendBuild(field);
+  const u = RT.ui;
+  const groups = [...new Set(rows.map(r => r.group).filter(Boolean))].sort();
+  const counts = {up: 0, strongup: 0, down: 0, strongdown: 0, na: 0};
+  rows.forEach(r => { counts[r.bucket] = (counts[r.bucket] || 0) + 1; });
+  const disp = [anchors[3], anchors[2], anchors[1], anchors[0]];        // oldest -> newest, left to right
+  const capFor = (a) => a ? `${wrDate(a.date)} (${a.targetDays === 0 ? 'latest' : seTrendGapLabel(a.gapDays)})` : null;
+
+  el.innerHTML = `
+    <div class="se-row-h">
+      <div><div class="se-eyebrow">Edge · momentum over time</div><h2>${field === 'rs' ? 'Relative Strength Trend' : 'Volume Trend'}</h2></div>
+      <div class="se-seg">
+        <button class="${RT.tab !== 'vol' ? 'active' : ''}" onclick="RT.tab='rs';seRenderTrend()">RS Trend</button>
+        <button class="${RT.tab === 'vol' ? 'active' : ''}" onclick="RT.tab='vol';seRenderTrend()">Volume Trend</button>
+      </div>
+    </div>
+    <div class="wr-hint" style="margin:2px 0 10px;">Each column snaps to the nearest broad-market scan on or before its target date, so RS is always ranked against a comparable universe: ${disp.filter(Boolean).map(capFor).join(' · ')}. Columns land closer to even weekly spacing as the daily archive fills in.</div>
+    <div class="se-tabs-bucket">
+      <button class="${u.bucket === 'all' ? 'active' : ''}" onclick="RT.ui.bucket='all';seRenderTrendTable()">All<b>${wrNum(rows.length)}</b></button>
+      <button class="${u.bucket === 'strongup' ? 'active' : ''}" onclick="RT.ui.bucket='strongup';seRenderTrendTable()">↑↑ Strong Up<b>${wrNum(counts.strongup)}</b></button>
+      <button class="${u.bucket === 'up' ? 'active' : ''}" onclick="RT.ui.bucket='up';seRenderTrendTable()">↑ Up<b>${wrNum(counts.up)}</b></button>
+      <button class="${u.bucket === 'down' ? 'active' : ''}" onclick="RT.ui.bucket='down';seRenderTrendTable()">↓ Down<b>${wrNum(counts.down)}</b></button>
+      <button class="${u.bucket === 'strongdown' ? 'active' : ''}" onclick="RT.ui.bucket='strongdown';seRenderTrendTable()">↓↓ Strong Down<b>${wrNum(counts.strongdown)}</b></button>
+    </div>
+    <div class="se-filters">
+      <input type="text" placeholder="Search stock, code, industry…" value="${wrAttr(u.q)}" oninput="RT.ui.q=this.value;seRenderTrendTable()">
+      <select onchange="RT.ui.group=this.value;seRenderTrendTable()"><option value="all">All sectors</option>${groups.map(g => `<option value="${wrAttr(g)}" ${u.group === g ? 'selected' : ''}>${wrEsc(g)}</option>`).join('')}</select>
+      <select onchange="RT.ui.band=this.value;seRenderTrendTable()"><option value="all">All sizes</option>${SE_BANDS.map(([b]) => `<option value="${b}" ${u.band === b ? 'selected' : ''}>${b} cap</option>`).join('')}</select>
+      <span class="wr-count" id="se-trend-count"></span>
+    </div>
+    <div id="se-trend-table"></div>
+    <div class="wr-hint" style="margin-top:8px;">${field === 'rs'
+      ? 'Δ short / Δ long = change in RS percentile (1–99) versus the nearer / farther column shown. "Strong" needs a 10+ point move confirmed in both windows (not fading); "New" = not enough scan history yet for this stock.'
+      : 'Value traded = 1-month average volume × price (₹Cr), a smoother proxy since screener has no true weekly-rolled figure. Δ shown as % change; "Strong" needs a 40%+ move confirmed in both windows.'}</div>`;
+  RT._rows = rows; RT._field = field;
+  seRenderTrendTable();
+}
+function seRenderTrendTable(){
+  const host = document.getElementById('se-trend-table'); if(!host || !RT._rows) return;
+  const u = RT.ui, q = u.q.trim().toLowerCase(), field = RT._field;
+  const list = RT._rows.filter(r => {
+    if(u.bucket !== 'all' && r.bucket !== u.bucket) return false;
+    if(q && !((r.name || '') + ' ' + (r.code || '') + ' ' + (r.industry || '') + ' ' + (r.group || '')).toLowerCase().includes(q)) return false;
+    if(u.group !== 'all' && r.group !== u.group) return false;
+    if(u.band !== 'all' && r.band !== u.band) return false;
+    return true;
+  });
+  const anchors = seTrendAnchors(field);
+  const disp = [anchors[3], anchors[2], anchors[1], anchors[0]];
+  const fmtVal = (v) => field === 'rs'
+    ? (wrIsNum(v) ? seRsBar(Math.round(v)) : '<span class="flat">—</span>')
+    : (wrIsNum(v) ? wrNum(v, 1) + ' Cr' : '<span class="flat">—</span>');
+  const fmtDelta = (v) => {
+    if(!wrIsNum(v)) return '<span class="flat">—</span>';
+    const cls = v > 0 ? 'up' : v < 0 ? 'dn' : 'flat';
+    return `<span class="${cls}">${wrSigned(v, 0)}${field === 'vol' ? '%' : ''}</span>`;
+  };
+  const hdr = (a, fallback) => a ? wrDate(a.date) : (fallback || '—');
+  const cols = [
+    {k: '_i', t: '#', type: 'idx'},
+    {k: 'code', t: 'Stock', type: 'html', html: r => seStockCell(r.r0)},
+    {k: 'act', t: '', type: 'html', html: r => seActCell(r.r0)},
+    {k: 'group', t: 'Sector', type: 'text'},
+    {k: 'band', t: 'Cap', type: 'html', sortType: 'num', fn: r => SE_BAND_ORD[r.band] || 0, html: seBandCell},
+    {k: 'v0', t: hdr(disp[0]), type: 'html', sortType: 'num', fn: r => r.v[0], html: r => fmtVal(r.v[0])},
+    {k: 'v1', t: hdr(disp[1]), type: 'html', sortType: 'num', fn: r => r.v[1], html: r => fmtVal(r.v[1])},
+    {k: 'v2', t: hdr(disp[2]), type: 'html', sortType: 'num', fn: r => r.v[2], html: r => fmtVal(r.v[2])},
+    {k: 'v3', t: hdr(disp[3], 'Now'), type: 'html', sortType: 'num', fn: r => r.v[3], html: r => fmtVal(r.v[3])},
+    {k: 'dNear', t: 'Δ short', type: 'html', sortType: 'num', fn: r => r.dNear, html: r => fmtDelta(r.dNear)},
+    {k: 'dFar', t: 'Δ long', type: 'html', sortType: 'num', fn: r => r.dFar, html: r => fmtDelta(r.dFar)},
+    {k: 'bucket', t: 'Trend', type: 'html', sortType: 'num', fn: r => ({strongup: 4, up: 3, down: 2, strongdown: 1, na: 0})[r.bucket] || 0, html: r => seTrendPill(r.bucket)}
+  ];
+  host.innerHTML = wrTable('se-trend', cols, list, {sort: {col: 'dFar', dir: 'desc'}, tall: true, cap: 600, empty: 'No stocks match the filters.'});
+  const cnt = document.getElementById('se-trend-count'); if(cnt) cnt.textContent = `${wrNum(list.length)} of ${wrNum(RT._rows.length)} stocks`;
 }
 
 // ---------- Sectors ----------
@@ -8403,7 +8635,7 @@ function pdNameCell(r){
     + (r.converge ? '<span class="se-pill new" title="Strong/Moderate PEAD + near 52W high + Stage 2">\u2605</span>' : '')
     + wrOwned({code: r.code, stock: r.name});
 }
-function pdActCell(r){ return r.code ? wrActCell({code: r.code, name: r.name, industry: r.industry}, r.industry) : '<span class="flat" title="not matched to a ticker in the current scan">\u2014</span>'; }
+function pdActCell(r){ return r.code ? wrActCell({code: r.code, name: r.name, industry: r.industry}, r.industry) : '<span class="flat" title="not matched to a ticker in the current scan">\u2014</span>'; }
 
 // ---------- render ----------
 function renderPD(){
@@ -9306,7 +9538,7 @@ function renderSL(){
   if(badge){ badge.textContent = SL.picks.size; badge.classList.toggle('show', SL.picks.size > 0); }
   if(typeof seCountUp === 'function') seCountUp(el);
 }
-
+
 // ============= FEEDBACK — for testers, with screenshots =============
 // A static site has no server to post to, so feedback lives in the tester's own browser
 // (localStorage) until they export it. Screenshots are downscaled and JPEG-compressed on
@@ -9670,7 +9902,7 @@ function renderSJ(){
     </div>`;
   if(typeof seCountUp === 'function') seCountUp(el);
 }
-
+
 // ============= INIT =============
 function init(){
   load();
@@ -9695,8 +9927,8 @@ function init(){
   loadPD(false);
   loadDG(false);
   loadTR(false);
-  loadRD(false);
-  loadSL(false);
+  loadRD(false);
+  loadSL(false);
   loadSJ(false);
   fbLoad(); fbBadge();
   seApplyTheme();
