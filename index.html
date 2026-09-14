@@ -7626,7 +7626,7 @@ async function loadSE(manual){
     const idx = await res.json();
     SE.scans = (Array.isArray(idx.scans) ? idx.scans : []).filter(s => s && s.file).sort((a, b) => String(b.date).localeCompare(String(a.date)));
     SE.error = null;
-    if(manual) SE.data = {};
+    if(manual){ SE.data = {}; SE.bust = true; if(typeof RT !== 'undefined'){ RT.cache = {}; RT.anchors = null; } }   // drop memory caches AND make seFetch revalidate: a scan rebuilt in place keeps its filename
     const keep = SE.cur && SE.scans.some(s => s.file === SE.cur);
     SE.cur = keep ? SE.cur : (SE.scans[0] ? SE.scans[0].file : null);
     if(SE.cur) await seLoadSet(SE.cur);
@@ -7635,7 +7635,7 @@ async function loadSE(manual){
   }catch(err){
     SE.loaded = true; SE.error = err.message || String(err);
     if(manual) toast('Could not load scan data — is data/scans/index.json in the repo?', 'error');
-  }finally{ SE.loading = false; }
+  }finally{ SE.loading = false; SE.bust = false; }
   seFillWeekSelects();
   seCompute();
   seRenderAll();
@@ -7644,7 +7644,7 @@ async function loadSE(manual){
 }
 async function seFetch(file){
   if(SE.data[file]) return SE.data[file];
-  const res = await fetch('data/scans/' + file);
+  const res = await fetch('data/scans/' + file, {cache: SE.bust ? 'reload' : 'default'});   // Pages serves scans with max-age=600; a manual Refresh must see a scan rebuilt under the same name
   if(!res.ok) throw new Error(file + ': HTTP ' + res.status);
   const d = await res.json();
   d.universe = Array.isArray(d.universe) ? d.universe : [];
