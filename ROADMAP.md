@@ -1,7 +1,7 @@
 # Roadmap
 
 What's built, what's blocked, and what's next — in dependency order rather than wish order.
-Status as of **2026-09-11**.
+Status as of **2026-09-15**.
 
 ---
 
@@ -229,6 +229,19 @@ localStorage and exported as one self-contained HTML file with the images embedd
 - **Pinned watchlist** — 5 names surfaced daily regardless of rank, scored identically to
   everything else so the ranking stays honest.
 - **56 research reports**, 13 sections each, every scan-derived figure machine-cross-checked.
+- **RS Trend** — a new Edge page: relative strength (and volume) side by side across the last
+  few scans, with 1-week / longer-window deltas and an Up / Strong Up / Down / Strong Down
+  bucket, built from a screenshot the user shared of a similar tool. RS at each point is
+  recomputed from that week's own scan universe — never one week's rank against another week's
+  raw score — and verified exactly against an independent Python computation across four stocks
+  and four dates. Anchors snap to the nearest broad-market scan (1,000+ names) on or before each
+  target date, skipping anything already claimed by a nearer target, so a gap in the archive can
+  never make two columns silently repeat the same data; every header shows its real date instead
+  of a possibly-false "N weeks ago". Right now that gap is real — broad scans jump from 27 Aug to
+  9 Sep, so the three historical columns land at 15/17/21 days back, not an even 7/14/21 — and the
+  page says so. The Volume Trend tab is even younger: `vol_1m` only exists from 9 Sep (when the
+  3-pull merge shipped), so its own anchor pool is date-gated separately and currently spans just
+  2 days; both will read closer to true weekly spacing as the daily archive fills in.
 - **Multi-name notes carry one generated technical block per stock** (named markers, commit
   `be0549b`), and the verifier checks each block against its own scan row — a note registered as
   `CLUSTER` can no longer slip past the gate. Proven by corrupting one figure and watching it fail.
