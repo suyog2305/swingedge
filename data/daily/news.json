@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-11",
+  "updated": "2026-09-14",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -52,10 +52,10 @@
     ],
     "QUADFUTURE": [
       {
-        "t": "Quadrant Future Tek among buzzing stocks zooming up to 42% in 2 days on strong Q1 growth",
+        "t": "Quadrant Future Tek gains on Rs 129 crore RailTel Kavach order for East Central Railway",
         "src": "Business Standard",
-        "url": "https://www.business-standard.com/markets/news/buzzing-stocks-ratnamani-quadrant-shanthi-gears-zoom-up-to-42-in-2-days-126082400630_1.html",
-        "date": "2026-08-24"
+        "url": "https://www.business-standard.com/markets/news/quadrant-future-shares-gain-4-pc-on-rs-129-crore-order-win-stock-up-26-pc-in-3-days-125090300331_1.html",
+        "date": "2026-09-03"
       }
     ],
     "TVSSCS": [
@@ -332,10 +332,10 @@
     ],
     "ESDS": [
       {
-        "t": "ESDS Software extends rally, hits 20% upper band a day after bumper listing",
-        "src": "Business Standard",
-        "url": "https://www.business-standard.com/markets/news/esds-software-share-price-extends-rally-hits-20-upper-band-after-multibagger-listing-126090700189_1.html",
-        "date": "2026-09-07"
+        "t": "ESDS Software hits upper circuit for fourth straight day after blockbuster IPO listing",
+        "src": "Upstox",
+        "url": "https://upstox.com/news/market-news/stocks/esds-software-solution-shares-hit-upper-circuit-for-fourth-consecutive-day-how-the-stock-is-performing-vs-ipo-issue-price/article-200016/",
+        "date": "2026-09-09"
       }
     ],
     "HLEGLAS": [
@@ -416,6 +416,62 @@
         "src": "Univest",
         "url": "https://univest.in/blogs/why-technocraft-industries-india-ltd-share-price-52-week-high-2026-08-14",
         "date": "2026-08-14"
+      }
+    ],
+    "AWFIS": [
+      {
+        "t": "Awfis wins eBay as GCC client, delivers 67,000 sq ft Bengaluru innovation hub",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/awfis-space-solutions-rises-3-percent-as-it-delivers-innovation-hub-for-ebay-in-bengaluru-125091700380_1.html",
+        "date": "2026-08-14"
+      }
+    ],
+    "RAYMOND": [
+      {
+        "t": "Raymond shares jump 35% in a week as aerospace subsidiary order book details emerge",
+        "src": "India TV News",
+        "url": "https://www.indiatvnews.com/business/markets/raymond-shares-details-of-its-aerospace-subsidiary-stock-jumps-35-pc-per-cent-in-1-week-check-details-2026-09-14-1054196",
+        "date": "2026-09-14"
+      }
+    ],
+    "PINELABS": [
+      {
+        "t": "Pine Labs shares surge 13% on heavy volume as RBI extends merchant re-KYC deadline",
+        "src": "TradingView",
+        "url": "https://www.tradingview.com/news/moodys:5f6df3e1666cf:0-pine-labs-share-price-jumps-13-fintech-stock-rises-sharply-as-trading-volume-explodes/",
+        "date": "2026-09-11"
+      }
+    ],
+    "RACLGEAR": [
+      {
+        "t": "RACL Geartech posts record FY26 revenue of Rs 512 crore on Kawasaki, ZF and Royal Enfield wins",
+        "src": "Multibagg",
+        "url": "https://www.multibagg.ai/market-pulse/articles/racl-geartech-fy26-record-revenue-cmqg0kz7sfquynv0j68aqwjed",
+        "date": "2026-06-16"
+      }
+    ],
+    "DHOOTTRANS": [
+      {
+        "t": "Dhoot Transmission lists at 38% premium over IPO price in blockbuster market debut",
+        "src": "HDFC Sky",
+        "url": "https://hdfcsky.com/news/dhoot-transmission-shares-list-38-percent-premium-over-ipo-price-nse",
+        "date": "2026-08-17"
+      }
+    ],
+    "ELANTAS": [
+      {
+        "t": "Elantas Beck India shares surge after stellar Q1 FY27 results, profit jumps 80% YoY",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/result-analysis/elantas-beck-india-q1-fy27-stellar-quarter-drives-stock-surge-but-valuation-concerns-persist-4138107",
+        "date": "2026-08-05"
+      }
+    ],
+    "BBOX": [
+      {
+        "t": "Black Box shares soar 9% on strong Q1 earnings and Rs 1,240 crore US data centre win",
+        "src": "Upstox",
+        "url": "https://upstox.com/news/market-news/stocks/black-box-shares-soar-9-on-strong-q1-earnings-1-240-crore-us-data-centre-win-all-you-need-to-know/article-198594/",
+        "date": "2026-08-13"
       }
     ]
   }
