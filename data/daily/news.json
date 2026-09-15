@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-14",
+  "updated": "2026-09-15",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -472,6 +472,30 @@
         "src": "Upstox",
         "url": "https://upstox.com/news/market-news/stocks/black-box-shares-soar-9-on-strong-q1-earnings-1-240-crore-us-data-centre-win-all-you-need-to-know/article-198594/",
         "date": "2026-08-13"
+      }
+    ],
+    "FILATEX": [
+      {
+        "t": "Filatex India hits all-time high of Rs 91.40 as stock rallies on strong momentum across timeframes",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/filatex-india-ltd-stock-hits-all-time-high-amid-strong-market-performance-4192918",
+        "date": "2026-09-15"
+      }
+    ],
+    "AHCL": [
+      {
+        "t": "Anlon Healthcare shares hit fresh 52-week high of Rs 22.38 on broad-based technical strength",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/anlon-healthcare-ltd-hits-new-52-week-high-at-rs2238-4193084",
+        "date": "2026-09-15"
+      }
+    ],
+    "FINKURVE": [
+      {
+        "t": "Finkurve Financial Services shares rally as valuation shifts signal changing price attractiveness",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/finkurve-financial-services-ltd-valuation-shifts-signal-changing-price-attractiveness-4192621",
+        "date": "2026-09-15"
       }
     ]
   }
