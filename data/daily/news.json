@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-15",
+  "updated": "2026-09-16",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -496,6 +496,62 @@
         "src": "MarketsMojo",
         "url": "https://www.marketsmojo.com/news/stocks-in-action/finkurve-financial-services-ltd-valuation-shifts-signal-changing-price-attractiveness-4192621",
         "date": "2026-09-15"
+      }
+    ],
+    "EMUDHRA": [
+      {
+        "t": "eMudhra zooms 20% amid huge volumes in weak market on LEI Validation Agent role",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/emudhra-share-price-zooms-20-amid-huge-volumes-in-weak-market-here-s-why-126091500540_1.html",
+        "date": "2026-09-15"
+      }
+    ],
+    "NPST": [
+      {
+        "t": "NPST shares jump 18% after winning Global Fintech Awards 2026 Best Digital Banking Platform",
+        "src": "RetailIntel",
+        "url": "https://retailintel.in/signal/npst-shares-jump-18-after-global-fintech-awards-recognition-ffbb5ae8",
+        "date": "2026-09-10"
+      }
+    ],
+    "SAATVIKGL": [
+      {
+        "t": "Saatvik Green Energy shares in focus after bagging Rs 1,042 crore SECI solar module order",
+        "src": "Upstox",
+        "url": "https://upstox.com/news/market-news/stocks/saatvik-green-energy-shares-in-focus-after-bagging-order-worth-1-042-crore-from-seci/article-200299/",
+        "date": "2026-09-15"
+      }
+    ],
+    "IBULLSLTD": [
+      {
+        "t": "Indiabulls to acquire 70% stake in Fintech Cloud for Rs 1,050 crore via NCLT scheme",
+        "src": "Outlook Business",
+        "url": "https://www.outlookbusiness.com/spotlight/news-wire/indiabulls-proposes-acquisition-of-70-stake-in-fintech-cloud-for-1050-crore",
+        "date": "2026-09-11"
+      }
+    ],
+    "CMSINFO": [
+      {
+        "t": "CMS Info Systems shares jump 7% as UPI MDR move boosts cash-management, ATM stocks",
+        "src": "Business Today",
+        "url": "https://www.businesstoday.in/markets/stocks/story/upi-mdr-radiant-cash-cms-info-systems-atm-related-stocks-jump-heres-why-555857-2026-09-16",
+        "date": "2026-09-16"
+      }
+    ],
+    "JINDALPOLY": [
+      {
+        "t": "Jindal Poly Films surges 9.6% intraday to Rs 725.95, outperforming packaging sector",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/jindal-poly-films-ltd-hits-intraday-high-with-957-surge-on-15-sep-2026-4193572",
+        "date": "2026-09-15"
+      }
+    ],
+    "HAPPYFORGE": [
+      {
+        "t": "Motilal Oswal reiterates Buy on Happy Forgings, target Rs 1,125 citing strong order book",
+        "src": "Goodreturns",
+        "url": "https://www.goodreturns.in/news/motilal-oswal-recommends-buying-happy-forgings-with-target-price-of-rs-1125-1334199.html",
+        "date": "2026-09-16"
       }
     ]
   }
