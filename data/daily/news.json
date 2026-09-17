@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-16",
+  "updated": "2026-09-17",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -236,9 +236,9 @@
     ],
     "SUNSHINE": [
       {
-        "t": "Sunshine Pictures shares jump 10% in market debut trade",
-        "src": "Outlook Business",
-        "url": "https://www.outlookbusiness.com/corporate/sunshine-pictures-shares-jump-10-in-market-debut-trade",
+        "t": "Sunshine Pictures lists 10% higher on debut after IPO subscribed 106 times",
+        "src": "HDFC Sky",
+        "url": "https://hdfcsky.com/news/sunshine-pictures-shares-jump-10-pc-in-market-debut-trade",
         "date": "2026-08-25"
       }
     ],
@@ -348,10 +348,10 @@
     ],
     "ANTELOPUS": [
       {
-        "t": "Antelopus Selan Energy hits record high, up 32% in 3 days after winning 2 DSF Bid Round-IV blocks",
-        "src": "TradingView News",
-        "url": "https://www.tradingview.com/news/moodys:579dbc499c6f9:0-antelopus-selan-energy-share-price-up-over-32-up-in-3-days-what-s-behind-continuous-stock-jump-details-here/",
-        "date": "2026-09-03"
+        "t": "Antelopus Selan Energy shares surge 20% on winning two onshore DSF-IV blocks",
+        "src": "Trade Brains",
+        "url": "https://tradebrains.in/indian-markets/antelopus-selan-energy-shares-surge-20-on-winning-two-onshore-dsf-iv-blocks-12483700",
+        "date": "2026-09-01"
       }
     ],
     "STEELXIND": [
@@ -500,17 +500,17 @@
     ],
     "EMUDHRA": [
       {
-        "t": "eMudhra zooms 20% amid huge volumes in weak market on LEI Validation Agent role",
-        "src": "Business Standard",
-        "url": "https://www.business-standard.com/markets/news/emudhra-share-price-zooms-20-amid-huge-volumes-in-weak-market-here-s-why-126091500540_1.html",
+        "t": "eMudhra shares surge 20% after GLEIF appoints it Validation Agent for LEI services in India",
+        "src": "Business Today",
+        "url": "https://www.businesstoday.in/markets/stocks/story/emudhra-shares-rise-in-early-deals-heres-why-555503-2026-09-15",
         "date": "2026-09-15"
       }
     ],
     "NPST": [
       {
-        "t": "NPST shares jump 18% after winning Global Fintech Awards 2026 Best Digital Banking Platform",
-        "src": "RetailIntel",
-        "url": "https://retailintel.in/signal/npst-shares-jump-18-after-global-fintech-awards-recognition-ffbb5ae8",
+        "t": "NPST allots shares worth ₹300 crore to Tata Mutual Fund via preferential issue",
+        "src": "HDFC Sky",
+        "url": "https://hdfcsky.com/news/npst-allots-shares-worth-rs-300-crore-to-tata-mutual-fund",
         "date": "2026-09-10"
       }
     ],
@@ -552,6 +552,86 @@
         "src": "Goodreturns",
         "url": "https://www.goodreturns.in/news/motilal-oswal-recommends-buying-happy-forgings-with-target-price-of-rs-1125-1334199.html",
         "date": "2026-09-16"
+      }
+    ],
+    "CSBBANK": [
+      {
+        "t": "CSB Bank shares surge 8.82% to intraday high of Rs 318.75, outperforming sector",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/csb-bank-ltd-hits-intraday-high-with-strong-882-surge-on-16-sep-2026-4195338",
+        "date": "2026-09-16"
+      }
+    ],
+    "KMCSHIL": [
+      {
+        "t": "KMC Speciality Hospitals approves ₹519 crore Trichy/Bengaluru expansion, adding ~591 beds",
+        "src": "Multibagg",
+        "url": "https://www.multibagg.ai/market-pulse/articles/kmc-hospitals-trichy-bengaluru-expansion-cmsssnt7800lt0zpj2tbchhdj",
+        "date": "2026-08-14"
+      }
+    ],
+    "FOSECOIND": [
+      {
+        "t": "Foseco India hits all-time high of Rs 7,145 as momentum builds across timeframes",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/foseco-india-ltd-stock-hits-all-time-high-at-rs714515-on-17-sep-2026-4195916",
+        "date": "2026-09-17"
+      }
+    ],
+    "IOLCP": [
+      {
+        "t": "IOL Chemicals & Pharmaceuticals surges 7.24% to intraday high of Rs 192, outperforming sector",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/iol-chemicals-pharmaceuticals-ltd-hits-intraday-high-with-724-surge-on-16-sep-2026-4195337",
+        "date": "2026-09-16"
+      }
+    ],
+    "ARROWGREEN": [
+      {
+        "t": "Broad-based technical strength lifts Arrow Greentech to 52-week high of Rs 898.8",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/arrow-greentech-ltd-hits-new-52-week-high-of-rs-8988-on-16-sep-2026-4195339",
+        "date": "2026-09-16"
+      }
+    ],
+    "MOREPENLAB": [
+      {
+        "t": "Morepen Labs zooms 112% in 6 weeks; stock hits multi-year high",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/morepen-labs-zooms-112-in-6-weeks-stock-hits-multi-year-high-here-s-why-126090200678_1.html",
+        "date": "2026-09-02"
+      }
+    ],
+    "PATANJALI": [
+      {
+        "t": "Patanjali Foods surges 5.23% to intraday high of Rs 360.5, outperforming edible oil sector",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/patanjali-foods-ltd-hits-intraday-high-with-523-surge-on-16-sep-2026-4195301",
+        "date": "2026-09-16"
+      }
+    ],
+    "MOTISONS": [
+      {
+        "t": "Motisons Jewellers sees bullish momentum shift amid technical upgrades",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/motisons-jewellers-ltd-sees-bullish-momentum-shift-amid-technical-upgrades-4195693",
+        "date": "2026-09-17"
+      }
+    ],
+    "RUBYMILLS": [
+      {
+        "t": "Ruby Mills sells 33rd floor commercial space in 'The Ruby' to Torrent Pharma for ₹124.08 crore",
+        "src": "Trade Brains",
+        "url": "https://tradebrains.in/ruby-mills-sells-commercial-space-to-torrent-pharma-for-124-cr-check-details/",
+        "date": "2026-08-20"
+      }
+    ],
+    "PARAGMILK": [
+      {
+        "t": "Parag Milk Foods shares surge 8% on foray into snacking category with Avvatar Popped Chips",
+        "src": "Business Today",
+        "url": "https://www.businesstoday.in/markets/stocks/story/parag-milk-foods-shares-surge-8-on-foray-into-snacking-category-554485-2026-09-10",
+        "date": "2026-09-10"
       }
     ]
   }
