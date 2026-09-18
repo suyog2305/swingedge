@@ -1,0 +1,27 @@
+name: Swing Edge tests
+
+# Parser / maths / pipeline unit tests plus a headless-Chromium render of the price card.
+on:
+  push:
+    paths: ['scripts/swing_edge/**', 'tests/**', 'index.html', '.github/workflows/swing_edge_*.yml']
+  pull_request:
+    paths: ['scripts/swing_edge/**', 'tests/**', 'index.html', '.github/workflows/swing_edge_*.yml']
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Playwright + Chromium (render test only)
+        run: |
+          pip install --quiet playwright
+          python -m playwright install --with-deps chromium
+      - name: Compile
+        run: python -m compileall -q scripts/swing_edge tests
+      - name: Unit + render tests
+        run: python -m unittest discover -s tests -t . -v

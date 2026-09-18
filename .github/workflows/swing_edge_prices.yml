@@ -1,0 +1,62 @@
+name: Swing Edge prices
+
+# Refreshes data/swing_edge/*_latest.json + *_history.csv from key-free public feeds and
+# commits them. Two runs a day, seven days a week: 09:00 IST before the NSE open and
+# 15:45 IST just after the close. The card shows which run produced the data.
+on:
+  schedule:
+    - cron: '30 3 * * *'    # 09:00 IST
+    - cron: '15 10 * * *'   # 15:45 IST
+  workflow_dispatch:
+    inputs:
+      backfill:
+        description: 'Days of history rows to write (0 = today only)'
+        default: '0'
+      verify_symbols:
+        description: 'Also check every NSE code in config.json resolves'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: swing-edge-prices
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Tests (parsers, maths, pipeline)
+        run: python -m unittest discover -s tests -t . -v
+
+      - name: Verify config stock symbols
+        if: ${{ github.event.inputs.verify_symbols == 'true' }}
+        run: python scripts/swing_edge/fetch_prices.py --verify-symbols
+
+      - name: Fetch prices
+        run: python scripts/swing_edge/fetch_prices.py --backfill "${{ github.event.inputs.backfill || '0' }}" --label auto
+
+      - name: Commit and push data
+        run: |
+          git config user.name "swingedge-bot"
+          git config user.email "swingedge-bot@users.noreply.github.com"
+          git add data/swing_edge
+          if git diff --cached --quiet; then echo "nothing changed"; exit 0; fi
+          git commit -m "Swing Edge prices $(date -u +%Y-%m-%d) $(date -u +%H:%M)Z [skip ci]"
+          for i in 1 2 3 4; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
+            echo "push attempt $i failed, retrying"; sleep $((i * 5))
+          done
+          exit 1

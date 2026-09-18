@@ -1,0 +1,1305 @@
+{
+ "schema": "swing_edge-prices/1",
+ "module": "commodities",
+ "title": "Commodities & Macro",
+ "data_date": "2026-09-15",
+ "run_at": "2026-09-18T03:25:36Z",
+ "run_at_ist": "18 Sep 2026 08:55 IST",
+ "run_label": "morning",
+ "groups": [
+  {
+   "id": "energy",
+   "label": "A \u00b7 Energy"
+  },
+  {
+   "id": "precious",
+   "label": "B \u00b7 Precious metals"
+  },
+  {
+   "id": "base",
+   "label": "C \u00b7 Base metals"
+  },
+  {
+   "id": "fx",
+   "label": "D \u00b7 Currencies & rates"
+  },
+  {
+   "id": "india",
+   "label": "E \u00b7 India"
+  },
+  {
+   "id": "derived",
+   "label": "F \u00b7 Derived"
+  }
+ ],
+ "indicators": [
+  {
+   "id": "brent",
+   "label": "Brent crude, front month",
+   "group": "energy",
+   "unit": "US$/bbl",
+   "dec": 2,
+   "source": "carry-forward",
+   "source_url": null,
+   "status": "stale",
+   "stale": true,
+   "last_good": "2026-09-15",
+   "note": null,
+   "errors": [
+    "yahoo:BZ=F: HTTP 503",
+    "fred:DCOILBRENTEU: HTTP 503"
+   ],
+   "value": 71.97,
+   "date": "2026-09-15",
+   "mode": "pct",
+   "chg_1d": 8.996,
+   "chg_7d": 10.282,
+   "chg_30d": 12.313,
+   "chg_90d": 8.65,
+   "spark": [
+    68.55,
+    68.17,
+    67.72,
+    67.51,
+    67.45,
+    67.83,
+    67.98,
+    67.71,
+    67.13,
+    66.82,
+    67.55,
+    67.06,
+    67.21,
+    67.47,
+    66.57,
+    66.6,
+    67.38,
+    66.16,
+    65.97,
+    65.91,
+    65.43,
+    65.68,
+    64.81,
+    65.29,
+    65.68,
+    66.24,
+    67.1,
+    67.32,
+    67.39,
+    66.6,
+    66.97,
+    66.6,
+    66.33,
+    65.57,
+    65.0,
+    64.69,
+    65.44,
+    64.24,
+    63.4,
+    63.54,
+    64.37,
+    64.71,
+    63.6,
+    62.16,
+    62.36,
+    61.95,
+    61.33,
+    61.87,
+    62.48,
+    62.57,
+    62.71,
+    62.96,
+    63.86,
+    64.22,
+    64.52,
+    64.84,
+    63.92,
+    64.66,
+    65.22,
+    65.53,
+    64.37,
+    64.0,
+    64.49,
+    63.44,
+    63.33,
+    63.91,
+    63.16,
+    64.08,
+    64.4,
+    64.31,
+    64.5,
+    64.88,
+    64.95,
+    65.62,
+    65.23,
+    64.99,
+    65.6,
+    65.62,
+    65.1,
+    65.65,
+    66.52,
+    66.25,
+    65.43,
+    65.35,
+    65.26,
+    65.08,
+    65.9,
+    65.29,
+    66.03,
+    71.97
+   ],
+   "spark_from": "2026-05-12",
+   "z90": 3.76,
+   "roll": true
+  },
+  {
+   "id": "wti",
+   "label": "WTI crude, front month",
+   "group": "energy",
+   "unit": "US$/bbl",
+   "dec": 2,
+   "source": "carry-forward",
+   "source_url": null,
+   "status": "stale",
+   "stale": true,
+   "last_good": "2026-09-15",
+   "note": null,
+   "errors": [
+    "yahoo:CL=F: HTTP 503",
+    "fred:DCOILWTICO: HTTP 503"
+   ],
+   "value": 67.31,
+   "date": "2026-09-15",
+   "mode": "pct",
+   "chg_1d": 0.613,
+   "chg_7d": 1.355,
+   "chg_30d": null,
+   "chg_90d": null,
+   "spark": [
+    66.41,
+    67.02,
+    67.55,
+    66.9,
+    67.31
+   ],
+   "spark_from": "2026-09-08",
+   "z90": null,
+   "roll": false
+  },
+  {
+   "id": "natgas",
+   "label": "Natural gas (Henry Hub)",
+   "group": "energy",
+   "unit": "US$/MMBtu",
+   "dec": 3,
+   "source": "carry-forward",
+   "source_url": null,
+   "status": "stale",
+   "stale": true,
+   "last_good": "2026-09-15",
+   "note": null,
+   "errors": [
+    "yahoo:NG=F: HTTP 503",
+    "fred:DHHNGSP: HTTP 503"
+   ],
+   "value": 67.31,
+   "date": "2026-09-15",
+   "mode": "pct",
+   "chg_1d": 0.613,
+   "chg_7d": 1.355,
+   "chg_30d": null,
+   "chg_90d": null,
+   "spark": [
+    66.41,
+    67.02,
+    67.55,
+    66.9,
+    67.31
+   ],
+   "spark_from": "2026-09-08",
+   "z90": null,
+   "roll": false
+  },
+  {
+   "id": "gold",
+   "label": "Gold, front month",
+   "group": "precious",
+   "unit": "US$/oz",
+   "dec": 1,
+   "source": "stooq:xauusd",
+   "source_url": "https://stooq.com/q/d/l/?s=xauusd&i=d&d1=20250812&d2=20260916",
+   "status": "fallback",
+   "stale": false,
+   "last_good": null,
+   "note": null,
+   "errors": [
+    "yahoo:GC=F: HTTP 503"
+   ],
+   "value": 3671.9,
+   "date": "2026-09-15",
+   "mode": "pct",
+   "chg_1d": 0.104,
+   "chg_7d": null,
+   "chg_30d": null,
+   "chg_90d": null,
+   "spark": [
+    3648.8,
+    3655.4,
+    3668.1,
+    3671.9
+   ],
+   "spark_from": "2026-09-10",
+   "z90": null,
+   "roll": false
+  },
+  {
+   "id": "silver",
+   "label": "Silver, front month",
+   "group": "precious",
+   "unit": "US$/oz",
+   "dec": 2,
+   "source": "stooq:xagusd",
+   "source_url": "https://stooq.com/q/d/l/?s=xagusd&i=d&d1=20250812&d2=20260916",
+   "status": "fallback",
+   "stale": false,
+   "last_good": null,
+   "note": null,
+   "errors": [
+    "yahoo:SI=F: HTTP 503"
+   ],
+   "value": 3671.9,
+   "date": "2026-09-15",
+   "mode": "pct",
+   "chg_1d": 0.104,
+   "chg_7d": null,
+   "chg_30d": null,
+   "chg_90d": null,
+   "spark": [
+    3648.8,
+    3655.4,
+    3668.1,
+    3671.9
+   ],
+   "spark_from": "2026-09-10",
+   "z90": null,
+   "roll": false
+  },
+  {
+   "id": "copper",
+   "label": "Copper",
+   "group": "base",
+   "unit": "US$/t",
+   "dec": 0,
+   "source": "westmetall:LME_Cu_cash",
+   "source_url": "https://www.westmetall.com/en/markdaten.php?action=table&field=LME_Cu_cash",
+   "status": "fallback",
+   "stale": false,
+   "last_good": null,
+   "note": "COMEX HG=F is quoted in US$/lb; converted \u00d72204.62 to US$/t. Fallback is the LME cash settlement.",
+   "errors": [
+    "yahoo:HG=F: HTTP 503"
+   ],
+   "value": 9876.0,
+   "date": "2026-09-15",
+   "mode": "pct",
+   "chg_1d": 0.647,
+   "chg_7d": null,
+   "chg_30d": null,
+   "chg_90d": null,
+   "spark": [
+    9790.0,
+    9812.5,
+    9876.0
+   ],
+   "spark_from": "2026-09-11",
+   "z90": null,
+   "roll": false
+  },
+  {
+   "id": "aluminium",
+   "label": "Aluminium",
+   "group": "base",
+   "unit": "US$/t",
+   "dec": 0,
+   "source": "westmetall:LME_Al_cash",
+   "source_url": "https://www.westmetall.com/en/markdaten.php?action=table&field=LME_Al_cash",
+   "status": "fallback",
+   "stale": false,
+   "last_good": null,
+   "note": "COMEX ALI=F is thin; the LME cash table wins whenever COMEX is stale or gapped.",
+   "errors": [
+    "yahoo:ALI=F: HTTP 503"
+   ],
+   "value": 9876.0,
+   "date": "2026-09-15",
+   "mode": "pct",
+   "chg_1d": 0.647,
+   "chg_7d": 15033.313,
+   "chg_30d": 15311.985,
+   "chg_90d": 14809.42,
+   "spark": [
+    68.55,
+    68.17,
+    67.72,
+    67.51,
+    67.45,
+    67.83,
+    67.98,
+    67.71,
+    67.13,
+    66.82,
+    67.55,
+    67.06,
+    67.21,
+    67.47,
+    66.57,
+    66.6,
+    67.38,
+    66.16,
+    65.97,
+    65.91,
+    65.43,
+    65.68,
+    64.81,
+    65.29,
+    65.68,
+    66.24,
+    67.1,
+    67.32,
+    67.39,
+    66.6,
+    66.97,
+    66.6,
+    66.33,
+    65.57,
+    65.0,
+    64.69,
+    65.44,
+    64.24,
+    63.4,
+    63.54,
+    64.37,
+    64.71,
+    63.6,
+    62.16,
+    62.36,
+    61.95,
+    61.33,
+    61.87,
+    62.48,
+    62.57,
+    62.71,
+    62.96,
+    63.86,
+    64.22,
+    64.52,
+    64.84,
+    63.92,
+    64.66,
+    65.22,
+    65.53,
+    64.37,
+    64.0,
+    64.49,
+    63.44,
+    63.33,
+    63.91,
+    63.16,
+    64.08,
+    64.4,
+    64.31,
+    64.5,
+    64.88,
+    64.95,
+    65.62,
+    65.23,
+    64.99,
+    65.6,
+    65.62,
+    65.1,
+    65.65,
+    66.52,
+    66.25,
+    65.43,
+    65.35,
+    65.26,
+    65.08,
+    65.9,
+    9790.0,
+    9812.5,
+    9876.0
+   ],
+   "spark_from": "2026-05-12",
+   "z90": 5.41,
+   "roll": false
+  },
+  {
+   "id": "zinc",
+   "label": "Zinc",
+   "group": "base",
+   "unit": "US$/t",
+   "dec": 0,
+   "source": "westmetall:LME_Zn_cash",
+   "source_url": "https://www.westmetall.com/en/markdaten.php?action=table&field=LME_Zn_cash",
+   "status": "ok",
+   "stale": false,
+   "last_good": null,
+   "note": null,
+   "errors": [],
+   "value": 9876.0,
+   "date": "2026-09-15",
+   "mode": "pct",
+   "chg_1d": 0.647,
+   "chg_7d": null,
+   "chg_30d": null,
+   "chg_90d": null,
+   "spark": [
+    9790.0,
+    9812.5,
+    9876.0
+   ],
+   "spark_from": "2026-09-11",
+   "z90": null,
+   "roll": false
+  },
+  {
+   "id": "dxy",
+   "label": "Dollar index (DXY)",
+   "group": "fx",
+   "unit": "index",
+   "dec": 2,
+   "source": "stooq:dx.f",
+   "source_url": "https://stooq.com/q/d/l/?s=dx.f&i=d&d1=20250812&d2=20260916",
+   "status": "fallback",
+   "stale": false,
+   "last_good": null,
+   "note": null,
+   "errors": [
+    "yahoo:DX-Y.NYB: HTTP 503"
+   ],
+   "value": 3671.9,
+   "date": "2026-09-15",
+   "mode": "pct",
+   "chg_1d": 0.104,
+   "chg_7d": null,
+   "chg_30d": null,
+   "chg_90d": null,
+   "spark": [
+    3648.8,
+    3655.4,
+    3668.1,
+    3671.9
+   ],
+   "spark_from": "2026-09-10",
+   "z90": null,
+   "roll": false
+  },
+  {
+   "id": "usdjpy",
+   "label": "USD/JPY",
+   "group": "fx",
+   "unit": "JPY per US$",
+   "dec": 2,
+   "source": "stooq:usdjpy",
+   "source_url": "https://stooq.com/q/d/l/?s=usdjpy&i=d&d1=20250812&d2=20260916",
+   "status": "fallback",
+   "stale": false,
+   "last_good": null,
+   "note": null,
+   "errors": [
+    "yahoo:JPY=X: HTTP 503"
+   ],
+   "value": 3671.9,
+   "date": "2026-09-15",
+   "mode": "pct",
+   "chg_1d": 0.104,
+   "chg_7d": null,
+   "chg_30d": null,
+   "chg_90d": null,
+   "spark": [
+    3648.8,
+    3655.4,
+    3668.1,
+    3671.9
+   ],
+   "spark_from": "2026-09-10",
+   "z90": null,
+   "roll": false
+  },
+  {
+   "id": "usdinr",
+   "label": "USD/INR",
+   "group": "fx",
+   "unit": "INR per US$",
+   "dec": 3,
+   "source": "carry-forward",
+   "source_url": null,
+   "status": "stale",
+   "stale": true,
+   "last_good": "2026-09-15",
+   "note": "Fallback is the Fed H.10 noon buying rate (FRED DEXINUS). FBIL publishes the RBI reference rate only as web pages, not a stable file; pin it in manual_overrides.json when the official print matters.",
+   "errors": [
+    "yahoo:INR=X: HTTP 503",
+    "fred:DEXINUS: HTTP 503"
+   ],
+   "value": 67.31,
+   "date": "2026-09-15",
+   "mode": "pct",
+   "chg_1d": 0.613,
+   "chg_7d": 1.355,
+   "chg_30d": null,
+   "chg_90d": null,
+   "spark": [
+    66.41,
+    67.02,
+    67.55,
+    66.9,
+    67.31
+   ],
+   "spark_from": "2026-09-08",
+   "z90": null,
+   "roll": false
+  },
+  {
+   "id": "us10y",
+   "label": "US 10-year yield",
+   "group": "fx",
+   "unit": "%",
+   "dec": 3,
+   "source": "carry-forward",
+   "source_url": null,
+   "status": "stale",
+   "stale": true,
+   "last_good": "2026-09-15",
+   "note": null,
+   "errors": [
+    "yahoo:^TNX: HTTP 503",
+    "fred:DGS10: HTTP 503"
+   ],
+   "value": 67.31,
+   "date": "2026-09-15",
+   "mode": "diff",
+   "chg_1d": 0.41,
+   "chg_7d": 0.9,
+   "chg_30d": null,
+   "chg_90d": null,
+   "spark": [
+    66.41,
+    67.02,
+    67.55,
+    66.9,
+    67.31
+   ],
+   "spark_from": "2026-09-08",
+   "z90": null,
+   "roll": false
+  },
+  {
+   "id": "vix",
+   "label": "VIX",
+   "group": "fx",
+   "unit": "index",
+   "dec": 2,
+   "source": null,
+   "source_url": null,
+   "status": "failed",
+   "stale": false,
+   "last_good": null,
+   "note": null,
+   "errors": [
+    "yahoo:^VIX: HTTP 503"
+   ],
+   "roll": false
+  },
+  {
+   "id": "nifty50",
+   "label": "Nifty 50",
+   "group": "india",
+   "unit": "index",
+   "dec": 1,
+   "source": "carry-forward",
+   "source_url": null,
+   "status": "stale",
+   "stale": true,
+   "last_good": "2026-09-15",
+   "note": null,
+   "errors": [
+    "yahoo:^NSEI: HTTP 503"
+   ],
+   "value": 71.97,
+   "date": "2026-09-15",
+   "mode": "pct",
+   "chg_1d": 8.996,
+   "chg_7d": 10.282,
+   "chg_30d": 12.313,
+   "chg_90d": 8.65,
+   "spark": [
+    68.55,
+    68.17,
+    67.72,
+    67.51,
+    67.45,
+    67.83,
+    67.98,
+    67.71,
+    67.13,
+    66.82,
+    67.55,
+    67.06,
+    67.21,
+    67.47,
+    66.57,
+    66.6,
+    67.38,
+    66.16,
+    65.97,
+    65.91,
+    65.43,
+    65.68,
+    64.81,
+    65.29,
+    65.68,
+    66.24,
+    67.1,
+    67.32,
+    67.39,
+    66.6,
+    66.97,
+    66.6,
+    66.33,
+    65.57,
+    65.0,
+    64.69,
+    65.44,
+    64.24,
+    63.4,
+    63.54,
+    64.37,
+    64.71,
+    63.6,
+    62.16,
+    62.36,
+    61.95,
+    61.33,
+    61.87,
+    62.48,
+    62.57,
+    62.71,
+    62.96,
+    63.86,
+    64.22,
+    64.52,
+    64.84,
+    63.92,
+    64.66,
+    65.22,
+    65.53,
+    64.37,
+    64.0,
+    64.49,
+    63.44,
+    63.33,
+    63.91,
+    63.16,
+    64.08,
+    64.4,
+    64.31,
+    64.5,
+    64.88,
+    64.95,
+    65.62,
+    65.23,
+    64.99,
+    65.6,
+    65.62,
+    65.1,
+    65.65,
+    66.52,
+    66.25,
+    65.43,
+    65.35,
+    65.26,
+    65.08,
+    65.9,
+    65.29,
+    66.03,
+    71.97
+   ],
+   "spark_from": "2026-05-12",
+   "z90": 3.76,
+   "roll": false
+  },
+  {
+   "id": "gold_inr_10g",
+   "label": "Gold in INR per 10 g",
+   "group": "derived",
+   "unit": "INR/10 g",
+   "dec": 0,
+   "source": "derived",
+   "source_url": "scripts/swing_edge/commodities.py",
+   "status": "ok",
+   "stale": false,
+   "last_good": null,
+   "note": "US$/oz \u00d7 USD/INR \u00f7 31.1035 \u00d7 10. MCX differs by import duty and local premium.",
+   "errors": [],
+   "value": 79462.36705,
+   "date": "2026-09-15",
+   "mode": "pct",
+   "chg_1d": 0.717,
+   "chg_7d": null,
+   "chg_30d": null,
+   "chg_90d": null,
+   "spark": [
+    78622.2639,
+    79387.3532,
+    78896.6107,
+    79462.367
+   ],
+   "spark_from": "2026-09-10",
+   "z90": null,
+   "roll": false
+  },
+  {
+   "id": "silver_inr_kg",
+   "label": "Silver in INR per kg",
+   "group": "derived",
+   "unit": "INR/kg",
+   "dec": 0,
+   "source": "derived",
+   "source_url": "scripts/swing_edge/commodities.py",
+   "status": "ok",
+   "stale": false,
+   "last_good": null,
+   "note": "US$/oz \u00d7 USD/INR \u00f7 31.1035 \u00d7 1000. MCX differs by duty and premium.",
+   "errors": [],
+   "value": 7946236.704959,
+   "date": "2026-09-15",
+   "mode": "pct",
+   "chg_1d": 0.717,
+   "chg_7d": null,
+   "chg_30d": null,
+   "chg_90d": null,
+   "spark": [
+    7862226.3862,
+    7938735.3249,
+    7889661.0684,
+    7946236.705
+   ],
+   "spark_from": "2026-09-10",
+   "z90": null,
+   "roll": false
+  },
+  {
+   "id": "gold_silver_ratio",
+   "label": "Gold / silver ratio",
+   "group": "derived",
+   "unit": "oz",
+   "dec": 1,
+   "source": "derived",
+   "source_url": "scripts/swing_edge/commodities.py",
+   "status": "ok",
+   "stale": false,
+   "last_good": null,
+   "note": "Ounces of silver per ounce of gold; rising = silver lagging.",
+   "errors": [],
+   "value": 1.0,
+   "date": "2026-09-15",
+   "mode": "pct",
+   "chg_1d": 0.0,
+   "chg_7d": null,
+   "chg_30d": null,
+   "chg_90d": null,
+   "spark": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "spark_from": "2026-09-10",
+   "z90": null,
+   "roll": false
+  },
+  {
+   "id": "copper_gold_ratio",
+   "label": "Copper / gold ratio",
+   "group": "derived",
+   "unit": "ratio",
+   "dec": 3,
+   "source": "derived",
+   "source_url": "scripts/swing_edge/commodities.py",
+   "status": "ok",
+   "stale": false,
+   "last_good": null,
+   "note": "US$/t copper \u00f7 US$/oz gold \u2014 growth-versus-fear gauge; rising = growth bid.",
+   "errors": [],
+   "value": 2.689616,
+   "date": "2026-09-15",
+   "mode": "pct",
+   "chg_1d": 0.543,
+   "chg_7d": null,
+   "chg_30d": null,
+   "chg_90d": null,
+   "spark": [
+    2.6782,
+    2.6751,
+    2.6896
+   ],
+   "spark_from": "2026-09-11",
+   "z90": null,
+   "roll": false
+  },
+  {
+   "id": "brent_inr_bbl",
+   "label": "Brent in INR per barrel",
+   "group": "derived",
+   "unit": "INR/bbl",
+   "dec": 0,
+   "source": "derived",
+   "source_url": "scripts/swing_edge/commodities.py",
+   "status": "ok",
+   "stale": false,
+   "last_good": null,
+   "note": "India's import-bill pressure: Brent US$/bbl \u00d7 USD/INR.",
+   "errors": [],
+   "value": 4844.3007,
+   "date": "2026-09-15",
+   "mode": "pct",
+   "chg_1d": 9.664,
+   "chg_7d": 11.777,
+   "chg_30d": null,
+   "chg_90d": null,
+   "spark": [
+    4333.9166,
+    4321.9628,
+    4416.618,
+    4410.3395,
+    4417.407,
+    4844.3007
+   ],
+   "spark_from": "2026-09-08",
+   "z90": null,
+   "roll": false
+  }
+ ],
+ "regimes": [
+  {
+   "id": "dollar",
+   "label": "Dollar",
+   "input_label": "DXY 30d",
+   "input": null,
+   "metric": "chg_30d",
+   "hi": 2.0,
+   "lo": -2.0,
+   "inputs": [
+    "dxy"
+   ],
+   "stale": false,
+   "verdict": "no data",
+   "read": "inputs missing",
+   "tone": "neutral",
+   "side": "none",
+   "positive": [],
+   "negative": []
+  },
+  {
+   "id": "rupee",
+   "label": "Rupee",
+   "input_label": "USD/INR 30d",
+   "input": null,
+   "metric": "chg_30d",
+   "hi": 1.5,
+   "lo": -1.5,
+   "inputs": [
+    "usdinr"
+   ],
+   "stale": true,
+   "verdict": "no data",
+   "read": "inputs missing",
+   "tone": "neutral",
+   "side": "none",
+   "positive": [],
+   "negative": []
+  },
+  {
+   "id": "yen",
+   "label": "Yen / risk",
+   "input_label": "USD/JPY 30d",
+   "input": null,
+   "metric": "chg_30d",
+   "hi": 4.0,
+   "lo": -4.0,
+   "inputs": [
+    "usdjpy"
+   ],
+   "stale": false,
+   "verdict": "no data",
+   "read": "inputs missing",
+   "tone": "neutral",
+   "side": "none",
+   "positive": [],
+   "negative": []
+  },
+  {
+   "id": "crude",
+   "label": "Crude",
+   "input_label": "Brent 30d",
+   "input": 12.31,
+   "metric": "chg_30d",
+   "hi": 8.0,
+   "lo": -8.0,
+   "inputs": [
+    "brent"
+   ],
+   "stale": true,
+   "verdict": "oil up",
+   "read": "ONGC, Oil India positive; OMCs, paints, tyres, aviation negative",
+   "tone": "warn",
+   "side": "hi",
+   "positive": [
+    "ONGC",
+    "OIL"
+   ],
+   "negative": [
+    "BPCL",
+    "HPCL",
+    "IOC",
+    "ASIANPAINT",
+    "BERGEPAINT",
+    "APOLLOTYRE",
+    "MRF",
+    "INDIGO"
+   ]
+  },
+  {
+   "id": "metals",
+   "label": "Metals",
+   "input_label": "Cu/Al avg 30d",
+   "input": null,
+   "metric": "chg_30d",
+   "hi": 5.0,
+   "lo": -5.0,
+   "inputs": [
+    "copper",
+    "aluminium"
+   ],
+   "stale": false,
+   "verdict": "no data",
+   "read": "inputs missing",
+   "tone": "neutral",
+   "side": "none",
+   "positive": [],
+   "negative": []
+  },
+  {
+   "id": "precious",
+   "label": "Precious",
+   "input_label": "Gold 30d",
+   "input": null,
+   "metric": "chg_30d",
+   "hi": 5.0,
+   "lo": -5.0,
+   "inputs": [
+    "gold"
+   ],
+   "stale": false,
+   "verdict": "no data",
+   "read": "inputs missing",
+   "tone": "neutral",
+   "side": "none",
+   "positive": [],
+   "negative": [],
+   "secondary": {
+    "id": "silver_vs_gold",
+    "label": "silver_vs_gold",
+    "input_label": "silver \u2212 gold 30d",
+    "input": null,
+    "metric": "chg_30d",
+    "hi": 5.0,
+    "lo": null,
+    "inputs": [
+     "silver",
+     "gold"
+    ],
+    "stale": false,
+    "verdict": "no data",
+    "read": "inputs missing",
+    "tone": "neutral",
+    "side": "none",
+    "positive": [],
+    "negative": []
+   }
+  }
+ ],
+ "sectors": [
+  {
+   "id": "nifty_metal",
+   "label": "Nifty Metal",
+   "symbol": "^CNXMETAL",
+   "status": "failed",
+   "error": "HTTP 503"
+  },
+  {
+   "id": "nifty_energy",
+   "label": "Nifty Energy",
+   "symbol": "^CNXENERGY",
+   "status": "failed",
+   "error": "HTTP 503"
+  },
+  {
+   "id": "nifty_it",
+   "label": "Nifty IT",
+   "symbol": "^CNXIT",
+   "status": "failed",
+   "error": "HTTP 503"
+  },
+  {
+   "id": "nifty_bank",
+   "label": "Nifty Bank",
+   "symbol": "^NSEBANK",
+   "status": "failed",
+   "error": "HTTP 503"
+  }
+ ],
+ "sources": [
+  {
+   "id": "carry-forward",
+   "label": "carry-forward",
+   "url": "",
+   "fields": [
+    {
+     "id": "brent",
+     "url": null,
+     "status": "stale"
+    },
+    {
+     "id": "wti",
+     "url": null,
+     "status": "stale"
+    },
+    {
+     "id": "natgas",
+     "url": null,
+     "status": "stale"
+    },
+    {
+     "id": "usdinr",
+     "url": null,
+     "status": "stale"
+    },
+    {
+     "id": "us10y",
+     "url": null,
+     "status": "stale"
+    },
+    {
+     "id": "nifty50",
+     "url": null,
+     "status": "stale"
+    }
+   ],
+   "failed": [],
+   "last_ok": null
+  },
+  {
+   "id": "stooq",
+   "label": "Stooq",
+   "url": "https://stooq.com/",
+   "fields": [
+    {
+     "id": "gold",
+     "url": "https://stooq.com/q/d/l/?s=xauusd&i=d&d1=20250812&d2=20260916",
+     "status": "fallback"
+    },
+    {
+     "id": "silver",
+     "url": "https://stooq.com/q/d/l/?s=xagusd&i=d&d1=20250812&d2=20260916",
+     "status": "fallback"
+    },
+    {
+     "id": "dxy",
+     "url": "https://stooq.com/q/d/l/?s=dx.f&i=d&d1=20250812&d2=20260916",
+     "status": "fallback"
+    },
+    {
+     "id": "usdjpy",
+     "url": "https://stooq.com/q/d/l/?s=usdjpy&i=d&d1=20250812&d2=20260916",
+     "status": "fallback"
+    }
+   ],
+   "failed": [],
+   "last_ok": "2026-09-18T03:25:36Z"
+  },
+  {
+   "id": "westmetall",
+   "label": "Westmetall LME table",
+   "url": "https://www.westmetall.com/en/markdaten.php",
+   "fields": [
+    {
+     "id": "copper",
+     "url": "https://www.westmetall.com/en/markdaten.php?action=table&field=LME_Cu_cash",
+     "status": "fallback"
+    },
+    {
+     "id": "aluminium",
+     "url": "https://www.westmetall.com/en/markdaten.php?action=table&field=LME_Al_cash",
+     "status": "fallback"
+    },
+    {
+     "id": "zinc",
+     "url": "https://www.westmetall.com/en/markdaten.php?action=table&field=LME_Zn_cash",
+     "status": "ok"
+    }
+   ],
+   "failed": [],
+   "last_ok": "2026-09-18T03:25:36Z"
+  },
+  {
+   "id": "none",
+   "label": "none",
+   "url": "",
+   "fields": [
+    {
+     "id": "vix",
+     "url": null,
+     "status": "failed"
+    }
+   ],
+   "failed": [],
+   "last_ok": null
+  },
+  {
+   "id": "derived",
+   "label": "computed in fetch_prices.py",
+   "url": "scripts/swing_edge/commodities.py",
+   "fields": [
+    {
+     "id": "gold_inr_10g",
+     "url": "scripts/swing_edge/commodities.py",
+     "status": "ok"
+    },
+    {
+     "id": "silver_inr_kg",
+     "url": "scripts/swing_edge/commodities.py",
+     "status": "ok"
+    },
+    {
+     "id": "gold_silver_ratio",
+     "url": "scripts/swing_edge/commodities.py",
+     "status": "ok"
+    },
+    {
+     "id": "copper_gold_ratio",
+     "url": "scripts/swing_edge/commodities.py",
+     "status": "ok"
+    },
+    {
+     "id": "brent_inr_bbl",
+     "url": "scripts/swing_edge/commodities.py",
+     "status": "ok"
+    }
+   ],
+   "failed": [],
+   "last_ok": null
+  },
+  {
+   "id": "yahoo",
+   "label": "Yahoo Finance",
+   "url": "https://finance.yahoo.com/",
+   "fields": [],
+   "failed": [
+    {
+     "id": "brent",
+     "error": "HTTP 503"
+    },
+    {
+     "id": "wti",
+     "error": "HTTP 503"
+    },
+    {
+     "id": "natgas",
+     "error": "HTTP 503"
+    },
+    {
+     "id": "gold",
+     "error": "HTTP 503"
+    },
+    {
+     "id": "silver",
+     "error": "HTTP 503"
+    },
+    {
+     "id": "copper",
+     "error": "HTTP 503"
+    },
+    {
+     "id": "aluminium",
+     "error": "HTTP 503"
+    },
+    {
+     "id": "dxy",
+     "error": "HTTP 503"
+    },
+    {
+     "id": "usdjpy",
+     "error": "HTTP 503"
+    },
+    {
+     "id": "usdinr",
+     "error": "HTTP 503"
+    },
+    {
+     "id": "us10y",
+     "error": "HTTP 503"
+    },
+    {
+     "id": "vix",
+     "error": "HTTP 503"
+    },
+    {
+     "id": "nifty50",
+     "error": "HTTP 503"
+    }
+   ],
+   "last_ok": null
+  },
+  {
+   "id": "fred",
+   "label": "FRED (St. Louis Fed)",
+   "url": "https://fred.stlouisfed.org/",
+   "fields": [],
+   "failed": [
+    {
+     "id": "brent",
+     "error": "HTTP 503"
+    },
+    {
+     "id": "wti",
+     "error": "HTTP 503"
+    },
+    {
+     "id": "natgas",
+     "error": "HTTP 503"
+    },
+    {
+     "id": "usdinr",
+     "error": "HTTP 503"
+    },
+    {
+     "id": "us10y",
+     "error": "HTTP 503"
+    }
+   ],
+   "last_ok": null
+  }
+ ],
+ "disclaimer": "Reference prices from public daily feeds; MCX and LME contract prices differ by import duty, premium and contract month. Not investment advice.",
+ "counts": {
+  "ok": 6,
+  "fallback": 6,
+  "stale": 6,
+  "failed": 1,
+  "roll": 1,
+  "manual": 0
+ },
+ "_fixture": "built by tests/swing_edge/test_pipeline.StubFetcher; run_at is overridden by the render test"
+}

@@ -1,0 +1,85 @@
+{
+  "schema": "swing_edge-config/1",
+  "_note": "Shared config for every Swing Edge price card. Each top-level key is a module (commodities today; gpu_memory next) and holds its read-through rules. Thresholds are heuristics to tune; stock lists sit next to the rule they belong to so you can edit the names. Every NSE code is checked live by `python scripts/swing_edge/fetch_prices.py --verify-symbols`.",
+  "commodities": {
+    "title": "Commodities & Macro",
+    "disclaimer": "Reference prices from public daily feeds; MCX and LME contract prices differ by import duty, premium and contract month. Not investment advice.",
+    "primary_max_age_days": 5,
+    "regimes": [
+      {
+        "id": "dollar", "label": "Dollar", "inputs": ["dxy"], "combine": "single", "metric": "chg_30d",
+        "input_label": "DXY 30d", "hi": 2.0, "lo": -2.0,
+        "hi_verdict": "strong dollar", "hi_read": "EM outflow risk, Nifty headwind", "hi_tone": "warn",
+        "lo_verdict": "weak dollar", "lo_read": "EM tailwind", "lo_tone": "ok",
+        "mid_verdict": "range-bound", "mid_read": "no dollar signal",
+        "stocks": { "hi_positive": [], "hi_negative": [], "lo_positive": [], "lo_negative": [] }
+      },
+      {
+        "id": "rupee", "label": "Rupee", "inputs": ["usdinr"], "combine": "single", "metric": "chg_30d",
+        "input_label": "USD/INR 30d", "hi": 1.5, "lo": -1.5,
+        "hi_verdict": "rupee weak", "hi_read": "IT and pharma exporters positive; OMCs, importers, airlines negative", "hi_tone": "warn",
+        "lo_verdict": "rupee strong", "lo_read": "importers, OMCs, airlines positive; exporters negative", "lo_tone": "ok",
+        "mid_verdict": "rupee steady", "mid_read": "no FX signal",
+        "stocks": {
+          "hi_positive": ["TCS", "INFY", "HCLTECH", "WIPRO", "SUNPHARMA", "DRREDDY", "CIPLA"],
+          "hi_negative": ["BPCL", "HPCL", "IOC", "INDIGO"],
+          "lo_positive": ["BPCL", "HPCL", "IOC", "INDIGO"],
+          "lo_negative": ["TCS", "INFY", "HCLTECH", "WIPRO", "SUNPHARMA", "DRREDDY", "CIPLA"]
+        }
+      },
+      {
+        "id": "yen", "label": "Yen / risk", "inputs": ["usdjpy"], "combine": "single", "metric": "chg_30d",
+        "input_label": "USD/JPY 30d", "hi": 4.0, "lo": -4.0,
+        "hi_verdict": "carry on", "hi_read": "yen weakening, global risk appetite intact", "hi_tone": "ok",
+        "lo_verdict": "yen surge / carry unwind", "lo_read": "global risk-off flag", "lo_tone": "bad",
+        "mid_verdict": "yen steady", "mid_read": "no carry signal",
+        "stocks": { "hi_positive": [], "hi_negative": [], "lo_positive": [], "lo_negative": [] }
+      },
+      {
+        "id": "crude", "label": "Crude", "inputs": ["brent"], "combine": "single", "metric": "chg_30d",
+        "input_label": "Brent 30d", "hi": 8.0, "lo": -8.0,
+        "hi_verdict": "oil up", "hi_read": "ONGC, Oil India positive; OMCs, paints, tyres, aviation negative", "hi_tone": "warn",
+        "lo_verdict": "oil down", "lo_read": "OMCs, paints, tyres, aviation positive; upstream negative", "lo_tone": "ok",
+        "mid_verdict": "oil range-bound", "mid_read": "no crude signal",
+        "stocks": {
+          "hi_positive": ["ONGC", "OIL"],
+          "hi_negative": ["BPCL", "HPCL", "IOC", "ASIANPAINT", "BERGEPAINT", "APOLLOTYRE", "MRF", "INDIGO"],
+          "lo_positive": ["BPCL", "HPCL", "IOC", "ASIANPAINT", "BERGEPAINT", "APOLLOTYRE", "MRF", "INDIGO"],
+          "lo_negative": ["ONGC", "OIL"]
+        }
+      },
+      {
+        "id": "metals", "label": "Metals", "inputs": ["copper", "aluminium"], "combine": "mean", "metric": "chg_30d",
+        "input_label": "Cu/Al avg 30d", "hi": 5.0, "lo": -5.0,
+        "hi_verdict": "metals up", "hi_read": "Hindalco, Vedanta, NALCO, Hindustan Copper positive", "hi_tone": "ok",
+        "lo_verdict": "metals down", "lo_read": "base-metal producers under pressure", "lo_tone": "bad",
+        "mid_verdict": "metals flat", "mid_read": "no base-metal signal",
+        "stocks": {
+          "hi_positive": ["HINDALCO", "VEDL", "NATIONALUM", "HINDCOPPER"],
+          "hi_negative": [],
+          "lo_positive": [],
+          "lo_negative": ["HINDALCO", "VEDL", "NATIONALUM", "HINDCOPPER"]
+        }
+      },
+      {
+        "id": "precious", "label": "Precious", "inputs": ["gold"], "combine": "single", "metric": "chg_30d",
+        "input_label": "Gold 30d", "hi": 5.0, "lo": -5.0,
+        "hi_verdict": "gold bid", "hi_read": "gold-loan NBFCs Muthoot and Manappuram positive; jewellers mixed", "hi_tone": "ok",
+        "lo_verdict": "gold offered", "lo_read": "gold-loan NBFC collateral cover shrinks; jewellers mixed", "lo_tone": "warn",
+        "mid_verdict": "gold steady", "mid_read": "no precious signal",
+        "stocks": {
+          "hi_positive": ["MUTHOOTFIN", "MANAPPURAM"],
+          "hi_negative": [],
+          "lo_positive": [],
+          "lo_negative": ["MUTHOOTFIN", "MANAPPURAM"]
+        },
+        "secondary": {
+          "id": "silver_vs_gold", "inputs": ["silver", "gold"], "combine": "diff", "metric": "chg_30d",
+          "input_label": "silver − gold 30d", "hi": 5.0,
+          "hi_verdict": "silver leading", "hi_read": "Hindustan Zinc positive",
+          "stocks": { "hi_positive": ["HINDZINC"], "hi_negative": [] }
+        }
+      }
+    ]
+  }
+}

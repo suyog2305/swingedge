@@ -1198,6 +1198,61 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
 .rd-frame{width:100%;height:calc(100vh - 150px);min-height:600px;border:0;display:block;background:#fff;}
 @media(max-width:700px){.rd-reader-actions{width:100%;}.rd-frame{height:calc(100vh - 220px);}}
 
+/* ============= SWING EDGE PRICE CARD (shared by the Commodities & Macro card and the GPU & memory card) ============= */
+.sepc{background:var(--bg1);border:1px solid var(--b1);border-radius:var(--r4);padding:16px 18px;margin-bottom:14px;box-shadow:var(--shadow-1);min-width:0;}
+.sepc-hdr{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--b1);}
+.sepc-title{font-family:var(--sans);font-size:16px;font-weight:700;letter-spacing:-.01em;color:var(--t1);margin-right:auto;}
+.sepc-meta{font-family:var(--mono);font-size:10.5px;color:var(--t3);display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;}
+.sepc-meta b{color:var(--t2);font-weight:600;}
+.sepc-h2{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--t3);letter-spacing:.12em;text-transform:uppercase;margin:14px 0 8px;}
+.sepc-regimes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px;}
+.sepc-reg{background:var(--bg2);border:1px solid var(--b1);border-left-width:3px;border-radius:var(--r3);padding:10px 12px;min-width:0;}
+.sepc-reg.ok{border-left-color:var(--sage);} .sepc-reg.warn{border-left-color:var(--gold);} .sepc-reg.bad{border-left-color:var(--rose);} .sepc-reg.neutral{border-left-color:var(--b3);}
+.sepc-reg .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:4px;display:flex;justify-content:space-between;gap:6px;}
+.sepc-reg .v{font-family:var(--sans);font-size:15px;font-weight:700;color:var(--t1);line-height:1.2;text-transform:capitalize;}
+.sepc-reg.ok .v{color:var(--sage2);} .sepc-reg.warn .v{color:var(--gold2);} .sepc-reg.bad .v{color:var(--rose2);}
+.sepc-reg .d{font-family:var(--mono);font-size:10.5px;color:var(--t3);margin-top:4px;font-variant-numeric:tabular-nums;}
+.sepc-reg .r{font-size:11px;color:var(--t2);margin-top:5px;line-height:1.4;}
+.sepc-reg .s{margin-top:6px;display:flex;flex-wrap:wrap;gap:3px;}
+.sepc-chip{display:inline-block;font-family:var(--mono);font-size:9.5px;font-weight:600;padding:1px 6px;border-radius:99px;border:1px solid transparent;letter-spacing:.02em;}
+.sepc-chip.pos{background:var(--sage-soft);color:var(--sage2);border-color:rgba(46,107,64,.18);} .sepc-chip.neg{background:var(--rose-soft);color:var(--rose2);border-color:rgba(163,61,42,.18);}
+.sepc-table{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;}
+.sepc-table table{min-width:640px;}
+.sepc-table th,.sepc-table td{padding:7px 8px;white-space:nowrap;}
+.sepc-table td.num{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;}
+.sepc-table th.num{text-align:right;}
+.sepc-table td.name{color:var(--t1);font-weight:500;white-space:normal;min-width:150px;}
+.sepc-table td.name small{display:block;color:var(--t4);font-size:10px;font-family:var(--mono);}
+.sepc-table tr.grp td{background:var(--bg2);font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);font-weight:600;padding:5px 8px;}
+.sepc-table tr.stale td{opacity:.75;}
+.sepc-table tr.stale td.name{text-decoration:underline dotted var(--gold);text-underline-offset:3px;}
+.sepc-mark{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:1px 5px;border-radius:3px;margin-left:3px;border:1px solid transparent;}
+.sepc-mark.stale{background:var(--gold-soft);color:var(--gold2);border-color:rgba(138,103,22,.25);}
+.sepc-mark.fallback{background:var(--sky-soft);color:var(--sky2);border-color:rgba(61,90,128,.22);}
+.sepc-mark.roll{background:var(--neutral-soft);color:var(--t2);border-color:var(--b2);}
+.sepc-mark.manual{background:var(--teal-soft);color:var(--teal2);border-color:rgba(47,107,122,.22);}
+.sepc-mark.failed{background:var(--rose-soft);color:var(--rose2);border-color:rgba(163,61,42,.22);}
+.sepc-src{font-family:var(--mono);font-size:9.5px;color:var(--t3);background:var(--bg3);border:1px solid var(--b1);border-radius:99px;padding:1px 7px;text-decoration:none;}
+.sepc-src:hover{color:var(--t1);border-color:var(--b2);}
+.sepc-spark{display:inline-block;vertical-align:middle;width:84px;height:22px;}
+.sepc-spark polyline{fill:none;stroke-width:1.5;stroke:var(--t3);stroke-linejoin:round;stroke-linecap:round;}
+.sepc-spark.up polyline{stroke:var(--sage);} .sepc-spark.dn polyline{stroke:var(--rose);}
+.sepc-sectors{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;}
+.sepc-sec{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r3);padding:9px 11px;cursor:pointer;min-width:0;}
+.sepc-sec:hover{border-color:var(--b2);}
+.sepc-sec .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--t3);}
+.sepc-sec .v{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--t1);margin-top:2px;font-variant-numeric:tabular-nums;}
+.sepc-sec .d{font-family:var(--mono);font-size:10.5px;color:var(--t3);margin-top:3px;line-height:1.5;}
+.sepc-sec .x{display:none;margin-top:6px;} .sepc-sec.open .x{display:block;}
+.sepc-sec .x .sepc-spark{width:100%;height:34px;}
+.sepc-foot{margin-top:14px;padding-top:10px;border-top:1px solid var(--b1);font-family:var(--mono);font-size:10px;color:var(--t3);line-height:1.7;}
+.sepc-foot a{color:var(--t2);text-decoration:none;border-bottom:1px dotted var(--b3);} .sepc-foot a:hover{color:var(--t1);}
+.sepc-foot .src{margin-bottom:2px;} .sepc-foot .src b{color:var(--t2);font-weight:600;}
+.sepc-foot .disc{margin-top:6px;font-style:italic;color:var(--t4);}
+.sepc-empty{padding:28px 16px;text-align:center;color:var(--t4);font-size:12.5px;line-height:1.7;}
+.sepc-empty code{font-family:var(--mono);font-size:11px;color:var(--t2);background:var(--bg3);padding:1px 6px;border-radius:3px;}
+@media(max-width:700px){.sepc{padding:12px 12px;}.sepc-regimes{grid-template-columns:repeat(2,minmax(0,1fr));}.sepc-sectors{grid-template-columns:repeat(2,minmax(0,1fr));}}
+
 </style>
 </head>
 <body>
@@ -1782,19 +1837,24 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
 <!-- ── COMMODITIES ── -->
 <div class="sec" id="sec-comm">
   <div class="topbar">
-    <div class="tb-left"><span class="tb-title">Commodities &amp; Macro</span><span class="tb-crumb">/ weekly snapshot</span></div>
+    <div class="tb-left"><span class="tb-title">Commodities &amp; Macro</span><span class="tb-crumb">/ daily card · weekly snapshot</span></div>
     <div class="tb-right">
+      <button class="btn" onclick="loadSeCard('commodities', true)" title="Reload data/swing_edge/commodities_latest.json"><i class="ti ti-refresh"></i>Refresh</button>
       <button class="btn" onclick="openModal('m-snap')"><i class="ti ti-plus"></i>Add Snapshot</button>
     </div>
   </div>
   <div class="content">
     <div class="tabs">
-      <div class="tab active" onclick="commTab('snap')">Current</div>
+      <div class="tab active" onclick="commTab('daily')">Daily</div>
+      <div class="tab" onclick="commTab('snap')">Current</div>
       <div class="tab" onclick="commTab('trend')">Trends</div>
       <div class="tab" onclick="commTab('impact')">India Impact</div>
       <div class="tab" onclick="commTab('hist')">History</div>
     </div>
-    <div id="ct-snap" class="ct-pane">
+    <div id="ct-daily" class="ct-pane">
+      <div id="se-card-commodities" class="sepc" data-module="commodities"><div class="sepc-empty">Loading the daily card…</div></div>
+    </div>
+    <div id="ct-snap" class="ct-pane" style="display:none;">
       <div class="macro-grid" id="snap-grid"></div>
       <div class="card">
         <div class="card-hdr"><span class="card-label">Quick observations</span></div>
@@ -3105,6 +3165,7 @@ function show(id){
   document.getElementById('nav-'+id).classList.add('active');
   if(id === 'wr' && !WR.loaded && !WR.loading) loadWR(false);
   if(id === 'feedback') renderFB();
+  if(id === 'comm') loadSeCard('commodities', false);
   // P&L Analytics: auto-default to snapshot tab if user has snapshots but no P&L statements
   if(id === 'pnl'){
     const hasSnaps = (DB.snapshots || []).length > 0;
@@ -3987,6 +4048,159 @@ function parse52WFile(file){
 
 // ============= COMMODITIES =============
 let trendChart = null;
+// ============= SWING EDGE PRICE CARD =============
+// One renderer for every daily price card (Commodities & Macro today, GPU & memory next). It draws
+// whatever data/swing_edge/<module>_latest.json says — schema swing_edge-prices/1, written by
+// scripts/swing_edge/fetch_prices.py — and never computes a signal itself: verdicts, changes,
+// z-scores and roll/stale flags all arrive in the file, so the card can only show what the run found.
+const SE_CARDS = {};
+
+async function loadSeCard(module, manual){
+  const el = document.getElementById('se-card-' + module);
+  if(!el) return;
+  const st = SE_CARDS[module] = SE_CARDS[module] || { loaded: false, loading: false, doc: null };
+  if(st.loading || (st.loaded && !manual)) return;
+  st.loading = true;
+  try{
+    const res = await fetch(`data/swing_edge/${module}_latest.json`, { cache: manual ? 'reload' : 'default' });
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    st.doc = await res.json();
+    st.loaded = true;
+    renderSeCard(el, st.doc);
+    if(manual) toast('Price card reloaded', 'success');
+  }catch(err){
+    if(!st.doc) el.innerHTML = `<div class="sepc-empty">No daily data yet (${wrEsc(err.message)}).<br>Run <code>python scripts/swing_edge/fetch_prices.py --module ${wrEsc(module)} --backfill 90</code> and commit <code>data/swing_edge/</code>, or trigger the <b>Swing Edge prices</b> workflow.</div>`;
+    else if(manual) toast('Reload failed: ' + err.message, 'error');
+  }finally{ st.loading = false; }
+}
+
+function seFresh(runAt){
+  if(!runAt) return { cls: 'br', text: 'no run', hours: null };
+  const h = (Date.now() - new Date(runAt).getTime()) / 36e5;
+  if(!isFinite(h)) return { cls: 'br', text: 'no run', hours: null };
+  const text = h < 1 ? `${Math.max(0, Math.round(h * 60))} min ago` : h < 48 ? `${Math.round(h)} h ago` : `${Math.round(h / 24)} d ago`;
+  return { cls: h <= 24 ? 'bg' : h <= 48 ? 'ba' : 'br', text, hours: h };
+}
+
+function seSpark(vals, cls){
+  const v = (vals || []).filter(x => x != null && isFinite(x));
+  if(v.length < 2) return '';
+  const W = 84, H = 22, P = 2, min = Math.min(...v), max = Math.max(...v), span = (max - min) || 1;
+  const pts = v.map((y, i) => `${(P + i * (W - 2 * P) / (v.length - 1)).toFixed(1)},${(H - P - (y - min) / span * (H - 2 * P)).toFixed(1)}`).join(' ');
+  const dir = v[v.length - 1] > v[0] ? 'up' : v[v.length - 1] < v[0] ? 'dn' : '';
+  return `<svg class="sepc-spark ${cls || ''} ${dir}" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true"><polyline points="${pts}"/></svg>`;
+}
+
+function seChg(v, mode){
+  if(!wrIsNum(v)) return '<span class="flat">—</span>';
+  const n = +v, cls = n > 0 ? 'up' : n < 0 ? 'dn' : 'flat';
+  const s = mode === 'diff' ? `${n > 0 ? '+' : ''}${n.toFixed(2)} pp` : `${n > 0 ? '+' : ''}${n.toFixed(2)}%`;
+  return `<span class="${cls}">${s}</span>`;
+}
+
+function seVal(r){
+  if(!wrIsNum(r.value)) return '—';
+  const d = r.dec == null ? 2 : r.dec;
+  return (+r.value).toLocaleString('en-IN', { minimumFractionDigits: d, maximumFractionDigits: d });
+}
+
+function seMarks(r){
+  const m = [];
+  if(r.status === 'failed') m.push(['failed', 'No source answered and nothing to carry forward']);
+  if(r.stale) m.push(['stale', `Carried forward — last good print ${r.last_good || r.date || ''}`]);
+  if(r.status === 'fallback') m.push(['fallback', `Primary feed failed or was stale; showing ${r.source || 'fallback'}`]);
+  if(r.status === 'manual') m.push(['manual', 'Pinned in data/swing_edge/manual_overrides.json']);
+  if(r.roll) m.push(['roll', 'Day move beyond the 90-day 3σ band on a futures series — likely a contract roll, not a signal']);
+  return m.map(([k, t]) => `<span class="sepc-mark ${k}" title="${wrAttr(t)}">${k}</span>`).join('');
+}
+
+function seSrcBadge(r){
+  const s = String(r.source || 'none');
+  const label = s.split(':')[0];
+  return r.source_url && /^https?:/.test(r.source_url)
+    ? `<a class="sepc-src" href="${wrAttr(r.source_url)}" target="_blank" rel="noopener" title="${wrAttr(s)}">${wrEsc(label)}</a>`
+    : `<span class="sepc-src" title="${wrAttr(s)}">${wrEsc(label)}</span>`;
+}
+
+function seRegimeTile(g){
+  const inp = g.input == null ? '—' : `${g.input > 0 ? '+' : ''}${(+g.input).toFixed(2)}%`;
+  const thr = g.hi != null && g.lo != null ? `band ${g.lo}% … +${g.hi}%` : g.hi != null ? `> +${g.hi}%` : '';
+  const chips = (g.positive || []).map(c => `<span class="sepc-chip pos" title="usually helped">${wrEsc(c)}</span>`).join('')
+              + (g.negative || []).map(c => `<span class="sepc-chip neg" title="usually hurt">${wrEsc(c)}</span>`).join('');
+  const sec = g.secondary && g.secondary.side === 'hi'
+    ? `<div class="r"><b>${wrEsc(g.secondary.verdict)}</b> · ${wrEsc(g.secondary.input_label)} ${g.secondary.input > 0 ? '+' : ''}${(+g.secondary.input).toFixed(2)}% — ${wrEsc(g.secondary.read || '')}</div>
+       <div class="s">${(g.secondary.positive || []).map(c => `<span class="sepc-chip pos">${wrEsc(c)}</span>`).join('')}</div>`
+    : g.secondary && g.secondary.input != null ? `<div class="d">${wrEsc(g.secondary.input_label)} ${g.secondary.input > 0 ? '+' : ''}${(+g.secondary.input).toFixed(2)}%</div>` : '';
+  return `<div class="sepc-reg ${wrEsc(g.tone || 'neutral')}" data-regime="${wrAttr(g.id)}">
+    <div class="k"><span>${wrEsc(g.label)}</span>${g.stale ? '<span class="sepc-mark stale" title="one or more inputs are stale">stale</span>' : ''}</div>
+    <div class="v">${wrEsc(g.verdict || '—')}</div>
+    <div class="d">${wrEsc(g.input_label)} <b>${inp}</b>${thr ? ' · ' + wrEsc(thr) : ''}</div>
+    ${g.read ? `<div class="r">${wrEsc(g.read)}</div>` : ''}
+    ${chips ? `<div class="s">${chips}</div>` : ''}${sec}
+  </div>`;
+}
+
+function seIndicatorRow(r){
+  const cls = [r.stale ? 'stale' : '', r.roll ? 'roll' : '', r.status === 'failed' ? 'failed' : ''].filter(Boolean).join(' ');
+  const z = wrIsNum(r.z90) ? `<span class="${Math.abs(r.z90) >= 2 ? (r.z90 > 0 ? 'up' : 'dn') : 'flat'}">${(+r.z90).toFixed(1)}</span>` : '<span class="flat">—</span>';
+  return `<tr class="${cls}" data-indicator="${wrAttr(r.id)}">
+    <td class="name" title="${wrAttr(r.note || '')}">${wrEsc(r.label)}${r.note ? '<small>' + wrEsc(r.note.length > 70 ? r.note.slice(0, 68) + '…' : r.note) + '</small>' : ''}</td>
+    <td class="num">${seVal(r)} <small style="color:var(--t4)">${wrEsc(r.unit || '')}</small></td>
+    <td class="num">${seChg(r.chg_1d, r.mode)}</td>
+    <td class="num">${seChg(r.chg_7d, r.mode)}</td>
+    <td class="num">${seChg(r.chg_30d, r.mode)}</td>
+    <td>${seSpark(r.spark)}</td>
+    <td class="num" title="90-print z-score">${z}</td>
+    <td>${seSrcBadge(r)}</td>
+    <td>${seMarks(r)}<small style="color:var(--t4);font-family:var(--mono);font-size:9.5px;margin-left:4px">${wrEsc(r.date || '')}</small></td>
+  </tr>`;
+}
+
+function seSectorTile(s, nifty){
+  const ok = s.status === 'ok' && wrIsNum(s.value);
+  const rel = (v) => wrIsNum(v) ? `<span class="${v > 0 ? 'up' : v < 0 ? 'dn' : 'flat'}">${v > 0 ? '+' : ''}${(+v).toFixed(2)}</span>` : '—';
+  return `<div class="sepc-sec ${ok ? '' : 'stale'}" data-sector="${wrAttr(s.id)}" onclick="this.classList.toggle('open')" title="tap to expand the 90-day sparkline">
+    <div class="k">${wrEsc(s.label)}${s.stale ? '<span class="sepc-mark stale">stale</span>' : ''}${!ok ? '<span class="sepc-mark failed">no data</span>' : ''}</div>
+    <div class="v">${ok ? (+s.value).toLocaleString('en-IN', { maximumFractionDigits: 0 }) : '—'}</div>
+    <div class="d">1d ${seChg(s.chg_1d)} · vs Nifty ${rel(s.rel_1d)}<br>30d ${seChg(s.chg_30d)} · vs Nifty ${rel(s.rel_30d)}</div>
+    <div class="x">${seSpark(s.spark)}</div>
+  </div>`;
+}
+
+function renderSeCard(el, doc){
+  const fresh = seFresh(doc.run_at);
+  const c = doc.counts || {};
+  const flags = [c.stale ? `${c.stale} stale` : '', c.fallback ? `${c.fallback} fallback` : '', c.roll ? `${c.roll} roll` : '', c.failed ? `${c.failed} failed` : '', c.manual ? `${c.manual} manual` : ''].filter(Boolean);
+  const groups = (doc.groups || []).map(g => ({ ...g, rows: (doc.indicators || []).filter(r => r.group === g.id) })).filter(g => g.rows.length);
+  const nifty = (doc.indicators || []).find(r => r.id === 'nifty50');
+  const foot = (doc.sources || []).map(s => {
+    const okF = (s.fields || []).map(f => f.url && /^https?:/.test(f.url) ? `<a href="${wrAttr(f.url)}" target="_blank" rel="noopener">${wrEsc(f.id)}</a>` : wrEsc(f.id)).join(', ');
+    const bad = (s.failed || []).map(f => `${wrEsc(f.id)} (${wrEsc(f.error)})`).join(', ');
+    const when = s.last_ok ? new Date(s.last_ok).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) + ' IST' : 'no successful fetch this run';
+    return `<div class="src"><b>${s.url && /^https?:/.test(s.url) ? `<a href="${wrAttr(s.url)}" target="_blank" rel="noopener">${wrEsc(s.label)}</a>` : wrEsc(s.label)}</b> · last ok ${wrEsc(when)}${okF ? ' · ' + okF : ''}${bad ? ` · <span class="dn" style="font-weight:500">failed: ${bad}</span>` : ''}</div>`;
+  }).join('');
+  el.innerHTML = `
+    <div class="sepc-hdr">
+      <div class="sepc-title">${wrEsc(doc.title || 'Price card')}</div>
+      <div class="sepc-meta">
+        <span>data <b>${wrEsc(doc.data_date || '—')}</b></span>
+        <span>run <b>${wrEsc(doc.run_at_ist || doc.run_at || '—')}</b>${doc.run_label ? ` · ${wrEsc(doc.run_label)}` : ''}</span>
+        <span class="badge ${fresh.cls} sepc-fresh" title="time since the last successful fetch run">${wrEsc(fresh.text)}</span>
+        ${flags.length ? `<span class="badge bn" title="row markers below">${wrEsc(flags.join(' · '))}</span>` : ''}
+      </div>
+    </div>
+    <div class="sepc-h2">Regime read-through</div>
+    <div class="sepc-regimes">${(doc.regimes || []).map(seRegimeTile).join('') || '<div class="flat">no rules configured</div>'}</div>
+    <div class="sepc-h2">Indicators</div>
+    <div class="sepc-table"><table>
+      <thead><tr><th>Indicator</th><th class="num">Latest</th><th class="num">1d</th><th class="num">7d</th><th class="num">30d</th><th>90d</th><th class="num">z90</th><th>Source</th><th>Status · as of</th></tr></thead>
+      <tbody>${groups.map(g => `<tr class="grp"><td colspan="9">${wrEsc(g.label)}</td></tr>${g.rows.map(seIndicatorRow).join('')}`).join('')}</tbody>
+    </table></div>
+    ${(doc.sectors || []).length ? `<div class="sepc-h2">Nifty sectors vs Nifty 50${nifty && wrIsNum(nifty.chg_1d) ? ` <span style="text-transform:none;letter-spacing:0;color:var(--t4)">· Nifty 50 1d ${nifty.chg_1d > 0 ? '+' : ''}${(+nifty.chg_1d).toFixed(2)}% · 30d ${wrIsNum(nifty.chg_30d) ? (nifty.chg_30d > 0 ? '+' : '') + (+nifty.chg_30d).toFixed(2) + '%' : '—'}</span>` : ''}</div>
+    <div class="sepc-sectors">${doc.sectors.map(s => seSectorTile(s, nifty)).join('')}</div>` : ''}
+    <div class="sepc-foot">${foot || 'no sources recorded'}${doc.disclaimer ? `<div class="disc">${wrEsc(doc.disclaimer)}</div>` : ''}</div>`;
+}
+
 function commTab(name){
   document.querySelectorAll('#sec-comm .tab').forEach(t=>t.classList.remove('active'));
   event.target.classList.add('active');

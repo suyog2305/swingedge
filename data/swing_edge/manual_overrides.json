@@ -1,0 +1,4 @@
+{
+  "_note": "Pin a value by hand when a feed is down or when the official print matters (e.g. the RBI/FBIL USD/INR reference rate). Keyed by module then indicator id; the card shows it as source 'manual'. Delete the entry to go back to the feed. Example: \"commodities\": { \"usdinr\": { \"value\": 88.12, \"date\": \"2026-09-18\", \"note\": \"FBIL reference rate\" } }",
+  "commodities": {}
+}

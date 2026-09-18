@@ -48,6 +48,33 @@ Curated, full-length equity-research reports — a **Today's Reads** strip (3–
 
 Add one with `python tools/build_research.py --file "<report>.html" --feature` (auto-extracts title/code/sector/rating/targets/summary). Contract: [library/research/README.md](library/research/README.md).
 
+## Commodities & Macro — the daily price card
+
+**Commodities → Daily** is a price card over the commodity and currency prices that drive Indian
+sector swings: Brent/WTI/Henry Hub, gold and silver (also in INR per 10 g / kg), copper, aluminium
+and zinc, DXY, USD/JPY, USD/INR, the US 10-year, VIX, Nifty 50 and the Nifty sector indices, plus
+derived gauges (gold/silver, copper/gold, Brent in INR). Every row carries 1d/7d/30d change, a
+90-day sparkline and z-score, the source that populated it, and a **stale / fallback / roll /
+manual** marker so a dead number is never mistaken for a live one. Six regime tiles (Dollar,
+Rupee, Yen/risk, Crude, Metals, Precious) read the 30-day trends against thresholds you can tune
+in `scripts/swing_edge/config.json`, with the stock lists next to each rule.
+
+- Data: `data/swing_edge/commodities_latest.json` (what the card reads) and
+  `commodities_history.csv` (one row per indicator per day). `manual_overrides.json` pins a value
+  by hand (e.g. the FBIL USD/INR reference rate).
+- Refresh: the **Swing Edge prices** GitHub Actions workflow runs at 09:00 and 15:45 IST every
+  day and commits the data; the card shows which run produced it and how old it is. By hand:
+  `python scripts/swing_edge/fetch_prices.py --module commodities` (`--backfill 90` on first run,
+  `--dry-run` to fetch without writing, `--verify-symbols` to check the config's NSE codes).
+- Sources are public and key-free: Yahoo Finance chart data (primary), FRED CSV, Stooq CSV and
+  Westmetall's LME table as fallbacks. A failed source never aborts a run; the field carries its
+  last good value forward, flagged stale.
+- Tests: `python -m unittest discover -s tests -t .` (parsers with saved fixtures, maths, unit
+  conversions, the pipeline against a stub network, and a headless-Chromium render of the card).
+
+The same `scripts/swing_edge/` pipeline and `sePriceCard` renderer are meant to host the GPU &
+memory card as a second module.
+
 ## Shortlist - the end-of-day decision loop
 
 `python tools/build_shortlist.py` ranks the whole scan for convergence (new 52-week high + Stage 2 +
