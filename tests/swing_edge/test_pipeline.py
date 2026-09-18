@@ -10,8 +10,8 @@ TODAY = '2026-09-16'
 
 
 class StubFetcher(common.Fetcher):
-    """Yahoo works for BZ=F, ALI=F and ^NSEI; FRED, Stooq and Westmetall answer from fixtures;
-    everything else is a dead host. `down` adds hosts that should fail."""
+    """Yahoo works for BZ=F, GC=F, ALI=F, ^NSEI and ^CNXIT; FRED and Westmetall answer from
+    fixtures; everything else is a dead host. `down` adds hosts that should fail."""
 
     def __init__(self, down=()):
         super().__init__(timeout=1, retries=0, sleep=0)
@@ -25,16 +25,13 @@ class StubFetcher(common.Fetcher):
             self.errors[host] = 'HTTP 503'
             raise RuntimeError('HTTP 503')
         if 'yahoo' in host:
-            if any(s in url for s in ('BZ%3DF', 'ALI%3DF', '%5ENSEI', '%5ECNXIT')):
+            if any(s in url for s in ('BZ%3DF', 'GC%3DF', 'ALI%3DF', '%5ENSEI', '%5ECNXIT')):
                 self.last_ok[host] = common.utcnow_iso()
                 return fixture('yahoo_BZ=F.json')
             raise RuntimeError('HTTP 404')
         if 'fred' in host:
             self.last_ok[host] = common.utcnow_iso()
             return fixture('fred_DCOILBRENTEU.csv')
-        if 'stooq' in host:
-            self.last_ok[host] = common.utcnow_iso()
-            return fixture('stooq_xauusd.csv')
         if 'westmetall' in host:
             self.last_ok[host] = common.utcnow_iso()
             return fixture('westmetall_LME_Cu_cash.html')
@@ -74,18 +71,22 @@ class Pipeline(unittest.TestCase):
         self.assertTrue(by['brent']['roll'], 'the +9% last day on a futures series is flagged as a roll')
         self.assertEqual(by['wti']['status'], 'fallback')            # yahoo 404 -> FRED
         self.assertTrue(by['wti']['source'].startswith('fred:'))
-        self.assertEqual(by['gold']['status'], 'fallback')           # yahoo 404 -> stooq
+        self.assertEqual(by['gold']['status'], 'ok')
+        self.assertEqual(by['silver']['status'], 'failed')           # yahoo 404, no fallback, no history
         self.assertEqual(by['copper']['status'], 'fallback')         # -> LME table
         self.assertEqual(by['copper']['unit'], 'US$/t')
         self.assertEqual(by['aluminium']['status'], 'ok')
-        self.assertEqual(by['usdjpy']['status'], 'fallback')
+        self.assertEqual(by['usdjpy']['status'], 'fallback')         # -> FRED DEXJPUS
+        self.assertEqual(by['dxy']['status'], 'fallback')
+        self.assertIn('broad dollar index', by['dxy']['note'])       # fallback is labelled as not-DXY
         self.assertEqual(by['vix']['status'], 'failed')              # no fallback, no history
         self.assertEqual(by['nifty50']['status'], 'ok')
         self.assertIn('field=wti source=yahoo:CL=F status=failed', log)
         self.assertIn('field=brent source=yahoo:BZ=F status=roll', log)
         self.assertIn('field=vix source=none status=failed', log)
         # derived rows exist when their inputs do
-        self.assertEqual(by['gold_inr_10g']['status'], 'ok')          # gold (stooq) x usdinr (fred fixture)
+        self.assertEqual(by['gold_inr_10g']['status'], 'ok')          # gold (yahoo) x usdinr (fred fixture)
+        self.assertEqual(by['silver_inr_kg']['status'], 'failed')     # silver missing -> derived row missing too
         self.assertEqual(by['brent_inr_bbl']['status'], 'ok')
         self.assertEqual(by['copper_gold_ratio']['status'], 'ok')
         # regimes carry their inputs and stock lists

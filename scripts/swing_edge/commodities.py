@@ -8,8 +8,8 @@ scripts/swing_edge/config.json and hands one JSON document to the shared writer.
 """
 import datetime as dt
 
-from common import (log, parse_yahoo_chart, parse_fred_csv, parse_stooq_csv, parse_westmetall_table,
-                    yahoo_url, fred_url, stooq_url, westmetall_url, series_stats, value_on_or_before,
+from common import (log, parse_yahoo_chart, parse_fred_csv, parse_westmetall_table,
+                    yahoo_url, fred_url, westmetall_url, series_stats, value_on_or_before,
                     usd_lb_to_usd_t, usd_oz_to_inr_10g, usd_oz_to_inr_kg, utcnow_iso, to_ist)
 
 MODULE = 'commodities'
@@ -32,10 +32,12 @@ INDICATORS = [
          primary=('yahoo', 'CL=F'), fallback=('fred', 'DCOILWTICO')),
     dict(id='natgas', label='Natural gas (Henry Hub)', group='energy', unit='US$/MMBtu', dec=3, futures=True,
          optional=True, primary=('yahoo', 'NG=F'), fallback=('fred', 'DHHNGSP')),
+    # No key-free daily fallback exists for the precious metals (FRED's gold fix was discontinued and
+    # Stooq blocks the runner), so a Yahoo outage carries the last print forward, flagged stale.
     dict(id='gold', label='Gold, front month', group='precious', unit='US$/oz', dec=1, futures=True,
-         primary=('yahoo', 'GC=F'), fallback=('stooq', 'xauusd')),
+         primary=('yahoo', 'GC=F'), fallback=None),
     dict(id='silver', label='Silver, front month', group='precious', unit='US$/oz', dec=2, futures=True,
-         primary=('yahoo', 'SI=F'), fallback=('stooq', 'xagusd')),
+         primary=('yahoo', 'SI=F'), fallback=None),
     dict(id='copper', label='Copper', group='base', unit='US$/t', dec=0, futures=True,
          primary=('yahoo', 'HG=F', 'lb_to_t'), fallback=('westmetall', 'LME_Cu_cash'),
          note='COMEX HG=F is quoted in US$/lb; converted ×2204.62 to US$/t. Fallback is the LME cash settlement.'),
@@ -45,10 +47,10 @@ INDICATORS = [
     dict(id='zinc', label='Zinc', group='base', unit='US$/t', dec=0, optional=True,
          primary=('westmetall', 'LME_Zn_cash'), fallback=None),
     dict(id='dxy', label='Dollar index (DXY)', group='fx', unit='index', dec=2,
-         primary=('yahoo', 'DX-Y.NYB'), fallback=('stooq', 'dx.f'), fallback2=('fred', 'DTWEXBGS'),
-         fallback2_label='FRED broad dollar index (not DXY)'),
+         primary=('yahoo', 'DX-Y.NYB'), fallback=('fred', 'DTWEXBGS'),
+         fallback_note='Showing the FRED trade-weighted broad dollar index (not DXY) — different level and weights.'),
     dict(id='usdjpy', label='USD/JPY', group='fx', unit='JPY per US$', dec=2,
-         primary=('yahoo', 'JPY=X'), fallback=('stooq', 'usdjpy')),
+         primary=('yahoo', 'JPY=X'), fallback=('fred', 'DEXJPUS')),
     dict(id='usdinr', label='USD/INR', group='fx', unit='INR per US$', dec=3,
          primary=('yahoo', 'INR=X'), fallback=('fred', 'DEXINUS'),
          note='Fallback is the Fed H.10 noon buying rate (FRED DEXINUS). FBIL publishes the RBI reference rate only as web pages, not a stable file; pin it in manual_overrides.json when the official print matters.'),
@@ -70,7 +72,6 @@ SECTORS = [
 SOURCE_META = {
     'yahoo': {'label': 'Yahoo Finance', 'url': 'https://finance.yahoo.com/'},
     'fred': {'label': 'FRED (St. Louis Fed)', 'url': 'https://fred.stlouisfed.org/'},
-    'stooq': {'label': 'Stooq', 'url': 'https://stooq.com/'},
     'westmetall': {'label': 'Westmetall LME table', 'url': 'https://www.westmetall.com/en/markdaten.php'},
     'manual': {'label': 'manual_overrides.json', 'url': 'data/swing_edge/manual_overrides.json'},
     'derived': {'label': 'computed in fetch_prices.py', 'url': 'scripts/swing_edge/commodities.py'},
@@ -82,8 +83,6 @@ def source_url(kind, symbol, today):
         return yahoo_url(symbol)
     if kind == 'fred':
         return fred_url(symbol, today - dt.timedelta(days=400))
-    if kind == 'stooq':
-        return stooq_url(symbol, today - dt.timedelta(days=400), today)
     if kind == 'westmetall':
         return westmetall_url(symbol)
     raise ValueError(kind)
@@ -97,8 +96,6 @@ def fetch_series(fetcher, spec, today):
         series = parse_yahoo_chart(text)
     elif kind == 'fred':
         series = parse_fred_csv(text)
-    elif kind == 'stooq':
-        series = parse_stooq_csv(text)
     else:
         series = parse_westmetall_table(text)
     if len(spec) > 2 and spec[2] == 'lb_to_t':
@@ -143,7 +140,7 @@ def resolve_indicator(fetcher, ind, history, overrides, prev_latest, today, max_
         return row, fetched, series
 
     max_age = ind.get('primary_max_age_days', max_age_default)
-    attempts = [('ok', ind.get('primary')), ('fallback', ind.get('fallback')), ('fallback', ind.get('fallback2'))]
+    attempts = [('ok', ind.get('primary')), ('fallback', ind.get('fallback'))]
     chosen = None
     for status, spec in attempts:
         if not spec:
@@ -166,8 +163,8 @@ def resolve_indicator(fetcher, ind, history, overrides, prev_latest, today, max_
         full = merge_series(hist_map, fetched)
         row.update(series_stats(full, mode=ind.get('mode', 'pct'), is_futures=ind.get('futures', False)))
         row.update(source=src, source_url=url, status=status)
-        if spec is ind.get('fallback2') and ind.get('fallback2_label'):
-            row['note'] = ind['fallback2_label']
+        if status == 'fallback' and ind.get('fallback_note'):
+            row['note'] = ind['fallback_note']
         age = (today - series[-1][0]).days
         if age > max_age:
             row['stale'] = True
@@ -319,7 +316,7 @@ def build(fetcher, cfg, history, overrides, prev_latest, today, run_label, backf
             s = sources.setdefault(kind, {'id': kind, 'label': meta['label'], 'url': meta['url'], 'fields': [], 'failed': []})
             s['failed'].append({'id': r['id'], 'error': err.split(': ', 1)[-1][:120]})
     for kind, s in sources.items():
-        host = {'yahoo': 'query2.finance.yahoo.com', 'fred': 'fred.stlouisfed.org', 'stooq': 'stooq.com',
+        host = {'yahoo': 'query2.finance.yahoo.com', 'fred': 'fred.stlouisfed.org',
                 'westmetall': 'www.westmetall.com'}.get(kind)
         s['last_ok'] = fetcher.last_ok.get(host) if host else None
 
@@ -341,7 +338,7 @@ def probe_sources(fetcher, today):
     """Hit every primary and fallback once and report what answers — the source table for a
     build report. Writes nothing."""
     bad = 0
-    targets = [(ind['id'], spec) for ind in INDICATORS for spec in (ind.get('primary'), ind.get('fallback'), ind.get('fallback2')) if spec]
+    targets = [(ind['id'], spec) for ind in INDICATORS for spec in (ind.get('primary'), ind.get('fallback')) if spec]
     targets += [(s['id'], ('yahoo', s['symbol'])) for s in SECTORS]
     for iid, spec in targets:
         try:

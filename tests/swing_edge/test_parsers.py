@@ -26,17 +26,6 @@ class FredParser(unittest.TestCase):
         self.assertAlmostEqual(s[-1][1], 67.31)
 
 
-class StooqParser(unittest.TestCase):
-    def test_uses_close_column(self):
-        s = common.parse_stooq_csv(fixture('stooq_xauusd.csv'))
-        self.assertEqual(len(s), 4)
-        self.assertEqual(s[-1], (dt.date(2026, 9, 15), 3671.9))
-
-    def test_rejects_non_csv(self):
-        with self.assertRaises(ValueError):
-            common.parse_stooq_csv('<html>No data</html>')
-
-
 class WestmetallParser(unittest.TestCase):
     def test_reads_dates_and_thousands_separators(self):
         s = common.parse_westmetall_table(fixture('westmetall_LME_Cu_cash.html'))

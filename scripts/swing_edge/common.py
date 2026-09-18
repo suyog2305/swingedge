@@ -137,20 +137,6 @@ def parse_fred_csv(text):
     return sorted(out)
 
 
-def parse_stooq_csv(text):
-    rows = list(csv.reader(io.StringIO(text)))
-    if not rows or 'Close' not in rows[0]:
-        raise ValueError('not a stooq csv')
-    ci, di = rows[0].index('Close'), rows[0].index('Date')
-    out = []
-    for r in rows[1:]:
-        try:
-            out.append((dt.date.fromisoformat(r[di]), float(r[ci])))
-        except (ValueError, IndexError):
-            continue
-    return sorted(out)
-
-
 _WM_ROW = re.compile(r'<tr[^>]*>(.*?)</tr>', re.S | re.I)
 _WM_CELL = re.compile(r'<t[dh][^>]*>(.*?)</t[dh]>', re.S | re.I)
 _WM_DATE = re.compile(r'(\d{1,2})\.?\s*([A-Za-z]+)\.?\s*(\d{4})')
@@ -192,10 +178,6 @@ def yahoo_url(symbol, rng='1y'):
 
 def fred_url(series, start):
     return f'https://fred.stlouisfed.org/graph/fredgraph.csv?id={series}&cosd={start.isoformat()}'
-
-
-def stooq_url(symbol, start, end):
-    return f'https://stooq.com/q/d/l/?s={symbol}&i=d&d1={start:%Y%m%d}&d2={end:%Y%m%d}'
 
 
 def westmetall_url(field):

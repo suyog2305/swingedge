@@ -3,8 +3,8 @@
  "module": "commodities",
  "title": "Commodities & Macro",
  "data_date": "2026-09-15",
- "run_at": "2026-09-18T03:25:36Z",
- "run_at_ist": "18 Sep 2026 08:55 IST",
+ "run_at": "2026-09-18T03:41:55Z",
+ "run_at_ist": "18 Sep 2026 09:11 IST",
  "run_label": "morning",
  "groups": [
   {
@@ -226,31 +226,117 @@
    "group": "precious",
    "unit": "US$/oz",
    "dec": 1,
-   "source": "stooq:xauusd",
-   "source_url": "https://stooq.com/q/d/l/?s=xauusd&i=d&d1=20250812&d2=20260916",
-   "status": "fallback",
-   "stale": false,
-   "last_good": null,
+   "source": "carry-forward",
+   "source_url": null,
+   "status": "stale",
+   "stale": true,
+   "last_good": "2026-09-15",
    "note": null,
    "errors": [
     "yahoo:GC=F: HTTP 503"
    ],
-   "value": 3671.9,
+   "value": 71.97,
    "date": "2026-09-15",
    "mode": "pct",
-   "chg_1d": 0.104,
-   "chg_7d": null,
-   "chg_30d": null,
-   "chg_90d": null,
+   "chg_1d": 8.996,
+   "chg_7d": 10.282,
+   "chg_30d": 12.313,
+   "chg_90d": 8.65,
    "spark": [
-    3648.8,
-    3655.4,
-    3668.1,
-    3671.9
+    68.55,
+    68.17,
+    67.72,
+    67.51,
+    67.45,
+    67.83,
+    67.98,
+    67.71,
+    67.13,
+    66.82,
+    67.55,
+    67.06,
+    67.21,
+    67.47,
+    66.57,
+    66.6,
+    67.38,
+    66.16,
+    65.97,
+    65.91,
+    65.43,
+    65.68,
+    64.81,
+    65.29,
+    65.68,
+    66.24,
+    67.1,
+    67.32,
+    67.39,
+    66.6,
+    66.97,
+    66.6,
+    66.33,
+    65.57,
+    65.0,
+    64.69,
+    65.44,
+    64.24,
+    63.4,
+    63.54,
+    64.37,
+    64.71,
+    63.6,
+    62.16,
+    62.36,
+    61.95,
+    61.33,
+    61.87,
+    62.48,
+    62.57,
+    62.71,
+    62.96,
+    63.86,
+    64.22,
+    64.52,
+    64.84,
+    63.92,
+    64.66,
+    65.22,
+    65.53,
+    64.37,
+    64.0,
+    64.49,
+    63.44,
+    63.33,
+    63.91,
+    63.16,
+    64.08,
+    64.4,
+    64.31,
+    64.5,
+    64.88,
+    64.95,
+    65.62,
+    65.23,
+    64.99,
+    65.6,
+    65.62,
+    65.1,
+    65.65,
+    66.52,
+    66.25,
+    65.43,
+    65.35,
+    65.26,
+    65.08,
+    65.9,
+    65.29,
+    66.03,
+    71.97
    ],
-   "spark_from": "2026-09-10",
-   "z90": null,
-   "roll": false
+   "spark_from": "2026-05-12",
+   "z90": 3.76,
+   "roll": true
   },
   {
    "id": "silver",
@@ -258,30 +344,15 @@
    "group": "precious",
    "unit": "US$/oz",
    "dec": 2,
-   "source": "stooq:xagusd",
-   "source_url": "https://stooq.com/q/d/l/?s=xagusd&i=d&d1=20250812&d2=20260916",
-   "status": "fallback",
+   "source": null,
+   "source_url": null,
+   "status": "failed",
    "stale": false,
    "last_good": null,
    "note": null,
    "errors": [
     "yahoo:SI=F: HTTP 503"
    ],
-   "value": 3671.9,
-   "date": "2026-09-15",
-   "mode": "pct",
-   "chg_1d": 0.104,
-   "chg_7d": null,
-   "chg_30d": null,
-   "chg_90d": null,
-   "spark": [
-    3648.8,
-    3655.4,
-    3668.1,
-    3671.9
-   ],
-   "spark_from": "2026-09-10",
-   "z90": null,
    "roll": false
   },
   {
@@ -468,29 +539,31 @@
    "group": "fx",
    "unit": "index",
    "dec": 2,
-   "source": "stooq:dx.f",
-   "source_url": "https://stooq.com/q/d/l/?s=dx.f&i=d&d1=20250812&d2=20260916",
-   "status": "fallback",
-   "stale": false,
-   "last_good": null,
+   "source": "carry-forward",
+   "source_url": null,
+   "status": "stale",
+   "stale": true,
+   "last_good": "2026-09-15",
    "note": null,
    "errors": [
-    "yahoo:DX-Y.NYB: HTTP 503"
+    "yahoo:DX-Y.NYB: HTTP 503",
+    "fred:DTWEXBGS: HTTP 503"
    ],
-   "value": 3671.9,
+   "value": 67.31,
    "date": "2026-09-15",
    "mode": "pct",
-   "chg_1d": 0.104,
-   "chg_7d": null,
+   "chg_1d": 0.613,
+   "chg_7d": 1.355,
    "chg_30d": null,
    "chg_90d": null,
    "spark": [
-    3648.8,
-    3655.4,
-    3668.1,
-    3671.9
+    66.41,
+    67.02,
+    67.55,
+    66.9,
+    67.31
    ],
-   "spark_from": "2026-09-10",
+   "spark_from": "2026-09-08",
    "z90": null,
    "roll": false
   },
@@ -500,29 +573,31 @@
    "group": "fx",
    "unit": "JPY per US$",
    "dec": 2,
-   "source": "stooq:usdjpy",
-   "source_url": "https://stooq.com/q/d/l/?s=usdjpy&i=d&d1=20250812&d2=20260916",
-   "status": "fallback",
-   "stale": false,
-   "last_good": null,
+   "source": "carry-forward",
+   "source_url": null,
+   "status": "stale",
+   "stale": true,
+   "last_good": "2026-09-15",
    "note": null,
    "errors": [
-    "yahoo:JPY=X: HTTP 503"
+    "yahoo:JPY=X: HTTP 503",
+    "fred:DEXJPUS: HTTP 503"
    ],
-   "value": 3671.9,
+   "value": 67.31,
    "date": "2026-09-15",
    "mode": "pct",
-   "chg_1d": 0.104,
-   "chg_7d": null,
+   "chg_1d": 0.613,
+   "chg_7d": 1.355,
    "chg_30d": null,
    "chg_90d": null,
    "spark": [
-    3648.8,
-    3655.4,
-    3668.1,
-    3671.9
+    66.41,
+    67.02,
+    67.55,
+    66.9,
+    67.31
    ],
-   "spark_from": "2026-09-10",
+   "spark_from": "2026-09-08",
    "z90": null,
    "roll": false
   },
@@ -742,20 +817,22 @@
    "last_good": null,
    "note": "US$/oz \u00d7 USD/INR \u00f7 31.1035 \u00d7 10. MCX differs by import duty and local premium.",
    "errors": [],
-   "value": 79462.36705,
+   "value": 1557.478841,
    "date": "2026-09-15",
    "mode": "pct",
-   "chg_1d": 0.717,
-   "chg_7d": null,
+   "chg_1d": 9.664,
+   "chg_7d": 11.777,
    "chg_30d": null,
    "chg_90d": null,
    "spark": [
-    78622.2639,
-    79387.3532,
-    78896.6107,
-    79462.367
+    1393.3865,
+    1389.5433,
+    1419.9757,
+    1417.9571,
+    1420.2293,
+    1557.4788
    ],
-   "spark_from": "2026-09-10",
+   "spark_from": "2026-09-08",
    "z90": null,
    "roll": false
   },
@@ -767,27 +844,11 @@
    "dec": 0,
    "source": "derived",
    "source_url": "scripts/swing_edge/commodities.py",
-   "status": "ok",
+   "status": "failed",
    "stale": false,
    "last_good": null,
    "note": "US$/oz \u00d7 USD/INR \u00f7 31.1035 \u00d7 1000. MCX differs by duty and premium.",
-   "errors": [],
-   "value": 7946236.704959,
-   "date": "2026-09-15",
-   "mode": "pct",
-   "chg_1d": 0.717,
-   "chg_7d": null,
-   "chg_30d": null,
-   "chg_90d": null,
-   "spark": [
-    7862226.3862,
-    7938735.3249,
-    7889661.0684,
-    7946236.705
-   ],
-   "spark_from": "2026-09-10",
-   "z90": null,
-   "roll": false
+   "errors": []
   },
   {
    "id": "gold_silver_ratio",
@@ -797,27 +858,11 @@
    "dec": 1,
    "source": "derived",
    "source_url": "scripts/swing_edge/commodities.py",
-   "status": "ok",
+   "status": "failed",
    "stale": false,
    "last_good": null,
    "note": "Ounces of silver per ounce of gold; rising = silver lagging.",
-   "errors": [],
-   "value": 1.0,
-   "date": "2026-09-15",
-   "mode": "pct",
-   "chg_1d": 0.0,
-   "chg_7d": null,
-   "chg_30d": null,
-   "chg_90d": null,
-   "spark": [
-    1.0,
-    1.0,
-    1.0,
-    1.0
-   ],
-   "spark_from": "2026-09-10",
-   "z90": null,
-   "roll": false
+   "errors": []
   },
   {
    "id": "copper_gold_ratio",
@@ -832,17 +877,17 @@
    "last_good": null,
    "note": "US$/t copper \u00f7 US$/oz gold \u2014 growth-versus-fear gauge; rising = growth bid.",
    "errors": [],
-   "value": 2.689616,
+   "value": 137.223843,
    "date": "2026-09-15",
    "mode": "pct",
-   "chg_1d": 0.543,
+   "chg_1d": -7.66,
    "chg_7d": null,
    "chg_30d": null,
    "chg_90d": null,
    "spark": [
-    2.6782,
-    2.6751,
-    2.6896
+    149.9464,
+    148.6067,
+    137.2238
    ],
    "spark_from": "2026-09-11",
    "z90": null,
@@ -893,7 +938,7 @@
    "inputs": [
     "dxy"
    ],
-   "stale": false,
+   "stale": true,
    "verdict": "no data",
    "read": "inputs missing",
    "tone": "neutral",
@@ -931,7 +976,7 @@
    "inputs": [
     "usdjpy"
    ],
-   "stale": false,
+   "stale": true,
    "verdict": "no data",
    "read": "inputs missing",
    "tone": "neutral",
@@ -961,7 +1006,7 @@
    ],
    "negative": [
     "BPCL",
-    "HPCL",
+    "HINDPETRO",
     "IOC",
     "ASIANPAINT",
     "BERGEPAINT",
@@ -994,19 +1039,22 @@
    "id": "precious",
    "label": "Precious",
    "input_label": "Gold 30d",
-   "input": null,
+   "input": 12.31,
    "metric": "chg_30d",
    "hi": 5.0,
    "lo": -5.0,
    "inputs": [
     "gold"
    ],
-   "stale": false,
-   "verdict": "no data",
-   "read": "inputs missing",
-   "tone": "neutral",
-   "side": "none",
-   "positive": [],
+   "stale": true,
+   "verdict": "gold bid",
+   "read": "gold-loan NBFCs Muthoot and Manappuram positive; jewellers mixed",
+   "tone": "ok",
+   "side": "hi",
+   "positive": [
+    "MUTHOOTFIN",
+    "MANAPPURAM"
+   ],
    "negative": [],
    "secondary": {
     "id": "silver_vs_gold",
@@ -1020,7 +1068,7 @@
      "silver",
      "gold"
     ],
-    "stale": false,
+    "stale": true,
     "verdict": "no data",
     "read": "inputs missing",
     "tone": "neutral",
@@ -1082,6 +1130,21 @@
      "status": "stale"
     },
     {
+     "id": "gold",
+     "url": null,
+     "status": "stale"
+    },
+    {
+     "id": "dxy",
+     "url": null,
+     "status": "stale"
+    },
+    {
+     "id": "usdjpy",
+     "url": null,
+     "status": "stale"
+    },
+    {
      "id": "usdinr",
      "url": null,
      "status": "stale"
@@ -1101,33 +1164,23 @@
    "last_ok": null
   },
   {
-   "id": "stooq",
-   "label": "Stooq",
-   "url": "https://stooq.com/",
+   "id": "none",
+   "label": "none",
+   "url": "",
    "fields": [
     {
-     "id": "gold",
-     "url": "https://stooq.com/q/d/l/?s=xauusd&i=d&d1=20250812&d2=20260916",
-     "status": "fallback"
-    },
-    {
      "id": "silver",
-     "url": "https://stooq.com/q/d/l/?s=xagusd&i=d&d1=20250812&d2=20260916",
-     "status": "fallback"
+     "url": null,
+     "status": "failed"
     },
     {
-     "id": "dxy",
-     "url": "https://stooq.com/q/d/l/?s=dx.f&i=d&d1=20250812&d2=20260916",
-     "status": "fallback"
-    },
-    {
-     "id": "usdjpy",
-     "url": "https://stooq.com/q/d/l/?s=usdjpy&i=d&d1=20250812&d2=20260916",
-     "status": "fallback"
+     "id": "vix",
+     "url": null,
+     "status": "failed"
     }
    ],
    "failed": [],
-   "last_ok": "2026-09-18T03:25:36Z"
+   "last_ok": null
   },
   {
    "id": "westmetall",
@@ -1151,21 +1204,7 @@
     }
    ],
    "failed": [],
-   "last_ok": "2026-09-18T03:25:36Z"
-  },
-  {
-   "id": "none",
-   "label": "none",
-   "url": "",
-   "fields": [
-    {
-     "id": "vix",
-     "url": null,
-     "status": "failed"
-    }
-   ],
-   "failed": [],
-   "last_ok": null
+   "last_ok": "2026-09-18T03:41:55Z"
   },
   {
    "id": "derived",
@@ -1180,12 +1219,12 @@
     {
      "id": "silver_inr_kg",
      "url": "scripts/swing_edge/commodities.py",
-     "status": "ok"
+     "status": "failed"
     },
     {
      "id": "gold_silver_ratio",
      "url": "scripts/swing_edge/commodities.py",
-     "status": "ok"
+     "status": "failed"
     },
     {
      "id": "copper_gold_ratio",
@@ -1281,6 +1320,14 @@
      "error": "HTTP 503"
     },
     {
+     "id": "dxy",
+     "error": "HTTP 503"
+    },
+    {
+     "id": "usdjpy",
+     "error": "HTTP 503"
+    },
+    {
      "id": "usdinr",
      "error": "HTTP 503"
     },
@@ -1294,11 +1341,11 @@
  ],
  "disclaimer": "Reference prices from public daily feeds; MCX and LME contract prices differ by import duty, premium and contract month. Not investment advice.",
  "counts": {
-  "ok": 6,
-  "fallback": 6,
-  "stale": 6,
-  "failed": 1,
-  "roll": 1,
+  "ok": 4,
+  "fallback": 2,
+  "stale": 9,
+  "failed": 4,
+  "roll": 2,
   "manual": 0
  },
  "_fixture": "built by tests/swing_edge/test_pipeline.StubFetcher; run_at is overridden by the render test"

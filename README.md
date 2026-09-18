@@ -66,9 +66,10 @@ in `scripts/swing_edge/config.json`, with the stock lists next to each rule.
   day and commits the data; the card shows which run produced it and how old it is. By hand:
   `python scripts/swing_edge/fetch_prices.py --module commodities` (`--backfill 90` on first run,
   `--dry-run` to fetch without writing, `--verify-symbols` to check the config's NSE codes).
-- Sources are public and key-free: Yahoo Finance chart data (primary), FRED CSV, Stooq CSV and
-  Westmetall's LME table as fallbacks. A failed source never aborts a run; the field carries its
-  last good value forward, flagged stale.
+- Sources are public and key-free: Yahoo Finance chart data (primary), FRED CSV and Westmetall's
+  LME table as fallbacks (Stooq was tested and blocks the runner, so it is not used). A failed
+  source never aborts a run; the field carries its last good value forward, flagged stale.
+  `--probe` hits every primary and fallback once and reports which answer.
 - Tests: `python -m unittest discover -s tests -t .` (parsers with saved fixtures, maths, unit
   conversions, the pipeline against a stub network, and a headless-Chromium render of the card).
 
