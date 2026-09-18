@@ -3,8 +3,8 @@
  "module": "commodities",
  "title": "Commodities & Macro",
  "data_date": "2026-09-18",
- "run_at": "2026-09-18T03:37:25Z",
- "run_at_ist": "18 Sep 2026 09:07 IST",
+ "run_at": "2026-09-18T03:39:42Z",
+ "run_at_ist": "18 Sep 2026 09:09 IST",
  "run_label": "morning",
  "groups": [
   {
@@ -46,13 +46,13 @@
    "last_good": null,
    "note": null,
    "errors": [],
-   "value": 103.970001,
+   "value": 103.959999,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": -0.811,
-   "chg_7d": -0.612,
-   "chg_30d": 13.48,
-   "chg_90d": 30.207,
+   "chg_1d": -0.82,
+   "chg_7d": -0.621,
+   "chg_30d": 13.469,
+   "chg_90d": 30.194,
    "spark": [
     107.77,
     105.63,
@@ -143,7 +143,7 @@
     108.75,
     105.83,
     104.82,
-    103.97
+    103.96
    ],
    "spark_from": "2026-05-12",
    "z90": 1.29,
@@ -162,13 +162,13 @@
    "last_good": null,
    "note": null,
    "errors": [],
-   "value": 101.239998,
+   "value": 101.209999,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": -0.657,
-   "chg_7d": 1.189,
-   "chg_30d": 17.954,
-   "chg_90d": 32.167,
+   "chg_1d": -0.687,
+   "chg_7d": 1.159,
+   "chg_30d": 17.919,
+   "chg_90d": 32.128,
    "spark": [
     102.18,
     101.02,
@@ -259,7 +259,7 @@
     105.83,
     102.43,
     101.91,
-    101.24
+    101.21
    ],
    "spark_from": "2026-05-12",
    "z90": 1.5,
@@ -394,13 +394,13 @@
    "last_good": null,
    "note": null,
    "errors": [],
-   "value": 4376.600098,
+   "value": 4378.700195,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": -0.525,
-   "chg_7d": -0.733,
-   "chg_30d": -3.712,
-   "chg_90d": 3.078,
+   "chg_1d": -0.477,
+   "chg_7d": -0.685,
+   "chg_30d": -3.665,
+   "chg_90d": 3.128,
    "spark": [
     4686.7002,
     4706.7002,
@@ -491,10 +491,10 @@
     4332.7998,
     4387.5,
     4399.7002,
-    4376.6001
+    4378.7002
    ],
    "spark_from": "2026-05-12",
-   "z90": 0.22,
+   "z90": 0.23,
    "roll": false
   },
   {
@@ -510,13 +510,13 @@
    "last_good": null,
    "note": null,
    "errors": [],
-   "value": 66.154999,
+   "value": 66.214996,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": 1.046,
-   "chg_7d": 2.48,
-   "chg_30d": 0.64,
-   "chg_90d": -0.151,
+   "chg_1d": 1.138,
+   "chg_7d": 2.573,
+   "chg_30d": 0.732,
+   "chg_90d": -0.06,
    "spark": [
     85.13,
     88.888,
@@ -607,10 +607,10 @@
     63.236,
     64.288,
     65.47,
-    66.155
+    66.215
    ],
    "spark_from": "2026-05-12",
-   "z90": 0.05,
+   "z90": 0.06,
    "roll": false
   },
   {
@@ -626,13 +626,13 @@
    "last_good": null,
    "note": "COMEX HG=F is quoted in US$/lb; converted ×2204.62 to US$/t. Fallback is the LME cash settlement.",
    "errors": [],
-   "value": 14618.852686,
+   "value": 14623.261611,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": 0.676,
-   "chg_7d": 2.496,
-   "chg_30d": 2.212,
-   "chg_90d": 4.024,
+   "chg_1d": 0.706,
+   "chg_7d": 2.527,
+   "chg_30d": 2.243,
+   "chg_90d": 4.055,
    "spark": [
     14296.978,
     14628.7733,
@@ -723,10 +723,10 @@
     14040.1397,
     14179.0303,
     14520.7473,
-    14618.8527
+    14623.2616
    ],
    "spark_from": "2026-05-12",
-   "z90": 1.23,
+   "z90": 1.24,
    "roll": false
   },
   {
@@ -742,13 +742,13 @@
    "last_good": null,
    "note": "COMEX ALI=F is thin; the LME cash table wins whenever COMEX is stale or gapped.",
    "errors": [],
-   "value": 3461.0,
+   "value": 3459.0,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": 0.838,
-   "chg_7d": 2.306,
-   "chg_30d": 3.298,
-   "chg_90d": -6.301,
+   "chg_1d": 0.779,
+   "chg_7d": 2.247,
+   "chg_30d": 3.238,
+   "chg_90d": -6.355,
    "spark": [
     3652.5,
     3837.75,
@@ -839,10 +839,10 @@
     3374.25,
     3421.5,
     3432.25,
-    3461.0
+    3459.0
    ],
    "spark_from": "2026-05-12",
-   "z90": -0.54,
+   "z90": -0.55,
    "roll": false
   },
   {
@@ -974,13 +974,13 @@
    "last_good": null,
    "note": null,
    "errors": [],
-   "value": 100.265999,
+   "value": 100.260002,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": 0.046,
-   "chg_7d": 1.156,
-   "chg_30d": 1.453,
-   "chg_90d": -0.579,
+   "chg_1d": 0.04,
+   "chg_7d": 1.15,
+   "chg_30d": 1.447,
+   "chg_90d": -0.585,
    "spark": [
     98.29,
     98.48,
@@ -1071,10 +1071,10 @@
     99.65,
     100.31,
     100.22,
-    100.266
+    100.26
    ],
    "spark_from": "2026-05-12",
-   "z90": 0.34,
+   "z90": 0.33,
    "roll": false
   },
   {
@@ -1090,13 +1090,13 @@
    "last_good": null,
    "note": null,
    "errors": [],
-   "value": 157.014008,
+   "value": 157.037003,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": 0.641,
-   "chg_7d": 1.639,
-   "chg_30d": -0.797,
-   "chg_90d": -2.651,
+   "chg_1d": 0.656,
+   "chg_7d": 1.654,
+   "chg_30d": -0.783,
+   "chg_90d": -2.636,
    "spark": [
     158.844,
     158.861,
@@ -1187,10 +1187,10 @@
     154.385,
     155.266,
     156.014,
-    157.014
+    157.037
    ],
    "spark_from": "2026-05-17",
-   "z90": -1.13,
+   "z90": -1.12,
    "roll": false
   },
   {
@@ -1206,13 +1206,13 @@
    "last_good": null,
    "note": "Fallback is the Fed H.10 noon buying rate (FRED DEXINUS). FBIL publishes the RBI reference rate only as web pages, not a stable file; pin it in manual_overrides.json when the official print matters.",
    "errors": [],
-   "value": 95.764999,
+   "value": 95.712502,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": -0.382,
-   "chg_7d": 0.074,
-   "chg_30d": 0.282,
-   "chg_90d": 1.511,
+   "chg_1d": -0.437,
+   "chg_7d": 0.019,
+   "chg_30d": 0.227,
+   "chg_90d": 1.455,
    "spark": [
     95.9703,
     96.2702,
@@ -1303,10 +1303,10 @@
     95.8354,
     95.9927,
     96.1323,
-    95.765
+    95.7125
    ],
    "spark_from": "2026-05-17",
-   "z90": 0.45,
+   "z90": 0.36,
    "roll": false
   },
   {
@@ -1554,15 +1554,14 @@
    "last_good": null,
    "note": null,
    "errors": [],
-   "value": 23270.599609,
-   "date": "2026-09-17",
+   "value": 23334.699219,
+   "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": 0.228,
-   "chg_7d": -0.883,
-   "chg_30d": -3.661,
-   "chg_90d": -3.092,
+   "chg_1d": 0.275,
+   "chg_7d": -0.271,
+   "chg_30d": -3.088,
+   "chg_90d": -2.825,
    "spark": [
-    23379.5508,
     23412.5996,
     23689.5996,
     23643.5,
@@ -1651,10 +1650,11 @@
     23398.0996,
     23118.5996,
     23217.5996,
-    23270.5996
+    23270.5996,
+    23334.6992
    ],
-   "spark_from": "2026-05-12",
-   "z90": -1.71,
+   "spark_from": "2026-05-13",
+   "z90": -1.54,
    "roll": false
   },
   {
@@ -1670,13 +1670,13 @@
    "last_good": null,
    "note": "US$/oz × USD/INR ÷ 31.1035 × 10. MCX differs by import duty and local premium.",
    "errors": [],
-   "value": 134751.850533,
+   "value": 134742.605086,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": -0.905,
-   "chg_7d": -0.659,
-   "chg_30d": -3.44,
-   "chg_90d": 4.635,
+   "chg_1d": -0.912,
+   "chg_7d": -0.666,
+   "chg_30d": -3.447,
+   "chg_90d": 4.628,
    "spark": [
     144100.6797,
     144810.6419,
@@ -1767,7 +1767,7 @@
     133720.4676,
     135605.5707,
     135982.6452,
-    134751.8505
+    134742.6051
    ],
    "spark_from": "2026-05-12",
    "z90": 0.26,
@@ -1786,13 +1786,13 @@
    "last_good": null,
    "note": "US$/oz × USD/INR ÷ 31.1035 × 1000. MCX differs by duty and premium.",
    "errors": [],
-   "value": 203685.699141,
+   "value": 203758.665913,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": 0.66,
-   "chg_7d": 2.556,
-   "chg_30d": 0.924,
-   "chg_90d": 1.357,
+   "chg_1d": 0.696,
+   "chg_7d": 2.592,
+   "chg_30d": 0.96,
+   "chg_90d": 1.394,
    "spark": [
     261746.8573,
     273480.9501,
@@ -1883,7 +1883,7 @@
     195161.2785,
     198696.5516,
     202349.7864,
-    203685.6991
+    203758.6659
    ],
    "spark_from": "2026-05-12",
    "z90": 0.07,
@@ -1902,13 +1902,13 @@
    "last_good": null,
    "note": "Ounces of silver per ounce of gold; rising = silver lagging.",
    "errors": [],
-   "value": 66.156756,
+   "value": 66.128527,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": -1.555,
-   "chg_7d": -3.135,
-   "chg_30d": -4.324,
-   "chg_90d": 3.234,
+   "chg_1d": -1.597,
+   "chg_7d": -3.176,
+   "chg_30d": -4.365,
+   "chg_90d": 3.19,
    "spark": [
     55.0535,
     52.9509,
@@ -1999,10 +1999,10 @@
     68.5179,
     68.2476,
     67.2018,
-    66.1568
+    66.1285
    ],
    "spark_from": "2026-05-12",
-   "z90": -0.02,
+   "z90": -0.03,
    "roll": false
   },
   {
@@ -2018,13 +2018,13 @@
    "last_good": null,
    "note": "US$/t copper ÷ US$/oz gold — growth-versus-fear gauge; rising = growth bid.",
    "errors": [],
-   "value": 3.34023,
+   "value": 3.339635,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": 1.207,
-   "chg_7d": 3.253,
-   "chg_30d": 6.152,
-   "chg_90d": 0.917,
+   "chg_1d": 1.189,
+   "chg_7d": 3.234,
+   "chg_30d": 6.133,
+   "chg_90d": 0.899,
    "spark": [
     3.0505,
     3.1081,
@@ -2115,7 +2115,7 @@
     3.2404,
     3.2317,
     3.3004,
-    3.3402
+    3.3396
    ],
    "spark_from": "2026-05-12",
    "z90": 0.56,
@@ -2134,13 +2134,13 @@
    "last_good": null,
    "note": "India's import-bill pressure: Brent US$/bbl × USD/INR.",
    "errors": [],
-   "value": 9956.687103,
+   "value": 9950.271571,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": -1.19,
-   "chg_7d": -0.539,
-   "chg_30d": 13.799,
-   "chg_90d": 32.174,
+   "chg_1d": -1.254,
+   "chg_7d": -0.603,
+   "chg_30d": 13.726,
+   "chg_90d": 32.088,
    "spark": [
     10306.3684,
     10108.3472,
@@ -2231,10 +2231,10 @@
     10439.206,
     10173.6816,
     10076.5878,
-    9956.6871
+    9950.2716
    ],
    "spark_from": "2026-05-12",
-   "z90": 1.28,
+   "z90": 1.27,
    "roll": false
   }
  ],
@@ -2262,7 +2262,7 @@
    "id": "rupee",
    "label": "Rupee",
    "input_label": "USD/INR 30d",
-   "input": 0.28,
+   "input": 0.23,
    "metric": "chg_30d",
    "hi": 1.5,
    "lo": -1.5,
@@ -2281,7 +2281,7 @@
    "id": "yen",
    "label": "Yen / risk",
    "input_label": "USD/JPY 30d",
-   "input": -0.8,
+   "input": -0.78,
    "metric": "chg_30d",
    "hi": 4.0,
    "lo": -4.0,
@@ -2300,7 +2300,7 @@
    "id": "crude",
    "label": "Crude",
    "input_label": "Brent 30d",
-   "input": 13.48,
+   "input": 13.47,
    "metric": "chg_30d",
    "hi": 8.0,
    "lo": -8.0,
@@ -2331,7 +2331,7 @@
    "id": "metals",
    "label": "Metals",
    "input_label": "Cu/Al avg 30d",
-   "input": 2.75,
+   "input": 2.74,
    "metric": "chg_30d",
    "hi": 5.0,
    "lo": -5.0,
@@ -2351,7 +2351,7 @@
    "id": "precious",
    "label": "Precious",
    "input_label": "Gold 30d",
-   "input": -3.71,
+   "input": -3.67,
    "metric": "chg_30d",
    "hi": 5.0,
    "lo": -5.0,
@@ -2369,7 +2369,7 @@
     "id": "silver_vs_gold",
     "label": "silver_vs_gold",
     "input_label": "silver − gold 30d",
-    "input": 4.35,
+    "input": 4.4,
     "metric": "chg_30d",
     "hi": 5.0,
     "lo": null,
@@ -2393,15 +2393,16 @@
    "label": "Nifty Metal",
    "symbol": "^CNXMETAL",
    "status": "ok",
-   "value": 12858.450195,
-   "date": "2026-09-17",
+   "value": 12908.099609,
+   "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": null,
+   "chg_1d": 0.386,
    "chg_7d": null,
    "chg_30d": null,
    "chg_90d": null,
    "spark": [
-    12858.4502
+    12858.4502,
+    12908.0996
    ],
    "spark_from": "2026-09-17",
    "z90": null,
@@ -2409,7 +2410,7 @@
    "source": "yahoo:^CNXMETAL",
    "source_url": "https://query2.finance.yahoo.com/v8/finance/chart/%5ECNXMETAL?range=1y&interval=1d&events=div%2Csplit",
    "stale": false,
-   "rel_1d": null,
+   "rel_1d": 0.111,
    "rel_7d": null,
    "rel_30d": null
   },
@@ -2418,15 +2419,16 @@
    "label": "Nifty Energy",
    "symbol": "^CNXENERGY",
    "status": "ok",
-   "value": 37381.75,
-   "date": "2026-09-17",
+   "value": 37453.101562,
+   "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": null,
+   "chg_1d": 0.191,
    "chg_7d": null,
    "chg_30d": null,
    "chg_90d": null,
    "spark": [
-    37381.75
+    37381.75,
+    37453.1016
    ],
    "spark_from": "2026-09-17",
    "z90": null,
@@ -2434,7 +2436,7 @@
    "source": "yahoo:^CNXENERGY",
    "source_url": "https://query2.finance.yahoo.com/v8/finance/chart/%5ECNXENERGY?range=1y&interval=1d&events=div%2Csplit",
    "stale": false,
-   "rel_1d": null,
+   "rel_1d": -0.084,
    "rel_7d": null,
    "rel_30d": null
   },
@@ -2443,15 +2445,14 @@
    "label": "Nifty IT",
    "symbol": "^CNXIT",
    "status": "ok",
-   "value": 29155.599609,
-   "date": "2026-09-17",
+   "value": 29145.349609,
+   "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": 0.234,
-   "chg_7d": 0.916,
-   "chg_30d": -3.501,
-   "chg_90d": 6.303,
+   "chg_1d": -0.035,
+   "chg_7d": 0.774,
+   "chg_30d": -4.231,
+   "chg_90d": 6.266,
    "spark": [
-    28234.9004,
     27916.6504,
     27360.3496,
     27716.9004,
@@ -2540,32 +2541,32 @@
     28921.5,
     29555.3008,
     29087.6504,
-    29155.5996
+    29155.5996,
+    29145.3496
    ],
-   "spark_from": "2026-05-12",
-   "z90": -0.09,
+   "spark_from": "2026-05-13",
+   "z90": -0.11,
    "roll": false,
    "source": "yahoo:^CNXIT",
    "source_url": "https://query2.finance.yahoo.com/v8/finance/chart/%5ECNXIT?range=1y&interval=1d&events=div%2Csplit",
    "stale": false,
-   "rel_1d": 0.006,
-   "rel_7d": 1.799,
-   "rel_30d": 0.16
+   "rel_1d": -0.31,
+   "rel_7d": 1.045,
+   "rel_30d": -1.143
   },
   {
    "id": "nifty_bank",
    "label": "Nifty Bank",
    "symbol": "^NSEBANK",
    "status": "ok",
-   "value": 56055.75,
-   "date": "2026-09-17",
+   "value": 56172.851562,
+   "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": -0.42,
-   "chg_7d": -0.737,
-   "chg_30d": -2.107,
-   "chg_90d": -2.826,
+   "chg_1d": 0.209,
+   "chg_7d": -0.766,
+   "chg_30d": -1.864,
+   "chg_90d": -2.623,
    "spark": [
-    53555.1992,
     53456.1484,
     54128.9492,
     53710.3516,
@@ -2654,17 +2655,18 @@
     56606.5508,
     55794.75,
     56292.4492,
-    56055.75
+    56055.75,
+    56172.8516
    ],
-   "spark_from": "2026-05-12",
-   "z90": -0.39,
+   "spark_from": "2026-05-13",
+   "z90": -0.34,
    "roll": false,
    "source": "yahoo:^NSEBANK",
    "source_url": "https://query2.finance.yahoo.com/v8/finance/chart/%5ENSEBANK?range=1y&interval=1d&events=div%2Csplit",
    "stale": false,
-   "rel_1d": -0.648,
-   "rel_7d": 0.146,
-   "rel_30d": 1.554
+   "rel_1d": -0.066,
+   "rel_7d": -0.495,
+   "rel_30d": 1.224
   }
  ],
  "sources": [
@@ -2740,7 +2742,7 @@
     }
    ],
    "failed": [],
-   "last_ok": "2026-09-18T03:37:25Z"
+   "last_ok": "2026-09-18T03:39:42Z"
   },
   {
    "id": "westmetall",
@@ -2754,7 +2756,7 @@
     }
    ],
    "failed": [],
-   "last_ok": "2026-09-18T03:37:23Z"
+   "last_ok": "2026-09-18T03:39:41Z"
   },
   {
    "id": "derived",
