@@ -3,8 +3,8 @@
  "module": "commodities",
  "title": "Commodities & Macro",
  "data_date": "2026-09-18",
- "run_at": "2026-09-18T03:39:42Z",
- "run_at_ist": "18 Sep 2026 09:09 IST",
+ "run_at": "2026-09-18T03:42:10Z",
+ "run_at_ist": "18 Sep 2026 09:12 IST",
  "run_label": "morning",
  "groups": [
   {
@@ -46,13 +46,13 @@
    "last_good": null,
    "note": null,
    "errors": [],
-   "value": 103.959999,
+   "value": 103.970001,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": -0.82,
-   "chg_7d": -0.621,
-   "chg_30d": 13.469,
-   "chg_90d": 30.194,
+   "chg_1d": -0.811,
+   "chg_7d": -0.612,
+   "chg_30d": 13.48,
+   "chg_90d": 30.207,
    "spark": [
     107.77,
     105.63,
@@ -143,7 +143,7 @@
     108.75,
     105.83,
     104.82,
-    103.96
+    103.97
    ],
    "spark_from": "2026-05-12",
    "z90": 1.29,
@@ -162,13 +162,13 @@
    "last_good": null,
    "note": null,
    "errors": [],
-   "value": 101.209999,
+   "value": 101.25,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": -0.687,
-   "chg_7d": 1.159,
-   "chg_30d": 17.919,
-   "chg_90d": 32.128,
+   "chg_1d": -0.648,
+   "chg_7d": 1.199,
+   "chg_30d": 17.966,
+   "chg_90d": 32.18,
    "spark": [
     102.18,
     101.02,
@@ -259,7 +259,7 @@
     105.83,
     102.43,
     101.91,
-    101.21
+    101.25
    ],
    "spark_from": "2026-05-12",
    "z90": 1.5,
@@ -278,13 +278,13 @@
    "last_good": null,
    "note": null,
    "errors": [],
-   "value": 2.86,
+   "value": 2.866,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": -1.413,
-   "chg_7d": 1.024,
-   "chg_30d": 1.635,
-   "chg_90d": -11.537,
+   "chg_1d": -1.206,
+   "chg_7d": 1.236,
+   "chg_30d": 1.848,
+   "chg_90d": -11.352,
    "spark": [
     2.843,
     2.864,
@@ -375,10 +375,10 @@
     2.919,
     2.891,
     2.901,
-    2.86
+    2.866
    ],
    "spark_from": "2026-05-12",
-   "z90": -0.55,
+   "z90": -0.52,
    "roll": false
   },
   {
@@ -394,13 +394,13 @@
    "last_good": null,
    "note": null,
    "errors": [],
-   "value": 4378.700195,
+   "value": 4381.899902,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": -0.477,
-   "chg_7d": -0.685,
-   "chg_30d": -3.665,
-   "chg_90d": 3.128,
+   "chg_1d": -0.405,
+   "chg_7d": -0.612,
+   "chg_30d": -3.595,
+   "chg_90d": 3.203,
    "spark": [
     4686.7002,
     4706.7002,
@@ -491,10 +491,10 @@
     4332.7998,
     4387.5,
     4399.7002,
-    4378.7002
+    4381.8999
    ],
    "spark_from": "2026-05-12",
-   "z90": 0.23,
+   "z90": 0.24,
    "roll": false
   },
   {
@@ -510,13 +510,13 @@
    "last_good": null,
    "note": null,
    "errors": [],
-   "value": 66.214996,
+   "value": 66.260002,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": 1.138,
-   "chg_7d": 2.573,
-   "chg_30d": 0.732,
-   "chg_90d": -0.06,
+   "chg_1d": 1.207,
+   "chg_7d": 2.643,
+   "chg_30d": 0.8,
+   "chg_90d": 0.008,
    "spark": [
     85.13,
     88.888,
@@ -607,10 +607,10 @@
     63.236,
     64.288,
     65.47,
-    66.215
+    66.26
    ],
    "spark_from": "2026-05-12",
-   "z90": 0.06,
+   "z90": 0.07,
    "roll": false
   },
   {
@@ -626,13 +626,13 @@
    "last_good": null,
    "note": "COMEX HG=F is quoted in US$/lb; converted ×2204.62 to US$/t. Fallback is the LME cash settlement.",
    "errors": [],
-   "value": 14623.261611,
+   "value": 14634.284977,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": 0.706,
-   "chg_7d": 2.527,
-   "chg_30d": 2.243,
-   "chg_90d": 4.055,
+   "chg_1d": 0.782,
+   "chg_7d": 2.605,
+   "chg_30d": 2.32,
+   "chg_90d": 4.134,
    "spark": [
     14296.978,
     14628.7733,
@@ -723,10 +723,10 @@
     14040.1397,
     14179.0303,
     14520.7473,
-    14623.2616
+    14634.285
    ],
    "spark_from": "2026-05-12",
-   "z90": 1.24,
+   "z90": 1.26,
    "roll": false
   },
   {
@@ -974,13 +974,13 @@
    "last_good": null,
    "note": null,
    "errors": [],
-   "value": 100.260002,
+   "value": 100.259003,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": 0.04,
-   "chg_7d": 1.15,
-   "chg_30d": 1.447,
-   "chg_90d": -0.585,
+   "chg_1d": 0.039,
+   "chg_7d": 1.149,
+   "chg_30d": 1.446,
+   "chg_90d": -0.586,
    "spark": [
     98.29,
     98.48,
@@ -1071,7 +1071,7 @@
     99.65,
     100.31,
     100.22,
-    100.26
+    100.259
    ],
    "spark_from": "2026-05-12",
    "z90": 0.33,
@@ -1090,13 +1090,13 @@
    "last_good": null,
    "note": null,
    "errors": [],
-   "value": 157.037003,
+   "value": 157.085999,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": 0.656,
-   "chg_7d": 1.654,
-   "chg_30d": -0.783,
-   "chg_90d": -2.636,
+   "chg_1d": 0.687,
+   "chg_7d": 1.686,
+   "chg_30d": -0.752,
+   "chg_90d": -2.606,
    "spark": [
     158.844,
     158.861,
@@ -1187,10 +1187,10 @@
     154.385,
     155.266,
     156.014,
-    157.037
+    157.086
    ],
    "spark_from": "2026-05-17",
-   "z90": -1.12,
+   "z90": -1.1,
    "roll": false
   },
   {
@@ -1206,13 +1206,13 @@
    "last_good": null,
    "note": "Fallback is the Fed H.10 noon buying rate (FRED DEXINUS). FBIL publishes the RBI reference rate only as web pages, not a stable file; pin it in manual_overrides.json when the official print matters.",
    "errors": [],
-   "value": 95.712502,
+   "value": 95.714996,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": -0.437,
-   "chg_7d": 0.019,
-   "chg_30d": 0.227,
-   "chg_90d": 1.455,
+   "chg_1d": -0.434,
+   "chg_7d": 0.021,
+   "chg_30d": 0.229,
+   "chg_90d": 1.458,
    "spark": [
     95.9703,
     96.2702,
@@ -1303,10 +1303,10 @@
     95.8354,
     95.9927,
     96.1323,
-    95.7125
+    95.715
    ],
    "spark_from": "2026-05-17",
-   "z90": 0.36,
+   "z90": 0.37,
    "roll": false
   },
   {
@@ -1670,13 +1670,13 @@
    "last_good": null,
    "note": "US$/oz × USD/INR ÷ 31.1035 × 10. MCX differs by import duty and local premium.",
    "errors": [],
-   "value": 134742.605086,
+   "value": 134844.582103,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": -0.912,
-   "chg_7d": -0.666,
-   "chg_30d": -3.447,
-   "chg_90d": 4.628,
+   "chg_1d": -0.837,
+   "chg_7d": -0.591,
+   "chg_30d": -3.374,
+   "chg_90d": 4.707,
    "spark": [
     144100.6797,
     144810.6419,
@@ -1767,10 +1767,10 @@
     133720.4676,
     135605.5707,
     135982.6452,
-    134742.6051
+    134844.5821
    ],
    "spark_from": "2026-05-12",
-   "z90": 0.26,
+   "z90": 0.28,
    "roll": false
   },
   {
@@ -1786,13 +1786,13 @@
    "last_good": null,
    "note": "US$/oz × USD/INR ÷ 31.1035 × 1000. MCX differs by duty and premium.",
    "errors": [],
-   "value": 203758.665913,
+   "value": 203902.473752,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": 0.696,
-   "chg_7d": 2.592,
-   "chg_30d": 0.96,
-   "chg_90d": 1.394,
+   "chg_1d": 0.767,
+   "chg_7d": 2.665,
+   "chg_30d": 1.031,
+   "chg_90d": 1.465,
    "spark": [
     261746.8573,
     273480.9501,
@@ -1883,10 +1883,10 @@
     195161.2785,
     198696.5516,
     202349.7864,
-    203758.6659
+    203902.4738
    ],
    "spark_from": "2026-05-12",
-   "z90": 0.07,
+   "z90": 0.08,
    "roll": false
   },
   {
@@ -1902,13 +1902,13 @@
    "last_good": null,
    "note": "Ounces of silver per ounce of gold; rising = silver lagging.",
    "errors": [],
-   "value": 66.128527,
+   "value": 66.131901,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": -1.597,
-   "chg_7d": -3.176,
-   "chg_30d": -4.365,
-   "chg_90d": 3.19,
+   "chg_1d": -1.592,
+   "chg_7d": -3.171,
+   "chg_30d": -4.36,
+   "chg_90d": 3.195,
    "spark": [
     55.0535,
     52.9509,
@@ -1999,10 +1999,10 @@
     68.5179,
     68.2476,
     67.2018,
-    66.1285
+    66.1319
    ],
    "spark_from": "2026-05-12",
-   "z90": -0.03,
+   "z90": -0.02,
    "roll": false
   },
   {
@@ -2018,13 +2018,13 @@
    "last_good": null,
    "note": "US$/t copper ÷ US$/oz gold — growth-versus-fear gauge; rising = growth bid.",
    "errors": [],
-   "value": 3.339635,
+   "value": 3.339712,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": 1.189,
-   "chg_7d": 3.234,
-   "chg_30d": 6.133,
-   "chg_90d": 0.899,
+   "chg_1d": 1.191,
+   "chg_7d": 3.237,
+   "chg_30d": 6.135,
+   "chg_90d": 0.902,
    "spark": [
     3.0505,
     3.1081,
@@ -2115,7 +2115,7 @@
     3.2404,
     3.2317,
     3.3004,
-    3.3396
+    3.3397
    ],
    "spark_from": "2026-05-12",
    "z90": 0.56,
@@ -2134,13 +2134,13 @@
    "last_good": null,
    "note": "India's import-bill pressure: Brent US$/bbl × USD/INR.",
    "errors": [],
-   "value": 9950.271571,
+   "value": 9951.488286,
    "date": "2026-09-18",
    "mode": "pct",
-   "chg_1d": -1.254,
-   "chg_7d": -0.603,
-   "chg_30d": 13.726,
-   "chg_90d": 32.088,
+   "chg_1d": -1.241,
+   "chg_7d": -0.591,
+   "chg_30d": 13.74,
+   "chg_90d": 32.105,
    "spark": [
     10306.3684,
     10108.3472,
@@ -2231,7 +2231,7 @@
     10439.206,
     10173.6816,
     10076.5878,
-    9950.2716
+    9951.4883
    ],
    "spark_from": "2026-05-12",
    "z90": 1.27,
@@ -2281,7 +2281,7 @@
    "id": "yen",
    "label": "Yen / risk",
    "input_label": "USD/JPY 30d",
-   "input": -0.78,
+   "input": -0.75,
    "metric": "chg_30d",
    "hi": 4.0,
    "lo": -4.0,
@@ -2300,7 +2300,7 @@
    "id": "crude",
    "label": "Crude",
    "input_label": "Brent 30d",
-   "input": 13.47,
+   "input": 13.48,
    "metric": "chg_30d",
    "hi": 8.0,
    "lo": -8.0,
@@ -2331,7 +2331,7 @@
    "id": "metals",
    "label": "Metals",
    "input_label": "Cu/Al avg 30d",
-   "input": 2.74,
+   "input": 2.78,
    "metric": "chg_30d",
    "hi": 5.0,
    "lo": -5.0,
@@ -2351,7 +2351,7 @@
    "id": "precious",
    "label": "Precious",
    "input_label": "Gold 30d",
-   "input": -3.67,
+   "input": -3.6,
    "metric": "chg_30d",
    "hi": 5.0,
    "lo": -5.0,
@@ -2742,7 +2742,7 @@
     }
    ],
    "failed": [],
-   "last_ok": "2026-09-18T03:39:42Z"
+   "last_ok": "2026-09-18T03:42:10Z"
   },
   {
    "id": "westmetall",
@@ -2756,7 +2756,7 @@
     }
    ],
    "failed": [],
-   "last_ok": "2026-09-18T03:39:41Z"
+   "last_ok": "2026-09-18T03:42:10Z"
   },
   {
    "id": "derived",
