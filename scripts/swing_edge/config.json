@@ -22,8 +22,8 @@
         "mid_verdict": "rupee steady", "mid_read": "no FX signal",
         "stocks": {
           "hi_positive": ["TCS", "INFY", "HCLTECH", "WIPRO", "SUNPHARMA", "DRREDDY", "CIPLA"],
-          "hi_negative": ["BPCL", "HPCL", "IOC", "INDIGO"],
-          "lo_positive": ["BPCL", "HPCL", "IOC", "INDIGO"],
+          "hi_negative": ["BPCL", "HINDPETRO", "IOC", "INDIGO"],
+          "lo_positive": ["BPCL", "HINDPETRO", "IOC", "INDIGO"],
           "lo_negative": ["TCS", "INFY", "HCLTECH", "WIPRO", "SUNPHARMA", "DRREDDY", "CIPLA"]
         }
       },
@@ -43,8 +43,8 @@
         "mid_verdict": "oil range-bound", "mid_read": "no crude signal",
         "stocks": {
           "hi_positive": ["ONGC", "OIL"],
-          "hi_negative": ["BPCL", "HPCL", "IOC", "ASIANPAINT", "BERGEPAINT", "APOLLOTYRE", "MRF", "INDIGO"],
-          "lo_positive": ["BPCL", "HPCL", "IOC", "ASIANPAINT", "BERGEPAINT", "APOLLOTYRE", "MRF", "INDIGO"],
+          "hi_negative": ["BPCL", "HINDPETRO", "IOC", "ASIANPAINT", "BERGEPAINT", "APOLLOTYRE", "MRF", "INDIGO"],
+          "lo_positive": ["BPCL", "HINDPETRO", "IOC", "ASIANPAINT", "BERGEPAINT", "APOLLOTYRE", "MRF", "INDIGO"],
           "lo_negative": ["ONGC", "OIL"]
         }
       },

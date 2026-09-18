@@ -43,10 +43,6 @@ jobs:
       - name: Tests (parsers, maths, pipeline)
         run: python -m unittest discover -s tests -t . -v
 
-      - name: Verify config stock symbols
-        if: ${{ github.event.inputs.verify_symbols == 'true' || github.event_name == 'push' }}
-        run: python scripts/swing_edge/fetch_prices.py --verify-symbols
-
       - name: Fetch prices
         env:
           BACKFILL: ${{ github.event.inputs.backfill }}
@@ -64,3 +60,9 @@ jobs:
             echo "push attempt $i failed, retrying"; sleep $((i * 5))
           done
           exit 1
+
+      # After the data is safely committed: a bad NSE code in config.json fails the run visibly
+      # without ever blocking the refresh.
+      - name: Verify config stock symbols
+        if: ${{ github.event.inputs.verify_symbols == 'true' || github.event_name == 'push' }}
+        run: python scripts/swing_edge/fetch_prices.py --verify-symbols
