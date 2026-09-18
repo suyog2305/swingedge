@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-17",
+  "updated": "2026-09-18",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -484,10 +484,10 @@
     ],
     "AHCL": [
       {
-        "t": "Anlon Healthcare shares hit fresh 52-week high of Rs 22.38 on broad-based technical strength",
+        "t": "Anlon Healthcare hits all-time high of Rs 23.18 as momentum builds across timeframes",
         "src": "MarketsMojo",
-        "url": "https://www.marketsmojo.com/news/stocks-in-action/anlon-healthcare-ltd-hits-new-52-week-high-at-rs2238-4193084",
-        "date": "2026-09-15"
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/anlon-healthcare-ltd-hits-new-52-week-high-at-rs2318-4196970",
+        "date": "2026-09-18"
       }
     ],
     "FINKURVE": [
@@ -632,6 +632,94 @@
         "src": "Business Today",
         "url": "https://www.businesstoday.in/markets/stocks/story/parag-milk-foods-shares-surge-8-on-foray-into-snacking-category-554485-2026-09-10",
         "date": "2026-09-10"
+      }
+    ],
+    "GLASSWALL": [
+      {
+        "t": "Glass Wall Systems zooms 18% intraday, up 40% from IPO issue price in two days",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/kanohar-glass-wall-systems-zoom-18-up-40-against-issue-price-in-2-days-126091700583_1.html",
+        "date": "2026-09-17"
+      }
+    ],
+    "ASTAR": [
+      {
+        "t": "Asian Star Company hits 52-week high of Rs 827.15 on broad-based technical strength",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/asian-star-company-ltd-hits-new-52-week-high-at-rs82715-4196957",
+        "date": "2026-09-18"
+      }
+    ],
+    "ASTEC": [
+      {
+        "t": "Astec Lifesciences surges 15% to Rs 756.90 amid strong technical momentum shift",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/astec-lifesciences-ltd-technical-momentum-shifts-amid-mixed-market-signals-4196710",
+        "date": "2026-09-18"
+      }
+    ],
+    "TEGA": [
+      {
+        "t": "Tega Industries surges 7.18% to Rs 1,839, outperforming sector on strong weekly momentum",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/tega-industries-ltd-hits-intraday-high-with-718-surge-on-17-sep-2026-4196440",
+        "date": "2026-09-17"
+      }
+    ],
+    "SHAREINDIA": [
+      {
+        "t": "Share India Securities hits 52-week high on exceptional volume and strong accumulation",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/share-india-securities-ltd-surges-on-exceptional-volume-signals-strong-accumulation-4197453",
+        "date": "2026-09-18"
+      }
+    ],
+    "VENUSPIPES": [
+      {
+        "t": "Venus Pipes & Tubes jumps 7% to 52-week high after board clears Rs 372-crore fund raise",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/venus-pipes-and-tubes-share-jumps-7-hits-52-wk-high-126091700382_1.html",
+        "date": "2026-09-17"
+      }
+    ],
+    "AXISCADES": [
+      {
+        "t": "AXISCADES Technologies hits 10% upper circuit on aerospace/defence pivot and sector rally",
+        "src": "TradeBrains",
+        "url": "https://tradebrains.in/indian-markets/axiscade-technologies-shares-hit-10-upper-circuit-here-are-5-reasons-behind-the-rally-12544887",
+        "date": "2026-09-17"
+      }
+    ],
+    "RIR": [
+      {
+        "t": "RIR Power Electronics surges 10% after SiC epitaxial wafer reactor installation milestone",
+        "src": "TradeBrains",
+        "url": "https://tradebrains.in/indian-markets/rir-power-electronics-shares-surge-10-following-key-sic-reactor-installation-milestone-12543568",
+        "date": "2026-09-17"
+      }
+    ],
+    "ARIS": [
+      {
+        "t": "Arisinfra Solutions promoter group raises stake to 19.90% via open-market purchases",
+        "src": "Whalesbook",
+        "url": "https://www.whalesbook.com/corporate-news/English/other/ArisInfra-Solutions-Promoter-group-increases-stake-to-1990percent-via-open-market/6aad105ff2017017ae6d4ec3",
+        "date": "2026-09-17"
+      }
+    ],
+    "YATHARTH": [
+      {
+        "t": "Yatharth Hospital up 20% in two days after Advent International's Rs 3,150-crore stake deal",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/yatharth-hospital-share-price-up-20-in-2-days-after-advent-s-3-150-cr-investment-deal-126091800200_1.html",
+        "date": "2026-09-18"
+      }
+    ],
+    "KANOHAR": [
+      {
+        "t": "Kanohar Electricals zooms 18% intraday, up 40% from IPO issue price in two days",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/kanohar-glass-wall-systems-zoom-18-up-40-against-issue-price-in-2-days-126091700583_1.html",
+        "date": "2026-09-17"
       }
     ]
   }
