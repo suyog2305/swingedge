@@ -66,3 +66,7 @@ jobs:
       - name: Verify config stock symbols
         if: ${{ github.event.inputs.verify_symbols == 'true' || github.event_name == 'push' }}
         run: python scripts/swing_edge/fetch_prices.py --verify-symbols
+
+      - name: Probe every primary and fallback source
+        if: ${{ github.event.inputs.verify_symbols == 'true' || github.event_name == 'push' }}
+        run: python scripts/swing_edge/fetch_prices.py --probe

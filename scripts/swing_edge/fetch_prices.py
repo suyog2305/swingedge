@@ -7,6 +7,7 @@ fetch_prices.py — refresh the Swing Edge price cards from public, key-free dai
     python scripts/swing_edge/fetch_prices.py --backfill 90         # also write 90 days of history rows
     python scripts/swing_edge/fetch_prices.py --dry-run             # fetch + score, write nothing
     python scripts/swing_edge/fetch_prices.py --verify-symbols      # check every NSE code in config.json resolves
+    python scripts/swing_edge/fetch_prices.py --probe               # hit every primary AND fallback once, report, write nothing
     python scripts/swing_edge/fetch_prices.py --label close         # tag the run (auto: UTC<08 morning, else close)
 
 Writes data/swing_edge/<module>_latest.json and upserts data/swing_edge/<module>_history.csv.
@@ -54,6 +55,7 @@ def main(argv=None):
     ap.add_argument('--out', default=common.DATA_DIR, help='output folder (default data/swing_edge)')
     ap.add_argument('--date', default=None, help='treat this YYYY-MM-DD as today (tests)')
     ap.add_argument('--verify-symbols', action='store_true', help='check config stock codes on Yahoo and exit')
+    ap.add_argument('--probe', action='store_true', help='hit every primary and fallback source once, report, write nothing')
     ap.add_argument('--timeout', type=int, default=15)
     a = ap.parse_args(argv)
 
@@ -63,6 +65,11 @@ def main(argv=None):
         return verify_symbols(fetcher, cfg)
 
     today = dt.date.fromisoformat(a.date) if a.date else dt.datetime.now(dt.timezone.utc).date()
+    if a.probe:
+        bad = 0
+        for name in (a.module or MODULES):
+            bad += importlib.import_module(name).probe_sources(fetcher, today)
+        return 0  # informational: fallbacks are allowed to be down while primaries answer
     label = run_label(a.label)
     overrides_all = common.read_json(os.path.join(a.out, 'manual_overrides.json'), {}) or {}
     exit_code = 0

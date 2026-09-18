@@ -13,6 +13,7 @@ from common import (log, parse_yahoo_chart, parse_fred_csv, parse_stooq_csv, par
                     usd_lb_to_usd_t, usd_oz_to_inr_10g, usd_oz_to_inr_kg, utcnow_iso, to_ist)
 
 MODULE = 'commodities'
+WRITE_WINDOW_DAYS = 7
 
 GROUPS = [
     {'id': 'energy', 'label': 'A · Energy'},
@@ -275,7 +276,9 @@ def build(fetcher, cfg, history, overrides, prev_latest, today, run_label, backf
         rows.append(row)
         series_by_id[ind['id']] = full
         if fetched:
-            keep = fetched[-max(1, backfill_days):] if backfill_days else fetched[-1:]
+            # always rewrite the last week: a morning run stores an intraday print for today, and
+            # the next runs replace it with the settled close once the feed carries it
+            keep = fetched[-max(WRITE_WINDOW_DAYS, backfill_days):]
             updates[ind['id']] = {d: (v, row['source'], row['status']) for d, v in keep}
     rows.extend(derived_rows(series_by_id))
     by_id = {r['id']: r for r in rows}
@@ -290,7 +293,7 @@ def build(fetcher, cfg, history, overrides, prev_latest, today, run_label, backf
             srow.update(series_stats(full, is_futures=False))
             srow.update(source=src, source_url=url, status='ok',
                         stale=(today - series[-1][0]).days > max_age)
-            keep = series[-max(1, backfill_days):] if backfill_days else series[-1:]
+            keep = series[-max(WRITE_WINDOW_DAYS, backfill_days):]
             updates[s['id']] = {d: (v, src, 'ok') for d, v in keep}
             for k in ('chg_1d', 'chg_7d', 'chg_30d'):
                 srow['rel_' + k[4:]] = (None if srow.get(k) is None or nifty.get(k) is None
@@ -332,6 +335,23 @@ def build(fetcher, cfg, history, overrides, prev_latest, today, run_label, backf
                    'roll': sum(bool(r.get('roll')) for r in rows), 'manual': sum(r['status'] == 'manual' for r in rows)},
     }
     return doc, updates
+
+
+def probe_sources(fetcher, today):
+    """Hit every primary and fallback once and report what answers — the source table for a
+    build report. Writes nothing."""
+    bad = 0
+    targets = [(ind['id'], spec) for ind in INDICATORS for spec in (ind.get('primary'), ind.get('fallback'), ind.get('fallback2')) if spec]
+    targets += [(s['id'], ('yahoo', s['symbol'])) for s in SECTORS]
+    for iid, spec in targets:
+        try:
+            series, src, _url = fetch_series(fetcher, spec, today)
+            log(iid, src, 'ok', f'last={series[-1][0]} n={len(series)} age={(today - series[-1][0]).days}d')
+        except Exception as e:  # noqa: BLE001
+            bad += 1
+            log(iid, f'{spec[0]}:{spec[1]}', 'failed', str(e)[:120])
+    print(f'probe: {len(targets) - bad}/{len(targets)} sources answered')
+    return bad
 
 
 def stock_symbols(cfg):
