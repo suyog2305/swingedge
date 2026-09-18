@@ -4176,7 +4176,8 @@ function renderSeCard(el, doc){
   const foot = (doc.sources || []).map(s => {
     const okF = (s.fields || []).map(f => f.url && /^https?:/.test(f.url) ? `<a href="${wrAttr(f.url)}" target="_blank" rel="noopener">${wrEsc(f.id)}</a>` : wrEsc(f.id)).join(', ');
     const bad = (s.failed || []).map(f => `${wrEsc(f.id)} (${wrEsc(f.error)})`).join(', ');
-    const when = s.last_ok ? new Date(s.last_ok).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) + ' IST' : 'no successful fetch this run';
+    const when = s.last_ok ? new Date(s.last_ok).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) + ' IST'
+                : s.id === 'derived' ? 'computed each run' : s.id === 'manual' ? 'pinned by hand' : 'no successful fetch this run';
     return `<div class="src"><b>${s.url && /^https?:/.test(s.url) ? `<a href="${wrAttr(s.url)}" target="_blank" rel="noopener">${wrEsc(s.label)}</a>` : wrEsc(s.label)}</b> · last ok ${wrEsc(when)}${okF ? ' · ' + okF : ''}${bad ? ` · <span class="dn" style="font-weight:500">failed: ${bad}</span>` : ''}</div>`;
   }).join('');
   el.innerHTML = `
