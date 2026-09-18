@@ -47,7 +47,8 @@ def verify_symbols(fetcher, cfg):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--module', choices=MODULES, action='append', help='module to refresh (default: all)')
-    ap.add_argument('--backfill', type=int, default=0, metavar='DAYS', help='write DAYS of history rows, not just today')
+    ap.add_argument('--backfill', type=int, default=None, metavar='DAYS',
+                    help='write DAYS of history rows, not just today (default: 90 on a first run with no history file, else 0)')
     ap.add_argument('--dry-run', action='store_true', help='fetch and score but write nothing')
     ap.add_argument('--label', default='auto', help='run label: auto | morning | close | manual')
     ap.add_argument('--out', default=common.DATA_DIR, help='output folder (default data/swing_edge)')
@@ -72,7 +73,10 @@ def main(argv=None):
         hist_path = os.path.join(a.out, f'{name}_history.csv')
         history = common.read_history(hist_path)
         prev = common.read_json(latest_path)
-        doc, updates = mod.build(fetcher, cfg, history, overrides_all.get(name) or {}, prev, today, label, a.backfill)
+        backfill = a.backfill if a.backfill is not None else (90 if not history else 0)
+        if backfill:
+            print(f'backfilling {backfill} days of history rows')
+        doc, updates = mod.build(fetcher, cfg, history, overrides_all.get(name) or {}, prev, today, label, backfill)
         c = doc['counts']
         print(f'--- {name}: ok={c["ok"]} fallback={c["fallback"]} stale={c["stale"]} failed={c["failed"]} '
               f'roll={c["roll"]} manual={c["manual"]} data_date={doc["data_date"]}')

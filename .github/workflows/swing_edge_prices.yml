@@ -7,11 +7,13 @@ on:
   schedule:
     - cron: '30 3 * * *'    # 09:00 IST
     - cron: '15 10 * * *'   # 15:45 IST
+  push:                      # a pipeline change proves itself with a live run
+    paths: ['scripts/swing_edge/**', '.github/workflows/swing_edge_prices.yml']
   workflow_dispatch:
     inputs:
       backfill:
-        description: 'Days of history rows to write (0 = today only)'
-        default: '0'
+        description: 'Days of history rows to write (blank = 90 on a first run, else today only)'
+        default: ''
       verify_symbols:
         description: 'Also check every NSE code in config.json resolves'
         type: boolean
@@ -42,11 +44,13 @@ jobs:
         run: python -m unittest discover -s tests -t . -v
 
       - name: Verify config stock symbols
-        if: ${{ github.event.inputs.verify_symbols == 'true' }}
+        if: ${{ github.event.inputs.verify_symbols == 'true' || github.event_name == 'push' }}
         run: python scripts/swing_edge/fetch_prices.py --verify-symbols
 
       - name: Fetch prices
-        run: python scripts/swing_edge/fetch_prices.py --backfill "${{ github.event.inputs.backfill || '0' }}" --label auto
+        env:
+          BACKFILL: ${{ github.event.inputs.backfill }}
+        run: python scripts/swing_edge/fetch_prices.py --label auto ${BACKFILL:+--backfill "$BACKFILL"}
 
       - name: Commit and push data
         run: |
