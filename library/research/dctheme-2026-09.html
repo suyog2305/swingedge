@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI Data-Centre Supply Chain — A Thematic Synthesis — September 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.hold { background: rgba(200,151,58,.38); }
+  .rating-cell.sell { background: rgba(160,16,32,.5); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: The AI Data-Centre Supply Chain — A Thematic Synthesis — September 2026 -->
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">EBGNG &nbsp;·&nbsp; STLTECH &nbsp;·&nbsp; HFCL &nbsp;·&nbsp; BBOX &nbsp;·&nbsp; STLNETWORK &nbsp;·&nbsp; BIRLACABLE &nbsp;·&nbsp; VINDHYATEL &nbsp;|&nbsp; Thematic Note &nbsp;|&nbsp; September 2026</p>
+    <h1 class="report-title"><span>The AI Data-Centre</span> Supply Chain</h1>
+    <p class="report-subtitle">A synthesis across seven Indian names, not new research &nbsp;·&nbsp; Memory holds strongly, optical interconnect reaches none of them, and the build-out is real but still mostly announced rather than built</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">Q1 2026 conventional DRAM contract</div><div class="kpi-value">+90&ndash;95%</div></div>
+      <div class="kpi-cell"><div class="kpi-label">DDR4 vs DDR5 spot, 18 Sep close</div><div class="kpi-value">$85.75 / $56.00</div></div>
+      <div class="kpi-cell"><div class="kpi-label">HFCL data-centre revenue, Q1 FY27</div><div class="kpi-value">~5.2%</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Of the seven: transceiver/laser makers</div><div class="kpi-value">Zero</div></div>
+      <div class="kpi-cell"><div class="kpi-label">India DC capacity, operational</div><div class="kpi-value">~1.3&ndash;1.7 GW</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell hold"><div class="rating-tag">Verdict</div><div class="rating-val">A thematic synthesis across seven names &mdash; the commodity story holds far more consistently than the equity-exposure story does; not a recommendation</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">What holds</div><div class="rating-val">Memory pricing, strongly and on primary producer evidence; the data-centre build-out, once announced, contracted and built are kept apart; optical fibre, from around April 2026</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">What does not</div><div class="rating-val">Optical interconnect, for any of the seven &mdash; none makes transceivers, lasers or indium-phosphide substrates &mdash; and a fibre &ldquo;super-cycle&rdquo; that had barely reached most of these balance sheets in FY26</div></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">What This Is</a>
+    <a href="#s2">The Verdict</a>
+    <a href="#s3">Memory</a>
+    <a href="#s4">Chips &amp; Packaging</a>
+    <a href="#s5">Fibre &amp; Cable</a>
+    <a href="#s6">Interconnect</a>
+    <a href="#s7">The Build-Out</a>
+    <a href="#s8">Your System</a>
+    <a href="#s9">Exposure Map</a>
+    <a href="#s10">The Cash Pattern</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">What This Note Is, and How It Was Checked</h2></div>
+  <p>A request reached this desk for a consolidated view of &ldquo;the latest data around chip pricing, memory price increase, availability of data-centre raw materials like optic fibre, interconnect optics and other things,&rdquo; naming seven Indian stocks: <b>GNG Electronics (EBGNG), Sterlite Technologies (STLTECH), HFCL, Black Box (BBOX), STL Networks (STLNETWORK), Birla Cable (BIRLACABLE) and Vindhya Telelinks (VINDHYATEL)</b>. The last two are named separately because they trade separately today, even though they are in the process of becoming one listed entity. <b>This note does not repeat that research.</b> A desk researcher closed out a sourced evidence base on 19 September 2026 &mdash; findings with numbered sources, verdicts per leg, conflicts and gaps, and failed domains, cross-checked against two dated datapoint files the desk maintains &mdash; and over the two days that followed, the desk published a full report on each of the seven names [1]&ndash;[57]. <b>This is the synthesis: what holds, what does not, and who actually captures it, written to agree with those six reports rather than to duplicate or contradict them.</b></p>
+  <h3 class="subsection-title">How it was checked</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Leg of the claim</th><th>What was checked</th><th>Sources</th></tr></thead>
+    <tbody>
+      <tr><td class="bold" style="width:190px">Memory and chip pricing</td><td>TrendForce&rsquo;s own quarter-ahead contract calls from November 2025 through July 2026, the DRAM spot page read on 18 September 2026, and the most recent reported results of Samsung, SK hynix, Micron, Kioxia and SanDisk in the producers&rsquo; own words</td><td>[1]&ndash;[23]</td></tr>
+      <tr><td class="bold">Optical fibre, cable and interconnect</td><td>Vindhya Telelinks&rsquo; and Birla Cable&rsquo;s own FY26 filings, Sterlite Technologies&rsquo; and HFCL&rsquo;s own quarterly disclosures, Corning&rsquo;s SEC filing, CRU/UBS bare-fibre pricing, BEAD&rsquo;s own programme page, China&rsquo;s anti-dumping extension, and TrendForce&rsquo;s reporting on the indium-phosphide shortage</td><td>[24]&ndash;[40]</td></tr>
+      <tr><td class="bold">The build-out and other materials</td><td>Black Box&rsquo;s Capital Markets Day deck and Q1 FY27 call, Meta&rsquo;s own results release, secondary hyperscaler capex trackers, India data-centre capacity trackers, and trade-press clusters on CoWoS packaging, GPU lead times, copper and transformers</td><td>[41]&ndash;[51]</td></tr>
+      <tr><td class="bold">The seven names, individually</td><td>The desk&rsquo;s own six reports published 18&ndash;20 September 2026, read for their masthead, summary and the sections carrying each company&rsquo;s exposure finding</td><td>[52]&ndash;[57]</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Every number in this note carries a date and a bracketed source number matching the list at the end of &sect;13. &ldquo;Forecast,&rdquo; &ldquo;derived,&rdquo; &ldquo;management-implied&rdquo; and &ldquo;not disclosed&rdquo; are used exactly where the underlying sources use them, not smoothed into a single tone. Where sources conflict, both are shown.</p>
+  <h3 class="subsection-title">What this note is and is not</h3>
+  <p>It is a synthesis of one shared evidence base and six already-published company reports, written to test whether the theme the user asked about actually reaches the seven names he associates with it. <b>It carries no new rating on any of the seven</b> and changes none of the ratings the desk has already published: Hold on GNG Electronics, Sterlite Technologies, HFCL and Black Box; Avoid on STL Networks; and no rating at all on the Birla Cable/Vindhya Telelinks merger note, which is itself framed as evidence rather than advice [52]&ndash;[57]. The technical readings in &sect;08 are generated fresh from the 18 September 2026 close and refresh with later scans; nothing in this note sizes a position, allocates capital, or advises entering or exiting any of the seven.</p>
+  <p><b>Surveillance, stated up front as the house rule requires:</b> of the seven, four currently carry or very recently carried an exchange surveillance flag. Sterlite Technologies and HFCL are both under the exchange&rsquo;s most severe long-term surveillance stage as of the 18 September scan. STL Networks carries a short-term stage-one flag, and Birla Cable carries a short-term stage-one flag of its own. Black Box carried a long-term stage-one flag that was lifted only in the first days of September 2026, covering almost the whole of its pullback from its all-time high. GNG Electronics and Vindhya Telelinks carry no flag on the same date [52]&ndash;[57].</p>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">The Verdict, Leg by Leg</h2></div>
+  <p>The evidence base tests six separate legs of the theme independently, because a single &ldquo;AI data-centre supply chain is tight&rdquo; sentence is standing in for six mechanisms that do not all hold with the same strength, or apply to the same companies. This table is the evidence base&rsquo;s own verdict, carried here as the spine of the note; &sect;03&ndash;&sect;07 examine each leg in turn, and &sect;09 turns the six into a map of the seven names.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Leg</th><th>Verdict</th><th>Strongest part</th><th>Weakest part</th></tr></thead>
+    <tbody>
+      <tr><td class="bold" style="width:150px">Memory pricing</td><td class="bold green">HOLDS, strongly</td><td>Every primary source agrees on size and breadth: TrendForce&rsquo;s own Q1 2026 forecast, and Samsung, SK hynix, Micron and Kioxia each separately reporting 30&ndash;85% quarterly selling-price increases on their own calls or releases [1][14][15][19][22]</td><td>The 2027 trajectory is genuinely unquantified &mdash; only qualitative &ldquo;tight beyond 2027&rdquo; language &mdash; and some of the sharpest consumer-module figures trace to a single low-tier blog [11][23]</td></tr>
+      <tr><td class="bold">Chips and packaging</td><td class="bold" style="color:#b45309">HOLDS, narrowly</td><td>CoWoS advanced-packaging capacity is genuinely sold out and repricing at 10&ndash;20% a year against roughly 5% for ordinary logic wafers [47][48]</td><td>This is an advanced-node, AI-specific phenomenon, not broad chip inflation, and the sourcing here is trade-blog synthesis rather than the primary-source depth reached for memory [47]&ndash;[49]</td></tr>
+      <tr><td class="bold">Optical fibre and cable</td><td class="bold" style="color:#b45309">PARTLY HOLDS, with a timing catch</td><td>The 2026-in-progress picture is real and multiply corroborated: bare-fibre prices, hyperscaler-driven demand, Corning&rsquo;s optical-communications growth, record order books at STL and HFCL [26][27][28][30]</td><td>Birla Cable&rsquo;s own FY26 (April 2025&ndash;March 2026) optical-fibre-cable revenue <em>fell</em>, and the company&rsquo;s own text dates the &ldquo;super-cycle&rdquo; pricing environment to FY2026-27, i.e. from April 2026 &mdash; treat the strong story as recent and still building, not a two-year trend [25]</td></tr>
+      <tr><td class="bold">Optical interconnect</td><td class="bold red">FAILS for these seven</td><td>The global indium-phosphide and 800G/1.6T transceiver shortage is real and severe &mdash; Lumentum&rsquo;s own CEO says the InP gap has &ldquo;surpassed&rdquo; memory [36]</td><td>None of the seven makes transceivers, lasers or InP substrates; the one Indian listed company with a genuine claim here, izmo Ltd, is not one of these names and is not yet shipping revenue product [36][40]</td></tr>
+      <tr><td class="bold">Data-centre build-out</td><td class="bold green">HOLDS, if kept apart by stage</td><td>Hyperscaler 2026 capex guidance is real, large and still rising, and Black Box&rsquo;s ~US$949 million contracted backlog and named hyperscaler order are actual, dated facts [42][43][45]</td><td>India&rsquo;s widely quoted &ldquo;1,300 MW today to 7,500&ndash;8,000 MW by 2030&rdquo; is a consultancy-modelled forecast bundle, not built capacity; current operational capacity is only ~1.3&ndash;1.7 GW and trackers disagree by up to 30% [41][46]</td></tr>
+      <tr><td class="bold">Other materials</td><td class="muted bold">HOLDS directionally, thinly sourced</td><td>Copper near record levels and transformer/switchgear lead times stretched to years are consistent across every account found [50][51]</td><td>Almost all of this rests on trade and industry blogs rather than exchange or government primary data, and none of the seven discloses direct copper, transformer or cooling exposure [50][51]</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout callout-gold"><b>Read across the six verdicts and a pattern appears before a single company is named.</b> The legs that hold most strongly &mdash; memory, and the build-out&rsquo;s dollar totals &mdash; are the ones furthest from these seven companies&rsquo; own income statements: memory is a cost line for one of them (GNG) and irrelevant to the other six, and hyperscaler capex is spent mostly outside India, on equipment none of the seven makes. The leg closest to what these seven actually sell &mdash; fibre and cable &mdash; is the one carrying the explicit timing catch. And the leg carrying the most dramatic shortage language globally &mdash; interconnect &mdash; is the one that provably does not reach any of them. &sect;09 turns this into a table of seven rows.</div>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Memory: The Record</h2></div>
+  <p><b>Three distinctions matter before any number in this section is used, and the evidence base and the desk&rsquo;s own GNG report both insist on them.</b> Spot and contract are different markets: contract prices, set quarterly between producers and PC/server/phone makers, are what moves the cost of a device; spot is a small, volatile secondary market. Most of the figures below are <em>forecasts</em> of contract-price changes, issued before or early in the quarter they describe, not reported outcomes. And producers&rsquo; own reported average-selling-price changes are real, reported facts, but they blend price with product mix.</p>
+  <h3 class="subsection-title">TrendForce contract-price calls, quarter by quarter</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Quarter</th><th>Product</th><th>Change on previous quarter</th><th>Basis</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td class="bold">Q4 2025</td><td>DRAM contract, year on year</td><td>&ldquo;more than 75%&rdquo;</td><td>Forecast, issued 17 Nov 2025</td><td>[8]</td></tr>
+      <tr><td class="bold">Q1 2026</td><td>Conventional DRAM</td><td class="bold">+90&ndash;95%</td><td>Forecast, issued 2 Feb 2026</td><td>[1]</td></tr>
+      <tr><td class="bold">Q1 2026</td><td>PC DRAM</td><td class="bold">&ldquo;over 100%&rdquo; &mdash; a record quarterly surge</td><td>Forecast, 2 Feb 2026</td><td>[1]</td></tr>
+      <tr><td class="bold">Q1 2026</td><td>Server DRAM / mobile DRAM (LPDDR4X, LPDDR5X)</td><td>~90% each</td><td>Forecast, 2 Feb 2026</td><td>[1]</td></tr>
+      <tr><td class="bold">Q2 2026</td><td>Conventional DRAM</td><td class="bold">+58&ndash;63%</td><td>Forecast, issued 31 Mar 2026</td><td>[2]</td></tr>
+      <tr><td class="bold">Q2 2026</td><td>Mobile DRAM, LPDDR4X / LPDDR5X</td><td>+70&ndash;75% / +78&ndash;83%</td><td>Forecast, issued 14 May 2026</td><td>[3]</td></tr>
+      <tr><td class="bold">H1 2026</td><td>NOR Flash / SLC NAND, cumulative</td><td>+100&ndash;120% / +130&ndash;150%</td><td>TrendForce estimate, 16 Jun 2026</td><td>[7]</td></tr>
+      <tr><td class="bold">Q3 2026</td><td>Server DRAM</td><td>+13&ndash;18%</td><td>Forecast, issued 9 Jul 2026</td><td>[5]</td></tr>
+      <tr><td class="bold">Q3 2026</td><td>NAND, overall</td><td>+10&ndash;15%, &ldquo;a noticeably slower pace than in previous quarters&rdquo;</td><td>Forecast, issued 3 Jul 2026</td><td>[4]</td></tr>
+      <tr><td class="bold">Q3 2026</td><td>PC DRAM</td><td class="bold">+15&ndash;20%, raised from +8&ndash;13%</td><td>Forecast revision, reported 30 Jun 2026</td><td>[6]</td></tr>
+      <tr><td class="bold">Q4 2026</td><td>PC DRAM</td><td class="bold" style="color:#b45309">+3&ndash;8%</td><td>Forecast, reported 30 Jun 2026</td><td>[6]</td></tr>
+      <tr><td class="bold">H2 2026</td><td>High-density NOR Flash / SLC NAND</td><td>&ldquo;another 60&ndash;65% or more&rdquo; / &ldquo;70&ndash;75% still possible&rdquo;</td><td>Forecast, 16 Jun 2026</td><td>[7]</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Sources [6] reach the desk via secondary (crypto-exchange news-flash) relay of a TrendForce revision, not independently re-fetched on trendforce.com &mdash; the weakest-sourced rows in this table, and the ones the deceleration reading in &sect;11 leans on hardest. <b>No source reviewed anywhere in this research gives a quantified 2027 price forecast</b> for DRAM or NAND; Micron&rsquo;s own management says only that &ldquo;demand should remain tight well beyond calendar 2027&rdquo; [11], and GNG Electronics&rsquo; own management separately cites an IDC view that &ldquo;memory shortages will persist and there will be no respite until the end of 2027&rdquo; [21][52]. Treat 2027 as directionally tight, not numerically forecast.</p>
+  <h3 class="subsection-title">What the producers themselves reported, most recent quarter</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Producer</th><th>Period</th><th>DRAM ASP, on the quarter</th><th>NAND ASP, on the quarter</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td class="bold">SK hynix</td><td>Q2 2026 (to 30 Jun)</td><td>&ldquo;about 30%&rdquo;</td><td>&ldquo;mid-50% range&rdquo;</td><td>Company&rsquo;s own release, 29 Jul 2026 [15]</td></tr>
+      <tr><td class="bold">Samsung Electronics</td><td>Q2 2026 (to 30 Jun)</td><td>&ldquo;mid-40 percent range&rdquo;</td><td>&ldquo;high-60 percent range&rdquo;</td><td>Earnings call via Seoul Economic Daily; Samsung&rsquo;s own newsroom would not load [14]</td></tr>
+      <tr><td class="bold">Micron</td><td>Fiscal Q3 2026 (to 28 May)</td><td>&ldquo;low-60s percentage range&rdquo;</td><td>&ldquo;mid-80s percentage range&rdquo;</td><td>Said on the earnings call, not in Micron&rsquo;s own release; via secondary coverage [11][12]</td></tr>
+      <tr><td class="bold">Kioxia</td><td>Apr&ndash;Jun 2026</td><td class="muted">&mdash;</td><td>+70% (headline only, not independently fetched)</td><td>Lowest-confidence row in this record [17]</td></tr>
+      <tr><td class="bold">SanDisk</td><td>Fiscal Q4 2026 (rep. 5 Aug)</td><td class="muted">&mdash;</td><td>Revenue +51% QoQ; management attributes roughly two-thirds to price</td><td>Release timed out in the evidence researcher&rsquo;s session; not page-verified [18]</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Kioxia&rsquo;s own most recently filed results at the time the evidence base was compiled &mdash; fiscal Q3 FY2025, October&ndash;December 2025, reported 13 February 2026 &mdash; show record revenue up 21.3% quarter on quarter with its CFO stating &ldquo;the biggest driver is selling prices&rdquo; and 2026 NAND capacity already sold out; this is better-sourced than the single-quarter ASP headline in the table above and points the same direction [16]. Gartner&rsquo;s own 26 February 2026 forecast corroborates the downstream effect from a different angle: combined DRAM and SSD prices were seen surging 130% by end-2026 versus 2025, with PC prices up 17% and PC shipments down 10.4% &mdash; a forecast, not a reported outcome, but consistent in direction with everything else in this section [13].</p>
+  <h3 class="subsection-title">Spot snapshot &mdash; 18 September 2026, 18:10 GMT+8</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Chip</th><th class="right">Session average</th><th class="right">Quoted range</th><th class="right">Change on the day</th></tr></thead>
+    <tbody>
+      <tr><td class="bold">DDR5 16Gb (2G&times;8) 4800/5600</td><td class="right bold">$56.00</td><td class="right">$40.80 &ndash; $67.00</td><td class="right">+1.39%</td></tr>
+      <tr><td class="bold">DDR4 16Gb (2G&times;8) 3200</td><td class="right bold">$85.75</td><td class="right">$45.00 &ndash; $120.00</td><td class="right">&minus;0.29%</td></tr>
+      <tr><td class="bold">DDR4 8Gb (1G&times;8) 3200</td><td class="right bold">$46.04</td><td class="right">$24.00 &ndash; $82.00</td><td class="right">&minus;0.23%</td></tr>
+      <tr><td class="bold">DDR3 4Gb 512M&times;8 1600/1866</td><td class="right">$13.78</td><td class="right">$9.75 &ndash; $19.80</td><td class="right">&minus;0.08%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">TrendForce&rsquo;s DRAM spot page, read directly by the evidence researcher [10]. <b>DDR4 trading above DDR5 is the standout fact here</b>: the older, being-discontinued standard is dearer than its successor at spot, consistent with Samsung, SK hynix and Micron all winding DDR4 down through 2025&ndash;26 while a shrinking pool of buyers &mdash; including refurbishers holding older-generation fleets &mdash; competes for what remains [10][19]. This is a single day&rsquo;s snapshot with no history behind it yet and cannot be set against the contract-change figures above, which describe a different market.</p>
+  <h3 class="subsection-title">Deceleration, and what it does not mean</h3>
+  <p>Chaining the low ends of TrendForce&rsquo;s own PC-relevant quarter-ahead calls &mdash; over 100% in Q1, 58&ndash;63% in Q2 (the conventional-DRAM figure; no separate PC figure exists for that quarter), 15&ndash;20% in Q3, 3&ndash;8% in Q4 [1][2][6] &mdash; implies contract prices near <b>3.7 times</b> their end-2025 level by December 2026, on arithmetic mixing two related but not identical series and built on forecasts rather than reported prices. This is not this note&rsquo;s own derivation; it is the same chained calculation the desk&rsquo;s GNG report performs and flags with the identical caveats [52]. <b>The rate of increase is decelerating; the level it is decelerating from is not falling.</b> A quarter of +3&ndash;8% still compounds on top of a base that has already roughly tripled, and TrendForce itself revised the second half of 2026 <em>upward</em>, not downward, on 30 June [6] &mdash; the forecaster has so far been too cautious about how fast the rise fades, not too optimistic. The 9 July release&rsquo;s own language for why the rate is slowing is affordability, not oversupply: &ldquo;customers from consumer markets, such as PCs and smartphones, are reaching their affordability limit&rdquo; [4][5].</p>
+  <h3 class="subsection-title">Where this actually lands: GNG&rsquo;s entry-level laptop</h3>
+  <p>The sharpest downstream evidence in the whole record is GNG Electronics&rsquo; own account of what memory has done to an entry-level new laptop in India. Two figures for the starting point circulate: a Tradebrains report of the same call puts it at about &#8377;42,000, but GNG&rsquo;s own filed transcript of its 30 July 2026 call gives the figure as <b>&ldquo;from INR40,000 to INR48,000&rdquo;</b> &mdash; the company&rsquo;s own filed record is preferred here over the press paraphrase of it [20][21][52]. Management&rsquo;s own words: memory costs &ldquo;have gone up by 5&ndash;10% in the last quarter [Q1 FY27] while they have increased nearly 5 times since October 2025&rdquo; [21]. This is the one point in the record where a forecast, a producer&rsquo;s reported ASP change, and an Indian company&rsquo;s own filed transcript all describe the same object from three different angles and agree on direction and rough scale.</p>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">Chips and Packaging</h2></div>
+  <p>This leg holds, but narrowly, and it reaches none of the seven directly. TSMC&rsquo;s CoWoS advanced-packaging wafer ASP is reportedly nearing 7nm-logic-level pricing, positioned by industry analysts as a growing profit driver in its own right, with monthly capacity ramping from roughly 75,000&ndash;80,000 wafers toward a 120,000&ndash;130,000-wafer target by end-2026 and OSAT partners adding a further 50,000&ndash;60,000 a month [47][48]. 2026 CoWoS demand is estimated near one million wafers against roughly 370,000 in 2024, with NVIDIA alone said to hold about 60% of that demand; the demand/supply gap is estimated at roughly 20% today, improving toward 10% into 2027 [48]. Advanced-packaging ASPs are reported rising 10&ndash;20% a year against only about 5% for ordinary logic wafers &mdash; <b>this is a narrow, advanced-node, AI-specific price phenomenon, not broad-based chip inflation</b>, and the sourcing here is trade-analyst synthesis rather than the primary-filing depth reached for memory [47][48].</p>
+  <p>Separately, GPU and passive-component lead times are genuinely stretched: Blackwell-class server GPU lead times are reported to have moved from 20&ndash;24 weeks to as much as 48 weeks with recurring 5&ndash;15% price increases, and MLCC (multi-layer ceramic capacitor) lead times of 20&ndash;52 weeks with roughly 30% across-the-board price increases from August 2026, attributed to AI server racks each consuming on the order of 40,000&ndash;60,000-plus MLCCs [49]. No India-specific 2026 chip-pricing action, for a foundry, controller or passive component, was found for any of the seven companies in this basket [49].</p>
+  <div class="callout callout-red"><b>None of the seven is a chipmaker, foundry or OSAT.</b> This leg&rsquo;s relevance to the basket is indirect at best: through GNG Electronics&rsquo; memory input costs, already covered in full in &sect;03, and through the generic &ldquo;AI capex&rdquo; and &ldquo;hyperscale demand&rdquo; language that HFCL and Black Box invoke in their own investor materials without being chip or packaging suppliers themselves [52]&ndash;[57]. Chip and packaging pricing belongs in this note because the user asked about it, not because it is a mechanism through which any of these seven earns money.</div>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Optical Fibre and Cable</h2></div>
+  <p>This is the leg closest to what four of the seven actually make or sell, and it is also the one carrying the sharpest timing catch in the whole evidence base.</p>
+  <h3 class="subsection-title">The price moves, and the bottleneck behind them</h3>
+  <p>CRU Group reported on 26 February 2026 that China&rsquo;s G.652.D bare-fibre price moved above Europe&rsquo;s for the first time in over seven years, and that &ldquo;glass preform has become a critical bottleneck in the value chain,&rdquo; with Chinese suppliers running &ldquo;near capacity limits&rdquo; despite nominal spare capacity because restarting idled lines &ldquo;requires time, technical preparation and capital commitment&rdquo; measured in months, not weeks [29]. A UBS note relayed via BigGo Finance on 2 April 2026, citing the same CRU data, put China G.652.D bare fibre at roughly $12.07 per fibre-km in March 2026, up 165% since January 2026 and 418% year on year; Europe&rsquo;s equivalent grade was up 159% year on year to roughly $9.10; the data-centre-oriented G.657.A1 grade rose 130% in Europe and 69% in the US over the same January&ndash;March window [30]. Corning&rsquo;s own Q2 2026 SEC filing shows Optical Communications segment revenue up 32% year on year, with &ldquo;Gen AI product sales growing significantly faster&rdquo; than the segment average, and a new multiyear Amazon agreement covering fibre, cable and connectivity for its data-centre build-out [28]. Birla Cable&rsquo;s own FY26 annual report separately states that &ldquo;several producers report fully booked order books for 2026&rdquo; and flags &ldquo;shortages in glass preforms, helium, and polymer feedstocks&rdquo; as constraining production [25].</p>
+  <h3 class="subsection-title">The timing catch, in the Indian cable-makers&rsquo; own words</h3>
+  <p>Birla Cable&rsquo;s standalone optical-fibre-cable segment revenue <b>fell</b> in FY26 &mdash; &#8377;105.65 crore against &#8377;115.16 crore the year before &mdash; which the company&rsquo;s own annual report attributes to &ldquo;prolonged weakness&hellip;both domestically and globally,&rdquo; with the year&rsquo;s growth coming entirely from structured copper LAN cable instead [25][57]. The same annual report, discussing the period from April 2026, describes FY2026-27 as having &ldquo;begun on a strong note&hellip;with both demand and pricing reaching record levels&rdquo; [25]. <b>Read together, these are not in conflict; they are a timeline.</b> A version of this thesis applied to FY26 or even the first half of FY26-27 would have failed at the India cable-maker revenue line; the strong 2026 fibre story is real but recent, dated from around April 2026, not a two-year trend running back to when hyperscaler capex first accelerated.</p>
+  <h3 class="subsection-title">Two different integration models</h3>
+  <p>Vindhya Telelinks does not draw its own bare fibre: it sources under a long-term agreement with Birla Furukawa Fibre Optics, a joint venture, and its own filing states this leaves it &ldquo;insulated to a significant extent from the bare fibre supply side risk&rdquo; &mdash; a hedge against the preform bottleneck, but also a ceiling on how much of the fibre-price spike VTL itself can capture, since the JV sits in a different company (Universal Cables holds the stake, not VTL) [24][57]. Sterlite Technologies is the opposite case: management told analysts <em>&ldquo;we&rsquo;re amongst the very few companies in the world to have mastered the journey from glass to gigabit&hellip;from the purest grade of silicon&rdquo;</em> &mdash; STL makes its own preform, which is a genuine differentiator against a JV-sourced peer, but it also means STL is directly exposed to whatever squeezes preform availability industry-wide, and STL has declined to disclose realised fibre or cable pricing at all: <em>&ldquo;we do not comment on a realisation&rdquo;</em> [26][53]. HFCL sits in between: it already makes some of its own preform, roughly 300 tonnes a year, and is doubling that through a new plant, but even after the expansion its own preform capacity remains a fraction of what its targeted 43&ndash;62 million fibre-km of annual fibre and cable output implies in raw-material terms [27][54].</p>
+  <h3 class="subsection-title">The desk&rsquo;s own finding: part of a margin recovery is tariff relief, not mix shift</h3>
+  <p>The single most important qualification this note carries into the fibre leg is not from the evidence base itself but from the desk&rsquo;s own Sterlite Technologies report, published after the evidence base was compiled. STL&rsquo;s EBITDA margin moved from 10.3% in the December 2025 quarter to 15.1% in the March 2026 quarter to 20.8% in the June 2026 quarter &mdash; a run STL and the desk&rsquo;s own earlier edition credited to AI data-centre mix shift and operating leverage. The desk&rsquo;s current report finds that the same three quarters trace, almost exactly, a US tariff relief timeline: a reported ~760-basis-point tariff hit to EBITDA margin in the December 2025 quarter alone, a partial-quarter easing after a February 2026 rate reduction to 10%, and a first full quarter at the lower rate in June 2026 &mdash; the same quarter STL&rsquo;s own management attributes fully to data-centre demand. <b>STL has not disclosed how much of the recovery is which mechanism, and did not raise tariffs at all on the call covering the quarter this whole thesis rests on</b> [53]. This does not mean the fibre story is false; STL&rsquo;s own preform integration and its qualification by named-by-description hyperscalers are real. It means at least one of the cleanest-looking margin charts in this basket is not cleanly attributable to the theme it is being sold as evidence for.</p>
+  <h3 class="subsection-title">A buyer says the opposite of a producer, in the same month</h3>
+  <p>Black Box &mdash; a data-centre systems integrator, not a fibre producer &mdash; told its Q1 FY27 call on 13 August 2026 that &ldquo;supply-chain conditions have also improved over the last quarter, particularly across cables and fiber, supporting faster project execution&rdquo; [42][55]. That sits alongside fibre producers (Birla Cable, VTL, and CRU&rsquo;s own data) describing continued tightness and record pricing at almost the same time. Both can be true simultaneously &mdash; a buyer&rsquo;s project-execution experience in one geography is not the same measurement as a global bare-fibre and preform price index &mdash; and this is recorded as an open conflict, not resolved in either direction [29][30][42].</p>
+  <h3 class="subsection-title">BEAD, tariffs and anti-dumping</h3>
+  <p>The US Broadband Equity, Access, and Deployment programme reached NTIA-approved Final Proposal status in all 56 states and territories only as of 25 August 2026; NTIA&rsquo;s own page describes construction as &ldquo;just beginning,&rdquo; with other, less-verified reporting suggesting peak construction activity is still a year or more away [33]. On tariffs, HFCL is currently a net beneficiary of US trade policy toward China rather than a target of it: management told its Q1 FY27 call that a 35% US duty currently applies to Chinese fibre, while separately describing a past US duty on HFCL&rsquo;s own exports that was later refunded [54]. China&rsquo;s Ministry of Commerce moved the opposite way on 14 August 2026, extending anti-dumping duties of 7.4%&ndash;30.6% on Indian single-mode optical fibre for a further five years, following a review requested by China&rsquo;s own domestic industry &mdash; evidence, by the fact of the protection being sought, that Indian fibre exports to China have grown large enough to warrant it [31]. The traffic has historically run the other way too: India&rsquo;s own DGTR had earlier recommended anti-dumping duties on optical fibre imported from China, Korea and Indonesia, a pre-2026 action shown here only for context on how long both sides of this trade have used tariff tools against each other [32].</p>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Optical Interconnect: The Shortage That Misses This Basket</h2></div>
+  <p><b>The shortage itself is real and, on the evidence gathered, more acute than memory.</b> TrendForce reported on 6 August 2026 that Lumentum&rsquo;s CEO, Michael Hurlston, said &ldquo;the supply-demand gap for indium phosphide (InP) has now surpassed that of DRAM and NAND&rdquo;; customer orders have &ldquo;surged to hundreds of millions of devices&rdquo; from prior telecom-era quantities in the hundreds; China accounts for roughly 70% of global refined indium production; and in March 2026 NVIDIA allocated roughly $2 billion each to two key suppliers, reported elsewhere as Coherent and Lumentum, to expand capacity, with one supplier&rsquo;s further expansion not targeted until end-2027 and another&rsquo;s mass production not expected until 2028 [36]. Lower-confidence, secondary reporting puts the EML/pump-laser gap above 30% on Lumentum&rsquo;s own May 2026 call, and estimates 800G module output running 40&ndash;60% below demand through 2027 [37][38][39]. A named Chinese InP supply chain exists &mdash; upstream metal producers, substrate and epitaxy makers, downstream module makers &mdash; and none of it overlaps with any of the seven names in this note [36].</p>
+  <div class="callout callout-red"><b>On the evidence gathered, none of the seven has any exposure to this leg.</b> Sterlite Technologies and Birla Cable/Vindhya Telelinks make passive glass fibre and cable, not lasers, transceivers or InP substrates. HFCL&rsquo;s &ldquo;Data Centre Interconnect&rdquo; push, run through its HTL Limited subsidiary, is on the evidence found a fibre, cable and passive-connectivity business, not an active optical-component manufacturer &mdash; a distinction the desk&rsquo;s own HFCL report makes explicitly [36][54]. Black Box and STL Networks are systems integrators that deploy other vendors&rsquo; switches and transceivers rather than making them [36][55][56]. GNG Electronics refurbishes finished devices and has no position anywhere in this supply chain.</div>
+  <p>The one Indian listed company found anywhere in this research with a genuine claim in this specific space is <b>izmo Ltd</b>, via its subsidiary izmo Microsystems, which unveiled silicon-photonics modules at SEMICON India on 15 September 2026 and describes itself as India&rsquo;s first company doing silicon-photonics packaging &mdash; with commercial optical-transceiver launch targeted for 2027, i.e. not yet a shipping, revenue-generating product [40]. izmo is <b>not one of the seven names in this note</b>. If a reader&rsquo;s interest in this theme is specifically the laser and transceiver shortage rather than the fibre and cable layer beneath it, nothing in this basket of seven answers that interest, and this note does not manufacture an answer where the sourcing does not support one.</p>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">The Build-Out: Announced, Contracted, Built</h2></div>
+  <h3 class="subsection-title">Hyperscaler 2026 capex</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Hyperscaler</th><th class="right">2026 capex guidance</th><th>Confirmation</th></tr></thead>
+    <tbody>
+      <tr><td class="bold">Meta</td><td class="right bold">$130&ndash;145bn, &ldquo;narrowed&rdquo; from $125&ndash;145bn</td><td>Confirmed directly from Meta&rsquo;s own Q2 2026 release, 29 Jul 2026 [43]</td></tr>
+      <tr><td class="bold">Microsoft</td><td class="right">~$190bn</td><td>Secondary tracker cluster, not independently fetched from Microsoft&rsquo;s own filings [45]</td></tr>
+      <tr><td class="bold">Alphabet</td><td class="right">$175&ndash;205bn</td><td>Secondary trackers [45]</td></tr>
+      <tr><td class="bold">Amazon</td><td class="right">~$200bn</td><td>Secondary trackers [45]</td></tr>
+      <tr><td class="bold">Oracle</td><td class="right">~$70bn net / $90&ndash;95bn gross</td><td>Secondary trackers [45]</td></tr>
+      <tr><td class="bold">Combined, big tech</td><td class="right bold">~$725&ndash;760bn (vs ~$413bn in 2025)</td><td>Secondary tracker estimate [45]</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Only Meta&rsquo;s figure is confirmed from a primary company release read directly in this research; the rest are secondary-tracker estimates, flagged accordingly [43][45]. A widely repeated claim that Meta raised its guidance specifically &ldquo;because of memory prices&rdquo; is well attested in secondary reporting of Meta&rsquo;s Q1 2026 call but is not repeated in Meta&rsquo;s own Q2 2026 release, the only Meta document read directly in this research &mdash; treat the causal claim as probable, not confirmed verbatim [43][44].</p>
+  <h3 class="subsection-title">Black Box: the contracted evidence</h3>
+  <p>Black Box&rsquo;s own Q1 FY27 call, 13 August 2026, disclosed a record order backlog of approximately <b>US$949 million, up 83% year on year</b>, and a new US$131 million (roughly &#8377;1,240 crore) three-year order from a Tier-1 US hyperscaler [42][55]. Its Capital Markets Day deck, filed 1 June 2026, separately cites a BCG-sourced bundle putting global data-centre IT-load capacity at 87 gigawatts in the recent past, growing to 233 gigawatts by 2030, and India specifically at 1,300 megawatts in 2025 rising to 7,500&ndash;8,000 megawatts by 2030 [41]. <b>These are two different kinds of number and this note keeps them apart</b>: the backlog and the named order are contracted; the gigawatt totals are a forecast bundle sourced to a consultancy analysis of multiple secondary inputs that cannot be individually verified figure by figure [41].</p>
+  <p>Black Box&rsquo;s own record also shows the build-out&rsquo;s supply chain hurting a buyer directly: at its Q3 FY26 call in February 2026, management cut full-year revenue guidance by roughly 5&ndash;7%, attributing the shortfall explicitly to &ldquo;industry-wide shortages of inputs like optical fibers and cables, particularly in the booming data center ecosystem&rdquo; [42][55]. Six months later, the same management described supply conditions as improved (&sect;05). <b>The build-out and its own physical-input shortage are, on this one company&rsquo;s dated record, the same phenomenon seen from two different months.</b></p>
+  <h3 class="subsection-title">India: operational, under construction, and announced &mdash; kept apart</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Stage</th><th>Figure</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td class="bold" style="width:150px">Operational today</td><td>~1.3&ndash;1.7 GW as of 2025/early 2026, depending on tracker; a record ~440 MW added in 2025; consensus points to ~1.7&ndash;2.0 GW by end-2026</td><td>Tracker cluster, disagreeing by up to 30% [46]</td></tr>
+      <tr><td class="bold">Under construction</td><td>CtrlS&rsquo;s 612 MW &ldquo;Chandan Valley&rdquo; campus, targeted 2027&ndash;28</td><td>Named project, secondary reporting [46]</td></tr>
+      <tr><td class="bold">Announced / forecast</td><td>1,300 MW (2025) &rarr; 7,500&ndash;8,000 MW (2030E), per Black Box/BCG; Adani Group&rsquo;s ~$10bn data-centre commitment; AdaniConneX&ndash;Google joint venture tied to a reported ~$15bn ecosystem figure</td><td>Consultancy-modelled bundle and company announcements, not built capacity [41][46]</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Named operators active today include NTT Global Data Centers (18-plus facilities, over 340 MW, targeting around 30 facilities) and Yotta (its NM1 campus in Navi Mumbai) [46]. <b>No single-point India megawatt figure in wide circulation should be treated as precise</b>; every tracker checked disagrees with every other by a material margin, for what is nominally the same 2025/early-2026 period [46].</p>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">What Your Own System Says</h2></div>
+  <p>The seven tables below are <b>generated, not typed</b>: <span style="font-family:monospace">tools/report/framework_block.py</span> fills each marker pair from the newest scan &mdash; the 18 September 2026 close, the same scan date used across all six of the desk&rsquo;s underlying reports &mdash; and they refresh with every later scan. The rows carry the RS rating, the trend template with all seven checks, Stage 2 status, surveillance, price against the 50- and 200-day averages, position against the 52-week and all-time highs, returns from one day to one year, volume against its one-month average, and the trailing earnings and book multiples. The prose under each table says only whether the business case in &sect;01&ndash;&sect;07 and &sect;09 and the tape agree or disagree; it deliberately carries no figure the table itself would show.</p>
+  <p><b>The house rule is to lead with the disagreement when the framework and the fundamentals part company, and across these seven that disagreement is not evenly spread.</b> The two names with the exchange&rsquo;s most severe long-term surveillance classification are also the two most directly credited, in this note and in the desk&rsquo;s own reports, with the clearest measured data-centre exposure. The name with zero measured exposure and a business built on government contracts has, at points this year, traded like the theme&rsquo;s cleanest expression. And one of the seven is a share that a shareholder vote and an NCLT order are expected to retire outright.</p>
+
+  <h3 class="subsection-title">EBGNG &mdash; GNG Electronics</h3>
+<!--FRAMEWORK:BEGIN EBGNG-->
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (18 Sep 2026 close)</th><th class="right">EBGNG</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating (1–99, 1,629 stocks)</td><td class="right bold green">90</td></tr>
+      <tr><td>Trend template</td><td class="right bold"><span class="green">PASSES 7/7</span></td></tr>
+      <tr><td>Stage 2 (provider list 18 Sep)</td><td class="right ">Continues Trend · 32 wks · since 2026-02-07</td></tr>
+      <tr><td>Surveillance</td><td class="right ">None</td></tr>
+      <tr><td>Price vs 50-DMA (₹598.62)</td><td class="right ">+17.4%</td></tr>
+      <tr><td>Price vs 200-DMA (₹477.04)</td><td class="right ">+47.4%</td></tr>
+      <tr><td>Below 52-week high</td><td class="right bold">-1.4%</td></tr>
+      <tr><td>Up from 52-week low</td><td class="right ">+194.2%</td></tr>
+      <tr><td>Below all-time high (₹712.65)</td><td class="right ">-1.3%</td></tr>
+      <tr><td>1-year return</td><td class="right ">+79.9%</td></tr>
+      <tr><td>6-month return</td><td class="right ">+84.8%</td></tr>
+      <tr><td>3-month return</td><td class="right ">+40.1%</td></tr>
+      <tr><td>1-month return</td><td class="right ">+19.5%</td></tr>
+      <tr><td>1-week return</td><td class="right ">+3.4%</td></tr>
+      <tr><td>1-day return</td><td class="right ">+6.3%</td></tr>
+      <tr><td>Volume vs 1-month average</td><td class="right ">1.16×</td></tr>
+      <tr><td>Trailing P/E</td><td class="right ">56.3×</td></tr>
+      <tr><td>Price / Book</td><td class="right ">10.58×</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Screener scan of 2026-09-18 (1,629 stocks); 200-DMA slope measured against the 2026-09-17 scan; Stage 2 from the provider list of 2026-09-18. Generated by tools/report/framework_block.py — re-run it after each scan and these rows refresh; nothing here is typed by hand.</p>
+<!--FRAMEWORK:END EBGNG-->
+  <p>GNG&rsquo;s own report finds that its share price has at times run ahead of what the reported numbers could support and at other times lagged well behind a strong print, so momentum here has tracked the underlying memory story unevenly rather than in lockstep. No surveillance flag currently constrains how the stock can be held, which is not true of several of the infrastructure names in this same basket.</p>
+
+  <h3 class="subsection-title">STLTECH &mdash; Sterlite Technologies</h3>
+<!--FRAMEWORK:BEGIN STLTECH-->
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (18 Sep 2026 close)</th><th class="right">STLTECH</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating (1–99, 1,629 stocks)</td><td class="right bold green">99</td></tr>
+      <tr><td>Trend template</td><td class="right bold"><span class="green">PASSES 7/7</span></td></tr>
+      <tr><td>Stage 2 (provider list 18 Sep)</td><td class="right ">Continues Trend · 32 wks · since 2026-02-07</td></tr>
+      <tr><td>Surveillance</td><td class="right bold red">LTASM - IV</td></tr>
+      <tr><td>Price vs 50-DMA (₹682.16)</td><td class="right ">+20.0%</td></tr>
+      <tr><td>Price vs 200-DMA (₹439.17)</td><td class="right ">+86.4%</td></tr>
+      <tr><td>Below 52-week high</td><td class="right ">-10.2%</td></tr>
+      <tr><td>Up from 52-week low</td><td class="right ">+867.9%</td></tr>
+      <tr><td>Below all-time high (₹912.00)</td><td class="right ">-10.2%</td></tr>
+      <tr><td>1-year return</td><td class="right ">+564.7%</td></tr>
+      <tr><td>6-month return</td><td class="right ">+334.2%</td></tr>
+      <tr><td>3-month return</td><td class="right ">+25.1%</td></tr>
+      <tr><td>1-month return</td><td class="right ">+31.8%</td></tr>
+      <tr><td>1-week return</td><td class="right ">-8.8%</td></tr>
+      <tr><td>1-day return</td><td class="right ">-1.1%</td></tr>
+      <tr><td>Volume vs 1-month average</td><td class="right ">0.91×</td></tr>
+      <tr><td>Trailing P/E</td><td class="right ">178.9×</td></tr>
+      <tr><td>Price / Book</td><td class="right ">17.62×</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Screener scan of 2026-09-18 (1,629 stocks); 200-DMA slope measured against the 2026-09-17 scan; Stage 2 from the provider list of 2026-09-18. Generated by tools/report/framework_block.py — re-run it after each scan and these rows refresh; nothing here is typed by hand.</p>
+<!--FRAMEWORK:END STLTECH-->
+  <p>Sterlite&rsquo;s own report finds a business improving faster than its most recently confirmed order book can support, with part of the margin recovery traced to tariff relief rather than data-centre mix alone. The tape has been among the strongest this desk tracks over the past year, yet it does so under the exchange&rsquo;s most severe long-term surveillance classification, which is exactly the kind of disagreement between price and framework the house rules ask to be led with rather than smoothed over.</p>
+
+  <h3 class="subsection-title">HFCL &mdash; HFCL Limited</h3>
+<!--FRAMEWORK:BEGIN HFCL-->
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (18 Sep 2026 close)</th><th class="right">HFCL</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating (1–99, 1,629 stocks)</td><td class="right bold green">96</td></tr>
+      <tr><td>Trend template</td><td class="right bold"><span class="red">FAILS 6/7</span> <span class="muted">(price > 50-DMA)</span></td></tr>
+      <tr><td>Stage 2 (provider list 18 Sep)</td><td class="right ">Continues Trend · 22 wks · since 2026-04-18</td></tr>
+      <tr><td>Surveillance</td><td class="right bold red">LTASM - IV</td></tr>
+      <tr><td>Price vs 50-DMA (₹218.12)</td><td class="right ">-1.1%</td></tr>
+      <tr><td>Price vs 200-DMA (₹157.91)</td><td class="right ">+36.6%</td></tr>
+      <tr><td>Below 52-week high</td><td class="right ">-16.1%</td></tr>
+      <tr><td>Up from 52-week low</td><td class="right ">+260.6%</td></tr>
+      <tr><td>Below all-time high (₹257.00)</td><td class="right ">-16.1%</td></tr>
+      <tr><td>1-year return</td><td class="right ">+177.8%</td></tr>
+      <tr><td>6-month return</td><td class="right ">+203.1%</td></tr>
+      <tr><td>3-month return</td><td class="right ">+2.9%</td></tr>
+      <tr><td>1-month return</td><td class="right ">-4.8%</td></tr>
+      <tr><td>1-week return</td><td class="right ">-7.7%</td></tr>
+      <tr><td>1-day return</td><td class="right ">+3.0%</td></tr>
+      <tr><td>Volume vs 1-month average</td><td class="right red">0.54×</td></tr>
+      <tr><td>Trailing P/E</td><td class="right ">57.6×</td></tr>
+      <tr><td>Price / Book</td><td class="right ">6.75×</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Screener scan of 2026-09-18 (1,629 stocks); 200-DMA slope measured against the 2026-09-17 scan; Stage 2 from the provider list of 2026-09-18. Generated by tools/report/framework_block.py — re-run it after each scan and these rows refresh; nothing here is typed by hand.</p>
+<!--FRAMEWORK:END HFCL-->
+  <p>HFCL&rsquo;s own report finds a data-centre-labelled revenue line that is a small and only recently guided-up slice of a much larger fibre and defence story, funded in the same year by cash flow that moved the wrong way. On the tape, this is the first update in the desk&rsquo;s coverage of this name where the trend structure and the surveillance classification have begun pulling in different directions rather than the same one.</p>
+
+  <h3 class="subsection-title">BBOX &mdash; Black Box Limited</h3>
+<!--FRAMEWORK:BEGIN BBOX-->
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (18 Sep 2026 close)</th><th class="right">BBOX</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating (1–99, 1,629 stocks)</td><td class="right bold green">81</td></tr>
+      <tr><td>Trend template</td><td class="right bold"><span class="red">FAILS 6/7</span> <span class="muted">(within 25% of 52w high)</span></td></tr>
+      <tr><td>Stage 2 (provider list 18 Sep)</td><td class="right red">Not on the list</td></tr>
+      <tr><td>Surveillance</td><td class="right ">None</td></tr>
+      <tr><td>Price vs 50-DMA (₹783.27)</td><td class="right ">+2.3%</td></tr>
+      <tr><td>Price vs 200-DMA (₹715.68)</td><td class="right ">+11.9%</td></tr>
+      <tr><td>Below 52-week high</td><td class="right ">-27.4%</td></tr>
+      <tr><td>Up from 52-week low</td><td class="right ">+80.4%</td></tr>
+      <tr><td>Below all-time high (₹1,104.30)</td><td class="right ">-27.5%</td></tr>
+      <tr><td>1-year return</td><td class="right ">+72.0%</td></tr>
+      <tr><td>6-month return</td><td class="right ">+58.9%</td></tr>
+      <tr><td>3-month return</td><td class="right ">-21.7%</td></tr>
+      <tr><td>1-month return</td><td class="right ">+4.3%</td></tr>
+      <tr><td>1-week return</td><td class="right ">+0.0%</td></tr>
+      <tr><td>1-day return</td><td class="right ">+4.5%</td></tr>
+      <tr><td>Volume vs 1-month average</td><td class="right ">1.29×</td></tr>
+      <tr><td>Trailing P/E</td><td class="right ">49.9×</td></tr>
+      <tr><td>Price / Book</td><td class="right ">11.05×</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Screener scan of 2026-09-18 (1,629 stocks); 200-DMA slope measured against the 2026-09-17 scan; Stage 2 from the provider list of 2026-09-18. Generated by tools/report/framework_block.py — re-run it after each scan and these rows refresh; nothing here is typed by hand.</p>
+<!--FRAMEWORK:END BBOX-->
+  <p>Black Box&rsquo;s own report finds a genuinely growing hyperscale order book sitting beside two company-adjacent estimates of its data-centre share that will not reconcile with each other. Its own surveillance episode closed only shortly before this note, having spanned almost the whole of its pullback from the high, so the clean trend now being priced has a shorter run behind it than the headline backlog growth alone might suggest.</p>
+
+  <h3 class="subsection-title">STLNETWORK &mdash; STL Networks (Invenia)</h3>
+<!--FRAMEWORK:BEGIN STLNETWORK-->
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (18 Sep 2026 close)</th><th class="right">STLNETWORK</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating (1–99, 1,629 stocks)</td><td class="right bold green">91</td></tr>
+      <tr><td>Trend template</td><td class="right bold"><span class="green">PASSES 7/7</span></td></tr>
+      <tr><td>Stage 2 (provider list 18 Sep)</td><td class="right ">Continues Trend · 16 wks · since 2026-04-18</td></tr>
+      <tr><td>Surveillance</td><td class="right bold red">STASM - I</td></tr>
+      <tr><td>Price vs 50-DMA (₹29.27)</td><td class="right ">+46.7%</td></tr>
+      <tr><td>Price vs 200-DMA (₹25.73)</td><td class="right ">+66.9%</td></tr>
+      <tr><td>Below 52-week high</td><td class="right bold">-0.0%</td></tr>
+      <tr><td>Up from 52-week low</td><td class="right ">+172.7%</td></tr>
+      <tr><td>Below all-time high (₹42.95)</td><td class="right ">+0.0%</td></tr>
+      <tr><td>1-year return</td><td class="right ">+41.7%</td></tr>
+      <tr><td>6-month return</td><td class="right ">+130.3%</td></tr>
+      <tr><td>3-month return</td><td class="right ">+52.2%</td></tr>
+      <tr><td>1-month return</td><td class="right ">+72.0%</td></tr>
+      <tr><td>1-week return</td><td class="right ">+17.4%</td></tr>
+      <tr><td>1-day return</td><td class="right ">+5.0%</td></tr>
+      <tr><td>Volume vs 1-month average</td><td class="right red">0.28×</td></tr>
+      <tr><td>Trailing P/E</td><td class="right ">n/m (loss-making)</td></tr>
+      <tr><td>Price / Book</td><td class="right ">2.62×</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Screener scan of 2026-09-18 (1,629 stocks); 200-DMA slope measured against the 2026-09-17 scan; Stage 2 from the provider list of 2026-09-18. Generated by tools/report/framework_block.py — re-run it after each scan and these rows refresh; nothing here is typed by hand.</p>
+<!--FRAMEWORK:END STLNETWORK-->
+  <p>STL Networks&rsquo; own report finds no named hyperscaler or AI contract anywhere in its disclosed order book, structural losses in every quarter since it began trading independently, and receivables stretching toward the better part of a year of sales. The tape disagrees with all of that for now, having reached a fresh high in the same stretch that a surveillance flag was applied and only recently lifted, on a name that shares little more than a demerger history with the theme it is being traded on.</p>
+
+  <h3 class="subsection-title">BIRLACABLE &mdash; Birla Cable</h3>
+<!--FRAMEWORK:BEGIN BIRLACABLE-->
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (18 Sep 2026 close)</th><th class="right">BIRLACABLE</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating (1–99, 1,629 stocks)</td><td class="right bold green">97</td></tr>
+      <tr><td>Trend template</td><td class="right bold"><span class="green">PASSES 7/7</span></td></tr>
+      <tr><td>Stage 2 (provider list 18 Sep)</td><td class="right ">Continues Trend · 15 wks · since 2026-05-30</td></tr>
+      <tr><td>Surveillance</td><td class="right bold red">STASM - I</td></tr>
+      <tr><td>Price vs 50-DMA (₹292.79)</td><td class="right ">+39.9%</td></tr>
+      <tr><td>Price vs 200-DMA (₹210.92)</td><td class="right ">+94.1%</td></tr>
+      <tr><td>Below 52-week high</td><td class="right bold">-2.2%</td></tr>
+      <tr><td>Up from 52-week low</td><td class="right ">+293.8%</td></tr>
+      <tr><td>Below all-time high (₹432.55)</td><td class="right ">-5.3%</td></tr>
+      <tr><td>1-year return</td><td class="right ">+136.8%</td></tr>
+      <tr><td>6-month return</td><td class="right ">+218.6%</td></tr>
+      <tr><td>3-month return</td><td class="right ">+80.1%</td></tr>
+      <tr><td>1-month return</td><td class="right ">+43.8%</td></tr>
+      <tr><td>1-week return</td><td class="right ">+4.4%</td></tr>
+      <tr><td>1-day return</td><td class="right ">+1.9%</td></tr>
+      <tr><td>Volume vs 1-month average</td><td class="right ">1.39×</td></tr>
+      <tr><td>Trailing P/E</td><td class="right ">26.6×</td></tr>
+      <tr><td>Price / Book</td><td class="right ">4.36×</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Screener scan of 2026-09-18 (1,629 stocks); 200-DMA slope measured against the 2026-09-17 scan; Stage 2 from the provider list of 2026-09-18. Generated by tools/report/framework_block.py — re-run it after each scan and these rows refresh; nothing here is typed by hand.</p>
+<!--FRAMEWORK:END BIRLACABLE-->
+  <p>Birla Cable&rsquo;s own report finds a business still earned overwhelmingly from copper LAN cable, whose own optical-fibre revenue fell in the very year this theme is supposed to have helped it, with only a single undifferentiated quarter since as evidence of any turn. The tape here is exceptionally strong and carries its own short-term surveillance flag, which matters less for what it says about the underlying business than for the fact that, once the merger completes, this particular trend line belongs to a share that will stop trading.</p>
+
+  <h3 class="subsection-title">VINDHYATEL &mdash; Vindhya Telelinks</h3>
+<!--FRAMEWORK:BEGIN VINDHYATEL-->
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (18 Sep 2026 close)</th><th class="right">VINDHYATEL</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating (1–99, 1,629 stocks)</td><td class="right bold green">91</td></tr>
+      <tr><td>Trend template</td><td class="right bold"><span class="green">PASSES 7/7</span></td></tr>
+      <tr><td>Stage 2 (provider list 18 Sep)</td><td class="right ">Continues Trend · 17 wks · since 2026-05-09</td></tr>
+      <tr><td>Surveillance</td><td class="right ">None</td></tr>
+      <tr><td>Price vs 50-DMA (₹2,414.00)</td><td class="right ">+10.2%</td></tr>
+      <tr><td>Price vs 200-DMA (₹1,894.51)</td><td class="right ">+40.4%</td></tr>
+      <tr><td>Below 52-week high</td><td class="right ">-9.9%</td></tr>
+      <tr><td>Up from 52-week low</td><td class="right ">+177.1%</td></tr>
+      <tr><td>Below all-time high (₹3,232.95)</td><td class="right ">-17.7%</td></tr>
+      <tr><td>1-year return</td><td class="right ">+77.1%</td></tr>
+      <tr><td>6-month return</td><td class="right ">+151.3%</td></tr>
+      <tr><td>3-month return</td><td class="right ">+12.0%</td></tr>
+      <tr><td>1-month return</td><td class="right ">+9.1%</td></tr>
+      <tr><td>1-week return</td><td class="right ">-5.5%</td></tr>
+      <tr><td>1-day return</td><td class="right ">+1.0%</td></tr>
+      <tr><td>Volume vs 1-month average</td><td class="right red">0.37×</td></tr>
+      <tr><td>Trailing P/E</td><td class="right ">13.3×</td></tr>
+      <tr><td>Price / Book</td><td class="right ">0.75×</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Screener scan of 2026-09-18 (1,629 stocks); 200-DMA slope measured against the 2026-09-17 scan; Stage 2 from the provider list of 2026-09-18. Generated by tools/report/framework_block.py — re-run it after each scan and these rows refresh; nothing here is typed by hand.</p>
+<!--FRAMEWORK:END VINDHYATEL-->
+  <p>Vindhya Telelinks&rsquo; own report finds its cable segment improving on a mix management describes only qualitatively as richer in optical fibre, while a large share of group profit continues to come from stakes in other listed companies rather than from the fibre-and-cable operations this theme is actually about. The tape carries no surveillance flag and, as the entity that survives the scheme, is the one series in this basket that continues past a merger which will retire another name sitting right beside it.</p>
+
+  <p class="tbl-note">Reading the seven together: the framework can say which trends are intact today. It cannot say which of those trends is being driven by the data-centre theme this note tests and which is being driven by a merger arithmetic, a diversification story, or a government-contracts re-rating that has nothing to do with it. &sect;09 is built to answer that second question instead.</p>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">The Exposure Map</h2></div>
+  <p>This is the table the rest of the note exists to build toward: for each of the seven, what it actually sells, the measured share of revenue or order book that is data-centre or AI-linked in the company&rsquo;s own words, and whether that exposure is contracted, a framework, or merely announced.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Name</th><th>What it actually sells</th><th>Measured DC/AI share, company&rsquo;s own words</th><th>Contracted / framework / announced</th><th>Desk report</th></tr></thead>
+    <tbody>
+      <tr><td class="bold" style="width:110px">EBGNG</td><td>Refurbished laptops, desktops, tablets and servers, resold under the &ldquo;Electronics Bazaar&rdquo; brand; does not sell memory or chips</td><td class="muted">Not applicable &mdash; memory reaches GNG as a cost and inventory-timing effect across seven channels, not as revenue; the cost share of memory itself is &ldquo;disclosed nowhere&rdquo; in any company document</td><td class="muted">N/A &mdash; a retail margin and inventory-holding effect, not an order book</td><td>GNG Electronics report, 19 Sep 2026 [52]</td></tr>
+      <tr><td class="bold">STLTECH</td><td>Optical fibre, cable and connectivity products, preform-integrated</td><td class="bold green">Company-disclosed: data-centre revenue share rose from 1% (FY26) to 21% (Q1 FY27); combined data-centre-plus-enterprise FY27 guidance raised from ~30% to ~50%</td><td>Order book (&#8377;18,618 Cr) is contracted but dated 30 Jun 2026, unrevised; the US$1.11bn and US$288m hyperscaler deals are both allocation frameworks with periodic purchase orders, not firm backlog</td><td>Sterlite Technologies report, 20 Sep 2026 [53]</td></tr>
+      <tr><td class="bold">HFCL</td><td>Optical fibre cable, telecom equipment and defence electronics</td><td class="bold">Company-disclosed (derived): ~5.2% of Q1 FY27 revenue is &ldquo;data-centre connectivity&rdquo;; FY27 target of &ldquo;more than &#8377;700 Cr&rdquo;/&ldquo;&#8377;800 Cr&rdquo; implies ~10&ndash;12% of guided FY27 revenue</td><td>The ~&#8377;100 Cr Q1 FY27 figure is reported and actual; the FY27 target is a management target, not yet booked; the wider ~&#8377;16,000 Cr OFC order book is contracted but not data-centre-labelled</td><td>HFCL report, 20 Sep 2026 [54]</td></tr>
+      <tr><td class="bold">BBOX</td><td>Global network and data-centre systems integration; deploys, does not manufacture, networking and optical equipment</td><td class="red">Not cleanly disclosed &mdash; two secondary estimates that do not reconcile: ~25% of the order book (Q4 FY26 concall read) versus ~40&ndash;50% of overall revenue (a different period, different methodology)</td><td>US$949m backlog and a named US$131m hyperscaler order are contracted; the ~25%/~40&ndash;50% data-centre shares are both estimates, neither a clean company disclosure</td><td>Black Box report, 19 Sep 2026 [55]</td></tr>
+      <tr><td class="bold">STLNETWORK</td><td>Systems integration, network roll-out and managed services, demerged from Sterlite Technologies</td><td class="bold red">Zero named hyperscaler, cloud-provider or private AI contract anywhere in company disclosure; management invokes &ldquo;hyperscale capacity expansion&rdquo; only in general market-opportunity language, with no contract or figure attached</td><td>Every named, dated, quantified contract found (BharatNet, PowerGrid, NICSI) is government or PSU; a wholly owned subsidiary to own data-centre infrastructure was approved ~11 Sep 2026 but carries no disclosed contract, capex or revenue &mdash; announced only</td><td>STL Networks report, 20 Sep 2026 [56]</td></tr>
+      <tr><td class="bold">BIRLACABLE</td><td>Structured copper LAN and telecom cable (86% of FY26 revenue); optical fibre cable (14%, declining)</td><td class="red">Not disclosed &mdash; no product-line data-centre attribution of any kind; FY26 optical-fibre-cable revenue fell to &#8377;105.65 Cr from &#8377;115.16 Cr, and the one quarter of sharp improvement since carries no disclosed product split</td><td class="muted">N/A &mdash; no order book disclosed; and the company itself is scheduled to be absorbed into Vindhya Telelinks, pending NCLT approval</td><td>Birla Cable / Vindhya Telelinks merger note, 19 Sep 2026 [57]</td></tr>
+      <tr><td class="bold">VINDHYATEL</td><td>EPC contracting (telecom, water, power, solar) plus a cable plant; also holds equity stakes in Universal Cables, Birla Corporation and Punjab Produce Holdings</td><td class="red">Not disclosed as a data-centre-specific figure; management attributes a near-tripling of the cable segment&rsquo;s Q1 FY27 result only qualitatively, to &ldquo;a richer mix with more optical fibre cable&rdquo;</td><td>Cable-plus-EPC order book (~&#8377;4,850&ndash;5,226 Cr) is contracted but not data-centre-tagged; VTL sources its bare fibre from a JV (Birla Furukawa) rather than drawing its own, insulating it from &mdash; and limiting its capture of &mdash; the bare-fibre price spike</td><td>Birla Cable / Vindhya Telelinks merger note, 19 Sep 2026 [57]</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">&ldquo;Company-disclosed&rdquo; and &ldquo;derived&rdquo; figures are marked as such because the underlying sources mark them so; &ldquo;not disclosed&rdquo; means this research, and the desk&rsquo;s own report on that name, found no company-stated figure to report &mdash; not that no exposure exists. Universal Cables, mentioned in the VINDHYATEL row, is not one of the seven names in this note and is not in the merger scheme; it is included only because it holds both the Birla Cable stake being swapped and the JV that draws VTL&rsquo;s fibre [57].</p>
+  <p><b>Two names carry a genuinely measured, company-disclosed data-centre share: Sterlite Technologies and HFCL, in that order of scale.</b> One, Black Box, has real contracted hyperscale business but no clean disclosed share. One, GNG, is exposed only through a cost line, not a data-centre revenue line at all. Three &mdash; STL Networks, Birla Cable and Vindhya Telelinks &mdash; have no company-disclosed data-centre-specific figure whatsoever, and one of those three (STL Networks) has no named AI or hyperscale contract of any kind.</p>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">The Pattern Underneath: Cash</h2></div>
+  <p>Three of the seven reported their strongest profit in years in the same year their operating cash flow went the wrong way, and a fourth shows the same mechanism through its receivables rather than its cash-flow statement. This is a pattern worth naming on its own, separate from any single company&rsquo;s story.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Name</th><th>Year</th><th class="right">Reported profit</th><th class="right">Operating cash flow</th><th>What moved it</th></tr></thead>
+    <tbody>
+      <tr><td class="bold">GNG Electronics</td><td>FY26</td><td class="right bold">&#8377;132.0 Cr</td><td class="right bold red">&minus;&#8377;215.3 Cr</td><td>&#8377;256.5 Cr increase in inventory (buying used devices ahead of the price cycle) plus a &#8377;139.2 Cr swing in trade receivables [52]</td></tr>
+      <tr><td class="bold">HFCL</td><td>FY26</td><td class="right bold">&#8377;329 Cr</td><td class="right bold red">&minus;&#8377;378 Cr</td><td>Debtor days of 163 at year-end and a BharatNet/government-project-heavy receivables mix, per the company&rsquo;s own balance sheet [54]</td></tr>
+      <tr><td class="bold">Black Box</td><td>FY26</td><td class="right bold">&#8377;218 Cr</td><td class="right">&#8377;84 Cr</td><td>Roughly 39% cash conversion in the year the order book grew fastest &mdash; positive, but lagging, with management itself flagging rising working-capital days without yet naming a sustainable level [55]</td></tr>
+      <tr><td class="bold">STL Networks</td><td>FY26</td><td class="right muted">Net loss</td><td class="right muted">Debtor days: 377</td><td>Receivables equal to roughly the better part of a year of sales, consistent with a government- and PSU-heavy client base paid on slow cycles [35][56]</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Figures and attributions are each company&rsquo;s own, as read in the desk&rsquo;s underlying reports [52][54][55][56]. This table does not include Sterlite Technologies, whose own report does not carry a comparable operating-cash-flow figure in what this research reviewed; STL&rsquo;s balance-sheet improvement to net cash in FY27 is disclosed as following a fresh equity raise (a &#8377;1,500 Cr QIP), not as evidence of operating cash generation, and is not conflated with the pattern above [53].</p>
+  <p><b>What this does and does not mean.</b> None of these four figures is, on its own, evidence of an accounting problem. A refurbisher buying inventory ahead of a price cycle, an infrastructure company billing government clients on long cycles, and an integrator converting a fast-growing order book into receivables before it becomes cash are all mechanically consistent with real, reported growth &mdash; working capital absorbs cash before profit becomes cash, and that is normal in businesses scaling quickly. <b>What it does mean is that &ldquo;profits are rising because of the AI data-centre theme&rdquo; and &ldquo;this business is generating cash from the AI data-centre theme&rdquo; are two different claims, and only the first is supported by three of these four companies&rsquo; own FY26 numbers.</b> A reader relying on reported profit alone, without checking the cash-flow statement or the receivables trend, would have missed this in every one of the four cases; each company&rsquo;s own filings make it checkable, and none of the four highlights it in its own investor commentary.</p>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios for the Theme</h2></div>
+  <p>Three paths for the theme itself, not for any single stock, with the dated evidence that would move the reading between them. These are qualitative; no probabilities are invented.</p>
+  <div class="sc-row"><div class="sc-key">A &mdash; Capex continues</div><div class="sc-val green">Hyperscaler 2026 capex guidance holds or is raised further at the next round of results, memory stays tight roughly as producers describe (&ldquo;well beyond calendar 2027&rdquo; per Micron), and India&rsquo;s announced megawatt pipeline starts converting from announced to under-construction at a visible pace. What would show it: Meta, Microsoft, Alphabet and Amazon each reiterating or raising 2026-27 capex at their next reported quarters; TrendForce&rsquo;s Q4 2026 contract call (expected around the turn of the quarter) landing at or above the current 3&ndash;8% PC DRAM range rather than below it; a named India data-centre project moving from &ldquo;announced&rdquo; to a disclosed construction start. Under this path, the two names with company-disclosed, growing data-centre revenue shares &mdash; Sterlite Technologies and HFCL &mdash; have the most direct, checkable line to it; Black Box&rsquo;s backlog would be expected to keep compounding; the rest of the basket would benefit only at the distance already described in &sect;09.</div></div>
+  <div class="sc-row"><div class="sc-key">B &mdash; Memory decelerates as forecast (the base case already in motion)</div><div class="sc-val">TrendForce&rsquo;s own chained forecasts play out largely as published: PC DRAM contract increases fall from over 100% in Q1 2026 toward 3&ndash;8% in Q4 2026, the rate of increase keeps slowing while the price level itself does not reverse, and 2027 remains directionally tight but unquantified by any producer. What would show it: TrendForce&rsquo;s actual Q4 2026 call against its own 3&ndash;8% forecast; Micron&rsquo;s fiscal Q4 2026 results, due 30 September 2026, eleven days after the evidence base was compiled and the first Micron print not yet reflected in this note; each company&rsquo;s Q2 FY27 results in October&ndash;November 2026, particularly GNG&rsquo;s gross margin against its record 24.65% and whether cost of goods per device starts overtaking revenue per device. This is the path every primary source reviewed for &sect;03 currently points toward, and it is compatible with the fibre and build-out legs continuing to hold at the same time &mdash; deceleration in memory is not the same claim as a pause in data-centre capex.</div></div>
+  <div class="sc-row"><div class="sc-key">C &mdash; Capex pauses</div><div class="sc-val red">One or more hyperscalers cut guidance rather than raise it, echoing the mechanism Black Box itself already lived through once, when a data-centre input shortage (not a demand pause) forced a guidance cut in February 2026. A genuine pause would show up first as a change in hyperscaler capex language at results, then as allocation frameworks like Sterlite&rsquo;s two hyperscaler deals converting to purchase orders more slowly than their headline values imply, then as India&rsquo;s already-thin operational megawatt growth slowing further. What would show it: any of Meta, Microsoft, Alphabet or Amazon guiding 2027 capex down rather than up; STL&rsquo;s order book failing to move at its Q2 FY27 print despite the two new allocation deals; a resolution of the proposed additional India tariff CRISIL flags in a direction that reopens the margin pressure STL saw in the December 2025 quarter; BEAD funding decisions or disbursement that slip further given construction NTIA itself still describes as &ldquo;just beginning.&rdquo; This is the path least supported by anything gathered for this note as of 20 September 2026, but it is the path every capacity-heavy name in this basket &mdash; Sterlite, HFCL, and the merged Birla Cable/Vindhya Telelinks entity once it completes &mdash; is most exposed to, precisely because each is adding capacity into demand that is still substantially a forecast rather than a backlog.</div></div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Trading the interconnect narrative through names with zero interconnect exposure</div><div class="risk-body">The global laser and indium-phosphide shortage is the most dramatic shortage language in the whole theme, and none of the seven names in this basket makes transceivers, lasers or InP substrates. A position taken on this basket because of interconnect headlines is a position on a leg that provably does not apply to it.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">The two names with the clearest measured exposure carry the exchange&rsquo;s most severe surveillance stage</div><div class="risk-body">Sterlite Technologies and HFCL both show a company-disclosed, growing data-centre revenue share, and both are under long-term ASM surveillance at its most severe stage as of the 18 September scan. Surveillance-listed scrips typically carry raised margin requirements and routine exclusion from broker margin-funding lists; confirm eligibility with your broker before assuming either can be held on margin [53][54].</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Cash conversion lagged or went negative at three names in the very year profits rose</div><div class="risk-body">GNG Electronics and HFCL both reported negative operating cash flow in FY26 against record or near-record reported profit; Black Box converted only about 39% of profit into operating cash the same year. None of this is disqualifying on its own, but it means the profit trend and the cash trend are telling different stories at three of the seven (&sect;10).</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Memory&rsquo;s rate of increase is already decelerating, on the theme&rsquo;s own primary source</div><div class="risk-body">TrendForce&rsquo;s own chained forecasts move from over 100% quarterly PC DRAM contract growth in Q1 2026 to 3&ndash;8% by Q4 2026. This is the one leg of the theme with a quantified forecast, and the forecast itself already points toward deceleration in the rate, if not yet the level, of the very price rise the basket is being traded on.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">The fibre &ldquo;super-cycle&rdquo; is young, and priced in places as if it were mature</div><div class="risk-body">Birla Cable&rsquo;s own FY26 optical-fibre-cable revenue fell, with the company&rsquo;s own text dating the strong pricing environment to April 2026 onward. Tapes across this basket have moved on a timeline longer than the fibre story itself has been confirmed to hold.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Two of Sterlite&rsquo;s three hyperscaler-linked disclosures are allocation frameworks, not backlog</div><div class="risk-body">The US$1.11bn and US$288m contracts both describe a ceiling on future purchase orders released periodically, not a fixed delivery schedule. Either can under-deliver against its headline value for reasons that have nothing to do with the data-centre demand thesis being wrong, and STL&rsquo;s order book has not been revised to reflect either deal as of the last confirmed disclosure [53].</div></div>
+  <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">STL Networks is priced adjacent to a theme it has zero measured exposure to</div><div class="risk-body">No named hyperscaler, cloud-provider or private AI contract exists anywhere in STL Networks&rsquo; disclosed order book; every named, dated contract is government or PSU. The desk&rsquo;s own report on this name carries an Avoid rating for reasons independent of, but consistent with, this note&rsquo;s finding [56].</div></div>
+  <div class="risk-row"><div class="risk-num">08</div><div class="risk-name">Birla Cable trades well above its own swap-implied value into an unfinished merger</div><div class="risk-body">At the 18 September 2026 close, Birla Cable traded 77.0% above the value its own agreed swap ratio would pay in Vindhya Telelinks shares, up from 39.6% on the last close before the boards approved the scheme. Both companies&rsquo; public shareholders must still vote and the scheme must clear the NCLT before completion [57].</div></div>
+  <div class="risk-row"><div class="risk-num">09</div><div class="risk-name">Everyone is adding fibre and cable capacity into demand that is itself still partly a forecast</div><div class="risk-body">HFCL, Birla Cable/Vindhya Telelinks, Corning with NVIDIA, Prysmian and Fujikura are all separately expanding capacity into the same demand pool. Optical fibre has a documented history of new capacity arriving quickly once margins turn attractive, which is the industry&rsquo;s own current, self-reported condition [25][27][28][34].</div></div>
+  <div class="risk-row"><div class="risk-num">10</div><div class="risk-name">Policy and litigation risk sits alongside the commercial risk</div><div class="risk-body">CRISIL&rsquo;s own June 2026 rationale on Sterlite names a proposed additional 12.5% India tariff as a live, unresolved monitorable, on top of a $96.5 million US trade-secret verdict against an STL subsidiary that remains under appeal. China&rsquo;s extension of anti-dumping duties on Indian fibre, and the still-forming EU Critical Medicines-style policy apparatus around critical materials generally, are both reminders that a global, government-adjacent supply chain carries government-adjacent risk [31][53].</div></div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">VERDICT: THEMATIC SYNTHESIS &mdash; THE COMMODITY STORY HOLDS FAR MORE CONSISTENTLY THAN THE EQUITY-EXPOSURE STORY DOES; NOT A RECOMMENDATION</div>
+    <p><b>The theme the user asked about is real where it is furthest from these seven companies, and uneven where it is closest to them.</b> Memory pricing holds strongly on primary producer evidence &mdash; Samsung, SK hynix, Micron and Kioxia each independently reporting 30&ndash;85% quarterly selling-price increases &mdash; but its clearest reach into this basket is a cost line at one refurbisher, not a revenue line at six manufacturers. Chip and packaging pricing holds only for advanced, AI-specific packaging, and none of the seven touches it directly. The data-centre build-out holds as a real and growing pool of hyperscaler capital, but India&rsquo;s own operational capacity is a fraction of the announced totals, and the gap between announced, contracted and built is exactly where a reader should be most careful.</p>
+    <p><b>Optical fibre and cable is the leg closest to what four of these seven actually sell, and it is also the one carrying the sharpest timing catch.</b> Birla Cable&rsquo;s own optical-fibre revenue fell in FY26; the strong pricing environment its own annual report describes dates from April 2026, not from whenever the AI capex story began. Sterlite Technologies&rsquo; own margin recovery, credited to data-centre mix shift, tracks a US tariff-relief timeline closely enough that this note cannot separate the two mechanisms from anything Sterlite itself has disclosed. HFCL&rsquo;s own data-centre-labelled revenue is real and company-disclosed, and it is also a small slice &mdash; roughly one-twentieth of Q1 FY27 revenue &mdash; of a much larger story. <b>Optical interconnect, the leg with the most dramatic shortage language of all, fails cleanly: none of the seven makes a transceiver, a laser, or an InP substrate, and nothing in this research changes that.</b></p>
+    <p><b>The exposure map in &sect;09 is the note&rsquo;s central finding.</b> Two names, Sterlite Technologies and HFCL, carry a genuinely measured and growing company-disclosed data-centre share. Black Box has real contracted hyperscale business but no clean disclosed share of it. GNG Electronics is exposed only through a cost line. STL Networks, Birla Cable and Vindhya Telelinks carry no company-disclosed data-centre-specific figure at all, and STL Networks in particular has no named AI or hyperscale contract of any kind despite sharing a demerger history with a name that does. Underneath the profit lines, GNG, HFCL and Black Box each show operating cash flow lagging or negative in the very year reported profit rose, and STL Networks shows the same mechanism through receivables stretching toward a year of sales &mdash; a pattern that says growth is consuming working capital, not that anything is wrong, but a pattern none of the four volunteers in its own investor commentary.</p>
+    <p>This note changes no rating the desk has already published. It carries no position-sizing, allocation or entry/exit view on any of the seven, and it is not a recommendation.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>30 September 2026 &mdash; Micron&rsquo;s fiscal Q4 2026 results</b>, the first Micron print not reflected in this note, and the closest live test of whether DRAM/NAND pricing is still accelerating or already decelerating as TrendForce forecasts [11][52]</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Around the turn of each quarter &mdash; TrendForce&rsquo;s next quarter-ahead contract calls</b>, going by the dates of past releases, and specifically whether the first calendar-2027 call carries a minus sign anywhere [1]&ndash;[6]</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>October&ndash;November 2026 &mdash; each of the seven names&rsquo; Q2 FY27 results</b>, the first full quarter since this note for every company in the basket, and the first checkable test of &sect;09&rsquo;s measured exposure figures at Sterlite and HFCL specifically</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Any Sterlite Technologies disclosure separating tariff relief from data-centre mix shift</b> in its margin recovery, and whether the proposed additional 12.5% India tariff CRISIL flags is imposed [53]</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>BEAD disbursement and construction milestones</b> against NTIA&rsquo;s own description of construction as &ldquo;just beginning&rdquo; as of 25 August 2026 [33]</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>By 14 February 2027 &mdash; the NCLT first-motion deadline window for the Birla Cable/Vindhya Telelinks scheme</b>, and whether the swap ratio in any filing still reads 10 VTL shares for 115 Birla Cable shares against a market price that closed 77.0% above that value on 18 September 2026 [57]</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Any named hyperscaler, cloud-provider or private enterprise AI contract disclosed by STL Networks</b> &mdash; the one disclosure that would change this note&rsquo;s finding that its measured exposure to this theme is zero [56]</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Surveillance status at each scan</b> for Sterlite Technologies and HFCL (both at the exchange&rsquo;s most severe long-term stage as of 18 September 2026), and for STL Networks and Birla Cable (both short-term stage one) [53][54][56][57]</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>The seven &sect;08 blocks after each scan</b> &mdash; above all whether the two most severely surveilled names de-escalate, and whether STL Networks&rsquo; trend continues to diverge from its own disclosed order book</div>
+  <h3 class="subsection-title">Source quality</h3>
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:20px;">
+  This note is a synthesis of a shared evidence base compiled 19 September 2026 [1]&ndash;[51] and six company reports published 18&ndash;20 September 2026 [52]&ndash;[57]; it independently verifies neither and instead cross-checks the two against each other, which is how the tariff-versus-mix finding in &sect;05 and the surveillance pattern in &sect;08 and &sect;12 emerged. The primary-source depth is uneven by leg: memory pricing rests substantially on TrendForce releases read directly and on producers&rsquo; own results (Micron via SEC filing, SK hynix via its own release, Corning via SEC filing), while chip-packaging, GPU/passive lead times, copper, and transformer/switchgear pricing rest on trade-press and industry-blog synthesis that could not be independently cross-checked against an exchange or government primary source. <b>Failed domains, carried forward from the evidence base:</b> gartner.com (403, worked around via a republication), news.samsung.com (timeout/connection reset, worked around via secondary reporting of the same call), investors.micron.com (redirect loop), tomshardware.com (paywalled, no data extracted), investor.sandisk.com (timeout, unverified). <b>Unresolved conflicts, shown rather than resolved:</b> HBM&rsquo;s share of 2026 DRAM wafer capacity is TrendForce&rsquo;s own 20% &ldquo;AI-equivalent&rdquo; figure against 23&ndash;25% from lower-tier aggregators measuring a different thing [9]; India&rsquo;s operational data-centre capacity varies by up to 30% across trackers for nominally the same period [46]; Meta&rsquo;s memory-price-driven capex-raise rationale is well attested in secondary reporting of its Q1 2026 call but absent from its own Q2 2026 release [43][44]; Black Box&rsquo;s data-centre share of revenue (~40&ndash;50%) and of order book (~25%) come from different periods and methodologies and do not reconcile [55]; a data-centre buyer (Black Box) and fibre producers (Birla Cable, VTL, CRU) describe supply conditions in opposite directions within the same window [25][29][30][42]. <b>Gaps this note did not fill:</b> a quantified 2027 DRAM/NAND price forecast from any producer or TrendForce; India- or company-specific absolute bare-fibre $/km levels; STL Networks&rsquo; own FY26/Q1 FY27 actuals beyond what its own report could locate; independent, primary verification of the copper and transformer/switchgear price and lead-time claims in &sect;04 and the evidence base&rsquo;s own §6. Nothing in this note is a recommendation on position size, allocation, entry or exit for any of the seven names.
+  </p>
+  <h3 class="subsection-title">Sources</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th class="right">#</th><th>Title</th><th>Publisher</th><th>Date</th></tr></thead>
+    <tbody>
+      <tr><td class="right">1</td><td><a href="https://www.trendforce.com/presscenter/news/20260202-12911.html" target="_blank" rel="noopener">Memory Price Outlook for 1Q26 Sharply Upgraded</a></td><td>TrendForce</td><td>2 Feb 2026</td></tr>
+      <tr><td class="right">2</td><td><a href="https://www.trendforce.com/presscenter/news/20260331-12995.html" target="_blank" rel="noopener">AI Server Demand to Drive Memory Contract Price Increases in 2Q26</a></td><td>TrendForce</td><td>31 Mar 2026</td></tr>
+      <tr><td class="right">3</td><td><a href="https://www.trendforce.com/presscenter/news/20260514-13044.html" target="_blank" rel="noopener">Mobile DRAM Contract Prices Continue Rising in 2Q26</a></td><td>TrendForce</td><td>14 May 2026</td></tr>
+      <tr><td class="right">4</td><td><a href="https://www.trendforce.com/presscenter/news/20260703-13134.html" target="_blank" rel="noopener">AI Server Demand Continues to Support Memory Prices in 3Q26</a></td><td>TrendForce</td><td>3 Jul 2026</td></tr>
+      <tr><td class="right">5</td><td><a href="https://www.trendforce.com/presscenter/news/20260709-13140.html" target="_blank" rel="noopener">Server DRAM Contract Prices Expected to Rise 13-18% QoQ in 3Q26</a></td><td>TrendForce</td><td>9 Jul 2026</td></tr>
+      <tr><td class="right">6</td><td><a href="https://www.kucoin.com/news/flash/trendforce-raises-q3-q4-dram-contract-price-forecasts-benefits-micron" target="_blank" rel="noopener">TrendForce Raises Q3, Q4 DRAM Contract Price Forecasts</a> (secondary; not independently fetched on trendforce.com)</td><td>KuCoin News / Bitget News</td><td>accessed 19 Sep 2026</td></tr>
+      <tr><td class="right">7</td><td><a href="https://www.trendforce.com/presscenter/news/20260616-13102.html" target="_blank" rel="noopener">Contract Prices Surged More Than 100% in 1H26 &mdash; NOR Flash and SLC NAND</a></td><td>TrendForce</td><td>16 Jun 2026</td></tr>
+      <tr><td class="right">8</td><td><a href="https://www.trendforce.com/presscenter/news/20251117-12784.html" target="_blank" rel="noopener">Rising Memory Prices Weigh on Consumer Markets; 2026 Outlook Revised Downward</a></td><td>TrendForce</td><td>17 Nov 2025</td></tr>
+      <tr><td class="right">9</td><td><a href="https://www.trendforce.com/news/2025/12/26/news-ai-reportedly-to-consume-20-of-global-dram-wafer-capacity-in-2026-hbm-gddr7-lead-demand/" target="_blank" rel="noopener">AI Reportedly to Consume 20% of Global DRAM Wafer Capacity in 2026</a></td><td>TrendForce</td><td>26 Dec 2025</td></tr>
+      <tr><td class="right">10</td><td><a href="https://www.trendforce.com/price/dram/dram_spot" target="_blank" rel="noopener">DRAM Spot Price page</a></td><td>TrendForce</td><td>data as of 18 Sep 2026, accessed 19 Sep 2026</td></tr>
+      <tr><td class="right">11</td><td><a href="https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm" target="_blank" rel="noopener">Micron Technology Reports Record Results for the Third Quarter of Fiscal 2026</a></td><td>Micron Technology Inc. (SEC filing)</td><td>24 Jun 2026</td></tr>
+      <tr><td class="right">12</td><td><a href="https://www.investing.com/news/transcripts/earnings-call-transcript-micron-tops-q3-2026-estimates-shares-jump-131-93CH-4759237" target="_blank" rel="noopener">Micron FQ3 2026 earnings call transcript coverage</a></td><td>Investing.com</td><td>accessed 19 Sep 2026</td></tr>
+      <tr><td class="right">13</td><td><a href="https://www.itvoice.in/gartner-says-surging-memory-costs-will-reduce-global-pc-and-smartphone-shipments-in-2026" target="_blank" rel="noopener">Gartner Says Surging Memory Costs Will Reduce Global PC and Smartphone Shipments in 2026</a> (gartner.com blocked; via republication)</td><td>Gartner Inc. / IT Voice</td><td>26 Feb 2026</td></tr>
+      <tr><td class="right">14</td><td><a href="https://en.sedaily.com/finance/2026/07/30/samsung-sees-q2-dram-prices-up-40-percent-nand-up-60-percent" target="_blank" rel="noopener">Samsung Sees Q2 DRAM Prices Up 40%, NAND Up 60%</a></td><td>Seoul Economic Daily</td><td>30 Jul 2026</td></tr>
+      <tr><td class="right">15</td><td><a href="https://news.skhynix.com/en/q2-2026-business-results/" target="_blank" rel="noopener">SK hynix Announces 2Q26 Financial Results</a></td><td>SK hynix Inc.</td><td>29 Jul 2026</td></tr>
+      <tr><td class="right">16</td><td><a href="https://www.blocksandfiles.com/flash/2026/02/13/high-nand-selling-prices-help-kioxias-quarterly-revenue/4091286" target="_blank" rel="noopener">High NAND selling prices help Kioxia&rsquo;s quarterly revenue</a></td><td>Blocks &amp; Files</td><td>13 Feb 2026</td></tr>
+      <tr><td class="right">17</td><td><a href="https://www.top1markets.com/news/kioxia-earnings-nand-price-increase-70-percent-asp" target="_blank" rel="noopener">Kioxia NAND price increase headline</a> (headline only, not independently fetched)</td><td>TOPONE Markets</td><td>accessed 19 Sep 2026</td></tr>
+      <tr><td class="right">18</td><td><a href="https://investor.sandisk.com/news-releases/news-release-details/sandisk-reports-fiscal-fourth-quarter-2026-financial-results" target="_blank" rel="noopener">Sandisk Reports Fiscal Fourth Quarter 2026 Financial Results</a> (page timed out; via search synthesis)</td><td>SanDisk Corp.</td><td>5 Aug 2026</td></tr>
+      <tr><td class="right">19</td><td><a href="https://www.digitimes.com/news/a20250507PD222/ddr4-dram-production-sk-hynix-samsung.html" target="_blank" rel="noopener">DDR4 end-of-life reporting cluster</a></td><td>Digitimes / TrendForce / Tom&rsquo;s Hardware / Microchip USA</td><td>accessed 19 Sep 2026</td></tr>
+      <tr><td class="right">20</td><td><a href="https://scanx.trade/stock-market-news/companies/gng-electronics-q1-results-net-profit-rises-57-yoy-to-289-30-mn/46954732" target="_blank" rel="noopener">GNG Electronics Q1 results: net profit rises 57% YoY</a></td><td>ScanX (Financial Express / Loksatta)</td><td>1 Aug 2026</td></tr>
+      <tr><td class="right">21</td><td><a href="https://tradebrains.in/gng-electronics-shares-hit-5-lower-circuit-despite-56-pat-growth-heres-why/" target="_blank" rel="noopener">GNG Electronics Shares Hit 5% Lower Circuit Despite 56% PAT Growth</a></td><td>Tradebrains.in</td><td>31 Jul 2026</td></tr>
+      <tr><td class="right">22</td><td><a href="https://www.chittorgarh.com/ipo/gng-electronics-ipo/2046/" target="_blank" rel="noopener">GNG Electronics IPO / company profile</a></td><td>Chittorgarh / IndMoney</td><td>accessed 19 Sep 2026</td></tr>
+      <tr><td class="right">23</td><td><a href="https://niveshaay.substack.com/p/ai-chip-shortage-2026-how-dram-crisis" target="_blank" rel="noopener">AI Chip Shortage 2026: How DRAM Crisis Is Driving Refurbished Electronics Growth in India</a> (blog aggregator, not independently verified)</td><td>niveshaay (Substack)</td><td>accessed 19 Sep 2026</td></tr>
+      <tr><td class="right">24</td><td>Outcome of Board Meeting and Q4/FY26 Financial Results</td><td>Vindhya Telelinks Ltd (BSE/NSE filing)</td><td>23 May 2026</td></tr>
+      <tr><td class="right">25</td><td>Annual Report FY2025-26 / 34th AGM Notice</td><td>Birla Cable Ltd</td><td>22 May 2026</td></tr>
+      <tr><td class="right">26</td><td><a href="https://www.prnewswire.com/in/news-releases/stl-delivers-record-financial-performance-in-q1-fy27-reports-highest-ever-quarterly-revenue-ebitda-and-order-book-302834096.html" target="_blank" rel="noopener">STL delivers record financial performance in Q1 FY27</a></td><td>Sterlite Technologies Ltd / PR Newswire</td><td>24 Jul 2026</td></tr>
+      <tr><td class="right">27</td><td><a href="https://www.sahi.com/blogs/hfcl-q1-fy27-results-loss-to-rs-245-crore-profit" target="_blank" rel="noopener">HFCL Q1 FY27 results coverage</a></td><td>Sahi.com / ScanX / Business Standard</td><td>22 Jul 2026</td></tr>
+      <tr><td class="right">28</td><td><a href="https://www.sec.gov/Archives/edgar/data/0000024741/000002474126000253/glw-20260728xex99xq22026.htm" target="_blank" rel="noopener">Corning Q2 2026 results (Form 8-K)</a></td><td>Corning Incorporated (SEC filing)</td><td>28 Jul 2026</td></tr>
+      <tr><td class="right">29</td><td><a href="https://www.crugroup.com/en/communities/thought-leadership/2026/optical-fibre-prices-rise-as-preform-availability-tightens/" target="_blank" rel="noopener">Optical fibre prices rise as preform availability tightens</a></td><td>CRU Group</td><td>26 Feb 2026</td></tr>
+      <tr><td class="right">30</td><td><a href="https://finance.biggo.com/news/l-gxTp0BZk7xib5fsQC9" target="_blank" rel="noopener">Fiber Optic Prices Soar Over 400%; UBS: Global Supply Tightens</a></td><td>BigGo Finance (relaying UBS/CRU data)</td><td>2 Apr 2026</td></tr>
+      <tr><td class="right">31</td><td><a href="https://news.cgtn.com/news/2026-08-13/China-extends-anti-dumping-duties-on-Indian-optical-fiber-for-5-years-1PzIypNXkm4/p.html" target="_blank" rel="noopener">China extends anti-dumping duties on Indian optical fibre for 5 years</a></td><td>CGTN / Xinhua / Business Upturn</td><td>13&ndash;14 Aug 2026</td></tr>
+      <tr><td class="right">32</td><td><a href="https://www.business-standard.com/economy/news/commerce-ministry-recommends-anti-dumping-duty-on-imported-optical-fibre-123050900344_1.html" target="_blank" rel="noopener">Commerce ministry recommends anti-dumping duty on imported optical fibre</a> (background, pre-2026)</td><td>Business Standard / WION</td><td>2023, for context</td></tr>
+      <tr><td class="right">33</td><td><a href="https://www.ntia.gov/funding-programs/high-speed-internet-programs/broadband-equity-access-and-deployment-bead-program" target="_blank" rel="noopener">Broadband Equity, Access, and Deployment (BEAD) Program</a></td><td>NTIA (US Dept of Commerce)</td><td>accessed 19 Sep 2026; all-56 approval 25 Aug 2026</td></tr>
+      <tr><td class="right">34</td><td><a href="https://www.japantimes.co.jp/business/2026/06/09/fujikura-ceo-interview-data-centers/" target="_blank" rel="noopener">Fujikura CEO interview on data-centre cable pricing</a></td><td>Lightwave Online / Fierce Network / The Japan Times / Light Reading</td><td>9 Jun 2026</td></tr>
+      <tr><td class="right">35</td><td><a href="https://www.screener.in/company/STLNETWORK/consolidated/" target="_blank" rel="noopener">STL Networks Ltd company page</a></td><td>Screener.in</td><td>accessed 19 Sep 2026</td></tr>
+      <tr><td class="right">36</td><td><a href="https://www.trendforce.com/news/2026/08/06/news-inp-shortage-emerges-as-ai-optical-interconnect-bottleneck/" target="_blank" rel="noopener">InP Shortage Emerges as AI Optical Interconnect Bottleneck</a></td><td>TrendForce</td><td>6 Aug 2026</td></tr>
+      <tr><td class="right">37</td><td><a href="https://xenospectrum.com/en/lumentum-inp-ai-optics-shortage/" target="_blank" rel="noopener">The InP Shortage That Could Halt AI Optical Interconnects</a></td><td>XenoSpectrum</td><td>accessed 19 Sep 2026</td></tr>
+      <tr><td class="right">38</td><td><a href="https://www.techtimes.com/articles/317281/20260527/ai-data-center-optical-component-shortage-nvidias-4b-laser-lockup-pushes-rivals-past-2027.htm" target="_blank" rel="noopener">Nvidia&rsquo;s $4B Laser Lockup Pushes Rivals Past 2027</a></td><td>TechTimes</td><td>27 May 2026</td></tr>
+      <tr><td class="right">39</td><td><a href="https://www.utmel.com/blog/categories/optoelectronics/transceivers-shortage-outlook-2026-supply-lead-times-and-sourcing-options" target="_blank" rel="noopener">Transceivers Shortage Outlook 2026</a></td><td>Utmel (citing McKinsey-sourced modelling)</td><td>accessed 19 Sep 2026</td></tr>
+      <tr><td class="right">40</td><td><a href="https://www.business-standard.com/content/press-releases-ani/izmo-microsystems-unveils-silicon-photonics-modules-at-semicon-india-2026-126091500351_1.html" target="_blank" rel="noopener">izmo Microsystems Unveils Silicon Photonics Modules at SEMICON India 2026</a></td><td>izmo Ltd / Business Standard</td><td>15 Sep 2026</td></tr>
+      <tr><td class="right">41</td><td>Black Box Capital Markets Day 2026 investor presentation</td><td>Black Box Ltd (filed BSE/NSE)</td><td>1 Jun 2026</td></tr>
+      <tr><td class="right">42</td><td>Black Box Q1 FY27 earnings conference call transcript</td><td>Black Box Ltd</td><td>13 Aug 2026</td></tr>
+      <tr><td class="right">43</td><td><a href="https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx" target="_blank" rel="noopener">Meta Reports Second Quarter 2026 Results</a></td><td>Meta Platforms Inc.</td><td>29 Jul 2026</td></tr>
+      <tr><td class="right">44</td><td><a href="https://fortune.com/2026/04/29/meta-zuckerberg-145-billion-ai-spending-roi/" target="_blank" rel="noopener">Meta Q1 2026 call coverage &mdash; capex-raise rationale</a></td><td>Fortune / globaldatacenterhub.com / valueaddvc.com</td><td>29 Apr 2026</td></tr>
+      <tr><td class="right">45</td><td><a href="https://www.statista.com/chart/35046/capital-expenditure-of-meta-alphabet-amazon-and-microsoft/" target="_blank" rel="noopener">Hyperscaler 2026 capex tracker cluster</a></td><td>Statista / Motley Fool / Futurum / io-fund / Yahoo Finance</td><td>accessed 19 Sep 2026</td></tr>
+      <tr><td class="right">46</td><td><a href="https://www.outlookbusiness.com/explainers/indias-data-centre-boom-adani-reliance-bharti-in-fast-lane-in-a-crowded-field" target="_blank" rel="noopener">India&rsquo;s data-centre boom &mdash; capacity tracker cluster</a></td><td>Outlook Business / GlobeNewswire (Astute Analytica) / Blackridge Research / Tradebrains</td><td>accessed 19 Sep 2026</td></tr>
+      <tr><td class="right">47</td><td><a href="https://www.trendforce.com/news/2026/04/28/news-tsmc-cowos-wafer-asp-reportedly-nears-7nm-levels-advanced-packaging-poised-to-become-a-key-profit-driver/" target="_blank" rel="noopener">TSMC CoWoS Wafer ASP Reportedly Nears 7nm Levels</a></td><td>TrendForce</td><td>28 Apr 2026</td></tr>
+      <tr><td class="right">48</td><td><a href="https://siliconanalysts.com/analysis/foundry-allocation-status-q1-2026" target="_blank" rel="noopener">CoWoS capacity-ramp cluster</a></td><td>Silicon Analysts / Gurufocus / FinancialContent</td><td>accessed 19 Sep 2026</td></tr>
+      <tr><td class="right">49</td><td><a href="https://info.fusionww.com/blog/the-greensheet-july-2026" target="_blank" rel="noopener">GPU lead-time and MLCC shortage cluster</a></td><td>Fusion Worldwide / Electropages / GlobX / Defiance ETFs / Findchips</td><td>accessed 19 Sep 2026</td></tr>
+      <tr><td class="right">50</td><td><a href="https://tradingeconomics.com/commodity/copper" target="_blank" rel="noopener">Copper price cluster</a></td><td>TradingEconomics / Mining.com / Metalradar</td><td>accessed 19 Sep 2026</td></tr>
+      <tr><td class="right">51</td><td><a href="https://pv-magazine-usa.com/2026/05/11/u-s-transformer-market-faces-severe-supply-constraints-as-lead-times-extend-to-four-years/" target="_blank" rel="noopener">US transformer/switchgear lead-time and PPI cluster</a></td><td>AtekDistribution / PV Magazine USA / Marketanalysis.com / Terrapincg / Build.inc</td><td>accessed 19 Sep 2026</td></tr>
+      <tr><td class="right">52</td><td>GNG Electronics &mdash; Equity Research Report, September 2026</td><td>SwingEdge Research Desk (library/research/ebgng-memory-2026-09.html)</td><td>19 Sep 2026</td></tr>
+      <tr><td class="right">53</td><td>Sterlite Technologies &mdash; Equity Research Report, September 2026 Update</td><td>SwingEdge Research Desk (library/research/stltech-2026-09.html)</td><td>20 Sep 2026</td></tr>
+      <tr><td class="right">54</td><td>HFCL Limited &mdash; Equity Research Report, September 2026</td><td>SwingEdge Research Desk (library/research/hfcl-2026-09.html)</td><td>20 Sep 2026</td></tr>
+      <tr><td class="right">55</td><td>Black Box Limited &mdash; Equity Research Report, September 2026</td><td>SwingEdge Research Desk (library/research/bbox-2026-09.html)</td><td>19 Sep 2026</td></tr>
+      <tr><td class="right">56</td><td>STL Networks Ltd (Invenia) &mdash; Equity Research Report, September 2026</td><td>SwingEdge Research Desk (library/research/stlnetwork-2026-09.html)</td><td>20 Sep 2026</td></tr>
+      <tr><td class="right">57</td><td>Birla Cable into Vindhya Telelinks &mdash; Merger Note</td><td>SwingEdge Research Desk (library/research/mpbirlamerger-2026-09.html)</td><td>19 Sep 2026</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Sources 1&ndash;51 are carried from the desk&rsquo;s shared evidence base on the AI data-centre supply chain (compiled 19 September 2026), renumbered here to run consecutively with sources 52&ndash;57, the desk&rsquo;s own six reports on the seven named companies published 18&ndash;20 September 2026. Two evidence-file sources dated pre-2026 (context on the 2023 Indian anti-dumping action, and the general 2018-vintage supply survey referenced within the fibre cluster) are carried forward as background only, exactly as the evidence base itself flags them.</p>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>EBGNG · STLTECH · HFCL · BBOX · STLNETWORK · BIRLACABLE · VINDHYATEL &nbsp;|&nbsp; THEMATIC NOTE &nbsp;|&nbsp; SEPTEMBER 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: TrendForce &middot; Samsung, SK hynix, Micron, Kioxia and SanDisk filings &middot; CRU/UBS bare-fibre data &middot; Corning and Meta SEC/IR filings &middot; Black Box Capital Markets Day &middot; the desk's EBGNG, STLTECH, HFCL, BBOX, STLNETWORK and Birla Cable/Vindhya Telelinks reports &middot; SwingEdge scan, 18 Sep 2026 close</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>
