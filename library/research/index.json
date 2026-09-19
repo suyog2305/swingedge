@@ -97,6 +97,37 @@
       }
     },
     {
+      "id": "fcl-2026-09",
+      "title": "Fineotex Chemical Limited",
+      "subtitle": "Specialty Chemicals · Tibrewala Family · A correcting edition: the CrudeChem price was disclosed, and the US business is frac chemistry, not production chemistry",
+      "code": "FCL",
+      "sector": "Specialty Chemicals",
+      "date": "2026-09-20",
+      "cmp": "₹57.02",
+      "mcap": "~₹6,635 Cr",
+      "targets": {
+        "bull": "Completions keep recovering and the 2028 step-up is priced sensibly",
+        "bear": "A completions downturn meets a full multiple and unproven cash conversion"
+      },
+      "summary": "A correcting edition: the CrudeChem price was disclosed all along (up to USD 11.2 mn for 53.33%), and the US business is led by friction reducers and frac additives, so its beta is to well completions, not barrels, and it is more cyclical than the August report said. Oil is about 65% of revenue but…",
+      "file": "fcl-2026-09.html",
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-09-18",
+        "source": "scan",
+        "universe": 1629,
+        "rs": 95,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 17 wks",
+        "stage2_list_date": "2026-09-18",
+        "flag": null,
+        "price": 57.02
+      }
+    },
+    {
       "id": "mpbirlamerger-2026-09",
       "title": "Birla Cable into Vindhya Telelinks",
       "subtitle": "M.P. Birla group · The merger is real: both boards approved it on 21 March 2026 and the exchanges cleared it on 14 August 2026 · It is Birla Cable that disappears, Universal Cables is not in the scheme, and at the 18 September close Birla Cable trades 77% above what the swap ratio pays",
