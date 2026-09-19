@@ -51,6 +51,37 @@
       }
     },
     {
+      "id": "ebgng-memory-2026-09",
+      "title": "GNG Electronics",
+      "subtitle": "How a memory price reaches a refurbisher’s profit and loss — seven channels, each signed and dated · Electronics Bazaar · India, USA, Europe, UAE",
+      "code": "EBGNG",
+      "sector": "IT Hardware · Refurbished Electronics",
+      "date": "2026-09-19",
+      "cmp": "₹703.05",
+      "mcap": "~₹8,023 Cr",
+      "targets": {
+        "bull": "Used-device costs trail new-PC prices: gross profit per device up ~29% in a year, to ~₹6,780 (derived)",
+        "bear": "~56× earnings on ₹215 Cr of operating cash burned in FY26, as TrendForce’s PC DRAM forecast fades from 100%+ to 3–8%"
+      },
+      "summary": "Memory reaches GNG through seven channels: the three that help (selling price and substitution, holding gains on stock bought early, and a mix shifting to the US and Europe on a weaker rupee) are already in the reported numbers, with gross profit per device stepping from about ₹5,000–5,450 to about…",
+      "file": "ebgng-memory-2026-09.html",
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-09-18",
+        "source": "scan",
+        "universe": 1629,
+        "rs": 90,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 32 wks",
+        "stage2_list_date": "2026-09-18",
+        "flag": null,
+        "price": 703.05
+      }
+    },
+    {
       "id": "ibuprofen-2026-09",
       "title": "Europe's Ibuprofen \"Shortage\"",
       "subtitle": "A thesis audit of five Indian names · The registers list 22 finished-dose presentations, China’s own filings describe oversupply, and one of the five has no exposure at all",
