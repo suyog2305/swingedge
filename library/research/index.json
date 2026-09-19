@@ -2,6 +2,37 @@
   "updated": "2026-09-20",
   "reports": [
     {
+      "id": "stltech-2026-09",
+      "title": "Sterlite Technologies",
+      "subtitle": "Optical fibre, cable and connectivity · preform-to-fibre integrated · two more hyperscaler deals and a ₹3,000 Cr “Lakshya” capacity bet since the last edition",
+      "code": "STLTECH",
+      "sector": "Optical Fibre & Cable",
+      "date": "2026-09-20",
+      "cmp": "₹818.80",
+      "mcap": "~₹42,249 Cr",
+      "targets": {
+        "bull": "Two more hyperscaler deals since August, a ₹3,000 Cr “Lakshya” bet on 50% more capacity by FY29, and CRISIL’s outlook now Stable",
+        "bear": "Order book stale since 30 June, both new deals are allocation frameworks, and part of the margin recovery looks like tariff relief, not just mix shift"
+      },
+      "summary": "STL's Q1 FY27 turnaround is real, and two more hyperscaler deals plus a ₹20,000 Cr FY29 'Lakshya' plan have arrived since the last edition — but every addition is either an allocation rather than firm backlog, or unconfirmed against an order book still dated 30 June, and market cap against that…",
+      "file": "stltech-2026-09.html",
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-09-18",
+        "source": "scan",
+        "universe": 1629,
+        "rs": 99,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 32 wks",
+        "stage2_list_date": "2026-09-18",
+        "flag": "LTASM - IV",
+        "price": 818.8
+      }
+    },
+    {
       "id": "mpbirlamerger-2026-09",
       "title": "Birla Cable into Vindhya Telelinks",
       "subtitle": "M.P. Birla group · The merger is real: both boards approved it on 21 March 2026 and the exchanges cleared it on 14 August 2026 · It is Birla Cable that disappears, Universal Cables is not in the scheme, and at the 18 September close Birla Cable trades 77% above what the swap ratio pays",
