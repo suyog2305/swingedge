@@ -1,6 +1,22 @@
 {
-  "updated": "2026-09-11",
+  "updated": "2026-09-19",
   "reports": [
+    {
+      "id": "mpbirlamerger-2026-09",
+      "title": "Birla Cable into Vindhya Telelinks",
+      "subtitle": "M.P. Birla group · The merger is real: both boards approved it on 21 March 2026 and the exchanges cleared it on 14 August 2026 · It is Birla Cable that disappears, Universal Cables is not in the scheme, and at the 18 September close Birla Cable trades 77% above what the swap ratio pays",
+      "code": "CLUSTER",
+      "sector": "Merger note",
+      "date": "2026-09-19",
+      "rating": "Merger note — the deal is real, the market price is not the ratio; not a recommendation",
+      "targets": {
+        "bull": "Scheme approved 21 Mar 2026 at 10 VTL shares per 115 BCL shares; exchange observation letters received 14 Aug 2026",
+        "bear": "BCL closed 18 Sep 77% above its swap value; each company’s public shareholders must still vote, then NCLT Indore"
+      },
+      "summary": "The merger is real: on 21 March 2026 both boards approved the absorption of Birla Cable into Vindhya Telelinks at 10 VTL shares for every 115 BCL shares, and NSE and BSE issued observation letters on 14 August 2026; Universal Cables is not a party and the NCLT has not yet been approached. The ratio…",
+      "file": "mpbirlamerger-2026-09.html",
+      "featured": true
+    },
     {
       "id": "ibuprofen-2026-09",
       "title": "Europe's Ibuprofen \"Shortage\"",
