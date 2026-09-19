@@ -66,6 +66,37 @@
       }
     },
     {
+      "id": "stlnetwork-2026-09",
+      "title": "STL Networks Ltd (Invenia)",
+      "subtitle": "Trades as Invenia · Systems integration, network roll-out and managed services demerged from Sterlite Technologies · BharatNet and PSU contracts, not the hyperscaler capex re-rating its former parent",
+      "code": "STLNETWORK",
+      "sector": "Telecom Services",
+      "date": "2026-09-20",
+      "cmp": "₹42.95",
+      "mcap": "~₹2,099 Cr",
+      "targets": {
+        "bull": "Government digital-infrastructure order flow (BharatNet, NICSI, PowerGrid) is real and growing, and a freshly approved subsidiary signals intent to own data-centre infrastructure directly",
+        "bear": "Five straight quarterly losses, interest expense that has exceeded operating profit every quarter since listing, receivables near a full year of sales, and a fresh surveillance flag the same week as the all-time high"
+      },
+      "summary": "STL Networks (Invenia), demerged from Sterlite Technologies in March 2025, is a systems-integration and managed-services business, not a fibre or data-centre-hardware manufacturer. Every named, dated contract this report could find — BharatNet, PowerGrid Teleservices, a Bihar safe-city consortium…",
+      "file": "stlnetwork-2026-09.html",
+      "featured": false,
+      "signals_at_pub": {
+        "date": "2026-09-18",
+        "source": "scan",
+        "universe": 1629,
+        "rs": 91,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 16 wks",
+        "stage2_list_date": "2026-09-18",
+        "flag": "STASM - I",
+        "price": 42.95
+      }
+    },
+    {
       "id": "mpbirlamerger-2026-09",
       "title": "Birla Cable into Vindhya Telelinks",
       "subtitle": "M.P. Birla group · The merger is real: both boards approved it on 21 March 2026 and the exchanges cleared it on 14 August 2026 · It is Birla Cable that disappears, Universal Cables is not in the scheme, and at the 18 September close Birla Cable trades 77% above what the swap ratio pays",
