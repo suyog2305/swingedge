@@ -405,12 +405,12 @@
  {
   "series": "Entry-level new laptop price, India (GNG-cited)",
   "date": "2025-12-31",
-  "value": 42000,
+  "value": 40000,
   "unit": "INR",
   "basis": "retail",
   "source_n": 21,
-  "source_url": "https://tradebrains.in/gng-electronics-shares-hit-5-lower-circuit-despite-56-pat-growth-heres-why/",
-  "note": "GNG Electronics management, via Tradebrains (2026-07-31): entry-level new-laptop price in India moved from about this level to about ₹48,000 (see next entry) due to component/memory inflation. Date is approximate — the source frames this as the level shortly before the described rise, not a precise month."
+  "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/f0732000-2fc4-4a4d-99b5-f3554f9bec36.pdf",
+  "note": "GNG Electronics' filed transcript of its 30 Jul 2026 call: an entry-level new laptop went \"from INR40,000 to INR48,000\". A news report of the same call (Tradebrains, 31 Jul 2026) gave the starting figure as about 42,000; the transcript is preferred as the company's own filed record, and the desk's GNG report of 19 Sep 2026 shows both. The starting date is approximate."
  },
  {
   "series": "Entry-level new laptop price, India (GNG-cited)",
@@ -419,8 +419,8 @@
   "unit": "INR",
   "basis": "retail",
   "source_n": 21,
-  "source_url": "https://tradebrains.in/gng-electronics-shares-hit-5-lower-circuit-despite-56-pat-growth-heres-why/",
-  "note": "GNG Electronics management, via Tradebrains (2026-07-31), as of around the end of Q1 FY27 (quarter ended 2026-06-30)."
+  "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/f0732000-2fc4-4a4d-99b5-f3554f9bec36.pdf",
+  "note": "GNG Electronics' filed transcript of its 30 Jul 2026 call: an entry-level new laptop went \"from INR40,000 to INR48,000\"; recorded at about the end of the April-June 2026 quarter."
  },
  {
   "series": "Memory cost increase QoQ % (GNG-cited, India refurb/new-PC channel)",

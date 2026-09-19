@@ -6,16 +6,19 @@
     "code": "EBGNG",
     "name": "GNG Electronics"
   },
-  "thesis": "The claim this page tests: memory prices are rising fast, dearer memory makes new PCs dearer, and that widens the room for a refurbisher like GNG. The first half was checked on 19 Sep 2026 and holds. The second half has a catch the claim leaves out: GNG also buys memory, to upgrade the machines it refurbishes.",
+  "thesis": "The claim this page tests: memory prices are rising fast, dearer memory makes new PCs dearer, and that widens the room for a refurbisher like GNG. The desk checked the first half on 19 Sep 2026 and traced the second through GNG's own filings, channel by channel, in its report of the same date.",
   "audit": {
-    "status": "pending",
-    "text": "The price rise itself checks out: the producers' own reported results agree with TrendForce. Whether it helps or hurts GNG is a separate question that the desk's GNG report, now being written, works through channel by channel.",
+    "status": "partly",
+    "report": "ebgng-memory-2026-09",
+    "text": "Partly holds. The price rise is real, and it has already helped GNG's reported numbers; but memory is also a cost to GNG, the benefit was bought with cash, and the share price ran ahead of the results.",
     "findings": [
       "The rise is real and large. TrendForce put first-quarter 2026 conventional DRAM contract prices up 90–95% on the quarter and PC DRAM up more than 100%, a record. The producers' own latest results agree in direction: DRAM selling prices up about 30% on the quarter at SK hynix and in the mid-40s at Samsung for April–June 2026, and in the low-60s at Micron for its quarter to 28 May.",
-      "It is decelerating. TrendForce's third-quarter 2026 call for PC DRAM is reported at 15–20%, and its fourth-quarter call at 3–8%. Those are forecasts, and these two reached the desk through secondary reports.",
-      "DDR4 is dearer than DDR5 on the spot market: on 18 Sep 2026 a 16Gb DDR4 chip averaged $85.75 against $56.00 for DDR5, as the older standard is wound down.",
-      "GNG's own management, as reported on 31 Jul 2026, says memory costs rose 5–10% in the April–June 2026 quarter and are about five times their October 2025 level, and that an entry-level new laptop in India went from about ₹42,000 to about ₹48,000. That is a cost to GNG as well as a price umbrella.",
-      "No producer has given a quantified 2027 price forecast; the language is that supply stays tight beyond 2027."
+      "It is decelerating. TrendForce's third-quarter 2026 call for PC DRAM is reported at 15–20%, and its fourth-quarter call at 3–8%. Those are forecasts, and these two reached the desk through secondary reports. The report's reading: a slowdown removes GNG's holding gain on stock bought early, not the price umbrella.",
+      "Three channels help GNG and are already in the reported numbers: dearer new PCs, holding gains on inventory bought earlier, and a sales mix shifting to the US and Europe on a weaker rupee. Gross profit per device stepped from about ₹5,000–5,450 to about ₹6,780 in Q1 FY27. That figure is the desk's derivation.",
+      "Two channels hurt and arrive late. GNG buys RAM and SSDs to upgrade the machines it refurbishes, and management conceded on its 30 Jul 2026 call that enterprises keeping their fleets longer will shrink the supply of used machines. No document gives memory's share of a refurbished unit's cost.",
+      "The benefit was bought with cash. FY26 operating cash flow was −₹215.3 Cr against a reported profit of ₹132.0 Cr, from the annual report's cash flow statement: the trade was placed in inventory.",
+      "The share price got there first. It ignored the thesis for four months, to its post-listing low on 27 Jan 2026, and has since run ahead of the results twice. Since GNG listed, its weekly returns have correlated 0.11 with Micron's.",
+      "DDR4 is dearer than DDR5 on the spot market: on 18 Sep 2026 a 16Gb DDR4 chip averaged $85.75 against $56.00 for DDR5, as the older standard is wound down. GNG's filed transcript says an entry-level new laptop in India went from ₹40,000 to ₹48,000; a news report of the same call said ₹42,000."
     ]
   },
   "watch": [
