@@ -144,25 +144,66 @@ def week_ending(d):
     return d - dt.timedelta(days=(d.weekday() - 4) % 7)
 
 
+S2_UNREADABLE = []   # (file, why) - reported by the caller; a silent None cost three scans their list
+
+
 def stage2_asof(path):
     """The list's own date: the newest 'Earliest Date' in the file. The provider stamps that
-    week's New Additions with the day the list was cut, so this needs no filename parsing."""
+    week's New Additions with the day the list was cut, so this needs no filename parsing.
+
+    STDLIB ONLY, on purpose. This first shipped with `import openpyxl`, which lives in the user
+    site-packages - and had been pip-installed from inside a packaged desktop app, whose writes to
+    %APPDATA% Windows redirects to a private per-app copy. Every shell launched from that app saw
+    the package; Task Scheduler did not, the ImportError was swallowed, and the 16 and 18 Sep 2026
+    scans were built with no Stage 2 list while every manual test passed. build_weekly.read_xlsx
+    reads .xlsx with zipfile + ElementTree, as the rest of the pipeline always has. Test changes to
+    anything the scheduled task runs with `python -s` (user site disabled)."""
     try:
-        import openpyxl
-        ws = openpyxl.load_workbook(path, read_only=True, data_only=True).worksheets[0]
-        rows = ws.iter_rows(values_only=True)
-        hdr = [str(h or '').strip().lower() for h in next(rows)]
-        i = next((k for k, h in enumerate(hdr) if h in ('earliest date', 'entry date', 'since', 'first date', 'date')), None)
+        here = os.path.dirname(os.path.abspath(__file__))
+        if here not in sys.path:
+            sys.path.insert(0, here)
+        from build_weekly import read_table, norm
+        from build_scan import excel_date
+        headers, rows = read_table(path)
+        names = {norm(x) for x in ('earliest date', 'entry date', 'since', 'first date', 'date')}
+        i = next((k for k, h in enumerate(headers) if norm(h) in names), None)
         if i is None:
+            S2_UNREADABLE.append((os.path.basename(path), 'no "Earliest Date" column'))
             return None
-        best = None
-        for r in rows:
-            v = r[i] if i < len(r) else None
-            if isinstance(v, dt.datetime): v = v.date()
-            if isinstance(v, dt.date) and (best is None or v > best): best = v
-        return best
-    except Exception:
+        best = max((d for d in (excel_date(r[i]) for r in rows if i < len(r)) if d), default=None)
+        if not best:
+            S2_UNREADABLE.append((os.path.basename(path), 'no dates in the "Earliest Date" column'))
+            return None
+        return dt.date.fromisoformat(best)
+    except BaseException as e:                        # SystemExit too: read_table raises it on an empty file
+        if isinstance(e, KeyboardInterrupt):
+            raise
+        S2_UNREADABLE.append((os.path.basename(path), f'{type(e).__name__}: {e}'))
         return None
+
+
+def default_scan_date(now=None):
+    """The session whose close screener is serving right now, as YYYY-MM-DD - or None while a
+    session is live. The task is set to start as soon as possible after a missed run, so a 20:00
+    run that the machine slept through fires at the next logon, usually the next morning. Before
+    the open screener still serves the previous session's fully refreshed close; dating that
+    "today" wrote 17 Sep 2026's close as 2026-09-18 at 08:05, and the true 17 Sep close was lost
+    when the 20:00 run rebuilt the file. While the market is open the prices are live and partial,
+    and no date is right. Holidays need no calendar here: the same-data guard sees screener still
+    serving the last close and writes nothing. Times are local; this machine runs on IST."""
+    now = now or dt.datetime.now()
+    d, t = now.date(), now.time()
+
+    def prev_weekday(x):
+        x -= dt.timedelta(days=1)
+        while x.weekday() >= 5:
+            x -= dt.timedelta(days=1)
+        return x
+    if d.weekday() >= 5 or t < dt.time(9, 10):
+        return prev_weekday(d).isoformat()
+    if t < dt.time(15, 40):
+        return None
+    return d.isoformat()
 
 
 def newest_stage2_file(date):
@@ -203,9 +244,17 @@ def main():
     ap.add_argument('--no-stage2', action='store_true', help='build the scan without any Stage 2 list')
     a = ap.parse_args()
 
-    date = a.date or dt.date.today().isoformat()
+    date = a.date or default_scan_date()
+    if date is None:
+        print('SwingEdge EOD refresh — the market is open')
+        print('    screener is serving live, partial prices, so a scan built now would be neither '
+              "yesterday's close nor today's. Nothing fetched, nothing written. Run after 15:40 IST, "
+              'or pass --date YYYY-MM-DD to override.')
+        return 3
     py = sys.executable
-    print(f'SwingEdge EOD refresh — {date}')
+    print(f'SwingEdge EOD refresh — {date}'
+          + ('' if a.date or date == dt.date.today().isoformat()
+             else f"   (run on {dt.date.today().isoformat()}: screener is still serving that session's close)"))
     before_date, before = snapshot()
 
     # screener.in appends AT MOST TWO query terms as export columns, in query order — verified
@@ -281,6 +330,9 @@ def main():
             build_cmd += ['--stage2', s2file]
         else:
             print('    none found in: ' + '; '.join(s2dirs))
+        for f, why in S2_UNREADABLE:
+            print(f'    COULD NOT READ {f}: {why}')
+        if not s2file:
             print('    the scan is built without a Stage 2 list (save the weekly file as "Stage 2_<date>.xlsx" '
                   'in one of those folders)')
 
