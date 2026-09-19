@@ -9,13 +9,14 @@
   "thesis": "The claim this page tests: more Texas crude output means more wells drilled, and more wells drilled means proportionally more business for Fineotex through CrudeChem, the US oilfield-chemicals company it bought in December 2025. Each arrow is a separate question. The desk audited all of them on 19 Sep 2026, and the charts are ordered by what the audit found matters most.",
   "audit": {
     "status": "fails",
+    "report": "fcl-2026-09",
     "text": "Fails as framed; a different, weaker link holds. Checked against Fineotex's exchange filings and three call transcripts, EIA, Baker Hughes and the Dallas Fed energy surveys.",
     "findings": [
       "The exposure is real and large. CrudeChem, which Fineotex owns 53.33% of, was about 65% of consolidated revenue in Q1 FY27 (management, 24 Jul 2026 call). But it was only about 29% of the profit that belongs to Fineotex's shareholders, roughly ₹11.0 Cr of ₹38.40 Cr, because 46.67% goes to the minority partners and the business nets about 8%. The 29% is the desk's derivation from the filed minority-interest line; the company reports a single segment, so no audited oil figure exists.",
       "So it is not proportional. At constant margins a 10% rise in CrudeChem's sales adds roughly 3% to owners' quarterly profit.",
       "The production leg runs backwards. From January 2023 to December 2025 Texas output rose 8.7% while Texas rigs fell 39%, from 379 to 231. Drilling leads production by months; production never causes drilling.",
       "CrudeChem sells mainly friction reducers and frac additives, which is completion chemistry, on its own descriptions and its July 2026 investor deck. It has never disclosed a product split. Completion chemistry follows frac crews and wells completed, not barrels.",
-      "Even the right indicators explain only part of it. CrudeChem's revenue roughly doubled in the first half of 2026 while Permian completions fell 8% year on year; management credits fresh capital, supplier terms and wallet share. No activity series would have predicted that, and none will warn if it reverses.",
+      "Even the right indicators explain only part of it. CrudeChem's revenue rose steeply in the first half of 2026, by about half on management's own dollar figures and by more on the audit's reading, while Permian completions fell 8% year on year; management credits fresh capital, supplier terms and wallet share. No activity series would have predicted that, and none will warn if it reverses.",
       "The share price has not traded on oil. From the deal's close to 17 Sep 2026, 196 sessions, Fineotex's daily returns correlate −0.03 with WTI and +0.36 with the Nifty. It made its 52-week low with WTI near $103.",
       "EIA's own forecast has WTI at $58 by December 2027, below the $67 that the Dallas Fed's survey gives as the Permian new-well breakeven. That is a forecast, not a fact."
     ]
