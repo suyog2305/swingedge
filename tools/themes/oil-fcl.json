@@ -1,7 +1,11 @@
 {
   "id": "oil-fcl",
+  "order": 1,
   "title": "Texas crude and Fineotex",
-  "stock": {"code": "FCL", "name": "Fineotex Chemical"},
+  "stock": {
+    "code": "FCL",
+    "name": "Fineotex Chemical"
+  },
   "thesis": "The claim this page tests: more Texas crude output means more wells drilled, and more wells drilled means proportionally more business for Fineotex through CrudeChem, the US oilfield-chemicals company it bought in December 2025. Each arrow is a separate question. The desk audited all of them on 19 Sep 2026, and the charts are ordered by what the audit found matters most.",
   "audit": {
     "status": "fails",
@@ -17,11 +21,35 @@
     ]
   },
   "watch": [
-    {"name": "US frac spread count", "freq": "weekly", "why": "The closest public proxy for friction-reducer volumes. 187 crews on 18 Sep 2026, against a low of 145 on 6 Feb and a high of 205 on 2 Jul. National, not Permian. It is Primary Vision's proprietary series, so it is linked here rather than copied.", "url": "https://www.aogr.com/web-exclusives/us-frac-spread-count/2026"},
-    {"name": "Dallas Fed Energy Survey", "freq": "quarterly, next 30 Sep 2026", "why": "Oilfield-services utilisation, prices received and input costs: a direct read on the service pricing and cost pass-through that CrudeChem's surcharges depend on.", "url": "https://www.dallasfed.org/research/surveys/des"},
-    {"name": "Texas Railroad Commission drilling permits, districts 7C, 08 and 8A", "freq": "monthly", "why": "The earliest signal of intent to drill in the Permian. Noisy: it counts reports processed in the month, not wells drilled.", "url": "https://www.rrc.texas.gov/oil-and-gas/research-and-statistics/drilling-information/monthly-drilling-completion-and-plugging-summaries/"},
-    {"name": "Results from ProPetro, Flotek and Innospec's oilfield arm", "freq": "quarterly", "why": "Tells you whether CrudeChem's growth is the market's or its own share gain."},
-    {"name": "Fineotex's own quarterly results", "freq": "quarterly, Q2 FY27 not yet reported", "why": "The minority-interest line is the only filed read on what CrudeChem actually earns.", "url": "https://fineotex.com/financial-results/"}
+    {
+      "name": "US frac spread count",
+      "freq": "weekly",
+      "why": "The closest public proxy for friction-reducer volumes. 187 crews on 18 Sep 2026, against a low of 145 on 6 Feb and a high of 205 on 2 Jul. National, not Permian. It is Primary Vision's proprietary series, so it is linked here rather than copied.",
+      "url": "https://www.aogr.com/web-exclusives/us-frac-spread-count/2026"
+    },
+    {
+      "name": "Dallas Fed Energy Survey",
+      "freq": "quarterly, next 30 Sep 2026",
+      "why": "Oilfield-services utilisation, prices received and input costs: a direct read on the service pricing and cost pass-through that CrudeChem's surcharges depend on.",
+      "url": "https://www.dallasfed.org/research/surveys/des"
+    },
+    {
+      "name": "Texas Railroad Commission drilling permits, districts 7C, 08 and 8A",
+      "freq": "monthly",
+      "why": "The earliest signal of intent to drill in the Permian. Noisy: it counts reports processed in the month, not wells drilled.",
+      "url": "https://www.rrc.texas.gov/oil-and-gas/research-and-statistics/drilling-information/monthly-drilling-completion-and-plugging-summaries/"
+    },
+    {
+      "name": "Results from ProPetro, Flotek and Innospec's oilfield arm",
+      "freq": "quarterly",
+      "why": "Tells you whether CrudeChem's growth is the market's or its own share gain."
+    },
+    {
+      "name": "Fineotex's own quarterly results",
+      "freq": "quarterly, Q2 FY27 not yet reported",
+      "why": "The minority-interest line is the only filed read on what CrudeChem actually earns.",
+      "url": "https://fineotex.com/financial-results/"
+    }
   ],
   "cannot": [
     "CrudeChem's product split, customer concentration, Permian share and standalone margin. None has been disclosed; the mapping to completions is inferred from the company's own descriptions.",
@@ -32,46 +60,282 @@
     "Timing and sign. High oil from a Gulf war has so far meant a weaker Nifty, which reached Fineotex's share price before any Texas benefit did."
   ],
   "series": {
-    "wti": {"src": "yahoo", "symbol": "CL=F", "range": "5y", "label": "WTI crude, front-month future", "short": "WTI", "unit": "USD/bbl", "freq": "D", "slot": 1, "digits": 2,
-            "source": "NYMEX front-month WTI futures, daily close, via Yahoo Finance", "url": "https://finance.yahoo.com/quote/CL=F"},
-    "brent": {"src": "yahoo", "symbol": "BZ=F", "range": "5y", "label": "Brent crude, front-month future", "short": "Brent", "unit": "USD/bbl", "freq": "D", "slot": 2, "digits": 2,
-              "source": "ICE front-month Brent futures, daily close, via Yahoo Finance", "url": "https://finance.yahoo.com/quote/BZ=F"},
-    "stock": {"src": "yahoo", "symbol": "FCL.NS", "range": "5y", "scan_code": "FCL", "label": "Fineotex Chemical share price", "short": "Fineotex", "unit": "INR", "freq": "D", "slot": 3, "digits": 2,
-              "source": "NSE daily close, split-adjusted, via Yahoo Finance; the desk's own scan closes override it on their dates", "url": "https://finance.yahoo.com/quote/FCL.NS"},
-    "tx_rigs": {"src": "bh_rigs", "region": "texas", "label": "Texas rigs at work", "short": "Texas", "unit": "rigs", "freq": "W", "slot": 7, "digits": 0,
-                "source": "Baker Hughes North America Rig Count, weekly workbook, summed by state and basin", "url": "https://rigcount.bakerhughes.com/na-rig-count"},
-    "permian_rigs_w": {"src": "bh_rigs", "region": "permian", "label": "Permian rigs at work", "short": "Permian", "unit": "rigs", "freq": "W", "slot": 6, "digits": 0,
-                       "source": "Baker Hughes North America Rig Count, weekly workbook, summed by state and basin", "url": "https://rigcount.bakerhughes.com/na-rig-count"},
-    "permian_completed": {"src": "steo", "id": "NWCPM", "since": "2016-01-01", "label": "Permian wells completed each month", "short": "Completions", "unit": "wells", "freq": "M", "slot": 0, "digits": 0,
-                          "source": "EIA Short-Term Energy Outlook, drilling-productivity tables; EIA estimates the latest six months", "url": "https://www.eia.gov/outlooks/steo/"},
-    "permian_ducs": {"src": "steo", "id": "DUCSPM", "since": "2016-01-01", "label": "Permian drilled-but-uncompleted wells", "short": "DUCs", "unit": "wells", "freq": "M", "slot": 0, "digits": 0,
-                     "source": "EIA Short-Term Energy Outlook, drilling-productivity tables; EIA estimates the latest six months", "url": "https://www.eia.gov/outlooks/steo/"},
-    "permian_prod": {"src": "steo", "id": "COPRPM", "since": "2016-01-01", "label": "Permian crude output", "short": "Output", "unit": "mb/d", "freq": "M", "slot": 5, "digits": 3,
-                     "source": "EIA Short-Term Energy Outlook; the Permian region includes south-east New Mexico", "url": "https://www.eia.gov/outlooks/steo/"},
-    "permian_rigs": {"src": "steo", "id": "RIGSPM", "since": "2016-01-01", "label": "Permian active rigs, monthly average", "short": "Rigs", "unit": "rigs", "freq": "M", "slot": 6, "digits": 0,
-                     "source": "EIA Short-Term Energy Outlook, drilling-productivity tables; EIA estimates the latest six months", "url": "https://www.eia.gov/outlooks/steo/"},
-    "tx_prod": {"src": "eia_dnav", "series": "MCRFPTX2", "scale": 0.001, "since": "2016-01-01", "label": "Texas crude production", "short": "Texas", "unit": "mb/d", "freq": "M", "slot": 0, "digits": 3,
-                "source": "EIA, Texas Field Production of Crude Oil (Petroleum Supply Monthly), published with a two-month lag", "url": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=MCRFPTX2&f=M"},
-    "wti_eia": {"src": "steo", "id": "WTIPUUS", "since": "2016-01-01", "label": "WTI spot, monthly average, with EIA's forecast", "short": "WTI (EIA)", "unit": "USD/bbl", "freq": "M", "slot": 1, "digits": 2,
-                "source": "EIA Short-Term Energy Outlook", "url": "https://www.eia.gov/outlooks/steo/"}
+    "wti": {
+      "src": "yahoo",
+      "symbol": "CL=F",
+      "range": "5y",
+      "label": "WTI crude, front-month future",
+      "short": "WTI",
+      "unit": "USD/bbl",
+      "freq": "D",
+      "slot": 1,
+      "digits": 2,
+      "source": "NYMEX front-month WTI futures, daily close, via Yahoo Finance",
+      "url": "https://finance.yahoo.com/quote/CL=F"
+    },
+    "brent": {
+      "src": "yahoo",
+      "symbol": "BZ=F",
+      "range": "5y",
+      "label": "Brent crude, front-month future",
+      "short": "Brent",
+      "unit": "USD/bbl",
+      "freq": "D",
+      "slot": 2,
+      "digits": 2,
+      "source": "ICE front-month Brent futures, daily close, via Yahoo Finance",
+      "url": "https://finance.yahoo.com/quote/BZ=F"
+    },
+    "stock": {
+      "src": "yahoo",
+      "symbol": "FCL.NS",
+      "range": "5y",
+      "scan_code": "FCL",
+      "label": "Fineotex Chemical share price",
+      "short": "Fineotex",
+      "unit": "INR",
+      "freq": "D",
+      "slot": 3,
+      "digits": 2,
+      "source": "NSE daily close, split-adjusted, via Yahoo Finance; the desk's own scan closes override it on their dates",
+      "url": "https://finance.yahoo.com/quote/FCL.NS"
+    },
+    "tx_rigs": {
+      "src": "bh_rigs",
+      "region": "texas",
+      "label": "Texas rigs at work",
+      "short": "Texas",
+      "unit": "rigs",
+      "freq": "W",
+      "slot": 7,
+      "digits": 0,
+      "source": "Baker Hughes North America Rig Count, weekly workbook, summed by state and basin",
+      "url": "https://rigcount.bakerhughes.com/na-rig-count"
+    },
+    "permian_rigs_w": {
+      "src": "bh_rigs",
+      "region": "permian",
+      "label": "Permian rigs at work",
+      "short": "Permian",
+      "unit": "rigs",
+      "freq": "W",
+      "slot": 6,
+      "digits": 0,
+      "source": "Baker Hughes North America Rig Count, weekly workbook, summed by state and basin",
+      "url": "https://rigcount.bakerhughes.com/na-rig-count"
+    },
+    "permian_completed": {
+      "src": "steo",
+      "id": "NWCPM",
+      "since": "2016-01-01",
+      "label": "Permian wells completed each month",
+      "short": "Completions",
+      "unit": "wells",
+      "freq": "M",
+      "slot": 0,
+      "digits": 0,
+      "source": "EIA Short-Term Energy Outlook, drilling-productivity tables; EIA estimates the latest six months",
+      "url": "https://www.eia.gov/outlooks/steo/"
+    },
+    "permian_ducs": {
+      "src": "steo",
+      "id": "DUCSPM",
+      "since": "2016-01-01",
+      "label": "Permian drilled-but-uncompleted wells",
+      "short": "DUCs",
+      "unit": "wells",
+      "freq": "M",
+      "slot": 0,
+      "digits": 0,
+      "source": "EIA Short-Term Energy Outlook, drilling-productivity tables; EIA estimates the latest six months",
+      "url": "https://www.eia.gov/outlooks/steo/"
+    },
+    "permian_prod": {
+      "src": "steo",
+      "id": "COPRPM",
+      "since": "2016-01-01",
+      "label": "Permian crude output",
+      "short": "Output",
+      "unit": "mb/d",
+      "freq": "M",
+      "slot": 5,
+      "digits": 3,
+      "source": "EIA Short-Term Energy Outlook; the Permian region includes south-east New Mexico",
+      "url": "https://www.eia.gov/outlooks/steo/"
+    },
+    "permian_rigs": {
+      "src": "steo",
+      "id": "RIGSPM",
+      "since": "2016-01-01",
+      "label": "Permian active rigs, monthly average",
+      "short": "Rigs",
+      "unit": "rigs",
+      "freq": "M",
+      "slot": 6,
+      "digits": 0,
+      "source": "EIA Short-Term Energy Outlook, drilling-productivity tables; EIA estimates the latest six months",
+      "url": "https://www.eia.gov/outlooks/steo/"
+    },
+    "tx_prod": {
+      "src": "eia_dnav",
+      "series": "MCRFPTX2",
+      "scale": 0.001,
+      "since": "2016-01-01",
+      "label": "Texas crude production",
+      "short": "Texas",
+      "unit": "mb/d",
+      "freq": "M",
+      "slot": 0,
+      "digits": 3,
+      "source": "EIA, Texas Field Production of Crude Oil (Petroleum Supply Monthly), published with a two-month lag",
+      "url": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=MCRFPTX2&f=M"
+    },
+    "wti_eia": {
+      "src": "steo",
+      "id": "WTIPUUS",
+      "since": "2016-01-01",
+      "label": "WTI spot, monthly average, with EIA's forecast",
+      "short": "WTI (EIA)",
+      "unit": "USD/bbl",
+      "freq": "M",
+      "slot": 1,
+      "digits": 2,
+      "source": "EIA Short-Term Energy Outlook",
+      "url": "https://www.eia.gov/outlooks/steo/"
+    }
   },
   "kpis": [
-    {"series": "wti", "label": "WTI crude", "prefix": "$", "deltas": ["1m", "1y"]},
-    {"series": "brent", "label": "Brent crude", "prefix": "$", "deltas": ["1m", "1y"]},
-    {"series": "wti_eia", "label": "EIA's WTI forecast", "prefix": "$", "forecast": true},
-    {"series": "tx_rigs", "label": "Texas rigs", "deltas": ["1m", "1y"]},
-    {"series": "permian_rigs_w", "label": "Permian rigs", "deltas": ["1m", "1y"]},
-    {"series": "permian_completed", "label": "Permian completions", "deltas": ["1y"]},
-    {"series": "permian_ducs", "label": "Permian DUCs", "deltas": ["1y"]},
-    {"series": "tx_prod", "label": "Texas production", "suffix": " mb/d", "deltas": ["1y"]},
-    {"series": "stock", "label": "Fineotex", "prefix": "₹", "deltas": ["1m", "1y"]}
+    {
+      "series": "wti",
+      "label": "WTI crude",
+      "prefix": "$",
+      "deltas": [
+        "1m",
+        "1y"
+      ]
+    },
+    {
+      "series": "brent",
+      "label": "Brent crude",
+      "prefix": "$",
+      "deltas": [
+        "1m",
+        "1y"
+      ]
+    },
+    {
+      "series": "wti_eia",
+      "label": "EIA's WTI forecast",
+      "prefix": "$",
+      "forecast": true
+    },
+    {
+      "series": "tx_rigs",
+      "label": "Texas rigs",
+      "deltas": [
+        "1m",
+        "1y"
+      ]
+    },
+    {
+      "series": "permian_rigs_w",
+      "label": "Permian rigs",
+      "deltas": [
+        "1m",
+        "1y"
+      ]
+    },
+    {
+      "series": "permian_completed",
+      "label": "Permian completions",
+      "deltas": [
+        "1y"
+      ]
+    },
+    {
+      "series": "permian_ducs",
+      "label": "Permian DUCs",
+      "deltas": [
+        "1y"
+      ]
+    },
+    {
+      "series": "tx_prod",
+      "label": "Texas production",
+      "suffix": " mb/d",
+      "deltas": [
+        "1y"
+      ]
+    },
+    {
+      "series": "stock",
+      "label": "Fineotex",
+      "prefix": "₹",
+      "deltas": [
+        "1m",
+        "1y"
+      ]
+    }
   ],
   "charts": [
-    {"id": "crude", "title": "WTI and Brent", "sub": "Front-month futures, daily close, US dollars a barrel. WTI is the price Permian operators realise; Brent carries the seaborne premium", "mode": "level", "series": ["wti", "brent"]},
-    {"id": "rigs", "title": "Rigs at work, week by week", "sub": "Baker Hughes weekly count. Texas covers every basin in the state; the Permian straddles Texas and New Mexico", "mode": "level", "series": ["tx_rigs", "permian_rigs_w"]},
-    {"id": "completions", "title": "Wells completed in the Permian", "sub": "Each completion is a frac job, and frac jobs are what consume friction reducer. Monthly, EIA; the latest six months are EIA's estimates", "mode": "level", "series": ["permian_completed"]},
-    {"id": "activity", "title": "Is more oil coming from more drilling?", "sub": "Permian output and active rigs, each indexed to 100 at the start of the window", "mode": "indexed", "series": ["permian_prod", "permian_rigs"]},
-    {"id": "production", "title": "Texas crude production", "sub": "Million barrels a day, monthly, EIA. This is the series you asked to track; it lags, because drilling leads completions and completions lead output by months", "mode": "level", "series": ["tx_prod"]},
-    {"id": "stock", "title": "Has Fineotex traded on oil?", "sub": "Share price and WTI, both indexed to 100 at the start of the window, on one scale", "mode": "indexed", "series": ["wti", "stock"], "stat": "corr_weekly"}
+    {
+      "id": "crude",
+      "title": "WTI and Brent",
+      "sub": "Front-month futures, daily close, US dollars a barrel. WTI is the price Permian operators realise; Brent carries the seaborne premium",
+      "mode": "level",
+      "series": [
+        "wti",
+        "brent"
+      ]
+    },
+    {
+      "id": "rigs",
+      "title": "Rigs at work, week by week",
+      "sub": "Baker Hughes weekly count. Texas covers every basin in the state; the Permian straddles Texas and New Mexico",
+      "mode": "level",
+      "series": [
+        "tx_rigs",
+        "permian_rigs_w"
+      ]
+    },
+    {
+      "id": "completions",
+      "title": "Wells completed in the Permian",
+      "sub": "Each completion is a frac job, and frac jobs are what consume friction reducer. Monthly, EIA; the latest six months are EIA's estimates",
+      "mode": "level",
+      "series": [
+        "permian_completed"
+      ]
+    },
+    {
+      "id": "activity",
+      "title": "Is more oil coming from more drilling?",
+      "sub": "Permian output and active rigs, each indexed to 100 at the start of the window",
+      "mode": "indexed",
+      "series": [
+        "permian_prod",
+        "permian_rigs"
+      ]
+    },
+    {
+      "id": "production",
+      "title": "Texas crude production",
+      "sub": "Million barrels a day, monthly, EIA. This is the series you asked to track; it lags, because drilling leads completions and completions lead output by months",
+      "mode": "level",
+      "series": [
+        "tx_prod"
+      ]
+    },
+    {
+      "id": "stock",
+      "title": "Has Fineotex traded on oil?",
+      "sub": "Share price and WTI, both indexed to 100 at the start of the window, on one scale",
+      "mode": "indexed",
+      "series": [
+        "wti",
+        "stock"
+      ],
+      "stat": "corr_weekly"
+    }
   ]
 }

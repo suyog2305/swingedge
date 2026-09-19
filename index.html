@@ -1075,6 +1075,7 @@ html[data-theme="lab"]{--viz-1:#3987e5;--viz-2:#d95926;--viz-3:#199e70;--viz-4:#
 .tt-audit ul{margin:9px 0 2px;padding-left:18px;} .tt-audit li{margin:6px 0;}
 .tt-watch{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:12px 22px;}
 .tt-watch li{font-size:12.5px;color:var(--t2);line-height:1.55;} .tt-watch b{color:var(--t1);font-size:13px;} .tt-watch a{color:inherit;text-decoration:underline;}
+.tt-facts td{vertical-align:top;} .tt-facts .tt-note{white-space:normal;min-width:280px;max-width:560px;color:var(--t3);font-size:12px;line-height:1.5;} .tt-facts a{color:inherit;text-decoration:underline;}
 .tt-freq{display:inline-block;margin-left:8px;font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--t4);}
 .tt-filter{display:flex;align-items:center;gap:12px;margin:16px 0 12px;flex-wrap:wrap;}
 .tt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:14px;margin-bottom:14px;}
@@ -8442,7 +8443,7 @@ async function ttSelect(id){
 }
 function ttCss(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
 function ttIso(d){ return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }   // local parts: toISOString() is UTC and lands a day early in IST
-function ttFmt(v, digits){ return wrIsNum(v) ? Number(v).toLocaleString('en-IN', {minimumFractionDigits: digits, maximumFractionDigits: digits}) : '—'; }
+function ttFmt(v, digits, unit){ return wrIsNum(v) ? Number(v).toLocaleString((unit && unit !== 'INR') ? 'en-US' : 'en-IN', {minimumFractionDigits: digits, maximumFractionDigits: digits}) : '—'; }   // rupees group in lakhs; dollars and won do not
 function ttMonthLabel(iso, withDay){ const d = new Date(iso + 'T00:00:00'); return (withDay ? d.getDate() + ' ' : '') + d.toLocaleString('en-GB', {month: 'short'}) + ' ' + String(d.getFullYear()).slice(2); }
 // the last actual (non-forecast) point of a series
 function ttActuals(s){ const pts = s.points || []; return s.forecast_from ? pts.filter(p => p[0] < s.forecast_from) : pts; }
@@ -8474,7 +8475,7 @@ function ttKpi(tr, k){
     if(k.abs){ const ch = v0 - p[1]; parts.push(`<span class="${ch > 0 ? 'up' : ch < 0 ? 'dn' : 'flat'}">${ch > 0 ? '▲' : ch < 0 ? '▼' : '•'} ${ttFmt(Math.abs(ch), digits)}</span> vs ${name}`); }
     else if(p[1]){ const ch = (v0 / p[1] - 1) * 100; parts.push(`<span class="${ch > 0 ? 'up' : ch < 0 ? 'dn' : 'flat'}">${ch > 0 ? '▲' : ch < 0 ? '▼' : '•'} ${ttFmt(Math.abs(ch), 1)}%</span> vs ${name}`); }
   });
-  return seKpi(k.label, `${v0 < 0 ? '−' : ''}${wrEsc(k.prefix || '')}${ttFmt(Math.abs(v0), digits)}${wrEsc(k.suffix || '')}`, parts.join(' · '), '', null);
+  return seKpi(k.label, `${v0 < 0 ? '−' : ''}${wrEsc(k.prefix || '')}${ttFmt(Math.abs(v0), digits, s.unit)}${wrEsc(k.suffix || '')}`, parts.join(' · '), '', null);
 }
 
 // ---------- one chart: a shared date grid so the tooltip can list every series at that date ----------
@@ -8484,6 +8485,12 @@ function ttGrid(tr, chart, start){
     const s = tr.series[k]; const all = (indexed ? ttActuals(s) : (s.points || [])).filter(p => p[0] >= start);
     return {k, s, pts: all, map: new Map(all), base: all.length ? all[0][1] : null};
   }).filter(x => x.pts.length);
+  if(indexed && ser.length > 1){
+    // every series must be rebased at the SAME date, or a stock listed a year into the window gets its
+    // own private starting line and the comparison is meaningless: start where the youngest series starts
+    const common = ser.map(x => x.pts[0][0]).sort().pop();
+    ser.forEach(x => { x.pts = x.pts.filter(p => p[0] >= common); x.map = new Map(x.pts); x.base = x.pts.length ? x.pts[0][1] : null; });
+  }
   const dates = [...new Set(ser.flatMap(x => x.pts.map(p => p[0])))].sort();
   ser.forEach(x => {
     // carry the last close across another market's holiday, but never before the first point,
@@ -8540,7 +8547,7 @@ function ttMakeChart(canvas, tr, chart, grid){
           filter: i => i.raw != null,
           callbacks: {
             title: items => { if(!items.length) return ''; const d = grid.dates[items[0].dataIndex]; const fc = items.some(i => i.dataset._fcIndex >= 0 && i.dataIndex >= i.dataset._fcIndex); const monthly = grid.ser.every(x => x.s.freq === 'M'); return (monthly ? ttMonthLabel(d) : wrDate(d)) + (fc ? ' · EIA forecast' : ''); },
-            label: i => { const ds = i.dataset, raw = ds._raw[i.dataIndex]; return grid.indexed ? ` ${ttFmt(i.raw, 1)}   ${ds.label}  (${ttFmt(raw, ds._digits)} ${ds._unit})` : ` ${ttFmt(raw, ds._digits)} ${ds._unit}   ${ds.label}`; },
+            label: i => { const ds = i.dataset, raw = ds._raw[i.dataIndex]; return grid.indexed ? ` ${ttFmt(i.raw, 1)}   ${ds.label}  (${ttFmt(raw, ds._digits, ds._unit)} ${ds._unit})` : ` ${ttFmt(raw, ds._digits, ds._unit)} ${ds._unit}   ${ds.label}`; },
             labelPointStyle: () => ({ pointStyle: 'line', rotation: 0 }) } } } } });
 }
 // weekly-return correlation over the window, on actual closes only (no carried values)
@@ -8553,6 +8560,12 @@ function ttCorrWeekly(tr, chart, start){
   const mean = v => v.reduce((s, x) => s + x, 0) / v.length, ma = mean(ra), mb = mean(rb);
   let sab = 0, saa = 0, sbb = 0; for(let i = 0; i < n; i++){ sab += (ra[i] - ma) * (rb[i] - mb); saa += (ra[i] - ma) ** 2; sbb += (rb[i] - mb) ** 2; }
   return (saa && sbb) ? {r: sab / Math.sqrt(saa * sbb), n} : null;
+}
+function ttFactValue(r){
+  if(!wrIsNum(r.value)) return '—';
+  const v = Number(r.value), n = v.toLocaleString('en-IN', {maximumFractionDigits: 2});
+  const change = /QoQ|YoY|increase|surge|cumulative|price forecast|change/i.test(r.item || '');   // "+58%" is a change; "23% of the bill of materials" is a level
+  return r.unit === '%' ? (change && v > 0 ? '+' : '') + n + '%' : r.unit === 'USD' ? '$' + n : r.unit === 'INR' ? '₹' + Number(r.value).toLocaleString('en-IN') : n + (r.unit ? ' ' + wrEsc(r.unit) : '');
 }
 function ttTable(grid){
   const monthly = grid.ser.every(x => x.s.freq === 'M'), cap = monthly ? 30 : 40;
@@ -8587,6 +8600,8 @@ function ttRender(){
         <div class="tt-canvas"><canvas id="tt-c-${i}" role="img" aria-label="${wrAttr(c.title)}"></canvas></div>
         ${stat ? `<div class="tt-stat">Weekly returns over this window move together with a correlation of <b>${stat.r >= 0 ? '' : '−'}${Math.abs(stat.r).toFixed(2)}</b> across ${stat.n} weeks — ${read}. A correlation describes the past; it is not a mechanism.</div>` : ''}
         ${ttTable(g)}</div>`; }).join('')}</div>
+    ${(tr.tables || []).map(t => `<div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Cited figures, not a feed</div><h2>${wrEsc(t.title)}</h2>${t.sub ? `<div class="tt-sub">${wrEsc(t.sub)}</div>` : ''}</div></div>
+      <div class="wr-twrap" style="max-height:440px;"><table class="scan-table tt-facts"><thead><tr><th>Period</th><th>What</th><th class="num">Figure</th><th>Kind</th><th>Detail, in the source's terms</th><th>Source</th></tr></thead><tbody>${t.rows.map(r => `<tr><td>${wrEsc(r.period || (r.date ? wrDate(r.date) : ''))}</td><td>${wrEsc(r.item || '')}</td><td class="num">${ttFactValue(r)}</td><td>${wrEsc(r.basis || '')}</td><td class="tt-note">${wrEsc(r.note || '')}</td><td>${r.url ? `<a href="${wrAttr(r.url)}" target="_blank" rel="noopener">source</a>` : '—'}</td></tr>`).join('')}</tbody></table></div></div>`).join('')}
     ${(tr.watch || []).length ? `<div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Linked, not charted</div><h2>Other indicators worth watching</h2></div></div><ul class="tt-watch">${tr.watch.map(w => `<li><b>${w.url ? `<a href="${wrAttr(w.url)}" target="_blank" rel="noopener">${wrEsc(w.name)}</a>` : wrEsc(w.name)}</b><span class="tt-freq">${wrEsc(w.freq || '')}</span><div>${wrEsc(w.why || '')}</div></li>`).join('')}</ul></div>` : ''}
     ${(tr.cannot || []).length ? `<div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Read this before acting on the charts</div><h2>What this tracker cannot tell you</h2></div></div><ul class="tt-cannot">${tr.cannot.map(x => `<li>${wrEsc(x)}</li>`).join('')}</ul></div>` : ''}
     <div class="wr-hint" style="margin-top:10px;">Sources — ${src.map(s => s.url ? `<a href="${wrAttr(s.url)}" target="_blank" rel="noopener">${wrEsc(s.source)}</a>` : wrEsc(s.source)).join(' · ')}. Refreshed ${wrDate(tr.updated)} by <code>tools/fetch_themes.py</code>.${(tr.errors || []).length ? ` <span class="wr-tag stale">${tr.errors.length} source${tr.errors.length === 1 ? '' : 's'} did not answer; the last good series is shown</span>` : ''}</div>`;

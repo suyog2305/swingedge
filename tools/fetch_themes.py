@@ -318,10 +318,27 @@ def build(cfg_path):
         series[key] = meta
 
     doc = OrderedDict(schema=SCHEMA, id=tid, title=cfg['title'], updated=dt.date.today().isoformat())
-    for k in ('stock', 'thesis', 'audit', 'kpis', 'charts', 'watch', 'cannot', 'notes'):
+    for k in ('order', 'stock', 'thesis', 'audit', 'kpis', 'charts', 'watch', 'cannot', 'notes'):
         if k in cfg:
             doc[k] = cfg[k]
     doc['series'] = series
+    # Tables of cited figures, for drivers no public feed carries. Rows come verbatim from a
+    # curated points file: the value as recorded, the researcher's note in the source's own terms,
+    # and the URL. Nothing is computed from them and nothing is interpolated.
+    if cfg.get('tables'):
+        doc['tables'] = []
+        for t in cfg['tables']:
+            try:
+                allrows = json.load(io.open(os.path.join(ROOT, t['file']), encoding='utf-8'))
+                want = list(t['series'])
+                rows = sorted((r for r in allrows if r.get('series') in want),
+                              key=lambda r: (r.get('date') or '', want.index(r['series'])))
+                doc['tables'].append(OrderedDict(title=t['title'], sub=t.get('sub'), rows=[
+                    OrderedDict(date=r.get('date'), period=r.get('period'), item=(t.get('names') or {}).get(r['series'], r['series']),
+                                value=r.get('value'), unit=r.get('unit'), basis=r.get('basis'), note=r.get('note'), url=r.get('source_url'))
+                    for r in rows]))
+            except Exception as e:
+                errors.append(f"table \"{t.get('title')}\": {type(e).__name__}: {e}")
     if errors:
         doc['errors'] = errors
     os.makedirs(OUT, exist_ok=True)
@@ -351,7 +368,7 @@ def main():
             print(f'{os.path.basename(p)}: config could not be built: {type(e).__name__}: {e}')
             continue
         newest = max((s['points'][-1][0] for s in doc['series'].values() if s.get('points') and not s.get('forecast_from')), default=None)
-        index.append(OrderedDict(id=doc['id'], title=doc['title'], file=doc['id'] + '.json',
+        index.append(OrderedDict(id=doc['id'], order=doc.get('order', 99), title=doc['title'], file=doc['id'] + '.json',
                                  stock=(doc.get('stock') or {}).get('code'), updated=doc['updated'],
                                  newest=newest, audit=(doc.get('audit') or {}).get('status'), errors=len(errors)))
         if not a.quiet:
@@ -372,7 +389,7 @@ def main():
             index += [t for t in old if t.get('id') not in {x['id'] for x in index}]
         except Exception:
             pass
-    index.sort(key=lambda t: t['id'])
+    index.sort(key=lambda t: (t.get('order', 99), t['id']))
     os.makedirs(OUT, exist_ok=True)
     io.open(ipath, 'w', encoding='utf-8').write(json.dumps(OrderedDict(updated=dt.date.today().isoformat(), trackers=index), ensure_ascii=False, indent=2))
     return 0

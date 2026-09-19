@@ -1,0 +1,278 @@
+{
+  "id": "memory-ebgng",
+  "order": 2,
+  "title": "Memory prices and GNG Electronics",
+  "stock": {
+    "code": "EBGNG",
+    "name": "GNG Electronics"
+  },
+  "thesis": "The claim this page tests: memory prices are rising fast, dearer memory makes new PCs dearer, and that widens the room for a refurbisher like GNG. The first half was checked on 19 Sep 2026 and holds. The second half has a catch the claim leaves out: GNG also buys memory, to upgrade the machines it refurbishes.",
+  "audit": {
+    "status": "pending",
+    "text": "The price rise itself checks out: the producers' own reported results agree with TrendForce. Whether it helps or hurts GNG is a separate question that the desk's GNG report, now being written, works through channel by channel.",
+    "findings": [
+      "The rise is real and large. TrendForce put first-quarter 2026 conventional DRAM contract prices up 90–95% on the quarter and PC DRAM up more than 100%, a record. The producers' own latest results agree in direction: DRAM selling prices up about 30% on the quarter at SK hynix and in the mid-40s at Samsung for April–June 2026, and in the low-60s at Micron for its quarter to 28 May.",
+      "It is decelerating. TrendForce's third-quarter 2026 call for PC DRAM is reported at 15–20%, and its fourth-quarter call at 3–8%. Those are forecasts, and these two reached the desk through secondary reports.",
+      "DDR4 is dearer than DDR5 on the spot market: on 18 Sep 2026 a 16Gb DDR4 chip averaged $85.75 against $56.00 for DDR5, as the older standard is wound down.",
+      "GNG's own management, as reported on 31 Jul 2026, says memory costs rose 5–10% in the April–June 2026 quarter and are about five times their October 2025 level, and that an entry-level new laptop in India went from about ₹42,000 to about ₹48,000. That is a cost to GNG as well as a price umbrella.",
+      "No producer has given a quantified 2027 price forecast; the language is that supply stays tight beyond 2027."
+    ]
+  },
+  "watch": [
+    {
+      "name": "TrendForce DRAM spot prices",
+      "freq": "daily",
+      "why": "The live quotes for DDR5 and DDR4 chips. They are TrendForce's product, so this page links to them rather than copying them; the tiles above are a dated snapshot.",
+      "url": "https://www.trendforce.com/price/dram/dram_spot"
+    },
+    {
+      "name": "TrendForce press centre",
+      "freq": "several a month",
+      "why": "Where the quarterly contract-price calls in the first table are published and revised.",
+      "url": "https://www.trendforce.com/presscenter/news"
+    },
+    {
+      "name": "Results from Micron, SK hynix and Samsung",
+      "freq": "quarterly",
+      "why": "Reported selling-price changes are facts, where TrendForce's calls are forecasts. Micron reports a month ahead of the Koreans."
+    },
+    {
+      "name": "GNG Electronics' quarterly results",
+      "freq": "quarterly, Q2 FY27 not yet reported",
+      "why": "Gross margin and inventory days are where memory shows up first, in either direction."
+    }
+  ],
+  "cannot": [
+    "This is not a price feed. TrendForce's daily quotes are what it sells; this page records figures that it and the producers have published, each with its source, and links to the live page.",
+    "Most of the TrendForce figures are forecasts of quarterly contract-price changes, recorded here at the low end of the stated range. The range is in the detail column.",
+    "Spot and contract are different markets. Spot is small and volatile; most memory is sold on contract.",
+    "A share price is not a memory price. Micron and SK hynix are shown as liquid, daily proxies for the memory cycle, and they also move with everything else that moves semiconductor shares.",
+    "What share of a refurbished machine's cost is memory and storage is a question for GNG's disclosures. No price series can answer it."
+  ],
+  "series": {
+    "micron": {
+      "src": "yahoo",
+      "symbol": "MU",
+      "range": "5y",
+      "label": "Micron Technology share price",
+      "short": "Micron",
+      "unit": "USD",
+      "freq": "D",
+      "slot": 1,
+      "digits": 2,
+      "source": "NASDAQ daily close via Yahoo Finance",
+      "url": "https://finance.yahoo.com/quote/MU"
+    },
+    "skhynix": {
+      "src": "yahoo",
+      "symbol": "000660.KS",
+      "range": "5y",
+      "label": "SK hynix share price",
+      "short": "SK hynix",
+      "unit": "KRW",
+      "freq": "D",
+      "slot": 2,
+      "digits": 0,
+      "source": "Korea Exchange daily close via Yahoo Finance",
+      "url": "https://finance.yahoo.com/quote/000660.KS"
+    },
+    "stock": {
+      "src": "yahoo",
+      "symbol": "EBGNG.NS",
+      "range": "5y",
+      "scan_code": "EBGNG",
+      "label": "GNG Electronics share price",
+      "short": "GNG",
+      "unit": "INR",
+      "freq": "D",
+      "slot": 3,
+      "digits": 2,
+      "source": "NSE daily close via Yahoo Finance, since listing on 30 Jul 2025; the desk's own scan closes override it on their dates",
+      "url": "https://finance.yahoo.com/quote/EBGNG.NS"
+    },
+    "stock_level": {
+      "src": "yahoo",
+      "symbol": "EBGNG.NS",
+      "range": "5y",
+      "scan_code": "EBGNG",
+      "label": "GNG Electronics share price",
+      "short": "GNG",
+      "unit": "INR",
+      "freq": "D",
+      "slot": 0,
+      "digits": 2,
+      "source": "NSE daily close via Yahoo Finance, since listing on 30 Jul 2025; the desk's own scan closes override it on their dates",
+      "url": "https://finance.yahoo.com/quote/EBGNG.NS"
+    },
+    "ddr5_spot": {
+      "src": "points",
+      "file": "tools/themes/memory_points.json",
+      "series": "DDR5 16Gb spot",
+      "label": "DDR5 16Gb spot",
+      "short": "DDR5 16Gb",
+      "unit": "USD",
+      "freq": "D",
+      "slot": 0,
+      "digits": 2,
+      "source": "TrendForce DRAM spot price page, average of the quoted range, recorded by the desk on the dates shown",
+      "url": "https://www.trendforce.com/price/dram/dram_spot"
+    },
+    "ddr4_16_spot": {
+      "src": "points",
+      "file": "tools/themes/memory_points.json",
+      "series": "DDR4 16Gb spot",
+      "label": "DDR4 16Gb spot",
+      "short": "DDR4 16Gb",
+      "unit": "USD",
+      "freq": "D",
+      "slot": 0,
+      "digits": 2,
+      "source": "TrendForce DRAM spot price page, average of the quoted range, recorded by the desk on the dates shown",
+      "url": "https://www.trendforce.com/price/dram/dram_spot"
+    },
+    "ddr4_8_spot": {
+      "src": "points",
+      "file": "tools/themes/memory_points.json",
+      "series": "DDR4 8Gb spot",
+      "label": "DDR4 8Gb spot",
+      "short": "DDR4 8Gb",
+      "unit": "USD",
+      "freq": "D",
+      "slot": 0,
+      "digits": 2,
+      "source": "TrendForce DRAM spot price page, average of the quoted range, recorded by the desk on the dates shown",
+      "url": "https://www.trendforce.com/price/dram/dram_spot"
+    }
+  },
+  "kpis": [
+    {
+      "series": "ddr5_spot",
+      "label": "DDR5 16Gb, spot",
+      "prefix": "$"
+    },
+    {
+      "series": "ddr4_16_spot",
+      "label": "DDR4 16Gb, spot",
+      "prefix": "$"
+    },
+    {
+      "series": "ddr4_8_spot",
+      "label": "DDR4 8Gb, spot",
+      "prefix": "$"
+    },
+    {
+      "series": "micron",
+      "label": "Micron",
+      "prefix": "$",
+      "deltas": [
+        "1m",
+        "1y"
+      ]
+    },
+    {
+      "series": "skhynix",
+      "label": "SK hynix",
+      "prefix": "₩",
+      "deltas": [
+        "1m",
+        "1y"
+      ]
+    },
+    {
+      "series": "stock",
+      "label": "GNG Electronics",
+      "prefix": "₹",
+      "deltas": [
+        "1m",
+        "1y"
+      ]
+    }
+  ],
+  "charts": [
+    {
+      "id": "cycle",
+      "title": "Has GNG traded with the memory cycle?",
+      "sub": "GNG beside two memory makers, all indexed to 100 on the first day all three traded in the window, on one scale. The correlation below is GNG against Micron",
+      "mode": "indexed",
+      "series": [
+        "micron",
+        "stock",
+        "skhynix"
+      ],
+      "stat": "corr_weekly"
+    },
+    {
+      "id": "price",
+      "title": "GNG Electronics share price",
+      "sub": "Rupees, NSE daily close, since listing on 30 Jul 2025",
+      "mode": "level",
+      "series": [
+        "stock_level"
+      ]
+    }
+  ],
+  "tables": [
+    {
+      "title": "TrendForce's contract-price calls, quarter by quarter",
+      "sub": "Changes in contract prices against the previous quarter unless marked otherwise. Recorded at the LOW end of each stated range; the full range is in the detail column",
+      "file": "tools/themes/memory_points.json",
+      "series": [
+        "DRAM contract price YoY %",
+        "DRAM contract QoQ % (conventional)",
+        "PC DRAM contract QoQ %",
+        "Server DRAM contract QoQ %",
+        "Mobile DRAM (LPDDR4X/LPDDR5X) contract QoQ %",
+        "Mobile DRAM (LPDDR4X) contract QoQ %",
+        "Mobile DRAM (LPDDR5X) contract QoQ %",
+        "NAND contract QoQ % (conventional)",
+        "NAND contract QoQ % (overall)",
+        "Enterprise SSD contract QoQ %",
+        "NOR Flash contract price cumulative % (1H)",
+        "SLC NAND contract price cumulative % (1H)",
+        "NOR Flash (high-density) contract price forecast % (2H)",
+        "SLC NAND contract price forecast % (2H)"
+      ]
+    },
+    {
+      "title": "What the producers themselves reported",
+      "sub": "Change in average selling price against the previous quarter, from each company's own results. These are facts, not forecasts, but they mix product mix with price",
+      "file": "tools/themes/memory_points.json",
+      "series": [
+        "DRAM ASP QoQ % (Micron, reported)",
+        "NAND ASP QoQ % (Micron, reported)",
+        "DRAM ASP QoQ % (Samsung Electronics, reported)",
+        "NAND ASP QoQ % (Samsung Electronics, reported)",
+        "DRAM ASP QoQ % (SK hynix, reported)",
+        "NAND ASP QoQ % (SK hynix, reported)",
+        "NAND ASP QoQ % (Kioxia, reported)",
+        "NAND revenue QoQ % (SanDisk, reported, proxy for pricing)"
+      ]
+    },
+    {
+      "title": "Spot prices, as recorded",
+      "sub": "Average of the quoted high and low on TrendForce's spot page on the date shown",
+      "file": "tools/themes/memory_points.json",
+      "series": [
+        "DDR5 16Gb spot",
+        "DDR4 16Gb spot",
+        "DDR4 8Gb spot",
+        "DDR3 4Gb spot"
+      ]
+    },
+    {
+      "title": "What it does to devices, and what GNG says",
+      "sub": "Forecasts from Gartner and TrendForce on device prices and memory's share of the bill of materials, and GNG management's own figures",
+      "file": "tools/themes/memory_points.json",
+      "series": [
+        "HBM AI-equivalent share of DRAM wafer capacity %",
+        "Notebook BOM memory cost share % (forecast)",
+        "PC memory cost share of BOM %",
+        "DRAM+SSD combined price surge % (Gartner forecast)",
+        "PC average price increase % (Gartner forecast)",
+        "Smartphone average price increase % (Gartner forecast)",
+        "Entry-level new laptop price, India (GNG-cited)",
+        "Memory cost increase QoQ % (GNG-cited, India refurb/new-PC channel)"
+      ]
+    }
+  ]
+}
