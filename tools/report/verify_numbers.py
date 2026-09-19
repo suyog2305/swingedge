@@ -194,7 +194,14 @@ def main():
     reports = idx['reports']
     if a.codes:
         want = {x.upper() for x in a.codes}
-        reports = [r for r in reports if r.get('code', '').upper() in want or r['id'].split('-')[0].upper() in want]
+        # A full id ("mpbirlamerger-2026-09") used to match nothing: only the code or the id's first
+        # dash-token did, so the run "passed" with 0 reports checked. An id now selects exactly that
+        # report, and asking for something that selects nothing is an error, not a clean bill.
+        by_id = [r for r in reports if r['id'].upper() in want]
+        reports = by_id or [r for r in reports if r.get('code', '').upper() in want or r['id'].split('-')[0].upper() in want]
+        if not reports:
+            print(f'no report in the index matches {sorted(want)} - nothing was verified')
+            return 2
 
     total_bad, total_drift, checked, skipped = 0, 0, 0, []
     print(f'Cross-checking against {src}\n')

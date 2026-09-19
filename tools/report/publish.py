@@ -75,6 +75,8 @@ def main():
     ap.add_argument('--all', action='store_true', help='publish every report in the index')
     ap.add_argument('--dry-run', action='store_true', help='verify only; do not touch git')
     ap.add_argument('--no-push', action='store_true', help='commit locally but do not push')
+    ap.add_argument('--allow-unverified', action='store_true',
+                    help='publish a note that quotes no scan-derived figure (nothing for the verifier to check)')
     ap.add_argument('--snapshot', help='cross-check against a live-page snapshot instead of the newest '
                                        'scan - use when the report quotes today and the daily pull has not run')
     a = ap.parse_args()
@@ -114,7 +116,9 @@ def main():
         return 1
 
     # ---- 2. cross-check every quoted figure ---------------------------------
-    codes = [r['code'] for r in entries if r.get('code')]
+    # verify by ID, not by code: the code "CLUSTER" is shared by every multi-name note, so passing
+    # it re-verified all of them and could never tell whether THIS note had been checked at all
+    codes = [r['id'] for r in entries]
     print('\nCross-check (tools/report/verify_numbers.py'
           + (f' --snapshot {os.path.basename(a.snapshot)}' if a.snapshot else '') + '):')
     vargs = (['--snapshot', a.snapshot] if a.snapshot else []) + codes
@@ -125,6 +129,12 @@ def main():
             print('  ' + line)
     m = re.search(r'(\d+) reports checked, (\d+) mismatch', out)
     mismatches = int(m.group(2)) if m else (0 if v.returncode == 0 else 1)
+    checked = int(m.group(1)) if m else 0
+    if not mismatches and checked == 0 and not a.allow_unverified:
+        print('\nABORTED — verification checked nothing. A pass with zero checks is not a pass: either the '
+              'report has no generated technical block, or it was not selected. Nothing staged, nothing pushed.')
+        print('If this note genuinely quotes no scan-derived figure, publish it with --allow-unverified.')
+        return 1
     if mismatches:
         print(f'\nABORTED — {mismatches} mismatch(es). Nothing staged, nothing pushed.')
         print('Fix the report, or the scan, and run again.')
