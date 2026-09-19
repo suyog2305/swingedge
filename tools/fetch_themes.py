@@ -20,6 +20,10 @@ SOURCES, all public and keyless
   eia_dnav  EIA's petroleum "history" pages: state and national crude production, monthly.
   steo      EIA's Short-Term Energy Outlook bulk file: Permian production, active rigs, wells
             drilled and completed, DUCs — with EIA's own forecast, marked as forecast.
+  bh_rigs   Baker Hughes' North America rig count workbook: every rig, by county, every week
+            since January 2024, summed here to Texas and to the Permian basin. Their server
+            answers a plain client and returns 403 to anything pretending to be a browser, so
+            this source identifies itself honestly instead of spoofing one.
   points    a hand-curated list of dated datapoints, each with its source URL, for series no
             public feed carries (memory contract prices). Never interpolated.
   derived   a difference of two other series (the WTI-Brent spread).
@@ -44,7 +48,10 @@ UA = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
 OFFLINE = False
 
 
-def cached(url, name, max_age_hours):
+HONEST_UA = 'SwingEdge-tracker/1.0 (personal research; +https://github.com/suyog2305/swingedge)'
+
+
+def cached(url, name, max_age_hours, ua=None):
     """Bytes of `url`, from exports/themes_cache/<name> when that copy is fresh enough."""
     os.makedirs(CACHE, exist_ok=True)
     path = os.path.join(CACHE, name)
@@ -53,8 +60,8 @@ def cached(url, name, max_age_hours):
         return io.open(path, 'rb').read()
     if OFFLINE:
         raise RuntimeError(f'offline and no cached copy of {name}')
-    req = urllib.request.Request(url, headers={'User-Agent': UA, 'Accept': '*/*'})
-    with urllib.request.urlopen(req, timeout=60) as r:
+    req = urllib.request.Request(url, headers={'User-Agent': ua or UA, 'Accept': '*/*'})
+    with urllib.request.urlopen(req, timeout=90) as r:
         data = r.read()
     if not data:
         raise RuntimeError(f'empty response from {url}')
@@ -155,6 +162,94 @@ def src_steo(spec):
     return pts, fc
 
 
+_BH = {}
+
+
+def bh_weekly():
+    """{'texas': [[date, rigs], ...], 'permian': [...]} from the current Baker Hughes workbook.
+    The landing page links the workbook by a GUID that changes every Friday; the workbook is 7 MB
+    and its weekly sheet has 110,000 rows, so both the file and the sums are cached by GUID."""
+    if _BH:
+        return _BH
+    page = cached('https://rigcount.bakerhughes.com/na-rig-count', 'bh_landing.html', 6, ua=HONEST_UA).decode('utf-8', 'replace')
+    best = None
+    for href, title in re.findall(r'href="(/static-files/[0-9a-f\-]+)"[^>]*title="([^"]+)"', page):
+        m = re.match(r'(\d{2})-(\d{2})-(\d{4}) .*Rig.?Count Report\.xlsx$', title)
+        if m:
+            key = (m.group(3), m.group(1), m.group(2))
+            if best is None or key > best[0]:
+                best = (key, href, title)
+    if not best:
+        raise RuntimeError('no dated rig-count workbook linked from the Baker Hughes page')
+    guid = best[1].rsplit('/', 1)[1]
+    agg_path = os.path.join(CACHE, f'bh_weekly_{guid}.json')
+    if os.path.exists(agg_path):
+        _BH.update(json.load(io.open(agg_path, encoding='utf-8')))
+        return _BH
+    raw = cached('https://rigcount.bakerhughes.com' + best[1], f'bh_{guid}.xlsx', 24 * 365, ua=HONEST_UA)
+    z = zipfile.ZipFile(io.BytesIO(raw))
+    M = 'http://schemas.openxmlformats.org/spreadsheetml/2006/main'
+    R = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships'
+    import xml.etree.ElementTree as ET
+    rels = {r.get('Id'): r.get('Target') for r in ET.fromstring(z.read('xl/_rels/workbook.xml.rels'))}
+    shared = [''.join(t.text or '' for t in si.iter('{%s}t' % M))
+              for si in ET.fromstring(z.read('xl/sharedStrings.xml')).iter('{%s}si' % M)]
+    sheets = ET.fromstring(z.read('xl/workbook.xml')).find('{%s}sheets' % M)
+    target = next((rels[x.get('{%s}id' % R)] for x in sheets if x.get('name') == 'NAM Weekly'), None)
+    if not target:
+        raise RuntimeError('the workbook has no "NAM Weekly" sheet')
+    path = target if target.startswith('xl/') else 'xl/' + target.lstrip('/')
+
+    def colno(ref):
+        n = 0
+        for ch in re.match(r'[A-Z]+', ref).group(0):
+            n = n * 26 + ord(ch) - 64
+        return n - 1
+    H, tx, pm = None, {}, {}
+    for _, el in ET.iterparse(z.open(path), events=('end',)):
+        if el.tag != '{%s}row' % M:
+            continue
+        cells = {}
+        for c in el.findall('{%s}c' % M):
+            v = c.find('{%s}v' % M)
+            if v is not None:
+                cells[colno(c.get('r'))] = shared[int(v.text)] if c.get('t') == 's' else v.text
+        el.clear()
+        if not cells:
+            continue
+        if H is None:
+            names = {str(v).strip(): k for k, v in cells.items()}
+            if 'Basin' in names and 'Rig Count Value' in names:
+                H = names
+            continue
+        if str(cells.get(H['Country'], '')).strip().upper() != 'UNITED STATES':
+            continue
+        try:
+            day = (dt.date(1899, 12, 30) + dt.timedelta(days=int(float(cells[H['US_PublishDate']])))).isoformat()
+            n = float(cells[H['Rig Count Value']])
+        except (KeyError, TypeError, ValueError):
+            continue
+        if str(cells.get(H['State/Province'], '')).strip().upper() == 'TEXAS':
+            tx[day] = tx.get(day, 0) + n
+        if str(cells.get(H['Basin'], '')).strip().lower() == 'permian':
+            pm[day] = pm.get(day, 0) + n
+    if not tx or not pm:
+        raise RuntimeError('no Texas or Permian rows found in the weekly sheet')
+    out = {'texas': [[d, tx[d]] for d in sorted(tx)], 'permian': [[d, pm[d]] for d in sorted(pm)], 'workbook': best[2]}
+    io.open(agg_path, 'w', encoding='utf-8').write(json.dumps(out))
+    for old in glob.glob(os.path.join(CACHE, 'bh_*')):               # last week's 7 MB is no use to anyone
+        if guid not in os.path.basename(old) and not old.endswith('bh_landing.html'):
+            try: os.remove(old)
+            except OSError: pass
+    _BH.update(out)
+    return _BH
+
+
+def src_bh_rigs(spec):
+    pts = bh_weekly()[spec['region']]
+    return [[d, round(v, 1)] for d, v in pts], None
+
+
 def src_points(spec):
     """Hand-curated datapoints: [{series, date, value, unit, basis, source_url, note}, ...]."""
     path = os.path.join(ROOT, spec['file'])
@@ -197,6 +292,8 @@ def build(cfg_path):
                 pts, _ = src_eia_dnav(spec)
             elif kind == 'steo':
                 pts, fc = src_steo(spec)
+            elif kind == 'bh_rigs':
+                pts, _ = src_bh_rigs(spec)
             elif kind == 'points':
                 pts, cites = src_points(spec)
             elif kind == 'derived':
@@ -221,7 +318,7 @@ def build(cfg_path):
         series[key] = meta
 
     doc = OrderedDict(schema=SCHEMA, id=tid, title=cfg['title'], updated=dt.date.today().isoformat())
-    for k in ('stock', 'thesis', 'audit', 'kpis', 'charts', 'cannot', 'notes'):
+    for k in ('stock', 'thesis', 'audit', 'kpis', 'charts', 'watch', 'cannot', 'notes'):
         if k in cfg:
             doc[k] = cfg[k]
     doc['series'] = series

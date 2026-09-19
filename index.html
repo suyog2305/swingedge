@@ -1072,6 +1072,10 @@ html[data-theme="lab"]{--viz-1:#3987e5;--viz-2:#d95926;--viz-3:#199e70;--viz-4:#
 .tt-audit{border:1px solid var(--b2);border-left:3px solid var(--t4);background:var(--bg2);border-radius:var(--r3);padding:10px 14px;font-size:13px;color:var(--t2);line-height:1.55;margin:0 0 14px;max-width:100ch;}
 .tt-audit.fails{border-left-color:var(--rose);} .tt-audit.partly{border-left-color:var(--gold);} .tt-audit.holds{border-left-color:var(--lime);}
 .tt-audit b{color:var(--t1);} .tt-audit a{color:inherit;font-weight:600;text-decoration:underline;white-space:nowrap;}
+.tt-audit ul{margin:9px 0 2px;padding-left:18px;} .tt-audit li{margin:6px 0;}
+.tt-watch{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:12px 22px;}
+.tt-watch li{font-size:12.5px;color:var(--t2);line-height:1.55;} .tt-watch b{color:var(--t1);font-size:13px;} .tt-watch a{color:inherit;text-decoration:underline;}
+.tt-freq{display:inline-block;margin-left:8px;font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--t4);}
 .tt-filter{display:flex;align-items:center;gap:12px;margin:16px 0 12px;flex-wrap:wrap;}
 .tt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:14px;margin-bottom:14px;}
 .tt-card{margin:0;min-width:0;}
@@ -8453,6 +8457,12 @@ function ttWindowStart(tr){
 // ---------- KPI tiles ----------
 function ttKpi(tr, k){
   const s = tr.series[k.series]; if(!s) return '';
+  if(k.forecast){
+    const pts = s.points || [], end = pts[pts.length - 1], a = ttActuals(s), now = a[a.length - 1];
+    if(!end || !s.forecast_from) return seKpi(k.label, '—', 'no forecast in the file', '', null);
+    const dg = s.digits != null ? Math.min(s.digits, 0) : 0;
+    return seKpi(k.label, `${wrEsc(k.prefix || '')}${ttFmt(end[1], dg)}${wrEsc(k.suffix || '')}`, `for ${ttMonthLabel(end[0])}${now ? ` · ${wrEsc(k.prefix || '')}${ttFmt(now[1], dg)} was the ${ttMonthLabel(now[0])} average` : ''} · a forecast, not a fact`, '', null);
+  }
   const act = ttActuals(s); if(!act.length) return seKpi(k.label, '—', 'no data', '', null);
   const [d0, v0] = act[act.length - 1];
   const digits = s.digits != null ? s.digits : 2;
@@ -8511,7 +8521,7 @@ const ttEndLabels = { id: 'ttEndLabels', afterDatasetsDraw(c){
 function ttMakeChart(canvas, tr, chart, grid){
   const surface = ttCss('--bg1'), hair = ttCss('--b1'), strong = ttCss('--b3'), tick = ttCss('--t3'), ink = ttCss('--t1');
   const datasets = grid.ser.map(x => {
-    const col = ttCss('--viz-' + (x.s.slot || 1)) || '#3987e5';
+    const col = x.s.slot ? (ttCss('--viz-' + x.s.slot) || '#3987e5') : ttCss('--t2');   // slot 0: one line, named by the title, drawn in ink - hues are kept for telling series apart
     return { label: x.s.short || x.s.label, data: x.vals, borderColor: col, backgroundColor: col, borderWidth: 2, pointRadius: 0, pointHoverRadius: 5,
       pointHoverBackgroundColor: col, pointHoverBorderColor: surface, pointHoverBorderWidth: 2, tension: 0, spanGaps: true, borderJoinStyle: 'round', borderCapStyle: 'round',
       segment: x.fcIndex >= 0 ? { borderDash: c => c.p1DataIndex >= x.fcIndex ? [6, 4] : undefined } : undefined,
@@ -8565,7 +8575,7 @@ function ttRender(){
     ${TT.index.length > 1 ? `<div class="se-seg" style="margin-bottom:14px;">${TT.index.map(t => `<button class="${t.id === TT.cur ? 'active' : ''}" onclick="ttSelect('${wrAttr(t.id)}')">${wrEsc(t.title)}</button>`).join('')}</div>` : ''}
     <div class="se-row-h"><div><div class="se-eyebrow">Theme tracker${tr.stock ? ' · ' + wrEsc(tr.stock.code) : ''}</div><h2>${wrEsc(tr.title)}</h2></div><div><span class="se-pill trend ${am[1]}">${am[0]}</span></div></div>
     ${tr.thesis ? `<p class="tt-thesis">${wrEsc(tr.thesis)}</p>` : ''}
-    ${audit.text ? `<div class="tt-audit ${wrAttr(audit.status || 'pending')}"><b>${am[0]}.</b> ${wrEsc(audit.text)}${audit.report ? ` <a href="#" onclick="show('rdesk');rdOpen('${wrAttr(audit.report)}');return false;">Read the audit →</a>` : ''}</div>` : ''}
+    ${audit.text ? `<div class="tt-audit ${wrAttr(audit.status || 'pending')}"><b>${am[0]}.</b> ${wrEsc(audit.text)}${audit.report ? ` <a href="#" onclick="show('rdesk');rdOpen('${wrAttr(audit.report)}');return false;">Read the audit →</a>` : ''}${(audit.findings || []).length ? `<ul>${audit.findings.map(f => `<li>${wrEsc(f)}</li>`).join('')}</ul>` : ''}</div>` : ''}
     <div class="se-kpis">${(tr.kpis || []).map(k => ttKpi(tr, k)).join('')}</div>
     <div class="tt-filter"><span class="wr-hint" style="margin:0;">Window for every chart below</span><div class="se-seg">${TT_RANGES.map(([r]) => `<button class="${r === TT.range ? 'active' : ''}" onclick="TT.range='${r}';ttRender()">${r}</button>`).join('')}</div></div>
     <div class="tt-grid">${grids.map(({c, g}, i) => {
@@ -8573,10 +8583,11 @@ function ttRender(){
       const read = stat ? (Math.abs(stat.r) < 0.2 ? 'effectively none' : Math.abs(stat.r) < 0.4 ? 'weak' : Math.abs(stat.r) < 0.6 ? 'moderate' : 'strong') : null;
       return `<div class="se-panel tt-card"><div class="se-row-h"><div><h2>${wrEsc(c.title)}</h2><div class="tt-sub">${wrEsc(c.sub || '')}</div></div></div>
         <div class="tt-legend">${g.ser.map(x => { let j = x.vals.length - 1; while(j >= 0 && x.vals[j] == null) j--; const fc = x.fcIndex >= 0 && j >= x.fcIndex;
-          return `<span><i style="background:var(--viz-${x.s.slot || 1})"></i>${wrEsc(x.s.label)}<b>${j >= 0 ? ttFmt(x.vals[j], g.indexed ? 1 : (x.s.digits != null ? x.s.digits : 2)) : '—'}</b>${fc ? '<em>EIA forecast, ' + ttMonthLabel(g.dates[j]) + '</em>' : ''}${x.s.stale ? ' <span class="wr-tag stale">not refreshed</span>' : ''}</span>`; }).join('')}</div>
+          return `<span><i style="background:${x.s.slot ? `var(--viz-${x.s.slot})` : 'var(--t2)'}"></i>${wrEsc(x.s.label)}<b>${j >= 0 ? ttFmt(x.vals[j], g.indexed ? 1 : (x.s.digits != null ? x.s.digits : 2)) : '—'}</b>${fc ? '<em>EIA forecast, ' + ttMonthLabel(g.dates[j]) + '</em>' : ''}${x.s.stale ? ' <span class="wr-tag stale">not refreshed</span>' : ''}</span>`; }).join('')}</div>
         <div class="tt-canvas"><canvas id="tt-c-${i}" role="img" aria-label="${wrAttr(c.title)}"></canvas></div>
         ${stat ? `<div class="tt-stat">Weekly returns over this window move together with a correlation of <b>${stat.r >= 0 ? '' : '−'}${Math.abs(stat.r).toFixed(2)}</b> across ${stat.n} weeks — ${read}. A correlation describes the past; it is not a mechanism.</div>` : ''}
         ${ttTable(g)}</div>`; }).join('')}</div>
+    ${(tr.watch || []).length ? `<div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Linked, not charted</div><h2>Other indicators worth watching</h2></div></div><ul class="tt-watch">${tr.watch.map(w => `<li><b>${w.url ? `<a href="${wrAttr(w.url)}" target="_blank" rel="noopener">${wrEsc(w.name)}</a>` : wrEsc(w.name)}</b><span class="tt-freq">${wrEsc(w.freq || '')}</span><div>${wrEsc(w.why || '')}</div></li>`).join('')}</ul></div>` : ''}
     ${(tr.cannot || []).length ? `<div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Read this before acting on the charts</div><h2>What this tracker cannot tell you</h2></div></div><ul class="tt-cannot">${tr.cannot.map(x => `<li>${wrEsc(x)}</li>`).join('')}</ul></div>` : ''}
     <div class="wr-hint" style="margin-top:10px;">Sources — ${src.map(s => s.url ? `<a href="${wrAttr(s.url)}" target="_blank" rel="noopener">${wrEsc(s.source)}</a>` : wrEsc(s.source)).join(' · ')}. Refreshed ${wrDate(tr.updated)} by <code>tools/fetch_themes.py</code>.${(tr.errors || []).length ? ` <span class="wr-tag stale">${tr.errors.length} source${tr.errors.length === 1 ? '' : 's'} did not answer; the last good series is shown</span>` : ''}</div>`;
   grids.forEach(({c, g}, i) => { const cv = document.getElementById('tt-c-' + i); if(cv) TT.charts.push(ttMakeChart(cv, tr, c, g)); });
