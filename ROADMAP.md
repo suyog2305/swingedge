@@ -1,7 +1,7 @@
 # Roadmap
 
 What's built, what's blocked, and what's next — in dependency order rather than wish order.
-Status as of **2026-09-19**.
+Status as of **2026-09-20**.
 
 ---
 
@@ -189,9 +189,37 @@ strongly, fibre partly (Birla Cable's own fibre-cable revenue FELL in FY26), and
 interconnect fails for all six names — none makes transceivers or lasers. Published: the
 Birla Cable–Vindhya Telelinks merger note (the deal is six months old, Birla Cable is the company
 that disappears, Universal Cables is not a party, and BCL closed 18 Sep 77% above its 10-for-115
-swap value). In progress: GNG Electronics (memory linkage), Black Box. Queued: Sterlite
-Technologies, STL Networks, HFCL, the theme note, the FCL update. Writers now save as they go —
-a usage limit killed four at once with nothing on disk.
+swap value). Writers now save as they go — a usage limit killed four at once with nothing on disk,
+and then two more at the exact moment each finished researching and was about to write. The brief
+that works is "read the inputs, a first round of about twenty fetches, then WRITE THE WHOLE FILE;
+research further only after it exists".
+
+### 2026-09-20 — the set is complete: eight notes in two days, 64 reports in the library
+
+| Report | Verdict | The finding that matters |
+|---|---|---|
+| `mpbirlamerger-2026-09` | Merger note | BCL is absorbed INTO Vindhya; 10 VTL per 115 BCL; BCL closed 77% above its swap value |
+| `bbox-2026-09` | Hold | Record USD 949M backlog; data-centre share never cleanly disclosed (two estimates that do not reconcile) |
+| `ebgng-memory-2026-09` | Hold at CMP | Memory reaches GNG through seven channels; FY26 operating cash flow −₹215.3 Cr against ₹132.0 Cr profit |
+| `stltech-2026-09` | Hold | Data-centre 21% of Q1 FY27 sales (1% in FY26); both hyperscaler deals are allocation frameworks; ~760 bps of the margin story is tariff relief |
+| `hfcl-2026-09` | Hold | Data-centre ~5% of Q1 FY27 revenue, target 10–12%; operating cash flow −₹378 Cr; LT-ASM Stage IV |
+| `stlnetwork-2026-09` | Avoid | Government contracts, five straight losses, 377 debtor days; no AI contract at all |
+| `fcl-2026-09` | Neutral | Corrects the August report twice, finds a third omission (₹800 Cr equity authority); "Accumulate on Declines" withdrawn as an entry instruction |
+| `dctheme-2026-09` | Thematic note | The commodity story holds far more consistently than the equity-exposure story |
+
+Every one went through the repaired gate; every generated figure matched the 18 Sep close. Both
+trackers now carry a verdict and open their report. **Two things the editor caught that the gate
+cannot:** the STL Networks draft called relative strength "weak" when the desk's own generated block
+ranks it RS 91 passing 7/7 (the writer had read the provider's RS% as ours) — corrected before
+publishing; and the GNG writer found the tracker's laptop figure (₹42,000, from a news report)
+disagreed with the company's filed transcript (₹40,000) — the datapoint now cites the filing. The
+verifier still does not check RS ratings or template verdicts quoted in PROSE; that is the next
+hole worth closing.
+
+Sonnet wrote five of the eight at roughly the same token cost as the larger model and with no
+visible loss in sourcing discipline, given a brief that names the inputs, the structure and the
+scope. The judgment-heavy ones (GNG's seven channels, the Fineotex corrections) stayed on the
+larger model.
 
 ---
 
