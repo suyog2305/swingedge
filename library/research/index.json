@@ -33,6 +33,39 @@
       }
     },
     {
+      "id": "hfcl-2026-09",
+      "title": "HFCL",
+      "subtitle": "Optical fibre cable, telecom equipment and defence electronics · Himachal Futuristic Communications · Testing the AI data-centre story against the company’s own numbers",
+      "code": "HFCL",
+      "sector": "Telecom Infrastructure",
+      "date": "2026-09-20",
+      "cmp": "₹215.71",
+      "mcap": "~₹32,993 Cr",
+      "targets": {
+        "bull": "Order book and capacity targets both keep getting raised, even after August",
+        "bear": "Price has cracked below its 50-DMA for the first time under LT-ASM Stage IV"
+      },
+      "summary": "HFCL's order book, exports and credit profile have all continued to strengthen since the August edition, but the company's own disclosure puts data-centre-specific revenue at only about 5% of Q1 FY27 sales and a targeted 10-12% of FY27 revenue — a real but small slice of a much larger, conventional…",
+      "file": "hfcl-2026-09.html",
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-09-18",
+        "source": "scan",
+        "universe": 1629,
+        "rs": 96,
+        "template": "FAIL",
+        "passed": 6,
+        "checks": 7,
+        "failed": [
+          "50-DMA"
+        ],
+        "stage2": "Continues Trend · 22 wks",
+        "stage2_list_date": "2026-09-18",
+        "flag": "LTASM - IV",
+        "price": 215.71
+      }
+    },
+    {
       "id": "mpbirlamerger-2026-09",
       "title": "Birla Cable into Vindhya Telelinks",
       "subtitle": "M.P. Birla group · The merger is real: both boards approved it on 21 March 2026 and the exchanges cleared it on 14 August 2026 · It is Birla Cable that disappears, Universal Cables is not in the scheme, and at the 18 September close Birla Cable trades 77% above what the swap ratio pays",
