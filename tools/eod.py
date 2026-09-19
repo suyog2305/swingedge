@@ -15,6 +15,7 @@ WHAT IT RUNS, IN ORDER
                          extra columns per pull; then build_scan.py -> data/scans/<date>.json
   2. build_shortlist.py  rank the universe into the 20 daily candidates
   3. build_s2history.py  append today to the Stage 2 journal
+  4. fetch_themes.py     refresh the theme trackers (crude, rigs, the stock); never blocks
 
 Each step is reported pass/fail with its own line. A failed step STOPS the run — a shortlist
 built on yesterday's scan looks perfectly fine and is silently wrong, which is exactly the
@@ -343,6 +344,15 @@ def main():
         ('append to the Stage 2 journal', [py, os.path.join('tools', 'build_s2history.py'), '--quiet']),
     ]):
         return 1
+
+    # ---- theme trackers: the outside driver next to the stock ------------------------------
+    # Crude prices, Texas and Permian output, rigs and completions, next to the share price they
+    # are supposed to move. This step is NEVER allowed to stop the run: fetch_themes.py keeps the
+    # last good series when a source does not answer, and whatever it returns is reported and
+    # ignored - the scan, shortlist and journal above are already complete.
+    if not run('refresh the theme trackers (never blocks the scan)',
+               [py, os.path.join('tools', 'fetch_themes.py'), '--quiet'], a.dry_run):
+        print('    ignored - the scan, shortlist and journal above are complete')
 
     if a.dry_run:
         print('\n--dry-run: nothing was fetched, built, or pushed.')

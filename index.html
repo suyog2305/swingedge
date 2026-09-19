@@ -1063,6 +1063,26 @@ html[data-theme="lab"] .card,html[data-theme="lab"] .metric,html[data-theme="lab
 .se-tabs-bucket button.active{border-color:var(--lime2);background:var(--lime-soft);}
 .se-tabs-bucket button.active b{color:var(--lime2);}
 @media(max-width:900px){.se-tabs-bucket{grid-template-columns:repeat(2,1fr);}}
+/* Chart series colours: eight fixed slots, light steps for the Ledger card (#FFFFFF), dark steps for the Lab card (#111A2E).
+   Each chart's subset was run through a colour-vision-deficiency validator against both surfaces; three light steps
+   (yellow, magenta, aqua) sit under 3:1 on white, which is why every chart also carries direct labels and a table. */
+:root{--viz-1:#2a78d6;--viz-2:#eb6834;--viz-3:#1baf7a;--viz-4:#eda100;--viz-5:#e87ba4;--viz-6:#008300;--viz-7:#4a3aa7;--viz-8:#e34948;}
+html[data-theme="lab"]{--viz-1:#3987e5;--viz-2:#d95926;--viz-3:#199e70;--viz-4:#c98500;--viz-5:#d55181;--viz-6:#008300;--viz-7:#9085e9;--viz-8:#e66767;}
+.tt-thesis{color:var(--t2);font-size:13.5px;line-height:1.6;max-width:88ch;margin:6px 0 12px;}
+.tt-audit{border:1px solid var(--b2);border-left:3px solid var(--t4);background:var(--bg2);border-radius:var(--r3);padding:10px 14px;font-size:13px;color:var(--t2);line-height:1.55;margin:0 0 14px;max-width:100ch;}
+.tt-audit.fails{border-left-color:var(--rose);} .tt-audit.partly{border-left-color:var(--gold);} .tt-audit.holds{border-left-color:var(--lime);}
+.tt-audit b{color:var(--t1);} .tt-audit a{color:inherit;font-weight:600;text-decoration:underline;white-space:nowrap;}
+.tt-filter{display:flex;align-items:center;gap:12px;margin:16px 0 12px;flex-wrap:wrap;}
+.tt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:14px;margin-bottom:14px;}
+.tt-card{margin:0;min-width:0;}
+.tt-sub{color:var(--t3);font-size:12px;margin-top:3px;line-height:1.45;}
+.tt-legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:10px 0 4px;font-size:12px;color:var(--t2);}
+.tt-legend span{display:inline-flex;align-items:center;gap:7px;} .tt-legend i{display:inline-block;width:18px;height:2px;border-radius:2px;}
+.tt-legend b{color:var(--t1);font-weight:700;font-variant-numeric:tabular-nums;} .tt-legend em{font-style:normal;color:var(--t4);font-size:11px;}
+.tt-canvas{position:relative;height:300px;}
+.tt-stat{font-size:12.5px;color:var(--t2);line-height:1.55;margin:8px 0 0;padding:8px 10px;background:var(--bg2);border-radius:var(--r2);} .tt-stat b{color:var(--t1);}
+.tt-table{margin-top:10px;} .tt-table summary{cursor:pointer;font-size:12px;font-weight:600;color:var(--t3);user-select:none;} .tt-table summary:hover{color:var(--t1);} .tt-table[open] summary{margin-bottom:8px;}
+.tt-cannot{margin:4px 0 0;padding-left:18px;color:var(--t2);font-size:13px;line-height:1.65;max-width:104ch;} .tt-cannot li{margin:4px 0;}
 .se-tt{display:inline-flex;align-items:center;gap:2px;cursor:help;}
 .se-tt i{display:inline-block;width:7px;height:10px;border-radius:2px;background:var(--bg4);}
 .se-tt i.ok{background:var(--lime);} .se-tt.full i.ok{background:#34D399;} .se-tt.weak i.ok{background:var(--t4);}
@@ -1227,6 +1247,7 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
     <div class="nav" id="nav-pead" onclick="show('pead')"><i class="ti ti-report-money"></i>PEAD Radar</div>
     <div class="nav" id="nav-tr" onclick="show('tr')"><i class="ti ti-target-arrow"></i>Track Record</div>
     <div class="nav" id="nav-rdesk" onclick="show('rdesk')"><i class="ti ti-news"></i>Research Desk</div>
+    <div class="nav" id="nav-themes" onclick="show('themes')"><i class="ti ti-chart-line"></i>Theme Trackers</div>
     <div class="sb-group">Core</div>
     <div class="nav" id="nav-dash" onclick="show('dash')"><i class="ti ti-layout-dashboard"></i>Dashboard</div>
     <div class="nav" id="nav-trades" onclick="show('trades')"><i class="ti ti-notebook"></i>Trade Log</div>
@@ -1375,6 +1396,17 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
     </div>
   </div>
   <div class="content se-content se-pad"><div id="se-trend-body"></div></div>
+</div>
+
+<!-- ── EDGE: THEME TRACKERS ── -->
+<div class="sec" id="sec-themes">
+  <div class="topbar">
+    <div class="tb-left"><span class="tb-title">Theme Trackers</span><span class="tb-crumb">/ the outside driver, next to the stock</span></div>
+    <div class="tb-right">
+      <button class="btn btn-sm" onclick="loadTT(true)"><i class="ti ti-refresh"></i>Refresh</button>
+    </div>
+  </div>
+  <div class="content se-content se-pad"><div id="tt-body"></div></div>
 </div>
 
 <!-- ── EDGE: SECTORS ── -->
@@ -3105,6 +3137,7 @@ function show(id){
   document.getElementById('nav-'+id).classList.add('active');
   if(id === 'wr' && !WR.loaded && !WR.loading) loadWR(false);
   if(id === 'feedback') renderFB();
+  if(id === 'themes'){ if(!TT.loaded && !TT.loading) loadTT(false); else ttRender(); }   // charts need a visible canvas, so draw on show
   // P&L Analytics: auto-default to snapshot tab if user has snapshots but no P&L statements
   if(id === 'pnl'){
     const hasSnaps = (DB.snapshots || []).length > 0;
@@ -8357,6 +8390,198 @@ function seRenderTrendTable(){
   const cnt = document.getElementById('se-trend-count'); if(cnt) cnt.textContent = `${wrNum(list.length)} of ${wrNum(RT._rows.length)} stocks`;
 }
 
+// ============= THEME TRACKERS — the outside driver, next to the stock it is supposed to move =============
+// A thesis like "Texas crude production drives Fineotex" is a claim about two series. This page puts
+// both in front of you and draws no conclusion of its own. Everything it shows comes from
+// data/themes/<id>.json, written by tools/fetch_themes.py from a config file, so a new tracker is a
+// config, not new code.
+//
+// Chart rules this page holds itself to: ONE y-axis per chart, always — two measures on different
+// scales are indexed to 100 at the start of the window, never given a second axis, because the
+// alignment of two axes is arbitrary and manufactures a correlation. Colour follows the series, not
+// its position. Every chart has a legend, direct end-labels, a crosshair tooltip listing every series,
+// and a table twin. Dashes mean forecast and nothing else. The eight series colours were checked
+// against both card surfaces with a colour-vision-deficiency validator, not by eye.
+const TT = { loaded: false, loading: false, index: [], cur: null, data: {}, range: '2Y', charts: [], error: null };
+const TT_RANGES = [['6M', 183], ['1Y', 365], ['2Y', 730], ['5Y', 1826]];
+const TT_AUDIT = { pending: ['Link not yet audited', 'na'], holds: ['Link holds', 'strongup'], partly: ['Link partly holds', 'up'], fails: ['Link fails as framed', 'strongdown'] };
+
+async function loadTT(manual){
+  if(TT.loading) return;
+  TT.loading = true;
+  try{
+    const res = await fetch('data/themes/index.json', {cache: manual ? 'reload' : 'default'});
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    TT.index = ((await res.json()).trackers || []).filter(t => t && t.file);
+    if(manual) TT.data = {};
+    if(!TT.cur || !TT.index.some(t => t.id === TT.cur)) TT.cur = TT.index[0] ? TT.index[0].id : null;
+    if(TT.cur) await ttFetch(TT.cur, manual);
+    TT.error = null;
+    if(manual) toast('Trackers refreshed', 'success');
+  }catch(err){
+    TT.error = err.message || String(err);
+    if(manual) toast('Could not load the trackers', 'error');
+  }finally{ TT.loaded = true; TT.loading = false; }
+  ttRender();
+}
+async function ttFetch(id, manual){
+  if(TT.data[id]) return TT.data[id];
+  const t = TT.index.find(x => x.id === id); if(!t) return null;
+  const res = await fetch('data/themes/' + t.file, {cache: manual ? 'reload' : 'default'});
+  if(!res.ok) throw new Error(t.file + ': HTTP ' + res.status);
+  return (TT.data[id] = await res.json());
+}
+async function ttSelect(id){
+  TT.cur = id;
+  try{ await ttFetch(id, false); TT.error = null; }catch(err){ TT.error = err.message || String(err); }
+  ttRender();
+}
+function ttCss(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+function ttIso(d){ return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }   // local parts: toISOString() is UTC and lands a day early in IST
+function ttFmt(v, digits){ return wrIsNum(v) ? Number(v).toLocaleString('en-IN', {minimumFractionDigits: digits, maximumFractionDigits: digits}) : '—'; }
+function ttMonthLabel(iso, withDay){ const d = new Date(iso + 'T00:00:00'); return (withDay ? d.getDate() + ' ' : '') + d.toLocaleString('en-GB', {month: 'short'}) + ' ' + String(d.getFullYear()).slice(2); }
+// the last actual (non-forecast) point of a series
+function ttActuals(s){ const pts = s.points || []; return s.forecast_from ? pts.filter(p => p[0] < s.forecast_from) : pts; }
+function ttValueAt(pts, iso){ let v = null; for(const p of pts){ if(p[0] <= iso) v = p; else break; } return v; }
+function ttWindowStart(tr){
+  const days = (TT_RANGES.find(r => r[0] === TT.range) || TT_RANGES[2])[1];
+  const newest = Object.values(tr.series).map(s => { const a = ttActuals(s); return a.length ? a[a.length - 1][0] : null; }).filter(Boolean).sort().pop() || ttIso(new Date());
+  const d = new Date(newest + 'T00:00:00'); d.setDate(d.getDate() - days);
+  return ttIso(d);
+}
+
+// ---------- KPI tiles ----------
+function ttKpi(tr, k){
+  const s = tr.series[k.series]; if(!s) return '';
+  const act = ttActuals(s); if(!act.length) return seKpi(k.label, '—', 'no data', '', null);
+  const [d0, v0] = act[act.length - 1];
+  const digits = s.digits != null ? s.digits : 2;
+  const parts = [(s.freq === 'M' ? ttMonthLabel(d0) : wrDate(d0))];
+  (k.deltas || []).forEach(span => {
+    const t = new Date(d0 + 'T00:00:00'); if(span === '1m') t.setMonth(t.getMonth() - 1); else t.setFullYear(t.getFullYear() - 1);
+    const p = ttValueAt(act, ttIso(t)); if(!p) return;
+    const name = span === '1m' ? 'a month earlier' : 'a year earlier';
+    if(k.abs){ const ch = v0 - p[1]; parts.push(`<span class="${ch > 0 ? 'up' : ch < 0 ? 'dn' : 'flat'}">${ch > 0 ? '▲' : ch < 0 ? '▼' : '•'} ${ttFmt(Math.abs(ch), digits)}</span> vs ${name}`); }
+    else if(p[1]){ const ch = (v0 / p[1] - 1) * 100; parts.push(`<span class="${ch > 0 ? 'up' : ch < 0 ? 'dn' : 'flat'}">${ch > 0 ? '▲' : ch < 0 ? '▼' : '•'} ${ttFmt(Math.abs(ch), 1)}%</span> vs ${name}`); }
+  });
+  return seKpi(k.label, `${v0 < 0 ? '−' : ''}${wrEsc(k.prefix || '')}${ttFmt(Math.abs(v0), digits)}${wrEsc(k.suffix || '')}`, parts.join(' · '), '', null);
+}
+
+// ---------- one chart: a shared date grid so the tooltip can list every series at that date ----------
+function ttGrid(tr, chart, start){
+  const indexed = chart.mode === 'indexed';
+  const ser = chart.series.map(k => {
+    const s = tr.series[k]; const all = (indexed ? ttActuals(s) : (s.points || [])).filter(p => p[0] >= start);
+    return {k, s, pts: all, map: new Map(all), base: all.length ? all[0][1] : null};
+  }).filter(x => x.pts.length);
+  const dates = [...new Set(ser.flatMap(x => x.pts.map(p => p[0])))].sort();
+  ser.forEach(x => {
+    // carry the last close across another market's holiday, but never before the first point,
+    // never past the last one, and never from actuals into forecast
+    const first = x.pts[0][0], last = x.pts[x.pts.length - 1][0]; let prev = null;
+    x.raw = dates.map(d => { if(d < first || d > last) return null; if(x.map.has(d)) prev = x.map.get(d); return prev; });
+    x.vals = x.raw.map(v => v == null ? null : (indexed && x.base ? v / x.base * 100 : v));
+    x.fcIndex = (!indexed && x.s.forecast_from) ? dates.findIndex(d => d >= x.s.forecast_from) : -1;
+  });
+  return {dates, ser, indexed};
+}
+const ttCrosshair = { id: 'ttCrosshair', beforeDatasetsDraw(c){
+  const a = c.tooltip && c.tooltip.getActiveElements ? c.tooltip.getActiveElements() : []; if(!a.length) return;
+  const x = a[0].element.x, {top, bottom} = c.chartArea, g = c.ctx;
+  g.save(); g.strokeStyle = ttCss('--b3'); g.lineWidth = 1; g.beginPath(); g.moveTo(x, top); g.lineTo(x, bottom); g.stroke(); g.restore();
+} };
+const ttEndLabels = { id: 'ttEndLabels', afterDatasetsDraw(c){
+  const g = c.ctx, surface = ttCss('--bg1'), ink = ttCss('--t2');
+  const ends = c.data.datasets.map((ds, i) => {
+    const meta = c.getDatasetMeta(i); if(meta.hidden) return null;
+    let j = ds.data.length - 1; while(j >= 0 && ds.data[j] == null) j--; if(j < 0) return null;
+    const el = meta.data[j]; return el ? {x: el.x, y: el.y, ds, j} : null;
+  }).filter(Boolean).sort((a, b) => a.y - b.y);
+  g.save(); g.font = '600 11px ' + (ttCss('--sans') || 'system-ui'); g.textBaseline = 'middle';
+  let lastY = -99;
+  ends.forEach(e => {
+    g.beginPath(); g.arc(e.x, e.y, 6, 0, Math.PI * 2); g.fillStyle = surface; g.fill();          // 2px surface ring
+    g.beginPath(); g.arc(e.x, e.y, 4, 0, Math.PI * 2); g.fillStyle = e.ds.borderColor; g.fill();
+    if(e.y - lastY < 13) return;                                                                // converging ends: the legend names them; never stack labels
+    lastY = e.y;
+    g.fillStyle = ink; g.fillText(`${e.ds.label} ${ttFmt(e.ds.data[e.j], e.ds._labelDigits)}${e.ds._fcEnd ? ' f’cast' : ''}`, e.x + 9, e.y);
+  });
+  g.restore();
+} };
+function ttMakeChart(canvas, tr, chart, grid){
+  const surface = ttCss('--bg1'), hair = ttCss('--b1'), strong = ttCss('--b3'), tick = ttCss('--t3'), ink = ttCss('--t1');
+  const datasets = grid.ser.map(x => {
+    const col = ttCss('--viz-' + (x.s.slot || 1)) || '#3987e5';
+    return { label: x.s.short || x.s.label, data: x.vals, borderColor: col, backgroundColor: col, borderWidth: 2, pointRadius: 0, pointHoverRadius: 5,
+      pointHoverBackgroundColor: col, pointHoverBorderColor: surface, pointHoverBorderWidth: 2, tension: 0, spanGaps: true, borderJoinStyle: 'round', borderCapStyle: 'round',
+      segment: x.fcIndex >= 0 ? { borderDash: c => c.p1DataIndex >= x.fcIndex ? [6, 4] : undefined } : undefined,
+      _raw: x.raw, _unit: x.s.unit, _digits: x.s.digits != null ? x.s.digits : 2, _labelDigits: grid.indexed ? 0 : (x.s.digits != null ? Math.min(x.s.digits, 2) : 2), _fcIndex: x.fcIndex, _fcEnd: x.fcIndex >= 0 };
+  });
+  const mctx = document.createElement('canvas').getContext('2d'); mctx.font = '600 11px ' + (ttCss('--sans') || 'system-ui');
+  const padRight = Math.min(190, Math.ceil(Math.max(0, ...datasets.map(ds => { let j = ds.data.length - 1; while(j >= 0 && ds.data[j] == null) j--; return j < 0 ? 0 : mctx.measureText(`${ds.label} ${ttFmt(ds.data[j], ds._labelDigits)}${ds._fcEnd ? ' f’cast' : ''}`).width; }))) + 20);
+  return new Chart(canvas, { type: 'line', data: { labels: grid.dates, datasets }, plugins: [ttCrosshair, ttEndLabels],
+    options: { responsive: true, maintainAspectRatio: false, animation: false, layout: { padding: { right: padRight, top: 10 } },
+      interaction: { mode: 'index', intersect: false },
+      scales: {
+        x: { grid: { display: false }, border: { color: strong }, ticks: { color: tick, maxRotation: 0, autoSkip: true, maxTicksLimit: 7, font: { size: 11 }, callback(v){ return ttMonthLabel(this.getLabelForValue(v)); } } },
+        y: { border: { display: false }, grid: { color: c => (grid.indexed && c.tick && c.tick.value === 100) ? strong : hair, lineWidth: 1 }, ticks: { color: tick, font: { size: 11 }, maxTicksLimit: 6, callback: v => Number(v).toLocaleString('en-IN') } } },
+      plugins: { legend: { display: false },
+        tooltip: { backgroundColor: ttCss('--bg3'), borderColor: ttCss('--b2'), borderWidth: 1, titleColor: ink, bodyColor: ink, padding: 10, usePointStyle: true, boxWidth: 18, boxHeight: 2,
+          filter: i => i.raw != null,
+          callbacks: {
+            title: items => { if(!items.length) return ''; const d = grid.dates[items[0].dataIndex]; const fc = items.some(i => i.dataset._fcIndex >= 0 && i.dataIndex >= i.dataset._fcIndex); const monthly = grid.ser.every(x => x.s.freq === 'M'); return (monthly ? ttMonthLabel(d) : wrDate(d)) + (fc ? ' · EIA forecast' : ''); },
+            label: i => { const ds = i.dataset, raw = ds._raw[i.dataIndex]; return grid.indexed ? ` ${ttFmt(i.raw, 1)}   ${ds.label}  (${ttFmt(raw, ds._digits)} ${ds._unit})` : ` ${ttFmt(raw, ds._digits)} ${ds._unit}   ${ds.label}`; },
+            labelPointStyle: () => ({ pointStyle: 'line', rotation: 0 }) } } } } });
+}
+// weekly-return correlation over the window, on actual closes only (no carried values)
+function ttCorrWeekly(tr, chart, start){
+  const wk = (pts) => { const m = new Map(); pts.filter(p => p[0] >= start).forEach(([d, v]) => { const t = new Date(d + 'T00:00:00'); const day = (t.getDay() + 6) % 7; t.setDate(t.getDate() - day); m.set(ttIso(t), v); }); return m; };
+  const [a, b] = chart.series.map(k => wk(ttActuals(tr.series[k])));
+  const weeks = [...a.keys()].filter(w => b.has(w)).sort(); const ra = [], rb = [];
+  for(let i = 1; i < weeks.length; i++){ const x0 = a.get(weeks[i - 1]), x1 = a.get(weeks[i]), y0 = b.get(weeks[i - 1]), y1 = b.get(weeks[i]); if(x0 > 0 && x1 > 0 && y0 > 0 && y1 > 0){ ra.push(Math.log(x1 / x0)); rb.push(Math.log(y1 / y0)); } }
+  const n = ra.length; if(n < 12) return null;
+  const mean = v => v.reduce((s, x) => s + x, 0) / v.length, ma = mean(ra), mb = mean(rb);
+  let sab = 0, saa = 0, sbb = 0; for(let i = 0; i < n; i++){ sab += (ra[i] - ma) * (rb[i] - mb); saa += (ra[i] - ma) ** 2; sbb += (rb[i] - mb) ** 2; }
+  return (saa && sbb) ? {r: sab / Math.sqrt(saa * sbb), n} : null;
+}
+function ttTable(grid){
+  const monthly = grid.ser.every(x => x.s.freq === 'M'), cap = monthly ? 30 : 40;
+  const idx = grid.dates.map((d, i) => i).reverse().slice(0, cap);
+  const head = `<tr><th>${monthly ? 'Month' : 'Date'}</th>${grid.ser.map(x => `<th class="num">${wrEsc(x.s.short || x.s.label)}${grid.indexed ? ' (index)' : ''}</th>${grid.indexed ? `<th class="num">${wrEsc(x.s.unit || '')}</th>` : ''}`).join('')}</tr>`;
+  const body = idx.map(i => `<tr><td>${monthly ? ttMonthLabel(grid.dates[i]) : wrDate(grid.dates[i])}${grid.ser.some(x => x.fcIndex >= 0 && i >= x.fcIndex) ? ' <span class="flat">forecast</span>' : ''}</td>${grid.ser.map(x => `<td class="num">${x.vals[i] == null ? '—' : ttFmt(x.vals[i], grid.indexed ? 1 : (x.s.digits != null ? x.s.digits : 2))}</td>${grid.indexed ? `<td class="num">${x.raw[i] == null ? '—' : ttFmt(x.raw[i], x.s.digits != null ? x.s.digits : 2)}</td>` : ''}`).join('')}</tr>`).join('');
+  return `<details class="tt-table"><summary>Table view</summary><div class="wr-twrap" style="max-height:300px;"><table class="scan-table"><thead>${head}</thead><tbody>${body}</tbody></table></div><div class="wr-hint" style="margin-top:6px;">The latest ${idx.length} of ${grid.dates.length} rows in this window, newest first.${grid.indexed ? ' Index = 100 at the first row of the window.' : ''}</div></details>`;
+}
+
+function ttRender(){
+  const el = document.getElementById('tt-body'); if(!el) return;
+  TT.charts.forEach(c => { try{ c.destroy(); }catch(e){} }); TT.charts = [];
+  if(!TT.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading…</p></div>'; return; }
+  const tr = TT.cur && TT.data[TT.cur];
+  if(!tr){ el.innerHTML = `<div class="wr-empty"><i class="ti ti-chart-line"></i><h4>No trackers yet</h4><p>Build one with <code>python tools/fetch_themes.py</code>, commit <code>data/themes/</code>, then Refresh.</p>${TT.error ? `<p style="margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--rose2);">${wrEsc(TT.error)}</p>` : ''}</div>`; return; }
+  const start = ttWindowStart(tr), audit = tr.audit || {}, am = TT_AUDIT[audit.status] || TT_AUDIT.pending;
+  const grids = (tr.charts || []).map(c => ({c, g: ttGrid(tr, c, start)})).filter(x => x.g.ser.length);
+  const src = [...new Map(Object.values(tr.series).filter(s => s.source).map(s => [s.source, s])).values()];
+  el.innerHTML = `
+    ${TT.index.length > 1 ? `<div class="se-seg" style="margin-bottom:14px;">${TT.index.map(t => `<button class="${t.id === TT.cur ? 'active' : ''}" onclick="ttSelect('${wrAttr(t.id)}')">${wrEsc(t.title)}</button>`).join('')}</div>` : ''}
+    <div class="se-row-h"><div><div class="se-eyebrow">Theme tracker${tr.stock ? ' · ' + wrEsc(tr.stock.code) : ''}</div><h2>${wrEsc(tr.title)}</h2></div><div><span class="se-pill trend ${am[1]}">${am[0]}</span></div></div>
+    ${tr.thesis ? `<p class="tt-thesis">${wrEsc(tr.thesis)}</p>` : ''}
+    ${audit.text ? `<div class="tt-audit ${wrAttr(audit.status || 'pending')}"><b>${am[0]}.</b> ${wrEsc(audit.text)}${audit.report ? ` <a href="#" onclick="show('rdesk');rdOpen('${wrAttr(audit.report)}');return false;">Read the audit →</a>` : ''}</div>` : ''}
+    <div class="se-kpis">${(tr.kpis || []).map(k => ttKpi(tr, k)).join('')}</div>
+    <div class="tt-filter"><span class="wr-hint" style="margin:0;">Window for every chart below</span><div class="se-seg">${TT_RANGES.map(([r]) => `<button class="${r === TT.range ? 'active' : ''}" onclick="TT.range='${r}';ttRender()">${r}</button>`).join('')}</div></div>
+    <div class="tt-grid">${grids.map(({c, g}, i) => {
+      const stat = c.stat === 'corr_weekly' ? ttCorrWeekly(tr, c, start) : null;
+      const read = stat ? (Math.abs(stat.r) < 0.2 ? 'effectively none' : Math.abs(stat.r) < 0.4 ? 'weak' : Math.abs(stat.r) < 0.6 ? 'moderate' : 'strong') : null;
+      return `<div class="se-panel tt-card"><div class="se-row-h"><div><h2>${wrEsc(c.title)}</h2><div class="tt-sub">${wrEsc(c.sub || '')}</div></div></div>
+        <div class="tt-legend">${g.ser.map(x => { let j = x.vals.length - 1; while(j >= 0 && x.vals[j] == null) j--; const fc = x.fcIndex >= 0 && j >= x.fcIndex;
+          return `<span><i style="background:var(--viz-${x.s.slot || 1})"></i>${wrEsc(x.s.label)}<b>${j >= 0 ? ttFmt(x.vals[j], g.indexed ? 1 : (x.s.digits != null ? x.s.digits : 2)) : '—'}</b>${fc ? '<em>EIA forecast, ' + ttMonthLabel(g.dates[j]) + '</em>' : ''}${x.s.stale ? ' <span class="wr-tag stale">not refreshed</span>' : ''}</span>`; }).join('')}</div>
+        <div class="tt-canvas"><canvas id="tt-c-${i}" role="img" aria-label="${wrAttr(c.title)}"></canvas></div>
+        ${stat ? `<div class="tt-stat">Weekly returns over this window move together with a correlation of <b>${stat.r >= 0 ? '' : '−'}${Math.abs(stat.r).toFixed(2)}</b> across ${stat.n} weeks — ${read}. A correlation describes the past; it is not a mechanism.</div>` : ''}
+        ${ttTable(g)}</div>`; }).join('')}</div>
+    ${(tr.cannot || []).length ? `<div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Read this before acting on the charts</div><h2>What this tracker cannot tell you</h2></div></div><ul class="tt-cannot">${tr.cannot.map(x => `<li>${wrEsc(x)}</li>`).join('')}</ul></div>` : ''}
+    <div class="wr-hint" style="margin-top:10px;">Sources — ${src.map(s => s.url ? `<a href="${wrAttr(s.url)}" target="_blank" rel="noopener">${wrEsc(s.source)}</a>` : wrEsc(s.source)).join(' · ')}. Refreshed ${wrDate(tr.updated)} by <code>tools/fetch_themes.py</code>.${(tr.errors || []).length ? ` <span class="wr-tag stale">${tr.errors.length} source${tr.errors.length === 1 ? '' : 's'} did not answer; the last good series is shown</span>` : ''}</div>`;
+  grids.forEach(({c, g}, i) => { const cv = document.getElementById('tt-c-' + i); if(cv) TT.charts.push(ttMakeChart(cv, tr, c, g)); });
+}
+
 // ---------- Sectors ----------
 function seRenderSectors(){
   const el = document.getElementById('se-sec-body'); if(!el) return;
@@ -8503,6 +8728,7 @@ function seApplyTheme(t){
   document.documentElement.setAttribute('data-theme', theme);
   localStorage.setItem('swingedge.theme', theme);
   const btn = document.getElementById('theme-toggle'); if(btn) btn.innerHTML = theme === 'lab' ? '<i class="ti ti-sun"></i>Ledger theme' : '<i class="ti ti-moon-stars"></i>Lab theme';
+  try{ const ts = document.getElementById('sec-themes'); if(TT.loaded && ts && ts.classList.contains('active')) ttRender(); }catch(e){}   // canvas colours are read at draw time
 }
 function seToggleTheme(){ seApplyTheme((document.documentElement.getAttribute('data-theme') || 'lab') === 'lab' ? 'ledger' : 'lab'); }
 seApplyTheme();
