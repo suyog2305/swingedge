@@ -1,7 +1,7 @@
 # Roadmap
 
 What's built, what's blocked, and what's next — in dependency order rather than wish order.
-Status as of **2026-09-15**.
+Status as of **2026-09-19**.
 
 ---
 
@@ -129,6 +129,69 @@ of ordinary fortnightly drift in the provider's own RS series, not a tuned numbe
 RS Trend gained the provider's Stage 2 RS% as a column beside our percentile — the two measures
 side by side on purpose — and its Cap column, which had been blank because the band was never
 computed for those rows, now works.
+
+### 2026-09-19 — two silent failures in the automation, a hole in the publishing gate, and Theme Trackers
+
+**The Stage 2 carry-forward shipped on the 15th never worked in production.** All four scheduled
+runs since printed "none found" for the folder where the same function, run by hand, finds the
+file. `stage2_asof()` imported `openpyxl`, which lives in the user site-packages — and had been
+pip-installed from inside a packaged desktop app, whose writes to `%APPDATA%` Windows redirects to
+a private per-app copy. Every shell launched from that app sees the package; Task Scheduler reports
+the very same path as non-existent. A bare `except` swallowed the ImportError, so the 16 and 18 Sep
+scans carried no list while every manual test passed. Reproduced with a temporary scheduled task,
+fixed by reading the date with the stdlib reader the build tools already use, and unreadable files
+are now named with their exception. **Rule: anything the scheduled task runs is stdlib-only and is
+tested with `python -s`.**
+
+**A missed 20:00 run fires at the next logon and mislabels the data.** At 08:05 on 18 Sep it wrote
+17 Sep's close as `2026-09-18.json`; the 20:00 run rebuilt that file and the 17 Sep close was gone.
+At 10:00 on 16 Sep it committed a live mid-session snapshot. The default date is now the session
+screener is actually serving — the previous weekday before 09:10 and at weekends, today after 15:40,
+nothing at all while the market is open. The 17 Sep close was recovered from git (FCL 52.99 equals
+the exchange close). **15 Sep is lost:** the machine was off and the catch-up fired mid-session.
+
+**The publishing gate could pass with nothing checked.** `verify_numbers.py` matched its arguments
+against a report's code or the first dash-token of its id, so a full id selected no report, printed
+"0 reports checked" and exited 0; `publish.py` passed codes, so one CLUSTER note re-verified all of
+them, and it read zero checks as a pass. An id now selects exactly that report, selecting nothing is
+exit 2, and zero checks aborts a publish unless `--allow-unverified`. Known limit, unchanged: the
+verifier checks a block's eleven scan-linked rows, not the computed RS rating or template verdict.
+
+**Theme Trackers** — a new Edge page: the outside driver next to the stock it is supposed to move.
+`tools/fetch_themes.py` builds `data/themes/<id>.json` from a config in `tools/themes/`; keyless
+public sources, stdlib only, fails soft, runs after the journal as a step that can never stop the
+scan. Every chart has one y-axis — measures on different scales are indexed to 100 at a common
+date, never given a second axis — a legend carrying the latest value, measured end-labels, a
+crosshair tooltip, dashes reserved for forecast, a table twin, and a palette run through a
+colour-vision validator against both card surfaces.
+
+- **Texas crude and Fineotex.** Asked for a Texas-production tracker on the reasoning "more output,
+  more wells, proportionally more for Fineotex", the desk audited the chain first (43 sources):
+  **fails as framed.** The exposure is real — CrudeChem was ~65% of Q1 FY27 revenue — but only ~29%
+  of owners' profit (53.33% stake, ~8% net), so +10% CrudeChem sales is about +3% on owners'
+  profit. Texas output rose 8.7% from Jan 2023 to Dec 2025 on 39% fewer rigs. CrudeChem sells
+  friction reducers and frac additives, so completions and frac crews lead, not barrels; and its
+  H1 2026 doubling came against falling completions. The share price correlates −0.03 with WTI
+  since the deal. The page is ordered accordingly: weekly Texas and Permian rigs from Baker Hughes'
+  own workbook (which answers a plain client and 403s a spoofed browser; sums reproduce the
+  published totals exactly), completions, output against rigs, Texas production as the lagging
+  series it is, EIA's $58 WTI forecast as a tile. **The audit also corrects the desk's August FCL
+  report twice:** the consideration was disclosed (up to USD 11.2 mn for 53.33%), and CrudeChem is a
+  frac-chemicals business, not a "less cyclical production chemicals" one. An updated FCL report
+  is owed.
+- **Memory prices and GNG Electronics.** Not a price feed — TrendForce's quotes are its product, as
+  Primary Vision's frac count is — but 40 cited figures in four tables, plus GNG indexed against
+  Micron and SK hynix. From GNG's listing day: Micron 885, SK hynix 705, GNG 211; weekly-return
+  correlation with Micron 0.11.
+
+**Reports.** The shared evidence base for the data-centre theme found memory pricing holds
+strongly, fibre partly (Birla Cable's own fibre-cable revenue FELL in FY26), and optical
+interconnect fails for all six names — none makes transceivers or lasers. Published: the
+Birla Cable–Vindhya Telelinks merger note (the deal is six months old, Birla Cable is the company
+that disappears, Universal Cables is not a party, and BCL closed 18 Sep 77% above its 10-for-115
+swap value). In progress: GNG Electronics (memory linkage), Black Box. Queued: Sterlite
+Technologies, STL Networks, HFCL, the theme note, the FCL update. Writers now save as they go —
+a usage limit killed four at once with nothing on disk.
 
 ---
 
