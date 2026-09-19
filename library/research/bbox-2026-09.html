@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Black Box Limited — Equity Research Report — Initiating Coverage — September 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0D1117;
+    --paper:      #F5F0E8;
+    --deep-navy:  #0A1628;
+    --mid-navy:   #1B3A6B;
+    --steel:      #2E75B6;
+    --gold:       #C8973A;
+    --gold-light: #F0D090;
+    --green:      #1A6B35;
+    --red:        #A01020;
+    --muted:      #6B7280;
+    --rule:       #C4B89A;
+    --highlight:  #EDF4FD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--deep-navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px);
+  }
+  .masthead-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 56px 40px 0; }
+  .report-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .15em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 16px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .report-title span { color: var(--gold); }
+  .report-subtitle { font-size: 16px; color: rgba(255,255,255,.55); margin-top: 10px; font-weight: 300; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 40px; background: rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.12); }
+  .kpi-cell { background: rgba(10,22,40,.7); padding: 18px 20px; text-align: center; }
+  .kpi-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+  .rating-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.08); border-top: 1px solid rgba(255,255,255,.08); }
+  .rating-cell { padding: 16px 24px; text-align: center; }
+  .rating-cell.buy  { background: rgba(26,107,53,.4); }
+  .rating-cell.hold { background: rgba(200,151,58,.38); }
+  .rating-cell.sell { background: rgba(160,16,32,.5); }
+  .rating-cell.bull { background: rgba(46,117,182,.25); }
+  .rating-cell.bear { background: rgba(160,16,32,.2); }
+  .rating-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+  .rating-val { font-size: 15px; font-weight: 600; color: #fff; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── NAV ── */
+  .toc { position: sticky; top: 0; z-index: 100; background: var(--deep-navy); border-bottom: 2px solid var(--gold); overflow-x: auto; }
+  .toc-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; gap: 0; }
+  .toc a { display: block; padding: 12px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; }
+  .toc a:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 48px 0 24px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--mid-navy); line-height: 1.2; }
+  .subsection-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--deep-navy); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: rgba(46,117,182,.05); }
+  tbody tr:hover { background: rgba(200,151,58,.08); }
+  tbody td { padding: 9px 14px; border-bottom: 1px solid rgba(196,184,154,.3); vertical-align: top; }
+  tbody td.right { text-align: right; }
+  tbody td.bold  { font-weight: 600; color: var(--mid-navy); }
+  tbody td.green { color: var(--green); font-weight: 600; }
+  tbody td.red   { color: var(--red);   font-weight: 600; }
+  tbody td.muted { color: var(--muted); }
+  .tbl-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left: 3px solid var(--steel); padding: 14px 20px; background: var(--highlight); margin: 16px 0; font-style: italic; font-size: 13.5px; color: #2a3a50; border-radius: 0 4px 4px 0; }
+  .callout-gold { border-left: 3px solid var(--gold); background: #FAF5E8; color: #4a3500; }
+  .callout-green { border-left: 3px solid var(--green); background: #F0F8F2; color: #1A3A24; }
+  .callout-red { border-left: 3px solid var(--red); background: #FDF0F0; color: #4a0010; }
+  .info-box { background: var(--deep-navy); color: #fff; padding: 20px 24px; margin: 20px 0; border-radius: 2px; }
+  .info-box p { color: rgba(255,255,255,.8); }
+
+  /* ── BULLET LISTS ── */
+  ul.report-list { list-style: none; padding: 0; margin: 10px 0; }
+  ul.report-list li { padding: 5px 0 5px 20px; position: relative; border-bottom: 1px solid rgba(196,184,154,.2); font-size: 13.5px; }
+  ul.report-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 7px; }
+  ul.report-list li:last-child { border-bottom: none; }
+  ul.report-list li strong { color: var(--mid-navy); }
+
+  /* ── VALUE CHAIN ── */
+  .vc-diagram { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 24px 0; border: 1px solid var(--rule); overflow: hidden; border-radius: 4px; }
+  .vc-layer { padding: 20px 16px; text-align: center; position: relative; }
+  .vc-layer::after { content: '▶'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 14px; z-index: 2; }
+  .vc-layer:last-child::after { display: none; }
+  .vc-layer.l1 { background: #0A1628; color: #fff; }
+  .vc-layer.l2 { background: #1B3A6B; color: #fff; }
+  .vc-layer.l3 { background: #2E75B6; color: #fff; }
+  .vc-layer.l4 { background: #5B9BD5; color: #fff; }
+  .vc-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .12em; opacity: .6; margin-bottom: 6px; }
+  .vc-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .vc-desc { font-size: 11px; opacity: .85; line-height: 1.4; margin-bottom: 10px; }
+  .vc-tags { display: flex; flex-direction: column; gap: 4px; }
+  .vc-tag { font-size: 10px; padding: 3px 8px; border-radius: 2px; background: rgba(255,255,255,.15); font-family: 'IBM Plex Mono', monospace; }
+  .vc-tag.skip { background: var(--gold); color: var(--deep-navy); font-weight: 600; }
+
+  /* ── MACRO CARDS ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+  .macro-card { background: var(--deep-navy); color: #fff; padding: 20px; border-radius: 3px; position: relative; overflow: hidden; }
+  .macro-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: rgba(200,151,58,.15); border-radius: 0 0 0 60px; }
+  .macro-co { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--gold-light); margin-bottom: 4px; }
+  .macro-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; }
+  .macro-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SCENARIO CARDS ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .scenario-card { border-radius: 4px; overflow: hidden; }
+  .sc-header { padding: 16px 20px; color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .sc-header.bull { background: var(--green); }
+  .sc-header.bear { background: var(--red); }
+  .sc-body { padding: 16px 20px; border: 1px solid var(--rule); border-top: none; }
+  .sc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(196,184,154,.3); font-size: 13px; gap: 14px; }
+  .sc-row:last-child { border-bottom: none; }
+  .sc-key { color: var(--muted); flex-shrink: 0; }
+  .sc-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sc-val.green { color: var(--green); }
+  .sc-val.red   { color: var(--red); }
+
+  /* ── RISK GRID ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 16px 0; }
+  .risk-row { display: grid; grid-template-columns: 28px 240px 90px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; font-size: 13px; }
+  .risk-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); padding-top: 2px; }
+  .risk-name { font-weight: 600; color: var(--mid-navy); }
+  .risk-body { color: #3a3a3a; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; padding: 3px 9px; border-radius: 2px; text-transform: uppercase; height: fit-content; }
+  .badge-high { background: #FFE4E4; color: var(--red); }
+  .badge-med  { background: #FFF4CC; color: #7B6000; }
+  .badge-low  { background: #E4F2E8; color: var(--green); }
+  .badge-medh { background: #FFE8CC; color: #8B4000; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box { background: var(--deep-navy); color: #fff; padding: 32px 36px; margin: 24px 0; position: relative; overflow: hidden; }
+  .thesis-box::before { content: '"'; position: absolute; top: -20px; left: 20px; font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(200,151,58,.12); line-height: 1; pointer-events: none; }
+  .thesis-box p { position: relative; z-index: 1; font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.85); font-style: italic; }
+  .thesis-box strong { color: var(--gold-light); font-style: normal; }
+
+  /* ── MONITORABLES ── */
+  .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .monitor-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #fff; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; }
+  .monitor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+
+  /* ── VERDICT ── */
+  .verdict-banner { background: linear-gradient(135deg, var(--mid-navy), var(--steel)); color: #fff; padding: 28px 36px; text-align: center; border-radius: 4px; margin: 28px 0; }
+  .verdict-banner h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-banner p { color: rgba(255,255,255,.85); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--deep-navy); color: rgba(255,255,255,.4); font-size: 11px; padding: 24px 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em; line-height: 1.8; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead-inner > * { animation: fadeInUp .6s ease both; }
+  .masthead-inner > *:nth-child(1) { animation-delay: .05s; }
+  .masthead-inner > *:nth-child(2) { animation-delay: .15s; }
+  .masthead-inner > *:nth-child(3) { animation-delay: .22s; }
+
+  @media print { .toc { display: none; } .section { page-break-inside: avoid; } }
+  @media (max-width: 768px) {
+    .page { padding: 0 20px 60px; }
+    .masthead-inner { padding: 32px 20px 0; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .vc-diagram, .macro-grid, .scenario-grid, .monitor-grid { grid-template-columns: 1fr; }
+    .risk-row { grid-template-columns: 1fr; }
+    .rating-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<!--TITLE: Black Box Limited — Equity Research Report — Initiating Coverage — September 2026 -->
+
+<!-- ═══════════════ MASTHEAD ═══════════════ -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="report-eyebrow">NSE: BBOX &nbsp;|&nbsp; BSE: 500463 &nbsp;|&nbsp; Equity Research Report &nbsp;|&nbsp; Initiating Coverage &nbsp;|&nbsp; September 2026</p>
+    <h1 class="report-title"><span>Black</span> Box Limited</h1>
+    <p class="report-subtitle">Essar-backed global network, data-centre and digital-infrastructure integrator &nbsp;·&nbsp; Mumbai &nbsp;·&nbsp; North America is roughly two-thirds of revenue</p>
+    <div class="kpi-strip">
+      <div class="kpi-cell"><div class="kpi-label">CMP (18 Sep)</div><div class="kpi-value">₹801.15</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Market Cap</div><div class="kpi-value">~₹14,241 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Order Backlog (Q1 FY27)</div><div class="kpi-value">US$949M</div></div>
+      <div class="kpi-cell"><div class="kpi-label">FY27 Revenue Guidance</div><div class="kpi-value">₹7,800&ndash;8,000 Cr</div></div>
+      <div class="kpi-cell"><div class="kpi-label">Promoter Holding</div><div class="kpi-value">69.95%</div></div>
+    </div>
+  </div>
+  <div class="rating-bar">
+    <div class="rating-cell hold"><div class="rating-tag">Rating</div><div class="rating-val">Hold &mdash; A Real Hyperscale Order Book the Company Won&rsquo;t Cleanly Quantify</div></div>
+    <div class="rating-cell bull"><div class="rating-tag">Bull Case</div><div class="rating-val">Backlog keeps compounding and hyperscalers keep adding to it</div></div>
+    <div class="rating-cell bear"><div class="rating-tag">Bear Case</div><div class="rating-val">The last data-centre supply shock cut guidance inside one quarter</div></div>
+  </div>
+</header>
+
+<!-- ═══════════════ STICKY NAV ═══════════════ -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Segments &amp; Geography</a>
+    <a href="#s3">Financial Trajectory</a>
+    <a href="#s4">Order Book &amp; Hyperscalers</a>
+    <a href="#s5">Guidance Record</a>
+    <a href="#s6">Balance Sheet</a>
+    <a href="#s7">Essar &amp; Promoters</a>
+    <a href="#s8">Your System</a>
+    <a href="#s9">Price &amp; Peers</a>
+    <a href="#s10">Valuation</a>
+    <a href="#s11">Scenarios</a>
+    <a href="#s12">Risks</a>
+    <a href="#s13">Summary</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- ═══════ S1 ═══════ -->
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Company Overview</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">Full Name</td><td>Black Box Limited &mdash; incorporated 1986 as Avaya GlobalConnect Limited, renamed AGC Networks Limited in 2010 and Black Box Limited in September 2021 [3][4]</td></tr>
+    <tr><td class="bold">Base</td><td>Mumbai, India, with delivery operations across North America, Europe, India, Asia-Pacific, the Middle East &amp; Africa and Latin America</td></tr>
+    <tr><td class="bold">Promoter</td><td>Essar Telecom Limited, 69.95% as of the June 2026 shareholding pattern [2][20]; Essar Global Fund Limited is the ultimate parent</td></tr>
+    <tr><td class="bold">What it does</td><td>A digital-infrastructure <em>integrator</em>, not a manufacturer or an operator: network and data-centre system integration, structured cabling and connectivity, digital workplace, cybersecurity and managed services (the <b>System Integration</b> segment, ~82&ndash;84% of revenue), plus a smaller hardware and accessories business &mdash; KVM switches, cables, IoT and audio-video products (<b>Technology Product Solutions</b>, ~14&ndash;16%) [5][10]. It builds and connects other people&rsquo;s data centres; it does not own, lease or operate them.</td></tr>
+    <tr><td class="bold">Why this report exists</td><td>This desk&rsquo;s first note on BBOX. The stock is up 72% over one year on an AI-data-centre narrative &mdash; a new US hyperscaler order, a record order backlog, management calling hyperscale a new growth engine [7] &mdash; and the job here is to establish, from the company&rsquo;s own disclosures, how much of the business that narrative really is, and to say plainly where the story runs ahead of the numbers.</td></tr>
+    <tr><td class="bold">Signals (18 Sep close)</td><td>RS 82 in a 1,567-code universe; the trend template fails on a single check &mdash; distance from the 52-week high &mdash; with every other evaluable check (both moving averages, distance from the 52-week low, RS itself) passing; not on the provider&rsquo;s Stage 2 list [1]. Full detail in §08.</td></tr>
+    <tr><td class="bold" style="color:#b45309">Surveillance</td><td>No ASM or GSM flag currently. The stock carried Short-Term ASM into early June 2026 and then <b>Long-Term ASM Stage 1 from 4 June to 4 September 2026</b> &mdash; a window covering almost the entire decline from the 5 June all-time high [22][23]. See §09 and §12.</td></tr>
+  </tbody></table></div>
+  <p>Black Box is a genuine, name-checked participant in the AI data-centre build-out &mdash; a record order backlog, a named new Tier-1 US hyperscaler win, guidance that leans explicitly on hyperscale demand. It is also a forty-year-old systems-integration business with high-single-digit EBITDA margins, a controlling promoter, a documented mid-year guidance cut inside the last twelve months, and no single disclosed figure for what share of revenue is actually AI-linked. <b>Both things are true at once, and this report tries to hold them together rather than pick the more exciting one.</b></p>
+</section>
+
+<!-- ═══════ S2 ═══════ -->
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">The Business: Segments and Geography</h2></div>
+  <p>Black Box reports three segments. <b>System Integration</b> covers enterprise networking, data centres, digital workplace, connected buildings and cybersecurity, delivered as design-build, structured cabling, connectivity and managed-service engagements. <b>Technology Product Solutions</b> sells KVM switches, cabling, IoT and audio-video hardware. <b>Others</b> is training and consulting [5][10].</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Segment (Q1 FY27, quarter to 30 Jun 2026)</th><th class="right">Revenue</th><th class="right">Share</th><th class="right">Segment result</th></tr></thead>
+    <tbody>
+      <tr><td>System Integration</td><td class="right bold">₹1,412.5 Cr</td><td class="right">82.2%</td><td class="right bold green">+₹138.6 Cr</td></tr>
+      <tr><td>Technology Product Solutions</td><td class="right">₹267.1 Cr</td><td class="right">15.5%</td><td class="right bold red">&minus;₹14.1 Cr</td></tr>
+      <tr><td>Others</td><td class="right">₹38.9 Cr</td><td class="right">2.3%</td><td class="right bold red">&minus;₹11.1 Cr</td></tr>
+      <tr><td class="bold">Total revenue</td><td class="right bold">₹1,718.5 Cr</td><td class="right bold">100%</td><td class="right">&mdash;</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Segment revenue and results per the Q1 FY27 filing as reported by Free Press Journal and MarketScreener [10][11]; Q1 FY26 comparatives were ₹1,162 Cr (System Integration) and ₹188.6 Cr (Technology Product Solutions) [10], so both grew &mdash; but <b>only System Integration is a profit centre</b>. A separate, undated secondary source puts the longer-run mix at roughly 84% / 14% / 2% [5], close enough to the Q1 FY27 split that the quarter shown looks representative rather than unusual.</p>
+  <p>Every part of the AI-data-centre story sits inside System Integration &mdash; there is no separate reported segment for it and no separately disclosed margin for data-centre work specifically. The 9.8% segment margin above blends enterprise networking, digital workplace, connected buildings and cybersecurity together with data centres; this report found no basis to state the data-centre slice runs hotter or colder than that blend.</p>
+  <h3 class="subsection-title">Geography &mdash; North America, quantified</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Region</th><th class="right">Share of revenue</th></tr></thead>
+    <tbody>
+      <tr><td>North America</td><td class="right bold">~67%</td></tr>
+      <tr><td>Europe</td><td class="right">~10%</td></tr>
+      <tr><td>Asia-Pacific</td><td class="right">~10%</td></tr>
+      <tr><td>India</td><td class="right">~7%</td></tr>
+      <tr><td>Middle East &amp; Africa</td><td class="right">~3%</td></tr>
+      <tr><td>Latin America</td><td class="right">~3%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Secondary-source estimate; not a line the company itemises to this precision in the filings this report could read [5]. A second source, covering the nine months to December 2025, corroborates North America at ~67%, India at ~7% and Latin America at ~3%, and separately states Europe at ~9% without breaking out Asia-Pacific or the Middle East [6] &mdash; consistent within rounding rather than identical; both are treated as approximate.</p>
+  <p><b>North America carries the AI-data-centre exposure almost by definition</b> &mdash; every named hyperscaler and large-technology win in §04 is a US engagement. A US enterprise-capex slowdown, a tariff shock or dollar weakness would land on roughly two-thirds of this company&rsquo;s revenue simultaneously. India &mdash; the market this report&rsquo;s reader actually trades in &mdash; is a single-digit share of revenue and a stated multi-year growth target rather than a current pillar [6][16].</p>
+  <p>Client concentration compounds the geography point: the top ten clients are reported at roughly 46% of revenue, with named relationships including Meta, Bloomberg, Bank of America, Intel and Dell, several running over two decades [5]. One secondary source separately states Meta alone at &ldquo;nearly 4.6%&rdquo; of revenue [6] &mdash; a suspiciously round number given that 46% divided by ten names is exactly 4.6%, so this report treats that specific figure as a possible averaging artefact rather than a verified single-customer disclosure, and relies on the 46%-of-top-ten figure instead.</p>
+</section>
+
+<!-- ═══════ S3 ═══════ -->
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Financial Trajectory: Three Years and Eight Quarters</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Annual</th><th class="right">FY24</th><th class="right">FY25</th><th class="right">FY26</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue</td><td class="right">₹6,282 Cr</td><td class="right">₹5,967 Cr</td><td class="right bold">₹6,322 Cr</td></tr>
+      <tr><td>Revenue growth YoY</td><td class="right muted">&mdash;</td><td class="right red">&minus;5.0%</td><td class="right green">+5.9%</td></tr>
+      <tr><td>EBITDA (company-reported)</td><td class="right">₹426 Cr</td><td class="right">₹531 Cr</td><td class="right bold">₹570 Cr</td></tr>
+      <tr><td>EBITDA margin</td><td class="right">6.8%</td><td class="right">8.9%</td><td class="right bold">9.0%</td></tr>
+      <tr><td>PAT</td><td class="right">₹138 Cr</td><td class="right">₹205 Cr</td><td class="right bold">₹218 Cr</td></tr>
+      <tr><td>PAT growth YoY</td><td class="right muted">&mdash;</td><td class="right green">+49%</td><td class="right green">+6.3%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">FY25 and FY26 figures are company-reported (results press releases of 27 May 2025 and around 26 May 2026) [8][9]. FY24 is from Screener.in&rsquo;s consolidated financials, not independently cross-checked against a company press release in this pass [2]. <b>Screener&rsquo;s own FY26 annual EBITDA reads ₹614 Cr (9.7% margin), not the company&rsquo;s ₹570 Cr (9.0%).</b> Summing Screener&rsquo;s own four FY26 quarterly operating-profit figures (₹116 + ₹143 + ₹147 + ₹164 Cr) gives exactly ₹570 Cr, matching both the company&rsquo;s reported EBITDA and the mid-point of its own revised guidance (§05). This report treats ₹614 Cr as Screener&rsquo;s own annual construction &mdash; most likely including other income &mdash; and uses the company&rsquo;s ₹570 Cr / 9.0% throughout.</p>
+  <p>The three-year shape is a dip and a recovery, not a straight line: <b>revenue fell 5% in FY25</b> before recovering 5.9% in FY26, while <b>EBITDA margin expanded every year regardless</b> &mdash; 6.8% to 8.9% to 9.0%. The margin story is continuous; the top-line story only turned around in the same year the order book started filling with hyperscaler work.</p>
+  <h3 class="subsection-title">Eight quarters</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Quarter</th><th class="right">Revenue</th><th class="right">Op. profit</th><th class="right">Margin</th><th class="right">PAT</th></tr></thead>
+    <tbody>
+      <tr><td>Q2 FY25 (Sep 2024)</td><td class="right">₹1,497 Cr</td><td class="right">₹133 Cr</td><td class="right">8.9%</td><td class="right">₹51 Cr</td></tr>
+      <tr><td>Q3 FY25 (Dec 2024)</td><td class="right">₹1,502 Cr</td><td class="right">₹134 Cr</td><td class="right">8.9%</td><td class="right">₹56 Cr</td></tr>
+      <tr><td>Q4 FY25 (Mar 2025)</td><td class="right">₹1,545 Cr</td><td class="right">₹143 Cr</td><td class="right">9.3%</td><td class="right">₹60 Cr</td></tr>
+      <tr><td>Q1 FY26 (Jun 2025)</td><td class="right">₹1,387 Cr</td><td class="right">₹116 Cr</td><td class="right">8.4%</td><td class="right">₹47 Cr</td></tr>
+      <tr><td>Q2 FY26 (Sep 2025)</td><td class="right">₹1,585 Cr</td><td class="right">₹143 Cr</td><td class="right">9.0%</td><td class="right">₹56 Cr</td></tr>
+      <tr><td>Q3 FY26 (Dec 2025)</td><td class="right">₹1,660 Cr</td><td class="right">₹147 Cr</td><td class="right">8.9%</td><td class="right">₹50 Cr</td></tr>
+      <tr><td>Q4 FY26 (Mar 2026)</td><td class="right">₹1,691 Cr</td><td class="right">₹164 Cr</td><td class="right">9.7%</td><td class="right">₹65 Cr</td></tr>
+      <tr><td>Q1 FY27 (Jun 2026)</td><td class="right bold">₹1,719 Cr</td><td class="right bold">₹160 Cr</td><td class="right">9.3%</td><td class="right bold">₹56 Cr</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Screener.in&rsquo;s quarterly series [2], cross-checked against the scan and the company&rsquo;s own Q1 FY27 figures (revenue ₹1,718.5 Cr, PAT ₹55.9 Cr) [1][10] &mdash; consistent to rounding. The three most recent quarterly margins match the scan&rsquo;s own operating-margin fields exactly [1].</p>
+  <p>Revenue actually rose modestly sequentially in Q1 FY27 (+1.6% on Q4 FY26, per the scan [1]), even as operating profit dipped slightly (&minus;2.6% sequentially) and the margin eased from 9.7% to 9.3% &mdash; a mild seasonal wobble rather than a reversal. <b>The year-on-year read is the one that matters: +24% revenue, +38% EBITDA, +18% PAT</b> [1], and roughly two months of that quarter already include the newly acquired Brazilian business (below), so it is not a fully organic comparison. PAT growth of +17.9% trailed EPS growth of only +12.9% [1] &mdash; arithmetic that implies the weighted average share count rose by roughly 4&ndash;5% year on year <b>(derived)</b>, consistent with the warrant conversions detailed in §07. Q1 FY27 also carried ₹18.9 Cr of exceptional items (₹15.8 Cr severance, ₹3.1 Cr lease foreclosure) [10], which is part of why pre-tax profit grew faster (+36%) than net profit (+18%).</p>
+  <p>On 1 May 2026 Black Box completed the acquisition of 100% of Brazil&rsquo;s <b>2S Inovações Tecnológicas</b> for ₹496.6 Cr, expected to add roughly ₹500 Cr of revenue and ₹50 Cr of EBITDA in FY27 [9][10][16]. Two months of that consolidation sit inside the Q1 FY27 numbers above; a full year sits inside the FY27 guidance in §05.</p>
+</section>
+
+<!-- ═══════ S4 ═══════ -->
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">The Order Book, the Hyperscalers, and What Share Is Really AI</h2></div>
+  <p>This is the section the whole report exists to write, and the honest answer is: <b>the order book is real and growing fast, the hyperscaler wins are real and named-by-description, and there is no single clean, company-disclosed number for what share of revenue or backlog is AI-data-centre work.</b> Two credible estimates exist, they measure different things, and they cannot be reconciled from what is public.</p>
+  <h3 class="subsection-title">The backlog, quarter by quarter</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Order backlog (period end)</th><th class="right">Value</th><th class="right">YoY</th></tr></thead>
+    <tbody>
+      <tr><td>FY25 end (Mar 2025)</td><td class="right">US$504M</td><td class="right muted">~2/3 of FY25 revenue</td></tr>
+      <tr><td>Q3 FY26 (Dec 2025)</td><td class="right">US$601M</td><td class="right muted">&mdash;</td></tr>
+      <tr><td>FY26 end (Mar 2026)</td><td class="right">~US$800M</td><td class="right green">+~60%</td></tr>
+      <tr><td>Q1 FY27 (Jun 2026)</td><td class="right bold">US$949M</td><td class="right bold green">+83%</td></tr>
+      <tr><td>FY27 target (Mar 2027)</td><td class="right muted">US$1.3&ndash;1.4bn</td><td class="right muted">guided, +65&ndash;75%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">FY25 and Q3 FY26 figures from earnings-call coverage [8][15]; Q1 FY27 from the company&rsquo;s own disclosure [1][10]; the FY27 figure is management guidance, not yet achieved [14]. A press report at the time of the August hyperscaler order separately quoted the rupee-equivalent backlog at ~₹9,000 Cr [13], consistent with US$949M at prevailing rates.</p>
+  <h3 class="subsection-title">The named proof points</h3>
+  <p>In August 2026 Black Box announced a <b>US$131 million (~₹1,240 Cr), three-year order from a new Tier-1 US hyperscaler</b> for a data-centre build, alongside continued expansion with an existing, unnamed hyperscaler [7][13]. On its own, that single contract is roughly <b>14% of the entire US$949M backlog (derived)</b> &mdash; a reminder that &ldquo;record backlog&rdquo; and &ldquo;diversified backlog&rdquo; are not the same claim. The same quarter also produced a large US connectivity and networking engagement with, in the company&rsquo;s own description, &ldquo;one of the world&rsquo;s largest chip manufacturers&rdquo; &mdash; unnamed, but plainly AI-supply-chain-adjacent [12]. Of the US$339M in new Q1 FY27 order bookings, management specifically attributed roughly US$80M (~₹757 Cr) to financial services, healthcare, public services and retail combined [12] &mdash; leaving roughly US$259M, or about 76% of the quarter&rsquo;s new bookings, attributable to hyperscale/technology-sector demand <b>by subtraction (derived, not a company-stated split)</b>.</p>
+  <h3 class="subsection-title">Two estimates that will not reconcile</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Estimate</th><th class="right">Figure</th><th>Basis</th></tr></thead>
+    <tbody>
+      <tr><td>Data-centre share of the <b>order book</b></td><td class="right bold">~25%</td><td>Secondary aggregator&rsquo;s read of the Q4 FY26 concall, period to Mar 2026 [16]</td></tr>
+      <tr><td>Data-centre share of <b>overall revenue</b></td><td class="right bold">~40&ndash;50%</td><td>Secondary trade-press estimate for the nine months to Dec 2025 [6]</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Neither figure is one Black Box itself has published as a clean, dated disclosure in the sources this report could reach; both are secondary estimates, from different outlets, describing different periods and most likely different things. The 40&ndash;50%-of-revenue figure most plausibly covers the whole &ldquo;data centre&rdquo; solution line inside System Integration &mdash; enterprise, telco and colocation work that predates the AI cycle by years &mdash; while the ~25%-of-order-book figure may describe only the incremental, hyperscaler-flavoured share of new bookings. This report cannot verify that reading and does not assert it as fact; it names the most likely explanation for why two numbers this far apart both circulate, rather than picking one and discarding the other.</p>
+  <p><b>What can be stated with more confidence:</b> the growth engine is real (backlog +83% YoY, a headline hyperscaler win, management explicitly framing hyperscale as a new growth engine alongside continued expansion with an existing one [7]), it sits entirely inside the System Integration segment with no separately disclosed margin, and management&rsquo;s own characterisation &mdash; &ldquo;the AI-led infrastructure cycle remains in its early stages,&rdquo; citing 390-plus active projects across 55-plus North American players and colocation vacancy down to 2.3% [6] &mdash; is sourced to Black Box&rsquo;s own market-research bundle rather than independently verified here, in the same way this desk&rsquo;s own data-centre supply-chain research has flagged for the industry-wide India capacity forecasts these figures resemble [29].</p>
+  <h3 class="subsection-title">How lumpy, and how exposed to a pause</h3>
+  <p>This is not a hypothetical risk. In February 2026, at the Q3 FY26 call, management cut full-year FY26 revenue guidance by roughly 5&ndash;7% (~US$40&ndash;50M), attributing the shortfall explicitly to <b>&ldquo;industry-wide shortages of inputs like optical fibers and cables, particularly in the booming data center ecosystem,&rdquo;</b> which pushed execution and revenue recognition into the following year [15]. That is a direct, dated, company-attributed instance of the same AI-data-centre boom that is filling this order book also disrupting the physical inputs needed to deliver it &mdash; echoing the fibre-and-cable tightness this desk&rsquo;s own supply-chain research has separately documented across STL, HFCL and the global producers [29]. Management&rsquo;s Q1 FY27 remarks struck a more comfortable note &mdash; supply-chain conditions had &ldquo;improved over the last quarter, particularly across cables and fiber, supporting faster project execution&rdquo;, per the earnings-call transcript as carried in this desk&rsquo;s own evidence base [29] &mdash; which is one buyer&rsquo;s experience a quarter or two later, not proof the underlying tightness documented elsewhere has actually cleared.</p>
+  <p>Recurring, less lumpy revenue is the stated offset: managed services are roughly 30% of revenue today, with a US$382M managed-services and maintenance order book and a stated target of 40% near-term and 50% eventually [6]. That shift, if it happens, would make the revenue base steadier over time &mdash; but it is a target, not yet a result.</p>
+</section>
+
+<!-- ═══════ S5 ═══════ -->
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Guidance: What Was Promised, What Was Cut, What Was Delivered</h2></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>FY26 guidance</th><th class="right">Revenue</th><th class="right">EBITDA</th><th class="right">PAT</th></tr></thead>
+    <tbody>
+      <tr><td>Original</td><td class="right">₹6,750&ndash;7,000 Cr</td><td class="right muted">&mdash;</td><td class="right muted">&mdash;</td></tr>
+      <tr><td>Revised (Q3 FY26 call, Feb 2026)</td><td class="right red">₹6,325&ndash;6,375 Cr</td><td class="right">₹555&ndash;575 Cr</td><td class="right">₹220&ndash;230 Cr</td></tr>
+      <tr><td class="bold">Actual</td><td class="right bold">₹6,322 Cr</td><td class="right bold">₹570 Cr</td><td class="right bold">₹218 Cr</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Original and revised guidance, and the stated reason for the cut, per earnings-call coverage of the Q3 FY26 (Feb 2026) call [15]; actuals from the FY26 results [9]. <b>Actual revenue missed the low end of the original guidance by roughly 6% and the high end by nearly 10% (derived)</b>, then landed marginally <em>below even the revised range</em> on both revenue (₹6,322 Cr against a ₹6,325 Cr floor) and PAT (₹218 Cr against a ₹220 Cr floor) &mdash; small enough to be rounding at this scale, and EBITDA came in inside its revised range, but this is a guide that was cut once and still not quite cleared, not a guide that was cut and then comfortably beaten.</p>
+  <h3 class="subsection-title">What is being promised now</h3>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:220px">FY27 revenue</td><td>₹7,800&ndash;8,000 Cr &mdash; implies +23&ndash;27% YoY on FY26&rsquo;s ₹6,322 Cr, including a full year of the 2S Inovações Brazil business [14]</td></tr>
+    <tr><td class="bold">FY27 EBITDA</td><td>₹725&ndash;750 Cr, implying a 9.3&ndash;9.4% margin, with a stated &ldquo;long-term goal&rdquo; of 10% [14]</td></tr>
+    <tr><td class="bold">FY27 PAT</td><td>₹300&ndash;325 Cr &mdash; +38&ndash;49% YoY on FY26&rsquo;s ₹218 Cr [14]</td></tr>
+    <tr><td class="bold">FY27 order backlog</td><td>US$1.3&ndash;1.4bn exit target (Mar 2027), +65&ndash;75% YoY on the ~US$800M FY26 exit backlog (Mar 2026) &mdash; already 37&ndash;47% above the US$949M reached mid-year at Q1 FY27 (Jun 2026) [14]</td></tr>
+    <tr><td class="bold">FY30 aspiration</td><td>US$2bn (~₹18,000 Cr) revenue &mdash; ~US$1.3bn organic at a stated 17% CAGR led by hyperscale/AI infrastructure, plus ~US$700M inorganic via phased acquisitions of US$200&ndash;250M a year; headcount roughly doubling from 4,000 to 7,000, mostly US-based [16]</td></tr>
+  </tbody></table></div>
+  <p><b>The record matters more than the target.</b> Management guided boldly for FY26, cut that guidance by roughly a fourteenth of the original number when a data-centre-linked supply constraint bit, and then landed just under even the reduced bar. The FY27 targets are more aggressive on every line &mdash; a bigger percentage revenue jump, a much larger PAT jump, and a backlog target that assumes the hyperscale pipeline keeps converting at or above the current pace, all while absorbing a first full year of the Brazilian acquisition. None of that makes the FY27 guidance wrong. It does mean this is a management team with one recent, dated instance of promising more than the supply chain would let it deliver, and the FY30 aspiration &mdash; a doubling of revenue with $700M of acquisitions layered on top &mdash; is far enough out that almost none of it is independently checkable today.</p>
+</section>
+
+<!-- ═══════ S6 ═══════ -->
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Balance Sheet, Debt and Cash Conversion</h2></div>
+  <div class="tbl-wrap"><table><tbody>
+    <tr><td class="bold" style="width:240px">Credit rating</td><td><b>CRISIL BBB+ / Positive</b> (outlook revised up from Stable), <b>CRISIL A2</b> short-term, rating action dated mid-June 2026; the specific facility reviewed was enhanced to ₹70 Cr from ₹45 Cr &mdash; a single bank line, not total debt [17]</td></tr>
+    <tr><td class="bold">Gross debt</td><td>CRISIL states ₹827 Cr for fiscal 2026 [17]; Screener&rsquo;s consolidated balance sheet shows borrowings of ₹1,153 Cr as of March 2026 [2]. <b>The two do not agree and this report could not establish why</b> &mdash; a standalone/consolidated split or a different debt definition are the likely explanations, but neither source states it explicitly, so both figures are given rather than one silently preferred.</td></tr>
+    <tr><td class="bold">Equity base</td><td>~₹1,300 Cr per CRISIL&rsquo;s framing [16][17]; Screener&rsquo;s reserves (₹1,251 Cr) plus equity capital (₹36 Cr) sum to almost exactly the same figure [2] &mdash; the one balance-sheet line where the two sources agree well</td></tr>
+    <tr><td class="bold">Gearing</td><td>Adjusted gearing improved to <b>1.1x from 3.0x</b>, which CRISIL attributes to an equity infusion of roughly ₹250 Cr &mdash; consistent in scale with the promoter&rsquo;s ₹200 Cr participation in the 2024&ndash;25 warrant conversion (§07) [17]</td></tr>
+    <tr><td class="bold">Interest cover</td><td>3.65x, described as healthy despite the higher absolute debt load [17]</td></tr>
+    <tr><td class="bold">Liquidity</td><td>Cash reserves of ₹540 Cr; annual cash accrual guided at ₹350&ndash;450 Cr for FY27&ndash;28 [17]</td></tr>
+    <tr><td class="bold">Working capital</td><td>Explicitly described as working-capital intensive, managed partly through receivables securitisation &mdash; US$67M drawn against a US$100M facility [17]; management separately flagged working-capital days as rising &ldquo;due to debtor cycle changes,&rdquo; with a sustainable level still being evaluated as of the Q4 FY26 call [16]</td></tr>
+  </tbody></table></div>
+  <p><b>The number that stands out most is cash conversion.</b> FY26 operating cash flow was ₹84 Cr against reported PAT of ₹218 Cr [2] &mdash; roughly 39% of profit converting into operating cash in the year the company was telling the market its order book, and therefore its receivables and work-in-progress, was growing fastest. That is not on its own a red flag in a working-capital-intensive integration business with a backlog growing 83% year on year &mdash; growth of this kind mechanically consumes cash into receivables before it shows up as cash &mdash; but it is exactly the kind of gap this desk treats as a question rather than waving through, and it sits alongside a rising working-capital-days trend management itself has flagged as unresolved.</p>
+  <p>The ₹496.6 Cr 2S Inovações acquisition (§03), effective 1 May 2026, was funded through a mix management describes as &ldquo;internal accruals plus selective debt,&rdquo; with no large equity raise planned [16] &mdash; but that statement predates the deal closing, and neither the CRISIL debt figure (dated to fiscal 2026, i.e. on or before 31 March 2026) nor the Screener balance sheet used here reflects a full quarter of post-acquisition debt. How the acquisition was actually funded, and what it did to leverage, is a Q2 FY27 question this report cannot yet answer.</p>
+</section>
+
+<!-- ═══════ S7 ═══════ -->
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Essar, the Promoter, and the Register</h2></div>
+  <p>Essar acquired control of what was then AGC Networks (formerly Avaya GlobalConnect) in 2010, and AGC/Black Box in turn bought the distressed US-listed Black Box Corporation in 2019, rebranding the combined entity Black Box Limited in September 2021 [3][4]. <b>Essar Telecom Limited</b> is the direct promoter; <b>Essar Global Fund Limited</b> is the ultimate parent.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Shareholding pattern</th><th class="right">Jun 2024</th><th class="right">Jun 2025</th><th class="right">Mar 2026</th><th class="right">Jun 2026</th></tr></thead>
+    <tbody>
+      <tr><td>Promoter (Essar Telecom)</td><td class="right">71.1%</td><td class="right">70.4%</td><td class="right">69.99%</td><td class="right bold">69.95%</td></tr>
+      <tr><td>FII/FPI</td><td class="right">4.7%</td><td class="right">4.1%</td><td class="right">3.3%</td><td class="right">4.7%</td></tr>
+      <tr><td>DII / Mutual funds</td><td class="right">~0.1%</td><td class="right">~0.2%</td><td class="right">~3.1%</td><td class="right">~3.5%</td></tr>
+      <tr><td>Public &amp; other</td><td class="right">24.1%</td><td class="right">25.4%</td><td class="right">23.6%</td><td class="right">21.8%</td></tr>
+      <tr><td>Promoter shares pledged</td><td class="right red">up to 8.93%</td><td class="right muted">&mdash;</td><td class="right muted">&mdash;</td><td class="right bold green">0.0%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Trendlyne&rsquo;s shareholding-pattern series [20], cross-checked against Screener&rsquo;s latest quarter [2]. Promoter pledging, disclosed at up to 8.93% during the Jun&ndash;Sep 2024 window, has since been fully released and stood at 0.0% as of the June 2026 disclosure [20]. A separate search result referencing a share pledge dated 29 June 2026 could not be confirmed as pertaining to this company &mdash; it most likely refers to the unrelated, similarly-named BlackBuck Ltd, and is not relied on here.</p>
+  <p><b>Domestic institutional interest has grown from almost nothing to a real, if still small, holding</b> &mdash; DII/mutual-fund ownership rose from essentially 0% to ~3.5% of the register between June 2024 and June 2026 &mdash; while the promoter stake has drifted down by roughly a percentage point a year even as the promoter itself has been putting fresh cash in (below). The arithmetic implies other categories of shareholder have grown the register faster in percentage terms than the promoter has, not that the promoter has been a net seller; this report found no evidence of promoter share sales, and the company issued a formal exchange clarification on 15 February 2026 explicitly denying social-media rumours of a promoter stake sale [30].</p>
+  <h3 class="subsection-title">Warrants, dilution and the September 2026 AGM</h3>
+  <p>In August 2024 the board approved a preferential issue of 98,32,123 fully convertible warrants at ₹417 each (₹410 Cr in aggregate). The conversion completed with 92,65,215 warrants converted for ₹386.36 Cr, of which <b>Essar Telecom itself took 47,96,163 shares &mdash; roughly ₹200 Cr, or 51.76% of that tranche</b> &mdash; lifting the promoter stake from 70.06% to 70.50% at the time [16][18]. A further, separately disclosed exchange filing records an allotment of 51.09 lakh shares for ₹213.07 Cr via warrant conversion [19]; this report could not reconcile that figure against the original 98.32-lakh warrant pool using the sources available, and states it as an individually disclosed tranche rather than forcing a single running total.</p>
+  <p>At its 16 September 2026 AGM, shareholders approved a <b>capital reclassification that doubles authorised equity share capacity from 22.5 crore to 47.5 crore shares</b> (face value ₹2), explicitly to increase equity issuance capacity for future fundraising flexibility, alongside a ₹1-per-share final dividend (record date 28 August, payout 23 September 2026) and the reappointment of <b>Anshuman Ruia</b> &mdash; a member of the family that controls Essar &mdash; as Executive Director by rotation [21]. <b>No new issuance has been announced</b>; this is headroom, not a raise, but it is fresh headroom created the same week as this report and belongs on the monitoring list in §13.</p>
+  <p>On related-party dealings specifically: CRISIL&rsquo;s own rating rationale states that &ldquo;no financial support is expected from the company to the group, and any such transactions will be monitorable&rdquo; [17] &mdash; the rating agency flagging the Essar relationship as something to watch rather than reporting an adverse finding. This report could not extract a readable related-party-transaction schedule from the PDF disclosures on the company&rsquo;s investor-relations site (they returned as encoded, digitally-signed binary content rather than readable text) and states that gap rather than guessing at what the disclosures contain.</p>
+</section>
+
+<!-- ═══════ S8 ═══════ -->
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">What Your Own System Says</h2></div>
+<!--FRAMEWORK:BEGIN-->
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>SwingEdge signal (18 Sep 2026 close)</th><th class="right">BBOX</th></tr></thead>
+    <tbody>
+      <tr><td>RS rating (1–99, 1,629 stocks)</td><td class="right bold green">81</td></tr>
+      <tr><td>Trend template</td><td class="right bold"><span class="red">FAILS 6/7</span> <span class="muted">(within 25% of 52w high)</span></td></tr>
+      <tr><td>Stage 2 (provider list 18 Sep)</td><td class="right red">Not on the list</td></tr>
+      <tr><td>Surveillance</td><td class="right ">None</td></tr>
+      <tr><td>Price vs 50-DMA (₹783.27)</td><td class="right ">+2.3%</td></tr>
+      <tr><td>Price vs 200-DMA (₹715.68)</td><td class="right ">+11.9%</td></tr>
+      <tr><td>Below 52-week high</td><td class="right ">-27.4%</td></tr>
+      <tr><td>Up from 52-week low</td><td class="right ">+80.4%</td></tr>
+      <tr><td>Below all-time high (₹1,104.30)</td><td class="right ">-27.5%</td></tr>
+      <tr><td>1-year return</td><td class="right ">+72.0%</td></tr>
+      <tr><td>6-month return</td><td class="right ">+58.9%</td></tr>
+      <tr><td>3-month return</td><td class="right ">-21.7%</td></tr>
+      <tr><td>1-month return</td><td class="right ">+4.3%</td></tr>
+      <tr><td>1-week return</td><td class="right ">+0.0%</td></tr>
+      <tr><td>1-day return</td><td class="right ">+4.5%</td></tr>
+      <tr><td>Volume vs 1-month average</td><td class="right ">1.29×</td></tr>
+      <tr><td>Trailing P/E</td><td class="right ">49.9×</td></tr>
+      <tr><td>Price / Book</td><td class="right ">11.05×</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">Screener scan of 2026-09-18 (1,629 stocks); 200-DMA slope measured against the 2026-09-17 scan; Stage 2 from the provider list of 2026-09-18. Generated by tools/report/framework_block.py — re-run it after each scan and these rows refresh; nothing here is typed by hand.</p>
+<!--FRAMEWORK:END-->
+  <p>The framework&rsquo;s disagreement here is a near-miss, not a rejection: strength and structure both register, and the single failing check is one that resolves itself on any further approach toward the highs &mdash; exactly the kind of borderline case the house rule about leading with disagreement exists for. A stock this recently out of a Long-Term ASM stage is also one where trend signals deserve a slightly longer look before being trusted at face value, since surveillance itself constrains the buying that produces them. Read together with §04 and §05, the system is not telling this desk the AI story is false; it is telling this desk the story has not yet fully repaired the technical damage its own correction did.</p>
+</section>
+
+<!-- ═══════ S9 ═══════ -->
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">What Actually Moved the Price, and Who Else Is in This Trade</h2></div>
+  <h3 class="subsection-title">The year in three moves</h3>
+  <p>Black Box set an all-time high of <b>₹1,104.30</b> [1] on <b>5 June 2026</b> [24] &mdash; four days after its 1 June Capital Markets Day, at which the FY30 targets in §05 were first laid out [29]. The stock is up 72% over the trailing year and 59% over six months [1], both genuinely large numbers; it is also down 27% from that June high as of this report&rsquo;s 18 September close [1], a serious, live drawdown sitting inside the same twelve months as the headline gain.</p>
+  <p>Three explanations are attested, none a single clean trigger: <b>(a)</b> broader Nifty IT weakness through 2026 on FII selling and worries about AI-driven pricing deflation across the sector [25]; <b>(b)</b> valuation compression from a reported ~58x trailing multiple near the highs toward today&rsquo;s still-elevated level in §08 [25]; and <b>(c)</b> the stock&rsquo;s own surveillance history. Black Box carried Short-Term ASM into early June and then <b>Long-Term ASM Stage 1 from 4 June to 4 September 2026</b> [22] &mdash; a surveillance flag of one stage or another for almost the entire window between the all-time high and two weeks before this report, which would have raised margin requirements and commonly excluded the stock from broker MTF lists across exactly the period it was falling. As of 19&ndash;20 September 2026 it carries <b>no ASM or GSM flag</b> [22][23], and this report did not identify a single dated announcement, order cancellation or guidance cut coinciding with the start of the decline &mdash; the correction looks like a valuation and surveillance unwind layered on sector weakness, not a reaction to new negative company news.</p>
+  <h3 class="subsection-title">Peers, honestly</h3>
+  <p>Data providers bucket Black Box against <b>TCS, Infosys, HCLTech, Wipro and Tech Mahindra</b> on sector code alone [26]. <b>That comparison is close to useless.</b> Those are large-cap software and services franchises with double-digit-to-high-30s trailing earnings multiples built on 20%-plus operating margins [26]; Black Box is a hardware-linked systems integrator earning high-single-digit margins on physical build-and-connect work. Putting them in the same table answers a screener query, not an investment question.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>More relevant comparisons</th><th>Business</th><th>Comparability caveat</th></tr></thead>
+    <tbody>
+      <tr><td class="bold">STL Networks / Invenia (NSE: STLNETWORK)</td><td>Systems integrator across network, data-centre, cloud and cybersecurity domains &mdash; the closest domestic business-model match</td><td>Recently demerged from Sterlite Technologies; FY2025 (pre-demerger) revenue ₹1,180 Cr, EBITDA ₹81 Cr, order book &gt;₹4,249 Cr are the only figures sourced, with no FY26 or Q1 FY27 actuals located [29]</td></tr>
+      <tr><td class="bold">Netweb Technologies (NSE: NETWEB)</td><td>Manufactures AI/HPC servers &mdash; a hardware maker, not an integrator, but the cleanest domestic &ldquo;AI infrastructure&rdquo; growth story</td><td>Q1 FY27 PAT ₹85.3 Cr (+180% YoY); trailing earnings multiple ~132x and market cap ~₹27,100 Cr [28] &mdash; a far richer rating than Black Box&rsquo;s, useful mainly as a sense of how the market can price a cleaner version of this theme</td></tr>
+      <tr><td class="bold">Sify Technologies (Nasdaq: SIFY)</td><td>Data-centre colocation and hosting operator, with data centres at ~42% of revenue &mdash; the one comparator that actually discloses a clean data-centre revenue share</td><td>US-listed via ADS, not tradable on NSE/BSE; FY26 revenue ~₹44.9bn (~US$539M), operating margin ~8.7%, market cap ~US$1.04bn [27]; colocation ownership is a fundamentally different economic model from Black Box&rsquo;s design-build-and-move-on integration work</td></tr>
+      <tr><td class="bold">Vertiv Holdings (NYSE: VRT)</td><td>Global power and thermal-management hardware for data centres &mdash; the most-quoted pure-play &ldquo;AI data-centre infrastructure&rdquo; name worldwide</td><td>2026 revenue guided to US$13.5&ndash;14.0bn against Black Box&rsquo;s ~US$800M &mdash; roughly 17x the scale &mdash; and a hardware manufacturer, not an integrator; included for theme and scale context only, not as a valuation comp [31]</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tbl-note">STL Networks/Invenia figures and gap per this desk&rsquo;s own AI data-centre supply-chain research, compiled 2026-09-19 [29]. Netweb, Sify and Vertiv figures via secondary market-data coverage, not independently fetched from primary filings in this pass [27][28][31].</p>
+  <p>On a same-methodology cross-check this desk has used before: Black Box&rsquo;s market cap of ~₹14,241 Cr against a ~₹9,000 Cr rupee-equivalent order book is roughly <b>1.6x market cap to order book (derived)</b> &mdash; in the same broad range as HFCL&rsquo;s 1.44x when this desk covered it in August 2026, a stock that was itself carrying an ASM flag and a similarly order-book-driven re-rating [32]. That is a reference point, not a verdict: the two sit in different parts of the same AI-infrastructure supply chain, and this report has not re-underwritten HFCL&rsquo;s numbers here.</p>
+</section>
+
+<!-- ═══════ S10 ═══════ -->
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Valuation</h2></div>
+  <p>Current multiples, moving-average distances and returns are generated into §08 and not repeated here. Return on capital is genuinely strong &mdash; ROE 25.7%, ROCE 21.6% [2] &mdash; for a business earning high-single-digit EBITDA margins, which says the asset base is being turned over efficiently rather than that the margin itself is unusually rich.</p>
+  <p>This report could not obtain a multi-year trailing-multiple history for Black Box in the sources fetched, so no claim is made here about whether today&rsquo;s multiple is rich or cheap <em>against its own history</em> &mdash; that is stated as a gap rather than estimated. Against the sector-bucketed &ldquo;peers&rdquo; in §09 the multiple looks unremarkable; against Netweb&rsquo;s ~132x it looks cheap; on a PEG of 0.62 [1] it looks reasonable <em>if</em> the growth rate embedded in that calculation is trusted to continue &mdash; and §05 is exactly the reason for hesitation there, since the one full year of trackable guidance history included a mid-year cut.</p>
+  <p><b>The fairest summary: the market is pricing continued hyperscaler-led order-book compounding, on a business where that share of the order book is not a number the company discloses cleanly, coming off a guidance year that undershot even after being cut once.</b> That is not a cheap stock by any conventional yardstick, and it is also not obviously overpriced next to the growth on offer <em>if</em> the growth holds. The multiple is a bet on the durability of §04&rsquo;s story, not a statement the multiple alone can resolve.</p>
+</section>
+
+<!-- ═══════ S11 ═══════ -->
+<section class="section" id="s11">
+  <div class="section-header"><span class="section-num">11 —</span><h2 class="section-title">Scenarios</h2></div>
+  <div class="sc-row"><div class="sc-key">Bull</div><div class="sc-val green">The US$1.3&ndash;1.4bn FY27 backlog target is met or exceeded as the new hyperscaler relationship expands beyond its first US$131M order and the existing one keeps growing, while financial services, healthcare, public services and retail keep contributing a broad-based US$300M-plus a quarter alongside it. Managed services push through 40% of revenue, smoothing the lumpiness that produced the FY26 guidance cut. The 2S Inovações integration goes cleanly, India revenue starts compounding toward its stated multi-year target, and FY27 guidance is met in full rather than trimmed mid-year. The market gains confidence that the AI-linked share of the business is larger and more durable than any single disclosed number suggests, and the multiple holds or expands from here.</div></div>
+  <div class="sc-row"><div class="sc-key">Base</div><div class="sc-val">Revenue and backlog keep growing but FY27 guidance is trimmed at some point during the year, much as FY26&rsquo;s was &mdash; not because hyperscaler demand disappoints, but because a component, fibre or execution constraint again delays recognition, as it did in the December 2025 quarter. EBITDA margin drifts toward but does not quite reach the 10% long-term goal. The working-capital and cash-conversion questions in §06 remain open rather than resolved. The stock trades sideways-to-up as earnings catch up to a multiple that has already priced a good part of the story.</div></div>
+  <div class="sc-row"><div class="sc-key">Bear</div><div class="sc-val red">Hyperscaler capex growth decelerates or pauses &mdash; a live risk this desk&rsquo;s own data-centre supply-chain research flags at the industry level &mdash; and the single named US$131M contract, worth roughly 14% of the backlog on its own, proves closer to a ceiling than a floor for new hyperscaler wins. A second supply-chain-driven guidance cut lands, this time reading as a pattern rather than a one-off, and the market re-prices the multiple down toward where the sector-bucketed peers already sit. Weak cash conversion catches up with the balance sheet just as the 2S Inovações debt (§06) shows up in a full quarter&rsquo;s numbers, and the freshly doubled authorised share capital from the September 2026 AGM is used for a dilutive raise rather than staying as unused headroom.</div></div>
+</section>
+
+<!-- ═══════ S12 ═══════ -->
+<section class="section" id="s12">
+  <div class="section-header"><span class="section-num">12 —</span><h2 class="section-title">Key Risks</h2></div>
+  <div class="risk-row"><div class="risk-num">01</div><div class="risk-name">Extreme concentration inside the &ldquo;AI order book&rdquo; itself</div><div class="risk-body">A single named hyperscaler contract (~US$131M) is roughly 14% of the entire US$949M backlog on its own (derived, §04). Management names two hyperscalers in total, one new and one existing, plus one unnamed large chip manufacturer. A handful of counterparties carry a disproportionate share of the growth narrative.</div></div>
+  <div class="risk-row"><div class="risk-num">02</div><div class="risk-name">The AI/data-centre share of the business is not a number Black Box discloses cleanly</div><div class="risk-body">The two best available estimates &mdash; ~25% of the order book and ~40&ndash;50% of revenue &mdash; measure different things, come from different secondary sources, and cannot be reconciled here (§04). An investor buying this stock for its AI exposure is buying a story that is directionally true and numerically uncertain.</div></div>
+  <div class="risk-row"><div class="risk-num">03</div><div class="risk-name">Proven fragility to the same supply chain the boom depends on</div><div class="risk-body">The FY26 guidance cut (§05) was caused specifically by optical-fibre and cable shortages inside &ldquo;the booming data center ecosystem&rdquo; &mdash; the identical input tightness this desk&rsquo;s own research documents as a live, unresolved global constraint. It has already happened once inside the trailing twelve months.</div></div>
+  <div class="risk-row"><div class="risk-num">04</div><div class="risk-name">Two of three reporting segments are loss-making</div><div class="risk-body">Technology Product Solutions and Others both ran at a segment loss in Q1 FY27 (§02); every rupee of consolidated profit came from System Integration, the segment that also carries all of the data-centre exposure and none of the separately disclosed margin.</div></div>
+  <div class="risk-row"><div class="risk-num">05</div><div class="risk-name">Weak operating cash conversion</div><div class="risk-body">FY26 operating cash flow of ₹84 Cr against reported PAT of ₹218 Cr (§06) is roughly 39% conversion in the year the order book grew fastest. Plausibly explained by working-capital consumption from growth, but unresolved, and management itself has flagged rising working-capital days without yet stating a sustainable level.</div></div>
+  <div class="risk-row"><div class="risk-num">06</div><div class="risk-name">Debt figures disagree across sources, and none reflect the Brazil deal</div><div class="risk-body">CRISIL&rsquo;s ₹827 Cr gross debt and Screener&rsquo;s ₹1,153 Cr borrowings figure (both dated to FY26) do not agree, and neither includes a full quarter of the ₹496.6 Cr 2S Inovações acquisition completed 1 May 2026 (§06).</div></div>
+  <div class="risk-row"><div class="risk-num">07</div><div class="risk-name">Concentrated, Essar-controlled register with fresh dilution headroom</div><div class="risk-body">Essar Telecom holds 69.95% (§07); a related-party disclosure trail this report could not read in full; and the September 2026 AGM just doubled authorised share capital explicitly to create fundraising flexibility, with no raise yet announced.</div></div>
+  <div class="risk-row"><div class="risk-num">08</div><div class="risk-name">A surveillance history that only just ended</div><div class="risk-body">Long-Term ASM Stage 1 from 4 June to 4 September 2026 spanned almost the entire decline from the all-time high (§09). No flag applies today, but the episode is roughly two weeks old, not two years old, and re-escalation would again raise margin requirements and curtail broker MTF eligibility.</div></div>
+  <div class="risk-row"><div class="risk-num">09</div><div class="risk-name">Extended twelve-month move, unresolved drawdown, thin trend-template pass</div><div class="risk-body">+72% over one year against a still-open 27% drawdown from the 5 June high, and a trend template failing on exactly one check (§08). Neither a clean breakout nor a clean breakdown.</div></div>
+  <div class="risk-row"><div class="risk-num">10</div><div class="risk-name">Single-geography and single-currency concentration</div><div class="risk-body">North America is roughly two-thirds of revenue (§02); every named hyperscaler and large-technology win is a US engagement. A US enterprise-capex slowdown, a tariff shock or a rupee-dollar move lands on the majority of the business at once, and India &mdash; the market this report&rsquo;s reader trades in &mdash; is a single-digit share of revenue today.</div></div>
+</section>
+
+<!-- ═══════ S13 ═══════ -->
+<section class="section" id="s13">
+  <div class="section-header"><span class="section-num">13 —</span><h2 class="section-title">Summary</h2></div>
+  <div class="rating-box">
+    <div class="vc-tag">RATING: HOLD &mdash; A REAL HYPERSCALE ORDER BOOK THE COMPANY WON&rsquo;T CLEANLY QUANTIFY</div>
+    <p>Black Box is not a story stock manufactured out of thin air. The order backlog is up 83% year on year to a record US$949 million, a named Tier-1 US hyperscaler signed a three-year, US$131 million data-centre contract in August, and management is explicit that hyperscale demand is now a new growth engine alongside a broader, genuinely diversified order pipeline (§04). None of that is invented, and none of it should be dismissed.</p>
+    <p>But this desk cannot tell its reader what share of Black Box&rsquo;s revenue or order book that story actually represents, because the company has not disclosed it cleanly, and the two secondary estimates in circulation &mdash; roughly a quarter of the order book, roughly four-tenths to a half of revenue &mdash; are far enough apart, and different enough in what they measure, that neither should be treated as settled (§04). The one full year of guidance history available shows management cutting its own FY26 numbers by a fourteenth mid-year because of a data-centre-linked component shortage, then landing just under even the reduced bar (§05). Cash conversion was weak in the same year the backlog grew fastest (§06), two of three reporting segments ran at a loss last quarter (§02), and the stock spent from its 5 June all-time high until 4 September under one stage of Additional Surveillance Measure or another (§09).</p>
+    <p>None of that is a reason to avoid the name outright &mdash; return on capital is genuinely strong, the credit rating has just been raised to a Positive outlook, the promoter put fresh cash in alongside minority warrant holders rather than diluting them alone, and the framework in §08 shows real underlying strength with only a single, narrow technical objection. But it is more than enough reason not to pay up for a number nobody has actually given this desk. A trailing multiple in the high-40s to low-50s and a book-value multiple above 11x are prices for a business whose AI exposure is confidently described and imprecisely measured.</p>
+    <p><b>Hold is the honest rating</b> for a business that is a real, if imprecisely quantified, beneficiary of the AI data-centre build-out, already carrying a growth premium, one guidance cut and one surveillance episode into its short public track record on this theme. The case for buying more of the story than the company will confirm, or for exiting a genuinely improving business on a single ambiguous drawdown, is equally thin.</p>
+  </div>
+  <h3 class="subsection-title">What to monitor</h3>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Q2 FY27 results, expected around November 2026</b> &mdash; the first full quarter to include 2S Inovações and the first test of whether the August hyperscaler order shows up in bookings momentum</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Whether FY27 guidance (₹7,800&ndash;8,000 Cr revenue, ₹725&ndash;750 Cr EBITDA, ₹300&ndash;325 Cr PAT) survives the year unrevised</b>, given the FY26 precedent of a mid-year cut</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Order backlog trajectory toward the US$1.3&ndash;1.4bn FY27 exit target</b> &mdash; compounding at pace, or decelerating</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Any company disclosure that finally states a clean, dated percentage of revenue or order book tied to data-centre/hyperscaler work</b> &mdash; the single most useful number this report could not obtain</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Whether the ASM flag re-escalates</b> &mdash; Long-Term ASM Stage 1 cleared only on 4 September 2026</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Operating cash flow against reported PAT in the FY27 annual results</b> &mdash; whether the ₹84 Cr-against-₹218 Cr conversion gap narrows or widens</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Gross debt and gearing in the first post-2S-Inovações quarterly balance sheet</b>, and whether the CRISIL (₹827 Cr) vs Screener (₹1,153 Cr) debt figures reconcile</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Whether the September 2026 authorised-capital doubling is followed by an actual equity or warrant issuance</b></div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Promoter shareholding and pledge status in the September-quarter disclosure</b></div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Technology Product Solutions and Others segment results</b> &mdash; whether either returns to profitability</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Managed-services share of revenue</b>, against the stated 30% &rarr; 40% &rarr; 50% glide path</div>
+  <div class="monitor-item"><span class="monitor-dot"></span><b>Any named additional hyperscaler contract beyond the current two</b> &mdash; the clearest evidence the AI share of this business is broadening rather than concentrating further</div>
+
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.6;margin-top:20px;">
+    SOURCE QUALITY: FY25 and FY26 revenue, EBITDA, PAT and order-backlog figures are as reported in Black Box&rsquo;s own results announcements (27 May 2025 and around 26 May 2026) via press coverage of those filings [8][9]; Q1 FY27 figures (revenue ₹1,718.5 Cr, PAT ₹55.9 Cr, segment-wise revenue and results, the ₹496.6 Cr 2S Inovações consideration) are per the company&rsquo;s own filing as reported by Free Press Journal and MarketScreener [10][11]. FY26 EBITDA is stated at the company&rsquo;s own ₹570 Cr / 9.0% rather than Screener&rsquo;s independently constructed ₹614 Cr / 9.7%, reconciled here by summing Screener&rsquo;s own quarterly operating-profit series (§03) &mdash; a derived cross-check, not a company disclosure. Order-backlog figures for FY25, Q3 FY26 and the FY26 year-end are from earnings-call coverage rather than exchange filings read directly [8][15]; the FY26 guidance cut and its stated cause are likewise from call coverage rather than a transcript this report could independently read [15]. Repeated attempts to extract Black Box&rsquo;s own PDF investor presentations, the Capital Markets Day transcript and an earnings-call transcript directly from cdn.blackbox.com returned encoded, digitally-signed binary content rather than readable text, and are named as a sourcing gap rather than guessed around; the Q1 FY27 &ldquo;supply chain conditions have improved&rdquo; quote in §04 is carried at one remove, via this desk&rsquo;s own prior evidence-base research into the same call [29]. The ~25%-of-order-book and ~40&ndash;50%-of-revenue data-centre estimates in §04 are both secondary and undated to the day, and are presented as unreconciled rather than as a single number. Gross debt conflicts between CRISIL (₹827 Cr) and Screener (₹1,153 Cr) are shown as given, with the likely reason (a standalone/consolidated or definitional difference) stated as a hypothesis, not a confirmed explanation. A search result associating a share pledge dated 29 June 2026 with &ldquo;Black Box&rdquo; most likely refers to the unrelated BlackBuck Ltd and is not relied upon &mdash; the same entity-identity check this desk applies whenever two similarly named companies could be confused. Peer figures for Netweb Technologies, Sify Technologies and Vertiv Holdings are via secondary market-data coverage, not independently fetched from primary filings, and are used for scale and theme context rather than precise comparison. Domains that either blocked direct access or returned non-extractable content in this research pass: cdn.blackbox.com (every PDF investor presentation and call transcript attempted came back digitally signed and encoded), bseindia.com (403 Forbidden on a direct filing fetch), essar.com (certificate error on a direct fetch, worked around via search-indexed copies of the same releases). No figure in this report has been invented; where a number could not be sourced, it has been omitted or explicitly flagged rather than estimated.
+  </p>
+
+  <h3 class="subsection-title">Sources</h3>
+  <ol style="font-size:11.5px;color:var(--muted);line-height:1.85;padding-left:20px;">
+    <li>SwingEdge scan, data/scans/2026-09-18.json (18 Sep 2026 close); RS percentile and trend-template checks computed against it via tools/build_s2history.py (1,567-code universe), the same method as tools/report/framework_block.py.</li>
+    <li>Screener.in, Black Box Ltd &mdash; consolidated quarterly/annual results, balance sheet, cash flow and shareholding pattern, accessed 2026-09-19/20. https://www.screener.in/company/BBOX/consolidated/</li>
+    <li>Wikipedia, &ldquo;Black Box Corporation,&rdquo; accessed 2026-09-19. https://en.wikipedia.org/wiki/Black_Box_Corporation</li>
+    <li>Essar Group / Jones Day, coverage of the 2010 Essar acquisition of AGC Networks (formerly Avaya GlobalConnect) and the 2019 Black Box Corporation acquisition. https://www.essar.com/inthenews/agc-networks-to-acquire-black-box-creating-a-significant-global-technology-solutions-provider/ ; https://www.jonesday.com/en/practices/experience/2019/01/black-box-acquired-by-agc-networks</li>
+    <li>Tradebrains, &ldquo;Black Box Ltd: What Does This Data Centre Leader Do And How Does It Earn?&rdquo;, accessed 2026-09-19. https://tradebrains.in/black-box-ltd-what-does-this-data-centre-leader-do-and-how-does-it-earn/</li>
+    <li>Communications Today, &ldquo;Black Box bets on AI infra and hyperscale data centre boom,&rdquo; accessed 2026-09-19. https://www.communicationstoday.co.in/black-box-bets-on-ai-infra-and-hyperscale-data-centre-boom/</li>
+    <li>Essar Group, &ldquo;Black Box secures data centre order from new Tier-1 U.S. hyperscaler,&rdquo; Aug 2026. https://www.essar.com/inthenews/black-box-wins-data-centre-order-from-new-tier-1-u-s-hyperscaler/</li>
+    <li>Business Today, &ldquo;Black Box Q4 net profit jumps 47% to Rs 60.4 cr on margin gains, revenue up 4%,&rdquo; 27 May 2025. https://www.businesstoday.in/markets/stocks/story/black-box-q4-net-profit-jumps-47-to-rs-604-cr-on-margin-gains-revenue-up-4-477984-2025-05-27</li>
+    <li>Essar Group / Whalesbook, Black Box Q4 FY26 &amp; FY26 full-year results coverage, ~26 May 2026. https://www.essar.com/inthenews/black-box-delivers-strong-fy26-with-order-bookings-crossing-1-billion/ ; https://www.whalesbook.com/corporate-news/English/industrial-goodsservices/Black-Box-Ltd-Reports-indian-rupee6322-Cr-FY26-Revenue-Acquires-Brazils-2S-Inovacoes/6a159a58e81643778dfb8976</li>
+    <li>Free Press Journal, &ldquo;Black Box Profit Rises 18% To ₹55.9 Crore In Q1 FY27, Revenue Jumps 24%,&rdquo; 13 Aug 2026. https://www.freepressjournal.in/amp/business/black-box-profit-rises-18-to-559-crore-in-q1-fy27-revenue-jumps-24</li>
+    <li>MarketScreener, &ldquo;Black Box: Q1 FY27 Financial Results,&rdquo; 13 Aug 2026. https://www.marketscreener.com/news/black-box-q1-fy27-financial-results-ce7859d8de8df121</li>
+    <li>Essar Group, &ldquo;Black Box delivers highest ever Quarterly Revenue with Robust Order Bookings and Order Backlog,&rdquo; Aug 2026. https://www.essar.com/inthenews/black-box-delivers-highest-ever-quarterly-revenue-with-robust-order-bookings-and-order-backlog-marking-a-strong-start-to-its-next-phase-of-growth/</li>
+    <li>Tradebrains, &ldquo;IT Stock Jumps 8% After Securing ₹1,240 Cr U.S. Data Centre Order; Current Order Book at ₹9,000 Cr,&rdquo; 13 Aug 2026. https://tradebrains.in/it-stock-jumps-8-after-securing-1240-cr-u-s-data-centre-order-current-order-book-at-9000-cr/</li>
+    <li>Sahi.com, &ldquo;Black Box Projects FY27 Revenue Of ₹7,800-8,000 Crore And $1.3-1.4 Billion Backlog,&rdquo; accessed 2026-09-19. https://www.sahi.com/news/black-box-projects-fy27-revenue-of-7-800-8-000-crore-and-1-3-1-4-billion-backlog-483-PE1_CORP</li>
+    <li>InvestyWise, &ldquo;Black Box Limited Q3 &amp; 9M FY26 Earnings Call Transcript Highlights,&rdquo; accessed 2026-09-19. https://www.investywise.com/black-box-limited-earnings-call-transcript/</li>
+    <li>Arthneeti, &ldquo;Black Box Ltd Q4 FY26 Results &amp; Concall Highlights,&rdquo; accessed 2026-09-19. https://www.arthneeti.com/insights/black-box-ltd-q4-fy26-earnings</li>
+    <li>CRISIL Ratings, rating rationale for Black Box Limited, 16 June 2026. https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/BlackBoxLimited_June%2016_%202026_RR_398438.html</li>
+    <li>Business Standard, &ldquo;Black Box raises ₹386 cr via warrant conversion, promoters invest ₹200 cr,&rdquo; accessed 2026-09-19. https://www.business-standard.com/companies/news/black-box-raises-386-cr-via-warrant-conversion-promoters-invest-200-cr-126033000292_1.html</li>
+    <li>ScanX, &ldquo;Black Box Limited Allots 51.09 Lakh Equity Shares Through Warrant Conversion Worth Rs. 213.07 Crore,&rdquo; accessed 2026-09-19. https://scanx.trade/stock-market-news/companies/black-box-limited-allots-51-09-lakh-equity-shares-through-warrant-conversion-worth-rs-213-07-crore/35392540</li>
+    <li>Trendlyne, Black Box Ltd shareholding pattern, accessed 2026-09-19. https://trendlyne.com/equity/share-holding/39/BBOX/latest/black-box-ltd/</li>
+    <li>Multibagg, &ldquo;Black Box AGM 2026: ₹1 Dividend, Capital Recast,&rdquo; accessed 2026-09-19. https://www.multibagg.ai/market-pulse/articles/black-box-agm-dividend-capital-recast-cmu44lofj00102nm50er0pr85</li>
+    <li>Trendlyne, Black Box Ltd ASM status, accessed 2026-09-19. https://trendlyne.com/equity/asm-status/39/BBOX/black-box-ltd/</li>
+    <li>Zerodha, &ldquo;Surveillance measure on scrips - September 2026,&rdquo; accessed 2026-09-19. https://zerodha.com/marketintel/bulletin/456895/surveillance-measure-on-scrips-september-2026</li>
+    <li>Secondary share-price trackers (incl. StockPriceArchive), Black Box all-time-high date of 5 June 2026, accessed 2026-09-19; level cross-checked against the scan&rsquo;s own all-time-high field [1].</li>
+    <li>Univest, &ldquo;Why Is Black Box Share Price Falling: Key Reasons 2026,&rdquo; accessed 2026-09-19. https://univest.in/blogs/why-is-black-box-share-price-falling</li>
+    <li>India Infoline, Black Box Ltd peer-comparison page, accessed 2026-09-19. https://www.indiainfoline.com/company/black-box-ltd/peer-comparison</li>
+    <li>Secondary coverage of Sify Technologies (Nasdaq: SIFY) FY26 results and data-centre revenue-mix disclosure, accessed 2026-09-19; not independently fetched from a primary Sify filing.</li>
+    <li>Secondary coverage of Netweb Technologies (NSE: NETWEB) FY26/Q1 FY27 results and valuation, accessed 2026-09-19; not independently fetched from a primary filing.</li>
+    <li>SwingEdge desk research, &ldquo;AI Data-Centre Supply Chain Theme &mdash; Evidence Base,&rdquo; compiled 2026-09-19 (STL Networks/Invenia figures and data gap; Black Box&rsquo;s Capital Markets Day 2026 presentation and Q1 FY27 earnings-call transcript; the global hyperscaler-capex and India data-centre-capacity backdrop).</li>
+    <li>Business Standard / ScanX, &ldquo;Black Box Limited Issues Clarification Denying Promoter Shareholding Sale Rumors,&rdquo; 15 Feb 2026. https://scanx.trade/stock-market-news/stocks/black-box-limited-issues-clarification-denying-promoter-shareholding-sale-rumors/32713210</li>
+    <li>Secondary coverage of Vertiv Holdings Co. (NYSE: VRT) 2026 results and guidance, accessed 2026-09-19; not independently fetched from the primary release.</li>
+    <li>SwingEdge Research Desk, this desk&rsquo;s own prior report on HFCL Limited, tools/report/bodies/hfcl.html (August 2026) &mdash; market-cap-to-order-book ratio and ASM history cross-referenced for methodology consistency, not re-verified here.</li>
+  </ol>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div>BBOX &nbsp;|&nbsp; INITIATING NOTE &nbsp;|&nbsp; SEPTEMBER 2026 &nbsp;|&nbsp; SWINGEDGE RESEARCH DESK</div>
+  <div>Data Sources: Company results filings and press releases &middot; CRISIL Ratings &middot; Screener.in &middot; Trendlyne &middot; secondary market coverage &middot; SwingEdge scan, 18 Sep 2026 close &middot; full numbered list in &sect;13</div>
+  <div style="margin-top:6px;font-size:10px;opacity:.5">FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE.</div>
+</footer>
+
+</body>
+</html>

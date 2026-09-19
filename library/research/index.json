@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-19",
+  "updated": "2026-09-20",
   "reports": [
     {
       "id": "mpbirlamerger-2026-09",
@@ -16,6 +16,39 @@
       "summary": "The merger is real: on 21 March 2026 both boards approved the absorption of Birla Cable into Vindhya Telelinks at 10 VTL shares for every 115 BCL shares, and NSE and BSE issued observation letters on 14 August 2026; Universal Cables is not a party and the NCLT has not yet been approached. The ratio…",
       "file": "mpbirlamerger-2026-09.html",
       "featured": true
+    },
+    {
+      "id": "bbox-2026-09",
+      "title": "Black Box Limited",
+      "subtitle": "Essar-backed global network, data-centre and digital-infrastructure integrator · Mumbai · North America is roughly two-thirds of revenue",
+      "code": "BBOX",
+      "sector": "IT Enabled Services",
+      "date": "2026-09-19",
+      "cmp": "₹801.15",
+      "mcap": "~₹14,241 Cr",
+      "targets": {
+        "bull": "Backlog keeps compounding and hyperscalers keep adding to it",
+        "bear": "The last data-centre supply shock cut guidance inside one quarter"
+      },
+      "summary": "Black Box's order backlog is up 83% YoY to a record $949 million on real, named hyperscaler wins, but the company discloses no clean figure for what share of revenue or backlog is actually AI/data-centre work, and the two available estimates (~25% of order book vs ~40-50% of revenue) do not…",
+      "file": "bbox-2026-09.html",
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-09-18",
+        "source": "scan",
+        "universe": 1629,
+        "rs": 81,
+        "template": "FAIL",
+        "passed": 6,
+        "checks": 7,
+        "failed": [
+          "52w band"
+        ],
+        "stage2": "Not on list",
+        "stage2_list_date": "2026-09-18",
+        "flag": null,
+        "price": 801.15
+      }
     },
     {
       "id": "ibuprofen-2026-09",
