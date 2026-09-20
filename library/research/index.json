@@ -2,34 +2,51 @@
   "updated": "2026-09-20",
   "reports": [
     {
-      "id": "stltech-2026-09",
-      "title": "Sterlite Technologies",
-      "subtitle": "Optical fibre, cable and connectivity · preform-to-fibre integrated · two more hyperscaler deals and a ₹3,000 Cr “Lakshya” capacity bet since the last edition",
-      "code": "STLTECH",
-      "sector": "Optical Fibre & Cable",
+      "id": "dctheme-2026-09",
+      "title": "The AI Data-Centre Supply Chain",
+      "subtitle": "A synthesis across seven Indian names, not new research · Memory holds strongly, optical interconnect reaches none of them, and the build-out is real but still mostly announced rather than built",
+      "code": "CLUSTER",
+      "sector": "Thematic note",
       "date": "2026-09-20",
-      "cmp": "₹818.80",
-      "mcap": "~₹42,249 Cr",
+      "rating": "A thematic synthesis across seven names — the commodity story holds far more consistently than the equity-exposure story does; not a recommendation",
       "targets": {
-        "bull": "Two more hyperscaler deals since August, a ₹3,000 Cr “Lakshya” bet on 50% more capacity by FY29, and CRISIL’s outlook now Stable",
-        "bear": "Order book stale since 30 June, both new deals are allocation frameworks, and part of the margin recovery looks like tariff relief, not just mix shift"
+        "bull": "Memory pricing, strongly and on primary producer evidence; the data-centre build-out, once announced, contracted and built are kept apart; optical fibre, from around April 2026",
+        "bear": "Optical interconnect, for any of the seven — none makes transceivers, lasers or indium-phosphide substrates — and a fibre “super-cycle” that had barely reached most of these balance sheets in FY26"
       },
-      "summary": "STL's Q1 FY27 turnaround is real, and two more hyperscaler deals plus a ₹20,000 Cr FY29 'Lakshya' plan have arrived since the last edition — but every addition is either an allocation rather than firm backlog, or unconfirmed against an order book still dated 30 June, and market cap against that…",
-      "file": "stltech-2026-09.html",
+      "summary": "A synthesis of the desk's shared AI data-centre evidence base and its six separate reports on GNG Electronics, Sterlite Technologies, HFCL, Black Box, STL Networks, Birla Cable and Vindhya Telelinks. Memory pricing and the data-centre build-out hold strongly in the primary evidence, but reach these…",
+      "file": "dctheme-2026-09.html",
+      "featured": true
+    },
+    {
+      "id": "fcl-2026-09",
+      "title": "Fineotex Chemical Limited",
+      "subtitle": "Specialty Chemicals · Tibrewala Family · A correcting edition: the CrudeChem price was disclosed, and the US business is frac chemistry, not production chemistry",
+      "code": "FCL",
+      "sector": "Specialty Chemicals",
+      "date": "2026-09-20",
+      "rating": "Neutral — Real Oil Exposure, Weaker Link, Fuller Multiple",
+      "cmp": "₹57.02",
+      "mcap": "~₹6,635 Cr",
+      "targets": {
+        "bull": "Completions keep recovering and the 2028 step-up is priced sensibly",
+        "bear": "A completions downturn meets a full multiple and unproven cash conversion"
+      },
+      "summary": "A correcting edition: the CrudeChem price was disclosed all along (up to USD 11.2 mn for 53.33%), and the US business is led by friction reducers and frac additives, so its beta is to well completions, not barrels, and it is more cyclical than the August report said. Oil is about 65% of revenue but…",
+      "file": "fcl-2026-09.html",
       "featured": true,
       "signals_at_pub": {
         "date": "2026-09-18",
         "source": "scan",
         "universe": 1629,
-        "rs": 99,
+        "rs": 95,
         "template": "PASS",
         "passed": 7,
         "checks": 7,
         "failed": [],
-        "stage2": "Continues Trend · 32 wks",
+        "stage2": "Continues Trend · 17 wks",
         "stage2_list_date": "2026-09-18",
-        "flag": "LTASM - IV",
-        "price": 818.8
+        "flag": null,
+        "price": 57.02
       }
     },
     {
@@ -39,6 +56,7 @@
       "code": "HFCL",
       "sector": "Telecom Infrastructure",
       "date": "2026-09-20",
+      "rating": "Hold — The Turnaround Is Real, the AI Data-Centre Slice Is Still Small",
       "cmp": "₹215.71",
       "mcap": "~₹32,993 Cr",
       "targets": {
@@ -72,6 +90,7 @@
       "code": "STLNETWORK",
       "sector": "Telecom Services",
       "date": "2026-09-20",
+      "rating": "Avoid — A Government-Contracts Business Priced Like an AI Data-Centre Play",
       "cmp": "₹42.95",
       "mcap": "~₹2,099 Cr",
       "targets": {
@@ -97,66 +116,36 @@
       }
     },
     {
-      "id": "fcl-2026-09",
-      "title": "Fineotex Chemical Limited",
-      "subtitle": "Specialty Chemicals · Tibrewala Family · A correcting edition: the CrudeChem price was disclosed, and the US business is frac chemistry, not production chemistry",
-      "code": "FCL",
-      "sector": "Specialty Chemicals",
+      "id": "stltech-2026-09",
+      "title": "Sterlite Technologies",
+      "subtitle": "Optical fibre, cable and connectivity · preform-to-fibre integrated · two more hyperscaler deals and a ₹3,000 Cr “Lakshya” capacity bet since the last edition",
+      "code": "STLTECH",
+      "sector": "Optical Fibre & Cable",
       "date": "2026-09-20",
-      "cmp": "₹57.02",
-      "mcap": "~₹6,635 Cr",
+      "rating": "Hold — Turnaround Real, but the Order Book Hasn’t Caught Up to the Price",
+      "cmp": "₹818.80",
+      "mcap": "~₹42,249 Cr",
       "targets": {
-        "bull": "Completions keep recovering and the 2028 step-up is priced sensibly",
-        "bear": "A completions downturn meets a full multiple and unproven cash conversion"
+        "bull": "Two more hyperscaler deals since August, a ₹3,000 Cr “Lakshya” bet on 50% more capacity by FY29, and CRISIL’s outlook now Stable",
+        "bear": "Order book stale since 30 June, both new deals are allocation frameworks, and part of the margin recovery looks like tariff relief, not just mix shift"
       },
-      "summary": "A correcting edition: the CrudeChem price was disclosed all along (up to USD 11.2 mn for 53.33%), and the US business is led by friction reducers and frac additives, so its beta is to well completions, not barrels, and it is more cyclical than the August report said. Oil is about 65% of revenue but…",
-      "file": "fcl-2026-09.html",
+      "summary": "STL's Q1 FY27 turnaround is real, and two more hyperscaler deals plus a ₹20,000 Cr FY29 'Lakshya' plan have arrived since the last edition — but every addition is either an allocation rather than firm backlog, or unconfirmed against an order book still dated 30 June, and market cap against that…",
+      "file": "stltech-2026-09.html",
       "featured": true,
       "signals_at_pub": {
         "date": "2026-09-18",
         "source": "scan",
         "universe": 1629,
-        "rs": 95,
+        "rs": 99,
         "template": "PASS",
         "passed": 7,
         "checks": 7,
         "failed": [],
-        "stage2": "Continues Trend · 17 wks",
+        "stage2": "Continues Trend · 32 wks",
         "stage2_list_date": "2026-09-18",
-        "flag": null,
-        "price": 57.02
+        "flag": "LTASM - IV",
+        "price": 818.8
       }
-    },
-    {
-      "id": "dctheme-2026-09",
-      "title": "The AI Data-Centre Supply Chain",
-      "subtitle": "A synthesis across seven Indian names, not new research · Memory holds strongly, optical interconnect reaches none of them, and the build-out is real but still mostly announced rather than built",
-      "code": "CLUSTER",
-      "sector": "Thematic note",
-      "date": "2026-09-20",
-      "targets": {
-        "bull": "Memory pricing, strongly and on primary producer evidence; the data-centre build-out, once announced, contracted and built are kept apart; optical fibre, from around April 2026",
-        "bear": "Optical interconnect, for any of the seven — none makes transceivers, lasers or indium-phosphide substrates — and a fibre “super-cycle” that had barely reached most of these balance sheets in FY26"
-      },
-      "summary": "A synthesis of the desk's shared AI data-centre evidence base and its six separate reports on GNG Electronics, Sterlite Technologies, HFCL, Black Box, STL Networks, Birla Cable and Vindhya Telelinks. Memory pricing and the data-centre build-out hold strongly in the primary evidence, but reach these…",
-      "file": "dctheme-2026-09.html",
-      "featured": true
-    },
-    {
-      "id": "mpbirlamerger-2026-09",
-      "title": "Birla Cable into Vindhya Telelinks",
-      "subtitle": "M.P. Birla group · The merger is real: both boards approved it on 21 March 2026 and the exchanges cleared it on 14 August 2026 · It is Birla Cable that disappears, Universal Cables is not in the scheme, and at the 18 September close Birla Cable trades 77% above what the swap ratio pays",
-      "code": "CLUSTER",
-      "sector": "Merger note",
-      "date": "2026-09-19",
-      "rating": "Merger note — the deal is real, the market price is not the ratio; not a recommendation",
-      "targets": {
-        "bull": "Scheme approved 21 Mar 2026 at 10 VTL shares per 115 BCL shares; exchange observation letters received 14 Aug 2026",
-        "bear": "BCL closed 18 Sep 77% above its swap value; each company’s public shareholders must still vote, then NCLT Indore"
-      },
-      "summary": "The merger is real: on 21 March 2026 both boards approved the absorption of Birla Cable into Vindhya Telelinks at 10 VTL shares for every 115 BCL shares, and NSE and BSE issued observation letters on 14 August 2026; Universal Cables is not a party and the NCLT has not yet been approached. The ratio…",
-      "file": "mpbirlamerger-2026-09.html",
-      "featured": true
     },
     {
       "id": "bbox-2026-09",
@@ -165,6 +154,7 @@
       "code": "BBOX",
       "sector": "IT Enabled Services",
       "date": "2026-09-19",
+      "rating": "Hold — A Real Hyperscale Order Book the Company Won’t Cleanly Quantify",
       "cmp": "₹801.15",
       "mcap": "~₹14,241 Cr",
       "targets": {
@@ -198,6 +188,7 @@
       "code": "EBGNG",
       "sector": "IT Hardware · Refurbished Electronics",
       "date": "2026-09-19",
+      "rating": "Hold at CMP — Memory Widens the Spread, but the Price Got There First",
       "cmp": "₹703.05",
       "mcap": "~₹8,023 Cr",
       "targets": {
@@ -221,6 +212,22 @@
         "flag": null,
         "price": 703.05
       }
+    },
+    {
+      "id": "mpbirlamerger-2026-09",
+      "title": "Birla Cable into Vindhya Telelinks",
+      "subtitle": "M.P. Birla group · The merger is real: both boards approved it on 21 March 2026 and the exchanges cleared it on 14 August 2026 · It is Birla Cable that disappears, Universal Cables is not in the scheme, and at the 18 September close Birla Cable trades 77% above what the swap ratio pays",
+      "code": "CLUSTER",
+      "sector": "Merger note",
+      "date": "2026-09-19",
+      "rating": "Merger note — the deal is real, the market price is not the ratio; not a recommendation",
+      "targets": {
+        "bull": "Scheme approved 21 Mar 2026 at 10 VTL shares per 115 BCL shares; exchange observation letters received 14 Aug 2026",
+        "bear": "BCL closed 18 Sep 77% above its swap value; each company’s public shareholders must still vote, then NCLT Indore"
+      },
+      "summary": "The merger is real: on 21 March 2026 both boards approved the absorption of Birla Cable into Vindhya Telelinks at 10 VTL shares for every 115 BCL shares, and NSE and BSE issued observation letters on 14 August 2026; Universal Cables is not a party and the NCLT has not yet been approached. The ratio…",
+      "file": "mpbirlamerger-2026-09.html",
+      "featured": true
     },
     {
       "id": "ibuprofen-2026-09",

@@ -31,6 +31,9 @@ def kpi(label, html):
     m = re.search(r'kpi-label"[^>]*>\s*' + label + r'[^<]*</div>\s*<div class="kpi-value"[^>]*>(.*?)</div>', html, re.I | re.S)
     return strip(m.group(1)) if m else None
 
+CALL_CLS = r'(?:buy|hold|sell)'
+
+
 def rating_cell(cls, html):
     m = re.search(r'rating-cell ' + cls + r'"[^>]*>.*?rating-val"[^>]*>(.*?)</div>', html, re.I | re.S)
     return strip(m.group(1)) if m else None
@@ -73,13 +76,17 @@ def main():
     sector = a.sector or find(r'<td class="bold">Sector</td>\s*<td[^>]*>(.*?)</td>', html) or (sub.split('·')[0].strip() if sub else None)
     if sector: rep['sector'] = re.split(r'\s[—/]\s', sector)[0].strip()   # keep the lead sector phrase
     rep['date'] = date
-    rating = rating_cell('buy', html) or find(r'verdict-banner"[^>]*>\s*<h3[^>]*>RATING:\s*(.*?)</h3>', html)
+    # The first cell of the rating bar is the call, whatever colour it wears: the template classes it
+    # "buy" positionally, and tools/report/fix_rating_colour.py recolours it to hold or sell - in the
+    # model bodies as well, so a writer copying a recoloured model writes hold/sell directly. Reading
+    # only "buy" registered seven reports with no rating at all (19-20 Sep 2026).
+    rating = rating_cell(CALL_CLS, html) or find(r'verdict-banner"[^>]*>\s*<h3[^>]*>RATING:\s*(.*?)</h3>', html)
     if rating: rep['rating'] = rating
     cmp_ = kpi('CMP', html); mcap = kpi('Market Cap', html)
     if cmp_: rep['cmp'] = cmp_
     if mcap: rep['mcap'] = mcap
     targets = OrderedDict()
-    base = rating_cell('buy', html) and None  # base often in verdict banner; try there
+    base = rating_cell(CALL_CLS, html) and None  # base often in verdict banner; try there
     bull = rating_cell('bull', html); bear = rating_cell('bear', html)
     base = find(r'Base Case[^:]*:\s*<strong>(.*?)</strong>', html) or find(r'Base Case</td>\s*<td[^>]*>(.*?)</td>', html)
     if base: targets['base'] = base
