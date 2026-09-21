@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-18",
+  "updated": "2026-09-21",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -644,10 +644,10 @@
     ],
     "ASTAR": [
       {
-        "t": "Asian Star Company hits 52-week high of Rs 827.15 on broad-based technical strength",
+        "t": "Asian Star Company hits fresh 52-week high of Rs 842 on broad-based technical strength",
         "src": "MarketsMojo",
-        "url": "https://www.marketsmojo.com/news/stocks-in-action/asian-star-company-ltd-hits-new-52-week-high-at-rs82715-4196957",
-        "date": "2026-09-18"
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/asian-star-company-ltd-hits-new-52-week-high-at-rs842-4199364",
+        "date": "2026-09-21"
       }
     ],
     "ASTEC": [
@@ -720,6 +720,118 @@
         "src": "Business Standard",
         "url": "https://www.business-standard.com/markets/news/kanohar-glass-wall-systems-zoom-18-up-40-against-issue-price-in-2-days-126091700583_1.html",
         "date": "2026-09-17"
+      }
+    ],
+    "TIMEX": [
+      {
+        "t": "Timex Group India draws fresh brokerage interest after strong turnaround",
+        "src": "Business Today",
+        "url": "https://www.businesstoday.in/markets/stocks/story/manipal-vbl-urban-co-ael-lenskart-among-stocks-with-fresh-brokerage-interest-for-upto-62-rise-552170-2026-08-31",
+        "date": "2026-08-31"
+      }
+    ],
+    "SAMBHV": [
+      {
+        "t": "Sambhv Steel Tubes rises 24% in two days on capacity expansion plans",
+        "src": "Whalesbook",
+        "url": "https://www.whalesbook.com/news/English/industrial-goodsservices/Sambhv-Steel-Tubes-Rises-24percent-in-Two-Days-on-Capacity-Plans/6ab0bd6232997ce1de8b1461",
+        "date": "2026-09-19"
+      }
+    ],
+    "AVALON": [
+      {
+        "t": "Avalon Technologies surges 10% as Nomura raises target price to Rs 2,767 on Zollner JV",
+        "src": "Communications Today",
+        "url": "https://www.communicationstoday.co.in/avalon-technologies-surges-10-as-nomura-raises-target-price/",
+        "date": "2026-09-18"
+      }
+    ],
+    "ATGL": [
+      {
+        "t": "Adani Total Gas says recent share price fluctuations are due to market conditions",
+        "src": "TipRanks",
+        "url": "https://www.tipranks.com/news/company-announcements/adani-total-gas-attributes-share-price-fluctuations-to-market-conditions",
+        "date": "2026-09-19"
+      }
+    ],
+    "NRBBEARING": [
+      {
+        "t": "NRB Bearings promoter releases 23 lakh pledged shares after loan pre-payment",
+        "src": "Whalesbook",
+        "url": "https://www.whalesbook.com/corporate-news/English/auto/NRB-Bearings-Promoter-Releases-23-Lakh-Pledged-Shares/6aacc17cf2017017ae6cd2e5",
+        "date": "2026-09-16"
+      }
+    ],
+    "POONAWALLA": [
+      {
+        "t": "Poonawalla Fincorp approves allotment of secured NCDs worth over Rs 850 crore",
+        "src": "InvestyWise",
+        "url": "https://www.investywise.com/poonawalla-fincorp-approved-allotment-of-non-convertible-debentures",
+        "date": "2026-09-16"
+      }
+    ],
+    "TALBROAUTO": [
+      {
+        "t": "Talbros Automotive forms JV with Lohum Cleantech for recovered Carbon Black",
+        "src": "Autocar Professional",
+        "url": "https://www.autocarpro.in/news/talbros-partners-with-lohum-to-form-recovered-carbon-black-joint-venture-133367",
+        "date": "2026-09-15"
+      }
+    ],
+    "GRAUWEIL": [
+      {
+        "t": "Grauer & Weil fixes September 9 record date for final dividend",
+        "src": "ScanX",
+        "url": "https://scanx.trade/stock-market-news/companies/grauer-weil-fixes-september-9-record-date-for-dividend/41354235",
+        "date": "2026-09-09"
+      }
+    ],
+    "MACPOWER": [
+      {
+        "t": "Macpower CNC Machines hits all-time high amid strong momentum, stretched valuations",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/macpower-cnc-machines-ltd-hits-all-time-high-on-18-sep-2026-4197151",
+        "date": "2026-09-18"
+      }
+    ],
+    "LUXIND": [
+      {
+        "t": "Lux Industries denies Dankuni project allegations, issues defamation notice to TMC MLA",
+        "src": "Whalesbook",
+        "url": "https://www.whalesbook.com/corporate-news/English/lawcourt/Lux-Industries-Denies-Allegations-on-Dankuni-Project-Issues-Defamation-Notice/6a8833096817e697e7d4fa22",
+        "date": "2026-08-21"
+      }
+    ],
+    "RAMBHAJO": [
+      {
+        "t": "Advit Jewels hits fresh all-time high of Rs 300 after three-day rally",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/advit-jewels-ltd-hits-new-52-week-high-of-rs300-on-21-sep-2026-4199470",
+        "date": "2026-09-21"
+      }
+    ],
+    "CMRGREEN": [
+      {
+        "t": "CMR Green Technologies Q1 FY27 revenue surges 65% to Rs 3,122 crore",
+        "src": "Whalesbook",
+        "url": "https://www.whalesbook.com/corporate-news/English/industrial-goodsservices/CMR-Green-Technologies-Q1-FY27-Revenue-Surges-65percent-to-INR-3122-Crore/6a82d6a96817e697e7cf154b",
+        "date": "2026-08-10"
+      }
+    ],
+    "DEEPA": [
+      {
+        "t": "Deepa Jewellers shares jump nearly 25% on market debut",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/capital-market-news/deepa-jewellers-gains-on-debut-126090800267_1.html",
+        "date": "2026-09-08"
+      }
+    ],
+    "DANISH": [
+      {
+        "t": "Danish Power secures Rs 84 crore export order for 66 kV transformers",
+        "src": "TradeBrains",
+        "url": "https://tradebrains.in/danish-power-secures-84-cr-export-order-for-66-kv-transformers/",
+        "date": "2026-08-20"
       }
     ]
   }
