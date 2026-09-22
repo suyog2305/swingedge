@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-21",
+  "updated": "2026-09-22",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -364,10 +364,10 @@
     ],
     "JAYKAY": [
       {
-        "t": "Jaykay Enterprises subsidiary secures Rs 94.45 crore order from BrahMos Aerospace; shares jump",
-        "src": "Angel One",
-        "url": "https://www.angelone.in/news/market-updates/jaykay-enterprises-subsidiary-secures-94-45-crore-order-from-brahmos-aerospace-share-price-jumps-over-5",
-        "date": "2026-09-08"
+        "t": "Jaykay Enterprises surges 7.05% to day's high of Rs 179.7, outperforms sector",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/jaykay-enterprises-ltd-hits-intraday-high-with-705-surge-on-21-sep-2026-4199880",
+        "date": "2026-09-21"
       }
     ],
     "MOLBIO": [
@@ -428,10 +428,10 @@
     ],
     "RAYMOND": [
       {
-        "t": "Raymond shares jump 35% in a week as aerospace subsidiary order book details emerge",
-        "src": "India TV News",
-        "url": "https://www.indiatvnews.com/business/markets/raymond-shares-details-of-its-aerospace-subsidiary-stock-jumps-35-pc-per-cent-in-1-week-check-details-2026-09-14-1054196",
-        "date": "2026-09-14"
+        "t": "Raymond surges 20% on huge volume; here's why stock rose 66% in 11 days",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/raymond-surges-20-on-huge-volume-here-s-why-stock-rose-66-in-11-days-126091100406_1.html",
+        "date": "2026-09-21"
       }
     ],
     "PINELABS": [
@@ -484,10 +484,10 @@
     ],
     "AHCL": [
       {
-        "t": "Anlon Healthcare hits all-time high of Rs 23.18 as momentum builds across timeframes",
+        "t": "Anlon Healthcare hits all-time high of Rs 24.78 as momentum builds across timeframes",
         "src": "MarketsMojo",
-        "url": "https://www.marketsmojo.com/news/stocks-in-action/anlon-healthcare-ltd-hits-new-52-week-high-at-rs2318-4196970",
-        "date": "2026-09-18"
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/anlon-healthcare-ltd-stock-hits-all-time-high-amid-strong-performance-4199362",
+        "date": "2026-09-21"
       }
     ],
     "FINKURVE": [
@@ -832,6 +832,70 @@
         "src": "TradeBrains",
         "url": "https://tradebrains.in/danish-power-secures-84-cr-export-order-for-66-kv-transformers/",
         "date": "2026-08-20"
+      }
+    ],
+    "PROTEAN": [
+      {
+        "t": "Protean eGov shares zoom 20% to hit upper circuit; here's what's happening",
+        "src": "Business Today",
+        "url": "https://www.businesstoday.in/markets/stocks/story/protean-egov-shares-zoom-20-to-hit-upper-circuit-heres-whats-happening-556801-2026-09-21",
+        "date": "2026-09-21"
+      }
+    ],
+    "INDORAMA": [
+      {
+        "t": "Indo Rama Synthetics hits fresh all-time high amid strong momentum, stretched valuations",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/indo-rama-synthetics-india-ltd-hits-all-time-high-amid-strong-market-performance-4199905",
+        "date": "2026-09-22"
+      }
+    ],
+    "ASHIANA": [
+      {
+        "t": "Ashiana Housing rallies 7.81%, approaches 50-DMA resistance in key technical test",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/ashiana-housing-ltd-hits-intraday-high-with-781-surge-on-21-sep-2026-4199989",
+        "date": "2026-09-21"
+      }
+    ],
+    "KPIGREEN": [
+      {
+        "t": "KPI Green Energy surges 7.52% to day's high of Rs 309, outperforms power sector",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/kpi-green-energy-ltd-hits-intraday-high-with-752-surge-on-21-sep-2026-4199600",
+        "date": "2026-09-21"
+      }
+    ],
+    "SURAJEST": [
+      {
+        "t": "Suraj Estate rises 13% amid selective small-cap momentum",
+        "src": "Whalesbook",
+        "url": "https://www.whalesbook.com/news/English/stock-investment-ideas/Suraj-Estate-Rises-13percent-Amid-Selective-Small-Cap-Momentum/6ab0b8d632997ce1de8b0b1b",
+        "date": "2026-09-21"
+      }
+    ],
+    "RATNAVEER": [
+      {
+        "t": "Ratnaveer Precision Engineering surges to record high on heavy turnover, institutional interest",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/ratnaveer-precision-engineering-surges-on-record-high-turnover-and-institutional-interest-4200044",
+        "date": "2026-09-21"
+      }
+    ],
+    "SPICEJET": [
+      {
+        "t": "SpiceJet surges 12.49% intraday, outpaces airline sector",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/spicejet-ltd-surges-to-day-high-with-1249-intraday-gain-on-21-sep-2026-4199597",
+        "date": "2026-09-21"
+      }
+    ],
+    "TARSONS": [
+      {
+        "t": "Tarsons Products valuation surges amid mixed market returns",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/tarsons-products-ltd-valuation-surges-amid-mixed-market-returns-4200221",
+        "date": "2026-09-22"
       }
     ]
   }
