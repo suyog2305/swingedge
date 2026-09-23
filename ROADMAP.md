@@ -1,7 +1,7 @@
 # Roadmap
 
 What's built, what's blocked, and what's next — in dependency order rather than wish order.
-Status as of **2026-09-20**.
+Status as of **2026-09-23**.
 
 ---
 
@@ -391,6 +391,24 @@ localStorage and exported as one self-contained HTML file with the images embedd
 - **September 2026 editions** for Bodal, Kiri, GNG Electronics, Syrma SGS and Tejas Networks,
   plus new coverage of Tejas and Syrma. Written against 8 September closing prices and verified
   against the capture that produced them.
+
+---
+
+### 2026-09-21 to 2026-09-23 — three unattended evenings, clean; the 65th report
+
+No manual intervention on any of the three 20:00 runs since the 20 Sep fixes landed. Each pulled,
+built, ranked, journalled and refreshed both theme trackers on its own; the log shows nothing worse
+than the Stage 2 list ageing by a day each night, which is correct — no new provider file has
+arrived since 13 Sep, and the tool says so rather than pretending otherwise.
+
+**`kross-2026-09`** (Hold at CMP), the first report on a name outside the data-centre theme since
+the set completed. Two findings worth the read: the stock's "near all-time high" is a level it
+first touched within seven months of its Sep 2024 listing and has not cleared since, so two years
+of trading have been one unbroken channel, not a new high; and its 28.6x trailing multiple is
+mostly re-rating since the July print on unchanged earnings — the same trailing figure supported
+24x eight weeks earlier. Q1 FY27 revenue grew 32% YoY while EBITDA margin fell sequentially to
+12.2%, still inside the 11-15% band the business has held for three years; a ₹63.6 Cr preferential
+issue was mid-postal-ballot as of writing.
 
 ---
 
