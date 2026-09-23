@@ -1,6 +1,38 @@
 {
-  "updated": "2026-09-20",
+  "updated": "2026-09-23",
   "reports": [
+    {
+      "id": "kross-2026-09",
+      "title": "Kross Limited",
+      "subtitle": "Forged axle, suspension and driveline components for commercial vehicles and tractors · Jamshedpur, Jharkhand · Listed September 2024",
+      "code": "KROSS",
+      "sector": "Auto Components & Equipments",
+      "date": "2026-09-23",
+      "rating": "Hold at CMP — Re-Rated Ahead of the Margin Proof",
+      "cmp": "₹256.13",
+      "mcap": "~₹1,652 Cr",
+      "targets": {
+        "bull": "Margin snaps back toward 14–15% as new capacity ramps and the export/tractor mix keeps building",
+        "bear": "The margin dip repeats, debt climbs into the capex, and ₹271 resists a second time"
+      },
+      "summary": "Kross is a genuine three-decade-old Jamshedpur forger of axle, suspension and driveline components whose Q1 FY27 revenue grew 32% year on year even as EBITDA margin fell sequentially to 12.2%, still inside the 11-15% band it has held for three years. Its 28.6x trailing multiple is largely sentiment…",
+      "file": "kross-2026-09.html",
+      "featured": true,
+      "signals_at_pub": {
+        "date": "2026-09-22",
+        "source": "scan",
+        "universe": 1635,
+        "rs": 78,
+        "template": "PASS",
+        "passed": 7,
+        "checks": 7,
+        "failed": [],
+        "stage2": "Continues Trend · 6 wks",
+        "stage2_list_date": "2026-09-22",
+        "flag": null,
+        "price": 256.13
+      }
+    },
     {
       "id": "dctheme-2026-09",
       "title": "The AI Data-Centre Supply Chain",
