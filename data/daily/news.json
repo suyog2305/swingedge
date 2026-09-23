@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-22",
+  "updated": "2026-09-23",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -100,10 +100,10 @@
     ],
     "OPTIEMUS": [
       {
-        "t": "Optiemus Infracom registers 46% YoY rise in Q1 PAT on strong manufacturing revenue",
+        "t": "Optiemus Infracom zooms 20% on huge volumes as CMF expands partnership",
         "src": "Business Standard",
-        "url": "https://www.business-standard.com/markets/capital-market-news/optiemus-infracom-registers-46-yoy-rise-in-q1-pat-126080401353_1.html",
-        "date": "2026-08-04"
+        "url": "https://www.business-standard.com/markets/news/optiemus-infracom-zooms-20-on-huge-volumes-as-cmf-expands-partnership-126092200584_1.html",
+        "date": "2026-09-22"
       }
     ],
     "GENESYS": [
@@ -896,6 +896,86 @@
         "src": "MarketsMojo",
         "url": "https://www.marketsmojo.com/news/stocks-in-action/tarsons-products-ltd-valuation-surges-amid-mixed-market-returns-4200221",
         "date": "2026-09-22"
+      }
+    ],
+    "TRANSRAILL": [
+      {
+        "t": "Transrail Lighting shares zoom 12% on 70% rise in manufacturing capacity",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/amp/markets/news/transrail-lighting-shares-jump-12-as-manufacturing-capacity-rises-70-126092200317_1.html",
+        "date": "2026-09-22"
+      }
+    ],
+    "GABRIEL": [
+      {
+        "t": "Gabriel India allots 1.44 crore shares to promoter for HL Mando Anand acquisition deal",
+        "src": "Whalesbook",
+        "url": "https://www.whalesbook.com/corporate-news/English/auto/Gabriel-India-Allots-144-Crore-Shares-to-Promoter-for-Acquisition-Deal/6aa434e7f2017017ae692c94",
+        "date": "2026-09-11"
+      }
+    ],
+    "KLBRENG-B": [
+      {
+        "t": "Kilburn Engineering surges 10.35% to day's high of Rs 497.7, outperforms sector",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/kilburn-engineering-ltd-hits-intraday-high-with-1035-surge-on-22-sep-2026-4201328",
+        "date": "2026-09-22"
+      }
+    ],
+    "GANDHITUBE": [
+      {
+        "t": "Broad-based technical strength lifts Gandhi Special Tubes to 52-week high of Rs 1,036.5",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/gandhi-special-tubes-ltd-hits-new-52-week-high-at-rs10365-4201335",
+        "date": "2026-09-22"
+      }
+    ],
+    "STEELCAS": [
+      {
+        "t": "Steelcast surges 12.21% to day's high of Rs 374.75, hits fresh 52-week high",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/steelcast-ltd-hits-intraday-high-with-1221-surge-on-22-sep-2026-4200804",
+        "date": "2026-09-22"
+      }
+    ],
+    "BLUESTONE": [
+      {
+        "t": "Bluestone Jewellery & Lifestyle surges 7.1% to day's high of Rs 909",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/bluestone-jewellery-lifestyle-ltd-hits-intraday-high-with-71-surge-on-22-sep-2026-4201499",
+        "date": "2026-09-22"
+      }
+    ],
+    "ROSSTECH": [
+      {
+        "t": "Board of Rossell Techsys approves Rs 300 crore preferential allotment to SBI Mutual Fund",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/amp/markets/capital-market-news/board-of-rossell-techsys-approves-preferential-allotment-of-25-72-lakh-shares-126091800787_1.html",
+        "date": "2026-09-18"
+      }
+    ],
+    "CHEMPLASTS": [
+      {
+        "t": "Chemplast Sanmar surges 8.55% to day's high of Rs 196.85, outperforms sector",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/chemplast-sanmar-ltd-hits-intraday-high-with-855-surge-on-22-sep-2026-4201464",
+        "date": "2026-09-22"
+      }
+    ],
+    "MEESHO": [
+      {
+        "t": "Meesho surges 6%, nears record high after brokerage raises target price",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/meesho-surges-6-nears-record-high-what-s-driving-this-internet-stock-126092200282_1.html",
+        "date": "2026-09-22"
+      }
+    ],
+    "AVTNPL": [
+      {
+        "t": "AVT Natural Products hits fresh 52-week high of Rs 101.8 on four-day winning streak",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/avt-natural-products-ltd-hits-new-52-week-high-at-rs1018-4202059",
+        "date": "2026-09-23"
       }
     ]
   }
