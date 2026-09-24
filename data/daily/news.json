@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-23",
+  "updated": "2026-09-24",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -100,9 +100,9 @@
     ],
     "OPTIEMUS": [
       {
-        "t": "Optiemus Infracom zooms 20% on huge volumes as CMF expands partnership",
-        "src": "Business Standard",
-        "url": "https://www.business-standard.com/markets/news/optiemus-infracom-zooms-20-on-huge-volumes-as-cmf-expands-partnership-126092200584_1.html",
+        "t": "Optiemus Infracom shares hit 20% upper circuit limit on Nothing JV expansion",
+        "src": "Business Today",
+        "url": "https://www.businesstoday.in/markets/trending-stocks/story/optiemus-infracom-shares-hit-20-upper-circuit-limit-on-nothing-jv-heres-why-557023-2026-09-22",
         "date": "2026-09-22"
       }
     ],
@@ -975,6 +975,110 @@
         "t": "AVT Natural Products hits fresh 52-week high of Rs 101.8 on four-day winning streak",
         "src": "MarketsMojo",
         "url": "https://www.marketsmojo.com/news/stocks-in-action/avt-natural-products-ltd-hits-new-52-week-high-at-rs1018-4202059",
+        "date": "2026-09-23"
+      }
+    ],
+    "FRONTSP": [
+      {
+        "t": "Frontier Springs locks 20% upper circuit on robust buying pressure",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/frontier-springs-ltd-hits-upper-circuit-on-robust-buying-pressure-4202529",
+        "date": "2026-09-23"
+      }
+    ],
+    "WHIRLPOOL": [
+      {
+        "t": "Whirlpool of India shares jump 20% today; here's what analysts say",
+        "src": "Business Today",
+        "url": "https://www.businesstoday.in/markets/trending-stocks/story/whirlpool-of-india-shares-jump-20-today-heres-what-analysts-say-557305-2026-09-23",
+        "date": "2026-09-23"
+      }
+    ],
+    "PREMIERPOL": [
+      {
+        "t": "Premier Polyfilm locks 20% upper circuit; company says no undisclosed material event",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/premier-polyfilm-ltd-surges-20-to-hit-upper-circuit-amid-robust-buying-pressure-4202643",
+        "date": "2026-09-23"
+      }
+    ],
+    "MANINDS": [
+      {
+        "t": "Man Industries (Ashish Kacholia stock) soars 15%, up 222% from February low",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/amp/markets/news/ashish-kacholia-portfolio-stock-man-ind-soars-15-zooms-222-from-feb-low-126092300486_1.html",
+        "date": "2026-09-23"
+      }
+    ],
+    "SUBEXLTD": [
+      {
+        "t": "Subex shares hit 52-week high, rise 14% on APAC telecom operator PEM deal",
+        "src": "Business Today",
+        "url": "https://www.businesstoday.in/markets/stocks/story/subex-shares-hit-52-week-high-mobile-operator-pem-operations-557240-2026-09-23",
+        "date": "2026-09-23"
+      }
+    ],
+    "RAYMONDREL": [
+      {
+        "t": "Raymond Realty board clears ₹409 crore promoter-led convertible warrants issue",
+        "src": "Multibagg",
+        "url": "https://www.multibagg.ai/market-pulse/articles/raymond-realty-preferential-warrants-fundraise-cmtwzcztt000a31pp0vwz74sa",
+        "date": "2026-09-18"
+      }
+    ],
+    "EKC": [
+      {
+        "t": "Everest Kanto Cylinder sees mixed technical signals amid price momentum shift",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/everest-kanto-cylinder-ltd-sees-mixed-technical-signals-amid-price-momentum-shift-4202809",
+        "date": "2026-09-23"
+      }
+    ],
+    "ORIANA": [
+      {
+        "t": "Oriana Power share price in focus after securing 900 MW battery storage projects in Maharashtra",
+        "src": "Angel One",
+        "url": "https://www.angelone.in/news/stocks/oriana-power-share-price-in-focus-secures-900-mw-battery-energy-storage-projects-in-maharashtra",
+        "date": "2026-09-21"
+      }
+    ],
+    "SHANTIGOLD": [
+      {
+        "t": "Shanti Gold International hits all-time high of Rs 282.20 on robust financial performance",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/shanti-gold-international-ltd-hits-all-time-high-amid-robust-financial-performance-4202701",
+        "date": "2026-09-23"
+      }
+    ],
+    "DELTACORP": [
+      {
+        "t": "Delta Corp surges 7.35% intraday, outperforms leisure sector on exceptional volume",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/delta-corp-ltd-hits-intraday-high-with-735-surge-on-23-sep-2026-4202609",
+        "date": "2026-09-23"
+      }
+    ],
+    "MUKANDLTD": [
+      {
+        "t": "Mukand Ltd surges 7.27% intraday, hits fresh 52-week high of Rs 154.6",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/mukand-ltd-hits-intraday-high-with-727-surge-on-23-sep-2026-4202610",
+        "date": "2026-09-23"
+      }
+    ],
+    "ELECON": [
+      {
+        "t": "Elecon Engineering surges 7.14% intraday, biggest gainer in BSE 'A' group",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/elecon-engineering-company-ltd-hits-intraday-high-with-714-surge-on-23-sep-2026-4202208",
+        "date": "2026-09-23"
+      }
+    ],
+    "OLAELEC": [
+      {
+        "t": "Ola Electric zooms 10% on heavy volume, trades higher for 3rd straight day",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/ola-electric-zooms-10-on-heavy-volume-trades-higher-for-3rd-straight-day-126092300279_1.html",
         "date": "2026-09-23"
       }
     ]
