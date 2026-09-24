@@ -1,7 +1,7 @@
 # Roadmap
 
 What's built, what's blocked, and what's next — in dependency order rather than wish order.
-Status as of **2026-09-23**.
+Status as of **2026-09-24**.
 
 ---
 
@@ -409,6 +409,23 @@ mostly re-rating since the July print on unchanged earnings — the same trailin
 24x eight weeks earlier. Q1 FY27 revenue grew 32% YoY while EBITDA margin fell sequentially to
 12.2%, still inside the 11-15% band the business has held for three years; a ₹63.6 Cr preferential
 issue was mid-postal-ballot as of writing.
+
+### 2026-09-24 — the 20:00 run was silent, not broken: the machine was asleep
+
+User report: "RS Screen still shows yesterday's data." The site was not stale when checked — both
+23 and 24 Sep were live — but the gap that produced the complaint was real. The log has no entry
+at all for 23 Sep 20:00: the scheduled task never started, because the machine was asleep and
+**`WakeToRun` was off**, so Windows waited rather than waking it. `StartWhenAvailable` caught it up
+at 08:39 the next morning — and the session-aware date fix from 20 Sep worked exactly as intended,
+correctly labelling that catch-up run's data `2026-09-23`, not `2026-09-24`. Nothing was lost, only
+delayed about twelve hours; anyone loading the app in that window saw the 22nd's close and, fairly,
+called it stale.
+
+This is the same root cause that lost the 15 Sep close outright a fortnight ago, this time without
+data loss. Fix: `WakeToRun` is now **on** (confirmed the user's PC sleeps rather than shuts down at
+night, so this is the correct lever — it would not help a fully powered-off machine). Everything
+else on the task — `StartWhenAvailable`, battery behaviour — was read and only `WakeToRun` was
+flipped, to avoid resetting settings tuned earlier.
 
 ---
 
