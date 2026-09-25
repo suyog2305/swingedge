@@ -21,15 +21,27 @@ Each step is reported pass/fail with its own line. A failed step STOPS the run �
 built on yesterday's scan looks perfectly fine and is silently wrong, which is exactly the
 failure worth refusing.
 
+WHEN IT RUNS, AND WHY IT WAITS
+
+The scheduled task fires at 15:50 IST on weekdays with --wait-until 21:00. screener.in does
+not refresh a close all at once: prices, day/week returns and 52-week distances move first;
+moving averages, 3/6-month returns and volume follow later in the evening (measured 11 Sep
+2026: at 15:40 prices had changed on 98.8% of names and the 200-DMA on 0.1%). A scan built in
+between carries today's prices against yesterday's averages and every "200-DMA rising" check
+fails. So this pulls the broad export, checks that the averages, the 3-month return and the
+volume have all moved against the previous scan, and if any has not, sleeps --poll minutes and
+pulls again - until the close is complete, or the deadline passes, or the session changes
+under it. A second trigger at 20:00 is a safety net: if the day is already built it exits at
+once, and the scheduler ignores it while the 15:50 run is still polling.
+
 THE COOKIE
 
 Step 1 needs your screener.in session cookie, in .secrets/screener_cookie.txt or the
 SCREENER_COOKIE environment variable (both gitignored). Without it screener.in redirects to
 its login page and this stops at step 1 with a clear message — nothing partial is written.
-That is also why this is a button you press while you are at the screen, rather than a
-scheduled job: the cookie expires, and when it does somebody has to notice.
+The cookie expires; when it does the log says so, and somebody has to notice.
 """
-import argparse, datetime as dt, glob, io, json, os, subprocess, sys
+import argparse, atexit, datetime as dt, glob, io, json, os, subprocess, sys, time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SHORTLIST = os.path.join(ROOT, 'data', 'daily', 'shortlist.json')
@@ -62,7 +74,7 @@ def same_data_as_previous(merged_csv, date):
     """Non-trading-day guard. screener serves the last close on weekends and holidays, so a
     pull on such a day reproduces yesterday's prices under today's date and quietly pads the
     archive with duplicates. Compare the merged export against the newest scan carrying a
-    DIFFERENT date; if every shared price matches, there is nothing new."""
+    date strictly BEFORE this one; if every shared price matches, there is nothing new."""
     import csv, glob
     try:
         rows = list(csv.reader(io.open(merged_csv, encoding='utf-8-sig', newline='')))
@@ -79,7 +91,7 @@ def same_data_as_previous(merged_csv, date):
             d = json.load(io.open(path, encoding='utf-8'))
         except Exception:
             continue
-        if d.get('date') != date and len(d.get('universe') or []) >= 500:
+        if (d.get('date') or '') < date and len(d.get('universe') or []) >= 500:   # the newest scan BEFORE this date, never a later one
             prev = d; break
     if not prev:
         return False, 0, None
@@ -95,34 +107,43 @@ def same_data_as_previous(merged_csv, date):
     return matches == len(common), len(common), prev.get('date')
 
 
-def stale_partial_refresh(merged_csv, date):
+# The columns screener refreshes LAST, and the scan field each maps to. If prices have moved but
+# any of these has not, the export is a half-refreshed mix. Volume only exists in the merged
+# export; on the broad export alone the first two are checked.
+SENTINELS = (('DMA 200', 'dma200', '200-DMA'), ('Return over 3months', 'r3m', '3-month return'), ('Volume', 'volume', 'volume'))
+
+
+def stale_partial_refresh(csv_path, date):
     """screener.in refreshes its fields in STAGES after the close: prices, day/week returns and the
     52-week distances first; moving averages, 3/6-month returns and volume later in the evening.
     A pull in between captures today prices against YESTERDAY averages, so every "200-DMA rising"
     check fails and the trend template empties. Seen 11 Sep 2026 at 15:40: prices changed on 98.8%
-    of names, dma200 unchanged on 99.9%, template passes 388 -> 1. Compare the merged export with
-    the newest scan of a different date and refuse to build if the averages have not moved."""
+    of names; dma200 unchanged on 99.9%, 3-month returns and volume on 100%; template passes
+    388 -> 1. Compare the export with the newest scan of a different date and call it stale if
+    prices moved on more than half the names while ANY sentinel column stayed put on nearly all."""
     import csv, glob
     try:
-        rows = list(csv.reader(io.open(merged_csv, encoding='utf-8-sig', newline='')))
+        rows = list(csv.reader(io.open(csv_path, encoding='utf-8-sig', newline='')))
     except OSError:
         return False, {}
     h = {c: k for k, c in enumerate(rows[0])}
-    ci, pi, di = h.get('NSE Code'), h.get('Current Price'), h.get('DMA 200')
-    if None in (ci, pi, di):
+    ci, pi = h.get('NSE Code'), h.get('Current Price')
+    sent = [(h[col], field, label) for col, field, label in SENTINELS if col in h]
+    if ci is None or pi is None or not sent:
         return False, {}
-    today = {r[ci].upper(): (r[pi], r[di]) for r in rows[1:] if len(r) > max(ci, pi, di) and r[ci]}
+    width = max([ci, pi] + [i for i, _, _ in sent])
+    today = {r[ci].upper(): r for r in rows[1:] if len(r) > width and r[ci]}
     prev = None
     for path in sorted(glob.glob(os.path.join(ROOT, 'data', 'scans', '20*.json')), reverse=True):
         try:
             d = json.load(io.open(path, encoding='utf-8'))
         except Exception:
             continue
-        if d.get('date') != date and len(d.get('universe') or []) >= 500:
+        if (d.get('date') or '') < date and len(d.get('universe') or []) >= 500:   # the newest scan BEFORE this date, never a later one
             prev = d; break
     if not prev:
         return False, {}
-    old = {r['code'].upper(): (r.get('price'), r.get('dma200')) for r in prev['universe'] if r.get('code')}
+    old = {r['code'].upper(): r for r in prev['universe'] if r.get('code')}
     common = [c for c in today if c in old]
     if len(common) < 200:
         return False, {}
@@ -130,10 +151,13 @@ def stale_partial_refresh(merged_csv, date):
     def f(v):
         try: return round(float(v), 4)
         except (TypeError, ValueError): return None
-    price_changed = sum(1 for c in common if f(today[c][0]) is not None and f(today[c][0]) != f(old[c][0])) / len(common)
-    dma_same = sum(1 for c in common if f(today[c][1]) is not None and f(today[c][1]) == f(old[c][1])) / len(common)
-    return (price_changed > 0.5 and dma_same > 0.95), dict(price_changed=price_changed, dma_same=dma_same,
-                                                            prev=prev.get('date'), n=len(common))
+    price_changed = sum(1 for c in common if f(today[c][pi]) is not None and f(today[c][pi]) != f(old[c].get('price'))) / len(common)
+    same = {}
+    for i, field, label in sent:
+        same[label] = sum(1 for c in common if f(today[c][i]) is not None and f(today[c][i]) == f(old[c].get(field))) / len(common)
+    stuck = [label for label, frac in same.items() if frac > 0.95]
+    return (price_changed > 0.5 and bool(stuck)), dict(price_changed=price_changed, sentinels=same, stuck=stuck,
+                                                        dma_same=same.get('200-DMA'), prev=prev.get('date'), n=len(common))
 
 
 S2_GLOB = 'Stage 2*.xls*'
@@ -234,6 +258,37 @@ def newest_stage2_file(date):
     return p, asof, dirs
 
 
+LOCK = os.path.join(ROOT, '.secrets', 'eod.lock')
+
+
+def _pid_alive(pid):
+    try:
+        out = subprocess.run(['tasklist', '/FI', f'PID eq {pid}', '/NH'], capture_output=True, text=True, timeout=30).stdout
+        return str(pid) in out
+    except Exception:
+        return True                                        # cannot tell - never clobber a run that may be live
+
+
+def acquire_lock():
+    """One eod.py at a time. The scheduled run may poll for hours; a second run alongside it would
+    pull, build and commit the same close twice and race on git. A lock left by a process that no
+    longer exists (a reboot, a kill) is removed, not obeyed."""
+    os.makedirs(os.path.dirname(LOCK), exist_ok=True)
+    if os.path.exists(LOCK):
+        try:
+            pid, since = io.open(LOCK, encoding='utf-8').read().split()[:2]
+        except Exception:
+            pid, since = '?', '?'
+        if pid.isdigit() and _pid_alive(int(pid)):
+            print(f'SwingEdge EOD refresh — another run is in progress (PID {pid}, since {since}). Not starting a second one.')
+            return False
+        print(f'    (a lock from PID {pid} at {since} is stale: that process is gone - removing it)')
+        os.remove(LOCK)
+    io.open(LOCK, 'w', encoding='utf-8').write(f'{os.getpid()} {dt.datetime.now():%Y-%m-%dT%H:%M}\n')
+    atexit.register(lambda: os.path.exists(LOCK) and os.remove(LOCK))
+    return True
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--date', help='scan date (default: today)')
@@ -243,7 +298,12 @@ def main():
     ap.add_argument('--top', type=int, default=20, help='how many shortlist candidates (default 20)')
     ap.add_argument('--stage2', help='attach this Stage 2 file instead of auto-picking the newest one on disk')
     ap.add_argument('--no-stage2', action='store_true', help='build the scan without any Stage 2 list')
+    ap.add_argument('--wait-until', metavar='HH:MM', help='if screener has not finished refreshing, keep checking '
+                                                         'every --poll minutes until this time (local) instead of giving up')
+    ap.add_argument('--poll', type=int, default=10, help='minutes between checks while waiting (default 10)')
+    ap.add_argument('--force', action='store_true', help='rebuild even if a scan for the date already exists')
     a = ap.parse_args()
+    a.poll = max(2, a.poll)
 
     date = a.date or default_scan_date()
     if date is None:
@@ -252,6 +312,14 @@ def main():
               "yesterday's close nor today's. Nothing fetched, nothing written. Run after 15:40 IST, "
               'or pass --date YYYY-MM-DD to override.')
         return 3
+    scan_path = os.path.join(ROOT, 'data', 'scans', f'{date}.json')
+    if os.path.exists(scan_path) and not a.skip_fetch and not a.force:
+        print(f'SwingEdge EOD refresh — {date} is already built ({os.path.relpath(scan_path, ROOT)}). Nothing to do.')
+        print('    This is the second trigger of the day, or a run after the first one succeeded. '
+              'Pass --force to pull again and rebuild, or --skip-fetch to rebuild from the export on disk.')
+        return 0
+    if not a.dry_run and not acquire_lock():
+        return 4
     py = sys.executable
     print(f'SwingEdge EOD refresh — {date}'
           + ('' if a.date or date == dt.date.today().isoformat()
@@ -281,30 +349,85 @@ def main():
                 return False
         return True
 
-    if not a.skip_fetch:
-        if not go([
-            ('pull the broad universe (decides coverage)',        fetch + ['--query', BROAD,   '--suffix', '_base']),
-            ('pull the returns variant (r6m + r1y)',              fetch + ['--query', RETURNS, '--suffix', '_returns']),
-            ('pull the volume variant (volume + 1-month average)', fetch + ['--query', VOLUME,  '--suffix', '_volume']),
-            ('union: broad + returns',                            merge + ['--base', base, '--overlay', returns, '--out', m1]),
-            ('union: + volume',                                   merge + ['--base', m1,   '--overlay', volume,  '--out', merged]),
-        ]):
-            return 1
-    if not a.dry_run:
-        same, n, prev = same_data_as_previous(os.path.join(ROOT, merged), date)
+    # ---- the close, complete or not at all -------------------------------------------------
+    # screener refreshes in stages (see the docstring). The broad pull alone carries two of the
+    # three sentinel columns, so it is pulled first and checked before the other two pulls are
+    # made; the merged export is checked again for volume. While anything is stuck and a deadline
+    # was given, sleep and pull again. Between polls the session may change underneath a long
+    # wait (a laptop asleep until the next morning's open), so the date is re-derived each time.
+    deadline = None
+    if a.wait_until:
+        hh, mm = (int(x) for x in a.wait_until.split(':'))
+        deadline = dt.datetime.combine(dt.date.today(), dt.time(hh, mm))
+
+    def explain_stale(det, where):
+        parts = ', '.join(f'{label} unchanged on {frac:.0%}' for label, frac in det['sentinels'].items())
+        print(f'\n--- screener has not finished its end-of-day refresh ({where})')
+        print(f'    prices changed on {det["price_changed"]:.0%} of {det["n"]} shared names against the '
+              f'{det["prev"]} scan, but {parts}. Stuck: {", ".join(det["stuck"])}.')
+
+    def wait_or_stop(det, where):
+        """True: slept, try again. False: the caller returns 2 and nothing is written."""
+        explain_stale(det, where)
+        now = dt.datetime.now()
+        if deadline is None:
+            print('    A scan built now would carry today prices against yesterday averages. Nothing written, '
+                  'nothing committed. Run again later, or pass --wait-until HH:MM to keep checking.')
+            return False
+        if now >= deadline:
+            print(f'    The deadline ({a.wait_until}) has passed. Giving up on this close: nothing written, nothing committed.')
+            return False
+        print(f'    [{now:%H:%M}] not complete yet - checking again in {a.poll} min, until {a.wait_until}.')
+        time.sleep(a.poll * 60)
+        return True
+
+    def non_trading(path):
+        same, n, prev = same_data_as_previous(os.path.join(ROOT, path), date)
         if same:
             print('\n--- no new data')
             print(f'    all {n} shared prices match the {prev} scan exactly - screener is still serving '
                   f'that close, so today is a non-trading day. Nothing written, nothing committed.')
-            return 0
-        stale, det = stale_partial_refresh(os.path.join(ROOT, merged), date)
-        if stale:
-            print('\n--- screener has not finished its end-of-day refresh')
-            print(f'    prices changed on {det["price_changed"]:.0%} of {det["n"]} shared names, but the 200-DMA is '
-                  f'unchanged on {det["dma_same"]:.0%} against the {det["prev"]} scan.')
-            print('    A scan built now would carry today prices against yesterday averages and fail every '
-                  '"200-DMA rising" check. Nothing written, nothing committed. Run again later in the evening.')
-            return 2
+        return same
+
+    if a.skip_fetch:
+        if not a.dry_run:
+            if non_trading(merged):
+                return 0
+            stale, det = stale_partial_refresh(os.path.join(ROOT, merged), date)
+            if stale:
+                explain_stale(det, 'export on disk')
+                print('    Nothing written, nothing committed: pull again when screener has finished.')
+                return 2
+    else:
+        while True:
+            if not a.date and not a.dry_run and default_scan_date() != date:
+                print(f'\n--- the session changed while waiting: screener no longer serves the {date} close. '
+                      'Stopping so nothing is mislabelled; nothing written, nothing committed.')
+                return 2
+            if not go([('pull the broad universe (decides coverage)', fetch + ['--query', BROAD, '--suffix', '_base'])]):
+                return 1
+            if not a.dry_run:
+                if non_trading(base):
+                    return 0
+                stale, det = stale_partial_refresh(os.path.join(ROOT, base), date)
+                if stale:
+                    if wait_or_stop(det, 'broad export'):
+                        continue
+                    return 2
+            if not go([
+                ('pull the returns variant (r6m + r1y)',              fetch + ['--query', RETURNS, '--suffix', '_returns']),
+                ('pull the volume variant (volume + 1-month average)', fetch + ['--query', VOLUME,  '--suffix', '_volume']),
+                ('union: broad + returns',                            merge + ['--base', base, '--overlay', returns, '--out', m1]),
+                ('union: + volume',                                   merge + ['--base', m1,   '--overlay', volume,  '--out', merged]),
+            ]):
+                return 1
+            if not a.dry_run:
+                stale, det = stale_partial_refresh(os.path.join(ROOT, merged), date)
+                if stale:
+                    if wait_or_stop(det, 'merged export'):
+                        continue
+                    return 2
+            break
 
     # ---- the weekly Stage 2 list rides along on every daily scan --------------------------
     # The provider's list is weekly and downloaded by hand; the scan is daily. Without this, a

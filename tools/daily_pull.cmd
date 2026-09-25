@@ -1,7 +1,13 @@
 @echo off
 rem ============================================================================
 rem SwingEdge daily pull -- run by Windows Task Scheduler (task "SwingEdge Daily Pull"),
-rem weekdays at 15:40 IST, ten minutes after the close.
+rem weekdays at 15:50 IST, with a second trigger at 20:00 as a safety net.
+rem
+rem screener.in refreshes a close in stages -- prices first; moving averages, 3/6-month returns
+rem and volume later -- so eod.py polls from 15:50 until all of those have moved against the
+rem previous scan (--wait-until 21:00, a check every 10 minutes) and builds the moment the close
+rem is complete. The 20:00 trigger exits at once if the day is already built, and the scheduler
+rem ignores it while the 15:50 run is still polling. The task wakes a sleeping PC for both.
 rem
 rem Until 2026-09-10 this file chained fetch_screener -> build_shortlist -> build_s2history
 rem -> git by hand, and called fetch_screener WITHOUT a date. That defaulted to the previous
@@ -27,7 +33,7 @@ set "LOG=.secrets\daily_pull.log"
 
 echo(>> "%LOG%"
 echo ====================================================================>> "%LOG%"
-echo [%date% %time%] daily pull start (tools\eod.py --push)>> "%LOG%"
-"%PY%" tools\eod.py --push >> "%LOG%" 2>&1
+echo [%date% %time%] daily pull start (tools\eod.py --push --wait-until 21:00 --poll 10)>> "%LOG%"
+"%PY%" tools\eod.py --push --wait-until 21:00 --poll 10 >> "%LOG%" 2>&1
 echo [%date% %time%] finished with exit code %errorlevel%>> "%LOG%"
 endlocal
