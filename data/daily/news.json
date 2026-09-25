@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24",
+  "updated": "2026-09-25",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -484,10 +484,10 @@
     ],
     "AHCL": [
       {
-        "t": "Anlon Healthcare hits all-time high of Rs 24.78 as momentum builds across timeframes",
+        "t": "Anlon Healthcare sees exceptional volume surge amid strong price gains",
         "src": "MarketsMojo",
-        "url": "https://www.marketsmojo.com/news/stocks-in-action/anlon-healthcare-ltd-stock-hits-all-time-high-amid-strong-performance-4199362",
-        "date": "2026-09-21"
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/anlon-healthcare-ltd-sees-exceptional-volume-surge-amidst-strong-price-gains-4200952",
+        "date": "2026-09-22"
       }
     ],
     "FINKURVE": [
@@ -1044,10 +1044,10 @@
     ],
     "SHANTIGOLD": [
       {
-        "t": "Shanti Gold International hits all-time high of Rs 282.20 on robust financial performance",
+        "t": "Shanti Gold International hits fresh all-time high on record trading volumes",
         "src": "MarketsMojo",
-        "url": "https://www.marketsmojo.com/news/stocks-in-action/shanti-gold-international-ltd-hits-all-time-high-amid-robust-financial-performance-4202701",
-        "date": "2026-09-23"
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/shanti-gold-international-ltd-hits-all-time-high-at-rs29625-on-25-sep-2026-4204497",
+        "date": "2026-09-25"
       }
     ],
     "DELTACORP": [
@@ -1080,6 +1080,54 @@
         "src": "Business Standard",
         "url": "https://www.business-standard.com/markets/news/ola-electric-zooms-10-on-heavy-volume-trades-higher-for-3rd-straight-day-126092300279_1.html",
         "date": "2026-09-23"
+      }
+    ],
+    "BPLPHARMA": [
+      {
+        "t": "Bharat Parenterals shares rally 25% in three sessions on fund-raise buzz",
+        "src": "Upstox",
+        "url": "https://upstox.com/news/market-news/stocks/bharat-parenterals-shares-rally-25-in-three-sessions-here-is-why-stock-is-rising/article-200891/",
+        "date": "2026-09-25"
+      }
+    ],
+    "HEROMOTORS": [
+      {
+        "t": "Hero Motors shares hit 20% upper circuit for second day after discounted IPO debut",
+        "src": "Upstox",
+        "url": "https://upstox.com/news/market-news/stocks/hero-motors-shares-rally-20-to-hit-upper-circuit-for-second-day-post-listing-what-investors-should-know/article-200813/",
+        "date": "2026-09-24"
+      }
+    ],
+    "UTTAMSUGAR": [
+      {
+        "t": "Uttam Sugar Mills shows bullish momentum shift amid broader sugar sector rally",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/uttam-sugar-mills-ltd-sees-bullish-momentum-amid-technical-upgrades-4202873",
+        "date": "2026-09-24"
+      }
+    ],
+    "BLUECLOUDS": [
+      {
+        "t": "Blue Cloud Softech jumps 17% after winning Rs 147 crore AI infra order from IBM Cloud",
+        "src": "India TV News",
+        "url": "https://www.indiatvnews.com/business/news/it-stock-below-rs-50-jumps-17-pc-after-company-wins-rs-147-crore-ai-infrastructure-order-from-ibm-cloud-2026-09-25-1055269",
+        "date": "2026-09-25"
+      }
+    ],
+    "SBC": [
+      {
+        "t": "SBC Exports secures Rs 29.5 crore garment export orders from HUXXE & Gawgee Brothers",
+        "src": "Trade Brains",
+        "url": "https://tradebrains.in/indian-markets/sbc-exports-secures-295-crore-garment-orders-from-huxxe-gawgee-brothers-12501379",
+        "date": "2026-09-04"
+      }
+    ],
+    "SHOPERSTOP": [
+      {
+        "t": "Shoppers Stop surges 7.2% to fresh highs, sharpest single-session gain in weeks",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/shoppers-stop-ltd-hits-intraday-high-with-721-surge-on-25-sep-2026-4205042",
+        "date": "2026-09-25"
       }
     ]
   }
