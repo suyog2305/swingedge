@@ -41,7 +41,13 @@ SCREENER_COOKIE environment variable (both gitignored). Without it screener.in r
 its login page and this stops at step 1 with a clear message — nothing partial is written.
 The cookie expires; when it does the log says so, and somebody has to notice.
 """
-import argparse, atexit, datetime as dt, glob, io, json, os, subprocess, sys, time
+import argparse, atexit, datetime as dt, functools, glob, io, json, os, subprocess, sys, time
+
+# The scheduled task writes this program's output to a log file, and Python block-buffers stdout
+# when it is a file: on the first live poll run (25 Sep 2026) every "[HH:MM] not complete yet"
+# line sat in a buffer until the process ended, and the log showed a run silent for forty
+# minutes. Flush every line, and run the children unbuffered too.
+print = functools.partial(print, flush=True)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SHORTLIST = os.path.join(ROOT, 'data', 'daily', 'shortlist.json')
@@ -53,7 +59,7 @@ def run(step, cmd, dry):
     if dry:
         print('    (dry-run, not executed)')
         return True
-    env = {**os.environ, 'PYTHONIOENCODING': 'utf-8'}
+    env = {**os.environ, 'PYTHONIOENCODING': 'utf-8', 'PYTHONUNBUFFERED': '1'}
     p = subprocess.run(cmd, cwd=ROOT, env=env)
     ok = p.returncode == 0
     print(f'    -> {"ok" if ok else "FAILED (exit %d)" % p.returncode}')
@@ -112,6 +118,16 @@ def same_data_as_previous(merged_csv, date):
 # export; on the broad export alone the first two are checked.
 SENTINELS = (('DMA 200', 'dma200', '200-DMA'), ('Return over 3months', 'r3m', '3-month return'), ('Volume', 'volume', 'volume'))
 
+# How many names may still carry yesterday's value before the export counts as stale. screener
+# refreshes a close NAME BY NAME over roughly half an hour, not all at once: on 25 Sep 2026 the
+# 200-DMA was unchanged on 100% of names at 16:24, 97% at 16:34 and 73% at 16:44. The first
+# version of this guard asked only "more than 95% unchanged?", so the 16:44 pull passed and a
+# scan with yesterday's averages on three names in four was built and pushed; its trend-template
+# count read 83 against 388 the day before. On a genuinely complete close the unchanged share
+# measured across every good day pair on file is at most a few percent (200-DMA 2.1%, 3-month
+# return 3.9%, volume 0.5%), so 10% separates the two states with room on both sides.
+STUCK_LIMIT = 0.10
+
 
 def stale_partial_refresh(csv_path, date):
     """screener.in refreshes its fields in STAGES after the close: prices, day/week returns and the
@@ -119,8 +135,9 @@ def stale_partial_refresh(csv_path, date):
     A pull in between captures today prices against YESTERDAY averages, so every "200-DMA rising"
     check fails and the trend template empties. Seen 11 Sep 2026 at 15:40: prices changed on 98.8%
     of names; dma200 unchanged on 99.9%, 3-month returns and volume on 100%; template passes
-    388 -> 1. Compare the export with the newest scan of a different date and call it stale if
-    prices moved on more than half the names while ANY sentinel column stayed put on nearly all."""
+    388 -> 1. Compare the export with the newest scan before this date and call it stale if
+    prices moved on more than half the names while ANY sentinel column stayed put on more than
+    STUCK_LIMIT of them - see that constant for why the limit is where it is."""
     import csv, glob
     try:
         rows = list(csv.reader(io.open(csv_path, encoding='utf-8-sig', newline='')))
@@ -155,7 +172,7 @@ def stale_partial_refresh(csv_path, date):
     same = {}
     for i, field, label in sent:
         same[label] = sum(1 for c in common if f(today[c][i]) is not None and f(today[c][i]) == f(old[c].get(field))) / len(common)
-    stuck = [label for label, frac in same.items() if frac > 0.95]
+    stuck = [label for label, frac in same.items() if frac > STUCK_LIMIT]
     return (price_changed > 0.5 and bool(stuck)), dict(price_changed=price_changed, sentinels=same, stuck=stuck,
                                                         dma_same=same.get('200-DMA'), prev=prev.get('date'), n=len(common))
 
@@ -289,6 +306,43 @@ def acquire_lock():
     return True
 
 
+def scan_is_complete(path, date):
+    """A scan that should count as already built: parseable, a broad universe, and its sentinel
+    fields moved against the newest earlier scan on all but a few names. Two things this refuses:
+    a file truncated by a run killed mid-write, and a scan built from a half-refreshed export
+    (25 Sep 2026, before STUCK_LIMIT was tightened). Either would otherwise be protected by the
+    "already built" exit and the day's real close would never be pulled. Returns (ok, why)."""
+    try:
+        d = json.load(io.open(path, encoding='utf-8'))
+    except Exception as e:
+        return False, f'not readable as JSON ({type(e).__name__}) - a run was probably killed mid-write'
+    U = [r for r in (d.get('universe') or []) if r.get('code')]
+    if len(U) < 500:
+        return False, f'only {len(U)} names in the universe'
+    prev = None
+    for q in sorted(glob.glob(os.path.join(ROOT, 'data', 'scans', '20*.json')), reverse=True):
+        try:
+            pd = json.load(io.open(q, encoding='utf-8'))
+        except Exception:
+            continue
+        if (pd.get('date') or '') < date and len(pd.get('universe') or []) >= 500:
+            prev = pd; break
+    if not prev:
+        return True, 'no earlier scan to compare with'
+    old = {r['code'].upper(): r for r in prev['universe'] if r.get('code')}
+    common = [r for r in U if r['code'].upper() in old]
+    if len(common) < 200:
+        return True, 'too few names in common with the earlier scan to judge'
+    stuck = []
+    for _, field, label in SENTINELS:
+        same = sum(1 for r in common if r.get(field) is not None and r.get(field) == old[r['code'].upper()].get(field)) / len(common)
+        if same > STUCK_LIMIT:
+            stuck.append(f'{label} unchanged on {same:.0%}')
+    if stuck:
+        return False, f"half-refreshed against the {prev.get('date')} scan: " + ', '.join(stuck)
+    return True, 'complete'
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--date', help='scan date (default: today)')
@@ -314,10 +368,14 @@ def main():
         return 3
     scan_path = os.path.join(ROOT, 'data', 'scans', f'{date}.json')
     if os.path.exists(scan_path) and not a.skip_fetch and not a.force:
-        print(f'SwingEdge EOD refresh — {date} is already built ({os.path.relpath(scan_path, ROOT)}). Nothing to do.')
-        print('    This is the second trigger of the day, or a run after the first one succeeded. '
-              'Pass --force to pull again and rebuild, or --skip-fetch to rebuild from the export on disk.')
-        return 0
+        complete, why = scan_is_complete(scan_path, date)
+        if complete:
+            print(f'SwingEdge EOD refresh — {date} is already built ({os.path.relpath(scan_path, ROOT)}). Nothing to do.')
+            print('    This is the second trigger of the day, or a run after the first one succeeded. '
+                  'Pass --force to pull again and rebuild, or --skip-fetch to rebuild from the export on disk.')
+            return 0
+        print(f'SwingEdge EOD refresh — {os.path.relpath(scan_path, ROOT)} exists but does not count as built: {why}.')
+        print('    Pulling again and rebuilding it.')
     if not a.dry_run and not acquire_lock():
         return 4
     py = sys.executable
