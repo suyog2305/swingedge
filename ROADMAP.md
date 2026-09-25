@@ -1,7 +1,7 @@
 # Roadmap
 
 What's built, what's blocked, and what's next — in dependency order rather than wish order.
-Status as of **2026-09-24**.
+Status as of **2026-09-25**.
 
 ---
 
@@ -426,6 +426,45 @@ data loss. Fix: `WakeToRun` is now **on** (confirmed the user's PC sleeps rather
 night, so this is the correct lever — it would not help a fully powered-off machine). Everything
 else on the task — `StartWhenAvailable`, battery behaviour — was read and only `WakeToRun` was
 flipped, to avoid resetting settings tuned earlier.
+
+### 2026-09-25 — the run moves to 15:50 and polls; screener's refresh is measured for the first time
+
+The user asked for the daily update at 15:50. A bare 15:50 trigger would have failed every day,
+for the reason the run had been moved to 20:00 on 11 Sep: screener refreshes a close in stages.
+So `eod.py` now takes `--wait-until HH:MM --poll N`: it pulls the broad export, checks three
+sentinel columns (200-DMA, 3-month return, volume) against the previous scan, and if any has not
+moved it sleeps and pulls again — until the close is complete, the deadline passes, or the
+session changes underneath it (the date is re-derived before every poll). The task fires at
+**15:50** with a **20:00** safety trigger, wakes a sleeping PC for both, and its execution limit
+went from one hour to six — the old limit would have killed the loop. A lock in `.secrets/`
+stops a manual run colliding with a scheduled one; a scan already on disk exits in a second.
+
+**The first live run exposed a flaw in the guard and produced a bad scan.** Screener does not
+refresh all at once: it refreshes *name by name* over roughly forty minutes. Measured today, the
+200-DMA was unchanged on 100% of names at 16:24, 97% at 16:34, **73% at 16:44**, 64% at 16:49,
+45% at 16:59, 31% at 17:09 and under 10% by 17:19. The guard's threshold — stale only if more
+than 95% of names were unchanged — was set for the single snapshot seen on 11 Sep (99.9%), so
+the 16:44 pull passed with three names in four still carrying yesterday's averages, and that
+scan was built and pushed. Its trend-template count read **83 against 388** the day before. It
+was live for about 35 minutes.
+
+Fixed from evidence rather than by feel. Across all nine known-good day pairs on file a complete
+close leaves at most **2.1%** (200-DMA), **3.9%** (3-month return) and **0.5%** (volume) of names
+unchanged; the stale states measured 73–100%. `STUCK_LIMIT = 0.10` sits between with room on
+both sides, and was verified against every export on disk: the 16:44 pull reads stale, the four
+known-good ones read fresh. And "already built" now means *complete* by the same test
+(`scan_is_complete`): a half-refreshed scan, or a file truncated by a killed run, is rebuilt by
+the next trigger instead of protected. That path repaired today's scan — the rebuild recognised
+the bad one, polled until 17:19, and pushed a scan that reads 1.7% / 3.8% / 0.3% unchanged with
+395 passes. The log also streams in real time now; Python had been block-buffering the poll
+messages for the whole wait.
+
+**What 15:50 actually delivers, and why.** The trigger fires at 15:50, but screener's close is
+not complete until about 17:15 on the evidence of the one day measured, so the app updates
+around 17:20. That is the earliest an honest close can be had; a pull at 15:50 that skipped the
+wait would show today's prices against yesterday's averages, which is worse than yesterday's data.
+One day is one day: if the completion time drifts, the log now shows every poll with its
+fractions, and the deadline is 21:00.
 
 ---
 
