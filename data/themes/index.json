@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24",
+  "updated": "2026-09-25",
   "trackers": [
     {
       "id": "oil-fcl",
@@ -7,8 +7,8 @@
       "title": "Texas crude and Fineotex",
       "file": "oil-fcl.json",
       "stock": "FCL",
-      "updated": "2026-09-24",
-      "newest": "2026-09-24",
+      "updated": "2026-09-25",
+      "newest": "2026-09-25",
       "audit": "fails",
       "errors": 0
     },
@@ -18,8 +18,8 @@
       "title": "Memory prices and GNG Electronics",
       "file": "memory-ebgng.json",
       "stock": "EBGNG",
-      "updated": "2026-09-24",
-      "newest": "2026-09-24",
+      "updated": "2026-09-25",
+      "newest": "2026-09-25",
       "audit": "partly",
       "errors": 0
     }
