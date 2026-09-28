@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25",
+  "updated": "2026-09-28",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -348,10 +348,10 @@
     ],
     "ANTELOPUS": [
       {
-        "t": "Antelopus Selan Energy shares surge 20% on winning two onshore DSF-IV blocks",
-        "src": "Trade Brains",
-        "url": "https://tradebrains.in/indian-markets/antelopus-selan-energy-shares-surge-20-on-winning-two-onshore-dsf-iv-blocks-12483700",
-        "date": "2026-09-01"
+        "t": "Antelopus Selan Energy surges 10.19% to fresh 52-week high amid heavy trading",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/antelopus-selan-energy-ltd-hits-intraday-high-with-1019-surge-on-25-sep-2026-4205125",
+        "date": "2026-09-25"
       }
     ],
     "STEELXIND": [
@@ -484,10 +484,10 @@
     ],
     "AHCL": [
       {
-        "t": "Anlon Healthcare sees exceptional volume surge amid strong price gains",
+        "t": "Anlon Healthcare locks 8.2% upper circuit, hits fresh 52-week high",
         "src": "MarketsMojo",
-        "url": "https://www.marketsmojo.com/news/stocks-in-action/anlon-healthcare-ltd-sees-exceptional-volume-surge-amidst-strong-price-gains-4200952",
-        "date": "2026-09-22"
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/anlon-healthcare-ltd-surges-to-upper-circuit-on-robust-buying-momentum-4205119",
+        "date": "2026-09-25"
       }
     ],
     "FINKURVE": [
@@ -1116,10 +1116,10 @@
     ],
     "SBC": [
       {
-        "t": "SBC Exports secures Rs 29.5 crore garment export orders from HUXXE & Gawgee Brothers",
-        "src": "Trade Brains",
-        "url": "https://tradebrains.in/indian-markets/sbc-exports-secures-295-crore-garment-orders-from-huxxe-gawgee-brothers-12501379",
-        "date": "2026-09-04"
+        "t": "SBC Exports hits fresh 52-week high of Rs 51, up over 130% in a year",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/sbc-exports-ltd-hits-new-52-week-high-of-rs51-on-25-sep-2026-4205050",
+        "date": "2026-09-25"
       }
     ],
     "SHOPERSTOP": [
@@ -1127,6 +1127,22 @@
         "t": "Shoppers Stop surges 7.2% to fresh highs, sharpest single-session gain in weeks",
         "src": "MarketsMojo",
         "url": "https://www.marketsmojo.com/news/stocks-in-action/shoppers-stop-ltd-hits-intraday-high-with-721-surge-on-25-sep-2026-4205042",
+        "date": "2026-09-25"
+      }
+    ],
+    "TGVSL": [
+      {
+        "t": "TGV Sraac shares upgraded to Buy by MarketsMOJO as technical momentum turns bullish",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/tgv-sraac-ltd-technical-momentum-shifts-signal-bullish-outlook-4206834",
+        "date": "2026-09-26"
+      }
+    ],
+    "AVADHSUGAR": [
+      {
+        "t": "Avadh Sugar & Energy locks 10% upper circuit on strong buying pressure",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/avadh-sugar-energy-ltd-hits-upper-circuit-amid-strong-buying-pressure-4205112",
         "date": "2026-09-25"
       }
     ]
