@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28",
+  "updated": "2026-09-29",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -1144,6 +1144,54 @@
         "src": "MarketsMojo",
         "url": "https://www.marketsmojo.com/news/stocks-in-action/avadh-sugar-energy-ltd-hits-upper-circuit-amid-strong-buying-pressure-4205112",
         "date": "2026-09-25"
+      }
+    ],
+    "RSYSTEMS": [
+      {
+        "t": "R Systems International rallies over 14% as board declares 2nd interim dividend of ₹8/share",
+        "src": "Upstox",
+        "url": "https://upstox.com/news/market-news/stocks/r-systems-international-rallies-over-14-as-board-declares-2nd-interim-dividend-what-investors-should-know/article-200991/",
+        "date": "2026-09-28"
+      }
+    ],
+    "AUGMONT": [
+      {
+        "t": "Augmont shares rise 23% in two days, hit record high on NSE EGR partnership",
+        "src": "Business Today",
+        "url": "https://www.businesstoday.in/markets/stocks/story/augmont-shares-rise-in-two-days-hit-record-high-heres-why-558502-2026-09-29",
+        "date": "2026-09-29"
+      }
+    ],
+    "3BBLACKBIO": [
+      {
+        "t": "3B Blackbio DX gains 10.29%: 4 key factors driving the weekly rally",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/3b-blackbio-dx-ltd-gains-1029-4-key-factors-driving-the-weekly-rally-4206227",
+        "date": "2026-09-26"
+      }
+    ],
+    "SDBL": [
+      {
+        "t": "Som Distilleries jumps after MP High Court orders renewal of excise licences",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/capital-market-news/som-distilleries-jumps-after-mp-high-court-orders-renewal-of-excise-licences-126092800253_1.html",
+        "date": "2026-09-28"
+      }
+    ],
+    "MPIMANIPAL": [
+      {
+        "t": "Recently listed Manipal Payment zooms 20% on bounce-back from listing-day low",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/amp/markets/news/recently-listed-manipal-payment-zooms-20-asset-reconstruction-soars-10-126092300702_1.html",
+        "date": "2026-09-23"
+      }
+    ],
+    "INDOBORAX": [
+      {
+        "t": "Indo Borax & Chemicals secures ₹225 crore funding for Kronox Lab Sciences acquisition",
+        "src": "Free Press Journal",
+        "url": "https://www.freepressjournal.in/business/indo-borax-chemicals-secures-225-crore-funding-for-kronox-lab-sciences-acquisition",
+        "date": "2026-09-24"
       }
     ]
   }
