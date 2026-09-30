@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29",
+  "updated": "2026-09-30",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -284,10 +284,10 @@
     ],
     "SYNCOMF": [
       {
-        "t": "Syncom Formulations consolidated net profit rises 57.78% in June 2026 quarter",
-        "src": "Business Standard",
-        "url": "https://www.business-standard.com/markets/capital-market-news/syncom-formulations-india-consolidated-net-profit-rises-57-78-in-the-june-2026-quarter-126081200296_1.html",
-        "date": "2026-08-12"
+        "t": "Syncom Formulations among top trending stocks after sharp rally to 52-week highs",
+        "src": "HDFC Sky",
+        "url": "https://hdfcsky.com/news/trending-stocks-today-september-29-2026-vodafone-idea-pc-jeweller-syncom-formulations-hero-motors-in-focus",
+        "date": "2026-09-29"
       }
     ],
     "FMGOETZE": [
@@ -684,10 +684,10 @@
     ],
     "AXISCADES": [
       {
-        "t": "AXISCADES Technologies hits 10% upper circuit on aerospace/defence pivot and sector rally",
-        "src": "TradeBrains",
-        "url": "https://tradebrains.in/indian-markets/axiscade-technologies-shares-hit-10-upper-circuit-here-are-5-reasons-behind-the-rally-12544887",
-        "date": "2026-09-17"
+        "t": "AXISCADES Technologies hits 10% upper circuit on Rs 741-crore block deal in defence arm",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/axiscades-tech-shares-hit-10-upper-circuit-on-block-deal-in-defence-firm-126092900424_1.html",
+        "date": "2026-09-29"
       }
     ],
     "RIR": [
@@ -804,10 +804,10 @@
     ],
     "RAMBHAJO": [
       {
-        "t": "Advit Jewels hits fresh all-time high of Rs 300 after three-day rally",
+        "t": "Advit Jewels surges 9.25% to fresh high, extending strong momentum",
         "src": "MarketsMojo",
-        "url": "https://www.marketsmojo.com/news/stocks-in-action/advit-jewels-ltd-hits-new-52-week-high-of-rs300-on-21-sep-2026-4199470",
-        "date": "2026-09-21"
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/advit-jewels-ltd-hits-intraday-high-with-925-surge-on-29-sep-2026-4208712",
+        "date": "2026-09-29"
       }
     ],
     "CMRGREEN": [
@@ -1052,10 +1052,10 @@
     ],
     "DELTACORP": [
       {
-        "t": "Delta Corp surges 7.35% intraday, outperforms leisure sector on exceptional volume",
+        "t": "Delta Corp sees exceptional volume surge amid strong price gains",
         "src": "MarketsMojo",
-        "url": "https://www.marketsmojo.com/news/stocks-in-action/delta-corp-ltd-hits-intraday-high-with-735-surge-on-23-sep-2026-4202609",
-        "date": "2026-09-23"
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/delta-corp-ltd-sees-exceptional-volume-surge-amid-strong-price-gains-4209988",
+        "date": "2026-09-29"
       }
     ],
     "MUKANDLTD": [
@@ -1192,6 +1192,62 @@
         "src": "Free Press Journal",
         "url": "https://www.freepressjournal.in/business/indo-borax-chemicals-secures-225-crore-funding-for-kronox-lab-sciences-acquisition",
         "date": "2026-09-24"
+      }
+    ],
+    "DPABHUSHAN": [
+      {
+        "t": "D.P. Abhushan shares surge 7.5% to fresh high, extending sharp September rally",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/dp-abhushan-ltd-hits-intraday-high-with-748-surge-on-30-sep-2026-4210243",
+        "date": "2026-09-30"
+      }
+    ],
+    "PASHUPATI": [
+      {
+        "t": "Pashupati Cotspin board to consider bonus share issue on October 3",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/capital-market-news/pashupati-cotspin-board-to-mull-bonus-share-issue-on-oct-03-126092900483_1.html",
+        "date": "2026-09-29"
+      }
+    ],
+    "KIRLOSENG": [
+      {
+        "t": "Kirloskar Oil Engines surges 8.3% to fresh high amid strong volumes",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/kirloskar-oil-engines-ltd-hits-intraday-high-with-826-surge-on-29-sep-2026-4208776",
+        "date": "2026-09-29"
+      }
+    ],
+    "PRASOLCHEM": [
+      {
+        "t": "Prasol Chemicals surges 10% as Q1 FY27 standalone profit jumps 150.7% YoY",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/capital-market-news/prasol-chemicals-standalone-net-profit-rises-150-70-in-the-june-2026-quarter-126092900153_1.html",
+        "date": "2026-09-29"
+      }
+    ],
+    "TCIEXP": [
+      {
+        "t": "TCI Express rallies 20% amid heavy block-deal trading buzz",
+        "src": "Upstox",
+        "url": "https://upstox.com/news/market-news/stocks/axiscade-shares-hit-10-upper-circuit-tci-express-stock-rallies-20-amid-block-deal-buzz/article-201043/",
+        "date": "2026-09-29"
+      }
+    ],
+    "CUPID": [
+      {
+        "t": "Cupid shares surge 17% in two days to record high on Nifty Smallcap 250 entry",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/amp/markets/news/cupid-shares-surge-17-in-2-days-to-record-high-what-s-behind-sharp-rise-126093000347_1.html",
+        "date": "2026-09-30"
+      }
+    ],
+    "SYMBIOTEC": [
+      {
+        "t": "Symbiotec Pharmalab surges after Pithampur facility gets EIR from US FDA",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/capital-market-news/symbiotec-pharmalab-surges-after-pithampur-facility-gets-eir-from-us-fda-126092900355_1.html",
+        "date": "2026-09-29"
       }
     ]
   }
