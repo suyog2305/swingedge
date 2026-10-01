@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30",
+  "updated": "2026-10-01",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -684,9 +684,9 @@
     ],
     "AXISCADES": [
       {
-        "t": "AXISCADES Technologies hits 10% upper circuit on Rs 741-crore block deal in defence arm",
-        "src": "Business Standard",
-        "url": "https://www.business-standard.com/markets/news/axiscades-tech-shares-hit-10-upper-circuit-on-block-deal-in-defence-firm-126092900424_1.html",
+        "t": "Axiscades Technologies jumps 10% following large block deal",
+        "src": "Whalesbook",
+        "url": "https://www.whalesbook.com/news/English/aerospace-defense/Axiscades-Technologies-Jumps-10percent-Following-Large-Block-Deal/6abb5fab5aacb956d0841f67",
         "date": "2026-09-29"
       }
     ],
@@ -1092,10 +1092,10 @@
     ],
     "HEROMOTORS": [
       {
-        "t": "Hero Motors shares hit 20% upper circuit for second day after discounted IPO debut",
-        "src": "Upstox",
-        "url": "https://upstox.com/news/market-news/stocks/hero-motors-shares-rally-20-to-hit-upper-circuit-for-second-day-post-listing-what-investors-should-know/article-200813/",
-        "date": "2026-09-24"
+        "t": "Hero Motors hits new high; stock up 99% against issue price in 7 days",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/hero-motors-hits-new-high-stock-up-99-against-issue-price-in-7-days-126100100345_1.html",
+        "date": "2026-10-01"
       }
     ],
     "UTTAMSUGAR": [
@@ -1236,9 +1236,9 @@
     ],
     "CUPID": [
       {
-        "t": "Cupid shares surge 17% in two days to record high on Nifty Smallcap 250 entry",
+        "t": "Cupid shares surge 17% in 2 days to record high on Nifty Smallcap 250 inclusion buzz",
         "src": "Business Standard",
-        "url": "https://www.business-standard.com/amp/markets/news/cupid-shares-surge-17-in-2-days-to-record-high-what-s-behind-sharp-rise-126093000347_1.html",
+        "url": "https://business-standard.com/amp/markets/news/cupid-shares-surge-17-in-2-days-to-record-high-what-s-behind-sharp-rise-126093000347_1.html",
         "date": "2026-09-30"
       }
     ],
@@ -1248,6 +1248,86 @@
         "src": "Business Standard",
         "url": "https://www.business-standard.com/markets/capital-market-news/symbiotec-pharmalab-surges-after-pithampur-facility-gets-eir-from-us-fda-126092900355_1.html",
         "date": "2026-09-29"
+      }
+    ],
+    "ALICON": [
+      {
+        "t": "Alicon Castalloy shares hit 20% upper circuit amid robust buying pressure",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/alicon-castalloy-ltd-surges-20-to-hit-upper-circuit-amid-robust-buying-pressure-4210166",
+        "date": "2026-09-29"
+      }
+    ],
+    "ESTER": [
+      {
+        "t": "Ester Industries shares hit 20% upper circuit amid strong buying pressure",
+        "src": "MarketsMojo",
+        "url": "https://marketsmojo.com/news/stocks-in-action/ester-industries-ltd-surges-20-to-hit-upper-circuit-amid-strong-buying-pressure-4209652",
+        "date": "2026-09-30"
+      }
+    ],
+    "IRCON": [
+      {
+        "t": "Ircon International shares jump ~14% on heavy trading volume",
+        "src": "Whalesbook",
+        "url": "https://www.whalesbook.com/news/Hinglish/railway/IRCON-International-Jumps-14percent-on-Heavy-Trading-Volume/6abcd23a5aacb956d086117b",
+        "date": "2026-09-30"
+      }
+    ],
+    "VALIANTORG": [
+      {
+        "t": "Valiant Organics FY26: margins rebound as product mix stabilizes",
+        "src": "Multibagg",
+        "url": "https://www.multibagg.ai/market-pulse/articles/valiant-fy26-1918457458",
+        "date": "2026-09-30"
+      }
+    ],
+    "LGHL": [
+      {
+        "t": "Laxmi Goldorna House sees mixed technical signals amid price momentum shift",
+        "src": "MarketsMojo",
+        "url": "https://marketsmojo.com/news/stocks-in-action/laxmi-goldorna-house-ltd-sees-mixed-technical-signals-amid-price-momentum-shift-4210497",
+        "date": "2026-09-30"
+      }
+    ],
+    "HUBTOWN": [
+      {
+        "t": "Hubtown shares surge 8.42% to day's high, outperform realty sector",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/hubtown-ltd-hits-intraday-high-with-842-surge-on-30-sep-2026-4210120",
+        "date": "2026-09-30"
+      }
+    ],
+    "SUNTV": [
+      {
+        "t": "Sun TV zooms 20%, sharpest intraday rally in 9 years; up 45% in 7 days",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/sun-tv-zooms-20-sees-sharpest-intraday-rally-in-9-years-up-45-in-7-days-126093000512_1.html",
+        "date": "2026-09-30"
+      }
+    ],
+    "RITES": [
+      {
+        "t": "RITES surges 10.24% to day's high, outperforms railways sector",
+        "src": "MarketsMojo",
+        "url": "https://marketsmojo.com/news/stocks-in-action/rites-ltd-hits-intraday-high-with-1024-surge-on-30-sep-2026-4210071",
+        "date": "2026-09-30"
+      }
+    ],
+    "BHAGERIA": [
+      {
+        "t": "Bhageria Industries hits fresh all-time high of Rs 424.7 on Oct 1, 2026",
+        "src": "MarketsMojo",
+        "url": "https://marketsmojo.com/news/stocks-in-action/bhageria-industries-ltd-hits-new-52-week-high-at-rs4247-4210750",
+        "date": "2026-10-01"
+      }
+    ],
+    "THELEELA": [
+      {
+        "t": "Leela Palaces Hotels & Resorts locks upper circuit at 9.7% on robust buying",
+        "src": "MarketsMojo",
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/leela-palaces-hotels-resorts-ltd-surges-to-upper-circuit-on-robust-buying-pressure-4210118",
+        "date": "2026-09-30"
       }
     ]
   }
