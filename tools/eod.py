@@ -43,7 +43,7 @@ SCREENER_COOKIE environment variable (both gitignored). Without it screener.in r
 its login page and this stops at step 1 with a clear message — nothing partial is written.
 The cookie expires; when it does the log says so, and somebody has to notice.
 """
-import argparse, atexit, datetime as dt, functools, glob, io, json, os, subprocess, sys, time
+import argparse, atexit, datetime as dt, functools, glob, io, json, os, subprocess, sys, time, urllib.request
 
 # The scheduled task writes this program's output to a log file, and Python block-buffers stdout
 # when it is a file: on the first live poll run (25 Sep 2026) every "[HH:MM] not complete yet"
@@ -78,12 +78,28 @@ def snapshot():
         return None, []
 
 
+# How many of the names priced on both sides must carry an identical price for an export to count
+# as the close already on file. The two states are far apart: across the 17 consecutive trading-day
+# pairs on file (21 Aug - 1 Oct 2026) between 0.45% and 1.15% of prices repeated, and on the
+# holiday of 2 Oct 2026 all 1,568 did. The first version of this guard asked for EVERY shared
+# name to match and treated a name with no price on either side as a mismatch; four such names
+# (ACEVECTOR, GERMAN, ORIENTCABL, RUNWALENTR) made that holiday look like a trading day, and the
+# 1 Oct close was built a second time as 2026-10-02.json. Names without a price on both sides
+# are now left out of the comparison, and the bar is a share, not unanimity, so one adjusted
+# price (a split applied over a weekend) cannot defeat it either.
+SAME_CLOSE_LIMIT = 0.90
+SAME_DETAIL = {}   # the counts behind the last verdict of same_data_as_previous(), for its message
+
+
 def same_data_as_previous(merged_csv, date):
     """Non-trading-day guard. screener serves the last close on weekends and holidays, so a
     pull on such a day reproduces yesterday's prices under today's date and quietly pads the
-    archive with duplicates. Compare the merged export against the newest scan carrying a
-    date strictly BEFORE this one; if every shared price matches, there is nothing new."""
+    archive with duplicates. Compare the export against the newest scan carrying a date
+    strictly BEFORE this one; if at least SAME_CLOSE_LIMIT of the names priced on both sides
+    carry the identical price, there is nothing new. Returns (same, names compared, date of
+    that scan); SAME_DETAIL holds the counts behind the last verdict for the message."""
     import csv, glob
+    SAME_DETAIL.clear()
     try:
         rows = list(csv.reader(io.open(merged_csv, encoding='utf-8-sig', newline='')))
     except OSError:
@@ -104,15 +120,18 @@ def same_data_as_previous(merged_csv, date):
     if not prev:
         return False, 0, None
     old = {r['code'].upper(): r.get('price') for r in prev['universe'] if r.get('code')}
-    common = [c for c in today if c in old]
-    if len(common) < 200:
-        return False, len(common), prev.get('date')
 
-    def same(a, b):
-        try: return abs(float(a) - float(b)) < 1e-6
-        except (TypeError, ValueError): return False
-    matches = sum(1 for c in common if same(today[c], old[c]))
-    return matches == len(common), len(common), prev.get('date')
+    def num(v):
+        try: return float(v)
+        except (TypeError, ValueError): return None
+    common = [c for c in today if c in old]
+    priced = [c for c in common if num(today[c]) is not None and num(old[c]) is not None]
+    if len(priced) < 200:
+        return False, len(priced), prev.get('date')
+    matches = sum(1 for c in priced if abs(num(today[c]) - num(old[c])) < 1e-6)
+    SAME_DETAIL.update(shared=len(common), priced=len(priced), matches=matches,
+                       unpriced=sum(1 for c in common if num(today[c]) is None and num(old[c]) is None))
+    return matches / len(priced) >= SAME_CLOSE_LIMIT, len(priced), prev.get('date')
 
 
 # The columns screener refreshes LAST, and the scan field each maps to. If prices have moved but
@@ -233,8 +252,10 @@ def default_scan_date(now=None):
     the open screener still serves the previous session's fully refreshed close; dating that
     "today" wrote 17 Sep 2026's close as 2026-09-18 at 08:05, and the true 17 Sep close was lost
     when the 20:00 run rebuilt the file. While the market is open the prices are live and partial,
-    and no date is right. Holidays need no calendar here: the same-data guard sees screener still
-    serving the last close and writes nothing. Times are local; this machine runs on IST."""
+    and no date is right. This function knows weekends, not exchange holidays: a holiday whose
+    previous close is already on file is caught by the same-data guard (identical prices, nothing
+    written); a holiday whose previous close was MISSED is caught by resolve_session() below.
+    Times are local; this machine runs on IST."""
     now = now or dt.datetime.now()
     d, t = now.date(), now.time()
 
@@ -248,6 +269,49 @@ def default_scan_date(now=None):
     if t < dt.time(15, 40):
         return None
     return d.isoformat()
+
+
+def last_nse_session():
+    """The date of the last NSE trading session, YYYY-MM-DD, or None if it cannot be had: the
+    time of the Nifty 50's last regular-market trade on Yahoo's chart endpoint, read in IST.
+    Standard library only - the scheduled task runs this."""
+    try:
+        req = urllib.request.Request('https://query1.finance.yahoo.com/v8/finance/chart/%5ENSEI?range=5d&interval=1d',
+                                     headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+                                                            '(KHTML, like Gecko) Chrome/126.0 Safari/537.36', 'Accept': '*/*'})
+        with urllib.request.urlopen(req, timeout=25) as r:
+            meta = json.load(r)['chart']['result'][0]['meta']
+        ist = dt.timezone(dt.timedelta(hours=5, minutes=30))
+        return dt.datetime.fromtimestamp(int(meta['regularMarketTime']), ist).date().isoformat()
+    except Exception:
+        return None
+
+
+def resolve_session(date, oracle, have=None):
+    """(the date to label the scan with, a note or None).
+
+    screener's export carries no date: it is whatever close screener is serving. On an exchange
+    holiday that is the previous session's close. If that session is already on file, nothing
+    needs deciding here - the same-data guard will find identical prices and write nothing. But
+    if that session was MISSED, the prices differ from the last scan on file, every guard passes,
+    and the close is written under the holiday's date. That happened on Fri 2 Oct 2026 (Gandhi
+    Jayanti): both of Thursday's runs were slept through, and Thursday's close was published as
+    2026-10-02.json.
+
+    So: when the exchange's last session (`oracle`) is earlier than the date about to be used AND
+    there is no complete scan for that session, use the session's own date. In every other case
+    the date stands, so a stale or unreachable oracle can never suppress a genuine close - at
+    worst it fails to correct a label, which is the behaviour this replaces."""
+    if not oracle or oracle >= date:
+        return date, None
+    if have is None:
+        path = os.path.join(ROOT, 'data', 'scans', f'{oracle}.json')
+        have = lambda _d: os.path.exists(path) and scan_is_complete(path, oracle)[0]
+    if have(oracle):
+        return date, None
+    return oracle, (f'The {oracle} close. Pulled on {dt.date.today().isoformat()}: NSE had not traded since {oracle} '
+                    f'(the Nifty 50\'s last trade, per Yahoo), so {date} was not a trading day, and no complete scan '
+                    f'for {oracle} was on file. Dated by the session, not the calendar.')
 
 
 def newest_stage2_file(date):
@@ -363,11 +427,21 @@ def main():
 
     date = a.date or default_scan_date()
     if date is None:
-        print('SwingEdge EOD refresh — the market is open')
-        print('    screener is serving live, partial prices, so a scan built now would be neither '
-              "yesterday's close nor today's. Nothing fetched, nothing written. Run after 15:40 IST, "
-              'or pass --date YYYY-MM-DD to override.')
+        print('SwingEdge EOD refresh — the market is open (or today is an exchange holiday)')
+        print('    If it is open, screener is serving live, partial prices, and a scan built now would be neither '
+              "yesterday's close nor today's. If it is a holiday, the 15:50 run settles it. Nothing fetched, "
+              'nothing written. Run after 15:40 IST, or pass --date YYYY-MM-DD to override.')
         return 3
+    session_note = None
+    if not a.date:
+        oracle = last_nse_session()
+        date_cal = date
+        date, session_note = resolve_session(date, oracle)
+        if oracle is None:
+            print('    (the last NSE session could not be confirmed online; dating by the calendar)')
+        elif session_note:
+            print(f'SwingEdge EOD refresh — NSE last traded on {oracle}; {date_cal} was not a trading day, and '
+                  f'the {oracle} close is not on file. This run is dated {date}.')
     scan_path = os.path.join(ROOT, 'data', 'scans', f'{date}.json')
     if os.path.exists(scan_path) and not a.skip_fetch and not a.force:
         complete, why = scan_is_complete(scan_path, date)
@@ -444,9 +518,11 @@ def main():
     def non_trading(path):
         same, n, prev = same_data_as_previous(os.path.join(ROOT, path), date)
         if same:
+            det = SAME_DETAIL
+            extra = f" ({det['unpriced']} more carry no price on either side)" if det.get('unpriced') else ''
             print('\n--- no new data')
-            print(f'    all {n} shared prices match the {prev} scan exactly - screener is still serving '
-                  f'that close, so today is a non-trading day. Nothing written, nothing committed.')
+            print(f"    {det.get('matches', n)} of {n} prices are identical to the {prev} scan{extra} - screener is "
+                  f'still serving that close, so {date} was not a trading day. Nothing written, nothing committed.')
         return same
 
     if a.skip_fetch:
@@ -529,6 +605,20 @@ def main():
         ('rebuild the custom indices', [py, os.path.join('tools', 'build_indices.py'), '--quiet']),
     ]):
         return 1
+
+    if session_note and not a.dry_run:
+        # the scan says in its own words why its date differs from the day it was pulled
+        try:
+            from collections import OrderedDict
+            sc = json.load(io.open(scan_path, encoding='utf-8'), object_pairs_hook=OrderedDict)
+            out = OrderedDict()
+            for k, v in sc.items():
+                out[k] = v
+                if k == 'date':
+                    out['note'] = session_note
+            io.open(scan_path, 'w', encoding='utf-8').write(json.dumps(out, ensure_ascii=False, separators=(',', ':')))
+        except Exception as e:
+            print(f'    (could not stamp the session note on the scan: {type(e).__name__}: {e})')
 
     # ---- theme trackers: the outside driver next to the stock ------------------------------
     # Crude prices, Texas and Permian output, rigs and completions, next to the share price they
