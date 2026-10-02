@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01",
+  "updated": "2026-10-02",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -372,10 +372,10 @@
     ],
     "MOLBIO": [
       {
-        "t": "Molbio Diagnostics hits 20% upper circuit on heavy volume; up 35% in two days",
+        "t": "Molbio Diagnostics gains 9% as Jefferies initiates coverage with Buy rating",
         "src": "Business Standard",
-        "url": "https://www.business-standard.com/markets/news/molbio-diagnostics-hits-20-upper-circuit-on-heavy-volume-up-35-in-2-days-126091000419_1.html",
-        "date": "2026-09-10"
+        "url": "https://www.business-standard.com/markets/news/molbio-gains-9-as-jefferies-assigns-buy-tag-on-innovation-led-model-126093000221_1.html",
+        "date": "2026-09-30"
       }
     ],
     "GREENPOWER": [
@@ -596,10 +596,10 @@
     ],
     "MOREPENLAB": [
       {
-        "t": "Morepen Labs zooms 112% in 6 weeks; stock hits multi-year high",
+        "t": "Morepen Labs hits new high on huge volume, stock up 191% in 4 months",
         "src": "Business Standard",
-        "url": "https://www.business-standard.com/markets/news/morepen-labs-zooms-112-in-6-weeks-stock-hits-multi-year-high-here-s-why-126090200678_1.html",
-        "date": "2026-09-02"
+        "url": "https://www.business-standard.com/amp/markets/news/morepen-labs-hits-new-high-on-huge-volume-stock-up-191-in-4-months-126100100727_1.html",
+        "date": "2026-10-01"
       }
     ],
     "PATANJALI": [
@@ -716,10 +716,10 @@
     ],
     "KANOHAR": [
       {
-        "t": "Kanohar Electricals zooms 18% intraday, up 40% from IPO issue price in two days",
-        "src": "Business Standard",
-        "url": "https://www.business-standard.com/markets/news/kanohar-glass-wall-systems-zoom-18-up-40-against-issue-price-in-2-days-126091700583_1.html",
-        "date": "2026-09-17"
+        "t": "Kanohar Electricals gets large PSU order for 400kV power transformers",
+        "src": "HDFC Sky",
+        "url": "https://hdfcsky.com/news/kanohar-electricals-gets-psu-order-shares-rise-0-23percent",
+        "date": "2026-09-30"
       }
     ],
     "TIMEX": [
@@ -1092,7 +1092,7 @@
     ],
     "HEROMOTORS": [
       {
-        "t": "Hero Motors hits new high; stock up 99% against issue price in 7 days",
+        "t": "Hero Motors hits new high, up 99% against IPO issue price in 7 trading days",
         "src": "Business Standard",
         "url": "https://www.business-standard.com/markets/news/hero-motors-hits-new-high-stock-up-99-against-issue-price-in-7-days-126100100345_1.html",
         "date": "2026-10-01"
@@ -1156,10 +1156,10 @@
     ],
     "AUGMONT": [
       {
-        "t": "Augmont shares rise 23% in two days, hit record high on NSE EGR partnership",
-        "src": "Business Today",
-        "url": "https://www.businesstoday.in/markets/stocks/story/augmont-shares-rise-in-two-days-hit-record-high-heres-why-558502-2026-09-29",
-        "date": "2026-09-29"
+        "t": "Augmont Enterprises shares rally 10% as NSE empanels it for EGR ecosystem",
+        "src": "Inkl",
+        "url": "https://www.inkl.com/news/augmont-enterprises-shares-rally-10-as-nse-empanels-company-for-egr-ecosystem",
+        "date": "2026-10-01"
       }
     ],
     "3BBLACKBIO": [
@@ -1286,8 +1286,8 @@
       {
         "t": "Laxmi Goldorna House sees mixed technical signals amid price momentum shift",
         "src": "MarketsMojo",
-        "url": "https://marketsmojo.com/news/stocks-in-action/laxmi-goldorna-house-ltd-sees-mixed-technical-signals-amid-price-momentum-shift-4210497",
-        "date": "2026-09-30"
+        "url": "https://www.marketsmojo.com/news/stocks-in-action/laxmi-goldorna-house-ltd-sees-mixed-technical-signals-amid-price-momentum-shift-4210497",
+        "date": "2026-10-01"
       }
     ],
     "HUBTOWN": [
@@ -1328,6 +1328,62 @@
         "src": "MarketsMojo",
         "url": "https://www.marketsmojo.com/news/stocks-in-action/leela-palaces-hotels-resorts-ltd-surges-to-upper-circuit-on-robust-buying-pressure-4210118",
         "date": "2026-09-30"
+      }
+    ],
+    "GKSL": [
+      {
+        "t": "Gujarat Kidney & Super Speciality hits all-time high of Rs 199.21 on record volume",
+        "src": "MarketsMojo",
+        "url": "https://marketsmojo.com/news/stocks-in-action/gujarat-kidney-super-speciality-ltd-stock-hits-all-time-high-at-rs19910-4210698",
+        "date": "2026-10-01"
+      }
+    ],
+    "OMNI": [
+      {
+        "t": "Omnitech Engineering surges 7.2% to day's high of Rs 565 on strong volume",
+        "src": "MarketsMojo",
+        "url": "https://marketsmojo.com/news/stocks-in-action/omnitech-engineering-ltd-hits-intraday-high-with-723-surge-on-29-sep-2026-4208820",
+        "date": "2026-09-29"
+      }
+    ],
+    "MTNL": [
+      {
+        "t": "MTNL shares zoom 17% as board approves Rs 891-crore Powai land sale to I-T dept",
+        "src": "Upstox",
+        "url": "https://upstox.com/news/market-news/stocks/mtnl-shares-zoom-over-17-as-board-approves-sale-of-powai-property-to-income-tax-department/article-201194/",
+        "date": "2026-10-01"
+      }
+    ],
+    "ELEVATE": [
+      {
+        "t": "Elevate Campuses shares list at 2% discount to IPO price in tepid debut",
+        "src": "Business Standard",
+        "url": "https://www.business-standard.com/markets/news/elevate-campuses-shares-off-to-a-tepid-start-list-at-2-discount-to-ipo-price-126093000229_1.html",
+        "date": "2026-09-30"
+      }
+    ],
+    "ATLANTAELE": [
+      {
+        "t": "Atlanta Electricals surges 7.2% to day's high of Rs 1735, outperforms sector",
+        "src": "MarketsMojo",
+        "url": "https://marketsmojo.com/news/stocks-in-action/atlanta-electricals-ltd-hits-intraday-high-with-721-surge-on-1-oct-2026-4211650",
+        "date": "2026-10-01"
+      }
+    ],
+    "RAMRAT": [
+      {
+        "t": "Ram Ratna Wires hits fresh all-time high of Rs 617.25 on broad momentum",
+        "src": "MarketsMojo",
+        "url": "https://marketsmojo.com/news/stocks-in-action/ram-ratna-wires-ltd-stock-hits-all-time-high-at-rs61725-4211505",
+        "date": "2026-10-01"
+      }
+    ],
+    "DIFFNKG": [
+      {
+        "t": "Diffusion Engineers shows bullish momentum amid technical rating upgrades",
+        "src": "MarketsMojo",
+        "url": "https://marketsmojo.com/news/stocks-in-action/diffusion-engineers-ltd-shows-bullish-momentum-amid-technical-upgrades-4207738",
+        "date": "2026-09-26"
       }
     ]
   }
