@@ -1,0 +1,48 @@
+{
+  "schema": "swingedge-indices/1",
+  "_comment": "Custom sub-sector indices, equal-weight and chain-linked from the daily scans by tools/build_indices.py (run by the daily pull; output data/indices/series.json, read by the Indices page). Add one: python tools/build_indices.py add --id cnc --name 'CNC Machines' --codes JYOTICNC,MACPOWER,LMW -- or edit this file. Codes are NSE codes exactly as they appear in data/scans/. Remove a name by deleting it; the series rebuilds from history on the next run.",
+  "indices": [
+    {
+      "id": "aidc",
+      "name": "AI Data Centre",
+      "group": "Technology",
+      "note": "The build-out chain for AI compute in India: optical fibre, power systems, servers, GPU cloud, networking, DC real estate and EPC.",
+      "codes": ["MTARTECH", "STLTECH", "HFCL", "TDPOWERSYS", "BBOX", "NETWEB", "E2E", "TEJASNET", "ANANTRAJ", "TECHNOE"]
+    },
+    {
+      "id": "cdmo",
+      "name": "CDMO",
+      "group": "Pharma",
+      "note": "Contract development and manufacturing: the outsourcing leaders and the smaller API/intermediate CDMOs riding the same demand.",
+      "codes": ["MOREPENLAB", "LAURUSLABS", "DIVISLAB", "INDSWFTLAB", "KPL", "AARTIPHARM", "NEULANDLAB", "SUVEN", "SYNGENE", "PPLPHARMA", "ANTHEM", "COHANCE", "BLUEJET", "CONCORDBIO"]
+    },
+    {
+      "id": "pharma",
+      "name": "Pharma Mid & Small",
+      "group": "Pharma",
+      "note": "Mid and small-cap pharma with a live trigger — IOL and SMS on the ibuprofen shortage — plus the strongest-RS names in the group.",
+      "codes": ["IOLCP", "SMSPHARMA", "BLISSGVS", "AHCL", "SHILPAMED", "SUDEEPPHRM", "FREDUN", "VENUSREM", "SENORES", "INNOVACAP", "GLAND", "RPGLIFE", "CAPLIPOINT", "SUPRIYA"]
+    },
+    {
+      "id": "pipes",
+      "name": "Pipes",
+      "group": "Industrials",
+      "note": "Line pipes, stainless and structural tubes: the export and pipeline capex cycle.",
+      "codes": ["WELCORP", "VENUSPIPES", "MANINDS", "JINDALSAW", "RATNAMANI", "APLAPOLLO", "HITECH", "SURYAROSNI"]
+    },
+    {
+      "id": "spchem",
+      "name": "Specialty Chem — Dyes",
+      "group": "Chemicals",
+      "note": "Dye intermediates and pigments: H-acid, K-acid and vinyl sulphone tightness out of China.",
+      "codes": ["KIRIINDUS", "BODALCHEM", "SHREEPUSHK", "BHAGERIA", "SUDARSCHEM", "ULTRAMAR"]
+    },
+    {
+      "id": "cnc",
+      "name": "CNC Machines",
+      "group": "Capital goods",
+      "note": "Machine tools and CNC systems.",
+      "codes": ["JYOTICNC", "MACPOWER", "LMW"]
+    }
+  ]
+}

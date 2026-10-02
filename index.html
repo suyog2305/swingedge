@@ -1089,6 +1089,15 @@ html[data-theme="lab"]{--viz-1:#3987e5;--viz-2:#d95926;--viz-3:#199e70;--viz-4:#
 .se-tt b{font-family:var(--mono);font-size:11px;color:var(--t2);} .se-tt.full b{color:var(--sage2);}
 .se-tt em{font-style:normal;font-size:10.5px;font-weight:600;color:var(--t3);}
 .se-tt.full em{color:var(--sage2);} .se-tt.near em{color:var(--lime);} .se-tt.vweak em{color:var(--t4);}
+.rl-h{font-family:var(--mono);font-size:11px;color:var(--t3);white-space:nowrap;} .rl-h b{color:var(--t1);font-weight:700;}
+.rl-ev{margin:0;padding-left:18px;font-size:12px;line-height:1.7;color:var(--t2);}
+.ix-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-bottom:14px;}
+.ix-card{cursor:pointer;transition:border-color .15s;} .ix-card:hover,.ix-card.sel{border-color:var(--lime);}
+.ix-card .g{font-size:10px;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;} .ix-card .nm{font-weight:700;font-size:13px;}
+.ix-card .lv{font-family:var(--mono);font-size:20px;font-weight:700;margin:4px 0 2px;} .ix-card .rt{display:flex;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:10.5px;color:var(--t3);}
+.ix-spark{width:100%;height:34px;display:block;margin-top:6px;} .ix-spark path{fill:none;stroke:var(--lime);stroke-width:1.5;}
+.ix-chart{width:100%;height:280px;display:block;margin:6px 0 2px;} .ix-chart text{font-family:var(--mono);font-size:10px;fill:var(--t4);} .ix-chart .grid{stroke:var(--b2);stroke-width:1;}
+.ix-chart .ln-ix{fill:none;stroke:var(--lime);stroke-width:2;} .ix-chart .ln-mk{fill:none;stroke:var(--t4);stroke-width:1.5;stroke-dasharray:4 3;}
 .se-stock .se-nm{font-size:10.5px;color:var(--t3);margin-top:1px;max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .se-hist{display:flex;align-items:flex-end;gap:6px;height:150px;padding:8px 4px 0;}
 .se-hist-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px;}
@@ -1243,6 +1252,8 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
     <div class="nav" id="nav-dg" onclick="show('dg')"><i class="ti ti-flame"></i>Daily Gainers</div>
     <div class="nav" id="nav-rsscreen" onclick="show('rsscreen')"><i class="ti ti-chart-arrows-vertical"></i>RS Screen</div>
     <div class="nav" id="nav-rstrend" onclick="show('rstrend')"><i class="ti ti-trending-up"></i>RS Trend</div>
+    <div class="nav" id="nav-rsleaders" onclick="show('rsleaders')"><i class="ti ti-crown"></i>RS Leaders</div>
+    <div class="nav" id="nav-indices" onclick="show('indices')"><i class="ti ti-chart-line"></i>Indices</div>
     <div class="nav" id="nav-sectors" onclick="show('sectors')"><i class="ti ti-chart-pie-2"></i>Sectors</div>
     <div class="nav" id="nav-s2track" onclick="show('s2track')"><i class="ti ti-stairs-up"></i>Stage 2 Tracker</div>
     <div class="nav" id="nav-s2journal" onclick="show('s2journal')"><i class="ti ti-history"></i>Stage 2 Journal</div>
@@ -1401,6 +1412,24 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
 </div>
 
 <!-- ── EDGE: THEME TRACKERS ── -->
+<div class="sec" id="sec-rsleaders">
+  <div class="topbar">
+    <div class="tb-left"><span class="tb-title">RS Leaders</span><span class="tb-crumb">/ who stays strong, who is tiring, where your holdings sit</span></div>
+    <div class="tb-right">
+      <button class="btn btn-sm" onclick="loadRL(true)"><i class="ti ti-refresh"></i>Refresh</button>
+    </div>
+  </div>
+  <div class="content se-content se-pad"><div id="rl-body"></div></div>
+</div>
+<div class="sec" id="sec-indices">
+  <div class="topbar">
+    <div class="tb-left"><span class="tb-title">Indices</span><span class="tb-crumb">/ your own sub-sector indices, day by day</span></div>
+    <div class="tb-right">
+      <button class="btn btn-sm" onclick="loadIX(true)"><i class="ti ti-refresh"></i>Refresh</button>
+    </div>
+  </div>
+  <div class="content se-content se-pad"><div id="ix-body"></div></div>
+</div>
 <div class="sec" id="sec-themes">
   <div class="topbar">
     <div class="tb-left"><span class="tb-title">Theme Trackers</span><span class="tb-crumb">/ the outside driver, next to the stock</span></div>
@@ -3140,6 +3169,8 @@ function show(id){
   if(id === 'wr' && !WR.loaded && !WR.loading) loadWR(false);
   if(id === 'feedback') renderFB();
   if(id === 'themes'){ if(!TT.loaded && !TT.loading) loadTT(false); else ttRender(); }   // charts need a visible canvas, so draw on show
+  if(id === 'rsleaders'){ if(!RL.loaded && !RL.loading) loadRL(false); else renderRL(); }  // re-render: positions may have changed
+  if(id === 'indices'){ if(!IX.loaded && !IX.loading) loadIX(false); else renderIX(); }
   // P&L Analytics: auto-default to snapshot tab if user has snapshots but no P&L statements
   if(id === 'pnl'){
     const hasSnaps = (DB.snapshots || []).length > 0;
@@ -7629,6 +7660,177 @@ function wrPrint(){
   setTimeout(() => { window.print(); setTimeout(done, 1500); }, 50);
 }
 
+// ============= RS LEADERS — persistence + exhaustion intelligence on the top-N RS names =============
+// Reads data/daily/rs_tracker.json (tools/build_rs_tracker.py). Your own positions (Trade Log / Kite
+// import) are overlaid in the browser; data/daily/holdings.json, if published, is unioned in.
+const RL = { doc: null, loaded: false, loading: false, error: null };
+async function loadRL(manual){
+  if(RL.loading) return; RL.loading = true;
+  try{ const res = await fetch('data/daily/rs_tracker.json', {cache: manual ? 'reload' : 'default'}); if(!res.ok) throw new Error('HTTP ' + res.status); RL.doc = await res.json(); RL.error = null; }
+  catch(err){ RL.doc = null; RL.error = err.message || String(err); }
+  finally{ RL.loading = false; RL.loaded = true; }
+  renderRL();
+}
+const RL_STATUS = { holding: ['Holding', 'up'], new: ['New', 'na'], slipping: ['Slipping', 'down'], dropped: ['Dropped', 'strongdown'], fading: ['Fading', 'strongdown'], out: ['Outside', 'na'], unrated: ['Unrated', 'na'] };
+const RL_VERDICT = { strong: ['Staying strong', 'strongup'], watch: ['Watch', 'na'], weakening: ['Weakening', 'strongdown'] };
+const RL_EX = { Healthy: 'up', Watch: 'na', Tiring: 'down', Exhausted: 'strongdown' };
+function rlPill(map, k){ const m = map[k] || [k || '—', 'na']; return `<span class="se-pill trend ${m[1]}">${wrEsc(m[0])}</span>`; }
+function rlHist(h){ return `<span class="rl-h">${(h || []).slice(0, 5).map((v, i) => i ? (v == null ? '—' : v) : `<b>${v == null ? '—' : v}</b>`).join(' · ')}</span>`; }
+function rlExCell(r){
+  const fl = r.flags || [], dict = (RL.doc && RL.doc.flags) || {};
+  const tip = fl.length ? fl.map(f => '• ' + (dict[f] || f)).join('\n') : 'No exhaustion flags';
+  return `<span title="${wrAttr(tip)}"><span class="se-pill trend ${RL_EX[r.ex_label] || 'na'}">${wrEsc(r.ex_label || '—')}${fl.length ? ' ' + fl.length : ''}</span></span>`;
+}
+function rlTrendCell(r){ const t = r.trend || {}; if(!t.total) return '<span class="flat">—</span>'; const cls = seTrendLabel(t)[1]; return `<span class="se-tt ${cls}"><b>${t.pass}/${t.total}</b><em>${wrEsc(t.label || '')}</em></span>`; }
+function rlRow(code, x){
+  // a codes-map row (short keys) in the same shape as a leaders row
+  return {code, name: x.n, industry: x.i, rs: x.rs, rank: x.rk, rs_hist: x.h, rank_hist: x.k, streak: x.st, weeks_in_top: x.w, weakening_weeks: x.wk,
+          rank_d1w: x.d, rs_d1d: x.dd, status: x.s, flags: x.f, exhaustion: (x.f || []).length, ex_label: x.ex, trend: {pass: x.tp, total: x.tt, label: x.t}, verdict: x.v, r1w: x.r1w, from_52wh: x.fh};
+}
+function rlHoldings(){
+  // what you hold: Trade Log positions + open trades (+ data/daily/holdings.json if published); matched by code, then by name
+  const codes = (RL.doc && RL.doc.codes) || {}, byName = new Map(Object.keys(codes).map(c => [String(codes[c].n || '').trim().toUpperCase(), c]));
+  const out = new Map();
+  const add = (s, src) => { const k = String(s || '').trim().toUpperCase(); if(!k) return; const c = codes[k] ? k : byName.get(k); const id = c || k; if(!out.has(id)) out.set(id, {code: id, src, rated: !!c}); };
+  (DB.positions || []).forEach(p => add(p.stock, 'position'));
+  (DB.trades || []).forEach(t => { if(t.status && String(t.status).includes('Open')) add(t.stock, 'open trade'); });
+  ((((RL.doc || {}).portfolio) || {}).names || []).forEach(h => add(h.code, 'holdings.json'));
+  return [...out.values()];
+}
+function rlCols(extra){
+  return [
+    {k:'rank', t:'#', type:'int', fn: r => r.rank},
+    {k:'code', t:'Stock', type:'html', html: r => seStockCell(r)},
+    {k:'act', t:'', type:'html', html: r => seActCell(r)},
+    {k:'industry', t:'Industry', type:'text'},
+    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => seRsCell(r.rs, {delta: r.rs_d1d != null ? Math.round(r.rs_d1d) : null})},
+    {k:'hist', t:'RS by week (newest first)', type:'html', sortType:'num', fn: r => (r.rs_hist || [])[1], html: r => rlHist(r.rs_hist)},
+    {k:'rank_d1w', t:'Rank Δ1w', type:'html', sortType:'num', fn: r => r.rank_d1w == null ? null : -r.rank_d1w, html: r => r.rank_d1w == null ? '<span class="flat">—</span>' : `<span class="${r.rank_d1w < 0 ? 'up' : r.rank_d1w > 0 ? 'dn' : 'flat'}">${wrSigned(-r.rank_d1w, 0)}</span>`},
+    {k:'weeks', t:'Wks in top', type:'html', sortType:'num', fn: r => r.streak, html: r => `<span class="rl-h" title="consecutive weeks in the top list / weeks in it over the window"><b>${r.streak ?? 0}</b>/${r.weeks_in_top ?? 0}</span>`},
+    {k:'status', t:'Status', type:'html', sortType:'text', fn: r => r.status, html: r => rlPill(RL_STATUS, r.status)},
+    {k:'ex', t:'Exhaustion', type:'html', sortType:'num', fn: r => r.exhaustion, html: rlExCell},
+    {k:'trend', t:'Trend', type:'html', sortType:'num', fn: r => r.trend && r.trend.total ? r.trend.pass : null, html: rlTrendCell},
+    {k:'verdict', t:'Verdict', type:'html', sortType:'text', fn: r => r.verdict, html: r => rlPill(RL_VERDICT, r.verdict)},
+  ].concat(extra || []);
+}
+function renderRL(){
+  const el = document.getElementById('rl-body'); if(!el) return;
+  if(!RL.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading…</p></div>'; return; }
+  const d = RL.doc;
+  if(!d){ el.innerHTML = seEmpty('No RS tracker yet', `Run <code>python tools/build_rs_tracker.py</code> (the daily pull does this after each scan), commit <code>data/daily/rs_tracker.json</code>, then Refresh.${RL.error ? ` <span class="flat">(${wrEsc(RL.error)})</span>` : ''}`); return; }
+  const N = d.top, k = d.counts || {}, anchors = (d.anchors || []).filter(Boolean), cut = d.cutoff || {};
+  const leaders = d.leaders || [], left = d.left || [];
+  const hold = rlHoldings().map(h => {
+    const x = (d.codes || {})[h.code];
+    const row = x ? rlRow(h.code, x) : {code: h.code, name: h.code, status: 'unrated', rs: null, rank: null, rs_hist: [], flags: [], exhaustion: 0, ex_label: '—', trend: {}, verdict: null};
+    row.src = h.src; row.gap = row.rank != null && row.rank > N ? row.rank - N : 0; return row;
+  });
+  const inTop = hold.filter(h => h.rank != null && h.rank <= N).length, outside = hold.filter(h => !(h.rank != null && h.rank <= N));
+  const kpis = [
+    seKpi(`Stayed in the top ${N}`, `${k.retained ?? 0}/${N}`, anchors[1] ? `vs w/e ${wrDate(anchors[1].date)} · ${k.slipping ?? 0} slipping` : 'needs a comparable prior week', (k.retained ?? 0) >= N * 0.7 ? 'ok' : 'warn'),
+    seKpi('New this week', wrNum(k.new ?? 0), 'entered the list'),
+    seKpi('Dropped', wrNum(k.dropped ?? 0), `left the top ${N} since last week`, k.dropped ? 'warn' : 'ok'),
+    seKpi('Fading', wrNum(k.fading ?? 0), 'left and still losing rank, 2+ weeks', k.fading ? 'warn' : 'ok'),
+    seKpi(`Holdings in top ${N}`, hold.length ? `${inTop}/${hold.length}` : '—', hold.length ? (outside.length ? `outside: ${outside.map(h => h.code + (h.rank ? ' #' + h.rank : '')).join(', ')}` : 'every holding is inside') : 'no positions found', hold.length ? (inTop === hold.length ? 'ok' : 'warn') : ''),
+  ];
+  const ev = d.evidence || {}, tr = ev.transitions || [], sm = ev.summary || {};
+  const flagWord = b => `${b} flag${b === '1' ? '' : 's'}`;
+  const evItems = tr.length ? tr.map(t => `<li><b>${wrShort(t.from)} → ${wrShort(t.to)}</b>: ${t.retained} of ${t.of} stayed in the top ${N} &nbsp;<span class="flat">${Object.entries(t.by_exhaustion || {}).sort().map(([b, v]) => `${flagWord(b)} ${v.retained}/${v.n}`).join(' · ')}</span></li>`).join('') : '<li class="flat">needs two comparable weekly scans</li>';
+  const smLine = Object.keys(sm).length ? Object.entries(sm).sort().map(([b, v]) => `${flagWord(b)}: <b>${v.n ? Math.round(100 * v.retained / v.n) : 0}%</b> stayed (${v.retained}/${v.n})`).join(' &nbsp;·&nbsp; ') : '';
+  const holdCols = rlCols([
+    {k:'gap', t:'Gap to cut', type:'html', sortType:'num', fn: r => r.gap, html: r => r.rank == null ? '<span class="flat">unrated</span>' : r.gap ? `<span class="dn">${r.gap} places</span>` : '<span class="up">inside</span>'},
+    {k:'src', t:'Source', type:'text'},
+  ]);
+  el.innerHTML = `
+    <div class="se-row-h"><div><div class="se-eyebrow">Edge · RS persistence</div><h2>Top ${N} leaders — scan ${wrDate(d.scan_date)}</h2></div><span class="wr-hint">weekly anchors: ${anchors.map(a => wrShort(a.date)).join(' · ')} · cut-off: rank ${N} = RS ${cut.rs ?? '—'}</span></div>
+    <div class="se-kpis">${kpis.join('')}</div>
+    <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Your holdings</div><h2>${hold.length ? `${inTop} of ${hold.length} inside the top ${N}` : 'No positions found'}</h2></div><span class="wr-hint">from Trade Log positions, open trades and data/daily/holdings.json</span></div>
+      ${hold.length ? wrTable('se-rl-hold', holdCols, hold, {sort: {col: 'rank', dir: 'asc'}}) : `<div class="wr-hint">Import positions in Trade Log (Kite paste) or publish <code>data/daily/holdings.json</code> as <code>{"updated":"YYYY-MM-DD","source":"...","names":[{"code":"NSE"}]}</code> — a broker-MCP routine can write that file.</div>`}</div>
+    <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Leaderboard</div><h2>In the top ${N} now</h2></div></div>${wrTable('se-rl-top', rlCols(), leaders, {sort: {col: 'rank', dir: 'asc'}})}</div>
+    <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Left the list</div><h2>Dropped and fading</h2></div></div>${left.length ? wrTable('se-rl-left', rlCols(), left, {sort: {col: 'rank', dir: 'asc'}}) : '<div class="wr-hint">nothing left the list this week</div>'}</div>
+    <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Evidence</div><h2>Do the flags predict who drops?</h2></div></div><ul class="rl-ev">${evItems}</ul>${smLine ? `<div class="wr-hint">Across all weeks — ${smLine}. If names with 2+ flags stay as often as clean ones, the flags are early: read them as risk, not as a timer.</div>` : ''}</div>
+    <div class="wr-hint">How to read: <b>RS</b> is the 1–99 rating; <b>#</b> is the exact rank by RS score, which is what moves at the top (RS 99 → 98 can be rank 5 → 40). <b>Status</b>: Holding = inside now and last week · New = entered this week · Slipping = inside but lost 8+ places, or worsening two weeks running · Dropped = was inside, now out · Fading = out and still losing rank two weeks running. <b>Exhaustion</b> counts the flags (hover): climax run, rolling over, off the high, below the 50-DMA, over-stretched, distribution day, failing trend. <b>Verdict</b> is direction only — Weakening = slipping / dropped / fading or 2+ flags; Watch = new, or one flag; Staying strong = the rest. RS gives the level, the verdict the direction.</div>`;
+  seCountUp(el);
+}
+
+// ============= INDICES — your own sub-sector indices, chain-linked from the daily scans =============
+// Reads data/indices/series.json (tools/build_indices.py; constituents in data/indices/indices.json).
+const IX = { doc: null, loaded: false, loading: false, error: null, sel: null, win: '3m' };
+async function loadIX(manual){
+  if(IX.loading) return; IX.loading = true;
+  try{ const res = await fetch('data/indices/series.json', {cache: manual ? 'reload' : 'default'}); if(!res.ok) throw new Error('HTTP ' + res.status); IX.doc = await res.json(); IX.error = null; }
+  catch(err){ IX.doc = null; IX.error = err.message || String(err); }
+  finally{ IX.loading = false; IX.loaded = true; }
+  renderIX();
+}
+function ixWindowStart(dates, win){
+  if(win === 'all') return 0;
+  const days = win === '1m' ? 31 : 93, last = new Date(dates[dates.length - 1] + 'T00:00:00');
+  for(let i = 0; i < dates.length; i++) if((last - new Date(dates[i] + 'T00:00:00')) / 864e5 <= days) return i;
+  return 0;
+}
+function ixPct(v){ return v == null ? '<span class="flat">—</span>' : `<span class="${v > 0 ? 'up' : v < 0 ? 'dn' : 'flat'}">${wrSigned(v, 1)}%</span>`; }
+function ixSpark(levels){
+  const pts = levels.map((v, i) => [i, v]).filter(p => p[1] != null); if(pts.length < 2) return '';
+  const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]), x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys), W = 200, H = 34;
+  const d = pts.map(([x, y], i) => `${i ? 'L' : 'M'}${((x - x0) / (x1 - x0 || 1) * W).toFixed(1)},${(H - 2 - (y - y0) / (y1 - y0 || 1) * (H - 4)).toFixed(1)}`).join(' ');
+  return `<svg class="ix-spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><path d="${d}"/></svg>`;
+}
+function ixChart(dates, ix, mk, start){
+  // index and market rebased to 100 at the window start; inline SVG, no library, one point per scan
+  const W = 760, H = 280, L = 44, R = 12, T = 12, B = 26;
+  const idx = []; for(let i = start; i < dates.length; i++) if(ix[i] != null) idx.push(i);
+  if(idx.length < 2) return '<div class="wr-hint">not enough history in this window yet</div>';
+  const b0 = idx[0], ri = i => ix[i] / ix[b0] * 100, rm = i => (mk[i] != null && mk[b0] != null) ? mk[i] / mk[b0] * 100 : null;
+  const vals = idx.map(ri).concat(idx.map(rm).filter(v => v != null)), y0 = Math.min(...vals), y1 = Math.max(...vals), pad = (y1 - y0 || 1) * 0.08, lo = y0 - pad, hi = y1 + pad;
+  const X = i => L + (i - b0) / (idx[idx.length - 1] - b0 || 1) * (W - L - R), Y = v => T + (hi - v) / (hi - lo) * (H - T - B);
+  const path = f => idx.map((i, k) => { const v = f(i); return v == null ? '' : `${k ? 'L' : 'M'}${X(i).toFixed(1)},${Y(v).toFixed(1)}`; }).join(' ');
+  const grid = [y0, (y0 + y1) / 2, y1].map(v => `<line class="grid" x1="${L}" x2="${W - R}" y1="${Y(v).toFixed(1)}" y2="${Y(v).toFixed(1)}"/><text x="${L - 6}" y="${(Y(v) + 3).toFixed(1)}" text-anchor="end">${v.toFixed(0)}</text>`).join('');
+  const xl = [b0, idx[Math.floor(idx.length / 2)], idx[idx.length - 1]].map((i, k) => `<text x="${X(i).toFixed(1)}" y="${H - 8}" text-anchor="${k === 0 ? 'start' : k === 1 ? 'middle' : 'end'}">${wrShort(dates[i])}</text>`).join('');
+  return `<svg class="ix-chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${grid}${xl}<path class="ln-mk" d="${path(rm)}"/><path class="ln-ix" d="${path(ri)}"/></svg>`;
+}
+function renderIX(){
+  const el = document.getElementById('ix-body'); if(!el) return;
+  if(!IX.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading…</p></div>'; return; }
+  const d = IX.doc;
+  if(!d){ el.innerHTML = seEmpty('No indices yet', `Run <code>python tools/build_indices.py</code> (the daily pull does this after each scan), commit <code>data/indices/</code>, then Refresh.${IX.error ? ` <span class="flat">(${wrEsc(IX.error)})</span>` : ''}`); return; }
+  const dates = d.dates || [], mk = (d.market || {}).levels || [], list = d.indices || [];
+  if(!IX.sel || !list.some(x => x.id === IX.sel)) IX.sel = list.length ? list[0].id : null;
+  const cards = list.map(x => `<div class="se-panel ix-card ${x.id === IX.sel ? 'sel' : ''}" onclick="IX.sel='${wrAttr(x.id)}';renderIX()">
+      <div class="g">${wrEsc(x.group || 'Custom')} · ${x.codes.length} names</div><div class="nm">${wrEsc(x.name)}</div>
+      <div class="lv">${x.last != null ? x.last.toFixed(1) : '—'}</div>
+      <div class="rt"><span>1D ${ixPct(x.ret.d1)}</span><span>1W ${ixPct(x.ret.w1)}</span><span>1M ${ixPct(x.ret.m1)}</span><span title="relative to the equal-weight market over 1 month">vs mkt ${ixPct(x.rel.m1)}</span></div>
+      ${ixSpark(x.levels)}</div>`).join('');
+  const x = list.find(v => v.id === IX.sel);
+  let detail = '';
+  if(x){
+    const start = ixWindowStart(dates, IX.win);
+    const kp = [
+      seKpi('Level', x.last != null ? x.last.toFixed(1) : '—', x.start ? `base 100 on ${wrDate(x.start)}` : ''),
+      seKpi('From index high', ixPct(x.from_high), x.high ? `high ${x.high.level.toFixed(1)} on ${wrShort(x.high.date)}` : ''),
+      seKpi('1W / 1M / 3M', `${ixPct(x.ret.w1)} / ${ixPct(x.ret.m1)} / ${ixPct(x.ret.m3)}`, `vs market: ${ixPct(x.rel.w1)} / ${ixPct(x.rel.m1)} / ${ixPct(x.rel.m3)}`),
+      seKpi('Breadth', `${x.breadth.above50}/${x.breadth.of}`, 'members above their 50-DMA', x.breadth.of && x.breadth.above50 / x.breadth.of >= 0.6 ? 'ok' : 'warn'),
+      seKpi('Median RS', x.med_rs ?? '—', 'of the members'),
+    ];
+    const cols = [
+      {k:'code', t:'Stock', type:'html', html: r => seStockCell(r)}, {k:'act', t:'', type:'html', html: r => seActCell(r)}, {k:'industry', t:'Industry', type:'text'},
+      {k:'price', t:'Price', type:'num', dec: 1}, {k:'r1d', t:'1D %', type:'pct', dec: 1}, {k:'r1w', t:'1W %', type:'pct', dec: 1}, {k:'r1m', t:'1M %', type:'pct', dec: 1}, {k:'r3m', t:'3M %', type:'pct', dec: 0},
+      {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => seRsCell(r.rs)}, {k:'rank', t:'Rank', type:'int'},
+      {k:'trend', t:'Trend', type:'html', sortType:'num', fn: r => r.trend && r.trend.total ? r.trend.pass : null, html: rlTrendCell},
+      {k:'from_52wh', t:'vs 52WH', type:'pct0', dec: 1}, {k:'mcap', t:'MCap (₹Cr)', type:'int'},
+    ];
+    const wins = ['1m', '3m', 'all'].map(w => `<button class="${IX.win === w ? 'active' : ''}" onclick="IX.win='${w}';renderIX()">${w.toUpperCase()}</button>`).join('');
+    detail = `<div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">${wrEsc(x.group || 'Custom index')}</div><h2>${wrEsc(x.name)}</h2>${x.note ? `<div class="wr-hint">${wrEsc(x.note)}</div>` : ''}</div><div class="se-seg">${wins}</div></div>
+      <div class="se-kpis">${kp.join('')}</div>
+      ${ixChart(dates, x.levels, mk, start)}
+      <div class="wr-hint" style="margin:0 0 10px;"><span class="up">▬</span> ${wrEsc(x.name)} &nbsp; <span class="flat">╌╌</span> market (equal-weight, every coded name in the scan) — both rebased to 100 at the window start; the gap between the lines is the sub-sector's own relative strength.${x.missing && x.missing.length ? ` <span class="dn">Not in the newest scan: ${x.missing.join(', ')}.</span>` : ''}</div>
+      ${wrTable('se-ix-members', cols, x.members || [], {sort: {col: 'rs', dir: 'desc'}})}</div>`;
+  }
+  el.innerHTML = `<div class="se-row-h"><div><div class="se-eyebrow">Edge · custom indices</div><h2>${list.length} sub-sector indices — scan ${wrDate(d.scan_date)}</h2></div><span class="wr-hint">equal-weight, chain-linked from each day's scan · add one: <code>python tools/build_indices.py add --id … --name … --codes …</code></span></div>
+    <div class="ix-grid">${cards}</div>${detail}`;
+  seCountUp(el);
+}
+
 // ============= EDGE: MARKET PULSE · RS SCREEN · SECTORS · STAGE 2 TRACKER =============
 // Reads data/scans/index.json + data/scans/<date>.json (schema swingedge-scan/1): the raw weekly
 // screener universe + the weekly Stage 2 list. Everything analytical is computed here:
@@ -7973,6 +8175,8 @@ function seRerender(tableId){
   else if(tableId.startsWith('se-trend')) seRenderTrendTable();
   else if(tableId.startsWith('se-s2')) seRenderS2Table();
   else if(tableId.startsWith('se-sec')) seRenderSectors();
+  else if(tableId.startsWith('se-rl')) renderRL();
+  else if(tableId.startsWith('se-ix')) renderIX();
   else seRenderPulse();
 }
 function seGo(section, opts){

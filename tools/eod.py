@@ -15,6 +15,8 @@ WHAT IT RUNS, IN ORDER
                          extra columns per pull; then build_scan.py -> data/scans/<date>.json
   2. build_shortlist.py  rank the universe into the 20 daily candidates
   3. build_s2history.py  append today to the Stage 2 journal
+  4. build_rs_tracker.py the top-25 RS persistence / exhaustion tracker
+  5. build_indices.py    the custom sub-sector indices (data/indices/)
   4. fetch_themes.py     refresh the theme trackers (crude, rigs, the stock); never blocks
 
 Each step is reported pass/fail with its own line. A failed step STOPS the run — a shortlist
@@ -523,6 +525,8 @@ def main():
         ('rank the daily shortlist', [py, os.path.join('tools', 'build_shortlist.py'), '--date', date,
                                       '--top', str(a.top), '--quiet']),
         ('append to the Stage 2 journal', [py, os.path.join('tools', 'build_s2history.py'), '--quiet']),
+        ('build the RS leaders tracker', [py, os.path.join('tools', 'build_rs_tracker.py'), '--quiet']),
+        ('rebuild the custom indices', [py, os.path.join('tools', 'build_indices.py'), '--quiet']),
     ]):
         return 1
 
