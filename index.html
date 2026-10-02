@@ -1023,7 +1023,7 @@ html[data-theme="lab"] .card,html[data-theme="lab"] .metric,html[data-theme="lab
 .se-lead-grid .k{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--t4);}
 .se-lead-grid .v{font-family:var(--sans);font-size:16px;font-weight:700;color:var(--t1);font-variant-numeric:tabular-nums;}
 .se-lead-bar{display:flex;align-items:center;gap:8px;font-size:10.5px;color:var(--t3);}
-.se-lead-bar .se-rs-track{flex:1;width:auto;}
+.se-lead-bar b{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--t1);}
 .se-lead-bar small{font-family:var(--mono);font-size:10px;}
 .se-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
 .se-grid-sec{display:grid;grid-template-columns:minmax(360px,5fr) 7fr;gap:14px;}
@@ -1040,12 +1040,9 @@ html[data-theme="lab"] .card,html[data-theme="lab"] .metric,html[data-theme="lab
 .se-list li .num{font-family:var(--mono);font-size:11px;color:var(--t2);white-space:nowrap;}
 .se-list li.flat{color:var(--t4);cursor:default;display:block;}
 .se-list.tall{max-height:320px;overflow:auto;}
-.se-rs{display:inline-flex;align-items:center;gap:7px;font-variant-numeric:tabular-nums;}
-.se-rs-track{display:inline-block;width:64px;height:6px;border-radius:99px;background:var(--bg3);overflow:hidden;vertical-align:middle;}
-.se-rs-track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#64748B,#94A3B8);transition:width .4s ease;}
-.se-rs.mid .se-rs-track i{background:linear-gradient(90deg,#3B82F6,#60A5FA);} .se-rs.warm .se-rs-track i{background:linear-gradient(90deg,#F59E0B,#FCD34D);} .se-rs.hot .se-rs-track i{background:linear-gradient(90deg,#10B981,#34D399);}
+.se-rs{display:inline-flex;align-items:center;gap:5px;font-variant-numeric:tabular-nums;}
 .se-rs b{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--t1);min-width:20px;text-align:right;}
-.se-rs.hot b{color:var(--sage2);} .se-rs.warm b{color:var(--gold2);}
+.se-rs.hot b{color:var(--sage2);} .se-rs.warm b{color:var(--gold2);} .se-rs.cold b{color:var(--t3);}
 .se-rs small{font-family:var(--mono);font-size:9.5px;font-weight:600;}
 .se-pill{display:inline-block;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:99px;margin-left:5px;vertical-align:middle;white-space:nowrap;border:1px solid transparent;}
 .se-pill.s2{background:var(--lime-soft);color:var(--lime2);border-color:rgba(16,185,129,.3);} .se-pill.s2.both{background:var(--lime);color:#fff;}
@@ -1088,10 +1085,10 @@ html[data-theme="lab"]{--viz-1:#3987e5;--viz-2:#d95926;--viz-3:#199e70;--viz-4:#
 .tt-stat{font-size:12.5px;color:var(--t2);line-height:1.55;margin:8px 0 0;padding:8px 10px;background:var(--bg2);border-radius:var(--r2);} .tt-stat b{color:var(--t1);}
 .tt-table{margin-top:10px;} .tt-table summary{cursor:pointer;font-size:12px;font-weight:600;color:var(--t3);user-select:none;} .tt-table summary:hover{color:var(--t1);} .tt-table[open] summary{margin-bottom:8px;}
 .tt-cannot{margin:4px 0 0;padding-left:18px;color:var(--t2);font-size:13px;line-height:1.65;max-width:104ch;} .tt-cannot li{margin:4px 0;}
-.se-tt{display:inline-flex;align-items:center;gap:2px;cursor:help;}
-.se-tt i{display:inline-block;width:7px;height:10px;border-radius:2px;background:var(--bg4);}
-.se-tt i.ok{background:var(--lime);} .se-tt.full i.ok{background:#34D399;} .se-tt.weak i.ok{background:var(--t4);}
-.se-tt b{font-family:var(--mono);font-size:11px;margin-left:5px;color:var(--t2);} .se-tt.full b{color:var(--sage2);}
+.se-tt{display:inline-flex;align-items:center;gap:6px;cursor:help;white-space:nowrap;}
+.se-tt b{font-family:var(--mono);font-size:11px;color:var(--t2);} .se-tt.full b{color:var(--sage2);}
+.se-tt em{font-style:normal;font-size:10.5px;font-weight:600;color:var(--t3);}
+.se-tt.full em{color:var(--sage2);} .se-tt.near em{color:var(--lime);} .se-tt.vweak em{color:var(--t4);}
 .se-stock .se-nm{font-size:10.5px;color:var(--t3);margin-top:1px;max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .se-hist{display:flex;align-items:flex-end;gap:6px;height:150px;padding:8px 4px 0;}
 .se-hist-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px;}
@@ -7635,8 +7632,8 @@ function wrPrint(){
 // ============= EDGE: MARKET PULSE · RS SCREEN · SECTORS · STAGE 2 TRACKER =============
 // Reads data/scans/index.json + data/scans/<date>.json (schema swingedge-scan/1): the raw weekly
 // screener universe + the weekly Stage 2 list. Everything analytical is computed here:
-//   • RS rating      — percentile rank (1–99) of a recency-weighted momentum composite within the
-//                      loaded universe (IBD-style quarterly weighting when 6m/1y returns exist)
+//   • RS rating      — IBD-style: average quarterly return over the last year, most recent quarter
+//                      counted twice, percentile-ranked 1–99 within the loaded universe (seScore / tools/rs.py)
 //   • RS vs sector   — the same percentile inside the stock's industry group (≥5 peers)
 //   • Trend template — 7 Weinstein/Minervini checks from DMA50/200 + 52-week position (+ RS ≥ 70)
 //   • Stage 2 diffs  — entered / continues / re-entry / exited by comparing consecutive lists
@@ -7730,17 +7727,43 @@ function seFillWeekSelects(){
 
 // ---------- engine ----------
 function seBand(mcap){ if(!wrIsNum(mcap)) return '—'; for(const [n, min] of SE_BANDS) if(+mcap >= min) return n; return 'Micro'; }
-function seScore(r){
-  if(wrIsNum(r.r1y) && wrIsNum(r.r6m) && wrIsNum(r.r3m)){
-    // IBD-style: most recent quarter double-weighted; quarters chained out of cumulative returns
-    const q1 = +r.r3m, q2 = ((1 + r.r6m / 100) / (1 + r.r3m / 100) - 1) * 100, h2 = ((1 + r.r1y / 100) / (1 + r.r6m / 100) - 1) * 100;
-    return 0.4 * q1 + 0.2 * q2 + 0.2 * h2;   // Q3 and Q4 share the second half-year's chained return
+// RS rating, in one breath: each stock's average quarterly return over the last year with the most
+// recent quarter counted twice, ranked against every other stock in the scan on a 1–99 scale (99 =
+// stronger than 99% of the market). IBD / MarketSmith's RS Rating — the number O'Neil's CAN SLIM
+// (RS ≥ 80) and Minervini's Trend Template (RS ≥ 70) are written around. Mirrored in tools/rs.py.
+const SE_RS_W = { q1: 0.4, q2: 0.2, q34: 0.2 };   // IBD's 40/20/20/20; Q3 and Q4 share months 7–12 equally
+function seRsMode(rows){ return rows.some(r => wrIsNum(r.r3m) && wrIsNum(r.r6m) && wrIsNum(r.r1y)) ? 'ibd' : 'blend'; }
+function seRsQuarters(r){
+  // the quarterly returns (%) the composite is built from, chained out of the cumulative 3m/6m/1y returns
+  if(!wrIsNum(r.r3m)) return null;
+  const q = { q1: +r.r3m, q2: null, q34: null };
+  if(wrIsNum(r.r6m)){
+    q.q2 = ((1 + r.r6m / 100) / (1 + r.r3m / 100) - 1) * 100;
+    if(wrIsNum(r.r1y)){ const h2 = (1 + r.r1y / 100) / (1 + r.r6m / 100); if(h2 > 0) q.q34 = (Math.sqrt(h2) - 1) * 100; }
+  }
+  return q;
+}
+function seScore(r, mode){
+  if(mode === 'ibd'){
+    const q = seRsQuarters(r); if(!q) return null;         // nothing is rated on less than one quarter
+    let s = SE_RS_W.q1 * q.q1, w = SE_RS_W.q1;
+    if(q.q2 != null){ s += SE_RS_W.q2 * q.q2; w += SE_RS_W.q2; }
+    if(q.q34 != null){ s += 2 * SE_RS_W.q34 * q.q34; w += 2 * SE_RS_W.q34; }
+    return s / w;                                           // weights rescale, so a short history stays on the same scale
   }
   const w = SE.weights; let s = 0, tw = 0;
   if(wrIsNum(r.r3m)){ s += w.r3m * r.r3m; tw += w.r3m; }
   if(wrIsNum(r.r1m)){ s += w.r1m * r.r1m; tw += w.r1m; }
   if(wrIsNum(r.r1w)){ s += w.r1w * r.r1w; tw += w.r1w; }
   return tw ? s / tw : null;
+}
+function seRank(rows){
+  // score + percentile-rank a universe in place → r.score, r.score_pct, r.rs
+  const mode = seRsMode(rows);
+  rows.forEach(r => { r.score = seScore(r, mode); });
+  sePercentiles(rows, 'score');
+  rows.forEach(r => { r.rs = r.score_pct == null ? null : r.score_pct; });
+  return mode;
 }
 function sePercentiles(rows, key){
   // average-rank percentile scaled to 1..99; rows without a score get null
@@ -7791,13 +7814,12 @@ function seCompute(){
   const prevUMap = new Map(prevU ? prevU.universe.map(r => [r._key, r]) : []);
   // --- universe ---
   const U = d.universe.map(r => Object.assign({}, r));
-  U.forEach(r => { r.score = seScore(r); r.band = seBand(r.mcap); r.group = r.group || r.industry || 'Other'; });
-  sePercentiles(U, 'score'); U.forEach(r => { r.rs = r.score_pct == null ? null : r.score_pct; });
+  seRank(U); U.forEach(r => { r.band = seBand(r.mcap); r.group = r.group || r.industry || 'Other'; });
   const groups = new Map(); U.forEach(r => { if(!groups.has(r.group)) groups.set(r.group, []); groups.get(r.group).push(r); });
   groups.forEach(list => { if(list.length >= 5){ sePercentiles(list, 'score'); list.forEach(r => { r.rsSector = r.score_pct; }); } else list.forEach(r => { r.rsSector = null; }); });
   // prev-week RS for drift (recomputed on the previous universe)
   let prevRS = new Map();
-  if(prevU){ const P = prevU.universe.map(r => Object.assign({}, r)); P.forEach(r => { r.score = seScore(r); }); sePercentiles(P, 'score'); P.forEach(r => prevRS.set(r._key, r.score_pct)); }
+  if(prevU){ const P = prevU.universe.map(r => Object.assign({}, r)); seRank(P); P.forEach(r => prevRS.set(r._key, r.rs)); }
   // --- stage 2 list + diffs ---
   const S2 = d.stage2.map(r => Object.assign({}, r));
   const prevS2Map = new Map(prevS2 ? prevS2.stage2.map(r => [r._key, r]) : []);
@@ -7864,10 +7886,14 @@ function seCompute(){
 }
 
 // ---------- small UI helpers ----------
-function seRsBar(rs, opts){
+function seRsCell(rs, opts){
   if(!wrIsNum(rs)) return '<span class="flat">—</span>';
-  const v = Math.max(1, Math.min(99, +rs)), cls = v >= 80 ? 'hot' : v >= 60 ? 'warm' : v >= 40 ? 'mid' : 'cold';
-  return `<span class="se-rs ${cls}"><span class="se-rs-track"><i style="width:${v}%"></i></span><b>${v}</b>${opts && opts.delta != null ? `<small class="${opts.delta > 0 ? 'up' : opts.delta < 0 ? 'dn' : 'flat'}">${opts.delta > 0 ? '▲' : opts.delta < 0 ? '▼' : '•'}${Math.abs(opts.delta)}</small>` : ''}</span>`;
+  const v = Math.max(1, Math.min(99, Math.round(+rs))), cls = v >= 80 ? 'hot' : v >= 60 ? 'warm' : v >= 40 ? 'mid' : 'cold';
+  const d = opts && opts.delta != null ? opts.delta : null;
+  const q = opts && opts.row ? seRsQuarters(opts.row) : null, pc = x => (x > 0 ? '+' : '') + Math.round(x) + '%';
+  const tip = `RS ${v}: out-performed ${v}% of the scan over the last year (latest quarter counted twice)${d != null ? ` · ${d > 0 ? 'up' : d < 0 ? 'down' : 'unchanged'} ${Math.abs(d)} since the previous scan` : ''}`
+    + (q ? `\nQuarters, newest first: Q1 ${pc(q.q1)} ×2${q.q2 != null ? ` · Q2 ${pc(q.q2)}` : ''}${q.q34 != null ? ` · Q3 ≈ Q4 ${pc(q.q34)}` : ' · (shorter history: rated on what it has)'}` : '');
+  return `<span class="se-rs ${cls}" title="${wrAttr(tip)}"><b>${v}</b>${d != null ? `<small class="${d > 0 ? 'up' : d < 0 ? 'dn' : 'flat'}">${d > 0 ? '▲' : d < 0 ? '▼' : '•'}${Math.abs(d)}</small>` : ''}</span>`;
 }
 function seS2Cell(r){
   const list = r.s2list, calc = r.s2calc;
@@ -7879,8 +7905,13 @@ function seS2Cell(r){
 function seTrendCell(r){
   const t = r.trend; if(!t.total) return '<span class="flat">—</span>';
   const tip = t.checks.map(c => `${c.ok ? '✓' : '✗'} ${c.label}${c.detail ? ' — ' + c.detail : ''}`).join('\n');
-  const cls = t.pass === t.total ? 'full' : t.pass >= t.total - 1 ? 'near' : 'weak';
-  return `<span class="se-tt ${cls}" title="${wrAttr(tip)}">${t.checks.map(c => `<i class="${c.ok ? 'ok' : ''}"></i>`).join('')}<b>${t.pass}/${t.total}</b></span>`;
+  const [label, cls] = seTrendLabel(t);
+  return `<span class="se-tt ${cls}" title="${wrAttr(tip)}"><b>${t.pass}/${t.total}</b><em>${label}</em></span>`;
+}
+function seTrendLabel(t){
+  // every check = Very strong (the Stage 2 template), one miss = Strong, two or three = Weak, more = Very weak
+  const miss = t.total - t.pass;
+  return miss === 0 ? ['Very strong', 'full'] : miss === 1 ? ['Strong', 'near'] : miss <= 3 ? ['Weak', 'weak'] : ['Very weak', 'vweak'];
 }
 function seStateCell(state){
   const m = {entered: ['new', 'New'], reentry: ['re', 'Re-entry'], continues: ['cont', 'Continues'], exited: ['rem', 'Exited']}[state] || ['cont', state || '—'];
@@ -7984,11 +8015,11 @@ function seRenderPulse(){
         <div><div class="k">Median RS</div><div class="v">${g.medRS != null ? g.medRS.toFixed(1) : '—'}</div></div>
         <div><div class="k">Stocks</div><div class="v">${g.n}</div></div>
       </div>
-      <div class="se-lead-bar"><span>Relative strength</span><span class="se-rs-track"><i style="width:${g.medRS || 0}%"></i></span>${g.delta != null ? `<small class="${g.delta > 0 ? 'up' : g.delta < 0 ? 'dn' : 'flat'}" title="vs w/e ${wrDate(c.prevU.date)}">${g.delta > 0 ? '▲' : g.delta < 0 ? '▼' : '•'} ${Math.abs(g.delta).toFixed(0)} vs ${wrShort(c.prevU.date)}</small>` : ''}</div>
+      <div class="se-lead-bar"><span>Relative strength</span><b>${g.medRS != null ? Math.round(g.medRS) : '—'}</b>${g.delta != null ? `<small class="${g.delta > 0 ? 'up' : g.delta < 0 ? 'dn' : 'flat'}" title="vs w/e ${wrDate(c.prevU.date)}">${g.delta > 0 ? '▲' : g.delta < 0 ? '▼' : '•'} ${Math.abs(g.delta).toFixed(0)} vs ${wrShort(c.prevU.date)}</small>` : ''}</div>
     </div>`).join('');
   // top RS
   const top = c.U.filter(r => wrIsNum(r.rs)).sort((a, b) => b.rs - a.rs || (b.r1w || 0) - (a.r1w || 0)).slice(0, 12);
-  const topRows = top.map(r => `<tr><td>${seStockCell(r)}</td><td><span class="ind">${wrEsc(r.group)}</span></td><td class="num">${seRsBar(r.rs, {delta: r.rsDelta != null ? Math.round(r.rsDelta) : null})}</td><td>${seS2Cell(r)}</td><td class="num">${wrPct(r.r1w, 1)}</td><td class="num">${wrPct(r.r3m, 0)}</td><td class="num">${wrPct(r.from_52wh, 1, {plain: true})}</td></tr>`).join('');
+  const topRows = top.map(r => `<tr><td>${seStockCell(r)}</td><td><span class="ind">${wrEsc(r.group)}</span></td><td class="num">${seRsCell(r.rs, {delta: r.rsDelta != null ? Math.round(r.rsDelta) : null, row: r})}</td><td>${seS2Cell(r)}</td><td class="num">${wrPct(r.r1w, 1)}</td><td class="num">${wrPct(r.r3m, 0)}</td><td class="num">${wrPct(r.from_52wh, 1, {plain: true})}</td></tr>`).join('');
   // stage 2 in/out
   const ins = c.S2.filter(r => r.state === 'entered' || r.state === 'reentry').sort((a, b) => (b.rs_pct || 0) - (a.rs_pct || 0)).slice(0, 10);
   const outs = c.exits.slice().sort((a, b) => (b.weeks || 0) - (a.weeks || 0)).slice(0, 10);
@@ -8034,7 +8065,7 @@ function seRenderPulse(){
       <div class="se-panel se-pipeline">
         <div class="se-row-h"><div><div class="se-eyebrow">Pipeline</div><h2>Data loaded</h2></div><button class="btn btn-ghost btn-sm" onclick="loadSE(true)"><i class="ti ti-refresh"></i>Refresh</button></div>
         <div class="se-steps">${SE.scans.slice(0, 6).map(sc => `<div class="se-step ${sc.file === SE.cur ? 'cur' : ''}" onclick="seSelectWeek('${wrAttr(sc.file)}')"><div class="k">w/e ${wrDate(sc.date)}</div><div class="v">${sc.universe ? `<span class="up">●</span> ${sc.universe} scan` : '<span class="flat">○ no scan</span>'}<br>${sc.stage2 ? `<span class="up">●</span> ${sc.stage2} Stage 2` : '<span class="flat">○ no Stage 2 list</span>'}</div></div>`).join('')}</div>
-        <div class="wr-hint" style="margin-top:10px;">RS = percentile (1–99) of a recency-weighted momentum composite (${SE.weights.r3m * 100}% 3-mo · ${SE.weights.r1m * 100}% 1-mo · ${SE.weights.r1w * 100}% 1-wk) ranked inside the loaded universe; add 6-month and 1-year return columns to your export and it switches to IBD-style quarterly weighting automatically. Export a full-market screen (e.g. market cap &gt; ₹1,000 Cr) for market-wide RS.</div>
+        <div class="wr-hint" style="margin-top:10px;">RS rating = each stock's average quarterly return over the last year with the most recent quarter counted twice (IBD's 40/20/20/20), ranked against every other stock in this scan on a 1–99 scale — RS 95 out-performed 95% of the market. Hover a rating for its four quarters. ▲/▼ is the change since the previous scan. New listings are rated on the quarters they have; nothing is rated on less than one. Export a full-market screen (e.g. market cap &gt; ₹1,000 Cr) for market-wide RS; without 6-month/1-year columns it falls back to a ${SE.weights.r3m * 100}/${SE.weights.r1m * 100}/${SE.weights.r1w * 100} blend of 3-mo/1-mo/1-wk.</div>
       </div>
     </div>`;
   seCountUp(el);
@@ -8124,7 +8155,7 @@ function seRenderRS(){
       <button class="btn btn-ghost btn-sm" onclick="seExportCsv()" title="Download the filtered rows as CSV"><i class="ti ti-download"></i>CSV</button>
     </div>
     <div id="se-rs-table"></div>
-    <div class="wr-hint" style="margin-top:8px;">Size bands (approx.): Large ≥ ₹50,000 Cr · Mid ≥ ₹15,000 Cr · Small ≥ ₹3,000 Cr · Micro below. Trend template: price &gt; 50/200-DMA, 50 &gt; 200-DMA, ≥30% above 52W low, within 25% of 52W high, RS ≥ 70, 200-DMA rising vs last scan (when available). Hover a trend score for the failing checks.</div>`;
+    <div class="wr-hint" style="margin-top:8px;">Size bands (approx.): Large ≥ ₹50,000 Cr · Mid ≥ ₹15,000 Cr · Small ≥ ₹3,000 Cr · Micro below. Trend template: price &gt; 50/200-DMA, 50 &gt; 200-DMA, ≥30% above 52W low, within 25% of 52W high, RS ≥ 70, 200-DMA rising vs last scan (when available). Trend reads Very strong (every check passes), Strong (one miss), Weak (two–three), Very weak (more); hover it for the failing checks.</div>`;
   seRenderRSTable();
 }
 function seRSFiltered(){
@@ -8156,7 +8187,7 @@ function seRenderRSTable(){
     {k:'industry', t:'Industry', type:'text'},
     {k:'band', t:'Cap', type:'html', sortType:'num', fn: r => SE_BAND_ORD[r.band] || 0, html: seBandCell},
     {k:'mcap', t:'MCap (₹Cr)', type:'int'},
-    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => seRsBar(r.rs, {delta: r.rsDelta != null ? Math.round(r.rsDelta) : null})},
+    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => seRsCell(r.rs, {delta: r.rsDelta != null ? Math.round(r.rsDelta) : null, row: r})},
     {k:'rsSector', t:'RS vs sector', type:'num', fn: r => r.rsSector},
     {k:'trend', t:'Trend', type:'html', sortType:'num', fn: r => r.trend.total ? r.trend.pass + r.trend.pass / (r.trend.total + 1) : null, html: seTrendCell},
     {k:'s2', t:'In Stage 2', type:'html', sortType:'num', fn: r => (r.s2list ? 2 : 0) + (r.s2calc ? 1 : 0), html: seS2Cell},
@@ -8234,9 +8265,7 @@ function seTrendUniverse(file){
   if(RT.cache[file]) return RT.cache[file];
   const d = SE.data[file]; if(!d) return null;
   const U = d.universe.map(r => Object.assign({}, r));
-  U.forEach(r => { r.score = seScore(r); r.band = seBand(r.mcap); r.group = r.group || r.industry || 'Other'; });
-  sePercentiles(U, 'score');
-  U.forEach(r => { r.rs = r.score_pct == null ? null : r.score_pct; });
+  seRank(U); U.forEach(r => { r.band = seBand(r.mcap); r.group = r.group || r.industry || 'Other'; });
   const map = new Map();
   U.forEach(r => { const k = String(r.code || r.name || '').trim().toUpperCase(); if(k) map.set(k, r); });
   return (RT.cache[file] = map);
@@ -8286,8 +8315,10 @@ function seTrendBuild(field){
   });
   return {rows};
 }
-const SE_TREND_META = {strongup: ['↑↑ Strong Up', 'strongup'], up: ['↑ Up', 'up'], down: ['↓ Down', 'down'],
-                        strongdown: ['↓↓ Strong Down', 'strongdown'], na: ['New', 'na']};
+// RS trend in words: Very strong / Very weak = a 10+ point RS move over the window that is not fading
+// in the nearer one; Strong / Weak = rising / falling by less; New = not enough scan history yet.
+const SE_TREND_META = {strongup: ['↑↑ Very strong', 'strongup'], up: ['↑ Strong', 'up'], down: ['↓ Weak', 'down'],
+                        strongdown: ['↓↓ Very weak', 'strongdown'], na: ['New', 'na']};
 function seTrendPill(b){ const m = SE_TREND_META[b] || SE_TREND_META.na; return `<span class="se-pill trend ${m[1]}">${m[0]}</span>`; }
 
 function seRenderTrend(){
@@ -8333,10 +8364,10 @@ function seRenderTrendBody(el, anchors){
     <div class="wr-hint" style="margin:2px 0 10px;">Each column snaps to the nearest broad-market scan on or before its target date, so RS is always ranked against a comparable universe: ${disp.filter(Boolean).map(capFor).join(' · ')}. Columns land closer to even weekly spacing as the daily archive fills in.</div>
     <div class="se-tabs-bucket">
       <button class="${u.bucket === 'all' ? 'active' : ''}" onclick="RT.ui.bucket='all';seRenderTrendTable()">All<b>${wrNum(rows.length)}</b></button>
-      <button class="${u.bucket === 'strongup' ? 'active' : ''}" onclick="RT.ui.bucket='strongup';seRenderTrendTable()">↑↑ Strong Up<b>${wrNum(counts.strongup)}</b></button>
-      <button class="${u.bucket === 'up' ? 'active' : ''}" onclick="RT.ui.bucket='up';seRenderTrendTable()">↑ Up<b>${wrNum(counts.up)}</b></button>
-      <button class="${u.bucket === 'down' ? 'active' : ''}" onclick="RT.ui.bucket='down';seRenderTrendTable()">↓ Down<b>${wrNum(counts.down)}</b></button>
-      <button class="${u.bucket === 'strongdown' ? 'active' : ''}" onclick="RT.ui.bucket='strongdown';seRenderTrendTable()">↓↓ Strong Down<b>${wrNum(counts.strongdown)}</b></button>
+      <button class="${u.bucket === 'strongup' ? 'active' : ''}" onclick="RT.ui.bucket='strongup';seRenderTrendTable()">↑↑ Very strong<b>${wrNum(counts.strongup)}</b></button>
+      <button class="${u.bucket === 'up' ? 'active' : ''}" onclick="RT.ui.bucket='up';seRenderTrendTable()">↑ Strong<b>${wrNum(counts.up)}</b></button>
+      <button class="${u.bucket === 'down' ? 'active' : ''}" onclick="RT.ui.bucket='down';seRenderTrendTable()">↓ Weak<b>${wrNum(counts.down)}</b></button>
+      <button class="${u.bucket === 'strongdown' ? 'active' : ''}" onclick="RT.ui.bucket='strongdown';seRenderTrendTable()">↓↓ Very weak<b>${wrNum(counts.strongdown)}</b></button>
     </div>
     <div class="se-filters">
       <input type="text" placeholder="Search stock, code, industry…" value="${wrAttr(u.q)}" oninput="RT.ui.q=this.value;seRenderTrendTable()">
@@ -8347,8 +8378,8 @@ function seRenderTrendBody(el, anchors){
     </div>
     <div id="se-trend-table"></div>
     <div class="wr-hint" style="margin-top:8px;">${field === 'rs'
-      ? 'Δ short / Δ long = change in RS percentile (1–99) versus the nearer / farther column shown. "Strong" needs a 10+ point move confirmed in both windows (not fading); "New" = not enough scan history yet for this stock. S2 list = the provider\'s weekly Stage 2 list carried on the latest scan, showing its own Relative Strength % — a different measure from this page\'s percentile, shown side by side on purpose.'
-      : 'Value traded = 1-month average volume × price (₹Cr), a smoother proxy since screener has no true weekly-rolled figure. Δ shown as % change; "Strong" needs a 40%+ move confirmed in both windows.'}</div>`;
+      ? 'Δ short / Δ long = change in RS percentile (1–99) versus the nearer / farther column shown. Trend: Very strong / Very weak = a 10+ point move over the long window that is not fading in the short one; Strong / Weak = rising / falling by less; "New" = not enough scan history yet for this stock. S2 list = the provider\'s weekly Stage 2 list carried on the latest scan, showing its own Relative Strength % — a different measure from this page\'s percentile, shown side by side on purpose.'
+      : 'Value traded = 1-month average volume × price (₹Cr), a smoother proxy since screener has no true weekly-rolled figure. Δ shown as % change; Very strong / Very weak need a 40%+ move confirmed in both windows.'}</div>`;
   RT._rows = rows; RT._field = field;
   seRenderTrendTable();
 }
@@ -8367,7 +8398,7 @@ function seRenderTrendTable(){
   const curAsof = anchors[0] ? ((SE.data[anchors[0].file] || {}).stage2_asof || null) : null;
   const disp = [anchors[3], anchors[2], anchors[1], anchors[0]];
   const fmtVal = (v) => field === 'rs'
-    ? (wrIsNum(v) ? seRsBar(Math.round(v)) : '<span class="flat">—</span>')
+    ? (wrIsNum(v) ? seRsCell(Math.round(v)) : '<span class="flat">—</span>')
     : (wrIsNum(v) ? wrNum(v, 1) + ' Cr' : '<span class="flat">—</span>');
   const fmtDelta = (v) => {
     if(!wrIsNum(v)) return '<span class="flat">—</span>';
@@ -8617,7 +8648,7 @@ function seRenderSectors(){
   SE.ui.secGroup = sel ? sel.name : null;
   const rows = c.sectors.map(g => `<tr class="${sel && g.name === sel.name ? 'se-selrow' : ''}" onclick="SE.ui.secGroup='${wrAttr(g.name)}';seRenderSectors()" style="cursor:pointer;">
       <td class="num">${g.rank}</td><td><span class="tk" style="color:${g.color}">●</span> <span class="tk">${wrEsc(g.name)}</span></td><td class="num">${g.n}</td>
-      <td class="num">${seRsBar(g.medRS != null ? Math.round(g.medRS) : null, {delta: g.delta != null ? Math.round(g.delta) : null})}</td>
+      <td class="num">${seRsCell(g.medRS != null ? Math.round(g.medRS) : null, {delta: g.delta != null ? Math.round(g.delta) : null})}</td>
       <td class="num">${Math.round(g.s2pct)}% <small class="flat">(${g.s2n})</small></td><td class="num">${wrPct(g.r1w, 1)}</td><td class="num">${wrPct(g.r3m, 0)}</td>
       <td>${g.quadrant ? `<span class="se-pill q ${g.quadrant.toLowerCase()}">${g.quadrant}</span>` : '—'}</td></tr>`).join('');
   const detail = sel ? `
@@ -8625,11 +8656,11 @@ function seRenderSectors(){
       <div class="se-kpis compact">
         ${seKpi('Stocks', sel.n, '', '')}${seKpi('Median RS', sel.medRS != null ? sel.medRS.toFixed(0) : '—', sel.delta != null ? `${sel.delta >= 0 ? '▲ +' : '▼ '}${sel.delta.toFixed(0)} vs last scan` : '', sel.medRS >= 50 ? 'ok' : '')}${seKpi('Stage 2 share', Math.round(sel.s2pct) + '%', `${sel.s2n} on list / template`, '')}${seKpi('Avg 1W · 3M', `${wrPct(sel.r1w, 1, {plain: true})} · ${wrPct(sel.r3m, 0, {plain: true})}`, '', sel.r1w >= 0 ? 'ok' : 'bad')}
       </div>
-      ${sel.industries.length > 1 ? `<div class="wr-sub">Industries inside ${wrEsc(sel.name)}</div><div class="wr-twrap" style="max-height:260px;"><table class="scan-table"><thead><tr><th>Industry</th><th class="num">Stocks</th><th class="num">Median RS</th><th class="num">Stage 2</th><th class="num">Avg 1W</th><th class="num">Avg 3M</th></tr></thead><tbody>${sel.industries.map(i => `<tr><td>${wrEsc(i.name)}</td><td class="num">${i.n}</td><td class="num">${seRsBar(i.medRS != null ? Math.round(i.medRS) : null)}</td><td class="num">${i.s2n}</td><td class="num">${wrPct(i.r1w, 1)}</td><td class="num">${wrPct(i.r3m, 0)}</td></tr>`).join('')}</tbody></table></div>` : ''}
+      ${sel.industries.length > 1 ? `<div class="wr-sub">Industries inside ${wrEsc(sel.name)}</div><div class="wr-twrap" style="max-height:260px;"><table class="scan-table"><thead><tr><th>Industry</th><th class="num">Stocks</th><th class="num">Median RS</th><th class="num">Stage 2</th><th class="num">Avg 1W</th><th class="num">Avg 3M</th></tr></thead><tbody>${sel.industries.map(i => `<tr><td>${wrEsc(i.name)}</td><td class="num">${i.n}</td><td class="num">${seRsCell(i.medRS != null ? Math.round(i.medRS) : null)}</td><td class="num">${i.s2n}</td><td class="num">${wrPct(i.r1w, 1)}</td><td class="num">${wrPct(i.r3m, 0)}</td></tr>`).join('')}</tbody></table></div>` : ''}
       <div class="wr-sub">Stocks — ranked by RS</div>
       ${wrTable('se-sec-stocks', [
         {k:'code', t:'Stock', type:'html', html: seStockCell}, {k:'act', t:'', type:'html', html: seActCell}, {k:'industry', t:'Industry', type:'text'}, {k:'band', t:'Size', type:'text'},
-        {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => seRsBar(r.rs, {delta: r.rsDelta != null ? Math.round(r.rsDelta) : null})}, {k:'rsSector', t:'RS vs sector', type:'num'},
+        {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => seRsCell(r.rs, {delta: r.rsDelta != null ? Math.round(r.rsDelta) : null, row: r})}, {k:'rsSector', t:'RS vs sector', type:'num'},
         {k:'trend', t:'Trend', type:'html', sortType:'num', fn: r => r.trend.total ? r.trend.pass : null, html: seTrendCell}, {k:'s2', t:'Stage 2', type:'html', sortType:'num', fn: r => (r.s2list ? 2 : 0) + (r.s2calc ? 1 : 0), html: seS2Cell}, {k:'r1w', t:'1W', type:'pct', dec:1}, {k:'r3m', t:'3M', type:'pct', dec:0}, {k:'from_52wh', t:'vs 52WH', type:'pct0', dec:1}
       ], sel.rows, {sort:null, maxHeight:'520px'})}` : '';
   el.innerHTML = `
@@ -8706,9 +8737,9 @@ function seRenderS2Table(){
     {k:'sector', t:'Sector', type:'text'},
     {k:'industry', t:'Industry', type:'text'},
     {k:'band', t:'Cap', type:'html', sortType:'num', fn: r => SE_BAND_ORD[r.band] || 0, html: seBandCell},
-    {k:'sectorRS', t:'Sector RS', type:'html', sortType:'num', fn: r => r.sectorRS, html: r => r.sectorRS != null ? seRsBar(Math.round(r.sectorRS)) : '<span class="flat">—</span>'},
+    {k:'sectorRS', t:'Sector RS', type:'html', sortType:'num', fn: r => r.sectorRS, html: r => r.sectorRS != null ? seRsCell(Math.round(r.sectorRS)) : '<span class="flat">—</span>'},
     {k:'rs_pct', t:'RS% (list)', type:'num', dec:1},
-    {k:'rsCalc', t:'RS (scan)', type:'html', sortType:'num', fn: r => r.rsCalc, html: r => r.rsCalc != null ? seRsBar(r.rsCalc) : '<span class="flat">—</span>'},
+    {k:'rsCalc', t:'RS (scan)', type:'html', sortType:'num', fn: r => r.rsCalc, html: r => r.rsCalc != null ? seRsCell(r.rsCalc) : '<span class="flat">—</span>'},
     {k:'mcap', t:'MCap (₹Cr)', type:'int'}, {k:'vol_cr', t:'Wk vol (₹Cr)', type:'num', dec:1},
     {k:'r1w', t:'1W %', type:'pct', dec:1},
     {k:'from_52wh', t:'vs 52WH', type:'html', sortType:'num', fn: r => r.from_52wh, html: r => seHighCell(r.from_52wh)},
@@ -8963,7 +8994,7 @@ function renderPD(){
     {k:'nearHigh', t:'Near 52W high', type:'html', sortType:'num', fn: r => r.from_52wh, html: r => r.inScan ? seHighCell(r.from_52wh) : '<span class="flat">-</span>'},
     {k:'inS2', t:'In Stage 2', type:'html', sortType:'num', fn: r => r.inS2 ? 1 : 0, html: r => seYesCell(r.inS2, 'Yes', 'On the Stage 2 list')},
     {k:'s2weeks', t:'Wks in S2', type:'int', fn: r => r.s2weeks},
-    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs != null ? seRsBar(r.rs) : '<span class="flat">—</span>'},
+    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs != null ? seRsCell(r.rs) : '<span class="flat">—</span>'},
     {k:'eps_yoy', t:'EPS YoY', type:'pct', dec:0}, {k:'pat_yoy', t:'PAT YoY', type:'pct', dec:0},
     {k:'sales_yoy', t:'Sales YoY', type:'pct', dec:0}, {k:'mcap', t:'MCap (₹Cr)', type:'int'}, {k:'peg', t:'PEG', type:'num', dec:2}
   ], spot, {sort:{col:'xref', dir:'desc'}, maxHeight:'460px', empty: stats.hasScan ? 'No strong/moderate PEAD names are near a high or in Stage 2 in the current scan.' : 'Load a weekly scan (Edge) to light up the cross-reference.'});
@@ -9053,7 +9084,7 @@ function pdRenderTable(){
     {k:'nearHigh', t:'Near 52W high', type:'html', sortType:'num', fn: r => r.from_52wh, html: r => r.inScan ? seHighCell(r.from_52wh) : '<span class="flat">—</span>'},
     {k:'inS2', t:'In Stage 2', type:'html', sortType:'num', fn: r => r.inS2 ? 1 : 0, html: r => seYesCell(r.inS2, 'Yes', 'On the Stage 2 list')},
     {k:'s2weeks', t:'Wks in S2', type:'int', fn: r => r.s2weeks},
-    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs != null ? seRsBar(r.rs) : '<span class="flat">—</span>'},
+    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs != null ? seRsCell(r.rs) : '<span class="flat">—</span>'},
     {k:'eps_yoy', t:'EPS YoY', type:'pct', dec:0}, {k:'eps_qoq', t:'EPS QoQ', type:'pct', dec:0},
     {k:'pat_yoy', t:'PAT YoY', type:'pct', dec:0}, {k:'sales_yoy', t:'Sales YoY', type:'pct', dec:0},
     {k:'op_yoy', t:'OpProfit YoY', type:'pct', dec:0}, {k:'mcap', t:'MCap (₹Cr)', type:'int'}, {k:'peg', t:'PEG', type:'num', dec:2}
@@ -9166,7 +9197,7 @@ function renderDG(){
     {k:'r1w', t:'1W %', type:'pct', dec:1},
     {k:'price', t:'Price', type:'num', dec:0},
     {k:'mcap', t:'MCap (₹Cr)', type:'int'},
-    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs!=null && typeof seRsBar==='function' ? seRsBar(r.rs) : '<span class="flat">—</span>'},
+    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => seRsCell(r.rs)},
     {k:'s2', t:'In Stage 2', type:'html', sortType:'num', fn: r => (r.s2list?2:0)+(r.s2calc?1:0), html: r => r.s2list ? seYesCell(true,'Yes','On the Stage 2 list') : (r.s2calc ? '<span class="se-pill calc">calc</span>' : '<span class="flat">—</span>')},
     {k:'s2weeks', t:'Wks in S2', type:'int', fn: r => r.s2list ? r.s2list.weeks : null},
     {k:'pead', t:'Earnings', type:'html', sortType:'num', fn: r => r.pead, html: r => r.pead != null && typeof pdTierCell==='function' ? pdTierCell(r.pead) : '<span class="flat">—</span>'},
@@ -9228,7 +9259,7 @@ function dgRenderTable(){
     {k:'r1w', t:'1W %', type:'pct', dec:1},
     {k:'price', t:'Price', type:'num', dec:0},
     {k:'mcap', t:'MCap (₹Cr)', type:'int'},
-    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs!=null && typeof seRsBar==='function' ? seRsBar(r.rs) : '<span class="flat">—</span>'},
+    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => seRsCell(r.rs)},
     {k:'s2', t:'In Stage 2', type:'html', sortType:'num', fn: r => (r.s2list?2:0)+(r.s2calc?1:0), html: r => r.s2list ? seYesCell(true,'Yes','On the Stage 2 list') : (r.s2calc ? '<span class="se-pill calc">calc</span>' : '<span class="flat">—</span>')},
     {k:'s2weeks', t:'Wks in S2', type:'int', fn: r => r.s2list ? r.s2list.weeks : null},
     {k:'pead', t:'Earnings', type:'html', sortType:'num', fn: r => r.pead, html: r => r.pead != null && typeof pdTierCell==='function' ? pdTierCell(r.pead) : '<span class="flat">—</span>'},
@@ -9272,8 +9303,7 @@ async function loadTR(manual){
       let prev = null;
       for(const d of list){
         const U = d.universe.filter(r => r.code && wrIsNum(r.price)).map(r => Object.assign({}, r));
-        U.forEach(r => { r.score = (typeof seScore === 'function') ? seScore(r) : r.r3m; });
-        if(typeof sePercentiles === 'function'){ sePercentiles(U, 'score'); U.forEach(r => { r.rs = r.score_pct == null ? null : r.score_pct; }); }
+        seRank(U);
         const s2set = new Set((d.stage2 || []).map(s => String(s.code || '').toUpperCase()));
         const prevMap = prev ? prev._map : null;
         U.forEach(r => { r._s2 = s2set.has(String(r.code).toUpperCase()); r._trend = (typeof seTrend === 'function') ? seTrend(r, prevMap ? prevMap.get(String(r.code).toUpperCase()) : null).s2 : false; });
@@ -9441,7 +9471,7 @@ function rdNow(){
   if(RD_NOW.file === newest.file && RD_NOW.byKey) return RD_NOW;
   const d = SE.data[newest.file];
   const U = d.universe.map(r => Object.assign({}, r));
-  U.forEach(r => { r.score = seScore(r); }); sePercentiles(U, 'score'); U.forEach(r => { r.rs = r.score_pct == null ? null : r.score_pct; });
+  seRank(U);
   RD_NOW.file = newest.file; RD_NOW.date = d.date || newest.date;
   RD_NOW.byKey = new Map(U.map(r => [r._key, r]));
   RD_NOW.prevByKey = new Map(prevMeta ? SE.data[prevMeta.file].universe.map(r => [r._key, r]) : []);
@@ -9798,7 +9828,7 @@ function renderSL(){
     {k:'sector', t:'Sector', type:'text'},
     {k:'industry', t:'Industry', type:'text'},
     {k:'band', t:'Cap', type:'html', sortType:'num', fn: r => SE_BAND_ORD[r.band] || 0, html: r => r.band ? `<span class="se-band ${String(r.band).toLowerCase()}">${wrEsc(r.band)}</span>` : '<span class="flat">—</span>'},
-    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs != null ? seRsBar(r.rs) : '<span class="flat">—</span>'},
+    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs != null ? seRsCell(r.rs) : '<span class="flat">—</span>'},
     {k:'r1d', t:'Day %', type:'pct', dec:1},
     {k:'r1w', t:'1W %', type:'pct', dec:1},
     {k:'from_52wh', t:'vs 52WH', type:'html', sortType:'num', fn: r => r.from_52wh, html: r => seHighCell(r.from_52wh)},
@@ -10084,7 +10114,7 @@ const SJ_COLS = () => [
   {k:'act', t:'', type:'html', html: r => typeof wrActCell === 'function' ? wrActCell({code: r.code, name: r.name, industry: r.sector}, r.sector) : ''},
   {k:'sector', t:'Sector', type:'text'},
   {k:'band', t:'Cap', type:'html', sortType:'num', fn: r => (typeof SE_BAND_ORD !== 'undefined' ? SE_BAND_ORD[r.band] : 0) || 0, html: r => r.band ? `<span class="se-band ${String(r.band).toLowerCase()}">${wrEsc(r.band)}</span>` : '<span class="flat">—</span>'},
-  {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs != null ? seRsBar(r.rs) : '<span class="flat">—</span>'},
+  {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs != null ? seRsCell(r.rs) : '<span class="flat">—</span>'},
   {k:'r1d', t:'Day %', type:'pct', dec:1},
   {k:'r1w', t:'1W %', type:'pct', dec:1},
   {k:'from_52wh', t:'vs 52WH', type:'html', sortType:'num', fn: r => r.from_52wh, html: r => seHighCell(r.from_52wh)},

@@ -33,8 +33,11 @@ SCORING — every point is explainable; each contributing factor becomes a `reas
   a news trigger on file              +2
   leading sector (median RS >=60)     +1
 """
-import argparse, datetime as dt, io, json, os, re, glob
+import argparse, datetime as dt, io, json, os, re, glob, sys
 from collections import OrderedDict
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from rs import rate as rs_rate
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCHEMA = 'swingedge-shortlist/1'
@@ -114,30 +117,8 @@ def main():
             prev = {r['code']: r for r in p.get('universe', []) if r.get('code')}
         except Exception: prev = None
 
-    # ---- RS: percentile of a recency-weighted momentum composite --------------
-    def score_mom(r):
-        r3, r6, r1y = num(r.get('r3m')), num(r.get('r6m')), num(r.get('r1y'))
-        if r3 is not None and r6 is not None and r1y is not None:
-            q1 = r3
-            q2 = ((1 + r6 / 100) / (1 + r3 / 100) - 1) * 100
-            h2 = ((1 + r1y / 100) / (1 + r6 / 100) - 1) * 100
-            return 0.4 * q1 + 0.2 * q2 + 0.2 * h2
-        parts, wsum, s = [('r3m', .5), ('r1m', .3), ('r1w', .2)], 0.0, 0.0
-        for k, w in parts:
-            v = num(r.get(k))
-            if v is not None: s += w * v; wsum += w
-        return s / wsum if wsum else None
-
-    for r in U: r['_mom'] = score_mom(r)
-    ranked = sorted((r for r in U if r['_mom'] is not None), key=lambda r: r['_mom'])
-    n = len(ranked)
-    i = 0
-    while i < n:                                    # average-rank percentile, ties share a rank
-        j = i
-        while j + 1 < n and ranked[j + 1]['_mom'] == ranked[i]['_mom']: j += 1
-        pct = 99 if n == 1 else round(1 + 98 * (((i + j) / 2 + 1) - 1) / (n - 1))
-        for k in range(i, j + 1): ranked[k]['_rs'] = pct
-        i = j + 1
+    # ---- RS: percentile of a recency-weighted momentum composite (tools/rs.py) ----
+    rs_rate(U, out='_rs', score_key='_mom')
 
     # ---- sector strength ------------------------------------------------------
     groups = {}

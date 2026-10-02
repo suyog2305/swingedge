@@ -25,8 +25,11 @@ is an immutable snapshot, so this can always be rebuilt from scratch and will ne
 
 Writes data/daily/s2history.json (what the app reads).
 """
-import argparse, datetime as dt, io, json, os, glob
+import argparse, datetime as dt, io, json, os, glob, sys
 from collections import OrderedDict
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from rs import rate as rs_rate
 
 # How far above a cut export's RS floor a previously-listed name must have sat for its absence
 # to count as an exit rather than "probably dipped under the cut". The provider's RS% commonly
@@ -57,27 +60,8 @@ def band_of(m):
     return 'Micro'
 
 def rs_percentiles(rows):
-    """RS 1-99 within this scan (same composite the app uses)."""
-    def mom(r):
-        r3, r6, r1y = num(r.get('r3m')), num(r.get('r6m')), num(r.get('r1y'))
-        if None not in (r3, r6, r1y):
-            q2 = ((1 + r6 / 100) / (1 + r3 / 100) - 1) * 100
-            h2 = ((1 + r1y / 100) / (1 + r6 / 100) - 1) * 100
-            return 0.4 * r3 + 0.2 * q2 + 0.2 * h2
-        s = w = 0.0
-        for k, wt in (('r3m', .5), ('r1m', .3), ('r1w', .2)):
-            v = num(r.get(k))
-            if v is not None: s += wt * v; w += wt
-        return s / w if w else None
-    for r in rows: r['_m'] = mom(r)
-    rk = sorted((r for r in rows if r['_m'] is not None), key=lambda r: r['_m'])
-    n = len(rk); i = 0
-    while i < n:
-        j = i
-        while j + 1 < n and rk[j + 1]['_m'] == rk[i]['_m']: j += 1
-        pct = 99 if n == 1 else round(1 + 98 * (((i + j) / 2 + 1) - 1) / (n - 1))
-        for k in range(i, j + 1): rk[k]['_rs'] = pct
-        i = j + 1
+    """RS 1-99 within this scan (the same engine the app uses — tools/rs.py)."""
+    rs_rate(rows, out='_rs', score_key='_m')
 
 def trend_pass(r, prev_row):
     """The app's 7-point trend template. Needs at least 5 evaluable checks to count."""

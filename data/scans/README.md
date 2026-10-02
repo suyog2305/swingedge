@@ -25,10 +25,25 @@ Everything is derived from the other weeks in this folder, so the RS-drift, entr
 
 ### How RS is calculated
 
-For each stock, a momentum composite is built and then **percentile-ranked (1–99) against every other stock in that week's universe**:
+**In one breath:** take each stock's average quarterly return over the last year, counting the most recent quarter twice, and rank that against every other stock in the scan on a 1–99 scale. RS 95 means the stock out-performed 95% of the market. This is IBD / MarketSmith's RS Rating — the number O'Neil's CAN SLIM (RS ≥ 80) and Minervini's Trend Template (RS ≥ 70) are written around. Code: `tools/rs.py`, mirrored by `seScore` / `seRank` in `index.html`. Hover any rating in the app to see its four quarters.
 
-- If the export carries 3-month, 6-month and 1-year returns → **IBD-style quarterly weighting** (most recent quarter double-weighted): `0.4·Q1 + 0.2·Q2 + 0.2·H2`.
-- Otherwise → a lighter composite of the returns present: `0.5·3M + 0.3·1M + 0.2·1W`.
+The four quarters, chained out of the cumulative 3-month, 6-month and 1-year returns the export carries:
+
+| Quarter | Weight | How it is derived |
+|---|---|---|
+| Q1 — last 3 months | **0.4** | the 3-month return itself; "what has it done lately" counts double |
+| Q2 — months 4–6 | 0.2 | `(1 + 6m) / (1 + 3m) − 1` |
+| Q3 and Q4 — months 7–12 | 0.2 each | the `(1 + 1y) / (1 + 6m)` stretch split into two equal quarters (geometric), since the export has no finer history |
+
+`score = 0.4·Q1 + 0.2·Q2 + 0.2·Q3 + 0.2·Q4` — a weighted average quarterly return, IBD's 40/20/20/20. The old half-year shortcut (one chained 6-month return at weight 0.2) over-rewarded a stock whose big move was 9 months ago and has been falling since; splitting it into two quarters is what IBD actually does.
+
+- A recent listing is scored on the quarters it has, with the weights rescaled so its number stays on the same one-quarter scale as everyone else's; nothing is rated on less than one quarter of history (it shows "—").
+- RS is a 12-month measure by design. A stock that went parabolic last year and has halved since can still rate 80+, which is exactly why the **Trend** column (price vs 50/200-DMA, 52-week position) sits beside it: read the two together — RS says *who led*, Trend says *who is still leading*.
+- Ties share a rank; the percentile is scaled 1–99 across every rated name in the scan.
+- **RS Δ** — the small ▲/▼ beside the rating — is the change since the previous scan. RS rising while the price is still basing is the classic tell.
+- **RS Trend** (its own page) reads that move over the last ~3 weeks in words: **Very strong** / **Very weak** = RS moved 10+ points and is not fading in the nearer window; **Strong** / **Weak** = rising / falling by less; **New** = not enough history yet.
+- An export with no 6-month/1-year columns at all falls back to a lighter blend for every row: `0.5·3M + 0.3·1M + 0.2·1W`.
+- `python tools/rs_rank.py --top 25` prints the market ranked by RS from the newest scan, with the Δ column, in one command.
 
 RS is only as market-wide as the universe you feed it. A "near-52W-high / weekly-gainers" export gives RS **within that already-strong set**; for a true market-wide RS rating, export a broad screen (e.g. *market capitalization > ₹1,000 Cr*, no return filter).
 
@@ -44,7 +59,7 @@ Add `DMA 50`, `DMA 200`, `Down from 52w high`, `Up from 52w low` and `High price
 
 ### Trend template (Stage 2 by calculation)
 
-Checked when the columns are present; a stock "passes" when it clears every evaluated check (min 5):
+Checked when the columns are present; a stock "passes" when it clears every evaluated check (min 5). The Trend column reads it as words: **Very strong** = every check passes (the Stage 2 template), **Strong** = one miss, **Weak** = two or three, **Very weak** = more.
 
 1. Price above the 50-DMA
 2. Price above the 200-DMA
@@ -119,7 +134,7 @@ A scheduled task **"SwingEdge Daily Pull"** runs `tools/daily_pull.cmd` every da
 - Change the time:  `Set-ScheduledTask -TaskName "SwingEdge Daily Pull" -Trigger (New-ScheduledTaskTrigger -Daily -At 8:00PM)`
 - Disable / remove:  `Disable-ScheduledTask` / `Unregister-ScheduledTask -TaskName "SwingEdge Daily Pull"`
 
-Pairs with the **"SwingEdge daily gainers news"** cloud routine (weekdays 18:30 IST), which refreshes `data/daily/news.json` for the day's top gainers from whatever scan this task last committed. Re-register on another machine with the `Register-ScheduledTask` block using `tools/daily_pull.cmd` and a `-Daily` trigger. Refresh the cookie file whenever the session expires (the log shows a login-redirect message when it does).
+Pairs with the **"SwingEdge daily gainers news"** cloud routine (weekdays 18:30 IST), which refreshes `data/daily/news.json` for the day's top gainers from whatever scan this task last committed. That routine spends tokens only on the web searches: `python tools/gainers_news.py list` ranks the gainers and marks which still need a search (a name with a headline from the last 3 days is skipped), and `python tools/gainers_news.py merge findings.json --commit` validates, merges, commits and pushes. Re-register on another machine with the `Register-ScheduledTask` block using `tools/daily_pull.cmd` and a `-Daily` trigger. Refresh the cookie file whenever the session expires (the log shows a login-redirect message when it does).
 
 The Stage 2 list stays in your hands — keep producing it however you do today and pass it with `build_scan.py --stage2` (or add it as a `kind: "stage2"` export URL if it lives somewhere the cookie can reach).
 
