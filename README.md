@@ -54,3 +54,22 @@ Add one with `python tools/build_research.py --file "<report>.html" --feature` (
 earnings + today's move + a news trigger) and writes the top 15-20 names, each with the reason it
 qualified. No model, no API key, no cost. Open **Edge -> Shortlist**, tick up to five, and copy the
 brief to hand to the report generator. Details in [data/scans/README.md](data/scans/README.md).
+
+## Markets & Macro, Market News, and your own book
+
+- **Markets & Macro** (the landing page) is the old Market Pulse and Commodities pages in one: the indices,
+  India VIX, the Indian and US 10-year yields, the dollar and the rupee, crude, gold, silver and copper; a
+  driver table that puts the textbook reading next to the correlation measured in your own data; foreign
+  portfolio flows by day, by month and by sector; NSE's sector indices with turnover and P/E; and your
+  sub-sector trackers. Data: `data/markets/markets.json`, built by `python tools/fetch_markets.py` from
+  NSE's end-of-day index file, Yahoo, RBI, NSDL and SEBI. Every chart has an **Expand** view.
+- **Market News** collects the overnight headlines at 04:00 IST (`tools/market_news.py collect`, run by
+  `.github/workflows/market_news.yml`) and groups them by topic; a short digest written from those
+  headlines alone is merged on top by a Claude routine.
+- **RS Leaders** explains itself: an **i** beside every column, and a click on any Trend, Exhaustion or
+  Verdict cell gives that stock's own reason. It also lists the names that entered the top 25 this week
+  and the ones climbing toward it, and checks your holdings against the list.
+- **Your holdings stay private.** They are kept in `.secrets/holdings.json` on your PC (gitignored) and in
+  your browser's storage after **Import holdings**; nothing about them is published.
+  `python tools/holdings_check.py` prints the same check in a terminal.
+- `python tools/check_page.py` verifies `index.html` still loads after an edit.

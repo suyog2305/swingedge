@@ -17,7 +17,8 @@ WHAT IT RUNS, IN ORDER
   3. build_s2history.py  append today to the Stage 2 journal
   4. build_rs_tracker.py the top-25 RS persistence / exhaustion tracker
   5. build_indices.py    the custom sub-sector indices (data/indices/)
-  4. fetch_themes.py     refresh the theme trackers (crude, rigs, the stock); never blocks
+  6. fetch_themes.py     refresh the theme trackers (crude, rigs, the stock); never blocks
+  7. fetch_markets.py    refresh the Markets & Macro data (NSE indices, yields, flows); never blocks
 
 Each step is reported pass/fail with its own line. A failed step STOPS the run — a shortlist
 built on yesterday's scan looks perfectly fine and is silently wrong, which is exactly the
@@ -627,6 +628,14 @@ def main():
     # ignored - the scan, shortlist and journal above are already complete.
     if not run('refresh the theme trackers (never blocks the scan)',
                [py, os.path.join('tools', 'fetch_themes.py'), '--quiet'], a.dry_run):
+        print('    ignored - the scan, shortlist and journal above are complete')
+
+    # ---- markets and macro: NSE's index file, yields, the dollar, crude, foreign flows -------
+    # What the Markets & Macro page reads. The same rule as the theme trackers: each source keeps
+    # its last good data when it does not answer, and nothing here may stop the run. (The 4 a.m.
+    # GitHub job tops up everything except NSE's file, which only this run fetches.)
+    if not run('refresh the Markets & Macro data (never blocks the scan)',
+               [py, os.path.join('tools', 'fetch_markets.py'), '--quiet'], a.dry_run):
         print('    ignored - the scan, shortlist and journal above are complete')
 
     if a.dry_run:

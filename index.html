@@ -1091,13 +1091,60 @@ html[data-theme="lab"]{--viz-1:#3987e5;--viz-2:#d95926;--viz-3:#199e70;--viz-4:#
 .se-tt.full em{color:var(--sage2);} .se-tt.near em{color:var(--lime);} .se-tt.vweak em{color:var(--t4);}
 .rl-h{font-family:var(--mono);font-size:11px;color:var(--t3);white-space:nowrap;} .rl-h b{color:var(--t1);font-weight:700;}
 .rl-ev{margin:0;padding-left:18px;font-size:12px;line-height:1.7;color:var(--t2);}
+/* ---- info popover: the "i" beside a column or a number ---- */
+.se-i{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;margin-left:5px;padding:0;border-radius:50%;border:1px solid var(--b3);background:transparent;color:var(--t3);font:italic 700 10px/1 Georgia,serif;cursor:pointer;vertical-align:middle;text-transform:none;letter-spacing:0;}
+.se-i:hover{background:var(--lime);border-color:var(--lime);color:#fff;}
+.se-info-pop{position:fixed;z-index:500;display:none;background:var(--bg1);border:1px solid var(--b2);border-radius:var(--r4);box-shadow:var(--shadow-pop);padding:14px 16px 12px;font:400 12.5px/1.55 var(--sans);color:var(--t2);max-height:70vh;overflow:auto;text-align:left;text-transform:none;letter-spacing:0;white-space:normal;}
+.se-info-pop.open{display:block;}
+.se-info-pop h4{font:700 13.5px var(--sans);color:var(--t1);margin:0 22px 6px 0;}
+.se-info-pop p{margin:0 0 8px;} .se-info-pop ul,.se-info-pop ol{margin:0 0 8px;padding-left:18px;} .se-info-pop li{margin:2px 0;} .se-info-pop b{color:var(--t1);}
+.se-info-pop table{border-collapse:collapse;width:100%;margin:4px 0 8px;font-size:12px;} .se-info-pop td,.se-info-pop th{padding:3px 6px;border-bottom:1px solid var(--b1);text-align:left;vertical-align:top;} .se-info-pop th{color:var(--t3);font-weight:600;}
+.se-info-x{position:absolute;top:6px;right:8px;border:none;background:transparent;color:var(--t3);font-size:18px;line-height:1;cursor:pointer;}
+/* ---- chart engine: clickable legend, full-screen view ---- */
+.ch-legend span{cursor:pointer;user-select:none;} .ch-legend span.off{opacity:.38;text-decoration:line-through;} .ch-legend span:hover b{text-decoration:underline;}
+.ch-zoom{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(5,10,20,.74);}
+.ch-zoom.open{display:flex;}
+.ch-zoom-box{background:var(--bg1);border:1px solid var(--b2);border-radius:var(--r4);box-shadow:var(--shadow-pop);width:min(1560px,100%);max-height:100%;display:flex;flex-direction:column;padding:16px 18px 14px;min-width:0;}
+.ch-zoom-h{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;} .ch-zoom-h h2{font:700 18px var(--sans);color:var(--t1);margin:0;letter-spacing:-.02em;}
+.ch-zoom-ctl{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.ch-zoom-canvas{position:relative;height:calc(100vh - 250px);min-height:300px;}
+/* ---- Markets & Macro ---- */
+.mk-jump{display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 6px;}
+.mk-jump a{font:600 11.5px var(--sans);color:var(--t2);background:var(--bg2);border:1px solid var(--b1);border-radius:99px;padding:5px 12px;text-decoration:none;cursor:pointer;}
+.mk-jump a:hover{border-color:var(--lime);color:var(--t1);}
+.mk-sec{scroll-margin-top:10px;} .se-row-h.mk-sec{margin-top:22px;} .se-panel.mk-sec{margin-top:14px;}
+.mk-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:10px;margin:0 0 4px;}
+.mk-tile{background:var(--bg1);border:1px solid var(--b1);border-radius:var(--r4);padding:11px 13px 9px;min-width:0;box-shadow:var(--shadow-1);}
+.mk-tile .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);display:flex;justify-content:space-between;gap:6px;white-space:nowrap;}
+.mk-tile .k span:last-child{color:var(--t4);}
+.mk-tile .v{font:800 20px var(--sans);letter-spacing:-.02em;color:var(--t1);margin:5px 0 3px;font-variant-numeric:tabular-nums;} .mk-tile .v small{font-size:11px;font-weight:600;color:var(--t3);}
+.mk-tile .c{font-family:var(--mono);font-size:10.5px;color:var(--t3);display:flex;gap:9px;flex-wrap:wrap;}
+.mk-tile .s{font-size:10.5px;color:var(--t4);margin-top:4px;line-height:1.35;}
+.mk-drv td{vertical-align:top;} .mk-rd{font-size:11.5px;line-height:1.5;color:var(--t2);min-width:210px;white-space:normal;} .mk-links{min-width:150px;white-space:normal;}
+.mk-link{display:inline-block;font-family:var(--mono);font-size:10.5px;padding:2px 7px;border-radius:3px;margin:0 4px 4px 0;color:var(--t1);white-space:nowrap;} .mk-link b{font-weight:700;}
+.mk-heat{border-collapse:separate;border-spacing:2px;font-family:var(--mono);font-size:11px;width:100%;}
+.mk-heat th{font:600 10.5px var(--sans);color:var(--t3);padding:4px 5px;text-align:center;white-space:nowrap;} .mk-heat th.r{text-align:left;color:var(--t2);}
+.mk-heat td{text-align:center;padding:7px 4px;border-radius:3px;color:var(--t1);min-width:46px;}
+.tt-grid.mk-two{grid-template-columns:repeat(auto-fit,minmax(min(100%,430px),1fr));}
+.mk-heat th{white-space:normal;line-height:1.15;max-width:62px;} .mk-heat th.r{white-space:nowrap;max-width:none;}
+.rl-why{cursor:pointer;} .rl-why:hover .se-pill,.se-tt.rl-why:hover em{text-decoration:underline;}
+.rl-imp{display:flex;gap:6px;align-items:center;} .rl-paste{width:100%;min-height:110px;margin-top:8px;background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r2);color:var(--t1);font:12px/1.5 var(--mono);padding:8px 10px;}
+.rt-sp{display:inline-block;vertical-align:middle;} .rt-sp path{fill:none;stroke-width:1.7;stroke-linejoin:round;stroke-linecap:round;}
+.rt-sp.up path{stroke:var(--sage);} .rt-sp.up circle{fill:var(--sage);} .rt-sp.dn path{stroke:var(--rose);} .rt-sp.dn circle{fill:var(--rose);} .rt-sp.fl path{stroke:var(--t4);} .rt-sp.fl circle{fill:var(--t4);}
+/* ---- Market news ---- */
+.mn-digest{margin-bottom:6px;} .mn-points{margin:4px 0 0;padding-left:18px;font-size:13px;line-height:1.6;color:var(--t2);} .mn-points li{margin:5px 0;} .mn-points b{color:var(--t1);}
+.mn-refs{font-size:11px;white-space:nowrap;} .mn-refs a{color:var(--teal);}
+.mn-seg{flex-wrap:wrap;} .mn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:14px;}
+.mn-item{display:grid;grid-template-columns:92px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid var(--b1);font-size:12.5px;line-height:1.45;} .mn-item:last-child{border-bottom:none;}
+.mn-item a{color:var(--t1);text-decoration:none;font-weight:600;} .mn-item a:hover{text-decoration:underline;color:var(--teal);}
+.mn-t{font-family:var(--mono);font-size:10.5px;color:var(--t4);padding-top:2px;} .mn-s{font-size:11px;color:var(--t3);margin-top:2px;}
+/* ---- sub-sector indices ---- */
 .ix-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-bottom:14px;}
 .ix-card{cursor:pointer;transition:border-color .15s;} .ix-card:hover,.ix-card.sel{border-color:var(--lime);}
 .ix-card .g{font-size:10px;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;} .ix-card .nm{font-weight:700;font-size:13px;}
 .ix-card .lv{font-family:var(--mono);font-size:20px;font-weight:700;margin:4px 0 2px;} .ix-card .rt{display:flex;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:10.5px;color:var(--t3);}
-.ix-spark{width:100%;height:34px;display:block;margin-top:6px;} .ix-spark path{fill:none;stroke:var(--lime);stroke-width:1.5;}
-.ix-chart{width:100%;height:280px;display:block;margin:6px 0 2px;} .ix-chart text{font-family:var(--mono);font-size:10px;fill:var(--t4);} .ix-chart .grid{stroke:var(--b2);stroke-width:1;}
-.ix-chart .ln-ix{fill:none;stroke:var(--lime);stroke-width:2;} .ix-chart .ln-mk{fill:none;stroke:var(--t4);stroke-width:1.5;stroke-dasharray:4 3;}
+.ix-spark{width:100%;height:34px;display:block;margin-top:6px;} .ix-spark path{fill:none;stroke:var(--lime);stroke-width:1.5;vector-effect:non-scaling-stroke;}
+.mk-tile .ix-spark{height:28px;} .mk-tile .ix-spark path{stroke:var(--t3);stroke-width:1.3;}
 .se-stock .se-nm{font-size:10.5px;color:var(--t3);margin-top:1px;max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .se-hist{display:flex;align-items:flex-end;gap:6px;height:150px;padding:8px 4px 0;}
 .se-hist-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px;}
@@ -1246,43 +1293,41 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
     </div>
   </div>
   <div class="sb-scroll">
-    <div class="sb-group">Edge</div>
-    <div class="nav active" id="nav-pulse" onclick="show('pulse')"><i class="ti ti-activity-heartbeat"></i>Market Pulse</div>    <div class="nav" id="nav-shortlist" onclick="show('shortlist')"><i class="ti ti-list-check"></i>Shortlist<span class="nav-badge" id="sl-badge">0</span></div>
-
-    <div class="nav" id="nav-dg" onclick="show('dg')"><i class="ti ti-flame"></i>Daily Gainers</div>
+    <div class="sb-group">Markets &amp; Macro</div>
+    <div class="nav active" id="nav-pulse" onclick="show('pulse')"><i class="ti ti-activity-heartbeat"></i>Markets &amp; Macro</div>
+    <div class="nav" id="nav-news" onclick="show('news')"><i class="ti ti-world"></i>Market News<span class="nav-badge" id="mn-badge">0</span></div>
+    <div class="nav" id="nav-indices" onclick="show('indices')"><i class="ti ti-chart-line"></i>Indices</div>
+    <div class="nav" id="nav-sectors" onclick="show('sectors')"><i class="ti ti-chart-pie-2"></i>Sectors</div>
+    <div class="nav" id="nav-themes" onclick="show('themes')"><i class="ti ti-chart-dots"></i>Theme Trackers</div>
+    <div class="nav" id="nav-wr" onclick="show('wr')"><i class="ti ti-report-analytics"></i>Weekly Report</div>
+    <div class="sb-group">Relative Strength &amp; Stage 2</div>
     <div class="nav" id="nav-rsscreen" onclick="show('rsscreen')"><i class="ti ti-chart-arrows-vertical"></i>RS Screen</div>
     <div class="nav" id="nav-rstrend" onclick="show('rstrend')"><i class="ti ti-trending-up"></i>RS Trend</div>
     <div class="nav" id="nav-rsleaders" onclick="show('rsleaders')"><i class="ti ti-crown"></i>RS Leaders</div>
-    <div class="nav" id="nav-indices" onclick="show('indices')"><i class="ti ti-chart-line"></i>Indices</div>
-    <div class="nav" id="nav-sectors" onclick="show('sectors')"><i class="ti ti-chart-pie-2"></i>Sectors</div>
     <div class="nav" id="nav-s2track" onclick="show('s2track')"><i class="ti ti-stairs-up"></i>Stage 2 Tracker</div>
     <div class="nav" id="nav-s2journal" onclick="show('s2journal')"><i class="ti ti-history"></i>Stage 2 Journal</div>
+    <div class="sb-group">Ideas</div>
+    <div class="nav" id="nav-shortlist" onclick="show('shortlist')"><i class="ti ti-list-check"></i>Shortlist<span class="nav-badge" id="sl-badge">0</span></div>
+    <div class="nav" id="nav-dg" onclick="show('dg')"><i class="ti ti-flame"></i>Daily Gainers</div>
     <div class="nav" id="nav-pead" onclick="show('pead')"><i class="ti ti-report-money"></i>PEAD Radar</div>
-    <div class="nav" id="nav-tr" onclick="show('tr')"><i class="ti ti-target-arrow"></i>Track Record</div>
     <div class="nav" id="nav-rdesk" onclick="show('rdesk')"><i class="ti ti-news"></i>Research Desk</div>
-    <div class="nav" id="nav-themes" onclick="show('themes')"><i class="ti ti-chart-line"></i>Theme Trackers</div>
-    <div class="sb-group">Core</div>
+    <div class="sb-group">Personal</div>
     <div class="nav" id="nav-dash" onclick="show('dash')"><i class="ti ti-layout-dashboard"></i>Dashboard</div>
     <div class="nav" id="nav-trades" onclick="show('trades')"><i class="ti ti-notebook"></i>Trade Log</div>
+    <div class="nav" id="nav-monitor" onclick="show('monitor')"><i class="ti ti-activity"></i>Position Monitor<span class="nav-badge" id="alert-badge">0</span></div>
     <div class="nav" id="nav-research" onclick="show('research')"><i class="ti ti-microscope"></i>Research</div>
     <div class="nav" id="nav-watchlist" onclick="show('watchlist')"><i class="ti ti-eye"></i>Watchlist</div>
-    <div class="sb-group">Scan</div>
-    <div class="nav" id="nav-scans" onclick="show('scans')"><i class="ti ti-radar"></i>Stage 2 · 52W Highs</div>
-    <div class="nav" id="nav-converge" onclick="show('converge')"><i class="ti ti-crosshair"></i>Convergence<span class="nav-badge" id="converge-badge">0</span></div>
-    <div class="nav" id="nav-comm" onclick="show('comm')"><i class="ti ti-chart-candle"></i>Commodities</div>
-    <div class="nav" id="nav-wr" onclick="show('wr')"><i class="ti ti-report-analytics"></i>Weekly Report</div>
     <div class="sb-group">Review</div>
     <div class="nav" id="nav-pnl" onclick="show('pnl')"><i class="ti ti-receipt-tax"></i>P&amp;L Analytics</div>
     <div class="nav" id="nav-weekly" onclick="show('weekly')"><i class="ti ti-calendar-week"></i>Weekly Journal</div>
     <div class="nav" id="nav-learn" onclick="show('learn')"><i class="ti ti-brain"></i>Learnings</div>
-    <div class="sb-group">Publish</div>
-    <div class="nav" id="nav-library" onclick="show('library')"><i class="ti ti-books"></i>Research Library</div>
+    <div class="nav" id="nav-tr" onclick="show('tr')"><i class="ti ti-target-arrow"></i>Track Record</div>
     <div class="sb-group">System</div>
     <div class="nav" id="nav-checklist" onclick="show('checklist')"><i class="ti ti-checklist"></i>Checklist</div>
     <div class="nav" id="nav-procedure" onclick="show('procedure')"><i class="ti ti-list-check"></i>Procedure</div>
-    <div class="nav" id="nav-monitor" onclick="show('monitor')"><i class="ti ti-activity"></i>Position Monitor<span class="nav-badge" id="alert-badge">0</span></div>
-<div class="sb-group">Feedback</div>
-<div class="nav" id="nav-feedback" onclick="show('feedback')"><i class="ti ti-message-2"></i>Send Feedback<span class="nav-badge" id="fb-badge">0</span></div>
+    <div class="nav" id="nav-scans" onclick="show('scans')"><i class="ti ti-radar"></i>Legacy · Stage 2 · 52W</div>
+    <div class="nav" id="nav-converge" onclick="show('converge')"><i class="ti ti-crosshair"></i>Legacy · Convergence<span class="nav-badge" id="converge-badge">0</span></div>
+    <div class="nav" id="nav-feedback" onclick="show('feedback')"><i class="ti ti-message-2"></i>Send Feedback<span class="nav-badge" id="fb-badge">0</span></div>
   </div>
   <div class="sb-bottom">
     <div class="mkt-pill">
@@ -1376,16 +1421,27 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
   <div class="content se-content"><div id="sj-body"></div></div>
 </div>
 
-<!-- ── EDGE: MARKET PULSE ── -->
+<!-- ── MARKETS & MACRO (Market Pulse + the old Commodities page) ── -->
 <div class="sec active" id="sec-pulse">
   <div class="topbar">
-    <div class="tb-left"><span class="tb-title">Market Pulse</span><span class="tb-crumb">/ relative strength · stage 2 · sector rotation</span></div>
+    <div class="tb-left"><span class="tb-title">Markets &amp; Macro</span><span class="tb-crumb">/ indices · yields · the dollar · crude and metals · foreign flows · sector rotation</span></div>
     <div class="tb-right">
       <select class="wr-week-sel se-week" onchange="seSelectWeek(this.value)"><option value="">Loading…</option></select>
-      <button class="btn btn-sm" onclick="loadSE(true)"><i class="ti ti-refresh"></i>Refresh</button>
+      <button class="btn btn-sm" onclick="loadSE(true);loadMK(true)"><i class="ti ti-refresh"></i>Refresh</button>
     </div>
   </div>
-  <div class="content se-content"><div id="se-pulse-body"></div></div>
+  <div class="content se-content"><div id="se-pulse-body"></div><div class="se-body" id="mk-body" style="padding-bottom:0;"></div><div id="se-pulse-rest"></div></div>
+</div>
+
+<!-- ── MARKET NEWS ── -->
+<div class="sec" id="sec-news">
+  <div class="topbar">
+    <div class="tb-left"><span class="tb-title">Market News</span><span class="tb-crumb">/ what moved markets overnight, collected at 4 a.m.</span></div>
+    <div class="tb-right">
+      <button class="btn btn-sm" onclick="loadMN(true)"><i class="ti ti-refresh"></i>Refresh</button>
+    </div>
+  </div>
+  <div class="content se-content se-pad"><div id="mnews-body"></div></div>
 </div>
 
 <!-- ── EDGE: RS SCREEN ── -->
@@ -1493,7 +1549,7 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
       </div>
     </div>
     <div class="card">
-      <div class="card-hdr"><span class="card-label">Latest Macro</span><span class="card-sub" id="d-macro-wk"></span></div>
+      <div class="card-hdr"><span class="card-label">Latest Macro</span><span style="display:flex;align-items:center;gap:10px;"><span class="card-sub" id="d-macro-wk"></span><button class="btn btn-ghost btn-sm" onclick="show('pulse')">Markets &amp; Macro →</button></span></div>
       <div class="macro-grid" id="d-macro"></div>
     </div>
     <div class="card" id="d-wr-card" style="display:none;">
@@ -1839,46 +1895,6 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
   </div>
   <div class="content wr-content" id="wr-content">
     <div id="wr-body"></div>
-  </div>
-</div>
-
-<!-- ── COMMODITIES ── -->
-<div class="sec" id="sec-comm">
-  <div class="topbar">
-    <div class="tb-left"><span class="tb-title">Commodities &amp; Macro</span><span class="tb-crumb">/ weekly snapshot</span></div>
-    <div class="tb-right">
-      <button class="btn" onclick="openModal('m-snap')"><i class="ti ti-plus"></i>Add Snapshot</button>
-    </div>
-  </div>
-  <div class="content">
-    <div class="tabs">
-      <div class="tab active" onclick="commTab('snap')">Current</div>
-      <div class="tab" onclick="commTab('trend')">Trends</div>
-      <div class="tab" onclick="commTab('impact')">India Impact</div>
-      <div class="tab" onclick="commTab('hist')">History</div>
-    </div>
-    <div id="ct-snap" class="ct-pane">
-      <div class="macro-grid" id="snap-grid"></div>
-      <div class="card">
-        <div class="card-hdr"><span class="card-label">Quick observations</span></div>
-        <div id="snap-notes" style="font-size:12.5px;color:var(--t2);line-height:1.7;"></div>
-      </div>
-    </div>
-    <div id="ct-trend" class="ct-pane" style="display:none;">
-      <div class="card">
-        <div class="card-hdr"><span class="card-label">Brent Crude · Gold · DXY (last 8 snapshots)</span></div>
-        <div class="chart-wrap"><canvas id="trend-chart"></canvas></div>
-      </div>
-    </div>
-    <div id="ct-impact" class="ct-pane" style="display:none;">
-      <div id="impact-list"></div>
-    </div>
-    <div id="ct-hist" class="ct-pane" style="display:none;">
-      <div class="card"><div class="tw"><table>
-        <thead><tr><th>Week</th><th>Brent</th><th>WTI</th><th>DXY</th><th>USD/INR</th><th>Gold</th><th>Silver</th><th>10Y Yield</th><th>Nifty</th><th>Note</th></tr></thead>
-        <tbody id="snap-body"></tbody>
-      </table></div></div>
-    </div>
   </div>
 </div>
 
@@ -2431,35 +2447,6 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
       <div class="fg"><label>Rule tag</label><input name="tag" placeholder="Position Sizing | SL Discipline"></div>
       <div class="fa">
         <button type="button" class="btn" onclick="closeModal('m-learn')">Cancel</button>
-        <button type="submit" class="btn btn-lime">Save</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div class="overlay" id="m-snap">
-  <div class="modal">
-    <div class="modal-hdr"><h3>Commodity Snapshot</h3><button class="xbtn" onclick="closeModal('m-snap')">×</button></div>
-    <form onsubmit="saveSnap(event)">
-      <div class="fg"><label>Week of</label><input type="date" name="week" required></div>
-      <div class="g3">
-        <div class="fg"><label>Brent $</label><input type="number" step="0.01" name="brent"></div>
-        <div class="fg"><label>WTI $</label><input type="number" step="0.01" name="wti"></div>
-        <div class="fg"><label>DXY</label><input type="number" step="0.01" name="dxy"></div>
-      </div>
-      <div class="g3">
-        <div class="fg"><label>USD/INR</label><input type="number" step="0.01" name="usdinr"></div>
-        <div class="fg"><label>Gold $</label><input type="number" step="0.01" name="gold"></div>
-        <div class="fg"><label>Silver $</label><input type="number" step="0.01" name="silver"></div>
-      </div>
-      <div class="g3">
-        <div class="fg"><label>Copper $</label><input type="number" step="0.01" name="copper"></div>
-        <div class="fg"><label>10Y Yield %</label><input type="number" step="0.01" name="yield"></div>
-        <div class="fg"><label>Nifty 50</label><input type="number" step="0.01" name="nifty"></div>
-      </div>
-      <div class="fg"><label>Notes / observations</label><textarea name="notes"></textarea></div>
-      <div class="fa">
-        <button type="button" class="btn" onclick="closeModal('m-snap')">Cancel</button>
         <button type="submit" class="btn btn-lime">Save</button>
       </div>
     </form>
@@ -3056,14 +3043,6 @@ const SEED_LEARN = [
   {id:2,stock:"Genus Power",date:"2026-01-10",category:"Position Sizing",what:"Position was ₹5-6L on a ₹10L portfolio (50-60%). Margin call forced a sell. Could have exited at 40 DEMA and saved capital.",rule:"1. Be brutal — sell losing positions rather than adding new ones. 2. Avoid averaging up. 3. Max single-position size: define as % of portfolio. 4. Interest cost compounds — exit faster.",tag:"Position Sizing | SL Discipline | Capital Allocation"}
 ];
 
-const SEED_SNAP = [
-  {id:1,week:"2026-03-15",brent:103,wti:99,dxy:104.5,usdinr:84.6,gold:5100,silver:82,copper:4.8,yield:4.3,nifty:25400,notes:"Crude at new highs but Sunil expects normalisation to $80-90. If reached, good for India CAD. Yield watch: above 4.8% creates issues."},
-  {id:2,week:"2026-03-29",brent:106,wti:101,dxy:103.8,usdinr:84.9,gold:4500,silver:78,copper:4.7,yield:4.35,nifty:25650,notes:"Gold pullback from highs. Crude inflation likely absorbed by Govt/OMC firms."},
-  {id:3,week:"2026-04-12",brent:101,wti:97,dxy:103.2,usdinr:85.1,gold:4650,silver:80,copper:4.85,yield:4.28,nifty:25920,notes:"Crude softening into Sunil's preferred range."},
-  {id:4,week:"2026-04-26",brent:98,wti:94,dxy:102.5,usdinr:85.3,gold:4700,silver:81,copper:4.9,yield:4.22,nifty:26150,notes:"DXY weakening — supportive for EMs."},
-  {id:5,week:"2026-05-10",brent:96,wti:92,dxy:102.0,usdinr:85.4,gold:4720,silver:81.5,copper:4.95,yield:4.18,nifty:26350,notes:"Crude in Sunil's $80-90 sweet spot zone. Yields cooling. Nifty extending."}
-];
-
 // Default state
 let DB = {
   trades: SEED_TRADES,
@@ -3071,7 +3050,6 @@ let DB = {
   watchlist: SEED_WATCH,
   weekly: SEED_WEEKLY,
   learnings: SEED_LEARN,
-  snapshots: SEED_SNAP,
   stage2: SEED_STAGE2.map((r,i)=>({
     id:i+1, code:r[0], industry:r[1], rs:r[2], mcap:r[3], vol:r[4],
     ret:r[5], weeks:r[6], asm:r[7], asmDays:r[8], status:r[9]
@@ -3148,6 +3126,19 @@ function load(){
 function save(){
   try{ localStorage.setItem(KEY, JSON.stringify(DB)); }catch(e){console.warn('Save failed',e);}
 }
+// The old Commodities page and Position Snapshot both kept their records in DB.snapshots. A weekly macro
+// reading saved there has no positions, and the position code threw on it at start-up, which stopped every
+// page from loading. Such readings are moved to DB.macroSnaps (shown at the foot of Markets & Macro).
+function dbMigrate(){
+  try{
+    const all = Array.isArray(DB.snapshots) ? DB.snapshots : [], macro = all.filter(x => x && !Array.isArray(x.positions));
+    if(!macro.length && all.every(Boolean)) return;
+    DB.macroSnaps = (DB.macroSnaps || []).concat(macro.filter(x => x.week));
+    DB.snapshots = all.filter(x => x && Array.isArray(x.positions));
+    if(!DB.snapshots.some(x => x.id === DB.snapActiveId)) DB.snapActiveId = DB.snapshots.length ? DB.snapshots[DB.snapshots.length - 1].id : null;
+    save();
+  }catch(e){ console.warn('snapshot migration failed', e); }
+}
 
 function toast(msg, type){
   const el = document.getElementById('toast');
@@ -3161,16 +3152,23 @@ function fbBadge(){
   const b = document.getElementById('fb-badge');
   if(b){ b.textContent = FB.items.length; b.classList.toggle('show', FB.items.length > 0); }
 }
+const NAV_ALIAS = { comm: 'pulse', markets: 'pulse' };   // pages folded into another one keep working as a link
 function show(id){
+  id = NAV_ALIAS[id] || id;
+  const sec = document.getElementById('sec-'+id);
+  if(!sec){ console.warn('show: no such page', id); return; }
   document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));
-  document.getElementById('sec-'+id).classList.add('active');
-  document.getElementById('nav-'+id).classList.add('active');
+  sec.classList.add('active');
+  const nav = document.getElementById('nav-'+id); if(nav) nav.classList.add('active');
   if(id === 'wr' && !WR.loaded && !WR.loading) loadWR(false);
   if(id === 'feedback') renderFB();
   if(id === 'themes'){ if(!TT.loaded && !TT.loading) loadTT(false); else ttRender(); }   // charts need a visible canvas, so draw on show
   if(id === 'rsleaders'){ if(!RL.loaded && !RL.loading) loadRL(false); else renderRL(); }  // re-render: positions may have changed
   if(id === 'indices'){ if(!IX.loaded && !IX.loading) loadIX(false); else renderIX(); }
+  if(id === 'pulse'){ if(!MK.loaded && !MK.loading) loadMK(false); else renderMK(); }
+  if(id === 'news'){ if(!MN.loaded && !MN.loading) loadMN(false); else renderMN(); }
+  if(id === 'tr' && !TR.loaded && !TR.loading) loadTR(false);   // reads every scan on file (about 20 MB), so only when the page is opened
   // P&L Analytics: auto-default to snapshot tab if user has snapshots but no P&L statements
   if(id === 'pnl'){
     const hasSnaps = (DB.snapshots || []).length > 0;
@@ -3219,24 +3217,8 @@ function renderDash(){
     <tr><td><b>${w.stock}</b></td><td>${w.sector||'—'}</td><td>${w.priority||'—'}</td></tr>
   `).join('') || '<tr><td colspan="3" class="flat">No watchlist items.</td></tr>';
 
-  // Macro
-  const latest = DB.snapshots[DB.snapshots.length-1];
-  if(latest){
-    document.getElementById('d-macro-wk').textContent = 'Week of ' + fmtDate(latest.week);
-    const items = [
-      {l:'Brent',v:latest.brent,u:'$/bbl'},
-      {l:'WTI',v:latest.wti,u:'$/bbl'},
-      {l:'DXY',v:latest.dxy,u:''},
-      {l:'USD/INR',v:latest.usdinr,u:'₹'},
-      {l:'Gold',v:latest.gold,u:'$/oz'},
-      {l:'Silver',v:latest.silver,u:'$/oz'},
-      {l:'10Y',v:latest.yield,u:'%'},
-      {l:'Nifty',v:latest.nifty,u:''}
-    ];
-    document.getElementById('d-macro').innerHTML = items.map(i=>`
-      <div class="mc"><div class="mc-label">${i.l}</div><div class="mc-val">${i.v||'—'}</div><div class="mc-unit">${i.u}</div></div>
-    `).join('');
-  }
+  // Macro: filled from data/markets/markets.json once it has loaded
+  if(typeof mkDashTile === 'function') mkDashTile();
 }
 
 function fmtDate(s){
@@ -4049,117 +4031,6 @@ function parse52WFile(file){
   };
   if(file.name.toLowerCase().endsWith('.csv')) reader.readAsText(file);
   else reader.readAsArrayBuffer(file);
-}
-
-// ============= COMMODITIES =============
-let trendChart = null;
-function commTab(name){
-  document.querySelectorAll('#sec-comm .tab').forEach(t=>t.classList.remove('active'));
-  event.target.classList.add('active');
-  document.querySelectorAll('.ct-pane').forEach(p=>p.style.display='none');
-  document.getElementById('ct-'+name).style.display='block';
-  if(name==='trend') renderTrendChart();
-}
-function renderComm(){
-  const latest = DB.snapshots[DB.snapshots.length-1];
-  if(!latest) return;
-  const prev = DB.snapshots[DB.snapshots.length-2] || latest;
-  const items = [
-    {l:'Brent',v:latest.brent,p:prev.brent,u:'$/bbl'},
-    {l:'WTI',v:latest.wti,p:prev.wti,u:'$/bbl'},
-    {l:'DXY',v:latest.dxy,p:prev.dxy,u:''},
-    {l:'USD/INR',v:latest.usdinr,p:prev.usdinr,u:'₹'},
-    {l:'Gold',v:latest.gold,p:prev.gold,u:'$/oz'},
-    {l:'Silver',v:latest.silver,p:prev.silver,u:'$/oz'},
-    {l:'Copper',v:latest.copper,p:prev.copper,u:'$/lb'},
-    {l:'10Y Yield',v:latest.yield,p:prev.yield,u:'%'},
-    {l:'Nifty',v:latest.nifty,p:prev.nifty,u:''}
-  ];
-  document.getElementById('snap-grid').innerHTML = items.map(i=>{
-    const chg = i.p ? ((i.v-i.p)/i.p*100) : 0;
-    const cls = chg>0?'up':chg<0?'dn':'flat';
-    return `<div class="mc">
-      <div class="mc-label">${i.l}</div>
-      <div class="mc-val">${i.v||'—'}</div>
-      <div class="mc-unit">${i.u}</div>
-      <div class="mc-chg ${cls}">${chg>0?'+':''}${chg.toFixed(2)}% wow</div>
-    </div>`;
-  }).join('');
-  document.getElementById('snap-notes').textContent = latest.notes || 'No notes for this week.';
-
-  // History
-  document.getElementById('snap-body').innerHTML = [...DB.snapshots].reverse().map(s=>`
-    <tr>
-      <td class="num">${fmtDate(s.week)}</td>
-      <td class="num">${s.brent||''}</td>
-      <td class="num">${s.wti||''}</td>
-      <td class="num">${s.dxy||''}</td>
-      <td class="num">${s.usdinr||''}</td>
-      <td class="num">${s.gold||''}</td>
-      <td class="num">${s.silver||''}</td>
-      <td class="num">${s.yield||''}</td>
-      <td class="num">${s.nifty||''}</td>
-      <td style="max-width:280px;font-size:11.5px;line-height:1.5;">${s.notes||''}</td>
-    </tr>
-  `).join('');
-
-  // Impact
-  document.getElementById('impact-list').innerHTML = `
-    <div class="card">
-      <div class="card-hdr"><span class="card-label">Crude Oil Impact on India</span></div>
-      <div style="font-size:12.5px;color:var(--t2);line-height:1.7;">
-        ${latest.brent} $/bbl. ${latest.brent > 100 ? 'High crude is typically inflationary for India (CAD widens, OMCs absorb).' : latest.brent < 80 ? 'Soft crude — positive for India CAD, inflation, OMC margins.' : 'Crude in comfort zone for Indian economy.'}
-        Sunil's framework: $80-90 is the new normal — anything below is bonus, above $100 watch CAD &amp; OMC stress.
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-hdr"><span class="card-label">DXY &amp; FII Flows</span></div>
-      <div style="font-size:12.5px;color:var(--t2);line-height:1.7;">
-        DXY ${latest.dxy}. ${latest.dxy > 105 ? 'Strong dollar — FII outflows likely from EMs including India.' : latest.dxy < 102 ? 'Weak dollar — supportive for EM equity inflows.' : 'DXY range-bound — neutral.'}
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-hdr"><span class="card-label">10Y Treasury Yield</span></div>
-      <div style="font-size:12.5px;color:var(--t2);line-height:1.7;">
-        ${latest.yield}%. ${latest.yield > 4.8 ? '⚠️ Above 4.8% — Sunil flagged as creating huge issues for risk assets.' : latest.yield > 4.5 ? 'Elevated yields — watch closely.' : 'Yields in comfortable range.'}
-      </div>
-    </div>
-  `;
-}
-function renderTrendChart(){
-  const ctx = document.getElementById('trend-chart');
-  if(!ctx) return;
-  if(trendChart) trendChart.destroy();
-  const labels = DB.snapshots.slice(-8).map(s=>fmtDate(s.week));
-  const brent = DB.snapshots.slice(-8).map(s=>s.brent);
-  const gold = DB.snapshots.slice(-8).map(s=>s.gold/50);
-  const dxy = DB.snapshots.slice(-8).map(s=>s.dxy);
-  trendChart = new Chart(ctx,{
-    type:'line',
-    data:{labels,datasets:[
-      {label:'Brent',data:brent,borderColor:'#2F6B7A',backgroundColor:'rgba(47,107,122,0.08)',tension:0.3,borderWidth:2,pointRadius:3},
-      {label:'Gold (÷50)',data:gold,borderColor:'#8A6716',backgroundColor:'rgba(138,103,22,0.08)',tension:0.3,borderWidth:2,pointRadius:3},
-      {label:'DXY',data:dxy,borderColor:'#1F5F3F',backgroundColor:'rgba(31,95,63,0.08)',tension:0.3,borderWidth:2,pointRadius:3}
-    ]},
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{labels:{color:'#4A4940',font:{size:11,family:'JetBrains Mono'}}}},
-      scales:{
-        x:{ticks:{color:'#6F6D5F',font:{size:10,family:'JetBrains Mono'}},grid:{color:'#E4DECD'}},
-        y:{ticks:{color:'#6F6D5F',font:{size:10,family:'JetBrains Mono'}},grid:{color:'#E4DECD'}}
-      }
-    }
-  });
-}
-function saveSnap(e){
-  e.preventDefault();
-  const f = new FormData(e.target);
-  const s = {id:Date.now()};
-  for(const [k,v] of f.entries()) s[k] = v ? (k==='week'||k==='notes' ? v : parseFloat(v)) : v;
-  DB.snapshots.push(s);
-  DB.snapshots.sort((a,b)=>new Date(a.week)-new Date(b.week));
-  save(); closeModal('m-snap'); renderComm(); renderDash();
-  toast('Snapshot added','success');
 }
 
 // ============= WEEKLY JOURNAL =============
@@ -7050,7 +6921,7 @@ function wrTable(id, cols, rows, opt){
     const numCls = ['num','int','pct','pct0','signed','idx'].includes(c.sortType || c.type) ? 'num' : '';
     const sortCls = st && st.col === c.k ? (st.dir === 'asc' ? 'sort-asc' : 'sort-desc') : '';
     const click = sortable ? ` onclick="wrSort('${wrAttr(id)}','${wrAttr(c.k)}')"` : ' style="cursor:default"';
-    return `<th class="${numCls} ${sortCls}"${click}>${wrEsc(c.t)}${sortable ? '<span class="sort-arr"></span>' : ''}</th>`;
+    return `<th class="${numCls} ${sortCls}"${click}>${wrEsc(c.t)}${c.info ? seInfoBtn(c.info) : ''}${sortable ? '<span class="sort-arr"></span>' : ''}</th>`;
   }).join('');
   const tbody = list.map(({r, i}) => {
     const cls = opt.rowCls ? opt.rowCls(r) : '';
@@ -7660,6 +7531,9 @@ function wrPrint(){
   setTimeout(() => { window.print(); setTimeout(done, 1500); }, 50);
 }
 
+// The explanations behind every "i" button, keyed by name; filled by the sections below, shown by seInfoOpen().
+const SE_INFO = {};
+
 // ============= RS LEADERS — persistence + exhaustion intelligence on the top-N RS names =============
 // Reads data/daily/rs_tracker.json (tools/build_rs_tracker.py). Your own positions (Trade Log / Kite
 // import) are overlaid in the browser; data/daily/holdings.json, if published, is unioned in.
@@ -7677,85 +7551,193 @@ const RL_EX = { Healthy: 'up', Watch: 'na', Tiring: 'down', Exhausted: 'strongdo
 function rlPill(map, k){ const m = map[k] || [k || '—', 'na']; return `<span class="se-pill trend ${m[1]}">${wrEsc(m[0])}</span>`; }
 function rlHist(h){ return `<span class="rl-h">${(h || []).slice(0, 5).map((v, i) => i ? (v == null ? '—' : v) : `<b>${v == null ? '—' : v}</b>`).join(' · ')}</span>`; }
 function rlExCell(r){
-  const fl = r.flags || [], dict = (RL.doc && RL.doc.flags) || {};
-  const tip = fl.length ? fl.map(f => '• ' + (dict[f] || f)).join('\n') : 'No exhaustion flags';
-  return `<span title="${wrAttr(tip)}"><span class="se-pill trend ${RL_EX[r.ex_label] || 'na'}">${wrEsc(r.ex_label || '—')}${fl.length ? ' ' + fl.length : ''}</span></span>`;
+  const fl = r.flags || [];
+  return `<span class="rl-why" onclick="rlWhy(event,'ex','${wrAttr(r.code)}')" title="click for the flags behind this"><span class="se-pill trend ${RL_EX[r.ex_label] || 'na'}">${wrEsc(r.ex_label || '—')}${fl.length ? ' ' + fl.length : ''}</span></span>`;
 }
-function rlTrendCell(r){ const t = r.trend || {}; if(!t.total) return '<span class="flat">—</span>'; const cls = seTrendLabel(t)[1]; return `<span class="se-tt ${cls}"><b>${t.pass}/${t.total}</b><em>${wrEsc(t.label || '')}</em></span>`; }
+function rlTrendCell(r){ const t = r.trend || {}; if(!t.total) return '<span class="flat">—</span>'; const cls = seTrendLabel(t)[1]; return `<span class="se-tt ${cls} rl-why" onclick="rlWhy(event,'trend','${wrAttr(r.code)}')" title="click for the seven checks"><b>${t.pass}/${t.total}</b><em>${wrEsc(t.label || '')}</em></span>`; }
+function rlVerdictCell(r){ return r.verdict ? `<span class="rl-why" onclick="rlWhy(event,'verdict','${wrAttr(r.code)}')" title="click for the reason">${rlPill(RL_VERDICT, r.verdict)}</span>` : '<span class="flat">—</span>'; }
 function rlRow(code, x){
   // a codes-map row (short keys) in the same shape as a leaders row
   return {code, name: x.n, industry: x.i, rs: x.rs, rank: x.rk, rs_hist: x.h, rank_hist: x.k, streak: x.st, weeks_in_top: x.w, weakening_weeks: x.wk,
           rank_d1w: x.d, rs_d1d: x.dd, status: x.s, flags: x.f, exhaustion: (x.f || []).length, ex_label: x.ex, trend: {pass: x.tp, total: x.tt, label: x.t}, verdict: x.v, r1w: x.r1w, from_52wh: x.fh};
 }
+const RL_FLAG_SHORT = { climax: 'climax run', rolling: 'rolling over', off_high: 'well off its high', below50: 'below the 50-DMA', ext50: 'stretched above the 50-DMA', dist: 'distribution day', trend: 'failing the trend template' };
+const RL_STATUS_WHY = { holding: 'inside the list now and at the previous weekly anchor', new: 'entered the list this week', slipping: 'still inside, but it lost 8 or more places in a week, or lost ground two weeks running',
+  dropped: 'was inside the list and is now outside it', fading: 'left the list and has kept losing rank for two weeks', out: 'has not been inside the list during this window', unrated: 'is not in the scan, so it has no rating' };
+// the reason behind one stock's Trend, Exhaustion or Verdict — the row-level "i"
+function rlWhy(ev, kind, code){
+  const d = RL.doc || {}, x = (d.codes || {})[code], N = d.top || 25, name = x ? x.n : code;
+  const u = ((typeof SE !== 'undefined' && SE.c && SE.c.U) || []).find(r => String(r.code).toUpperCase() === String(code).toUpperCase());
+  let html = '';
+  if(kind === 'trend'){
+    const t = u && u.trend;
+    html = `<h4>${wrEsc(name)} — trend ${t ? `${t.pass} of ${t.total}` : x ? `${x.tp} of ${x.tt}` : ''}</h4>`
+      + (t ? `<table>${t.checks.map(c => `<tr><td>${c.ok ? '<span class="up">✓</span>' : '<span class="dn">✗</span>'}</td><td>${c.ok ? wrEsc(c.label) : '<b>' + wrEsc(c.label) + '</b>'}</td><td class="flat">${wrEsc(c.detail || '')}</td></tr>`).join('')}</table>` : '<p>The check-by-check detail appears once the scan has loaded and this stock is in it.</p>')
+      + `<p>All seven = <b>Very strong</b>, six = <b>Strong</b>, four or five = <b>Weak</b>, three or fewer = <b>Very weak</b>.</p>`;
+  } else if(kind === 'ex' && x){
+    const fl = new Set(x.f || []), dict = d.flags || {};
+    html = `<h4>${wrEsc(name)} — ${wrEsc(x.ex || '')}: ${fl.size} of ${Object.keys(dict).length} flags raised</h4><table>${Object.keys(dict).map(k => `<tr><td>${fl.has(k) ? '<span class="dn">●</span>' : '<span class="flat">○</span>'}</td><td>${fl.has(k) ? '<b>' + wrEsc(dict[k]) + '</b>' : wrEsc(dict[k])}</td></tr>`).join('')}</table>
+      <p>0 flags = Healthy, 1 = Watch, 2 = Tiring, 3 or more = Exhausted. The flags are read off today's scan; they say a leader looks tired, not that it has turned.</p>`;
+  } else if(kind === 'verdict' && x){
+    const fl = x.f || [], st = x.s, why = [], names = fl.map(f => RL_FLAG_SHORT[f] || f).join(', ');
+    if(['slipping', 'dropped', 'fading'].includes(st)) why.push(`its status is <b>${RL_STATUS[st][0]}</b>: it ${RL_STATUS_WHY[st]}`);
+    if(fl.length >= 2) why.push(`it carries <b>${fl.length} exhaustion flags</b> (${names})`);
+    if(!why.length && st === 'new') why.push('it <b>entered the list this week</b>, so it has no record yet of holding the place');
+    if(!why.length && fl.length === 1) why.push(`it carries <b>one exhaustion flag</b> (${names})`);
+    if(x.v === 'watch' && st === 'new' && fl.length === 1) why.push(`it also carries one exhaustion flag (${names})`);
+    if(!why.length) why.push(`it is holding its place inside the top ${N} and carries no exhaustion flag`);
+    const path = (x.k || []).slice().reverse().map(v => v == null ? '—' : '#' + v).join(' → ');
+    html = `<h4>${wrEsc(name)} — ${wrEsc((RL_VERDICT[x.v] || [x.v])[0])}</h4><p>Because ${why.join('; and ')}.</p><p>Rank by week, oldest to newest: <b>${path}</b>. RS now ${x.rs}.</p>
+      <p class="flat">The verdict is about direction only. The RS rating says how strong the stock is; the verdict says whether that strength is holding.</p>`;
+  }
+  if(html) seInfoShow(ev, 'why:' + kind + ':' + code, html);
+}
+SE_INFO['rl-rank'] = () => `<h4># — exact rank</h4><p>The stock's position by RS score among all ${wrNum(((RL.doc || {}).counts || {}).rated || 0)} rated stocks in the scan; 1 is the strongest. The leaders list is the top ${(RL.doc || {}).top || 25}.</p><p>Rank is what moves at the top. The 1–99 rating is a percentile, so RS 99 to 98 can be a fall from rank 5 to rank 40.</p>`;
+SE_INFO['rl-rs'] = `<h4>RS — relative strength rating</h4><p>A 1–99 score of how the stock's price has done against every other stock in the scan over the last year. It is the average of the four quarterly returns with the latest quarter counted twice (weights 40/20/20/20), then ranked: <b>RS 95 means it out-performed 95% of the market</b>.</p><p>The small ▲▼ number is the change since the previous scan. Hover a rating for the four quarters behind it.</p>`;
+SE_INFO['rl-hist'] = () => `<h4>RS by week</h4><p>The rating at each weekly anchor, newest first: ${((RL.doc || {}).anchors || []).filter(Boolean).map(a => wrDate(a.date)).join(' · ')}. A dash means the stock was not rated in that scan.</p><p>Read it right to left to see the path: 92 · 95 · 97 · 98 from the right is a steady climb.</p>`;
+SE_INFO['rl-rankd'] = `<h4>Rank Δ1w</h4><p>Places gained or lost since the previous weekly anchor. <span class="up">+12</span> means it moved up twelve places (for example from #30 to #18); <span class="dn">−9</span> means it fell nine.</p>`;
+SE_INFO['rl-weeks'] = `<h4>Weeks in top</h4><p>Shown as <b>a</b>/b. <b>a</b> is how many weekly anchors in a row the stock has been inside the list, counting back from now. b is how many of the anchors in the window it was inside at all. 4/4 has been there throughout; 1/1 is a new entrant; 1/3 left and came back.</p>`;
+SE_INFO['rl-status'] = () => `<h4>Status — where it stands against the list</h4><table>${['holding', 'new', 'slipping', 'dropped', 'fading'].map(k => `<tr><td>${rlPill(RL_STATUS, k)}</td><td>${wrEsc(RL_STATUS_WHY[k])}</td></tr>`).join('')}</table><p>Status compares this week's rank with the previous weekly anchors. It uses rank, not the 1–99 rating.</p>`;
+SE_INFO['rl-ex'] = () => { const dict = (RL.doc || {}).flags || {}; return `<h4>Exhaustion — is the leader tiring?</h4><p>Seven warning signs, each read off the newest scan. The number beside the label is how many are raised.</p><ol>${Object.keys(dict).map(k => `<li>${wrEsc(dict[k])}</li>`).join('')}</ol>
+  <table><tr><td>${rlPill({h: ['Healthy', 'up']}, 'h')}</td><td>no flag</td></tr><tr><td>${rlPill({h: ['Watch', 'na']}, 'h')}</td><td>one flag</td></tr><tr><td>${rlPill({h: ['Tiring', 'down']}, 'h')}</td><td>two flags</td></tr><tr><td>${rlPill({h: ['Exhausted', 'strongdown']}, 'h')}</td><td>three or more</td></tr></table>
+  <p>A strong stock can carry flags for weeks — a climax run is itself a sign of strength. The Evidence panel at the foot of the page shows how often flagged leaders actually left the list in your own archive. Click any label in the column for that stock's flags.</p>`; };
+SE_INFO['rl-trend'] = `<h4>Trend — the seven-point template</h4><p>Seven yes/no checks on the price structure. The cell shows how many pass, for example 7/7.</p><ol><li>Price above the 50-day moving average</li><li>Price above the 200-day moving average</li><li>50-day average above the 200-day</li><li>At least 30% above the 52-week low</li><li>Within 25% of the 52-week high</li><li>RS rating of 70 or more</li><li>200-day average higher than at the previous scan (rising)</li></ol>
+  <table><tr><td><b>Very strong</b></td><td>all seven — a Stage 2 uptrend</td></tr><tr><td><b>Strong</b></td><td>six</td></tr><tr><td><b>Weak</b></td><td>four or five</td></tr><tr><td><b>Very weak</b></td><td>three or fewer</td></tr></table><p>Click any cell in the column to see which checks that stock passes and fails, with the numbers.</p>`;
+SE_INFO['rl-verdict'] = () => `<h4>Verdict — is the strength holding?</h4><table><tr><td>${rlPill(RL_VERDICT, 'strong')}</td><td>holding its place in the list and carrying no exhaustion flag</td></tr><tr><td>${rlPill(RL_VERDICT, 'watch')}</td><td>new to the list this week, or carrying exactly one flag</td></tr><tr><td>${rlPill(RL_VERDICT, 'weakening')}</td><td>status is Slipping, Dropped or Fading, or it carries two or more flags</td></tr></table>
+  <p>It is direction only. RS gives the level; the verdict says whether the level is being kept. It is a reading of the data, not a recommendation. Click any verdict in the column for that stock's reason.</p>`;
+SE_INFO['rl-gap'] = () => `<h4>Gap to cut</h4><p>How many places the stock sits below rank ${(RL.doc || {}).top || 25}, the last place in the list. "inside" means it is in the list.</p>`;
+SE_INFO['rl-climb'] = () => { const N = (RL.doc || {}).top || 25; return `<h4>Gaining a top-${N} spot</h4><p>Two groups, both read from the weekly ranks in RS Trend's own scans.</p><p><b>Entered this week</b> — inside the top ${N} now and outside it at the previous weekly anchor. "From" is the rank it held then.</p><p><b>Knocking on the door</b> — ranked ${N + 1} to ${N + 50}, and either up 10 or more places in a week, or up two weeks running. These are the names moving toward the list.</p><p>A fast climb is a fact about the last few weeks; it is not a forecast.</p>`; };
+SE_INFO['rl-align'] = () => { const N = (RL.doc || {}).top || 25; return `<h4>Your book against the list</h4><p>Each holding is placed in one of four groups:</p><table><tr><td><b>In the top ${N}</b></td><td>rank ${N} or better</td></tr><tr><td><b>Gaining strength</b></td><td>outside the list but within 125 places of it, and up 10+ places in a week or up two weeks running</td></tr><tr><td><b>Stage 2 list only</b></td><td>on the provider's Stage 2 list, outside the top ${N} and not climbing</td></tr><tr><td><b>Outside</b></td><td>none of the above</td></tr></table>
+  <p>The 70–80% line is the rule you set for yourself: most of the book inside the list, with room for a new position that is still gaining strength.</p><p><b>Privacy:</b> imported holdings are kept in this browser's storage only. They are never uploaded, and nothing about them is written to the public site or repository.</p>`; };
+// ---- your holdings: imported privately, kept in this browser only ----
+function rlParseHoldingsJson(j){
+  const arr = Array.isArray(j) ? j : (j.names || j.holdings || j.data || []);
+  return arr.map(h => ({code: String(h.code || h.tradingsymbol || h.symbol || h.instrument || '').trim().toUpperCase(), qty: (+(h.qty ?? h.quantity ?? 0) + +(h.t1_quantity || 0)) || null, avg: +(h.avg ?? h.average_price ?? 0) || null})).filter(h => h.code);
+}
+function rlParseHoldingsRows(rows){
+  // a Kite or Console holdings export: find the header row, then the symbol / quantity / average-cost columns by name
+  const hi = rows.findIndex(r => (r || []).some(c => /^(instrument|symbol|trading ?symbol|scrip)/i.test(String(c || '').trim()))); if(hi < 0) return [];
+  const H = rows[hi].map(c => String(c || '').trim()), col = re => H.findIndex(c => re.test(c)), cs = col(/^(instrument|symbol|trading ?symbol|scrip)/i), cq = col(/qty|quantity/i), ca = col(/avg|average/i);
+  return rows.slice(hi + 1).map(r => ({code: String((r || [])[cs] || '').trim().toUpperCase().replace(/-(EQ|BE)$|\.NS$/, ''), qty: cq >= 0 ? +r[cq] || null : null, avg: ca >= 0 ? +r[ca] || null : null})).filter(h => /^[A-Z0-9&-]{2,}$/.test(h.code) && !/^TOTAL$/.test(h.code));
+}
+function rlSaveHoldings(names, source){
+  const seen = new Set(), list = names.filter(h => h.code && !seen.has(h.code) && seen.add(h.code));
+  if(!list.length){ toast('No holdings found in that', 'error'); return; }
+  DB.holdings = {updated: ttIso(new Date()), source, names: list}; save();
+  toast(`${list.length} holdings imported — stored in this browser only`, 'success'); renderRL();
+}
+function rlImportFile(input){
+  const f = input.files && input.files[0]; if(!f) return; const rd = new FileReader();
+  if(/\.json$/i.test(f.name)){ rd.onload = () => { try{ rlSaveHoldings(rlParseHoldingsJson(JSON.parse(rd.result)), f.name); }catch(e){ toast('Could not read that JSON file', 'error'); } }; rd.readAsText(f); }
+  else { rd.onload = () => { try{ const wb = XLSX.read(rd.result, {type: 'array'}); rlSaveHoldings(rlParseHoldingsRows(XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], {header: 1, raw: true})), f.name); }catch(e){ toast('Could not read that file', 'error'); } }; rd.readAsArrayBuffer(f); }
+  input.value = '';
+}
+function rlPasteGo(){
+  const ta = document.getElementById('rl-paste'); if(!ta) return; const txt = ta.value.trim(); if(!txt) return;
+  let names = [];
+  try{ names = rlParseHoldingsJson(JSON.parse(txt)); }catch(e){
+    names = txt.split(/\r?\n/).map(l => { const p = l.trim().split(/[\s,;\t]+/), nums = p.slice(1).map(v => +String(v).replace(/,/g, '')).filter(v => !isNaN(v)); return {code: (p[0] || '').toUpperCase().replace(/-(EQ|BE)$|\.NS$/, ''), qty: nums[0] || null, avg: nums[1] || null}; }).filter(h => /^[A-Z0-9&-]{2,}$/.test(h.code) && !/^(INSTRUMENT|SYMBOL|TOTAL)$/.test(h.code)); }
+  rlSaveHoldings(names, 'pasted');
+}
+function rlClearHoldings(){ if(!confirm('Remove the imported holdings from this browser?')) return; delete DB.holdings; save(); renderRL(); }
 function rlHoldings(){
-  // what you hold: Trade Log positions + open trades (+ data/daily/holdings.json if published); matched by code, then by name
+  // what you hold. An imported list (Zerodha, kept in this browser) is the whole answer when there is one; otherwise
+  // Trade Log positions and open trades, plus data/daily/holdings.json if someone chose to publish it
   const codes = (RL.doc && RL.doc.codes) || {}, byName = new Map(Object.keys(codes).map(c => [String(codes[c].n || '').trim().toUpperCase(), c]));
   const out = new Map();
-  const add = (s, src) => { const k = String(s || '').trim().toUpperCase(); if(!k) return; const c = codes[k] ? k : byName.get(k); const id = c || k; if(!out.has(id)) out.set(id, {code: id, src, rated: !!c}); };
+  const add = (s, src, h) => { const k = String(s || '').trim().toUpperCase(); if(!k) return; const c = codes[k] ? k : byName.get(k); const id = c || k; if(!out.has(id)) out.set(id, {code: id, src, rated: !!c, qty: h && h.qty, avg: h && h.avg}); };
+  const imp = ((DB.holdings || {}).names || []);
+  if(imp.length){ imp.forEach(h => add(h.code, 'imported', h)); return [...out.values()]; }
   (DB.positions || []).forEach(p => add(p.stock, 'position'));
   (DB.trades || []).forEach(t => { if(t.status && String(t.status).includes('Open')) add(t.stock, 'open trade'); });
   ((((RL.doc || {}).portfolio) || {}).names || []).forEach(h => add(h.code, 'holdings.json'));
   return [...out.values()];
 }
-function rlCols(extra){
+// climbing toward the list: only inside the top 150 or so, where ten places is a real move (at rank 1,000 it is noise)
+function rlClimbing(x, N){ const k = x.k || [], r = x.rk; return r != null && r > N && r <= N + 125 && k[1] != null && (k[1] - r >= 10 || (k[2] != null && k[1] < k[2] && r < k[1])); }
+function rlCols(extra, opt){
+  opt = opt || {};
   return [
-    {k:'rank', t:'#', type:'int', fn: r => r.rank},
+    {k:'rank', t:'#', type:'int', fn: r => r.rank, info: 'rl-rank'},
     {k:'code', t:'Stock', type:'html', html: r => seStockCell(r)},
     {k:'act', t:'', type:'html', html: r => seActCell(r)},
     {k:'industry', t:'Industry', type:'text'},
-    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => seRsCell(r.rs, {delta: r.rs_d1d != null ? Math.round(r.rs_d1d) : null})},
-    {k:'hist', t:'RS by week (newest first)', type:'html', sortType:'num', fn: r => (r.rs_hist || [])[1], html: r => rlHist(r.rs_hist)},
-    {k:'rank_d1w', t:'Rank Δ1w', type:'html', sortType:'num', fn: r => r.rank_d1w == null ? null : -r.rank_d1w, html: r => r.rank_d1w == null ? '<span class="flat">—</span>' : `<span class="${r.rank_d1w < 0 ? 'up' : r.rank_d1w > 0 ? 'dn' : 'flat'}">${wrSigned(-r.rank_d1w, 0)}</span>`},
-    {k:'weeks', t:'Wks in top', type:'html', sortType:'num', fn: r => r.streak, html: r => `<span class="rl-h" title="consecutive weeks in the top list / weeks in it over the window"><b>${r.streak ?? 0}</b>/${r.weeks_in_top ?? 0}</span>`},
-    {k:'status', t:'Status', type:'html', sortType:'text', fn: r => r.status, html: r => rlPill(RL_STATUS, r.status)},
-    {k:'ex', t:'Exhaustion', type:'html', sortType:'num', fn: r => r.exhaustion, html: rlExCell},
-    {k:'trend', t:'Trend', type:'html', sortType:'num', fn: r => r.trend && r.trend.total ? r.trend.pass : null, html: rlTrendCell},
-    {k:'verdict', t:'Verdict', type:'html', sortType:'text', fn: r => r.verdict, html: r => rlPill(RL_VERDICT, r.verdict)},
-  ].concat(extra || []);
+    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => seRsCell(r.rs, {delta: r.rs_d1d != null ? Math.round(r.rs_d1d) : null}), info: 'rl-rs'},
+    {k:'hist', t:'RS by week', type:'html', sortType:'num', fn: r => (r.rs_hist || [])[1], html: r => rlHist(r.rs_hist), info: 'rl-hist'},
+  ].concat(opt.from ? [{k:'from', t:'From → now', type:'html', sortType:'num', fn: r => r.gain, html: r => r.from == null ? '<span class="flat">new to the scan</span>' : `<span class="rl-h">#${r.from} → <b>#${r.rank}</b></span> <span class="up">+${r.gain}</span>`, info: 'rl-climb'}] : [
+    {k:'rank_d1w', t:'Rank Δ1w', type:'html', sortType:'num', fn: r => r.rank_d1w == null ? null : -r.rank_d1w, html: r => r.rank_d1w == null ? '<span class="flat">—</span>' : `<span class="${r.rank_d1w < 0 ? 'up' : r.rank_d1w > 0 ? 'dn' : 'flat'}">${wrSigned(-r.rank_d1w, 0)}</span>`, info: 'rl-rankd'}]).concat([
+    {k:'weeks', t:'Wks in top', type:'html', sortType:'num', fn: r => r.streak, html: r => `<span class="rl-h"><b>${r.streak ?? 0}</b>/${r.weeks_in_top ?? 0}</span>`, info: 'rl-weeks'},
+    {k:'status', t:'Status', type:'html', sortType:'text', fn: r => r.status, html: r => rlPill(RL_STATUS, r.status), info: 'rl-status'},
+    {k:'ex', t:'Exhaustion', type:'html', sortType:'num', fn: r => r.exhaustion, html: rlExCell, info: 'rl-ex'},
+    {k:'trend', t:'Trend', type:'html', sortType:'num', fn: r => r.trend && r.trend.total ? r.trend.pass : null, html: rlTrendCell, info: 'rl-trend'},
+    {k:'verdict', t:'Verdict', type:'html', sortType:'text', fn: r => r.verdict, html: rlVerdictCell, info: 'rl-verdict'},
+  ]).concat(extra || []);
 }
 function renderRL(){
   const el = document.getElementById('rl-body'); if(!el) return;
   if(!RL.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading…</p></div>'; return; }
   const d = RL.doc;
   if(!d){ el.innerHTML = seEmpty('No RS tracker yet', `Run <code>python tools/build_rs_tracker.py</code> (the daily pull does this after each scan), commit <code>data/daily/rs_tracker.json</code>, then Refresh.${RL.error ? ` <span class="flat">(${wrEsc(RL.error)})</span>` : ''}`); return; }
-  const N = d.top, k = d.counts || {}, anchors = (d.anchors || []).filter(Boolean), cut = d.cutoff || {};
+  const N = d.top, k = d.counts || {}, anchors = (d.anchors || []).filter(Boolean), cut = d.cutoff || {}, codes = d.codes || {};
   const leaders = d.leaders || [], left = d.left || [];
+  // gaining a place: entered this week, and the names just outside that are moving toward the list
+  const withFrom = (code, x) => { const r = rlRow(code, x), f = (x.k || [])[1]; r.from = f == null ? null : f; r.gain = f == null ? null : f - x.rk; return r; };
+  const entered = Object.keys(codes).filter(c => codes[c].s === 'new').map(c => withFrom(c, codes[c]));
+  const knocking = Object.keys(codes).filter(c => codes[c].rk > N && codes[c].rk <= N + 50 && rlClimbing(codes[c], N)).map(c => { const r = withFrom(c, codes[c]); r.gap = r.rank - N; return r; });
+  // your book against the list
+  const s2set = (typeof SE !== 'undefined' && SE.c && SE.c.S2 && SE.c.S2.length) ? new Set(SE.c.S2.map(r => String(r.code).toUpperCase())) : null;
   const hold = rlHoldings().map(h => {
-    const x = (d.codes || {})[h.code];
+    const x = codes[h.code];
     const row = x ? rlRow(h.code, x) : {code: h.code, name: h.code, status: 'unrated', rs: null, rank: null, rs_hist: [], flags: [], exhaustion: 0, ex_label: '—', trend: {}, verdict: null};
-    row.src = h.src; row.gap = row.rank != null && row.rank > N ? row.rank - N : 0; return row;
+    row.src = h.src; row.gap = row.rank != null && row.rank > N ? row.rank - N : 0; row.inTop = row.rank != null && row.rank <= N; row.s2 = s2set ? s2set.has(String(h.code).toUpperCase()) : null; row.climb = !!(x && rlClimbing(x, N));
+    row.where = row.inTop ? 'top' : row.climb ? 'gain' : row.s2 ? 's2' : 'out'; return row;
   });
-  const inTop = hold.filter(h => h.rank != null && h.rank <= N).length, outside = hold.filter(h => !(h.rank != null && h.rank <= N));
+  const nH = hold.length, inTop = hold.filter(h => h.inTop).length, onS2 = hold.filter(h => h.s2).length, either = hold.filter(h => h.inTop || h.s2).length, gain = hold.filter(h => h.where === 'gain').length, outs = hold.filter(h => h.where !== 'top');
+  const pct = nH ? Math.round(100 * inTop / nH) : 0, imported = ((DB.holdings || {}).names || []).length > 0;
+  const WHERE = { top: [`In the top ${N}`, 'strongup'], gain: ['Gaining strength', 'up'], s2: ['Stage 2 list only', 'na'], out: ['Outside', 'down'] };
   const kpis = [
     seKpi(`Stayed in the top ${N}`, `${k.retained ?? 0}/${N}`, anchors[1] ? `vs w/e ${wrDate(anchors[1].date)} · ${k.slipping ?? 0} slipping` : 'needs a comparable prior week', (k.retained ?? 0) >= N * 0.7 ? 'ok' : 'warn'),
-    seKpi('New this week', wrNum(k.new ?? 0), 'entered the list'),
-    seKpi('Dropped', wrNum(k.dropped ?? 0), `left the top ${N} since last week`, k.dropped ? 'warn' : 'ok'),
-    seKpi('Fading', wrNum(k.fading ?? 0), 'left and still losing rank, 2+ weeks', k.fading ? 'warn' : 'ok'),
-    seKpi(`Holdings in top ${N}`, hold.length ? `${inTop}/${hold.length}` : '—', hold.length ? (outside.length ? `outside: ${outside.map(h => h.code + (h.rank ? ' #' + h.rank : '')).join(', ')}` : 'every holding is inside') : 'no positions found', hold.length ? (inTop === hold.length ? 'ok' : 'warn') : ''),
+    seKpi('Entered this week', wrNum(entered.length), entered.length ? entered.slice().sort((a, b) => a.rank - b.rank).slice(0, 3).map(r => r.code).join(', ') + (entered.length > 3 ? '…' : '') : 'no new names'),
+    seKpi('Knocking on the door', wrNum(knocking.length), `ranked ${N + 1}–${N + 50} and climbing`),
+    seKpi('Dropped / fading', `${k.dropped ?? 0} / ${k.fading ?? 0}`, `left the top ${N} · still losing rank`, (k.dropped || k.fading) ? 'warn' : 'ok'),
+    seKpi(`Your book in the top ${N}`, nH ? `${inTop}/${nH}` : '—', nH ? `${pct}% · your rule: 70–80%` : 'import your holdings below', nH ? (pct >= 70 ? 'ok' : 'warn') : ''),
   ];
   const ev = d.evidence || {}, tr = ev.transitions || [], sm = ev.summary || {};
   const flagWord = b => `${b} flag${b === '1' ? '' : 's'}`;
   const evItems = tr.length ? tr.map(t => `<li><b>${wrShort(t.from)} → ${wrShort(t.to)}</b>: ${t.retained} of ${t.of} stayed in the top ${N} &nbsp;<span class="flat">${Object.entries(t.by_exhaustion || {}).sort().map(([b, v]) => `${flagWord(b)} ${v.retained}/${v.n}`).join(' · ')}</span></li>`).join('') : '<li class="flat">needs two comparable weekly scans</li>';
   const smLine = Object.keys(sm).length ? Object.entries(sm).sort().map(([b, v]) => `${flagWord(b)}: <b>${v.n ? Math.round(100 * v.retained / v.n) : 0}%</b> stayed (${v.retained}/${v.n})`).join(' &nbsp;·&nbsp; ') : '';
   const holdCols = rlCols([
-    {k:'gap', t:'Gap to cut', type:'html', sortType:'num', fn: r => r.gap, html: r => r.rank == null ? '<span class="flat">unrated</span>' : r.gap ? `<span class="dn">${r.gap} places</span>` : '<span class="up">inside</span>'},
-    {k:'src', t:'Source', type:'text'},
+    {k:'where', t:'Against the list', type:'html', sortType:'num', fn: r => ({top: 4, gain: 3, s2: 2, out: 1})[r.where], html: r => rlPill(WHERE, r.where), info: 'rl-align'},
+    {k:'s2', t:'Stage 2 list', type:'html', sortType:'num', fn: r => r.s2 == null ? null : +r.s2, html: r => r.s2 == null ? '<span class="flat">—</span>' : r.s2 ? '<span class="up">yes</span>' : '<span class="flat">no</span>'},
+    {k:'gap', t:'Gap to cut', type:'html', sortType:'num', fn: r => r.gap, html: r => r.rank == null ? '<span class="flat">unrated</span>' : r.gap ? `<span class="dn">${r.gap} places</span>` : '<span class="up">inside</span>', info: 'rl-gap'},
   ]);
+  const outLine = outs.length ? outs.slice().sort((a, b) => (a.rank ?? 9e9) - (b.rank ?? 9e9)).map(h => `${wrEsc(h.code)} (${h.rank != null ? '#' + h.rank : 'unrated'}, ${WHERE[h.where][0].toLowerCase()})`).join(', ') : '';
+  const book = `<div class="se-panel mk-sec" id="rl-a-book"><div class="se-row-h"><div><div class="se-eyebrow">Your book against the list ${seInfoBtn('rl-align')}</div><h2>${nH ? `${inTop} of ${nH} holdings inside the top ${N}` : 'No holdings loaded yet'}</h2></div>
+      <div class="rl-imp"><label class="btn btn-sm"><i class="ti ti-upload"></i>Import holdings<input type="file" accept=".json,.csv,.xlsx,.xls" style="display:none" onchange="rlImportFile(this)"></label>${imported ? `<button class="btn btn-ghost btn-sm" onclick="rlClearHoldings()">Clear</button>` : ''}</div></div>
+    ${nH ? `<p class="tt-thesis" style="margin:0 0 10px;"><b>${pct}%</b> of your book is inside the top ${N}; the rule you set is 70–80%. ${onS2 != null && s2set ? `${onS2} of ${nH} are on the Stage 2 list, and ${either} are in one or the other. ` : ''}${gain ? `${gain} outside the list ${gain === 1 ? 'is' : 'are'} gaining strength. ` : ''}${outLine ? `Outside the list: ${outLine}.` : 'Every holding is inside.'}</p>
+      <div class="se-kpis compact">${[seKpi(`In the top ${N}`, `${inTop}/${nH}`, `${pct}% of holdings`, pct >= 70 ? 'ok' : 'warn'), seKpi('On the Stage 2 list', s2set ? `${onS2}/${nH}` : '—', s2set ? 'the provider\'s weekly list' : 'needs the scan'), seKpi(`Top ${N} or Stage 2`, s2set ? `${either}/${nH}` : '—', 'in at least one'), seKpi('Gaining strength', wrNum(gain), 'outside, but climbing'), seKpi('Outside both', wrNum(hold.filter(h => h.where === 'out').length), 'neither in the list nor climbing')].join('')}</div>
+      ${wrTable('se-rl-hold', holdCols, hold, {sort: {col: 'rank', dir: 'asc'}})}` : ''}
+    <div class="wr-hint" style="margin-top:8px;">${imported ? `Imported ${wrDate(DB.holdings.updated)} from ${wrEsc(DB.holdings.source || 'a file')} — ${DB.holdings.names.length} names, kept in this browser only. ` : nH ? 'Showing Trade Log positions and open trades. ' : ''}To load your Zerodha holdings: ask Claude to "pull my Kite holdings" (it writes <code>.secrets/holdings.json</code> on your PC, which is never published), or download the holdings file from Kite or Console, then press <b>Import holdings</b>. Nothing is uploaded.</div>
+    <details class="tt-table"><summary>Or paste a list</summary><textarea id="rl-paste" class="rl-paste" placeholder="One per line: NSE code, then optionally quantity and average cost&#10;HFCL 500 212.4&#10;STLTECH 300 148"></textarea><div style="margin-top:6px;"><button class="btn btn-sm" onclick="rlPasteGo()">Use this list</button></div></details></div>`;
   el.innerHTML = `
-    <div class="se-row-h"><div><div class="se-eyebrow">Edge · RS persistence</div><h2>Top ${N} leaders — scan ${wrDate(d.scan_date)}</h2></div><span class="wr-hint">weekly anchors: ${anchors.map(a => wrShort(a.date)).join(' · ')} · cut-off: rank ${N} = RS ${cut.rs ?? '—'}</span></div>
+    <div class="se-row-h"><div><div class="se-eyebrow">Relative strength · who is holding it, who is gaining it, who is losing it</div><h2>Top ${N} leaders — scan ${wrDate(d.scan_date)}</h2></div><span class="wr-hint">weekly anchors: ${anchors.map(a => wrShort(a.date)).join(' · ')} · cut-off: rank ${N} = RS ${cut.rs ?? '—'}</span></div>
     <div class="se-kpis">${kpis.join('')}</div>
-    <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Your holdings</div><h2>${hold.length ? `${inTop} of ${hold.length} inside the top ${N}` : 'No positions found'}</h2></div><span class="wr-hint">from Trade Log positions, open trades and data/daily/holdings.json</span></div>
-      ${hold.length ? wrTable('se-rl-hold', holdCols, hold, {sort: {col: 'rank', dir: 'asc'}}) : `<div class="wr-hint">Import positions in Trade Log (Kite paste) or publish <code>data/daily/holdings.json</code> as <code>{"updated":"YYYY-MM-DD","source":"...","names":[{"code":"NSE"}]}</code> — a broker-MCP routine can write that file.</div>`}</div>
-    <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Leaderboard</div><h2>In the top ${N} now</h2></div></div>${wrTable('se-rl-top', rlCols(), leaders, {sort: {col: 'rank', dir: 'asc'}})}</div>
-    <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Left the list</div><h2>Dropped and fading</h2></div></div>${left.length ? wrTable('se-rl-left', rlCols(), left, {sort: {col: 'rank', dir: 'asc'}}) : '<div class="wr-hint">nothing left the list this week</div>'}</div>
-    <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">Evidence</div><h2>Do the flags predict who drops?</h2></div></div><ul class="rl-ev">${evItems}</ul>${smLine ? `<div class="wr-hint">Across all weeks — ${smLine}. If names with 2+ flags stay as often as clean ones, the flags are early: read them as risk, not as a timer.</div>` : ''}</div>
-    <div class="wr-hint">How to read: <b>RS</b> is the 1–99 rating; <b>#</b> is the exact rank by RS score, which is what moves at the top (RS 99 → 98 can be rank 5 → 40). <b>Status</b>: Holding = inside now and last week · New = entered this week · Slipping = inside but lost 8+ places, or worsening two weeks running · Dropped = was inside, now out · Fading = out and still losing rank two weeks running. <b>Exhaustion</b> counts the flags (hover): climax run, rolling over, off the high, below the 50-DMA, over-stretched, distribution day, failing trend. <b>Verdict</b> is direction only — Weakening = slipping / dropped / fading or 2+ flags; Watch = new, or one flag; Staying strong = the rest. RS gives the level, the verdict the direction.</div>`;
+    <div class="mk-jump" style="margin-top:12px;"><a onclick="mkJump('rl-a-top')">Leaderboard</a><a onclick="mkJump('rl-a-gain')">Gaining a spot</a><a onclick="mkJump('rl-a-left')">Losing it</a><a onclick="mkJump('rl-a-book')">Your book</a><a onclick="mkJump('rl-a-ev')">Evidence</a><span class="wr-hint" style="margin:0 0 0 6px;align-self:center;">Press the small <b>i</b> beside a column for what it means; click a Trend, Exhaustion or Verdict cell for that stock's own reason.</span></div>
+    <div class="se-panel mk-sec" id="rl-a-top"><div class="se-row-h"><div><div class="se-eyebrow">Leaderboard</div><h2>In the top ${N} now</h2></div></div>${wrTable('se-rl-top', rlCols(), leaders, {sort: {col: 'rank', dir: 'asc'}})}</div>
+    <div class="se-panel mk-sec" id="rl-a-gain"><div class="se-row-h"><div><div class="se-eyebrow">Gaining a top-${N} spot ${seInfoBtn('rl-climb')}</div><h2>Entered this week (${entered.length})</h2></div></div>
+      ${entered.length ? wrTable('se-rl-in', rlCols(null, {from: true}), entered, {sort: {col: 'rank', dir: 'asc'}}) : '<div class="wr-hint">No name entered the list this week.</div>'}
+      <div class="wr-sub" style="margin-top:16px;">Knocking on the door (${knocking.length}) — ranked ${N + 1} to ${N + 50} and climbing</div>
+      ${knocking.length ? wrTable('se-rl-knock', rlCols([{k:'gap', t:'Gap to cut', type:'html', sortType:'num', fn: r => r.gap, html: r => `<span class="flat">${r.gap} places</span>`, info: 'rl-gap'}], {from: true}), knocking, {sort: {col: 'rank', dir: 'asc'}, maxHeight: '460px'}) : '<div class="wr-hint">Nothing just outside the list is climbing fast enough to show here.</div>'}</div>
+    <div class="se-panel mk-sec" id="rl-a-left"><div class="se-row-h"><div><div class="se-eyebrow">Losing it</div><h2>Dropped and fading</h2></div></div>${left.length ? wrTable('se-rl-left', rlCols(), left, {sort: {col: 'rank', dir: 'asc'}}) : '<div class="wr-hint">nothing left the list this week</div>'}</div>
+    ${book}
+    <div class="se-panel mk-sec" id="rl-a-ev"><div class="se-row-h"><div><div class="se-eyebrow">Evidence</div><h2>Do the flags predict who drops?</h2></div></div><ul class="rl-ev">${evItems}</ul>${smLine ? `<div class="wr-hint">Across all weeks — ${smLine}. If names with 2+ flags stay as often as clean ones, the flags are early: read them as risk, not as a timer.</div>` : ''}</div>`;
   seCountUp(el);
 }
 
 // ============= INDICES — your own sub-sector indices, chain-linked from the daily scans =============
 // Reads data/indices/series.json (tools/build_indices.py; constituents in data/indices/indices.json).
-const IX = { doc: null, loaded: false, loading: false, error: null, sel: null, win: '3m' };
+const IX = { doc: null, loaded: false, loading: false, error: null, sel: null, win: 'All' };
+const IX_WINS = [['1M', 31], ['3M', 93], ['All', 9999]];
 async function loadIX(manual){
   if(IX.loading) return; IX.loading = true;
   try{ const res = await fetch('data/indices/series.json', {cache: manual ? 'reload' : 'default'}); if(!res.ok) throw new Error('HTTP ' + res.status); IX.doc = await res.json(); IX.error = null; }
@@ -7763,40 +7745,23 @@ async function loadIX(manual){
   finally{ IX.loading = false; IX.loaded = true; }
   renderIX();
 }
-function ixWindowStart(dates, win){
-  if(win === 'all') return 0;
-  const days = win === '1m' ? 31 : 93, last = new Date(dates[dates.length - 1] + 'T00:00:00');
-  for(let i = 0; i < dates.length; i++) if((last - new Date(dates[i] + 'T00:00:00')) / 864e5 <= days) return i;
-  return 0;
-}
 function ixPct(v){ return v == null ? '<span class="flat">—</span>' : `<span class="${v > 0 ? 'up' : v < 0 ? 'dn' : 'flat'}">${wrSigned(v, 1)}%</span>`; }
 function ixSpark(levels){
   const pts = levels.map((v, i) => [i, v]).filter(p => p[1] != null); if(pts.length < 2) return '';
   const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]), x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys), W = 200, H = 34;
   const d = pts.map(([x, y], i) => `${i ? 'L' : 'M'}${((x - x0) / (x1 - x0 || 1) * W).toFixed(1)},${(H - 2 - (y - y0) / (y1 - y0 || 1) * (H - 4)).toFixed(1)}`).join(' ');
-  return `<svg class="ix-spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><path d="${d}"/></svg>`;
-}
-function ixChart(dates, ix, mk, start){
-  // index and market rebased to 100 at the window start; inline SVG, no library, one point per scan
-  const W = 760, H = 280, L = 44, R = 12, T = 12, B = 26;
-  const idx = []; for(let i = start; i < dates.length; i++) if(ix[i] != null) idx.push(i);
-  if(idx.length < 2) return '<div class="wr-hint">not enough history in this window yet</div>';
-  const b0 = idx[0], ri = i => ix[i] / ix[b0] * 100, rm = i => (mk[i] != null && mk[b0] != null) ? mk[i] / mk[b0] * 100 : null;
-  const vals = idx.map(ri).concat(idx.map(rm).filter(v => v != null)), y0 = Math.min(...vals), y1 = Math.max(...vals), pad = (y1 - y0 || 1) * 0.08, lo = y0 - pad, hi = y1 + pad;
-  const X = i => L + (i - b0) / (idx[idx.length - 1] - b0 || 1) * (W - L - R), Y = v => T + (hi - v) / (hi - lo) * (H - T - B);
-  const path = f => idx.map((i, k) => { const v = f(i); return v == null ? '' : `${k ? 'L' : 'M'}${X(i).toFixed(1)},${Y(v).toFixed(1)}`; }).join(' ');
-  const grid = [y0, (y0 + y1) / 2, y1].map(v => `<line class="grid" x1="${L}" x2="${W - R}" y1="${Y(v).toFixed(1)}" y2="${Y(v).toFixed(1)}"/><text x="${L - 6}" y="${(Y(v) + 3).toFixed(1)}" text-anchor="end">${v.toFixed(0)}</text>`).join('');
-  const xl = [b0, idx[Math.floor(idx.length / 2)], idx[idx.length - 1]].map((i, k) => `<text x="${X(i).toFixed(1)}" y="${H - 8}" text-anchor="${k === 0 ? 'start' : k === 1 ? 'middle' : 'end'}">${wrShort(dates[i])}</text>`).join('');
-  return `<svg class="ix-chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${grid}${xl}<path class="ln-mk" d="${path(rm)}"/><path class="ln-ix" d="${path(ri)}"/></svg>`;
+  return `<svg class="ix-spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true"><path d="${d}"/></svg>`;
 }
 function renderIX(){
   const el = document.getElementById('ix-body'); if(!el) return;
   if(!IX.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading…</p></div>'; return; }
   const d = IX.doc;
   if(!d){ el.innerHTML = seEmpty('No indices yet', `Run <code>python tools/build_indices.py</code> (the daily pull does this after each scan), commit <code>data/indices/</code>, then Refresh.${IX.error ? ` <span class="flat">(${wrEsc(IX.error)})</span>` : ''}`); return; }
+  ['ix-detail', 'ix-rs', 'ix-all'].forEach(k => { if(CH.live[k]){ try{ CH.live[k].destroy(); }catch(e){} delete CH.live[k]; } });
   const dates = d.dates || [], mk = (d.market || {}).levels || [], list = d.indices || [];
   if(!IX.sel || !list.some(x => x.id === IX.sel)) IX.sel = list.length ? list[0].id : null;
-  const cards = list.map(x => `<div class="se-panel ix-card ${x.id === IX.sel ? 'sel' : ''}" onclick="IX.sel='${wrAttr(x.id)}';renderIX()">
+  const P = lv => dates.map((d0, i) => [d0, lv[i]]).filter(p => p[1] != null);
+  const cards = list.map(x => `<div class="se-panel ix-card ${x.id === IX.sel ? 'sel' : ''}" onclick="IX.sel='${wrAttr(x.id)}';renderIX();mkJump('ix-detail-panel')">
       <div class="g">${wrEsc(x.group || 'Custom')} · ${x.codes.length} names</div><div class="nm">${wrEsc(x.name)}</div>
       <div class="lv">${x.last != null ? x.last.toFixed(1) : '—'}</div>
       <div class="rt"><span>1D ${ixPct(x.ret.d1)}</span><span>1W ${ixPct(x.ret.w1)}</span><span>1M ${ixPct(x.ret.m1)}</span><span title="relative to the equal-weight market over 1 month">vs mkt ${ixPct(x.rel.m1)}</span></div>
@@ -7804,7 +7769,13 @@ function renderIX(){
   const x = list.find(v => v.id === IX.sel);
   let detail = '';
   if(x){
-    const start = ixWindowStart(dates, IX.win);
+    // the chart you get after picking a tracker: real dates on the x-axis, round numbers on the y-axis, both lines
+    // rebased to 100 at the start of the window, and Expand for the full-screen view
+    CH.reg['ix-detail'] = {title: `${x.name} against the market`, sub: 'both rebased to 100 at the start of the window — the gap between the lines is the sub-sector\'s own relative strength', wins: IX_WINS, win: IX.win, hidden: (CH.reg['ix-detail'] || {}).hidden,
+      note: 'One point per scan; a stretch with no scan is drawn as wide as it really was.',
+      build: days => chGrid([{label: x.name, pts: P(x.levels), unit: 'index', digits: 1, slot: 1}, {label: 'Market (equal-weight)', pts: P(mk), unit: 'index', digits: 1, slot: 0}], dates[ixStartIdx(dates, days)], true)};
+    CH.reg['ix-rs'] = {title: 'Relative strength line', sub: 'tracker ÷ market, rebased to 100 — rising means these stocks are beating the average stock', wins: IX_WINS, win: IX.win,
+      build: days => chGrid([{label: x.name + ' ÷ market', pts: dates.map((d0, i) => [d0, x.levels[i] != null && mk[i] ? x.levels[i] / mk[i] * 100 : null]).filter(p => p[1] != null), unit: 'index', digits: 1, slot: 0}], dates[ixStartIdx(dates, days)], true)};
     const kp = [
       seKpi('Level', x.last != null ? x.last.toFixed(1) : '—', x.start ? `base 100 on ${wrDate(x.start)}` : ''),
       seKpi('From index high', ixPct(x.from_high), x.high ? `high ${x.high.level.toFixed(1)} on ${wrShort(x.high.date)}` : ''),
@@ -7815,20 +7786,431 @@ function renderIX(){
     const cols = [
       {k:'code', t:'Stock', type:'html', html: r => seStockCell(r)}, {k:'act', t:'', type:'html', html: r => seActCell(r)}, {k:'industry', t:'Industry', type:'text'},
       {k:'price', t:'Price', type:'num', dec: 1}, {k:'r1d', t:'1D %', type:'pct', dec: 1}, {k:'r1w', t:'1W %', type:'pct', dec: 1}, {k:'r1m', t:'1M %', type:'pct', dec: 1}, {k:'r3m', t:'3M %', type:'pct', dec: 0},
-      {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => seRsCell(r.rs)}, {k:'rank', t:'Rank', type:'int'},
-      {k:'trend', t:'Trend', type:'html', sortType:'num', fn: r => r.trend && r.trend.total ? r.trend.pass : null, html: rlTrendCell},
+      {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => seRsCell(r.rs), info: 'rl-rs'}, {k:'rank', t:'Rank', type:'int'},
+      {k:'trend', t:'Trend', type:'html', sortType:'num', fn: r => r.trend && r.trend.total ? r.trend.pass : null, html: rlTrendCell, info: 'rl-trend'},
       {k:'from_52wh', t:'vs 52WH', type:'pct0', dec: 1}, {k:'mcap', t:'MCap (₹Cr)', type:'int'},
     ];
-    const wins = ['1m', '3m', 'all'].map(w => `<button class="${IX.win === w ? 'active' : ''}" onclick="IX.win='${w}';renderIX()">${w.toUpperCase()}</button>`).join('');
-    detail = `<div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">${wrEsc(x.group || 'Custom index')}</div><h2>${wrEsc(x.name)}</h2>${x.note ? `<div class="wr-hint">${wrEsc(x.note)}</div>` : ''}</div><div class="se-seg">${wins}</div></div>
+    const wins = IX_WINS.map(([w]) => `<button class="${IX.win === w ? 'active' : ''}" onclick="IX.win='${w}';chSetWin('ix-','${w}');mkWinBtns(this)">${w}</button>`).join('');
+    detail = `<div class="se-panel mk-sec" id="ix-detail-panel"><div class="se-row-h"><div><div class="se-eyebrow">${wrEsc(x.group || 'Custom index')}</div><h2>${wrEsc(x.name)}</h2>${x.note ? `<div class="wr-hint">${wrEsc(x.note)}</div>` : ''}</div><div class="tt-filter" style="margin:0;"><span class="wr-hint" style="margin:0;">Window</span><div class="se-seg">${wins}</div></div></div>
       <div class="se-kpis">${kp.join('')}</div>
-      ${ixChart(dates, x.levels, mk, start)}
-      <div class="wr-hint" style="margin:0 0 10px;"><span class="up">▬</span> ${wrEsc(x.name)} &nbsp; <span class="flat">╌╌</span> market (equal-weight, every coded name in the scan) — both rebased to 100 at the window start; the gap between the lines is the sub-sector's own relative strength.${x.missing && x.missing.length ? ` <span class="dn">Not in the newest scan: ${x.missing.join(', ')}.</span>` : ''}</div>
+      <div class="tt-grid" style="margin-top:12px;">${chCard('ix-detail')}${chCard('ix-rs')}</div>
+      ${x.missing && x.missing.length ? `<div class="wr-hint"><span class="dn">Not in the newest scan: ${x.missing.join(', ')}.</span></div>` : ''}
       ${wrTable('se-ix-members', cols, x.members || [], {sort: {col: 'rs', dir: 'desc'}})}</div>`;
   }
-  el.innerHTML = `<div class="se-row-h"><div><div class="se-eyebrow">Edge · custom indices</div><h2>${list.length} sub-sector indices — scan ${wrDate(d.scan_date)}</h2></div><span class="wr-hint">equal-weight, chain-linked from each day's scan · add one: <code>python tools/build_indices.py add --id … --name … --codes …</code></span></div>
-    <div class="ix-grid">${cards}</div>${detail}`;
+  CH.reg['ix-all'] = {title: 'Every tracker against the market', sub: 'equal-weight, rebased to 100 — the four strongest and three weakest over the window are coloured, the rest are grey', wins: IX_WINS, win: IX.win, hidden: (CH.reg['ix-all'] || {}).hidden, build: days => ixAllGrid(days)};
+  el.innerHTML = `<div class="se-row-h"><div><div class="se-eyebrow">Markets &amp; Macro · your sub-sector trackers</div><h2>${list.length} sub-sector indices — scan ${wrDate(d.scan_date)}</h2></div><span class="wr-hint">equal-weight, chain-linked from each day's scan · pick a card for its chart and members · add one: <code>python tools/build_indices.py add --id … --name … --codes …</code></span></div>
+    <div class="ix-grid">${cards}</div>${detail}<div style="height:14px;"></div>${chCard('ix-all')}`;
   seCountUp(el);
+  ['ix-detail', 'ix-rs', 'ix-all'].forEach(chMount);
+}
+
+// ============= INFO POPOVER — the "i" beside a column or a number =============
+// One floating card for the whole app. SE_INFO[key] is the explanation (html, or a function returning
+// html so it can quote live numbers). seInfoBtn(key) is the button; wrTable puts one in a header
+// when a column carries `info`. (SE_INFO itself is declared above the first block that fills it.)
+function seInfoBtn(key){ return `<button type="button" class="se-i" aria-label="What is this?" onclick="seInfoOpen(event,'${wrAttr(key)}')">i</button>`; }
+function seInfoOpen(ev, key){ const src = SE_INFO[key]; seInfoShow(ev, key, typeof src === 'function' ? src() : src); }
+function seInfoShow(ev, key, html){
+  ev.stopPropagation(); ev.preventDefault();
+  let pop = document.getElementById('se-info-pop');
+  if(!pop){ pop = document.createElement('div'); pop.id = 'se-info-pop'; pop.className = 'se-info-pop'; document.body.appendChild(pop);
+    document.addEventListener('click', e => { if(!e.target.closest('#se-info-pop') && !e.target.closest('.se-i') && !e.target.closest('.rl-why')) seInfoClose(); });
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') seInfoClose(); }); }
+  if(pop.classList.contains('open') && pop.dataset.key === key){ seInfoClose(); return; }
+  pop.innerHTML = `<button type="button" class="se-info-x" aria-label="Close" onclick="seInfoClose()">×</button>${html || '<p>No note for this yet.</p>'}`;
+  pop.dataset.key = key; pop.classList.add('open');
+  const r = ev.currentTarget.getBoundingClientRect(), w = Math.min(420, window.innerWidth - 24);
+  pop.style.width = w + 'px';
+  pop.style.left = Math.max(12, Math.min(window.innerWidth - w - 12, r.left - 20)) + 'px';
+  const below = r.bottom + 8, h = pop.offsetHeight;
+  pop.style.top = (below + h > window.innerHeight - 12 ? Math.max(12, r.top - h - 8) : below) + 'px';
+}
+function seInfoClose(){ const pop = document.getElementById('se-info-pop'); if(pop) pop.classList.remove('open'); }
+
+// ============= CHART ENGINE — one line chart, one axis, a scale you can read =============
+// Every line chart outside Theme Trackers is drawn here. The rules are the ones that page states:
+// one y-axis; different units are rebased to 100 at a common date, never given a second axis;
+// colour follows the series; a legend with the latest value; labels at the line ends; a crosshair
+// tooltip; a table twin. What this adds: the x-axis is real calendar time (a fortnight without a
+// scan is a fortnight wide, not one step), y ticks are round numbers, clicking a legend entry hides
+// that series and the axis re-fits to what is left, and Expand opens the same chart full-screen
+// with its own window and a log scale for rebased charts.
+const CH = { reg: {}, live: {}, zoom: null };
+function chDay(iso){ return Math.round(Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10)) / 864e5); }
+function chIso(day){ const d = new Date(day * 864e5); return d.getUTCFullYear() + '-' + String(d.getUTCMonth() + 1).padStart(2, '0') + '-' + String(d.getUTCDate()).padStart(2, '0'); }
+function chColor(slot){ return slot === 'mute' ? ttCss('--t4') : slot ? (ttCss('--viz-' + slot) || '#3987e5') : ttCss('--t2'); }
+// series: [{label, pts:[[iso,v]...], unit, digits, slot}] -> a shared date grid from `start`; `indexed` rebases every
+// series to 100 at the latest of their first dates, so no series gets a private starting line
+function chGrid(series, start, indexed){
+  const ser = series.map(s => ({...s, pts: (s.pts || []).filter(p => p[0] >= start && p[1] != null)})).filter(s => s.pts.length > 1);
+  if(indexed && ser.length > 1){ const common = ser.map(s => s.pts[0][0]).sort().pop(); ser.forEach(s => { s.pts = s.pts.filter(p => p[0] >= common); }); }
+  const dates = [...new Set(ser.flatMap(s => s.pts.map(p => p[0])))].sort();
+  ser.forEach(s => {
+    const m = new Map(s.pts), first = s.pts[0][0], last = s.pts[s.pts.length - 1][0], base = s.pts[0][1]; let prev = null;
+    s.raw = dates.map(d => { if(d < first || d > last) return null; if(m.has(d)) prev = m.get(d); return prev; });   // carry a close across another market's holiday, never past either end
+    s.vals = s.raw.map(v => v == null ? null : (indexed && base ? v / base * 100 : v));
+  });
+  return {dates, ser: ser.filter(s => s.pts.length > 1), indexed};
+}
+function chTicks(d0, d1, maxN){
+  const span = d1 - d0, out = [], lab = v => { const d = new Date(v * 864e5); return {d: d.getUTCDate(), m: WR_MONTHS[d.getUTCMonth()], y: String(d.getUTCFullYear()).slice(2)}; };
+  if(span <= 50){ for(let d = d0; d <= d1; d++) if(new Date(d * 864e5).getUTCDay() === 1) out.push(d); }
+  else { const a = new Date(d0 * 864e5); let y = a.getUTCFullYear(), m = a.getUTCMonth(); for(;;){ m++; if(m > 11){ m = 0; y++; } const t = Math.round(Date.UTC(y, m, 1) / 864e5); if(t > d1) break; out.push(t); } }
+  const step = Math.max(1, Math.ceil(out.length / Math.max(2, maxN)));
+  return out.filter((_, i) => (out.length - 1 - i) % step === 0).map((v, i) => { const p = lab(v); return {v, t: span <= 50 ? `${p.d} ${p.m}` : (p.m === 'Jan' || i === 0 ? `${p.m} ${p.y}` : p.m)}; });
+}
+function chFmt(v, digits, unit){ if(v == null || isNaN(v)) return '—'; if(Math.abs(v) < 1e-9) v = 0; const big = Math.abs(v) >= 10000; return Number(v).toLocaleString(unit && /INR|index|₹/.test(unit) ? 'en-IN' : 'en-US', {minimumFractionDigits: big ? 0 : digits, maximumFractionDigits: big ? 0 : digits}); }
+const chEndLabels = { id: 'chEndLabels', afterDatasetsDraw(c){
+  const g = c.ctx, surface = ttCss('--bg1'), ink = ttCss('--t2');
+  const ends = c.data.datasets.map((ds, i) => { const meta = c.getDatasetMeta(i); if(meta.hidden || ds._mute) return null; let j = ds.data.length - 1; while(j >= 0 && ds.data[j].y == null) j--; if(j < 0) return null; const el = meta.data[j]; return el ? {x: el.x, y: el.y, ds, j} : null; }).filter(Boolean).sort((a, b) => a.y - b.y);
+  g.save(); g.font = '600 11px ' + (ttCss('--sans') || 'system-ui'); g.textBaseline = 'middle'; let lastY = -99;
+  ends.forEach(e => { g.beginPath(); g.arc(e.x, e.y, 6, 0, Math.PI * 2); g.fillStyle = surface; g.fill(); g.beginPath(); g.arc(e.x, e.y, 4, 0, Math.PI * 2); g.fillStyle = e.ds.borderColor; g.fill();
+    if(e.y - lastY < 13) return; lastY = e.y; g.fillStyle = ink; g.fillText(`${e.ds.label} ${chFmt(e.ds.data[e.j].y, e.ds._labelDigits, e.ds._unit)}`, e.x + 9, e.y); });
+  g.restore();
+} };
+function chMake(canvas, cfg){
+  const surface = ttCss('--bg1'), hair = ttCss('--b1'), strong = ttCss('--b3'), tick = ttCss('--t3'), ink = ttCss('--t1');
+  const xs = cfg.dates.map(chDay), few = cfg.dates.length <= 45;
+  const datasets = cfg.ser.map(s => { const col = chColor(s.slot), mute = s.slot === 'mute';
+    return { label: s.label, data: xs.map((x, i) => ({x, y: s.vals[i]})), parsing: false, normalized: true, borderColor: col, backgroundColor: col, borderWidth: mute ? 1.2 : 2, pointRadius: few && !mute ? 2.5 : 0, pointHoverRadius: 5,
+      pointHoverBackgroundColor: col, pointHoverBorderColor: surface, pointHoverBorderWidth: 2, tension: 0, spanGaps: true, borderJoinStyle: 'round', borderCapStyle: 'round', hidden: !!s.hidden, order: mute ? 2 : 1,
+      _raw: s.raw, _unit: s.unit, _digits: s.digits != null ? s.digits : 2, _labelDigits: cfg.indexed ? 1 : Math.min(2, s.digits != null ? s.digits : 2), _mute: mute }; });
+  const mctx = document.createElement('canvas').getContext('2d'); mctx.font = '600 11px ' + (ttCss('--sans') || 'system-ui');
+  const padRight = Math.min(200, Math.ceil(Math.max(0, ...datasets.filter(ds => !ds._mute).map(ds => { let j = ds.data.length - 1; while(j >= 0 && ds.data[j].y == null) j--; return j < 0 ? 0 : mctx.measureText(`${ds.label} ${chFmt(ds.data[j].y, ds._labelDigits, ds._unit)}`).width; }))) + 20);
+  const w = canvas.parentElement.clientWidth || 700, h = canvas.parentElement.clientHeight || 300;
+  const ticks = chTicks(xs[0], xs[xs.length - 1], Math.floor((w - padRight) / 60)), tlab = new Map(ticks.map(t => [t.v, t.t]));
+  const unit0 = (cfg.ser[0] || {}).unit;
+  // decimals follow the gap between gridlines: 60, 70, 80 need none; 4.25, 4.50 need two
+  const yfmt = (v, ts) => { const step = ts && ts.length > 1 ? Math.abs(ts[1].value - ts[0].value) : 1, dg = step >= 1 ? 0 : step >= .1 ? 1 : 2; return (cfg.indexed ? chFmt(v, dg) : chFmt(v, dg, unit0)) + (unit0 === '%' && !cfg.indexed ? '%' : ''); };
+  const logNice = v => { const m = +(v / Math.pow(10, Math.floor(Math.log10(v)))).toPrecision(2); return [1, 1.5, 2, 3, 5, 7].includes(m); };
+  return new Chart(canvas, { type: 'line', data: { datasets }, plugins: [ttCrosshair, chEndLabels],
+    options: { responsive: true, maintainAspectRatio: false, animation: false, layout: { padding: { right: padRight, top: 10 } }, interaction: { mode: 'index', intersect: false, axis: 'x' },
+      scales: {
+        x: { type: 'linear', min: xs[0], max: xs[xs.length - 1], grid: { display: false }, border: { color: strong }, afterBuildTicks: ax => { ax.ticks = ticks.map(t => ({value: t.v})); },
+             ticks: { color: tick, maxRotation: 0, autoSkip: false, font: { size: 11 }, callback: v => tlab.get(v) || '' } },
+        y: { type: cfg.log ? 'logarithmic' : 'linear', border: { display: false }, grace: cfg.log ? 0 : '6%', suggestedMin: cfg.indexed && !cfg.log ? 100 : undefined, suggestedMax: cfg.indexed && !cfg.log ? 100 : undefined,
+             grid: { color: c => (cfg.indexed && c.tick && c.tick.value === 100) ? strong : hair, lineWidth: 1 },
+             ticks: { color: tick, font: { size: 11 }, maxTicksLimit: Math.max(5, Math.round(h / 38)), callback: (v, i, ts) => cfg.log ? (logNice(v) ? yfmt(v, null) : '') : yfmt(v, ts) } } },
+      plugins: { legend: { display: false },
+        tooltip: { backgroundColor: ttCss('--bg3'), borderColor: ttCss('--b2'), borderWidth: 1, titleColor: ink, bodyColor: ink, padding: 10, usePointStyle: true, boxWidth: 18, boxHeight: 2,
+          filter: i => i.parsed.y != null && !i.dataset._mute, itemSort: (a, b) => b.parsed.y - a.parsed.y,
+          callbacks: { title: items => items.length ? wrDate(cfg.dates[items[0].dataIndex]) : '',
+            label: i => { const ds = i.dataset, raw = ds._raw[i.dataIndex], u = ds._unit && ds._unit !== 'index' ? ' ' + ds._unit : ''; return cfg.indexed ? ` ${chFmt(i.parsed.y, 1)}   ${ds.label}  (${chFmt(raw, ds._digits, ds._unit)}${u})` : ` ${chFmt(raw, ds._digits, ds._unit)}${u}   ${ds.label}`; },
+            labelPointStyle: () => ({ pointStyle: 'line', rotation: 0 }) } } } } });
+}
+// a registered chart: {title, sub, wins:[[label, days]], win, build(days, opts) -> chGrid result, note}
+function chCard(key, extra){
+  const e = CH.reg[key]; if(!e) return '';
+  return `<div class="se-panel tt-card"><div class="se-row-h"><div><h2>${wrEsc(e.title)}</h2><div class="tt-sub">${wrEsc(e.sub || '')}</div></div><button class="btn btn-ghost btn-sm" onclick="chZoom('${wrAttr(key)}')"><i class="ti ti-arrows-maximize"></i>Expand</button></div>
+    <div class="tt-legend ch-legend" id="leg-${wrAttr(key)}"></div><div class="tt-canvas"><canvas id="cv-${wrAttr(key)}" role="img" aria-label="${wrAttr(e.title)}"></canvas></div>${extra || ''}<div id="tbl-${wrAttr(key)}"></div></div>`;
+}
+function chLegend(key, cfg, hidden, where){
+  return cfg.ser.map((s, k) => { let j = s.vals.length - 1; while(j >= 0 && s.vals[j] == null) j--; let f = 0; while(f < s.vals.length && s.vals[f] == null) f++;
+    const ch = j > f && s.raw[f] ? (s.unit === '%' ? {t: wrSigned((s.raw[j] - s.raw[f]) * 100, 0) + ' bp'} : {t: wrPct((s.raw[j] / s.raw[f] - 1) * 100, 1)}) : null;
+    return `<span class="${hidden.has(k) ? 'off' : ''}" onclick="chToggle('${wrAttr(key)}',${k},'${where}')" title="click to hide or show; the axis re-fits"><i style="background:${s.slot === 'mute' ? 'var(--t4)' : s.slot ? `var(--viz-${s.slot})` : 'var(--t2)'}"></i>${wrEsc(s.label)}<b>${j >= 0 ? chFmt(s.raw[j], s.digits != null ? s.digits : 2, s.unit) + (s.unit === '%' ? '%' : '') : '—'}</b>${ch ? `<em>${ch.t}</em>` : ''}</span>`; }).join('');
+}
+function chTable(cfg){
+  const idx = cfg.dates.map((d, i) => i).reverse().slice(0, 40);
+  const head = `<tr><th>Date</th>${cfg.ser.map(s => `<th class="num">${wrEsc(s.label)}${cfg.indexed ? ' (index)' : ''}</th>${cfg.indexed ? `<th class="num">${wrEsc(s.unit && s.unit !== 'index' ? s.unit : 'level')}</th>` : ''}`).join('')}</tr>`;
+  const body = idx.map(i => `<tr><td>${wrDate(cfg.dates[i])}</td>${cfg.ser.map(s => `<td class="num">${s.vals[i] == null ? '—' : chFmt(s.vals[i], cfg.indexed ? 1 : (s.digits != null ? s.digits : 2), s.unit)}</td>${cfg.indexed ? `<td class="num">${s.raw[i] == null ? '—' : chFmt(s.raw[i], s.digits != null ? s.digits : 2, s.unit)}</td>` : ''}`).join('')}</tr>`).join('');
+  return `<details class="tt-table"><summary>Table view</summary><div class="wr-twrap" style="max-height:300px;"><table class="scan-table"><thead>${head}</thead><tbody>${body}</tbody></table></div><div class="wr-hint" style="margin-top:6px;">The latest ${idx.length} of ${cfg.dates.length} rows in this window, newest first.${cfg.indexed ? ' Index = 100 at the first row of the window.' : ''}</div></details>`;
+}
+function chMount(key){
+  const e = CH.reg[key], cv = document.getElementById('cv-' + key); if(!e || !cv) return;
+  if(CH.live[key]){ try{ CH.live[key].destroy(); }catch(err){} delete CH.live[key]; }
+  const days = (e.wins.find(w => w[0] === e.win) || e.wins[e.wins.length - 1])[1], cfg = e.build(days, {});
+  e.hidden = e.hidden || new Set(); const leg = document.getElementById('leg-' + key), tbl = document.getElementById('tbl-' + key);
+  if(!cfg || !cfg.ser.length || cfg.dates.length < 2){ cv.parentElement.innerHTML = '<div class="wr-hint" style="padding:30px 0;">Not enough history in this window yet.</div>'; if(leg) leg.innerHTML = ''; return; }
+  cfg.ser.forEach((s, k) => { s.hidden = e.hidden.has(k); });
+  if(leg) leg.innerHTML = chLegend(key, cfg, e.hidden, 'card'); if(tbl) tbl.innerHTML = chTable(cfg);
+  CH.live[key] = chMake(cv, cfg);
+}
+function chToggle(key, k, where){
+  const e = CH.reg[key]; if(!e) return; const set = where === 'zoom' ? (CH.zoom.hidden) : (e.hidden = e.hidden || new Set());
+  if(set.has(k)) set.delete(k); else set.add(k);
+  if(where === 'zoom') chZoomDraw(); else chMount(key);
+}
+function chZoom(key){
+  const e = CH.reg[key]; if(!e) return;
+  let box = document.getElementById('ch-zoom');
+  if(!box){ box = document.createElement('div'); box.id = 'ch-zoom'; box.className = 'ch-zoom'; box.onclick = ev => { if(ev.target === box) chZoomClose(); };
+    box.innerHTML = `<div class="ch-zoom-box"><div class="ch-zoom-h"><div><h2 id="ch-zoom-t"></h2><div class="tt-sub" id="ch-zoom-s"></div></div><div class="ch-zoom-ctl"><div class="se-seg" id="ch-zoom-wins"></div><div class="se-seg" id="ch-zoom-scale"></div><button class="btn btn-sm" onclick="chZoomClose()">Close ✕</button></div></div><div class="tt-legend ch-legend" id="leg-zoom"></div><div class="ch-zoom-canvas"><canvas id="ch-zoom-c"></canvas></div><div class="wr-hint" id="ch-zoom-n" style="margin:8px 0 0;"></div></div>`;
+    document.body.appendChild(box); document.addEventListener('keydown', ev => { if(ev.key === 'Escape') chZoomClose(); }); }
+  CH.zoom = {key, win: e.win, log: false, hidden: new Set(e.hidden || []), chart: null};
+  box.classList.add('open'); chZoomDraw();
+}
+function chZoomDraw(){
+  const z = CH.zoom; if(!z) return; const e = CH.reg[z.key];
+  const days = (e.wins.find(w => w[0] === z.win) || e.wins[e.wins.length - 1])[1], cfg = e.build(days, {zoom: true});
+  if(z.chart){ try{ z.chart.destroy(); }catch(err){} z.chart = null; }
+  document.getElementById('ch-zoom-t').textContent = e.title; document.getElementById('ch-zoom-s').textContent = e.sub || '';
+  document.getElementById('ch-zoom-wins').innerHTML = e.wins.map(w => `<button class="${w[0] === z.win ? 'active' : ''}" onclick="CH.zoom.win='${w[0]}';chZoomDraw()">${w[0]}</button>`).join('');
+  document.getElementById('ch-zoom-scale').innerHTML = cfg && cfg.indexed ? ['Linear', 'Log'].map((n, i) => `<button class="${(!!i) === z.log ? 'active' : ''}" onclick="CH.zoom.log=${!!i};chZoomDraw()" title="${i ? 'equal percentage moves take equal height' : 'equal point moves take equal height'}">${n}</button>`).join('') : '';
+  const cvWrap = document.querySelector('#ch-zoom .ch-zoom-canvas'); cvWrap.innerHTML = '<canvas id="ch-zoom-c"></canvas>';
+  if(!cfg || !cfg.ser.length || cfg.dates.length < 2){ cvWrap.innerHTML = '<div class="wr-hint" style="padding:40px 0;">Not enough history in this window yet.</div>'; document.getElementById('leg-zoom').innerHTML = ''; return; }
+  cfg.log = z.log && cfg.indexed; cfg.ser.forEach((s, k) => { s.hidden = z.hidden.has(k); });
+  document.getElementById('leg-zoom').innerHTML = chLegend(z.key, cfg, z.hidden, 'zoom');
+  document.getElementById('ch-zoom-n').innerHTML = `${wrDate(cfg.dates[0])} to ${wrDate(cfg.dates[cfg.dates.length - 1])} · ${cfg.dates.length} sessions${cfg.indexed ? ' · every line starts at 100 on the first date, so the height of a line is its percentage move since then' : ''}. Click a name above to hide it; the axis re-fits to what is left.${e.note ? ' ' + e.note : ''}`;
+  z.chart = chMake(document.getElementById('ch-zoom-c'), cfg);
+}
+function chZoomClose(){ const box = document.getElementById('ch-zoom'); if(box) box.classList.remove('open'); if(CH.zoom && CH.zoom.chart){ try{ CH.zoom.chart.destroy(); }catch(err){} } CH.zoom = null; }
+function chSetWin(prefix, win){ Object.keys(CH.reg).forEach(k => { const e = CH.reg[k]; if(k.startsWith(prefix) && e.wins.some(w => w[0] === win)){ e.win = win; chMount(k); } }); }
+
+// ============= MARKETS & MACRO — what is moving what =============
+// Reads data/markets/markets.json (tools/fetch_markets.py): NSE's own index file, the outside drivers,
+// RBI's yields and NSDL's foreign flows, on the same dates. This page puts them side by side and
+// draws no conclusion. The crude, dollar and US-yield reference levels are the ones your old
+// Commodities page used; correlations describe the past and are labelled as such.
+const MK = { doc: null, loaded: false, loading: false, error: null, win: '6M', corr: 26, idxTab: 'sector', cache: new Map(), wk: new Map() };
+const MK_WINS = [['1M', 31], ['3M', 93], ['6M', 183], ['1Y', 366]];
+async function loadMK(manual){
+  if(MK.loading) return; MK.loading = true;
+  try{ const res = await fetch('data/markets/markets.json', {cache: manual ? 'reload' : 'default'}); if(!res.ok) throw new Error('HTTP ' + res.status); MK.doc = await res.json(); MK.error = null; MK.cache = new Map(); MK.wk = new Map(); }
+  catch(err){ MK.doc = null; MK.error = err.message || String(err); }
+  finally{ MK.loading = false; MK.loaded = true; }
+  if(typeof IX !== 'undefined' && !IX.loaded && !IX.loading){ try{ await loadIX(false); }catch(e){} }
+  renderMK(); mkDashTile();
+}
+function mkS(id){
+  if(MK.cache.has(id)) return MK.cache.get(id);
+  const d = MK.doc || {}, n = ((d.nse || {}).series || {})[id], g = ((d.global || {}).series || {})[id]; let s = null;
+  if(n) s = {id, name: n.name, group: n.group, unit: 'index', dec: 2, dates: d.nse.dates, vals: n.c, turn: n.t, pe: n.pe, src: 'nse'};
+  else if(g) s = {id, name: g.name, group: g.group, unit: g.unit, dec: g.dec, dates: d.global.dates, vals: g.v, src: 'global', stale: g.stale};
+  if(s){ s.pts = []; for(let i = 0; i < s.dates.length; i++) if(s.vals[i] != null) s.pts.push([s.dates[i], s.vals[i]]); s.last = s.pts[s.pts.length - 1] || null; s.rate = s.unit === '%'; }
+  MK.cache.set(id, s); return s;
+}
+function mkAt(pts, iso){ for(let i = pts.length - 1; i >= 0; i--) if(pts[i][0] <= iso) return pts[i]; return null; }
+function mkChg(s, days){   // change to the latest close: from the previous close (days = 0) or from the close on or before `days` ago
+  if(!s || !s.last) return null; let p0;
+  if(!days) p0 = s.pts[s.pts.length - 2]; else { const t = new Date(s.last[0] + 'T00:00:00'); t.setDate(t.getDate() - days); p0 = mkAt(s.pts, ttIso(t)); }
+  if(!p0) return null; const abs = s.last[1] - p0[1]; return {abs, pct: p0[1] ? abs / p0[1] * 100 : null, from: p0[0]};
+}
+function mkChgHtml(s, days){ const c = mkChg(s, days); if(!c) return '<span class="flat">—</span>'; return s.rate ? `${wrSigned(c.abs * 100, 0)}<span class="flat"> bp</span>` : wrPct(c.pct, Math.abs(c.pct) >= 10 ? 0 : 1); }
+function mkVal(s){ if(!s || !s.last) return '—'; const v = s.last[1]; return s.rate ? v.toFixed(2) + '%' : chFmt(v, Math.abs(v) >= 1000 ? 0 : Math.min(2, s.dec), s.unit); }
+function mkSpark(vals){ const v = vals.filter(x => x != null); return v.length > 2 ? ixSpark(v) : ''; }
+function mkWeekKey(iso){ const t = new Date(iso + 'T00:00:00'); t.setDate(t.getDate() - (t.getDay() + 6) % 7); return ttIso(t); }
+function mkWeekly(id){   // week (its Monday) -> weekly change: log return for prices, change in points for yields, rupees for flows
+  if(MK.wk.has(id)) return MK.wk.get(id); const out = new Map();
+  if(id === 'fpi'){ ((MK.doc.fpi || {}).daily || []).forEach(r => { if(r.eq == null) return; const t = new Date(r.d + 'T00:00:00'); do { t.setDate(t.getDate() - 1); } while(t.getDay() === 0 || t.getDay() === 6);   // NSDL dates a row by the reporting day, one session after the trades
+      const k = mkWeekKey(ttIso(t)); out.set(k, (out.get(k) || 0) + r.eq); }); }
+  else { const s = mkS(id); if(s){ const lastOf = new Map(); s.pts.forEach(p => lastOf.set(mkWeekKey(p[0]), p[1])); const ks = [...lastOf.keys()].sort();
+      for(let i = 1; i < ks.length; i++){ const a = lastOf.get(ks[i - 1]), b = lastOf.get(ks[i]); if(s.rate) out.set(ks[i], b - a); else if(a > 0 && b > 0) out.set(ks[i], Math.log(b / a)); } } }
+  MK.wk.set(id, out); return out;
+}
+function mkCorr(a, b, weeks){
+  const A = mkWeekly(a), B = mkWeekly(b), ks = [...A.keys()].filter(k => B.has(k)).sort().slice(-weeks), n = ks.length; if(n < 12) return null;
+  const xa = ks.map(k => A.get(k)), xb = ks.map(k => B.get(k)), mean = v => v.reduce((s, x) => s + x, 0) / v.length, ma = mean(xa), mb = mean(xb);
+  let sab = 0, saa = 0, sbb = 0; for(let i = 0; i < n; i++){ sab += (xa[i] - ma) * (xb[i] - mb); saa += (xa[i] - ma) ** 2; sbb += (xb[i] - mb) ** 2; }
+  return saa && sbb ? {r: sab / Math.sqrt(saa * sbb), n} : null;
+}
+function mkCorrChip(a, b){ const c = mkCorr(a, b, MK.corr), nm = b === 'fpi' ? 'FPI flow' : MK_SHORT[b] || (mkS(b) || {}).name || b; if(!c) return ''; return `<span class="mk-link" style="background:${mkHeat(c.r)}" title="correlation of weekly changes over ${c.n} weeks">${wrEsc(nm.replace(/^Nifty /, ''))} <b>${c.r >= 0 ? '+' : '−'}${Math.abs(c.r).toFixed(2)}</b></span>`; }
+function mkHeat(r){ const a = Math.min(.62, Math.abs(r) * .8).toFixed(2); return r >= 0 ? `rgba(57,135,229,${a})` : `rgba(234,112,48,${a})`; }
+function mkFlowSums(){
+  const d = ((MK.doc || {}).fpi || {}).daily || [], last = d[d.length - 1]; if(!last) return null;
+  const sum = rows => rows.reduce((s, r) => s + (r.eq || 0), 0), ym = last.d.slice(0, 7), y = last.d.slice(0, 4);
+  return {last, d5: sum(d.slice(-5)), d20: sum(d.slice(-20)), mtd: sum(d.filter(r => r.d.slice(0, 7) === ym)), ytd: sum(d.filter(r => r.d.slice(0, 4) === y)), n: d.length};
+}
+const MK_TILES = ['nifty50', 'midcap150', 'smallcap250', 'vix', 'in10y', 'us10y', 'usdinr', 'dxy', 'brent', 'wti', 'gold', 'silver', 'copper', 'sp500', 'nasdaq', 'fpi'];
+const MK_SHORT = { nifty50: 'Nifty 50', midcap150: 'Midcap 150', smallcap250: 'Smallcap 250', vix: 'India VIX', us10y: 'US 10-year', usdinr: 'USD/INR', dxy: 'Dollar index', brent: 'Brent', wti: 'WTI', gold: 'Gold', silver: 'Silver', copper: 'Copper', sp500: 'S&P 500', nasdaq: 'Nasdaq', natgas: 'Natural gas' };
+function mkTile(id){
+  const d = MK.doc;
+  if(id === 'in10y'){ const r = d.rbi; if(!r) return ''; const g = mkS('gsec10'), c = g ? mkChg(g, 31) : null, h = r.history || [], prev = h.length > 1 ? h[h.length - 2] : null;
+    return `<div class="mk-tile"><div class="k"><span>India 10-year</span><span>${wrShort(r.asof)}</span></div><div class="v">${r.y10.toFixed(2)}%</div><div class="c">${prev ? `<span>vs ${wrShort(prev.d)} ${wrSigned((r.y10 - prev.y10) * 100, 0)} bp</span>` : '<span>RBI, one reading a day</span>'}</div><div class="s">${wrEsc(r.y10_name)}${c ? ` · bond price 1M ${wrPct(c.pct, 1)} (${c.pct < 0 ? 'yields up' : 'yields down'})` : ''}</div>${g ? mkSpark(g.vals.slice(-90)) : ''}</div>`; }
+  if(id === 'fpi'){ const f = mkFlowSums(); if(!f) return '';
+    return `<div class="mk-tile"><div class="k"><span>FPI equity flow</span><span>${wrShort(f.last.d)}</span></div><div class="v">${wrSigned(f.last.eq, 0, '₹')}<small> Cr</small></div><div class="c"><span>5-day ${wrSigned(f.d5, 0)}</span><span>MTD ${wrSigned(f.mtd, 0)}</span></div><div class="s">NSDL, reported one session after the trades</div></div>`; }
+  const s = mkS(id); if(!s || !s.last) return '';
+  return `<div class="mk-tile"><div class="k"><span>${wrEsc(MK_SHORT[id] || s.name)}</span><span>${wrShort(s.last[0])}</span></div><div class="v">${mkVal(s)}</div><div class="c"><span>1D ${mkChgHtml(s, 0)}</span><span>1W ${mkChgHtml(s, 7)}</span><span>1M ${mkChgHtml(s, 31)}</span></div><div class="s">${wrEsc(s.src === 'nse' ? 'NSE close' : s.unit)}${s.stale ? ' · <span class="dn">not refreshed</span>' : ''}</div>${mkSpark(s.vals.slice(-90))}</div>`;
+}
+const MK_CHARTS = [
+  {key: 'mk-crude', title: 'Crude oil', sub: 'US$ a barrel, front-month futures', mode: 'level', series: ['brent', 'wti']},
+  {key: 'mk-yields', title: 'US Treasury yields', sub: 'per cent', mode: 'level', series: ['us10y', 'us5y', 'us3m', 'us30y']},
+  {key: 'mk-fx', title: 'The dollar and the rupee', sub: 'rebased to 100 — a rising USD/INR line is a weaker rupee', mode: 'indexed', series: ['dxy', 'usdinr', 'usdjpy']},
+  {key: 'mk-metals', title: 'Gold, silver, copper, aluminium', sub: 'rebased to 100', mode: 'indexed', series: ['gold', 'silver', 'copper', 'aluminium']},
+  {key: 'mk-eq', title: 'Indian equities by size', sub: 'rebased to 100 — small caps above large caps is risk appetite', mode: 'indexed', series: ['nifty50', 'midcap150', 'smallcap250', 'bank']},
+  {key: 'mk-world', title: 'India against the world', sub: 'each market in its own currency, rebased to 100', mode: 'indexed', series: ['nifty50', 'sp500', 'nasdaq', 'em', 'nikkei', 'hangseng']},
+  {key: 'mk-vol', title: 'Volatility', sub: 'index level — India VIX and the US VIX', mode: 'level', series: ['vix', 'vixus']},
+  {key: 'mk-gsec', title: 'India 10-year government bond, clean price', sub: 'NSE benchmark index — the line falls when yields rise', mode: 'level', series: ['gsec10']},
+];
+function mkRegister(){
+  MK_CHARTS.forEach(c => { const prev = CH.reg[c.key] || {};
+    CH.reg[c.key] = {title: c.title, sub: c.sub, wins: MK_WINS, win: MK.win, hidden: prev.hidden,
+      build: days => { const ss = c.series.map((id, k) => { const s = mkS(id); return s && {label: MK_SHORT[id] || s.name, pts: s.pts, unit: s.unit, digits: Math.min(2, s.dec), slot: c.series.length === 1 ? 0 : k + 1}; }).filter(Boolean);
+        const newest = ss.map(s => s.pts.length ? s.pts[s.pts.length - 1][0] : '').sort().pop(); if(!newest) return null; const t = new Date(newest + 'T00:00:00'); t.setDate(t.getDate() - days);
+        return chGrid(ss, ttIso(t), c.mode === 'indexed'); }}; });
+  const ix = (typeof IX !== 'undefined' && IX.doc) || null;
+  if(ix) CH.reg['mk-trk'] = {title: 'Your sub-sector trackers against the market', sub: 'equal-weight, rebased to 100 — the four strongest and three weakest over the window are coloured, the rest are grey', wins: [['1M', 31], ['3M', 93], ['All', 9999]], win: (CH.reg['mk-trk'] || {}).win || 'All', hidden: (CH.reg['mk-trk'] || {}).hidden,
+    build: days => ixAllGrid(days)};
+}
+// every tracker plus the market line, rebased; colour only the extremes so twelve lines stay readable
+function ixAllGrid(days){
+  const d = IX.doc, dates = d.dates || [], start = dates[ixStartIdx(dates, days)], mk = (d.market || {}).levels || [];
+  const mkPts = lv => dates.map((x, i) => [x, lv[i]]).filter(p => p[1] != null);
+  const list = (d.indices || []).map(x => { const pts = mkPts(x.levels).filter(p => p[0] >= start); return {x, pts, ret: pts.length > 1 ? pts[pts.length - 1][1] / pts[0][1] - 1 : null}; }).filter(o => o.ret != null).sort((a, b) => b.ret - a.ret);
+  const hot = new Set(list.slice(0, 4).map(o => o.x.id).concat(list.slice(-3).map(o => o.x.id))); let slot = 0;
+  const ser = list.map(o => ({label: o.x.name, pts: mkPts(o.x.levels), unit: 'index', digits: 1, slot: hot.has(o.x.id) && slot < 7 ? ++slot : 'mute'}));
+  ser.push({label: 'Market (equal-weight)', pts: mkPts(mk), unit: 'index', digits: 1, slot: 0});
+  return chGrid(ser, start, true);
+}
+function ixStartIdx(dates, days){ if(days >= 9999 || !dates.length) return 0; const last = new Date(dates[dates.length - 1] + 'T00:00:00'); for(let i = 0; i < dates.length; i++) if((last - new Date(dates[i] + 'T00:00:00')) / 864e5 <= days) return i; return 0; }
+const MK_DRIVERS = [
+  {id: 'brent', name: 'Brent crude', by: 'level', state: v => v > 100 ? ['Above $100 — the stress zone', 'strongdown'] : v > 90 ? ['Above the $80–90 comfort zone', 'down'] : v >= 80 ? ['In the $80–90 comfort zone', 'up'] : ['Below $80 — a tailwind', 'strongup'],
+   up: 'Upstream producers such as ONGC and Oil India', dn: 'Oil marketers, paints, tyres and aviation; the import bill and inflation', links: ['oilgas', 'auto', 'nifty50']},
+  {id: 'us10y', name: 'US 10-year yield', by: 'level', state: v => v > 4.8 ? ['Above 4.8% — the level you flagged', 'strongdown'] : v > 4.5 ? ['Elevated, 4.5–4.8%', 'down'] : ['Comfortable, below 4.5%', 'up'],
+   up: 'Little in India directly', dn: 'Foreign flows into emerging markets; rate-sensitive and long-duration stocks', links: ['fpi', 'nifty50', 'bank', 'realty']},
+  {id: 'dxy', name: 'Dollar index', by: 'level', state: v => v > 105 ? ['Strong dollar, above 105', 'down'] : v < 102 ? ['Weak dollar, below 102', 'up'] : ['Range-bound, 102–105', 'na'],
+   up: 'Exporters, through a weaker rupee', dn: 'Emerging-market flows and importers', links: ['fpi', 'nifty50', 'it']},
+  {id: 'usdinr', name: 'USD/INR', by: 'm1', state: p => p > 1.5 ? ['Rupee weakening', 'down'] : p < -1.5 ? ['Rupee strengthening', 'up'] : ['Rupee steady', 'na'],
+   up: 'IT services and pharma exporters', dn: 'Oil marketers, airlines and other importers', links: ['it', 'pharma', 'oilgas']},
+  {id: 'gold', name: 'Gold', by: 'm1', state: p => p > 5 ? ['Gold bid', 'up'] : p < -5 ? ['Gold offered', 'down'] : ['Gold steady', 'na'],
+   up: 'Gold-loan lenders, whose collateral is worth more', dn: 'Jewellery demand, in volume', links: ['finserv', 'nifty50']},
+  {id: 'copper', name: 'Copper', by: 'm1', state: p => p > 5 ? ['Base metals rising', 'up'] : p < -5 ? ['Base metals falling', 'down'] : ['Base metals flat', 'na'],
+   up: 'Base-metal producers', dn: 'Cable, wire and electrical-equipment makers, as an input cost', links: ['metal', 'commodities']},
+  {id: 'nasdaq', name: 'Nasdaq', by: 'm1', state: p => p > 5 ? ['US tech rising', 'up'] : p < -5 ? ['US tech falling', 'down'] : ['US tech flat', 'na'],
+   up: 'Indian IT and global risk appetite', dn: 'Little in India directly', links: ['it', 'nifty50', 'smallcap250']},
+  {id: 'vix', name: 'India VIX', by: 'level', state: v => v > 20 ? ['Stressed, above 20', 'strongdown'] : v > 15 ? ['Elevated, 15–20', 'down'] : ['Calm, below 15', 'up'],
+   up: 'Little: it is the price of protection', dn: 'Small and mid caps first', links: ['smallcap250', 'nifty50']},
+  {id: 'gsec10', name: 'India 10-year bond price', by: 'm1', state: p => p < -1 ? ['Bond prices falling — yields rising', 'down'] : p > 1 ? ['Bond prices rising — yields falling', 'up'] : ['Bonds steady', 'na'],
+   up: 'Banks with large bond books, lenders that borrow in the market, real estate', dn: 'Little, when prices rise', links: ['psubank', 'bank', 'realty']},
+];
+const MK_HEAT_ROWS = ['brent', 'us10y', 'dxy', 'usdinr', 'gold', 'copper', 'sp500', 'nasdaq', 'vixus', 'gsec10', 'fpi'];
+const MK_HEAT_COLS = ['nifty50', 'midcap150', 'smallcap250', 'bank', 'finserv', 'it', 'auto', 'fmcg', 'pharma', 'metal', 'energy', 'oilgas', 'realty', 'psubank', 'infra', 'consdur'];
+const MK_SECTOR_MAP = { 'Automobile and Auto Components': 'auto', 'Capital Goods': 'capgoods', 'Chemicals': 'chemicals', 'Construction': 'construction', 'Construction Materials': 'cement', 'Consumer Durables': 'consdur', 'Consumer Services': 'consserv', 'Fast Moving Consumer Goods': 'fmcg', 'Financial Services': 'finserv', 'Healthcare': 'healthcare', 'Information Technology': 'it', 'Media, Entertainment & Publication': 'media', 'Metals & Mining': 'metal', 'Oil, Gas & Consumable Fuels': 'oilgas', 'Power': 'power', 'Realty': 'realty', 'Services': 'translog', 'Telecommunication': 'telecom' };
+function mkDriverRows(){
+  return MK_DRIVERS.map(dv => { const s = mkS(dv.id); if(!s || !s.last) return ''; const m1 = mkChg(s, 31), st = dv.state(dv.by === 'level' ? s.last[1] : (m1 ? m1.pct : 0));
+    return `<tr><td><b>${wrEsc(dv.name)}</b><div class="flat" style="font-size:10.5px;">${wrShort(s.last[0])}</div></td><td class="num"><b>${mkVal(s)}</b></td><td class="num">${mkChgHtml(s, 7)}</td><td class="num">${mkChgHtml(s, 31)}</td><td class="num">${mkChgHtml(s, 93)}</td>
+      <td><span class="se-pill trend ${st[1]}">${wrEsc(st[0])}</span></td><td class="mk-rd"><span class="up">▲</span> ${wrEsc(dv.up)}<br><span class="dn">▼</span> ${wrEsc(dv.dn)}</td><td class="mk-links">${dv.links.map(l => mkCorrChip(dv.id, l)).join('')}</td></tr>`; }).join('');
+}
+function mkHeatTable(){
+  const cols = MK_HEAT_COLS.filter(c => mkS(c)), name = id => id === 'fpi' ? 'FPI equity flow' : (MK_SHORT[id] || (mkS(id) || {}).name || id);
+  const head = `<tr><th class="r">weekly change in ↓ against →</th>${cols.map(c => `<th>${wrEsc(mkS(c).name.replace(/^Nifty /, '').replace('Financial Services', 'Fin. Services').replace('Consumer Durables', 'Cons. Durables').replace('Smallcap 250', 'Smallcap').replace('Midcap 150', 'Midcap'))}</th>`).join('')}</tr>`;
+  const body = MK_HEAT_ROWS.filter(r => r === 'fpi' || mkS(r)).map(r => `<tr><th class="r">${wrEsc(name(r))}</th>${cols.map(c => { const x = mkCorr(r, c, MK.corr); return x ? `<td style="background:${mkHeat(x.r)}" title="${wrAttr(name(r))} against ${wrAttr(mkS(c).name)}: ${x.r.toFixed(2)} over ${x.n} weeks">${x.r >= 0 ? '+' : '−'}${Math.abs(x.r).toFixed(2).slice(1)}</td>` : '<td class="flat">—</td>'; }).join('')}</tr>`).join('');
+  return `<div class="wr-twrap" style="max-height:none;padding:8px;"><table class="mk-heat"><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
+}
+function mkFlowBlock(){
+  const d = MK.doc, f = mkFlowSums(), fp = d.fpi || {}, mf = d.mf || {}, sec = ((d.sectors || {}).reports || []);
+  if(!f) return '<div class="wr-hint">No FPI flow data on file yet.</div>';
+  const mfLast = (mf.daily || []).slice(-1)[0], corr = mkCorr('fpi', 'nifty50', MK.corr);
+  const kp = [seKpi('Latest reporting day', wrSigned(f.last.eq, 0, '₹') + ' Cr', `${wrDate(f.last.d)} · equity, net`, f.last.eq >= 0 ? 'ok' : 'bad'), seKpi('Last 5 days', wrSigned(f.d5, 0, '₹') + ' Cr', `20 days: ${wrSigned(f.d20, 0)}`, f.d5 >= 0 ? 'ok' : 'bad'),
+    seKpi('Month to date', wrSigned(f.mtd, 0, '₹') + ' Cr', WR_MONTHS[+f.last.d.slice(5, 7) - 1] + ' ' + f.last.d.slice(0, 4), f.mtd >= 0 ? 'ok' : 'bad'), seKpi('Year to date', wrSigned(f.ytd, 0, '₹') + ' Cr', f.last.d.slice(0, 4) + ', equity', f.ytd >= 0 ? 'ok' : 'bad'),
+    seKpi('Mutual funds (SEBI)', mfLast ? wrSigned(mfLast.eq, 0, '₹') + ' Cr' : '—', mfLast ? `${wrDate(mfLast.d)} · equity, net · published ~10 days late` : 'no reading yet', mfLast && mfLast.eq >= 0 ? 'ok' : '')];
+  const days = (fp.daily || []).slice(-12).reverse();
+  const dayRows = days.map(r => `<tr><td>${wrDate(r.d)} <span class="flat">${wrDay(r.d)}</span></td><td class="num">${wrSigned(r.eq, 0)}</td><td class="num">${wrSigned(r.eq_se, 0)}</td><td class="num">${wrSigned(r.debt, 0)}</td><td class="num">${wrSigned(r.total, 0)}</td></tr>`).join('');
+  const mo = fp.monthly || {}, moRows = (mo.rows || []).map(r => `<tr><td>${WR_MONTHS[r.m - 1]} ${mo.year}${r.partial ? ' <span class="flat">to date</span>' : ''}</td><td class="num">${wrSigned(r.eq, 0)}</td><td class="num">${wrSigned(r.debt, 0)}</td><td class="num">${wrSigned(r.total, 0)}</td></tr>`).join('');
+  let secHtml = '<div class="wr-hint">No sector report on file yet.</div>';
+  if(sec.length){ const cur = sec[0], sum3 = new Map(); sec.forEach(rp => rp.rows.forEach(r => sum3.set(r.s, (sum3.get(r.s) || 0) + (r.net || 0))));
+    const rows = cur.rows.filter(r => r.auc || r.net).map(r => { const ix = MK_SECTOR_MAP[r.s], s = ix ? mkS(ix) : null, m1 = s ? mkChg(s, 31) : null; return {...r, sum3: sum3.get(r.s), pct: r.auc_prev ? r.net / r.auc_prev * 100 : null, ixn: s ? s.name : '', ix1m: m1 ? m1.pct : null}; });
+    const top = rows.slice().sort((a, b) => b.net - a.net), names = l => l.map(r => `${wrEsc(r.s)} (${wrSigned(r.net, 0)})`).join(', ');
+    secHtml = `<p class="tt-thesis" style="margin:0 0 10px;">In the fortnight of <b>${wrEsc(cur.period)}</b> foreign investors were net ${cur.total && cur.total.net >= 0 ? 'buyers' : 'sellers'} of ${wrSigned(cur.total ? cur.total.net : null, 0, '₹')} Cr of Indian equity. Most bought: ${names(top.slice(0, 3))}. Most sold: ${names(top.slice(-3).reverse())}.</p>
+      ${wrTable('se-mk-sec', [{k: 's', t: 'Sector', type: 'text'}, {k: 'net', t: cur.period.replace(/, \d{4}$/, ''), type: 'signed'}, {k: 'net_prev', t: cur.prev_period.replace(/, \d{4}$/, ''), type: 'signed'}, {k: 'sum3', t: `Last ${sec.length} fortnights`, type: 'signed'}, {k: 'pct', t: 'Net as % of holdings', type: 'pct', dec: 2}, {k: 'auc', t: 'FPI holdings (₹ Cr)', type: 'int'}, {k: 'ixn', t: 'Nearest NSE index', type: 'text'}, {k: 'ix1m', t: 'Index 1M', type: 'pct', dec: 1}], rows, {sort: {col: 'net', dir: 'desc'}, maxHeight: '520px'})}
+      <div class="wr-hint" style="margin-top:6px;">₹ crore, equity only. Source: <a href="${wrAttr(cur.url || d.sources.sectors.url)}" target="_blank" rel="noopener">NSDL fortnightly sector-wise FPI report</a>, as on ${wrDate(cur.asof)}; the next one covers the second half of the month and appears about a week after it ends. The NSE index beside each sector is the closest match, not the same basket.</div>`; }
+  return `<div class="se-kpis" style="margin-bottom:12px;">${kp.join('')}</div>
+    <div class="tt-grid">${chCard('mk-fpi', corr ? `<div class="tt-stat">Weekly FPI equity flow and the Nifty 50's weekly return have moved together with a correlation of <b>${corr.r >= 0 ? '' : '−'}${Math.abs(corr.r).toFixed(2)}</b> over ${corr.n} weeks. A correlation describes the past; it is not a mechanism.</div>` : '')}
+      <div class="se-panel tt-card"><div class="se-row-h"><div><h2>Day by day</h2><div class="tt-sub">₹ crore, net — the last 12 reporting days</div></div></div>
+        <div class="wr-twrap" style="max-height:330px;"><table class="scan-table"><thead><tr><th>Reported</th><th class="num">Equity</th><th class="num">of which exchange</th><th class="num">Debt</th><th class="num">All</th></tr></thead><tbody>${dayRows}</tbody></table></div>
+        <details class="tt-table"><summary>Month by month, ${mo.year || ''}</summary><div class="wr-twrap" style="max-height:300px;"><table class="scan-table"><thead><tr><th>Month</th><th class="num">Equity</th><th class="num">Debt</th><th class="num">All</th></tr></thead><tbody>${moRows}</tbody></table></div></details>
+        <div class="wr-hint" style="margin-top:6px;">${wrEsc(fp.note || '')} Domestic institutions: NSE and BSE publish the same-day FII/DII figures only to a browser session, so they are not collected here; SEBI's mutual-fund number above is the public substitute and runs about ten days behind.</div></div></div>
+    <div class="se-panel" style="margin-top:14px;"><div class="se-row-h"><div><div class="se-eyebrow">Which sectors foreign money entered and left</div><h2>FPI flow by sector</h2></div></div>${secHtml}</div>`;
+}
+function mkIdxTable(){
+  const d = MK.doc, ser = (d.nse || {}).series || {}, base = mkS('nifty500'), b1 = base ? mkChg(base, 31) : null;
+  const tabs = [['sector', 'Sectors'], ['theme', 'Themes'], ['broad', 'Broad market'], ['factor', 'Styles']];
+  const rows = Object.keys(ser).filter(id => ser[id].group === MK.idxTab).map(id => { const s = mkS(id), c = n => { const x = mkChg(s, n); return x ? x.pct : null; };
+    const t = (s.turn || []).filter(v => v != null), tl = t[t.length - 1], avg = t.length > 21 ? t.slice(-21, -1).reduce((a, v) => a + v, 0) / 20 : null;
+    const yr = s.pts.slice(-250), hi = Math.max(...yr.map(p => p[1])), m1 = c(31);
+    return {id, name: s.name, last: s.last[1], d1: c(0), w1: c(7), m1, m3: c(93), y1: c(365), rel: m1 != null && b1 ? m1 - b1.pct : null, hi: (s.last[1] / hi - 1) * 100, turn: tl, tx: tl && avg ? tl / avg : null, pe: s.pe}; });
+  const cols = [{k: 'name', t: 'Index', type: 'text'}, {k: 'last', t: 'Close', type: 'num', dec: 0}, {k: 'd1', t: '1D', type: 'pct', dec: 1}, {k: 'w1', t: '1W', type: 'pct', dec: 1}, {k: 'm1', t: '1M', type: 'pct', dec: 1}, {k: 'm3', t: '3M', type: 'pct', dec: 1}, {k: 'y1', t: '1Y', type: 'pct', dec: 0},
+    {k: 'rel', t: '1M vs Nifty 500', type: 'pct', dec: 1, info: 'mk-rel'}, {k: 'hi', t: 'From 1Y high', type: 'pct0', dec: 1}, {k: 'turn', t: 'Turnover (₹ Cr)', type: 'int'}, {k: 'tx', t: 'vs 20-day avg', type: 'html', sortType: 'num', fn: r => r.tx, html: r => r.tx == null ? '<span class="flat">—</span>' : `<span class="${r.tx >= 1.25 ? 'up' : r.tx <= .8 ? 'dn' : 'flat'}">${r.tx.toFixed(2)}×</span>`, info: 'mk-turn'}, {k: 'pe', t: 'P/E', type: 'num', dec: 1}];
+  return `<div class="tt-filter"><div class="se-seg">${tabs.map(([k, t]) => `<button class="${MK.idxTab === k ? 'active' : ''}" onclick="MK.idxTab='${k}';mkRenderIdx()">${t}</button>`).join('')}</div><span class="wr-hint" style="margin:0;">NSE's own closing file, ${wrDate(d.nse.official_asof || d.nse.asof)}${d.nse.provisional ? ` · ${wrDate(d.nse.provisional)} filled from Yahoo until NSE publishes` : ''}</span></div>
+    ${wrTable('se-mk-idx', cols, rows, {sort: {col: 'm1', dir: 'desc'}, maxHeight: '560px'})}`;
+}
+function mkRenderIdx(){ const el = document.getElementById('mk-idx'); if(el && MK.doc) el.innerHTML = mkIdxTable(); }
+function mkTrackersBlock(){
+  const ix = (typeof IX !== 'undefined' && IX.doc) || null; if(!ix) return `<div class="wr-hint">No sub-sector trackers on file yet${IX.error ? ` (${wrEsc(IX.error)})` : ''}.</div>`;
+  const rows = (ix.indices || []).map(x => ({id: x.id, name: x.name, group: x.group, n: (x.codes || []).length, last: x.last, d1: x.ret.d1, w1: x.ret.w1, m1: x.ret.m1, rel: x.rel.m1, hi: x.from_high, br: x.breadth.of ? x.breadth.above50 / x.breadth.of * 100 : null, brt: `${x.breadth.above50}/${x.breadth.of}`, rs: x.med_rs}));
+  const cols = [{k: 'name', t: 'Tracker', type: 'html', sortType: 'text', fn: r => r.name, html: r => `<a href="#" onclick="IX.sel='${wrAttr(r.id)}';show('indices');return false;"><b>${wrEsc(r.name)}</b></a> <span class="flat">${r.n} names</span>`}, {k: 'last', t: 'Level', type: 'num', dec: 1}, {k: 'd1', t: '1D', type: 'pct', dec: 1}, {k: 'w1', t: '1W', type: 'pct', dec: 1}, {k: 'm1', t: '1M', type: 'pct', dec: 1},
+    {k: 'rel', t: '1M vs market', type: 'pct', dec: 1, info: 'ix-rel'}, {k: 'hi', t: 'From its high', type: 'pct0', dec: 1}, {k: 'br', t: 'Above 50-DMA', type: 'html', sortType: 'num', fn: r => r.br, html: r => `<span class="${r.br >= 60 ? 'up' : r.br < 40 ? 'dn' : 'flat'}">${r.brt}</span>`, info: 'ix-breadth'}, {k: 'rs', t: 'Median RS', type: 'html', sortType: 'num', fn: r => r.rs, html: r => seRsCell(r.rs)}];
+  return `${chCard('mk-trk')}<div style="height:12px;"></div>${wrTable('se-mk-trk', cols, rows, {sort: {col: 'm1', dir: 'desc'}})}
+    <div class="wr-hint" style="margin-top:6px;">Each tracker is an equal-weight basket of the names you chose, chain-linked from the daily scan, base 100 on ${wrDate(ix.dates[0])}; the market line is every coded name in the scan, weighted the same way. Click a tracker for its members, or open <a href="#" onclick="show('indices');return false;">Indices</a>.</div>`;
+}
+function renderMK(){
+  const el = document.getElementById('mk-body'); if(!el) return;
+  if(!MK.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading markets…</p></div>'; return; }
+  const d = MK.doc;
+  if(!d){ el.innerHTML = seEmpty('No market data yet', `Run <code>python tools/fetch_markets.py</code> (the daily pull does this after each scan), commit <code>data/markets/</code>, then Refresh.${MK.error ? ` <span class="flat">(${wrEsc(MK.error)})</span>` : ''}`); return; }
+  Object.keys(CH.live).forEach(k => { if(k.startsWith('mk-')){ try{ CH.live[k].destroy(); }catch(e){} delete CH.live[k]; } });
+  mkRegister();
+  CH.reg['mk-fpi'] = {title: 'Foreign money, running total', sub: '₹ crore — net equity investment by FPIs, added up from the start of the window', wins: MK_WINS, win: MK.win, hidden: (CH.reg['mk-fpi'] || {}).hidden,
+    build: days => { const all = (d.fpi || {}).daily || []; if(!all.length) return null; const t = new Date(all[all.length - 1].d + 'T00:00:00'); t.setDate(t.getDate() - days); const st = ttIso(t); let run = 0;
+      return chGrid([{label: 'Cumulative FPI equity', pts: all.filter(r => r.d >= st).map(r => [r.d, (run += r.eq || 0)]), unit: 'INR', digits: 0, slot: 0}], st, false); }};
+  const errs = d.errors || [], src = d.sources || {}, as = b => (d[b] || {}).asof;
+  const legacy = (DB.macroSnaps || []).length ? `<details class="tt-table" style="margin-top:10px;"><summary>Your ${DB.macroSnaps.length} manual snapshot(s) from the old Commodities page</summary><div class="wr-twrap" style="max-height:260px;"><table class="scan-table"><thead><tr><th>Week</th><th class="num">Brent</th><th class="num">WTI</th><th class="num">DXY</th><th class="num">USD/INR</th><th class="num">Gold</th><th class="num">Silver</th><th class="num">10Y</th><th class="num">Nifty</th><th>Note</th></tr></thead><tbody>${DB.macroSnaps.map(s => `<tr><td>${wrEsc(s.week || '')}</td>${['brent', 'wti', 'dxy', 'usdinr', 'gold', 'silver', 'yield', 'nifty'].map(k => `<td class="num">${s[k] == null || s[k] === '' ? '—' : wrEsc(s[k])}</td>`).join('')}<td class="tt-note">${wrEsc(s.notes || '')}</td></tr>`).join('')}</tbody></table></div></details>` : '';
+  el.innerHTML = `
+    <div class="mk-jump"><a onclick="mkJump('mk-a-macro')">Macro now</a><a onclick="mkJump('mk-a-what')">What is moving what</a><a onclick="mkJump('mk-a-charts')">Charts</a><a onclick="mkJump('mk-a-flow')">Foreign money</a><a onclick="mkJump('mk-a-idx')">NSE indices</a><a onclick="mkJump('mk-a-trk')">Your trackers</a><a onclick="mkJump('mk-a-rot')">Sector rotation</a><a onclick="mkJump('mk-a-lead')">Leaders</a><a onclick="show('news')">Market news →</a></div>
+    <div class="se-row-h mk-sec" id="mk-a-macro"><div><div class="se-eyebrow">Macro now</div><h2>Indices, yields, the dollar, crude and metals</h2></div><span class="wr-hint">India ${wrDate(as('nse'))} · global ${wrDate(as('global'))} · 1D, 1W and 1M changes; yields in basis points</span></div>
+    <div class="mk-tiles">${MK_TILES.map(mkTile).join('')}</div>
+    <div class="se-panel mk-sec" id="mk-a-what"><div class="se-row-h"><div><div class="se-eyebrow">What is moving what</div><h2>The outside drivers, and what they usually touch</h2></div><div class="se-seg">${[[26, '6 months'], [52, '1 year']].map(([n, t]) => `<button class="${MK.corr === n ? 'active' : ''}" onclick="MK.corr=${n};renderMK()">${t}</button>`).join('')}</div></div>
+      <div class="wr-twrap" style="max-height:none;"><table class="scan-table mk-drv"><thead><tr><th>Driver</th><th class="num">Now</th><th class="num">1W</th><th class="num">1M</th><th class="num">3M</th><th>Reading ${seInfoBtn('mk-reading')}</th><th>When it rises, it usually helps ▲ and hurts ▼</th><th>Measured against ${seInfoBtn('mk-corr')}</th></tr></thead><tbody>${mkDriverRows()}</tbody></table></div>
+      <div class="wr-sub" style="margin-top:14px;">Every driver against every Indian index ${seInfoBtn('mk-corr')}</div>${mkHeatTable()}
+      <div class="wr-hint" style="margin-top:6px;">Each number is the correlation of weekly changes over the last ${MK.corr} weeks: <span class="mk-link" style="background:${mkHeat(.7)}">blue</span> the two moved together, <span class="mk-link" style="background:${mkHeat(-.7)}">orange</span> they moved opposite, near zero no link. The middle column is the textbook reading; the numbers are what your own data shows. Where they disagree, the textbook link is not operating right now.</div></div>
+    <div class="se-row-h mk-sec" id="mk-a-charts"><div><div class="se-eyebrow">Charts</div><h2>The drivers over time</h2></div><div class="tt-filter" style="margin:0;"><span class="wr-hint" style="margin:0;">Window for every chart below</span><div class="se-seg">${MK_WINS.map(([w]) => `<button class="${w === MK.win ? 'active' : ''}" onclick="MK.win='${w}';chSetWin('mk-','${w}');mkWinBtns(this)">${w}</button>`).join('')}</div></div></div>
+    <div class="tt-grid mk-two">${MK_CHARTS.map(c => chCard(c.key)).join('')}</div>
+    <div class="se-row-h mk-sec" id="mk-a-flow"><div><div class="se-eyebrow">Where the money is going</div><h2>Foreign portfolio flows</h2></div><span class="wr-hint">NSDL, through ${wrDate(as('fpi'))}</span></div>
+    ${mkFlowBlock()}
+    <div class="se-panel mk-sec" id="mk-a-idx"><div class="se-row-h"><div><div class="se-eyebrow">Where the money is going</div><h2>NSE indices: return, turnover and valuation</h2></div></div><div id="mk-idx">${mkIdxTable()}</div></div>
+    <div class="se-panel mk-sec" id="mk-a-trk"><div class="se-row-h"><div><div class="se-eyebrow">Where the money is going</div><h2>Your sub-sector trackers</h2></div><button class="btn btn-ghost btn-sm" onclick="show('indices')">Open Indices →</button></div>${mkTrackersBlock()}</div>
+    <div class="wr-hint" style="margin-top:12px;">Sources — ${Object.keys(src).map(k => `<a href="${wrAttr(src[k].url)}" target="_blank" rel="noopener">${wrEsc(src[k].label)}</a>`).join(' · ')}. Refreshed ${wrEsc(String(d.generated || '').replace('T', ' ').slice(0, 16))} IST by <code>tools/fetch_markets.py</code>.${errs.length ? ` <span class="wr-tag stale">${errs.length} source${errs.length === 1 ? '' : 's'} did not answer; the last good data is shown</span>` : ''} Reference prices from public daily feeds; nothing here is advice.</div>${legacy}`;
+  MK_CHARTS.forEach(c => chMount(c.key)); chMount('mk-fpi'); if(CH.reg['mk-trk']) chMount('mk-trk');
+}
+function mkWinBtns(btn){ btn.parentElement.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn)); }
+function mkJump(id){ const el = document.getElementById(id); if(el) el.scrollIntoView({behavior: 'smooth', block: 'start'}); }
+function mkDashTile(){
+  const box = document.getElementById('d-macro'), wk = document.getElementById('d-macro-wk'); if(!box || !MK.doc) return;
+  const t = id => { const s = mkS(id); return s && s.last ? `<div class="mc"><div class="mc-label">${wrEsc(MK_SHORT[id] || s.name)}</div><div class="mc-val">${mkVal(s)}</div><div class="mc-unit">1W ${mkChgHtml(s, 7)}</div></div>` : ''; };
+  const r = MK.doc.rbi; box.innerHTML = ['nifty50', 'brent', 'wti', 'dxy', 'usdinr', 'gold', 'silver', 'us10y'].map(t).join('') + (r ? `<div class="mc"><div class="mc-label">India 10-year</div><div class="mc-val">${r.y10.toFixed(2)}%</div><div class="mc-unit">${wrShort(r.asof)}</div></div>` : '');
+  if(wk) wk.textContent = 'as of ' + wrDate((MK.doc.global || {}).asof);
+}
+SE_INFO['mk-reading'] = `<h4>Reading</h4><p>A plain label for where the driver stands. For crude, the dollar and the US 10-year it uses fixed levels — the same ones your old Commodities page used: crude comfortable at $80–90 and stressed above $100; the dollar index strong above 105 and weak below 102; the US 10-year elevated above 4.5% and a problem above 4.8%. For the rest it uses the one-month move: more than 5% either way for gold, copper and the Nasdaq, 1.5% for the rupee, 1% for the bond price.</p><p>It describes the driver, not what to do about it.</p>`;
+SE_INFO['mk-corr'] = () => `<h4>Measured against</h4><p>The correlation between the driver's weekly change and the index's weekly change over the last ${MK.corr} weeks. It runs from −1 to +1.</p><ul><li><b>Above +0.4</b> — they have tended to rise and fall together.</li><li><b>Below −0.4</b> — when one rose the other tended to fall.</li><li><b>Between −0.2 and +0.2</b> — no visible link in this period.</li></ul><p>Weekly, not daily, because the US closes after India: a daily comparison would pair Monday in Mumbai with Monday in New York, which had not happened yet. FPI flow is the week's net equity investment in rupees.</p><p>A correlation describes the past. It is not a mechanism and it can flip.</p>`;
+SE_INFO['mk-rel'] = `<h4>1M vs Nifty 500</h4><p>The index's one-month return minus the Nifty 500's. Positive means the sector beat the broad market over the month — money moved toward it relative to everything else, whatever the market itself did.</p>`;
+SE_INFO['mk-turn'] = `<h4>Turnover vs 20-day average</h4><p>Today's traded value in the index's stocks divided by its own average over the previous 20 sessions. 1.50× means half as much again as usual. A sector rising on turnover well above its average is being accumulated; one rising on thin turnover is drifting.</p>`;
+SE_INFO['ix-rel'] = `<h4>1M vs market</h4><p>The tracker's one-month return minus the return of the whole scan, weighted equally. It is the sub-sector's own relative strength: positive means its stocks beat the average stock.</p>`;
+SE_INFO['ix-breadth'] = `<h4>Above 50-DMA</h4><p>How many of the tracker's members closed above their own 50-day moving average. A tracker can rise on one or two names; breadth shows whether the group is moving together. Above 60% is broad, below 40% is narrow.</p>`;
+
+// ============= MARKET NEWS — what moved markets overnight, collected at 4 a.m. =============
+// Reads data/daily/market_news.json (tools/market_news.py). Two layers, kept apart on the page:
+// the HEADLINES are collected by a scheduled job from public news feeds and grouped by topic — no
+// model touches them; the DIGEST above them is written by a Claude routine that reads only those
+// headlines. Every line links to its source.
+const MN = { doc: null, loaded: false, loading: false, error: null, topic: 'all' };
+async function loadMN(manual){
+  if(MN.loading) return; MN.loading = true;
+  try{ const res = await fetch('data/daily/market_news.json', {cache: manual ? 'reload' : 'default'}); if(!res.ok) throw new Error('HTTP ' + res.status); MN.doc = await res.json(); MN.error = null; }
+  catch(err){ MN.doc = null; MN.error = err.message || String(err); }
+  finally{ MN.loading = false; MN.loaded = true; }
+  const b = document.getElementById('mn-badge'), n = MN.doc ? (MN.doc.topics || []).reduce((s, t) => s + (t.items || []).length, 0) : 0;
+  if(b){ b.textContent = n; b.classList.toggle('show', n > 0); }
+  renderMN();
+}
+function mnWhen(iso){ const t = new Date(iso); if(isNaN(t)) return ''; const p = new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Kolkata', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false}).format(t); return p.replace(',', ''); }
+function renderMN(){
+  const el = document.getElementById('mnews-body'); if(!el) return;
+  if(!MN.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading…</p></div>'; return; }
+  const d = MN.doc;
+  if(!d){ el.innerHTML = seEmpty('No market news yet', `The collector runs at 4 a.m. IST and writes <code>data/daily/market_news.json</code>. By hand: <code>python tools/market_news.py collect</code>.${MN.error ? ` <span class="flat">(${wrEsc(MN.error)})</span>` : ''}`); return; }
+  const topics = d.topics || [], dg = d.digest, total = topics.reduce((s, t) => s + (t.items || []).length, 0);
+  const fresh = dg && dg.for === d.run_date;
+  const digest = dg && (dg.points || []).length ? `<div class="se-panel mn-digest"><div class="se-row-h"><div><div class="se-eyebrow">The digest · written by a Claude routine from the headlines below</div><h2>${wrEsc(dg.headline || 'What moved markets')}</h2></div><span class="wr-hint">${wrDate(dg.for)}${fresh ? '' : ' · <span class="dn">older than the headlines below</span>'}</span></div>
+      <ul class="mn-points">${dg.points.map(p => `<li><b>${wrEsc(p.t || '')}</b>${p.why ? ` — ${wrEsc(p.why)}` : ''}${(p.refs || []).length ? ` <span class="mn-refs">${p.refs.map((u, i) => `<a href="${wrAttr(u)}" target="_blank" rel="noopener">source${p.refs.length > 1 ? ' ' + (i + 1) : ''}</a>`).join(' · ')}</span>` : ''}</li>`).join('')}</ul>
+      ${dg.watch && dg.watch.length ? `<div class="wr-sub">On the calendar</div><ul class="mn-points">${dg.watch.map(w => `<li>${wrEsc(w)}</li>`).join('')}</ul>` : ''}
+      <div class="wr-hint" style="margin-top:8px;">A summary of reported news, not a view on any stock. Check the source before relying on a line.</div></div>`
+    : `<div class="se-panel"><div class="wr-hint" style="margin:0;">No digest for this run yet — the headlines below are complete on their own. The digest is added by a Claude routine shortly after the 4 a.m. collection.</div></div>`;
+  const shown = topics.filter(t => MN.topic === 'all' || t.id === MN.topic);
+  el.innerHTML = `<div class="se-row-h"><div><div class="se-eyebrow">Markets &amp; Macro · news</div><h2>Overnight, in ${total} headlines</h2></div><span class="wr-hint">collected ${wrEsc(mnWhen(d.updated))} IST · the last ${d.window_hours || 30} hours</span></div>
+    ${digest}
+    <div class="tt-filter"><div class="se-seg mn-seg">${[['all', 'All']].concat(topics.map(t => [t.id, t.label])).map(([k, l]) => `<button class="${MN.topic === k ? 'active' : ''}" onclick="MN.topic='${wrAttr(k)}';renderMN()">${wrEsc(l)}</button>`).join('')}</div></div>
+    <div class="mn-grid">${shown.map(t => `<div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">${wrEsc(t.why || '')}</div><h2>${wrEsc(t.label)}</h2></div><span class="wr-hint">${(t.items || []).length}</span></div>
+      ${(t.items || []).length ? t.items.map(it => `<div class="mn-item"><span class="mn-t">${wrEsc(mnWhen(it.at))}</span><div><a href="${wrAttr(it.url)}" target="_blank" rel="noopener">${wrEsc(it.t)}</a><div class="mn-s">${wrEsc(it.src || '')}</div></div></div>`).join('') : '<div class="wr-hint">Nothing in the window.</div>'}</div>`).join('')}</div>
+    <div class="wr-hint" style="margin-top:12px;">Headlines and links come from public news feeds (Google News search feeds, one query per topic), de-duplicated and capped per topic; only the headline, the outlet and the link are stored. Collected by <code>tools/market_news.py</code>.${(d.errors || []).length ? ` <span class="wr-tag stale">${d.errors.length} feed${d.errors.length === 1 ? '' : 's'} did not answer</span>` : ''}</div>`;
 }
 
 // ============= EDGE: MARKET PULSE · RS SCREEN · SECTORS · STAGE 2 TRACKER =============
@@ -8171,7 +8553,9 @@ function seGfBar(){
 }
 function seRenderAll(){ seRenderPulse(); seRenderRS(); seRenderTrend(); seRenderSectors(); seRenderS2(); if(typeof renderPD === 'function' && typeof PD !== 'undefined' && PD.loaded && document.getElementById('pd-body')) renderPD(); if(typeof renderDG === 'function' && typeof DG !== 'undefined' && DG.loaded && document.getElementById('dg-body')) renderDG(); }
 function seRerender(tableId){
-  if(tableId.startsWith('se-rs')) seRenderRSTable();
+  if(tableId.startsWith('se-mk-idx')) mkRenderIdx();
+  else if(tableId.startsWith('se-mk')) renderMK();
+  else if(tableId.startsWith('se-rs')) seRenderRSTable();
   else if(tableId.startsWith('se-trend')) seRenderTrendTable();
   else if(tableId.startsWith('se-s2')) seRenderS2Table();
   else if(tableId.startsWith('se-sec')) seRenderSectors();
@@ -8199,8 +8583,9 @@ const SE_S2_MINI_COLS = [
 ];
 function seRenderPulse(){
   const el = document.getElementById('se-pulse-body'); if(!el) return;
-  if(!SE.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading scan data…</p></div>'; return; }
-  const c = SE.c; if(!c){ el.innerHTML = seEmpty('No scan data published yet', SE_EMPTY_BODY); return; }
+  const rest = document.getElementById('se-pulse-rest');   // the scan half of the page; #mk-body (markets.json) sits between the two
+  if(!SE.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading scan data…</p></div>'; if(rest) rest.innerHTML = ''; return; }
+  const c = SE.c; if(!c){ el.innerHTML = seEmpty('No scan data published yet', SE_EMPTY_BODY); if(rest) rest.innerHTML = ''; return; }
   const s = c.stats, hasU = c.U.length > 0, hasS2 = c.S2.length > 0;
   const kpis = [];
   if(hasU) kpis.push(seKpi('Stocks in scan', wrNum(s.n), `${wrEsc(c.d.screen && c.d.screen.name || 'weekly screener scan')}`, '', s.n));
@@ -8236,14 +8621,19 @@ function seRenderPulse(){
   const quad = seQuadrantSvg(c.sectors.filter(g => g.n >= 3 && g.medRS != null), 'se-quad-pulse');
   el.innerHTML = `
     <div class="se-hero"><div class="se-hero-inner">
-      <div class="wr-tags"><span class="wr-tag am">Market Pulse</span><span class="wr-tag tl">RS · Stage 2 · Sector rotation</span><span class="wr-tag">w/e ${wrDate(c.date)}</span></div>
-      <h1>Where the strength is this week</h1>
+      <div class="wr-tags"><span class="wr-tag am">Markets &amp; Macro</span><span class="wr-tag tl">RS · Stage 2 · Sector rotation</span><span class="wr-tag">w/e ${wrDate(c.date)}</span></div>
+      <h1>Where the strength is, and what is moving it</h1>
       <div class="wr-lead">${hasU ? `${wrNum(s.n)} stocks from the <b>${wrEsc(c.d.screen && c.d.screen.name || 'weekly scan')}</b> ranked by relative strength` : 'No screener universe this week'}${hasS2 ? `${hasU ? ', cross-checked against' : 'Tracking'} the <b>${wrNum(s.s2list)}-stock Stage 2 list</b>` : ''}${c.hasPrevU ? ` · drift measured against w/e ${wrDate(c.prevU.date)}` : ''}.</div>
       <div class="se-kpis">${kpis.join('')}</div>
-    </div></div>
-    <div class="se-body">
+    </div></div>`;
+  if(rest) rest.innerHTML = `
+    <div class="se-body" style="padding-top:0;">
+      <div class="se-panel mk-sec" id="mk-a-rot">
+        <div class="se-row-h"><div><div class="se-eyebrow">Where the money is going · your scan</div><h2>Sector rotation</h2></div><span class="wr-hint">${c.hasPrevU ? `median RS (x) vs change since w/e ${wrDate(c.prevU.date)} (y) \u00b7 bubble = stocks in group \u00b7 click a bubble to dive in` : 'needs two scans with a universe'}</span></div>
+        ${quad}
+      </div>
       ${seGfBar()}
-      <div class="se-row-h"><div><div class="se-eyebrow">Sector rotation intelligence</div><h2>Industry momentum leaders</h2></div><button class="btn btn-sm" onclick="seGo('sectors')">Explore all ${c.sectors.length} groups →</button></div>
+      <div class="se-row-h mk-sec" id="mk-a-lead"><div><div class="se-eyebrow">Sector rotation intelligence</div><h2>Industry momentum leaders</h2></div><button class="btn btn-sm" onclick="seGo('sectors')">Explore all ${c.sectors.length} groups →</button></div>
       <div class="se-leads">${leaderCards || '<div class="wr-hint">No industry groups with 3+ stocks in this scan.</div>'}</div>
       <div class="se-grid2">
         <div class="se-panel">
@@ -8262,17 +8652,13 @@ function seRenderPulse(){
           ` : `<div class="wr-note"><div class="lab">Stage 2 list missing for this week</div>Publish it with <code>python tools/build_scan.py --date ${wrEsc(c.date)} --stage2 "&lt;Stage 2 xlsx&gt;"</code> — entries, exits and weeks-in-stage will light up automatically.</div>`}
         </div>
       </div>
-      <div class="se-panel">
-        <div class="se-row-h"><div><div class="se-eyebrow">Sector rotation</div><h2>Where money is moving</h2></div><span class="wr-hint">${c.hasPrevU ? `median RS (x) vs change since w/e ${wrDate(c.prevU.date)} (y) \u00b7 bubble = stocks in group \u00b7 click a bubble to dive in` : 'needs two scans with a universe'}</span></div>
-        ${quad}
-      </div>
       <div class="se-panel se-pipeline">
         <div class="se-row-h"><div><div class="se-eyebrow">Pipeline</div><h2>Data loaded</h2></div><button class="btn btn-ghost btn-sm" onclick="loadSE(true)"><i class="ti ti-refresh"></i>Refresh</button></div>
         <div class="se-steps">${SE.scans.slice(0, 6).map(sc => `<div class="se-step ${sc.file === SE.cur ? 'cur' : ''}" onclick="seSelectWeek('${wrAttr(sc.file)}')"><div class="k">w/e ${wrDate(sc.date)}</div><div class="v">${sc.universe ? `<span class="up">●</span> ${sc.universe} scan` : '<span class="flat">○ no scan</span>'}<br>${sc.stage2 ? `<span class="up">●</span> ${sc.stage2} Stage 2` : '<span class="flat">○ no Stage 2 list</span>'}</div></div>`).join('')}</div>
         <div class="wr-hint" style="margin-top:10px;">RS rating = each stock's average quarterly return over the last year with the most recent quarter counted twice (IBD's 40/20/20/20), ranked against every other stock in this scan on a 1–99 scale — RS 95 out-performed 95% of the market. Hover a rating for its four quarters. ▲/▼ is the change since the previous scan. New listings are rated on the quarters they have; nothing is rated on less than one. Export a full-market screen (e.g. market cap &gt; ₹1,000 Cr) for market-wide RS; without 6-month/1-year columns it falls back to a ${SE.weights.r3m * 100}/${SE.weights.r1m * 100}/${SE.weights.r1w * 100} blend of 3-mo/1-mo/1-wk.</div>
       </div>
     </div>`;
-  seCountUp(el);
+  seCountUp(el); if(rest) seCountUp(rest);
 }
 function seQuadrantSvg(groups, id){
   if(!groups.length) return '<div class="wr-hint">No groups to plot.</div>';
@@ -8587,6 +8973,18 @@ function seRenderTrendBody(el, anchors){
   RT._rows = rows; RT._field = field;
   seRenderTrendTable();
 }
+// the path across the four dates as one line. RS is drawn on a 20-point window around the stock's own range, so a
+// two-point wobble does not look like a surge; value traded is drawn on its own range.
+function rtSpark(v, isRs){
+  const pts = v.map((y, i) => [i, y]).filter(p => wrIsNum(p[1])); if(pts.length < 2) return '<span class="flat">—</span>';
+  const W = 70, H = 22, ys = pts.map(p => +p[1]), mn = Math.min(...ys), mx = Math.max(...ys), span = Math.max(isRs ? 20 : (mn + mx) * .2, mx - mn) || 1, mid = (mn + mx) / 2, lo = mid - span / 2;
+  const X = i => 3 + i / 3 * (W - 6), Y = y => H - 3 - (y - lo) / span * (H - 6);
+  const d = pts.map((p, k) => `${k ? 'L' : 'M'}${X(p[0]).toFixed(1)},${Y(+p[1]).toFixed(1)}`).join(' '), a = ys[0], b = ys[ys.length - 1], last = pts[pts.length - 1];
+  return `<svg class="rt-sp ${b > a ? 'up' : b < a ? 'dn' : 'fl'}" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="from ${Math.round(a)} to ${Math.round(b)}"><path d="${d}"/><circle cx="${X(last[0]).toFixed(1)}" cy="${Y(+last[1]).toFixed(1)}" r="2.4"/></svg>`;
+}
+SE_INFO['rt-path'] = `<h4>Path</h4><p>The same four numbers as the date columns to its left, drawn as one line from the oldest date to the newest. Green ends higher than it began, red ends lower.</p><p>For RS the line is drawn inside a 20-point window around the stock's own range, so a move of two or three points stays visibly small and a real climb looks like one.</p>`;
+SE_INFO['rt-delta'] = `<h4>Δ short and Δ long</h4><p><b>Δ short</b> is the change from the previous column to now — roughly the last week. <b>Δ long</b> is the change from the oldest column to now — roughly three weeks.</p><p>On the RS tab both are in rating points (RS 71 to 77 is +6). On the Volume tab they are percentage changes in value traded.</p><p>Read them together: a large Δ long with a negative Δ short is a move that is fading.</p>`;
+SE_INFO['rt-trend'] = `<h4>Trend</h4><table><tr><td><b>↑↑ Very strong</b></td><td>up 10 or more RS points over the long window, and not fading in the short one</td></tr><tr><td><b>↑ Strong</b></td><td>rising, by less than that</td></tr><tr><td><b>↓ Weak</b></td><td>falling, by less than 10 points</td></tr><tr><td><b>↓↓ Very weak</b></td><td>down 10 or more points and still falling</td></tr><tr><td><b>New</b></td><td>not enough scans yet to judge this stock</td></tr></table><p>On the Volume tab the thresholds are a 40% move in value traded, confirmed in both windows.</p><p>This is the direction of the rating. The names moving into the top 25 are listed on RS Leaders under "Gaining a spot".</p>`;
 function seRenderTrendTable(){
   const host = document.getElementById('se-trend-table'); if(!host || !RT._rows) return;
   const u = RT.ui, q = u.q.trim().toLowerCase(), field = RT._field;
@@ -8609,7 +9007,7 @@ function seRenderTrendTable(){
     const cls = v > 0 ? 'up' : v < 0 ? 'dn' : 'flat';
     return `<span class="${cls}">${wrSigned(v, 0)}${field === 'vol' ? '%' : ''}</span>`;
   };
-  const hdr = (a, fallback) => a ? wrDate(a.date) : (fallback || '—');
+  const hdr = (a, fallback) => a ? wrShort(a.date).replace('-', ' ') : (fallback || '—');
   const cols = [
     {k: '_i', t: '#', type: 'idx'},
     {k: 'code', t: 'Stock', type: 'html', html: r => seStockCell(r.r0)},
@@ -8622,9 +9020,10 @@ function seRenderTrendTable(){
     {k: 'v1', t: hdr(disp[1]), type: 'html', sortType: 'num', fn: r => r.v[1], html: r => fmtVal(r.v[1])},
     {k: 'v2', t: hdr(disp[2]), type: 'html', sortType: 'num', fn: r => r.v[2], html: r => fmtVal(r.v[2])},
     {k: 'v3', t: hdr(disp[3], 'Now'), type: 'html', sortType: 'num', fn: r => r.v[3], html: r => fmtVal(r.v[3])},
-    {k: 'dNear', t: 'Δ short', type: 'html', sortType: 'num', fn: r => r.dNear, html: r => fmtDelta(r.dNear)},
-    {k: 'dFar', t: 'Δ long', type: 'html', sortType: 'num', fn: r => r.dFar, html: r => fmtDelta(r.dFar)},
-    {k: 'bucket', t: 'Trend', type: 'html', sortType: 'num', fn: r => ({strongup: 4, up: 3, down: 2, strongdown: 1, na: 0})[r.bucket] || 0, html: r => seTrendPill(r.bucket)}
+    {k: 'path', t: 'Path', type: 'html', sortType: 'num', fn: r => r.dFar, html: r => rtSpark(r.v, field === 'rs'), info: 'rt-path'},
+    {k: 'dNear', t: 'Δ short', type: 'html', sortType: 'num', fn: r => r.dNear, html: r => fmtDelta(r.dNear), info: 'rt-delta'},
+    {k: 'dFar', t: 'Δ long', type: 'html', sortType: 'num', fn: r => r.dFar, html: r => fmtDelta(r.dFar), info: 'rt-delta'},
+    {k: 'bucket', t: 'Trend', type: 'html', sortType: 'num', fn: r => ({strongup: 4, up: 3, down: 2, strongdown: 1, na: 0})[r.bucket] || 0, html: r => seTrendPill(r.bucket), info: 'rt-trend'}
   ];
   host.innerHTML = wrTable('se-trend', cols, list, {sort: {col: 'dFar', dir: 'desc'}, tall: true, cap: 600, empty: 'No stocks match the filters.'});
   const cnt = document.getElementById('se-trend-count'); if(cnt) cnt.textContent = `${wrNum(list.length)} of ${wrNum(RT._rows.length)} stocks`;
@@ -8990,6 +9389,7 @@ function seApplyTheme(t){
   localStorage.setItem('swingedge.theme', theme);
   const btn = document.getElementById('theme-toggle'); if(btn) btn.innerHTML = theme === 'lab' ? '<i class="ti ti-sun"></i>Ledger theme' : '<i class="ti ti-moon-stars"></i>Lab theme';
   try{ const ts = document.getElementById('sec-themes'); if(TT.loaded && ts && ts.classList.contains('active')) ttRender(); }catch(e){}   // canvas colours are read at draw time
+  try{ const on = id => { const x = document.getElementById('sec-' + id); return x && x.classList.contains('active'); }; if(MK.loaded && on('pulse')) renderMK(); if(IX.loaded && on('indices')) renderIX(); }catch(e){}
 }
 function seToggleTheme(){ seApplyTheme((document.documentElement.getAttribute('data-theme') || 'lab') === 'lab' ? 'ledger' : 'lab'); }
 seApplyTheme();
@@ -9790,7 +10190,7 @@ function renderRD(){
         <select onchange="RD.ui.drift=this.value;renderRD()">${[['all', 'Any signal drift'], ['flipped', 'Verdict flipped since publication'], ['pass', 'Passing the template now'], ['fail', 'Failing the template now']].map(([v, t]) => `<option value="${v}" ${u.drift === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
       </div>
       <div class="rd-grid">${rest.map(r => rdCard(r, false)).join('') || '<div class="wr-hint">No reports match the filters.</div>'}</div>
-      <div class="wr-foot" style="border:none;padding:16px 0 0;">Reports are self-contained HTML in library/research/, rendered in an isolated frame. Add one with <code>tools/build_research.py</code>. Informational only — not investment advice.</div>
+      <div class="wr-foot" style="border:none;padding:16px 0 0;">Reports are self-contained HTML in library/research/, rendered in an isolated frame. Add one with <code>tools/build_research.py</code>. Informational only — not investment advice. The older markdown library (one sample report) is <a href="#" onclick="show('library');return false;">here</a>.</div>
     </div>`;
 }
 
@@ -10433,35 +10833,17 @@ function renderSJ(){
 
 // ============= INIT =============
 function init(){
-  load();
-  renderDash();
-  renderTrades();
-  renderResearch();
-  renderWatch();
-  renderS2();
-  render52W();
-  renderConverge();
-  renderComm();
-  renderWeekly();
-  renderLearn();
-  renderChecklist();
-  renderProc();
-  renderMonitor();
-  renderPnl();
-  renderSnap();
-  loadLibrary(false);
-  loadWR(false);
-  loadSE(false);
-  loadPD(false);
-  loadDG(false);
-  loadTR(false);
-  loadRD(false);
-  loadSL(false);
-  loadSJ(false);
-  fbLoad(); fbBadge();
-  seApplyTheme();
-  updateMarket();
-  setInterval(updateMarket, 30000);
+  load(); dbMigrate();
+  // each step on its own: one page that fails to draw must not stop the others from loading
+  const step = (name, fn) => { try{ fn(); }catch(e){ console.error('init: ' + name + ' failed', e); } };
+  [['renderDash', renderDash], ['renderTrades', renderTrades], ['renderResearch', renderResearch], ['renderWatch', renderWatch], ['renderS2', renderS2], ['render52W', render52W],
+   ['renderConverge', renderConverge], ['renderWeekly', renderWeekly], ['renderLearn', renderLearn], ['renderChecklist', renderChecklist], ['renderProc', renderProc],
+   ['renderMonitor', renderMonitor], ['renderPnl', renderPnl], ['renderSnap', renderSnap]].forEach(([n, f]) => step(n, f));
+  [['loadLibrary', loadLibrary], ['loadWR', loadWR], ['loadSE', loadSE], ['loadMK', loadMK], ['loadMN', loadMN], ['loadPD', loadPD], ['loadDG', loadDG], ['loadRD', loadRD],
+   ['loadSL', loadSL], ['loadSJ', loadSJ]].forEach(([n, f]) => step(n, () => f(false)));
+  step('feedback', () => { fbLoad(); fbBadge(); });
+  step('theme', () => seApplyTheme());
+  step('market clock', () => { updateMarket(); setInterval(updateMarket, 30000); });
 }
 
 document.addEventListener('DOMContentLoaded', init);

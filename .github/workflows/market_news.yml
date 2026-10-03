@@ -1,0 +1,55 @@
+name: Market news and macro (4 a.m. IST)
+
+# Collects the overnight headlines for the Market News page and tops up the macro file behind
+# Markets & Macro, then commits both. 04:00 IST is a couple of hours after the US close in either
+# daylight-saving regime, so the page is ready before the Indian morning and does not depend on any
+# PC being awake. No model runs here and nothing needs a key: tools/market_news.py reads public news
+# feeds, tools/fetch_markets.py reads Yahoo, RBI, NSDL and SEBI. NSE's index file is left to the
+# evening pull on the owner's PC.
+on:
+  schedule:
+    - cron: '30 22 * * *'    # 04:00 IST, every day
+  push:                      # a change to the collector proves itself with a live run
+    branches: [main]
+    paths: ['tools/market_news.py', '.github/workflows/market_news.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: market-news
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Collect the headlines
+        run: python tools/market_news.py collect
+
+      # never fails the job: each source keeps its last good data when it does not answer
+      - name: Top up the macro file
+        run: python tools/fetch_markets.py --only global,rbi,fpi,sectors,mf || true
+
+      - name: Commit and push
+        run: |
+          git config user.name "swingedge-bot"
+          git config user.email "swingedge-bot@users.noreply.github.com"
+          git add data/daily/market_news.json data/markets/markets.json
+          if git diff --cached --quiet; then echo "nothing changed"; exit 0; fi
+          git commit -m "Market news and macro $(date -u +%Y-%m-%d)"
+          for i in 1 2 3 4; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            echo "push attempt $i failed, retrying"; sleep $((i * 5))
+          done
+          exit 1

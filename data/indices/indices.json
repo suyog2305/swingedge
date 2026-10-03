@@ -7,42 +7,211 @@
       "name": "AI Data Centre",
       "group": "Technology",
       "note": "The build-out chain for AI compute in India: optical fibre, power systems, servers, GPU cloud, networking, DC real estate and EPC.",
-      "codes": ["MTARTECH", "STLTECH", "HFCL", "TDPOWERSYS", "BBOX", "NETWEB", "E2E", "TEJASNET", "ANANTRAJ", "TECHNOE"]
+      "codes": [
+        "MTARTECH",
+        "STLTECH",
+        "HFCL",
+        "TDPOWERSYS",
+        "BBOX",
+        "NETWEB",
+        "E2E",
+        "TEJASNET",
+        "ANANTRAJ",
+        "TECHNOE"
+      ]
     },
     {
       "id": "cdmo",
       "name": "CDMO",
       "group": "Pharma",
       "note": "Contract development and manufacturing: the outsourcing leaders and the smaller API/intermediate CDMOs riding the same demand.",
-      "codes": ["MOREPENLAB", "LAURUSLABS", "DIVISLAB", "INDSWFTLAB", "KPL", "AARTIPHARM", "NEULANDLAB", "SUVEN", "SYNGENE", "PPLPHARMA", "ANTHEM", "COHANCE", "BLUEJET", "CONCORDBIO"]
+      "codes": [
+        "MOREPENLAB",
+        "LAURUSLABS",
+        "DIVISLAB",
+        "INDSWFTLAB",
+        "KPL",
+        "AARTIPHARM",
+        "NEULANDLAB",
+        "SUVEN",
+        "SYNGENE",
+        "PPLPHARMA",
+        "ANTHEM",
+        "COHANCE",
+        "BLUEJET",
+        "CONCORDBIO"
+      ]
     },
     {
       "id": "pharma",
       "name": "Pharma Mid & Small",
       "group": "Pharma",
       "note": "Mid and small-cap pharma with a live trigger — IOL and SMS on the ibuprofen shortage — plus the strongest-RS names in the group.",
-      "codes": ["IOLCP", "SMSPHARMA", "BLISSGVS", "AHCL", "SHILPAMED", "SUDEEPPHRM", "FREDUN", "VENUSREM", "SENORES", "INNOVACAP", "GLAND", "RPGLIFE", "CAPLIPOINT", "SUPRIYA"]
+      "codes": [
+        "IOLCP",
+        "SMSPHARMA",
+        "BLISSGVS",
+        "AHCL",
+        "SHILPAMED",
+        "SUDEEPPHRM",
+        "FREDUN",
+        "VENUSREM",
+        "SENORES",
+        "INNOVACAP",
+        "GLAND",
+        "RPGLIFE",
+        "CAPLIPOINT",
+        "SUPRIYA"
+      ]
     },
     {
       "id": "pipes",
       "name": "Pipes",
       "group": "Industrials",
       "note": "Line pipes, stainless and structural tubes: the export and pipeline capex cycle.",
-      "codes": ["WELCORP", "VENUSPIPES", "MANINDS", "JINDALSAW", "RATNAMANI", "APLAPOLLO", "HITECH", "SURYAROSNI"]
+      "codes": [
+        "WELCORP",
+        "VENUSPIPES",
+        "MANINDS",
+        "JINDALSAW",
+        "RATNAMANI",
+        "APLAPOLLO",
+        "HITECH",
+        "SURYAROSNI"
+      ]
     },
     {
       "id": "spchem",
       "name": "Specialty Chem — Dyes",
       "group": "Chemicals",
       "note": "Dye intermediates and pigments: H-acid, K-acid and vinyl sulphone tightness out of China.",
-      "codes": ["KIRIINDUS", "BODALCHEM", "SHREEPUSHK", "BHAGERIA", "SUDARSCHEM", "ULTRAMAR"]
+      "codes": [
+        "KIRIINDUS",
+        "BODALCHEM",
+        "SHREEPUSHK",
+        "BHAGERIA",
+        "SUDARSCHEM",
+        "ULTRAMAR"
+      ]
     },
     {
       "id": "cnc",
       "name": "CNC Machines",
       "group": "Capital goods",
       "note": "Machine tools and CNC systems.",
-      "codes": ["JYOTICNC", "MACPOWER", "LMW"]
+      "codes": [
+        "JYOTICNC",
+        "MACPOWER",
+        "LMW"
+      ]
+    },
+    {
+      "id": "aerodef",
+      "name": "Aerospace & Defence",
+      "group": "Defence",
+      "note": "Aircraft, missiles, defence electronics, aero structures and explosives. Shipyards sit in their own tracker.",
+      "codes": [
+        "HAL",
+        "BEL",
+        "BDL",
+        "DATAPATTNS",
+        "SIGMAADV",
+        "ASTRAMICRO",
+        "APOLLO",
+        "ZENTEC",
+        "PARAS",
+        "MIDHANI",
+        "UNIMECH",
+        "AEQUS",
+        "AXISCADES",
+        "ROSSTECH",
+        "AVANTEL",
+        "IDEAFORGE",
+        "DCXINDIA",
+        "SOLARINDS",
+        "DYNAMATECH",
+        "AZAD"
+      ]
+    },
+    {
+      "id": "fibre",
+      "name": "Optical Fibre & Telecom Gear",
+      "group": "Technology",
+      "note": "Optical fibre and cable makers and telecom equipment: the passive and active layer of fibre roll-outs and data-centre interconnect.",
+      "codes": [
+        "STLTECH",
+        "HFCL",
+        "BIRLACABLE",
+        "VINDHYATEL",
+        "UNIVCABLES",
+        "TEJASNET",
+        "PARACABLES",
+        "FINCABLES"
+      ]
+    },
+    {
+      "id": "ems",
+      "name": "EMS & Electronics",
+      "group": "Manufacturing",
+      "note": "Contract electronics manufacturers: consumer, industrial, automotive and aerospace boards and box builds.",
+      "codes": [
+        "DIXON",
+        "KAYNES",
+        "SYRMA",
+        "AMBER",
+        "PGEL",
+        "AVALON",
+        "CYIENTDLM",
+        "CENTUM",
+        "OPTIEMUS",
+        "AIMTRON",
+        "SAHASRA",
+        "EPACK"
+      ]
+    },
+    {
+      "id": "powertd",
+      "name": "Power T&D & Transformers",
+      "group": "Capital goods",
+      "note": "Transformers, switchgear, conductors and the contractors who build transmission lines.",
+      "codes": [
+        "POWERINDIA",
+        "GVT&D",
+        "CGPOWER",
+        "ENRIN",
+        "VOLTAMP",
+        "TARIL",
+        "SHILCTECH",
+        "INDOTECH",
+        "BBL",
+        "ATLANTAELE",
+        "QPOWER",
+        "APARINDS",
+        "SCHNEIDER",
+        "DANISH",
+        "SKIPPER",
+        "TRANSRAILL",
+        "KEC",
+        "KPIL"
+      ]
+    },
+    {
+      "id": "ship",
+      "name": "Shipbuilding & Marine",
+      "group": "Defence",
+      "note": "Shipyards, ship owners, marine services and marine electricals.",
+      "codes": [
+        "MAZDOCK",
+        "COCHINSHIP",
+        "GRSE",
+        "SWANDEF",
+        "GESHIP",
+        "KMEW",
+        "MARINE",
+        "SEAMECLTD",
+        "DREDGECORP",
+        "SHREEJISPG"
+      ]
     }
   ]
 }
