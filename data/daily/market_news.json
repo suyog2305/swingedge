@@ -1,6 +1,6 @@
 {
  "schema": "swingedge-market-news/1",
- "updated": "2026-10-03T09:40+0530",
+ "updated": "2026-10-03T09:45+0530",
  "run_date": "2026-10-03",
  "window_hours": 30,
  "topics": [
@@ -16,10 +16,22 @@
      "at": "2026-10-03T03:03Z"
     },
     {
+     "t": "RBI Says 98.47 Per Cent of ₹2,000 Banknotes Have Been Returned",
+     "src": "News On AIR",
+     "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQbEdQUW44eUV1MDd4aDBNRk5LbG15c19MbVZwMnpMbEg1R0VKY19Bd2Q0VWVQeUhxeHVLeElyNHdXWGlFSVBKMnVIaEx1OVZGaXhWOXpBY0IyTkRha1ZTR01DSW05REJqZFR2d2ZVd2MyTEtkb2hIc2g2c3pBZGJPR0NWQi1Hb1NUOGZtblZEWnplX3VSNzRaMU5scw?oc=5",
+     "at": "2026-10-03T01:59Z"
+    },
+    {
      "t": "BSE SENSEX Today: Sensex Rebounds 315 Points to 73,895.74 but Nifty Logs Seventh Straight Weekly Loss",
-     "src": "bbntimes.com",
+     "src": "BBN Times",
      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQYTlMMFRMRzJyNGFNc3RqN3kzcy1mU0ZTbGJIaUJQZThqZU5lZUZrcVhzeFFMTjdDWDVyb1M4Q2NPSXpKQUswZnRxWkZKMmVxQ2dvMlBiM1k1TlR5dWM2N2lvcUZvVm5USHZ1bEpMVURiNTFPWDJpTTlERVhHQnZQaTV4ZUdkZG5JX3ltRVllM3hPaEdJbjZuMVJPbFNaOEN0MVF6bktGRjFRMFhhMmdNbVc2MlFYMjk3TjFwZHBOUUVqYkdhVmVEWjcydlIzYXRR?oc=5",
      "at": "2026-10-03T01:51Z"
+    },
+    {
+     "t": "Stock Market Crash: Sensex Plunges 700 Points, Nifty Breaks 23,300 As Crude Tops $100; Why Is Market Falling?",
+     "src": "Goodreturns",
+     "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQV1NKNFNnTlpWcUY3NHplSzZyWWxiUUVUZ09raWFpTkU4QVRwMWZSbmtrTlUwOVBTY3NfeEdKMTJELUFFbkZ1SXBTRXN1aVBheXYwOWU5eUZYbDAwa0JZWmcyR2M0QjhGWUsxYXlrbVhWbDlMV21QcEI4R0psRV9qeXM3Q0hHS2EyeXF3TjlRRTNQRWc5VUYtd3dibXJPYjJ5V1ZBV0R0akVLVzZUczJkcUVqc0hiOFZRN1hsVlU2cWpfQXJaZmZoSkZFQmRSOHdSdFRv?oc=5",
+     "at": "2026-10-02T23:34Z"
     },
     {
      "t": "India's forex reserves fall $18.3 bn as RBI steps in to defend rupee",
@@ -34,16 +46,10 @@
      "at": "2026-10-02T18:38Z"
     },
     {
-     "t": "Forex kitty plunges record $18.34 bn as rupee pressure mounts",
-     "src": "The New Indian Express",
-     "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOUjgtWDdRWlJlOUJYWWxDeXFqRWZTZkwyNnFEcEMtWFhtTHd4V2pnTXBQQXcwWjhaQjhlZ3lmVW51cGtHVGJVajRydmxxVEZkeFBpc2VQTHZmX1BQNXZydzFlWFZjc2V6TWprRzYzWU5tb3JTWmtZdnVyVU4wR0RwcjBNc0NYOWZTT3ltTE9iSHZjSzRQUDM3Y1U0MUlBdWZra2NVTWxHVkVrandnajJ2OHVOWdIBwAFBVV95cUxPZmI0MFU0SmxfRDdrSUEySFRLRjRUX1FGdS1HbFpxTW1BUm1uX1JmUkFlT1hJX0N0a1hMbVJ3MkRRMjRVNmhqZmRnQ21jMVJNUG9Mc1c4X0lxZFh3dFZ4MDlLYUQ1RTYtN3FydURuQmNGVUNpZlRHSFhTTi0tdHBrc3ZBaXNXMGtJMDV2YWFRWUFLNG81dWRWazhGVWRFQTlOR0JyTnBlWjZKNy0zVHZoR2o3SVlQTVpZU1hsN2V0SUs?oc=5",
-     "at": "2026-10-02T17:47Z"
-    },
-    {
-     "t": "India's forex reserves fall $18.3 bn, post biggest weekly decline on record",
-     "src": "Business Standard",
-     "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxPdElNQ2RGVUFSSWllYVpUTElFd1NPME5EYlFfVzdhU204MjNETXVWUUlQb3gyTzNxUmoyWDVEQWU2TndfNU5QUEFxYUIwS3NGLVNtVUdhQjhfYWlTZTQ1dFNyQ1hwbjh2VXROaGhCdm1BczRTZUNhSl95WGpLeXh4Z1BrR3FaR21IaGtGeWJkNnAxMHFTRU5zQ2Rac21OQjN1SXF4QjdqbUpYVngtM253Z0thM29xMVNpSzA1TGpCbWZRRjVfSkVaMzQxdTh2YjFhdmRRMnhBVdIB3AFBVV95cUxOOHpCQWE3MEdsLXJpelM4Z01KWEZlLVY5LXpYdDJLdElJakU0RFRUZ1ZzbnM4WWJLckFva0tuWUVZMGlwSDBtaGVhbGVfR0pCZGc2M0JkemFPN0t3RGFMMXd1akRRd1lwLWg3ZUYxUU9wNnFzUVhmNFREUF9kWElHNHEwQXo0a1JsOXBmZXdBQXJ2Qm9UWDVuU1dCUEtXWmFXelMxTVhUaUh3S1A1YjBBUXFLTEFNQzJ2WWhuU2VSQnFwTjlGb0lxaTZkWThkLUJNVE1LTnJXaWdOa295?oc=5",
-     "at": "2026-10-02T15:14Z"
+     "t": "RBI Rate Hike Ahead? SBI Research Flags Inflation, Rupee Risks For October MPC",
+     "src": "NDTV Profit",
+     "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPQzY2aEZoN081VWpBYmlHY0l1MFdDMlk3aGZZN0VFdlZfdzNlVERaVUVHUXhwSzBOWUVRdE5DM2UxVnBvT3ktcXdUaW1TdGZOS0FBZTRLV1NfM0kzYUdhUWIxQVdtTVV0YkpVNC1NcG4yYzk5cFB0VGM0VFR6bGxDQnBPd2JWdEZvay1qTzVfTHg3blZQMkNyUV9BeDNPODQxUFVQc3VJVWlHV0hDdGJTX0w1N3k4NUdzcXFHazRn0gHGAUFVX3lxTE5WTTBLU0RZUHhCdWRIZXhESWRYU19wTy1hcV9BTEhWT3FTUDkzUVVEenh4RlN5dEoxZ1BrTnh3Z01abzBjZEF0N01TM29KYXFpb2tES0Nzejc5YnZiN3Y1TXBaN0pDX1dZUDcyYy1TLUZFLU9ZQ1pYdnNwQXZaVlh5X0VHZlJwcGVPX2w1UUVxX0FGUHVORDU5bVVrV3AyRm9HTHZ1MXl6UU15U1J5MjZDZlBCZVBnTlVHZ2I4T3IyRkxDa21hQQ?oc=5",
+     "at": "2026-10-02T16:30Z"
     },
     {
      "t": "Stock market sell-off: Nifty, Sensex log 8th straight weekly loss; key levels & top triggers now",
@@ -68,12 +74,6 @@
      "src": "The Economic Times",
      "url": "https://news.google.com/rss/articles/CBMinwJBVV95cUxONVpzakxzdy15ZDdHMUhRMHNzWFhMZ193UEJUWWZwb1J6VGVESmNpT3ozaHJwMHRTM2xLdlVyTV9BMzRJd091d0xCWnc2cFFQYl82RUN5d3k0eDVkQmdWZWhsdk04UG91eF82QU5XY1JqdktXdFNNZy1ZRTh2TFhEMHlIS0w3S1ZRcGQ3TUM3OWVQUWw5Zkx0MEdlRWdRMF9JV3VNZjlvSkltWUZKSVVVZFFzWEUzZGE2YWFyTW81cFIxMFBiNlB3UnVQTWZNMXdLZWJvc1AxZFhwWG1rY0ROa1kxYk1HczBteFNwVlFVTlIyNlM5Q3huMkhWOEdSR3NfR3BQREJuUUl1eVZ3UlY2RmExUUk5X3NYNUx6cDlpNNIBpAJBVV95cUxPMXB5VGpyNnBGTnVyYnd5RUlUM3dxSDZ6X2d6MDl2VmxUbnBZVjNXLTgzTnZVcEtncWlDS2ZocElrRlVYZUNrbnVQQW1mMDgzYU9GVHoyekRMOThkdXZmcThoc1V6dnBZRG9BUHlFUWxWZkw3a1pWWFRLdDFTLVVZS1YzR0EyTzk2N2FWM1BaaFJOR2JET1UtaHYtTmRORl9hcmlza2k0ZzVsamd0R1FqZTZOYktFT3czQnE3OFBsY3IxSUw2UXB4VFpPRlJTWW9TVHNJWjRiQlRYeHZ1Wk9uN1VKT2tVTFdzWEVBYTNYdi0tWGxacHAzNzYzdEg5bzRHbFZKVUc1QVV5Wk9hWUFwVGNFZ0RHVUpmWUEyWkNVQ0dyS2k1?oc=5",
      "at": "2026-10-02T07:14Z"
-    },
-    {
-     "t": "Matter of liquidity: How the RBI manages cash in the banking system",
-     "src": "Business Standard",
-     "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNa1QtNEF3YXg0eGszaFlBZjlYd2YzbHVlc3ZZV0VFdTJvV25TaTJJc3ZNdXRaTXVvVDVDQndCXzBPT0NYbXhDSkZkanZxb2VVRnM1SHVFTDdJY0EzMVBGTHBVMnltNGMtcGFEc004YnBsTTZUU3FnbE1uUUlHUXdwNHFnaklsd0dmN0lUVjdPY3dRblJ0YWViZWJad29PdUlETUMzTGFTOGk3aUlTVGdYT1NVSVZaMm1HYjhFbGVUU1JHdHFiaTRMcHNlcU1BLS1oUUhj0gHTAUFVX3lxTE1rVC00QXdheDR4azNoWUFmOVh3ZjNsdWVzdllXRUV1Mm9XblNpMklzdk11dFpNdW9UNUNCd0JfME9PQ1hteENKRmRqdnFvZVVGczVIdUVMN0ljQTMxUEZMcFUyeW00Yy1wYURzTThicGxNNlRTcWdsTW5RSUdRd3A0cWdqSWx3R2Y3SVRWN09jd1FuUnRhZWJlYlp3b091SURNQzNMYVM4aTdpSVNUZ1hPU1VJVloybUdiOEVsZVRTUkd0cWJpNExwc2VxTUEtLWhRSGM?oc=5",
-     "at": "2026-10-02T06:28Z"
     },
     {
      "t": "Market crash wipes out Rs 26 lakh cr in 8 weeks! Why soaring bond yields may hurt Sensex, Nifty more than",
@@ -126,7 +126,7 @@
     },
     {
      "t": "SBI acquires 40% stake in Reliance Industries' ₹13,000 crore bond issue",
-     "src": "motilaloswal.com",
+     "src": "Motilal Oswal",
      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBMYmd4RnpDaUZ2LVk3WHpFRkY4WkVaUHJhUTVRNW9SRjFxU05EVTFPZlBtbTB3ZG1NdU93UUZteHFWZ3YyZV82d29xNVZlRlE5VDFCektwOVJHVHM?oc=5",
      "at": "2026-10-02T16:31Z"
     },
@@ -174,18 +174,6 @@
      "at": "2026-10-03T04:00Z"
     },
     {
-     "t": "Oil (USCrude) Price Forecast for Today, Tomorrow, Next Week, and Next 30 Days",
-     "src": "LiteFinance",
-     "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQcm51RHFTMGNQcnB2aFl5bjNQQzFXUVVHckh1eW1IVktpM0lfaXlCQ2p6RF9nYWxkajlxb2R2V0lkRi1FNnljalUwMlhaU2FFT2dCUDBwem9tVG14Y1FXZGVKbWJvSm0xNlVVZ1BwdTItWnJkOTF3TnFTU2FQLWZibmhXRXlnX2RJY25leTB2ekVVUHZMZS1zbjBhWkNJLWs?oc=5",
-     "at": "2026-10-03T03:11Z"
-    },
-    {
-     "t": "Oil Prices Expected to Stabilize Around $70 by End of 2026: EIA",
-     "src": "NTD News",
-     "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQZkgwUlh4QkdwcjlDUE5DUHJtNG5YUUJzQXFqaERmWUlsaU5QTGhQd0JxRUVoR1BFVnpFSW1TMG0yVWE3eTlqelRiVVNQTTlOQlNZUWFLX0xSM2RPNHVQb09tc1VyOWY2aW4xNGpxM29ScFRNaTZ2UXRzbUF3VHpZQjRiYUZFMmF0cmRpUF95THJEaUlBQTl0OEp3?oc=5",
-     "at": "2026-10-03T01:30Z"
-    },
-    {
      "t": "Brent Crude Is Now Trading Above $100. What Does That Mean For the Crypto Market?",
      "src": "The Globe and Mail",
      "url": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxNeTdGOXZtMzU0TkM0SzUzRldsMGhEZ1FfRzlsd3AySzdQeFEybUNwQkxoY2FlQ2hfeDNJSWxod1M2QVVxZERtMDRmWE5TdHBPWXpoNXBycnpUSmZRV0ZYSDllSnV1RFc5NVlmVDl4NnZZOVR4ODNVeUFSS0x5TU1sVEJyNG1HTWFiejhKMm84d3c3ZlV6aFJ5dUhNUjF5MWZaSHFCVDk0NVBTVERxWDJtcWtLZk9uYlV3WGg4eXRjX2tvV3dTV2VaSEVHcG9qeDNzNVNZUjlEa0E5ZmF4cmJ3cHN0MUFfOEdDRmNjcWZIcW1mTHlQa19R?oc=5",
@@ -210,14 +198,26 @@
      "at": "2026-10-02T22:54Z"
     },
     {
+     "t": "Iran War Upends IEA’s Oil Market Outlook as Global Supply and Demand to Contract in 2026",
+     "src": "EnergyNow.com",
+     "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPak5XcGxWUXBlNVhTbFd3RkFvM2dzMUdvcm84a3Nzc2hxLVJYMU1zOHBsYlY0eV90Z2NlY0xDajNSdUxweFJ6WVprRjNzOHVrT0cwbXM0LUZvRHRmdF9VMEN0NUZpZ1VjYjFNeEdiSHZ1SHpyZ2otTVhyLXVsb09yVm1NUUhQM2dMMUNkQjFCalh1a2Y3bjlqX1ZNOHFVRDM5Ylh2clBwd0JmTUFtcmZUeUUyRnhsRXNjeUE?oc=5",
+     "at": "2026-10-02T22:49Z"
+    },
+    {
      "t": "Crude Oil Cuts Losses as Traders Eye G-7 Fuel Release",
      "src": "WSJ",
      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOTnJNODFJQ0xlUm8zN2FkRzN6RUZRbzhPRlg2c3h3QmpyOUhKNy1UY3IwQ2d5OUltaDNIS1BjdmVQZ2RSLWsxb1hwRkNESFBSSXdOVXNOU0RNd1d4ZWY1N0JMY0M4VFNBYkpYRUE4VzdJVnB3Z0VidGVraER4SUctdk10cGFxZnYybmpvTFAxdW84MXVYOU9nTGp3WGY4LWpjcmxHMQ?oc=5",
      "at": "2026-10-02T21:21Z"
     },
     {
+     "t": "Oil falls $2 as Europe agrees to release diesel reserves after Trump push",
+     "src": "Business Standard",
+     "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxPVnhrSGlXMkpWalY3aV9malI0V2ljZ1YwdHhOemZ1M3FWZHNGalNPbkR6NTkwOGNMTnNKZVRmR2dhOGMwbmd3OHFnY056M3psamJYQzBZVUZCX1lDa1dCVEpJSW1BYy1NQVRIZE9tQlhiaDNLUTEyczQtOENmdVpzdzd1VXBES3kzVmFKVlRodGx0XzJWdmlqOGJERjBEd0xpU0lKblhvT0ZQU3RTZGZQSTdiWFBkTVYwMmtQMDhqS082MktpQWEyMi1tS1BvenFNS2kxR3N5dVfSAdgBQVVfeXFMT1Z4a0hpVzJKVmpWN2lfZmpSNFdpY2dWMHR4TnpmdTNxVmRzRmpTT25EejU5MDhjTE5zSmVUZkdnYThjMG5ndzhxZ2NOejN6bGpiWEMwWVVGQl9ZQ2tXQlRKSUltQWMtTUFUSGRPbUJYYmgzS1ExMnM0LThDZnVac3c3dVVwREt5M1ZhSlZUaHRsdF8yVnZpajhiREYwRHdMaVNJSm5Yb09GUFN0U2RmUEk3YlhQZE1WMDJrUDA4aktPNjJLaUFhMjItbUtQb3pxTUtpMUdzeXVX?oc=5",
+     "at": "2026-10-02T18:24Z"
+    },
+    {
      "t": "Dated Brent Above $120 Signals a Serious Oil Squeeze",
-     "src": "oilprice.com",
+     "src": "Crude Oil Prices Today | OilPrice.com",
      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNZTRtWjItNTByemhMREx4TU5lR0lqZFFSem1nYjZ3bXdSTUJudjlicTdUVVdNaHRkaVZLUWF6ZXhGem16bHpiNGlaZ1U3MjBCbVZhQmlFLWdQVldaRDMwMjhsQ09INnVwQ2FtRnZqSUQzQVM1ZDNoX1FpTkcwb0xsNmY4OGVEcDdidjZMVGpsUFJhTmNrQ3VMSDBn0gGfAUFVX3lxTE16LXdFYXBkV05DU0dJZnlxQXMtZTRxT1B4VDMyN3NIR2I5X0hWNnFjTHdLM0RFaUItOVBxaDVyd0RYRDRzZ0tpVk53dVN1blc4cGlOb0lkWWxBOXU1U3haUHZ0YnRGdDdUYm9uTktmendqLVQwYlk1SDJ3SXhMOUJZRV9vNWpOYzgyN3QyQUJJUWhsVFEtSWNwSEVrV2Y1aw?oc=5",
      "at": "2026-10-02T16:50Z"
     },
@@ -235,7 +235,7 @@
     },
     {
      "t": "Brent Holds Above $102 as Gulf Export Rebound Offsets U.S. Military Moves",
-     "src": "oilprice.com",
+     "src": "Crude Oil Prices Today | OilPrice.com",
      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPaEVPMFVqSGFlQWx5RngxUzNXX1JHbHlycGJMRHdFT0tvTzNrWGFRRDBuX3FrMDB5UjNaemVUT3E5c1pKRnotdUhXSEwtcjU0ajZVOFJ1Y0tCOWlkVzFnVkhQSTEweDRsS0duT29pNlg2am1sSDItbnl3bGlJSERHcGg4bS1CQmhqdWVRdTh5bXVQSXZEZ1l1RHBXbURVNHFnQ0ktOGpreEFuVHdHRTRkUV9NZFdqRE1pNEZIOHhER3hxaVJP0gHKAUFVX3lxTE90SkZhYUVuM0djeXBlaG55RGwzcHMzajRRdkdBQVZmUmtaMWVMclpJS0thYzZBblY4eTFmZjl5Y202c0ZRNHBsYlVYXzF2YlJ5SHlfU3Exa0hJbzlUbVZNRVF4RTVhcVE0OU51dWwyQnFKWUJGRVUyX1NHRVpmT3Bxd3pwQ2hOQUJIRVZUNHRmb285T29namZDTTNnN1FtRk1MRUZJdGRnX2Z4TlpjR2c2QVhtb2VqaUNKdFZMTjZLSGlxM3Y4UWF0NXc?oc=5",
      "at": "2026-10-02T05:06Z"
     }
@@ -265,16 +265,16 @@
      "at": "2026-10-02T21:29Z"
     },
     {
-     "t": "Alibaba Stock Falls. Treasury Yields Aren’t Just a U.S. Problem",
-     "src": "Barron's",
-     "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNRVFnSFVfQUx5Qm9kVk1MZHBxdUdGLWpGVWY2eWZyb2gzcjNzOTloTTZLMFo5dy05RFkxYXc0SDVYWmtWQnFpQVBLbWdnNXhQX3N3RlZ5SktkakJSSWtIWUcwdnJ1S3dhWGo4NmN2NjJaQldRUkpDR25Lb3lPQmZOSTVkMA?oc=5",
-     "at": "2026-10-02T21:21Z"
-    },
-    {
      "t": "Metals give back jobs-report bounce as oil, yields stay elevated - Kitco PM Report",
-     "src": "kitco.com",
+     "src": "Kitco",
      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNMlRlMUp2MU9fNXNZdkdEeng1RXlNc1RMc1NjT1F0X3RBV1YyR0NWVkN0U0VuUkV2ZDJtOEl2NTI1dGJBQk1ZN2hwVURRSmRlWlpWNXl1T3RuX0haRUtCcFI0aTB2bjQzeHlPVDk1cEFTMzJRVjB3b1dkc0sxeTdUWmZZWnM1ZUdfZmR3eXcyREUzMGFvQ3J6WDJ2VVJtMDdTMzllcEMtc2dLbGhjRzkyM1A2UXphdw?oc=5",
      "at": "2026-10-02T21:09Z"
+    },
+    {
+     "t": "'It was a mistake' for Fed to raise rates: CEA Chair Phelan",
+     "src": "Yahoo Finance UK",
+     "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxObVNVdF9WMEhKNEtkMk8zY0wzY0p6dk1XNlVha0E0bC1pN2hoMzBOOXhoYUQ2bF9RUTZYRmlZWlkxWUZfbjdJUVJ1WVZDOExQSnU1ZUpkM2tZS0loY1hfV2NWejYyNFptazREM2todkdyaXFuT1MzaVBEdEd0cngyWm14c0J4akE3d2pPSjBQbnhzdFhFb21nZnk4NnBvRjFmMENnbnJ6VUJnUQ?oc=5",
+     "at": "2026-10-02T21:03Z"
     },
     {
      "t": "Dollar Falls as Traders Pare Fed-Hike Bets After Soft Jobs Data",
@@ -326,6 +326,12 @@
    "why": "the overnight lead for Asia",
    "items": [
     {
+     "t": "Equities close higher as softer jobs data quiets rate-hike expectations",
+     "src": "Moneycontrol.com",
+     "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNUUhzVEhKZkZZUEc0NUlpWGNYOE50VXI2YTVqcWRoTW90MlR0cnRsOUVoVndwT3lGb2RUaVZSTHFKSUwtYjlaM2RVR1UwTi1zVjdBNUU0dWtLZ1ZaMGhnZ2xkYl9TV2hJbFg5SHN2SzduMmZuVG9aanFSMlRBM29IRkhIS0FCMkFKc05CUjRPdldrM3hkS3ZXcnBaMm13TmhueFpuZ2oyemN6d0xERmx1MkZONWpJY2E1NU1rRzRDdjk3Wk8wd0xEZ01hQW5qZG9UOGF2ZVN1d9IB1wFBVV95cUxNUUhzVEhKZkZZUEc0NUlpWGNYOE50VXI2YTVqcWRoTW90MlR0cnRsOUVoVndwT3lGb2RUaVZSTHFKSUwtYjlaM2RVR1UwTi1zVjdBNUU0dWtLZ1ZaMGhnZ2xkYl9TV2hJbFg5SHN2SzduMmZuVG9aanFSMlRBM29IRkhIS0FCMkFKc05CUjRPdldrM3hkS3ZXcnBaMm13TmhueFpuZ2oyemN6d0xERmx1MkZONWpJY2E1NU1rRzRDdjk3Wk8wd0xEZ01hQW5qZG9UOGF2ZVN1dw?oc=5",
+     "at": "2026-10-03T02:31Z"
+    },
+    {
      "t": "Nasdaq Leads Wall Street Higher As Rate-Sensitive Stocks Rally",
      "src": "BusinessToday Malaysia",
      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQR2IzaXVvQWZLMS1XZTBwaUFiRlRRc0FSSUxnSlVvLVA0ZExKaTFLQ1I4ZnBIVkxkdWVyUTRhMC00UjYwa25JTzZiUXFzX1V4SjdxQzBlTkplVW94Wi13QWhoUmlXWkhGS3M1dDVpNFlmQ1BBeEkzaFRrMGUycVNSalIzWlJQN3JaeFpwNkVLU1pIaGppUWJhM3lMRG43OTFGSVRYbUVRbTd6RjQ?oc=5",
@@ -338,22 +344,10 @@
      "at": "2026-10-02T23:39Z"
     },
     {
-     "t": "Equities close higher as softer jobs data quiets rate-hike expectations",
-     "src": "Reuters",
-     "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPeTVxVTNLX2pUZEc1U0xtNWdyYWRjY0NjSVcweXJNYk9PTDVKVnJaTzFNTUdnNW5LVEFxaHlELU9fVW9neE93Q0VDanlUbkJPcUhMaXNmNUJQX3pXd0JvcU1VSHh5Z1NEZnQzWGFsclpXZ08zRTVmY2ZaV1J4a2JBU3lPTEVNTUNBSVdVcWRydUlJOEY5ZU13NERhMFE3YUstSzB2RE5JV1gtZw?oc=5",
-     "at": "2026-10-02T22:44Z"
-    },
-    {
      "t": "S&P 500, Nasdaq, Dow End Week Higher As Weak Jobs Report Cools Rate Hike Bets — NVDA, BA, SPCX, RIVN, APLD In Focus",
      "src": "TradingView",
      "url": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxQSXhhX09UQVdfcXBwWkk2ck1OXzhsSm5PS0F0WHBPUEhja3JqZnEyal9PVWkxUTRCR0E5RHp3LWJrcHBqNkNwUVoySk5MWXN4UGJtTE1LTl9TZl9reWw4eXg0Q28zWGh4Um9COFo0N3kxb0wwcEVMU3NnWUJYSjVxZV9mRGxBMzlNVU5FZ2JzalF2MUdRYUFwcUhia0l1YVJvVHl1UXA4cEhHQ0xhM1B1WkF6SnVQbDVxWUtXTmU0dk1zWGJmV2VJdWVLT1gtcFdub0hfRVJTU3hteTlYZnVxZDBRUE5tX2pwc2FQTXUwUzlRbV9NeXpTVFdnU0w?oc=5",
      "at": "2026-10-02T22:28Z"
-    },
-    {
-     "t": "The Powerful Yet Fragile Force Propping Up Stocks and the Economy",
-     "src": "The New York Times",
-     "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1iVFo0X183d0hLTDdCZU9jamhyTFIxY3RIWmZYNWVfQlQ2TkVPbXRuMS1rM2hEUWtrOU8xRjBQWlV1MHMtRWFqWWVlSXIzOEtnRE9ua3l1NEpSaFFRcGZndTkwU2xUU2pLZ19ISjJ0alE5Mk50enlNZHYyb1c?oc=5",
-     "at": "2026-10-02T20:36Z"
     },
     {
      "t": "U.S. stocks rise near their record after the latest jobs report eases worries about inflation",
@@ -392,6 +386,12 @@
      "at": "2026-10-02T13:49Z"
     },
     {
+     "t": "Wall Street Futures Advance as Investors Await September Jobs Report: Dow Jones, S&P, Nasdaq",
+     "src": "Yahoo Finance UK",
+     "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPWXBlRW1yeXRvaE1Db3drNUYxSHJWMUNiYldMcUhicEZZQ3NGZmJfRkR3LWxoYnFOdjNxakFQRmQ2Nmg0ZFQtb1oxTG1yVDJhSk4zME4yelNpdWNoR1p1N3JzQ3FwRFlvcTVIRDNjQVUyaEpwakhuWTBkLTdKLUhnRzJlbHVYMzJlTlE5Q29XSQ?oc=5",
+     "at": "2026-10-02T09:00Z"
+    },
+    {
      "t": "US Stock Market Today: S&P 500 Futures Steady As Traders Weigh Global Factory Strength",
      "src": "Yahoo Finance",
      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQcHlXdWhLV01tRjhxcy1yaVhhT3hsZGxTLThwZkFHTEVXdnl4UlRFREJrR1JWOElSUnl4Q2x4Uk9kck9rVEpucHJJbkV2ME5yN2FKSnV5eEROR3NNYWRBZEYyY09IZDd6aWowUmVuYzVJUFhhVExPM1hIZV9EdVhhZEZNZjYxc2taZmFXS2w2ZmR1UQ?oc=5",
@@ -427,6 +427,12 @@
      "src": "Yahoo Finance",
      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOTFI0T2JmY3NJSUVxRnEyQndVaWQ5MDBIU3IyT2tOd3FDdnF2NWpHQlB1TWhBak1qQk1xN2Rla1FrLXp2TUlhZzJqOUw1eEl2U1U1NlQ2a2I3WWtQUFFqS09HX2lEa3g2UlMwVGp6a0toT2lpZldkU20yTzgyRUNsMXRQaHE3STVrQXdENmQ2SmtvSUE?oc=5",
      "at": "2026-10-02T15:47Z"
+    },
+    {
+     "t": "NVIDIA Corporation (NVDA) stock price, news, quote and history",
+     "src": "Yahoo Finance UK",
+     "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE81OEFKQTktenlhclpBTlVtWEJqNVpKOVNWNlRaNlRDRnR0dHRielpfZXdtR0pXcUcyNDN1WTlzOWVrWXZTNVhTbEVIOUxEaklxVWc?oc=5",
+     "at": "2026-10-02T15:46Z"
     },
     {
      "t": "Long-Term Agreements Don’t Protect the Memory Makers the Way You Think",
@@ -469,12 +475,6 @@
      "src": "Bloomberg.com",
      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNRkR5OWQxc25FWUhJUnFxRENlemF2bE5uSjZZWU9WYlB2OGotVW9ZOHNFNHEza0lDSW9NZ3lTWUctWHBOZXVQXzk2OTRUNVBSYzF3V2h2d210dzExN2pwZ25PdG1ub3FPcENYX0dXWXV3VXJFWnJWRmVRYmpFRGU5ZlJ0Z3p3MU5xeE1fTXBMT19FajgtRVk1NGdmYlA3Uk83X0ZaUGFMR0piVjU1cTdjZ05n?oc=5",
      "at": "2026-10-02T10:48Z"
-    },
-    {
-     "t": "Lumentum CEO warns laser shortage could outlast the AI chip crunch",
-     "src": "Startup Fortune",
-     "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQN0NYUnZleGhINW45NzAtVXhiRVRQcEhneGwxMHNoako1bjAzbXVqcTZoVkVkeld2U0g5eHRaVXk2SmFyWnh0UmhVREJ4VDRRa2h5dkpSamFZQWFUd3pkT0MxOFduR3JmWExydHVPSWdYNTN1TUluUHFRLTVZdDJydFZpN3V1TXA4TW5TdzlSNG5nTEFOR3lIWFBR?oc=5",
-     "at": "2026-10-02T09:41Z"
     }
    ]
   },
@@ -490,22 +490,16 @@
      "at": "2026-10-03T03:30Z"
     },
     {
+     "t": "Gold Rate Today in Delhi 3rd October 2026 : 22 & 24 Carat, Todays Gold Price in Delhi",
+     "src": "Business Today",
+     "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5uN0hKSXRHZGo3S1pxTWZIdVAzWmhUVG5OU1lCdDV1cG0wN1ZsNXpXWkJnTEt4WUlDTGpZZHItV2I2bnNPX2V0UDk2Zzd3T18zcWc4RHRIYWxoc20yRXYxa2ZNMVVCTkRqZDQ3LW5QdFc?oc=5",
+     "at": "2026-10-03T03:08Z"
+    },
+    {
      "t": "Gold Rate Today in Pudukkottai 3rd October 2026 : 22 & 24 Carat, Todays Gold Price in Pudukkottai",
      "src": "Business Today",
      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5KSVZXM0hWWlRVYW9qVUtfNVFJVWk0QlJReXk1RndMS1ZfSHJYbnNuWkFiV3FfOFVkRjlzeDE0b0xScFMzajJzSWtaN0dnejhzc2Y4Sk1YOUlhcldKc0w5SVFTQkFZUlVZeTQ3WFFMcGh0eGRkV1dobw?oc=5",
      "at": "2026-10-03T02:48Z"
-    },
-    {
-     "t": "Gold Rate Today in Chandigarh 3rd October 2026 : 22 & 24 Carat, Todays Gold Price in Chandigarh",
-     "src": "Business Today",
-     "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBJTVRrbDFaN0MweGNJLXlhdkxCUTVTYTZvU25KQ0NuYnR3YmxyN0IzTjg3YWZoeTA5dzU5ajBwbUN6WC11bFpWdkRYS3V5cUEzdWFKY2xCdzJXOHVIaVRZUnRMVW9kY0NsMlpmckE5VTBfeWFEQTZR?oc=5",
-     "at": "2026-10-03T02:27Z"
-    },
-    {
-     "t": "Gold Rate Today in Noida 3rd October 2026 : 22 & 24 Carat, Todays Gold Price in Noida",
-     "src": "Business Today",
-     "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5Ya0tZUjV3N3VVVDNXbDRBbm9lVTdTNlNDc1pXR2V0Q0tXT28teE15Q3BNWTdvM2U4XzdMYmpHOXA3R29GRUl0Y1NPblRGZWc4QWhPclhuTXd2WjBPWjQyUEU0cUFZdFkyT0NGRzJzVks?oc=5",
-     "at": "2026-10-03T02:27Z"
     },
     {
      "t": "Gold Rate Today in Andhra Pradesh 3rd October 2026 : 22 & 24 Carat, Todays Gold Price in Andhra Pradesh",
@@ -526,15 +520,9 @@
      "at": "2026-10-03T02:12Z"
     },
     {
-     "t": "Gold Rate Today in Mumbai 3rd October 2026 : 22 & 24 Carat, Todays Gold Price in Mumbai",
+     "t": "Gold Rate Today in Hyderabad 3rd October 2026 : 22 & 24 Carat, Todays Gold Price in Hyderabad",
      "src": "Business Today",
-     "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE9XUlpMQWpoY1FNdmFyYXNXam9iNlljbFZqTEc4cjgtT1hRdG9DN213ckJseVlSTmR1VjVsOS1mZHlLbmtfY0NwaFlKc3hQYThuRm5ydEtWczh0aWVXRjFDQ1dvc3A0WVJuT0o1SXBTckJBQQ?oc=5",
-     "at": "2026-10-03T02:12Z"
-    },
-    {
-     "t": "Gold Rate Today in Patna 3rd October 2026 : 22 & 24 Carat, Todays Gold Price in Patna",
-     "src": "Business Today",
-     "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9GdlFXeXdNVHFTdThnd0VUc2syclJaSXNQcW9ESlVPSEdIbTNEZzdpNUxnU1gxM2R2Y1NhWFlLYTBTeHozcnZuWVRLNUc2WUUzQTNjRmFtcmhXbVVQYkNGWEpCTlZVVV9tYkgzN0Mtenc?oc=5",
+     "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBBTjhRRDgxTXFqT0lhVERuSXJXczRWVVEtRXpCZ1ZPSnB5WTlVSm9JSG9vTG5uRW9vd0dqbWFZNlZGVXlxSWpieEdzRnJOSmxPeHVaR2JHdkNZV2ZtS2JGWHVlTks5a2ZtY0tpd1BXeTc2blJ2bGc?oc=5",
      "at": "2026-10-03T02:12Z"
     },
     {
@@ -544,16 +532,28 @@
      "at": "2026-10-03T01:48Z"
     },
     {
-     "t": "Gold Rate Today in Delhi 3rd October 2026 : 22 & 24 Carat, Todays Gold Price in Delhi",
-     "src": "Business Today",
-     "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5uN0hKSXRHZGo3S1pxTWZIdVAzWmhUVG5OU1lCdDV1cG0wN1ZsNXpXWkJnTEt4WUlDTGpZZHItV2I2bnNPX2V0UDk2Zzd3T18zcWc4RHRIYWxoc20yRXYxa2ZNMVVCTkRqZDQ3LW5QdFc?oc=5",
-     "at": "2026-10-03T01:11Z"
-    },
-    {
      "t": "Gold Rate Today in Lucknow 3rd October 2026 : 22 & 24 Carat, Todays Gold Price in Lucknow",
      "src": "Business Today",
      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE84VW9PX0E3eDZwNUdWcXdVX3JHdjNaYmw1QU9sUkpyeGhmMlFkc21XUjZMc0NiRW55QTNyYnVGWXhKQi11QXVIX0swanh6UlV4YW1JTVRCWl9FMUVpTF9keXZtWFFKRVdPY3R2djBJQUNjTWs?oc=5",
      "at": "2026-10-03T01:02Z"
+    },
+    {
+     "t": "Gold Rate Today in Uttar Pradesh 3rd October 2026 : 22 & 24 Carat, Todays Gold Price in Uttar Pradesh",
+     "src": "Business Today",
+     "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5SeGZIWl9hZERFamdMT3dQR0g5WUI3elBZYm54V2FuZlQ2ZUpuT0JlVG9NUkxwSXZieDZYeDlDdDR6Z0tyM2x6VWctQ3RIRGtRWXVDVkQwbTZyNW1vYWtxbjMyX3lHRW8wN0xuRFdNODdURVBlN1BmbVplZw?oc=5",
+     "at": "2026-10-03T01:01Z"
+    },
+    {
+     "t": "Gold Rate Today in Haryana 3rd October 2026 : 22 & 24 Carat, Todays Gold Price in Haryana",
+     "src": "Business Today",
+     "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5JX1d0SlFjOG5keUtfdmR5SlZ3TV82VEd2LTBzR3JqMnVydF9UMzZNVEFwZUpGVVJ5czVTY040LXVHalNTa3o3elBQZHZCODFnbVFha001UWNrcEdxQ0d4V052V3MyLUxDWVRZcG1WeUZETkE?oc=5",
+     "at": "2026-10-03T00:42Z"
+    },
+    {
+     "t": "Gold Price Canada Today | Live Gold Price in CAD",
+     "src": "Kitco",
+     "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFBVMHM0YXN3UkRUdlVZXzdrUjJmSHh5eFZ6Q0pSOVhYV1pLU0VzSXNhWGRVREpJbm9uX3pvSkZsMDNVRmg4a3JPYXlTY2N3OEF5Wm00MA?oc=5",
+     "at": "2026-10-03T00:00Z"
     }
    ]
   },
@@ -582,13 +582,13 @@
     },
     {
      "t": "EU Tariff Deal to Make German Cars in Indonesia More Affordable",
-     "src": "Jakarta Globe",
+     "src": "jakartaglobe.id",
      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNRVVvRG9JTjJQaGRua0lIN2xhQVVjRGlvZzducThKbFJxNXhwV19PYUQzOXA2UVNqTnFJWE1KUnpXUzVKNHc4clk3Rkh4NDF6WHE4b1JXbW41Z2tjeHZvRlp2TncycnN3RklscGZSTmNIZDNHTU0xQlpiZnRwOTNjNVRnT1pfMUdCODAwMXdMSi1aaWZFODBGR1VLYlE?oc=5",
      "at": "2026-10-03T00:16Z"
     },
     {
      "t": "Tariff Backlash Erodes Trump's Iowa Stronghold Amid Farmer Struggles",
-     "src": "chosun.com",
+     "src": "조선일보",
      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNVVkzR1ZlR0tTMzRsMlBkQnN4YUNnb2FwQ21FYjFYNUY0MVFKYTFKcDgtRk94elBOVF9CNWt6R2t1TDk5NktmeGk5SVNSTzliR2lEbkVGLWsxeDRTbEVuaWFWWmh2aFNqSTNtdTk4Zl92Um1Jel9qSUR6MHp2YzNCV21aU0k?oc=5",
      "at": "2026-10-02T23:50Z"
     },
