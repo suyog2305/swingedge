@@ -1,7 +1,7 @@
 # Roadmap
 
 What's built, what's blocked, and what's next — in dependency order rather than wish order.
-Status as of **2026-09-25**.
+Status as of **2026-10-03**.
 
 ---
 
@@ -465,6 +465,55 @@ around 17:20. That is the earliest an honest close can be had; a pull at 15:50 t
 wait would show today's prices against yesterday's averages, which is worse than yesterday's data.
 One day is one day: if the completion time drifts, the log now shows every poll with its
 fractions, and the deadline is 21:00.
+
+### 2026-10-03 — a holiday dated as a session; Markets & Macro; the page explains itself
+
+**The week's runs were late, and one of them mislabelled a close.** Four of five evening runs
+never started on time (28 Sep at 21:54; the 29 and 30 Sep closes built the next morning; 1 Oct not
+at all). `WakeToRun` was on, but Windows' own "Allow wake timers" is disabled in the power plan and
+the task refused to start on battery, so nothing woke the laptop. The battery conditions are now
+off (task level). The wake-timer setting is the owner's to change. Then 2 Oct was Gandhi Jayanti:
+the 15:50 run found Thursday's close still on screener, with no Thursday scan on file to compare
+it with, and published it as `2026-10-02.json`.
+
+- `last_nse_session()` reads the Nifty 50's last trade; `resolve_session()` dates a scan by that
+  session when the previous close is not on file, and stamps a note on the scan saying why.
+- The non-trading-day guard asked for every shared price to match and counted a name with no
+  price on either side as a mismatch. Four such names made the holiday look like a trading day
+  when the fix was re-tested. It now compares priced names against `SAME_CLOSE_LIMIT = 0.90`:
+  trading days on file repeat 0.45–1.15% of prices, the holiday repeated 1,568 of 1,568.
+- The scan was re-dated to `2026-10-01.json`; shortlist, journal, tracker and indices rebuilt.
+
+**Markets & Macro replaces Market Pulse and the Commodities page.** Commodities had been blank
+since the first upload: it kept its readings in `DB.snapshots`, the same key Position Snapshot
+uses, so its seed never loaded, and saving a reading there threw at the next start-up and stopped
+every page loading. The merged page reads `data/markets/markets.json` (`tools/fetch_markets.py`):
+NSE's own end-of-day index file (167 indices a day, a year back-filled), Yahoo for the outside
+markets, RBI for the benchmark yields, NSDL for FPI flows by day, month and sector, SEBI for mutual
+funds. The daily FPI rows reconcile exactly with NSDL's monthly table for all ten months of 2026.
+What it does not have: the exchanges' same-day FII/DII figures, which are served only to a browser
+session. The driver table puts the textbook reading beside the correlation measured in the data,
+so a link that is not operating shows as one.
+
+**One chart engine.** The Indices detail chart was a stretched SVG with three labels (min, mid,
+max). Charts now have real dates on the x-axis, round-number ticks, a legend that re-fits the axis
+when a series is hidden, and a full-screen view with a log scale. Eleven sub-sector trackers.
+
+**RS Leaders explains itself.** An "i" on every column, a per-stock reason behind every Trend,
+Exhaustion and Verdict cell, the names that entered the top 25 and the ones climbing toward it,
+and the owner's holdings checked against the list. Holdings stay in the browser and in
+`.secrets/`; the repository is public and nothing about them is published.
+
+**Market News.** Headlines collected at 04:00 IST by a GitHub job (no model), which also tops up
+the macro file, so the morning page no longer depends on the PC. A routine adds a digest that may
+cite only collected headlines; the tool rejects a point that cites nothing.
+
+**A class of bug the syntax check cannot see.** A `const` declared below the code that fills it
+parses and then stops the whole script at load. `tools/check_page.py` now runs the script top to
+bottom in a stubbed page as well as parsing it.
+
+Open: the provider's Stage 2 list is still the one of 13 Sep. NSE's index file is fetched only by
+the evening run, so index tiles are a session behind until it has run.
 
 ---
 
