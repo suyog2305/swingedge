@@ -26,8 +26,8 @@ price-ticker pages, prefers the business press, and writes up to three candidate
 data/daily/gainers_candidates.json with ids (HFCL:1, HFCL:2). It publishes nothing. The daily news
 routine (tools/daily_news.py) then only has to choose an id per stock, or none - a few hundred tokens
 instead of fifteen web searches - and the headline that is published is the publisher's own words.
-A scan whose candidates have been reviewed is marked `vetted`, so a holiday or a weekend does not
-repeat the work. STDLIB ONLY; fails soft (a feed that does not answer leaves that stock without
+The routine records the scan it has reviewed in news.json (`vetted_scan`), so a holiday or a weekend
+does not repeat the work, and this file is written by collectors only. STDLIB ONLY; fails soft (a feed that does not answer leaves that stock without
 candidates).
 """
 import argparse, datetime as dt, glob, json, os, re, subprocess, sys, time
@@ -201,7 +201,7 @@ def collect(top=15, fresh_days=3, per=4, force=False, quiet=False):
             print(f'    {code:<12} {len(keep)} candidate(s) of {len(items)}')
         time.sleep(0.4)
     doc = {'schema': 'swingedge-gainers-candidates/1', 'scan_date': scan_date, 'collected': dt.datetime.now(IST).strftime('%Y-%m-%dT%H:%M%z'),
-           'vetted': False, 'stocks': stocks, 'errors': errors}
+           'stocks': stocks, 'errors': errors}
     with open(CANDS, 'w', encoding='utf-8') as fh:
         json.dump(doc, fh, ensure_ascii=False, indent=1); fh.write('\n')
     return doc

@@ -8184,7 +8184,9 @@ SE_INFO['ix-breadth'] = `<h4>Above 50-DMA</h4><p>How many of the tracker's membe
 const MN = { doc: null, loaded: false, loading: false, error: null, topic: 'all' };
 async function loadMN(manual){
   if(MN.loading) return; MN.loading = true;
-  try{ const res = await fetch('data/daily/market_news.json', {cache: manual ? 'reload' : 'default'}); if(!res.ok) throw new Error('HTTP ' + res.status); MN.doc = await res.json(); MN.error = null; }
+  try{ const res = await fetch('data/daily/market_news.json', {cache: manual ? 'reload' : 'default'}); if(!res.ok) throw new Error('HTTP ' + res.status); MN.doc = await res.json(); MN.error = null;
+    // the digest has its own file (one writer per file: the collector writes the headlines, the routine the digest)
+    try{ const dr = await fetch('data/daily/market_digest.json', {cache: manual ? 'reload' : 'default'}); if(dr.ok){ const dg = await dr.json(); if(dg && dg.points) MN.doc.digest = dg; } }catch(e){} }
   catch(err){ MN.doc = null; MN.error = err.message || String(err); }
   finally{ MN.loading = false; MN.loaded = true; }
   const b = document.getElementById('mn-badge'), n = MN.doc ? (MN.doc.topics || []).reduce((s, t) => s + (t.items || []).length, 0) : 0;

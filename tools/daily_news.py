@@ -23,8 +23,10 @@ It prints only what is due, or NOTHING TO DO. Headlines carry short ids: crude:3
 Either key may be absent when that part was not due. A digest point that cites no collected
 headline is dropped. A gainer's pick must be one of its own candidate ids, or null for "none of
 these is about this company's move"; the published headline is the publisher's wording, never the
-model's. The scan's candidates are then marked reviewed, so a weekend does not repeat the work.
-With --commit: one commit of the three news files, rebased on main, pushed.
+model's. The reviewed scan is recorded in news.json, so a weekend does not repeat the work.
+With --commit: one commit, rebased on main, pushed. The routine writes only market_digest.json and
+news.json; the collectors write only market_news.json and gainers_candidates.json - one writer per
+file, so the two sides can commit at the same moment without a conflict.
 
 STDLIB ONLY. Nothing here recommends a stock: the digest reports, the picks are links.
 """
@@ -36,7 +38,10 @@ import market_news as mn
 
 ROOT = mn.ROOT
 IST = mn.IST
-FILES = [os.path.relpath(p, ROOT) for p in (mn.OUT, gn.NEWS, gn.CANDS)]
+# One writer per file: collectors write the headlines and the candidates, this routine writes the digest and news.json.
+# The two sides can therefore commit at the same moment without a conflict.
+MINE = [os.path.relpath(p, ROOT) for p in (mn.DIGEST, gn.NEWS)]
+THEIRS = [os.path.relpath(p, ROOT) for p in (mn.OUT, gn.CANDS)]      # change here only when this run had to collect them itself
 PER_TOPIC = 8          # headlines per topic shown to the routine; the page keeps twelve
 
 
@@ -58,7 +63,7 @@ def state(heal=True, notes=None):
             else: notes.append('market headlines: nothing could be collected here; using the file as it is')
         except Exception as e:
             notes.append(f'market headlines: could not collect here ({type(e).__name__}); using the file as it is')
-    digest_due = bool(m.get('topics')) and ((m.get('digest') or {}).get('for') != m.get('run_date'))
+    digest_due = bool(m.get('topics')) and (mn.load_digest().get('for') != m.get('run_date'))
     g = gn.candidates_doc()
     if heal:
         try:
@@ -70,7 +75,9 @@ def state(heal=True, notes=None):
             notes.append(f'gainers: {e}')
         except Exception as e:
             notes.append(f'gainers: could not collect candidates here ({type(e).__name__})')
-    gain_due = bool(g.get('stocks')) and not g.get('vetted') and any(s.get('cands') for s in g['stocks'].values())
+    try: vetted = gn.load(gn.NEWS).get('vetted_scan')
+    except Exception: vetted = None
+    gain_due = bool(g.get('stocks')) and g.get('scan_date') != vetted and any(s.get('cands') for s in g['stocks'].values())
     return m, digest_due, g, gain_due
 
 
@@ -82,9 +89,9 @@ def cmd_brief(a):
     for n in notes:
         print('note:', n)
     if not digest_due and not gain_due:
-        d = (m.get('digest') or {}).get('for')
+        d = mn.load_digest().get('for')
         print(f"NOTHING TO DO - the digest for {m.get('run_date')} is {'written' if d == m.get('run_date') else 'not possible (no headlines)'}"
-              f" and the gainers of scan {g.get('scan_date') or '-'} are {'reviewed' if g.get('vetted') else 'without candidates'}. Stop here.")
+              f" and the gainers of scan {g.get('scan_date') or '-'} are reviewed or have no candidates. Stop here.")
         return 0
     if digest_due:
         print(f"\n=== DIGEST - due for {m['run_date']} (headlines collected {m['updated']})")
@@ -112,7 +119,7 @@ def cmd_merge(a):
     if f.get('digest') and digest_due:
         digest, dropped = mn.make_digest(m, f['digest'])
         if digest:
-            m['digest'] = digest; mn.save(m); done.append('digest')
+            mn.save_digest(digest); done.append('digest')
             msg.append(f"digest {digest['for']} ({len(digest['points'])} points)")
             print(f"digest merged: {len(digest['points'])} point(s) for {digest['for']}" + (f'; dropped {len(dropped)}' if dropped else ''))
         else:
@@ -138,13 +145,11 @@ def cmd_merge(a):
                 bad.append(f'{code}: {pick!r} is not one of its candidates'); continue
             news['stocks'][code] = [{'t': cand['t'], 'src': cand['src'], 'url': cand['url'], 'date': cand['date']}]
             kept.append(code)
-        g.update({'vetted': True, 'vetted_at': dt.datetime.now(IST).strftime('%Y-%m-%dT%H:%M%z'), 'picked': kept, 'none': none})
-        with open(gn.CANDS, 'w', encoding='utf-8') as fh:
-            json.dump(g, fh, ensure_ascii=False, indent=1); fh.write('\n')
+        news.update({'vetted_scan': g['scan_date'], 'vetted_at': dt.datetime.now(IST).strftime('%Y-%m-%dT%H:%M%z')})
         if kept:
             news['updated'] = gn.today().isoformat()
-            with open(gn.NEWS, 'w', encoding='utf-8') as fh:
-                json.dump(news, fh, ensure_ascii=False, indent=2); fh.write('\n')
+        with open(gn.NEWS, 'w', encoding='utf-8') as fh:
+            json.dump(news, fh, ensure_ascii=False, indent=2); fh.write('\n')
         done.append('gainers'); msg.append(f'{len(kept)} gainer headline(s), scan {g["scan_date"]}')
         print(f"gainers merged: {len(kept)} headline(s) ({', '.join(kept) or '-'}); none chosen for {len(none)}" + (f'; rejected {len(bad)}' if bad else ''))
         for b in bad:
@@ -155,7 +160,7 @@ def cmd_merge(a):
         print('nothing merged'); return 2
     if not a.commit:
         return 0
-    git('add', *[p for p in FILES if os.path.exists(os.path.join(ROOT, p))])
+    git('add', *[p for p in MINE + THEIRS if os.path.exists(os.path.join(ROOT, p))])
     if git('diff', '--cached', '--quiet').returncode == 0:
         print('nothing changed - not committing'); return 0
     r = git('commit', '-q', '-m', 'Daily news: ' + '; '.join(msg))

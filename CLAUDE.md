@@ -70,6 +70,9 @@ for the newest scan's gainers; run by the evening pull and by the GitHub job). T
    — only the parts that are due. Digest: 5–8 points, each citing collected ids, nothing that is not in the headlines.
    Gainers: one of the stock's own candidate ids, or null when none is about that company.
 3. `python3 tools/daily_news.py merge findings.json --commit` — validates, publishes, one commit.
+One writer per file, so the collector and the routine can commit at the same moment without a conflict: collectors write
+`market_news.json` and `gainers_candidates.json`; the routine writes `market_digest.json` and `news.json` (which also records
+`vetted_scan`). Keep it that way.
 Do not go back to web-searching each gainer: that was 28 turns and 15 searches a day (it even re-ran on a market holiday).
 `gainers_news.py list` / `merge` remain for doing one by hand. The digest and the picks report news; they never rate a stock.
 

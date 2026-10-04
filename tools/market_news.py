@@ -31,7 +31,8 @@ import urllib.parse, urllib.request
 import xml.etree.ElementTree as ET
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(ROOT, 'data', 'daily', 'market_news.json')
+OUT = os.path.join(ROOT, 'data', 'daily', 'market_news.json')        # headlines: written only by `collect`
+DIGEST = os.path.join(ROOT, 'data', 'daily', 'market_digest.json')   # the digest: written only by the routine
 SCHEMA = 'swingedge-market-news/1'
 UA = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
       'Chrome/126.0 Safari/537.36')
@@ -151,10 +152,10 @@ def save(doc):
     os.replace(tmp, OUT)
 
 
-def commit(msg):
-    """Stage only the news file, commit, rebase on main, push. Git's own words on failure."""
+def commit(msg, path=None):
+    """Stage only one file (the headlines by default), commit, rebase on main, push. Git's own words on failure."""
     run = lambda *a: subprocess.run(['git', *a], cwd=ROOT, capture_output=True, text=True)
-    run('add', os.path.relpath(OUT, ROOT))
+    run('add', os.path.relpath(path or OUT, ROOT))
     if run('diff', '--cached', '--quiet').returncode == 0:
         say('    nothing changed - not committing'); return 0
     r = run('commit', '-q', '-m', msg)
@@ -170,6 +171,21 @@ def commit(msg):
     print('push failed - the commit is local'); return 1
 
 
+def load_digest():
+    """The digest on file. It has its own file so that the collector and the routine each write one file and
+    their commits can never conflict; an older headlines file may still carry one inline."""
+    try:
+        return json.load(io.open(DIGEST, encoding='utf-8'))
+    except Exception:
+        return load().get('digest') or {}
+
+
+def save_digest(digest):
+    os.makedirs(os.path.dirname(DIGEST), exist_ok=True)
+    with io.open(DIGEST, 'w', encoding='utf-8') as fh:
+        json.dump({'schema': 'swingedge-market-digest/1', **digest}, fh, ensure_ascii=False, indent=1); fh.write('\n')
+
+
 def ids(doc):
     return {f"{t['id']}:{k + 1}": it for t in doc.get('topics') or [] for k, it in enumerate(t.get('items') or [])}
 
@@ -180,9 +196,9 @@ def refresh(hours=30):
     topics, errors = collect(hours)
     if not sum(len(t['items']) for t in topics):
         return None, errors
-    old, now = load(), dt.datetime.now(IST)
+    now = dt.datetime.now(IST)
     doc = {'schema': SCHEMA, 'updated': now.strftime('%Y-%m-%dT%H:%M%z'), 'run_date': now.date().isoformat(), 'window_hours': hours,
-           'topics': topics, 'digest': old.get('digest'), 'errors': errors}
+           'topics': topics, 'errors': errors}
     save(doc)
     return doc, errors
 
@@ -213,7 +229,7 @@ def cmd_brief(a):
     doc = load()
     if not doc.get('topics'):
         print('STOP - no collected headlines; run `python tools/market_news.py collect` first'); return 2
-    d = doc.get('digest') or {}
+    d = load_digest()
     print(f"run {doc['run_date']} (collected {doc['updated']}); digest on file is for {d.get('for') or 'none'}\n")
     print('\n'.join(brief_lines(doc)))
     return 0
@@ -254,12 +270,11 @@ def cmd_digest(a):
     if digest is None:
         print('STOP - no usable point: every point must cite a collected headline by id (see `brief`)'); [print('  dropped:', d) for d in dropped]
         return 2
-    doc['digest'] = digest
-    save(doc)
+    save_digest(digest)
     say(f"digest merged: {len(digest['points'])} point(s) for {digest['for']}" + (f'; dropped {len(dropped)}' if dropped else ''))
     for d in dropped:
         say('  dropped:', d)
-    return commit(f"Market news digest {digest['for']}") if a.commit else 0
+    return commit(f"Market news digest {digest['for']}", DIGEST) if a.commit else 0
 
 
 def main():
