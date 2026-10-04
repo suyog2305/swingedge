@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02",
+  "updated": "2026-10-04",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -372,10 +372,10 @@
     ],
     "MOLBIO": [
       {
-        "t": "Molbio Diagnostics gains 9% as Jefferies initiates coverage with Buy rating",
-        "src": "Business Standard",
-        "url": "https://www.business-standard.com/markets/news/molbio-gains-9-as-jefferies-assigns-buy-tag-on-innovation-led-model-126093000221_1.html",
-        "date": "2026-09-30"
+        "t": "Motilal Oswal Alternates sells over 2% stake in Molbio Diagnostics for ₹306 cr",
+        "src": "BusinessLine",
+        "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNV3BNYTJoODV3emxCRUwxSXN2NUtRb01vXzU1YTVDUGpqS2ZVUmJGNTVmdzBpM2JoTnZsZUdSWXVrVE03VHZiY193anpndVF3OTZ5VWt5dUdJcVVSMkszaUUycWlla3hhUmY3U1dvRS1pZDhoVm9ROGduMmxvR3NWZHRyTTV6SWVTYzNjekZSelRDN25JTjhyalNodW95LWZQTkZ1UFZ3UmRheFRvTjdXbWw0UHlVUnUxZ3ozRDNUek5XZ0JqVTR5eVNzMFI5eTNQUlhfUzR0c3LSAd8BQVVfeXFMUDA2OXctN0EtVWxZR0Q5Z2FScEZKRy1fZF9LNS1NWWxaZks5VlJMd3pIeDBXc0FBU3dQM01od05ROU0zTURHUnNrY0pNbjR4T1pqc3pLRzhacjJGM1VaNHJjQUtUZG11NDFtUHZ3M3VrOFpDNGcxdzd2YTViZkdNMDE0a3pVSkhvcG42cDV2NkxhOUZfSXFjQUhjbnhvLUkzQk8weG1rbWdWOFZ3YW9WQjB5UXA4eC1waXJXckVsN2JyQW1wX0lFWmhnam9jUW1kR0o0c21ETllSYkVqeTkzMA?oc=5",
+        "date": "2026-10-01"
       }
     ],
     "GREENPOWER": [
@@ -1356,9 +1356,9 @@
     ],
     "ELEVATE": [
       {
-        "t": "Elevate Campuses shares list at 2% discount to IPO price in tepid debut",
+        "t": "Elevate Campuses shares off to a tepid start, list at 2% discount",
         "src": "Business Standard",
-        "url": "https://www.business-standard.com/markets/news/elevate-campuses-shares-off-to-a-tepid-start-list-at-2-discount-to-ipo-price-126093000229_1.html",
+        "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQbFh3cm53QWowNjNyem44MXE4RG81XzRaZGhOVVJqNk1wZkpyWW9SVlRQU3JJb3IwZ2lDbURPTFNQM0lSVmdRUTd6dTU3bDVjZFF2a3ZaMC0zNFdQc3Y4N3FrZGc0a0NmYUtKd2ZXa3l3dndVTmhBTzkxa3JPam9UbU4yM1h0a1FPNzFpT3FRUVBFV2drODIyaGJ4MFplaGw4UldZLVdQcVlhLXdzZEZycXpBUGNUNWtSR3dXc3NpSHpMUTlGNUlxYjc4LVVNM3NIeVQ4VWhsSEJKRjTSAeABQVVfeXFMT2t6a2l4aXVjS3R2aENmanEwLUxQZlZKLWk5NExVakQyYzdFLTFKQ01XdVVSRGpOZkplS3lFTlFjQmNfdG53RUt3aDhDVDJjdnBkb18wYzU4ZU9MS2NWdUhDMy1yWkUwQ0c2X1E2R1hqMmdQQnZ4YnFIV2k5QWdkOEowN0hUUllXakpTZWZLRnJ5MkxUQ0dETXk2dC0weEFDMVpzbnBfRHUydzFBcTUyVnp4aWNPa0NOckVuRm5xTFVMSXN0ZUJ6Yy15VFg1U0R6WGYxa1JHNFBENmNVVml3UGg?oc=5",
         "date": "2026-09-30"
       }
     ],
@@ -1386,5 +1386,7 @@
         "date": "2026-09-26"
       }
     ]
-  }
+  },
+  "vetted_scan": "2026-10-01",
+  "vetted_at": "2026-10-04T14:26+0530"
 }
