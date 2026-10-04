@@ -630,6 +630,12 @@ def main():
                [py, os.path.join('tools', 'fetch_themes.py'), '--quiet'], a.dry_run):
         print('    ignored - the scan, shortlist and journal above are complete')
 
+    # ---- candidate headlines for today's gainers (no model, no web search) ------------------
+    # The daily news routine only chooses among these, so it never has to search. Never blocks.
+    if not run("collect candidate headlines for today's gainers (never blocks the scan)",
+               [py, os.path.join('tools', 'gainers_news.py'), 'collect', '--quiet'], a.dry_run):
+        print('    ignored - the scan, shortlist and journal above are complete')
+
     # ---- markets and macro: NSE's index file, yields, the dollar, crude, foreign flows -------
     # What the Markets & Macro page reads. The same rule as the theme trackers: each source keeps
     # its last good data when it does not answer, and nothing here may stop the run. (The 4 a.m.

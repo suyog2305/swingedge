@@ -1,17 +1,21 @@
-name: Market news and macro (4 a.m. IST)
+name: Market news and macro (before the Indian morning)
 
-# Collects the overnight headlines for the Market News page and tops up the macro file behind
-# Markets & Macro, then commits both. 04:00 IST is a couple of hours after the US close in either
-# daylight-saving regime, so the page is ready before the Indian morning and does not depend on any
-# PC being awake. No model runs here and nothing needs a key: tools/market_news.py reads public news
-# feeds, tools/fetch_markets.py reads Yahoo, RBI, NSDL and SEBI. NSE's index file is left to the
-# evening pull on the owner's PC.
+# Collects the overnight headlines for the Market News page, the candidate headlines for the newest
+# scan's gainers, and tops up the macro file behind Markets & Macro, then commits them. No model runs
+# here and nothing needs a key: tools/market_news.py and tools/gainers_news.py read public news feeds,
+# tools/fetch_markets.py reads Yahoo, RBI, NSDL and SEBI. NSE's index file is left to the evening pull
+# on the owner's PC.
+#
+# The time: 21:43 UTC = 03:13 IST, after the US close in either daylight-saving regime. GitHub's
+# timer is best-effort and was 3 h 22 min late on its first night (4 Oct 2026), so the minute is kept
+# off the hour and the half-hour, where the queue is longest, and the news routine does not rely on
+# this job having run: it collects for itself when it can, and has a second morning slot when it cannot.
 on:
   schedule:
-    - cron: '30 22 * * *'    # 04:00 IST, every day
-  push:                      # a change to the collector proves itself with a live run
+    - cron: '43 21 * * *'
+  push:                      # a change to a collector proves itself with a live run
     branches: [main]
-    paths: ['tools/market_news.py', '.github/workflows/market_news.yml']
+    paths: ['tools/market_news.py', 'tools/gainers_news.py', '.github/workflows/market_news.yml']
   workflow_dispatch:
 
 permissions:
@@ -34,10 +38,13 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Collect the headlines
+      - name: Collect the market headlines
         run: python tools/market_news.py collect
 
-      # never fails the job: each source keeps its last good data when it does not answer
+      # each of the next two keeps what is on file when a source does not answer
+      - name: Collect candidate headlines for the newest scan's gainers
+        run: python tools/gainers_news.py collect || true
+
       - name: Top up the macro file
         run: python tools/fetch_markets.py --only global,rbi,fpi,sectors,mf || true
 
@@ -45,7 +52,7 @@ jobs:
         run: |
           git config user.name "swingedge-bot"
           git config user.email "swingedge-bot@users.noreply.github.com"
-          git add data/daily/market_news.json data/markets/markets.json
+          git add data/daily/market_news.json data/daily/gainers_candidates.json data/markets/markets.json
           if git diff --cached --quiet; then echo "nothing changed"; exit 0; fi
           git commit -m "Market news and macro $(date -u +%Y-%m-%d)"
           for i in 1 2 3 4; do

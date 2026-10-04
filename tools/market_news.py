@@ -174,19 +174,39 @@ def ids(doc):
     return {f"{t['id']}:{k + 1}": it for t in doc.get('topics') or [] for k, it in enumerate(t.get('items') or [])}
 
 
-def cmd_collect(a):
-    say(f'market_news: collecting the last {a.hours} hours')
-    topics, errors = collect(a.hours)
-    total = sum(len(t['items']) for t in topics)
-    if not total:
-        print('nothing collected - every feed failed or was empty; the previous file is kept'); [print('  ', e) for e in errors]
-        return 1
+def refresh(hours=30):
+    """Collect and write the file. Returns (doc, errors); doc is None when nothing at all came back,
+    and then the file on disk is left as it was."""
+    topics, errors = collect(hours)
+    if not sum(len(t['items']) for t in topics):
+        return None, errors
     old, now = load(), dt.datetime.now(IST)
-    doc = {'schema': SCHEMA, 'updated': now.strftime('%Y-%m-%dT%H:%M%z'), 'run_date': now.date().isoformat(), 'window_hours': a.hours,
+    doc = {'schema': SCHEMA, 'updated': now.strftime('%Y-%m-%dT%H:%M%z'), 'run_date': now.date().isoformat(), 'window_hours': hours,
            'topics': topics, 'digest': old.get('digest'), 'errors': errors}
     save(doc)
-    say(f'wrote {os.path.relpath(OUT, ROOT)}: {total} headlines in {len(topics)} topics' + (f'; {len(errors)} feed error(s)' if errors else ''))
+    return doc, errors
+
+
+def cmd_collect(a):
+    say(f'market_news: collecting the last {a.hours} hours')
+    doc, errors = refresh(a.hours)
+    if doc is None:
+        print('nothing collected - every feed failed or was empty; the previous file is kept'); [print('  ', e) for e in errors]
+        return 1
+    say(f'wrote {os.path.relpath(OUT, ROOT)}: {sum(len(t["items"]) for t in doc["topics"])} headlines in {len(doc["topics"])} topics'
+        + (f'; {len(errors)} feed error(s)' if errors else ''))
     return commit(f'Market news {doc["run_date"]}') if a.commit else 0
+
+
+def brief_lines(doc, cap=None):
+    """The collected headlines as compact lines with ids. `cap` trims each topic for the routine: the
+    ids stay the ones the page uses, so a cited id always resolves."""
+    out = []
+    for t in doc.get('topics') or []:
+        out.append(f"## {t['id']} - {t['label']} ({t['why']})")
+        for k, it in enumerate((t.get('items') or [])[:cap]):
+            out.append(f"{t['id']}:{k + 1} | {it['at'][5:16].replace('T', ' ')}Z | {it['src']} | {it['t']}")
+    return out
 
 
 def cmd_brief(a):
@@ -194,23 +214,16 @@ def cmd_brief(a):
     if not doc.get('topics'):
         print('STOP - no collected headlines; run `python tools/market_news.py collect` first'); return 2
     d = doc.get('digest') or {}
-    print(f"run {doc['run_date']} (collected {doc['updated']}); digest on file is for {d.get('for') or 'none'}")
-    for t in doc['topics']:
-        print(f"\n## {t['id']} - {t['label']} ({t['why']})")
-        for k, it in enumerate(t['items']):
-            print(f"{t['id']}:{k + 1} | {it['at'][5:16].replace('T', ' ')}Z | {it['src']} | {it['t']}")
+    print(f"run {doc['run_date']} (collected {doc['updated']}); digest on file is for {d.get('for') or 'none'}\n")
+    print('\n'.join(brief_lines(doc)))
     return 0
 
 
-def cmd_digest(a):
-    doc = load()
+def make_digest(doc, f):
+    """(digest or None, dropped). Every point must cite at least one collected headline by id; a point
+    that cites nothing, or an id that was not collected, is dropped - the digest cannot say something
+    the headlines do not."""
     known = ids(doc)
-    if not known:
-        print('STOP - no collected headlines to cite'); return 2
-    try:
-        f = json.load(io.open(a.file, encoding='utf-8'))
-    except Exception as e:
-        print(f'STOP - cannot read {a.file}: {e}'); return 2
     clean = lambda s, n: re.sub(r'\s+', ' ', str(s or '')).strip()[:n]
     points, dropped = [], []
     for p in (f.get('points') or [])[:10]:
@@ -222,16 +235,31 @@ def cmd_digest(a):
             continue
         points.append({'t': t, 'why': clean(p.get('why'), 260), 'refs': [known[r]['url'] for r in refs][:3]})
     if not points:
+        return None, dropped
+    now = dt.datetime.now(IST)
+    return {'for': doc.get('run_date'), 'at': now.strftime('%Y-%m-%dT%H:%M%z'), 'by': clean(f.get('by') or 'Claude routine', 40),
+            'headline': clean(f.get('headline'), 140), 'points': points,
+            'watch': [clean(w, 200) for w in (f.get('watch') or [])[:6] if clean(w, 200)]}, dropped
+
+
+def cmd_digest(a):
+    doc = load()
+    if not ids(doc):
+        print('STOP - no collected headlines to cite'); return 2
+    try:
+        f = json.load(io.open(a.file, encoding='utf-8'))
+    except Exception as e:
+        print(f'STOP - cannot read {a.file}: {e}'); return 2
+    digest, dropped = make_digest(doc, f)
+    if digest is None:
         print('STOP - no usable point: every point must cite a collected headline by id (see `brief`)'); [print('  dropped:', d) for d in dropped]
         return 2
-    now = dt.datetime.now(IST)
-    doc['digest'] = {'for': doc.get('run_date'), 'at': now.strftime('%Y-%m-%dT%H:%M%z'), 'by': clean(f.get('by') or 'Claude routine', 40),
-                     'headline': clean(f.get('headline'), 140), 'points': points, 'watch': [clean(w, 200) for w in (f.get('watch') or [])[:6] if clean(w, 200)]}
+    doc['digest'] = digest
     save(doc)
-    say(f"digest merged: {len(points)} point(s) for {doc['digest']['for']}" + (f'; dropped {len(dropped)}' if dropped else ''))
+    say(f"digest merged: {len(digest['points'])} point(s) for {digest['for']}" + (f'; dropped {len(dropped)}' if dropped else ''))
     for d in dropped:
         say('  dropped:', d)
-    return commit(f"Market news digest {doc['digest']['for']}") if a.commit else 0
+    return commit(f"Market news digest {digest['for']}") if a.commit else 0
 
 
 def main():

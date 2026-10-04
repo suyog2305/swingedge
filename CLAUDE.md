@@ -61,11 +61,17 @@ against the top 25 (the owner's own rule: 70–80% of the book inside it). Read-
 modify tool. Never write holdings to `data/daily/holdings.json` — the page would read it, but so would everyone else.
 Describe the book; do not advise on it.
 
-## News routines
-- Daily gainers: `python3 tools/gainers_news.py list` → web-search only the rows marked `search` → `merge findings.json --commit`.
-- Market news digest (after the 04:00 IST collection): `python3 tools/market_news.py brief` → write `findings.json`
-  `{"headline","points":[{"t","why","refs":["crude:3"]}],"watch":[]}` from those headlines ONLY, at most 8 points, each
-  citing ids → `python3 tools/market_news.py digest findings.json --commit`. No web search, no stock calls: it reports.
+## The news routine — ONE routine, no web search
+Collectors with no model gather headlines (`tools/market_news.py collect` for the market, `tools/gainers_news.py collect`
+for the newest scan's gainers; run by the evening pull and by the GitHub job). The routine only reads and chooses:
+1. `python3 tools/daily_news.py brief` — prints what is due (DIGEST and/or GAINERS) with ids, or `NOTHING TO DO`. The
+   tool decides what is due, and collects for itself if the scheduled collection has not landed.
+2. Write `findings.json`: `{"digest": {"headline","points":[{"t","why","refs":["crude:3"]}],"watch":[]}, "gainers": {"HFCL": "HFCL:2", "X": null}}`
+   — only the parts that are due. Digest: 5–8 points, each citing collected ids, nothing that is not in the headlines.
+   Gainers: one of the stock's own candidate ids, or null when none is about that company.
+3. `python3 tools/daily_news.py merge findings.json --commit` — validates, publishes, one commit.
+Do not go back to web-searching each gainer: that was 28 turns and 15 searches a day (it even re-ran on a market holiday).
+`gainers_news.py list` / `merge` remain for doing one by hand. The digest and the picks report news; they never rate a stock.
 
 ## Token discipline
 Prefer the CLIs above over reading data files; `data/scans/*.json` are ~1 MB each. One commit per task.
