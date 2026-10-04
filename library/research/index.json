@@ -1,6 +1,22 @@
 {
-  "updated": "2026-09-23",
+  "updated": "2026-10-04",
   "reports": [
+    {
+      "id": "powertd-2026-10",
+      "title": "India's Transmission Build-Out",
+      "subtitle": "The value chain, and who is ready for it · The policy is new and funded, delivery has run at about nine-tenths of target, and most large transformer plants arrive in 2027–2032 — only CG Power has a large new block already running",
+      "code": "CLUSTER",
+      "sector": "Thematic note",
+      "date": "2026-10-04",
+      "rating": "Evidence ranking against seven stated criteria — not a recommendation. Highest scores: Atlanta Electricals, Hitachi Energy India, GE Vernova T&D India, on incomplete balance-sheet data",
+      "targets": {
+        "bull": "A funded, dated policy; order books of 20–39 months at seven of the ten equipment makers with a disclosed book; delivery lead times of 11–24 months that favour makers with plants already built",
+        "bear": "The September shortage was a coal and hydro event, not a grid failure; and “ready ahead of demand” fails for Atlanta (capacity is ahead of qualification, not of orders) and for four of the five large caps"
+      },
+      "summary": "Cabinet approved PM-DHARA (Green Energy Corridor Phase III) on 30 Sep 2026: Rs 1,86,405 crore for intra-state transmission and 50 GWh of storage by 2032-33. The September 2026 shortfall, about 560 MU on press accounts, came from coal supply and weak hydro rather than the grid. Against seven stated…",
+      "file": "powertd-2026-10.html",
+      "featured": true
+    },
     {
       "id": "kross-2026-09",
       "title": "Kross Limited",
