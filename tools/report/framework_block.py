@@ -96,7 +96,9 @@ def newest_stage2(loaded):
     for p, d in reversed(loaded):
         S = d.get('stage2') or []
         if S:
-            return d.get('date'), {str(r.get('code', '')).upper(): r for r in S if r.get('code')}
+            # the list's OWN date when the scan records it: the weekly list rides along on every daily scan, and
+            # labelling it with the scan date made a three-week-old list read as today's (3 Oct 2026)
+            return d.get('stage2_asof') or d.get('date'), {str(r.get('code', '')).upper(): r for r in S if r.get('code')}
     return None, {}
 
 
