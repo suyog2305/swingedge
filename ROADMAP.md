@@ -1,7 +1,7 @@
 # Roadmap
 
 What's built, what's blocked, and what's next — in dependency order rather than wish order.
-Status as of **2026-10-03**.
+Status as of **2026-10-06**.
 
 ---
 
@@ -465,6 +465,21 @@ around 17:20. That is the earliest an honest close can be had; a pull at 15:50 t
 wait would show today's prices against yesterday's averages, which is worse than yesterday's data.
 One day is one day: if the completion time drifts, the log now shows every poll with its
 fractions, and the deadline is 21:00.
+
+### 2026-10-05/06 — a dead cookie went unnoticed for a day; now it is on the site within a minute
+
+The owner asked why the RS Screen was still showing the 1 Oct close on 6 Oct. Two causes, neither new in kind:
+the 5 Oct 15:50 trigger never fired (the machine was asleep; wake timers are still off in the power plan), and the
+5 Oct 20:00 run stopped at the first fetch because screener answered `/register/?next=…` — the `sessionid` cookie
+pasted on 9 Sep had expired. The log said so; nothing else did. The 5 Oct close is lost (screener serves live prices
+by the next morning). 2 Oct was a holiday.
+
+What changed: `fetch_screener.py` exits 5 on a login or register redirect; `eod.py --wait-until` keeps retrying every
+poll until the deadline on exit 5, re-reading the cookie file each time, so a fresh cookie pasted any time before
+21:00 lets the scheduled run finish on its own; the run writes `data/daily/pull_status.json` (ok / cookie / stale) and
+pushes it alone when it changes; the app shows a non-ok status in red in the sidebar and on the Shortlist pull card.
+Still the owner's to do: enable wake timers (`powercfg /setacvalueindex SCHEME_CURRENT SUB_SLEEP RTCWAKE 1`, then
+`powercfg /setactive SCHEME_CURRENT`), and refresh the cookie whenever the red line appears.
 
 ### 2026-10-03 — a holiday dated as a session; Markets & Macro; the page explains itself
 
