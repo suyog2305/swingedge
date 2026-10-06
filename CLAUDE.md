@@ -3,7 +3,11 @@
 Static app (`index.html`, ~10k lines — grep it, never read it whole) + JSON under `data/`, built by `tools/*.py`
 (no LLM). The owner's Windows daily pull runs `tools/eod.py` after the close: build_scan → build_shortlist →
 build_s2history → build_rs_tracker → build_indices → fetch_themes → fetch_markets, then commits `data/` and pushes
-`main`. A GitHub job (`.github/workflows/market_news.yml`) runs at 04:00 IST: market_news collect + fetch_markets
+`main`. The pull writes `data/daily/pull_status.json` (ok / cookie / stale); the app shows anything but ok in red in the
+sidebar and on the Shortlist pull card. `fetch_screener.py` exits 5 when screener redirects to /login/ or /register/
+(session expired); `eod.py --wait-until` then keeps retrying every poll until the deadline, re-reading the cookie file
+each time, so a fresh `sessionid` pasted into `.secrets/screener_cookie.txt` in the evening lets the run finish by itself.
+A GitHub job (`.github/workflows/market_news.yml`) runs at 04:00 IST: market_news collect + fetch_markets
 (everything except NSE's index file). Work on `main` directly; rebase on `origin/main` before pushing (the pull, the
 4 a.m. job or a routine may have landed a commit).
 

@@ -902,6 +902,7 @@ tr:hover .wr-act{opacity:1;} .wr-act:hover{background:var(--bg3);color:var(--lim
 .fb-shots img{max-width:220px;max-height:140px;border:1px solid var(--b2);border-radius:4px;cursor:zoom-in;}
 .eod-card{border:1px solid var(--b2);border-left:3px solid var(--gold2);border-radius:var(--r2);padding:14px 16px;margin-bottom:16px;background:var(--bg1);}
 .eod-card code{font:11px var(--mono);background:var(--bg2);padding:2px 6px;border-radius:3px;}
+.pull-status{display:none;font:600 10.5px/1.35 var(--sans);color:#FDA4AF;padding:6px 10px 0;cursor:pointer;} .pull-status.show{display:block;} html:not([data-theme="lab"]) .pull-status{color:var(--rose2);}
 .wr-sup{font-family:var(--mono);font-size:10px;color:var(--gold2);margin-left:3px;font-weight:700;}
 .wr-ctl{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0 4px;}
 .wr-ctl input[type=text]{font-size:12px;font-family:var(--sans);background:var(--bg1);border:1px solid var(--b2);border-radius:var(--r2);padding:6px 10px;color:var(--t1);min-width:230px;}
@@ -1334,6 +1335,7 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
       <div class="mkt-dot" id="mkt-dot"></div>
       <span class="mkt-text" id="mkt-text">Checking…</span>
     </div>
+    <div id="pull-status" class="pull-status" onclick="show('shortlist')" title="open the Shortlist pull card"></div>
     <button class="btn btn-ghost btn-sm" id="theme-toggle" onclick="seToggleTheme()"><i class="ti ti-sun"></i>Ledger theme</button>
   </div>
 </div>
@@ -10239,6 +10241,21 @@ function eodCopyCmd(){
 }
 function eodOpenScreen(){ window.open(EOD_SCREEN, '_blank', 'noopener'); }
 
+// what the last evening pull did (data/daily/pull_status.json, written by tools/eod.py): a dead screener session or a
+// close that never finished refreshing is shown here and in the sidebar, not only in a log on the PC
+const PS = { doc: null };
+async function loadPS(manual){
+  try{ const res = await fetch('data/daily/pull_status.json', {cache: manual ? 'reload' : 'default'}); PS.doc = res.ok ? await res.json() : null; }catch(e){ PS.doc = null; }
+  const el = document.getElementById('pull-status'); if(!el) return;
+  const bad = PS.doc && PS.doc.status && PS.doc.status !== 'ok';
+  el.classList.toggle('show', !!bad);
+  if(bad) el.innerHTML = `<i class="ti ti-alert-triangle"></i> Evening pull: ${wrEsc(PS.doc.status === 'cookie' ? 'screener login expired' : PS.doc.status === 'stale' ? 'close not ready by the deadline' : PS.doc.status)} · ${wrEsc(String(PS.doc.at || '').slice(0, 10))}`;
+  if(typeof renderSL === 'function' && typeof SL !== 'undefined' && SL.loaded) renderSL();
+}
+function psNote(){
+  const p = PS.doc; if(!p || !p.status || p.status === 'ok') return '';
+  return `<div class="wr-note red" style="margin:0 0 10px;"><div class="lab">${p.status === 'cookie' ? 'The screener.in session has expired' : p.status === 'stale' ? 'The close was not ready in time' : 'The last pull did not finish'} · ${wrEsc(String(p.at || '').replace('T', ' '))}</div>${wrEsc(p.message || '')}${p.status === 'cookie' ? ' Log in to screener.in in your browser, copy the <code>sessionid</code> cookie into <code>.secrets/screener_cookie.txt</code> on the PC, and the 15:50 run picks it up on its next try; after 21:00, run the pull by hand.' : ''}</div>`;
+}
 function eodCard(d){
   const age = eodAge(d);
   const stale = age == null || age >= 2;
@@ -10252,6 +10269,7 @@ function eodCard(d){
       <div><div class="se-eyebrow">End of day</div><h2 style="margin:0;">Pull today's data</h2></div>
       <span class="wr-tag ${stale ? 'stale' : 'tl'}">scan ${wrEsc(d && d.scan_date || '—')} · ${label}</span>
     </div>
+    ${psNote()}
     <div class="wr-lead" style="margin:0 0 10px;">
       ${stale
         ? `This screen is showing <b>${label === 'no scan loaded' ? 'no' : label}</b> data. Run the pull now, while you are at the desk — it needs your screener.in login, so it cannot run on a timer.`
@@ -10842,7 +10860,7 @@ function init(){
    ['renderConverge', renderConverge], ['renderWeekly', renderWeekly], ['renderLearn', renderLearn], ['renderChecklist', renderChecklist], ['renderProc', renderProc],
    ['renderMonitor', renderMonitor], ['renderPnl', renderPnl], ['renderSnap', renderSnap]].forEach(([n, f]) => step(n, f));
   [['loadLibrary', loadLibrary], ['loadWR', loadWR], ['loadSE', loadSE], ['loadMK', loadMK], ['loadMN', loadMN], ['loadPD', loadPD], ['loadDG', loadDG], ['loadRD', loadRD],
-   ['loadSL', loadSL], ['loadSJ', loadSJ]].forEach(([n, f]) => step(n, () => f(false)));
+   ['loadSL', loadSL], ['loadSJ', loadSJ], ['loadPS', loadPS]].forEach(([n, f]) => step(n, () => f(false)));
   step('feedback', () => { fbLoad(); fbBadge(); });
   step('theme', () => seApplyTheme());
   step('market clock', () => { updateMarket(); setInterval(updateMarket, 30000); });

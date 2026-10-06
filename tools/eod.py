@@ -64,9 +64,39 @@ def run(step, cmd, dry):
         return True
     env = {**os.environ, 'PYTHONIOENCODING': 'utf-8', 'PYTHONUNBUFFERED': '1'}
     p = subprocess.run(cmd, cwd=ROOT, env=env)
+    global LAST_RC
+    LAST_RC = p.returncode
     ok = p.returncode == 0
     print(f'    -> {"ok" if ok else "FAILED (exit %d)" % p.returncode}')
     return ok
+
+
+LAST_RC = 0                                   # exit code of the last step run(); 5 = screener session expired
+STATUS = os.path.join(ROOT, 'data', 'daily', 'pull_status.json')
+
+
+def pull_status(status, message, push):
+    """What the last evening pull did, for the app's sidebar: ok, or why nothing new came. Written only when
+    it changes, and pushed on its own when asked, so a failure is on the site within a minute of happening
+    instead of only in a log nobody reads (5 Oct 2026: a dead cookie went unnoticed for a day)."""
+    try:
+        old = json.load(io.open(STATUS, encoding='utf-8'))
+    except Exception:
+        old = {}
+    if old.get('status') == status and old.get('message') == message:
+        return
+    doc = {'status': status, 'at': dt.datetime.now().strftime('%Y-%m-%dT%H:%M'), 'message': message}
+    io.open(STATUS, 'w', encoding='utf-8').write(json.dumps(doc, ensure_ascii=False, indent=1) + '\n')
+    if not push:
+        return
+    g = lambda *x: subprocess.run(['git', *x], cwd=ROOT, capture_output=True, text=True)
+    g('add', os.path.relpath(STATUS, ROOT))
+    if g('diff', '--cached', '--quiet').returncode == 0 or g('commit', '-q', '-m', f'Pull status: {status}').returncode:
+        return
+    if g('pull', '--rebase', 'origin', 'main').returncode:
+        g('rebase', '--abort'); print('    (pull status not pushed: rebase failed)'); return
+    if g('push', 'origin', 'main').returncode == 0:
+        print(f'    pull status "{status}" published to the site')
 
 
 def snapshot():
@@ -511,6 +541,7 @@ def main():
             return False
         if now >= deadline:
             print(f'    The deadline ({a.wait_until}) has passed. Giving up on this close: nothing written, nothing committed.')
+            pull_status('stale', f'{date}: screener had not finished refreshing the close by {a.wait_until}; nothing was written', a.push)
             return False
         print(f'    [{now:%H:%M}] not complete yet - checking again in {a.poll} min, until {a.wait_until}.')
         time.sleep(a.poll * 60)
@@ -524,6 +555,7 @@ def main():
             print('\n--- no new data')
             print(f"    {det.get('matches', n)} of {n} prices are identical to the {prev} scan{extra} - screener is "
                   f'still serving that close, so {date} was not a trading day. Nothing written, nothing committed.')
+            pull_status('ok', f'{date} was not a trading day; the {prev} close stands', a.push and not a.dry_run)
         return same
 
     if a.skip_fetch:
@@ -542,6 +574,17 @@ def main():
                       'Stopping so nothing is mislabelled; nothing written, nothing committed.')
                 return 2
             if not go([('pull the broad universe (decides coverage)', fetch + ['--query', BROAD, '--suffix', '_base'])]):
+                if LAST_RC == 5 and deadline is not None and not a.dry_run:
+                    # the session has expired: say so where it will be seen, then keep trying - every pull reads the
+                    # cookie file afresh, so a new sessionid pasted this evening lets this run finish on its own
+                    pull_status('cookie', f'{dt.date.today()}: the screener.in session has expired, so the {date} close cannot be pulled '
+                                          'until a new sessionid is pasted into .secrets/screener_cookie.txt (the run retries every '
+                                          f'{a.poll} minutes until {a.wait_until})', a.push)
+                    now = dt.datetime.now()
+                    if now < deadline:
+                        print(f'    [{now:%H:%M}] waiting for a new cookie - trying again in {a.poll} min, until {a.wait_until}.')
+                        time.sleep(a.poll * 60); continue
+                    print(f'    The deadline ({a.wait_until}) has passed with no working cookie. Nothing written.')
                 return 1
             if not a.dry_run:
                 if non_trading(base):
@@ -664,6 +707,7 @@ def main():
         pass
     joined = [c for c in after if c not in before]
     dropped = [c for c in before if c not in after]
+    pull_status('ok', f'{after_date} close pulled and built', False)       # travels with the data commit below
     print(f'    shortlist: {len(after)} names, {len(joined)} new, {len(dropped)} gone')
     if joined:
         print('      in : ' + ', '.join(joined))

@@ -1,0 +1,5 @@
+{
+ "status": "cookie",
+ "at": "2026-10-06T09:35",
+ "message": "2026-10-06: the screener.in session has expired, so the 2026-10-06 close cannot be pulled until a new sessionid is pasted into .secrets/screener_cookie.txt (the run retries every 10 minutes until 21:00)"
+}

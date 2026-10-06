@@ -136,10 +136,14 @@ def fetch_screen(page_url, jar, kind_hint='screen'):
     """screener.in flow: GET the screen (saved or raw-query) results page, read the export form's CSRF
     token, and POST it. Works for a saved screen_url and for a /screen/raw/?query=... page alike."""
     status, headers, body = request('GET', page_url, jar)
-    if is_redirect(status) and 'login' in headers.get('Location', '').lower():
-        raise SystemExit('  ! screener.in redirected to login — your sessionid cookie is missing or expired (nothing written).')
-    if is_redirect(status):
-        raise SystemExit(f'  ! screener.in redirected to {headers.get("Location","?")} — check the ' + kind_hint + '.')
+    loc = headers.get('Location', '') if is_redirect(status) else ''
+    if loc and re.search(r'/(login|register)/', loc.lower()):
+        # screener sends a logged-out session to /register/ (5 Oct 2026) as well as /login/
+        print('  ! screener.in redirected to ' + loc.split('?')[0] + ' — your sessionid cookie is missing or expired (nothing written).')
+        print('    Log in to screener.in, copy the sessionid cookie into .secrets/screener_cookie.txt, and run again.')
+        raise SystemExit(5)                      # exit 5 = session expired; eod.py keeps polling until a new cookie is in
+    if loc:
+        raise SystemExit(f'  ! screener.in redirected to {loc} — check the ' + kind_hint + '.')
     merge_setcookie(jar, headers)                                   # picks up a fresh csrftoken
     page = body.decode('utf-8', 'replace')
     if 'unknown' in page.lower() and 'ratio' in page.lower():
@@ -167,11 +171,15 @@ def fetch_screen(page_url, jar, kind_hint='screen'):
         raise SystemExit('  ! screener.in export kept returning 503 (busy) — try again in a minute (nothing written).')
     if is_redirect(status):
         loc = headers.get('Location', '')
-        raise SystemExit('  ! export POST redirected to ' + (loc or '?') + (' (login — session expired)' if 'login' in loc.lower() else '') + ' — nothing written.')
+        if re.search(r'/(login|register)/', loc.lower()):
+            print('  ! export POST redirected to ' + loc.split('?')[0] + ' — session expired (nothing written).')
+            raise SystemExit(5)
+        raise SystemExit('  ! export POST redirected to ' + (loc or '?') + ' — nothing written.')
     if status != 200:
         raise SystemExit(f'  ! export POST returned HTTP {status} — nothing written.')
     if looks_like_login(data, headers.get('Content-Type', '')):
-        raise SystemExit('  ! export returned an HTML/login page — session expired (nothing written).')
+        print('  ! export returned an HTML/login page — session expired (nothing written).')
+        raise SystemExit(5)
     return data
 
 def save(data, base):
