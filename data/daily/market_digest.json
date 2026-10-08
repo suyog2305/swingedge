@@ -1,78 +1,72 @@
 {
  "schema": "swingedge-market-digest/1",
- "for": "2026-10-07",
- "at": "2026-10-07T07:45+0530",
+ "for": "2026-10-08",
+ "at": "2026-10-08T07:46+0530",
  "by": "Claude routine",
- "headline": "Brent holds near $100 as rupee hits two-month low ahead of RBI policy; Wall Street at records",
+ "headline": "RBI shifts to calibrated tightening as rupee hits 96.7/$ and US yields climb to multi-decade highs",
  "points": [
   {
-   "t": "Brent topped $100 as OPEC+ kept November oil output steady, while oil extended gains on escalating Middle East hostilities.",
-   "why": "Crude near $100 raises India's import bill and inflation risk, weighing on oil marketers and the rupee.",
+   "t": "The RBI moved to what CNBC TV18 calls calibrated tightening, and government bond yields rose to near a three-year high after the hawkish policy shift.",
+   "why": "Higher domestic yields and a rate rise raise borrowing costs and weigh on rate-sensitive sectors such as banks, real estate and autos.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMi8AFBVV95cUxOamMyUUtCSm5JWWhGeURhQ3BNNGVRQmhpZjZRaHZDTmFhU05lb0F5bnI5cks3S0RXTXUtalBZZkFJeTBUa1hWWUV0OHU4VE80NEpLT2FsWWpueU12YTBKaWxpM2hxVUZlZGNyRUJCWi1Rb1R1ZnFzWkV2el9LNFo4d2ZVU2gtanN4dy1tdTdTb1EzNExsS1FwS2ZEellhLUpDMHYzR2tWeXlCQ041OS16VktvNjF3RzZQaHh4QzYwRWdXRDE3R193dTNGUVpoWENqem8wTnNaZW5tQjlwZEhqYWFyVlpJRW55aWRwRGFBRGfSAfYBQVVfeXFMT0dEazczUXdhS3ZURnFXZmtBNXNIR3c2bEFsWlFXTkNQZ1dKc05TQk80M0VMcVpTZ1hDUEp2dW1ncXVVWmJvNkc4b01fNHk2SS1IRm1KM0JueXdrZVFRQkp0Tl9vREowa1ZsVmp2Z2RDQ1lHZW40UXdrMlN5UEpuSkt6NTN0RnlwN29HZmg2ZTNSRnA4RkswUUoya1pDVHRyTWEtRzF4V2ZKYmEzdlkzemFtWDVaSUNfcDRRemVVQ0ZGU1ZkY05ZdUhnYmhnMUs1TzM0U1Q4YVoxUXMxVEd4MV9kZHJvTTF5c3lBcHdxUTgxQ2ZRQjVn?oc=5",
-    "https://news.google.com/rss/articles/CBMilwFBVV95cUxNQkhhUjAwdlB6ckdSaEtIT2Q4ODRtdU1aeXZuVy1KZzF4SmZYdVh4RUh2eVl1em5oRURJMVgwcEp3SFJfU25ZU1o2OW9lS1FVQVVaalZwdGJOVlU1eTdoZ2RoV0gtb0VweEpoN0ZYU2NCX21MYTF2M2lESnM1WEJhWHc2VVhpR20yaEtHbFpraVoyMnF6VElF?oc=5",
-    "https://news.google.com/rss/articles/CBMitAFBVV95cUxQbjdzMzlrQlh6T0xIeVg5YS1iaS1ZWG5fbDBsTTJBVU1wR0ZXNkJjM0lheG01N0s0U2RiQWl4a3lrekhTcmdVRmFFOEo0aEJuVnYyTWN4cTJ1ZVFiclZsc3NhZ1R3ZFVOZ0tEMWZpZ3czQncwVEZvRmRlNkg0T2xRbjY4RFRsMlVMT3R1N3BjcUY3NGhUSVRyNzZQTjFRdjUyVWllV2E0RUJBMU5XN2J2UTFBaXM?oc=5"
+    "https://news.google.com/rss/articles/CBMimAFBVV95cUxPOC1QYzM5XzVyRjhqOFhwOW9YQ0ZNeGNhVGtTTU1OaVM2aXNldWF6RDZWeWxKMC1VdmhsTFd6YzA0NVhGZ01CQ2pvOWU5aXQzQWlJc0FKNGRpbG9aOEZ1VzhIUjdUd3liNTZIUGpWSE1POGNsdzRhN0hMZ1FwRC1VdXl3MzZVX1hHMEVTU2MwdlZtQTBpSkVWedIBngFBVV95cUxNWHhDN0pYYWNwZ2tBbzlWZGFaYlV0MzlXNWc2SXNVazNteDI5M3lvZk1zZTUxZmVleF9LQnA4M0o2SnVpU1RHSXVUXzhtYkNrQy0wcl9fTGhwSlNEbXUwZUlkSGtGNks2WlNwYS1VNHJHQXNHZDdyb0s1dEVKQ2dJeko2RUtmNXBuOVdDNlpyUmVxdzRfR1JJdzNKVzZLZw?oc=5",
+    "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNNFhvUTV5WWpES0k0c3ltNHBhUEI0dzBDOUtON1paeE1tdzZVOWxObnF3TEdZVmN6VlU1alNEMmZZdVgzOFRqbUdmZzM1cmZhNDhzSjM0aXgtbkdSSHJ0emN1WVRORlpzYklyZHRQZlR4SGpJUVdra3UxZFJzQm1UM0Z0WFRVZHkxNE5RY2E3Z2lVcE5fa3lsTnFoVFVPWkFOMDRkRV9ZRmd6eEtuYWtoc1hTUm9qQVQ3X0tyeXk1RktUczJYcXk5SndiVS1PRHNhdmp30gHYAUFVX3lxTE9NcDVpOTRmcVlaaHJrRld4NmpwdHZHcVNhNnJUWTVaUW9ZWGJjTjhCaEdYYTRCdW9ZZ1drQjBRVjRYSG4xdHg0OGZKdGp0SmU5V0hwVXZHeWNIdmFwdndLN3VBdWNnYTFqYzZyWXNISjFsLUFMbHlKaU5xdVQzVFM3NkM5Y2sxWUZRNkhVN2wxYmdnMmhFLWVoeEtXMHJiWGZsbDBtQnRUTzV4YVdZcEwxcERzMHBxTGNnN183WW5wNlJZYnhod2tIWXFCSWdHVGk2TWVpTnJLZg?oc=5"
    ]
   },
   {
-   "t": "The rupee slipped to a two-month low on foreign outflows and higher oil prices ahead of the RBI policy decision.",
-   "why": "A weaker rupee and outflows pressure the dollar-linked drivers of Indian equities, with importers and rate-sensitive sectors most exposed.",
+   "t": "The rupee slid to a five-month low of 96.7 per dollar while the RBI said it will ensure the 'undervalued' rupee finds its correct level.",
+   "why": "A weak rupee lifts the import bill and hurts importers, while helping IT and other exporters.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMivgFBVV95cUxPTmhTazAyS1p6OERSeFJBaFQtOWJxYlpsaGpnLW5Kb1ZlNExsaG9vM0NhM2ktdXdSOUV2SUxxc09KQVM0U1BYbkZxUXAtekhNNlpPajBIZG9XNjhab1ZIUnV1dkttTVhiWW1TWTdHYk5mVkh6VHFBMWs3NVkydFNCM3gtSnNFaU1zMTgwR2ZhUVNCb05zU1RDZENGSU1CbEJqcmVvZG5idm52TXpKcEJlSS1Wd3JaVzVJazZEanFn0gHEAUFVX3lxTE80bUExU3hKLXdud3owdy1Ca3FhWkZMRFBNcW5kN3dvZlBsYkp3aXYtWnQtMVpfaVBoZ3VvRmVuclpFUlptdmxvc29sRWdBX0hGTGpDUU9sSU5SOFpmZkVQWWhVUXAtRFpBdXphS2toSDRtbEY3TGo0cmpRVm9QSXJEZDFDblZxLU04bzl5dW5jRmpNSC1KMkNkN1p1M1RucTcyTnVFdHRHS3l0eGpVVENHSU9ya1pzTERPRGVWZzhQYnJDS2Y?oc=5",
-    "https://news.google.com/rss/articles/CBMizgFBVV95cUxNLUJMN29XVmRHWXRYemVsd2JaRkhIUHFjSU44WUo5X0VvWlpSY2d1ZDF6OHEteGpsaTNUUG1pSEFOMTlZaS1icHdvY0JLUFB3WEZUR0pmZDMydkJMeG1kenVOVFRBRGdncF9Jcy02Zm1RNUFDQzBfbDhjWXpyNFc2ZHhQbVM3UmpxVmNPV0pqMmNkc0ktdWg5a0ZoQjVVdVQxeWpGa0d2OXQ1MmVkRHdMQmZoRUZWZlJvN0Z1bEJtMS1STDZvRmZ1bGxaYzlLUdIB1AFBVV95cUxPZDUyc1dyOEttSW1jTmhYS1psYkhiRDlhQjM4WlJlX3F2a3YwSnFxVGZYLWJvWFd2bFFGVkVLQkRMM1ctZHNYRkxZa3RkaGtRZHQ5VlRJeUt5a0ZneEVaS2lmcGdfMHRSNGRaS0xtVDktRktJb2RJR1ZUdGRRWkNLVlFLdFlwLW1fS2x3TmI2U2gyZXpUa0hxYnlYTTc2NkFDc2tJUnloaDdUR0dvMGRsRjV1ejFsUWg5UmdlQnBEbzRsMHhYNzZKZXlwbm02RHFKMjd4Zw?oc=5"
+    "https://news.google.com/rss/articles/CBMitwFBVV95cUxPa3pObDVEX2JXVXRJNzBqOEhMNUFTaTQzNXc1UzdyemJsMkt3amZocEtPMXdtN1lJVXBGbjB6N0VRTFdJYUdlUzYwMl9seVJiNWs5MkdFV0NEZ0hPd1V6UDZMMlMtSzBWaGFOM2l6RGVhaWRGWGJ2WEJUSjZ5N3R5OFZSS2U2SEZlbExWem9ETk9WZUFkem9YRF9maGdIYWJ6N0JWT05yTzU3TEhLa0JoMDRSb0ZiaDTSAb4BQVVfeXFMTmRuc2JvSVp1OTJtM1hobDhjMUxnUFVSSDQxeC04ZjBzRHV4Q1FlU09ZaDE0QTN1Y2F6eVNNcXlITU1FTmJLMmFwb1F4WDZjZWRqYlppeU94bVJjaWVfUHhocWpKNDVVc1BGR2I4bDlUN0UwVHdQS0VLazZuZ2I0Qno2R2NqN2xvckdaTnpNcXZHdWFwbEJBSTF2b2Q2dWRudjVMT2xuQ2FFelFzSlB3cVFHSXVKaEZubS1ka3NCQQ?oc=5",
+    "https://news.google.com/rss/articles/CBMi3AFBVV95cUxNa29aaVlFX1FBNHVJVmpMYnBlYWdzM1F3UTZ3SEVMbU56ZDhPNXBGemx3THpDYUswZEh4WkU4S0hVYkk1YXZNN2N3WVlJamRNSFFKYldJQktlY0JaVW55R3dHSHNsdUphMlZoM3h3cTdldTRGRDN5amFxMWNUMHhlV0MzNmlhNmwzeThtWWg4WkZxdFZiY2N4amQ5Mm9GSXlQa09tVk9HazgxMS1tMEw0dXBqT1psR0doY1FtRzhmM3BNalZITHlTYXZpMnFJMmRXQmFkV2xIN3FHaVlV0gHiAUFVX3lxTE5SUWNKNTJNUEktLVZCZENmNlJ2ZHBKVVdUcWFrWS1nX1FhOVk4RVNMbDc2Y0R0LUtRc2dOdmtaeGZkXzh5QXg4S1VmdHI2WEszYXFaUHFRZEFhQWhmcjlFbG1zNW5odTZwd1V2bmFuSzVReFlXbWxpSzN0YlI1MW1qUUdHdlVjZ2xyM2JFcEFJZlBNNWptb280MkpCYjRVZXhKNDlWMFBJV2VYMGJfX1daeWRJZHNfNFBhWEd3U3BCOG5Sc3NUb05yekJPSndCNEowWVUxODJMU2JaXy1iaFh4QUE?oc=5"
    ]
   },
   {
-   "t": "Swaps signal the risk of an outsized RBI rate hike, while NDTV Profit says RBI guidance rather than a hike itself holds the key for markets.",
-   "why": "The RBI decision can move banks, NBFCs and other rate-sensitive sectors.",
+   "t": "Foreign investors net sold Rs 6,121 crore of Indian equities on Oct 7 while domestic institutions net bought Rs 4,597 crore.",
+   "why": "Foreign selling against a falling rupee pressures large caps, with domestic buying acting as a partial cushion.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMivgFBVV95cUxONUVVRGh4YUlyY3MtUVV5RXd5VDFaQ1dsdEw3M09pYmJQdkxaZThvNXl3cFlFNmZXREQtSDVzbFZLcHU1ZXNmXzRtdm9Dd0E2TGozdGJxdVlnSXNnblhQWllFZEV6ZUxtR3d3cjJfSHo5cDctdVpGRVJBTVc3SHNSc01LdGVsdzNHNHFTcGlxS0p6RFJCS2laT0lRbGlObU1sb1hobThuajB2RHIybXJqamxPWU9MUkl1NUZscmpB?oc=5",
-    "https://news.google.com/rss/articles/CBMizAFBVV95cUxPNU5ITlFWVXF2aktkOHIzRW8wdWZuYXBSbFhyOWZTQUs4NDJuYjdVck9NdkNUUHBESTFLZzBPWE4zR1Z2YWRhN2tleG5CN2JUd25lOEU0VS1lX2NrYkQ2YXZ6MGdkVFp4dmt0Z2EtaXNEc1lHcWJhcG9UUXQ5QWFtVTN0X1VYeC1Fcm1VNlVNRm9ETnpGaF9xa0w1ZEU4UXJvOUhxY2VrODFVV3RJNGxoekxqZlpHblRiakRoazJtWUZ6NjRBZk5oSnd3QWrSAdQBQVVfeXFMTU5MZ0JKWWlZNnR0UmFmYS0tSVp5alNzNnRnYXhzTm02ZzBESjJDTDR0SHFsS1VZRi1tUUtFWHVwQlBkTXRwQ3V3bHh5ZThqclowNXpMMjRRc0Rkck5uSGZqWUN1aE90Y0NJTUhtaGhHN3J4SWlnb25SVDU1aHZ2c3dCN0djemt0b0FPaS1sTmdBd1RpVHhCVk9rREZiZnk2RjJEYXYxQ09XY25WU2lHQjUxSDI3V3BMdGw1M29veXFQazNRNDlxS2pfR2FYc0s4dGdDekg?oc=5"
+    "https://news.google.com/rss/articles/CBMi6wFBVV95cUxPZTJoZ01jMTRuakg0OVU0c0wwUFhjLXhKQUZNT0tuVFd3dnNiSmpyZXp1TXVGc2JKZ0hNN3dWMGQydXlzeEJxaDNGWXNwSnQyd2pOM3NvbHAwaTJmMzVNWE53OUh6RXk5Yk0xNU9Ia0pFVTBJSTB4aTBlNER2TFVKVkJjZ3NTcWs2aER3SVlzbnZseGlUUThCNXhUdkZDQ2JFS256X1dOUUpwdzBRZWxPMG5JaGgzVUZFXzZaWW5TemJHN1k2RVdMTkxlN0JIcVFobkJtNGJJX01RRWVNTGJGVDR0eEtpYzlaVVM00gHwAUFVX3lxTE5YVl9iLXpzSlBFQ1hqWk04TlY0VVNPcElvdXVPOVVzYWFJZndNTHdOdGlWS2lYb2FsVDBPVUZqdjRrdVBzN01qaEFNbVFVUzZBYlo0TGhMcTBVcGdYVnZ0RnNsN1F0eUxRMk5Ja21xdGg2c1JKUHlmVG5WU0tCdkFMcFNGTVlqeWNPZ0lBaExxRy00SDhrbGVLdmp1d3ExQk95RlB2TWJsX3Bqa3JHd0RMLWlZS1JCamV4WkpzbFpYOTVRVkEtWk4wMkFqWXd1VnlwQllJWDY0VnRvelFGb0NpYTI1eUhYd09PM21hN2RLTA?oc=5"
    ]
   },
   {
-   "t": "FIIs net sold Rs 2,961 crore of Indian equities on Oct 6 while DIIs net bought Rs 5,089 crore.",
-   "why": "Foreign selling offset by domestic buying is the key flow driver for index direction.",
+   "t": "Wall Street ended lower, off record highs, as Treasury yields climbed; one report says bond yields hit their highest since 2002.",
+   "why": "Higher US yields pull foreign money away from emerging markets like India and weigh on the Asian open.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMi7gFBVV95cUxOUi15T2M1bW1IaHZfOVRfQ292Sm9sR1liS0w2WFFJYmVYaHZIbEJ4U25nZzJTZmFUSkYtU2ZXT2ZFQ3VrTlBFaklGZE8xSGVJelA5RUE5a3F2QXhNMVlFSGVBOGNGU1M0SlpzS2pfRGNRZlJpcFNpaEpSVi1sLTVVeU5PSlhhQjlWb3V5cDlrOHVPQXRQeTJQeUQyRnNyTEpyOS10Q2QtVEV5bmJkS1k1Z3RIMUN1MUdFN1NodUFHRW5DVzdDdkx2QmpHQnYyNWF6R1dkbk5uTHRIVFpkdzBwRGdpN282MklOM3RBUmJn0gHzAUFVX3lxTFBVRlkxM2xkenRNNExuZmkwT2R4OHdaV05POG1IR0VlTnNsWWZwVzRqRUozeUV2cDBPOWJSdloyYWtIVUFnSXgzaGhHbXM3WmlnVXlMa0Q1T2FTdU9MWjBqZ2lQNlFRalM1cUdsaDFfV1AxYlNHT2N1dTlQTG5QMTVpSkZ3Z3pQamxwOUdIQWZRaThkMjQ1MmdtdVNMREFYZEJEVnFBTnNTNG9PS3lFQTQ3M1V3ck5zNVFlQXJ0N3hOTENZZDkxMVZMMlRTeEJ5Y3RWTVg5d2EyU0ZJM3BBN3JrTkVZX0YyME83M2pSbElkUXZQQQ?oc=5",
-    "https://news.google.com/rss/articles/CBMixAFBVV95cUxNaGFSVjdtVmRwLWxpX19vQzlHcVZlSmVSY2VGQUptdXMtc1BOUVZpWExyaEtsUXdjRjBoQVhLcXpCWU8xODVEbnRwVDByd1F1TnR6OUNQajBqdXVfM2tRQWRnaUpnVHNKVWMxZXEtRFFOa2dnTFlmbEROV19QZGk3VGhZMEhPdjQtaHEzaHRINFFVSEtQeU1taFhLUGtrSW9IX3BFUWxCYnZKS0R2cFNvazRsVU0ycURKbnUzVFQ4aWJOdUht0gHKAUFVX3lxTE50VkU1ckN4eXM4aFgzOWowWjllWFZJajdxejNHOG5xVUhZVGNqT21weXhLTUFwdGQ0Z3ZlbENLX2xzbzlPZTdKaW52Q0JCQWsxdmU4ZWZ5NDJHQzA0NzgxZzcyZXB2dzcyZ29xTHpuMFhVczlqd1VvNWV3UXdNcjNVVGozYmJOUmFJeWtZS0lPbG5zaE1rbnJ2MzNiUnVsNW92cXJaU0NrN041X0RTV1BkRTFUT3pSOGVsQ0xTUl93bFM2OTVvVFdkWFE?oc=5"
+    "https://news.google.com/rss/articles/CBMipAFBVV95cUxOYlBxMHUzb2ZDaHpMY3JBZUl2Rk9XSE94bjQ2aFVndHhYeU4zS1Rwb2I1SlFJWjVpaE9sS0V4c2ZiQ2JsMzd0R0lydzlFejhJVkNYbU5ZTGVjeW9tWUJtTmUzX2VwY0N1SnpLVmdvQWRvM20xS25hRmhXRDdHVUppRk9hS2JhVExxdVUtX0hfQlNqWnd0OUhHWEpaa2w1Z3hXNVRkaw?oc=5",
+    "https://news.google.com/rss/articles/CBMixgFBVV95cUxPZ1NsVHlzVEFiZldTVl9OWmEtNVNhXzg5Vk1LLWFNODVuelNFSU5CNUEtVEJSVmU0RG1ScWVFOXF6VDVtRTBkRU4wcjBmZG03RzJpZ0ZNdDVOUGtoZ3FZa3hSNzhRaC1RN0NSai12YTdJU0o2aGI3NkpYMnZBOHZpY0tPak9kTGlQWUdLTVZwVVItN292Z2VwS3BkYTZ4Ty1JXzFsNy01d1NVSVJoZG9LRGtQandYTy1HVEl3eVJtTU5aRWdTcHc?oc=5"
    ]
   },
   {
-   "t": "US yields fell from a 2002 high as oil dipped, and US stocks hit fresh records with the S&P 500 and Nasdaq closing at highs led by AI.",
-   "why": "Lower US yields and a strong Wall Street lead ease pressure on foreign flows into India.",
+   "t": "Brent crude stays around $100 a barrel amid Strait of Hormuz risks, though another report says prices fell back on supply optimism.",
+   "why": "Crude near $100 widens India's import bill and inflation risk, hitting oil marketers and paint, aviation and chemical users while helping upstream producers.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMiswFBVV95cUxPMzEtUVFoWkZFa3NIWUVTRmc3ZUdvd0prLWZFWFVyVktjYnVrOV9yTVoyR3pudUpTVGFWLXpyLUpaZGtUdnZ2ZDh0S3lOdmhmX3FJWTY5UVhoSlpyc2hlS1E4TnlHS2ZVa0UtZHFLN3BkUXN5dVNDdDVfZTI0OXpmRUhHSXNzOTlNanF6ejZfb25xWW5IUXNaMDdWZERpRml4bzBvREFsNXc4OFlmTmN1S0lVQQ?oc=5",
-    "https://news.google.com/rss/articles/CBMihwFBVV95cUxPZ0p5VWxQQ0ZmUUI0Vk5wRUVjTUJhZjZGUlZjU2tWU1AtOEdqYjZ0OFRtRXNrUVdrTFlNZjVWdzluRjUyaWhHTlYxMG5Yc21pMHFubTdiX1RIRTRUSnB4UTZPckRMZTlzTHBEbkZKU1ROMTZpWE9lMXhPQkhyQmhBV3JNdkFrQVk?oc=5",
-    "https://news.google.com/rss/articles/CBMi7wFBVV95cUxPbWVndTBoWWR5UlluVFVpT0EzUDdGcDZWVWtoRjkwcS1jcEtiNVlpTEs0cENuZDdzNG9ydUt6SDlSblhhNVgyVzdScV94amItalh3WmZZWUhzbWhuRXZSUUdYTHFqT3R6aWJ0dlhJTDRVbFNPdFlsSllpOFFkSzh5bFRfR0ZpT2JwZm44SmxkQ3BPLWhWaEJ5LW5GRkkwYjBZUmlkek40N3Zja3Y1RzhXdTFxbG5sSHBHNE1qQnZMYTVZMTMwOGt6cHc4WUpUbUJUdlpoM1FVUTNkQmhZR04zbVJQN09MZnVLN1dmSXl5Z9IB9AFBVV95cUxPblNYTzdPeENZc3B3ZUFDbkROTVNNVnpTUkkwcTNmTnhYYnNFaHJrSGxQYndNZW02bGpXNEpXQkE0OHZuV0sza1RXR3l4aTdSM1RTNkpZN1U4TGNpbEtrbjdieTJzRkNtMjNpYndubzhEeVRWYnF3YWRtazc2Ql9EaFJlc25QRlUxYmROQ29fZXBPaXJjZlltRmFULU1nUnJndkhtVWJhaThIR0loTmpzSWd6ZHYtUG5pemszRmx6NE5QYU9PMjdmV2ZSUlY2SnhaSmI0ekhSM0VmTDJ6Uml4OXh4THc2eHJVX1pEbGt0aUhCYTBf?oc=5"
+    "https://news.google.com/rss/articles/CBMi9AFBVV95cUxQQ1BMUW9XV0tyZU5scEFmMlhQNDRaeDF1YWJQMHJUdE5pTUV6Qm1TRDllMjJ0bnBjekZrUXNxNEZIbWpCOTVEbGpURFJxSnRydEZEeFRESG5LZmZEQy01QmFJakROSmlyMDlZOFZBQjdmOGowVTJaRmlYQVNleVBRMjQzSWxobU0zOVowSTNyelJjUFM2aWpSekQxUFdyNEhrdDZGN0tGcGs3aTk3OTRCd3lZbVJMSDZiVGNFTUVsWXRXUlFKdVNhc1JiLUc1NnpTYVRoYWFIQmNhTjdFTXBqZldaUDh5bGNSaEphUkZnQ19ncjdW0gGHAkFVX3lxTFA1N3R2RzBUS0d6RVl0MU0yT1hSaURMczJWSXdOTkM4djFUaWp2THBFd1JQaUlNa3ZsY0REUndUVFRYM3ZxM2hWbTZiUkNUcTBXU0VhZXBPZkhmbGY2d0RSM2VpYVZ1RWJOOU40QXVXRzJiZUlpelpfc0h1aHJxNnctaXUxSkhLNjJMZWlMbmU5bnduSmh2M0o2LVhuOXZGUzNoV2lyYnBrZlhmY0pPZFdmS2sxWmN1WDg0YVNqQWE0U2RweV92aVA4SjlENWdzXzI0U200SDJSMVRtbGZVLWdQZUk3WlFkNUFOX2tLNElZREpVa0xmU2l1S083RkVBODNobGxRM2lJ?oc=5",
+    "https://news.google.com/rss/articles/CBMitwFBVV95cUxQRHUxNFFZWVFoTFM4cFRPMW50NmpZd1JBRWN2OGlJRm1IWnZ1aVVlZTc5MU5uZXV5M1c5Uk8wR2FEQzR4VHVkaWxjMUV1UVBra05GaVpiQXE3X2VGMlRVNTdYeFR5THBOdjFQV2cydGpiR3ZWUmhvV1NMMFRvMEtwY2Y2RDZIanFYbW9WVTRFRElCQ2txcHVqQW04NEwwUHZSeERzd3BtVnV3WUtPbm5CcWZjaHQ4Ylk?oc=5",
+    "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOZHV1MkUxaGpvYzQ3U0hXZ1BwdFZxM3ZBTDA1aEFfd1ZadkdxNG9GcWJ2RUVtX1BNcm9KcWlRV1NDRGpqbmJBQXJyQndqMkpmakI4SUtIYTNpUnUyMlpqVWZUNFkyM3ljRUE1R2t1LUd6LS1uUHJvWnVycGlCRW82Sko3YmFSc2JRZy1GUTJKVEh5SHlXZXdYSTJCYVBFUDhaZ0NadVJOcG9XZVB6TG45Sm9LQ2dYblZ6QllBVi1WSjhkeGhKM3NnMQ?oc=5"
    ]
   },
   {
-   "t": "SpaceX is seeking to raise $40 billion to buy Nvidia chips, and Marvell raised its 2028 revenue forecast on strong AI data-centre demand.",
-   "why": "Continued AI capital spending supports the AI data-centre, fibre and EMS themes.",
+   "t": "Fed minutes show policymakers divided over the logic of rate hikes in September.",
+   "why": "A divided Fed leaves the path of US yields, and so foreign flows into India, uncertain.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMihAFBVV95cUxQdThuRWl1b3NtaUE5aFhSeXVUY0xfYjhBZXJJaG1VWWR0QXBSQ2txLTBrbTlKNm9KQmtqcG95Y3BLNlRQZF96a004TS1xaGlyQUVUaEdqNXZOTzZwdC1IU001ZmM5a191dGNRYjNCWXkwcEk0cjVhams2WUc5aGMxek13b1U?oc=5",
-    "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPY2tsTDNHZklDQnFxT1pmUkdEd3NvdlpGTEtCSVBSNlpHdGM5MFV3dWtBYTFJZTlZUjRpcmdZQlVjZkdmQjloTDU3SXVxT2I0ODJ3SkVHWVdaLW9xRHdHbjN5ZUVXV1ZCQld5dUxLLVlYZXJBRTA4MG9JQTEwSWU4OXF2eGdmMEZiaV9HUGlWYlZ2Si0zaHlkc3Y5dFpEQjRKQnZCZnk0WnFZMTBqcklKbWdxTWFyQkNZcWluWDZXMjRZY2M?oc=5"
+    "https://news.google.com/rss/articles/CBMiswFBVV95cUxQOVl1b0t4RWF0WnFRODUzeHAydHMzOFl1U0lKbEhOa3ZSbG1GdDdubllBRG9raTZ0VllPeWJsUEFmOUlLaGZKYkd1QXo0dEFyUzZCUjdKM0NQeHdCeUZWU1hBcTBNaGJIaVJwVkluZ3Y0elloSXRyRHJkek1VdUxJdkV0NV8xSXJxUFdOVjBJVmFRcm5Na3M2ZGlodGdtcEk2NFlnWnZXVUNQSlJBUUFUSmJiOA?oc=5"
    ]
   },
   {
-   "t": "India-US trade talks were reported at an impasse.",
-   "why": "An unresolved trade deal keeps tariff uncertainty over export-linked sectors.",
+   "t": "Oracle, Broadcom and SpaceX are reported to be seeking large debt deals to pay for AI chips, and Microsoft and Nvidia launched an AI laptop.",
+   "why": "Continued AI capital spending supports the AI data-centre, fibre and electronics manufacturing themes in Indian markets.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMie0FVX3lxTE5CVnFkV3o2Y3c1MzFlRllYaFhaSlRMbElvYWVYUjJfWUJTVDZpcHAzaU9SdGNjQmV2QV9NaHlfRWNuTWlvbmFYVllhU0FPZDR2UlI3Mmx2ZFFDNGx3Y0l1bEltUUZFWDlRMVFoM3R4WDBoVVpzNUNqYnpUUQ?oc=5",
-    "https://news.google.com/rss/articles/CBMirwFBVV95cUxNcl9fMmVjUUJsU1hTMzAwLXRlY002VW9hcWppeDIxeDJQTzB3SDZZQ2lqRDhMQkllbjF5OG9xUXgtQlRvTGNxMXB6RGQ0d3dEU0pmQUhSUDZpcU9kbk5EQzlwTndNYW9Kb0RrNENHMUNzUjBZUGNIS3FCWWZ2clI0LS1Rb3VEVXBlYmZuYkQzTFBYeVFMZXFNLTFLWkd5UjlYX1RlTHJacXR6Umx1ZWdJ0gG0AUFVX3lxTE1hanZlVmYydnVMZHc0S1NYNWpnb2s3TGpHbDlLQU5TbHNGbFhNdFVHOXpWczJQWEJGWXhfOHZfbG4yTzhSMXAzamVmYXlOX2FPQ0pFeWd5cU03aGZsTXdaU3NWai16NGpiNnd0dnNIbDJheTdnRWlvU21fZTNWTTczN0cwSjdBMGh1dUF6b1hwTWZOSWNSMi1CMHZzZVRNTFZfOV8tUFFsYWFCQjFyTmpvRXhYcQ?oc=5"
+    "https://news.google.com/rss/articles/CBMirAFBVV95cUxOQlQwOUh0Wlhtb1B1T1YxN1ItVmh1ck5xeE5Xa0FWR2ZRcjlDdGZSM1hUVTltMHp1aHhVM1FCYUZKNnIweDhKWjlxUGpGeVlJTFFlNElVQnBkT2VMaERTRTBCVXFTbk1BRFRPRVpRWVA2blBxbnMwR3Q4VUZVQU9iVEFyRExCVW5aSjl3bXFOYlZERUxTY0l4QjA1RS1BVjRQS1lCOW5kSWtqY0t3?oc=5",
+    "https://news.google.com/rss/articles/CBMiigFBVV95cUxQV0xTVTJFVzFCeDhHRXNLWGdBU2RhSWJ4RmpXdkJ1TzU1dlFGUjVOODViUkFhZFV6VUtycHkzQ1A0ZlFKYThGcndBRkMzOWwtOXJvZG0tQzlWc3JnUEpQemZLWlVEc3VxMGFacnhjTjNYNzZNbENfWXFvSXZwZlY2ZW5WeFNlcXpSR1E?oc=5"
    ]
   },
   {
-   "t": "Transrail Lighting gained 5% after a Rs 412 crore order win, and Concor won a Rs 87.15 crore Southern Railway order.",
-   "why": "Order wins in power transmission and railway logistics point to infrastructure-linked demand.",
+   "t": "L&T is reported to have won power transmission orders worth Rs 10,000-15,000 crore.",
+   "why": "A large order win supports the order book of capital goods and transmission-linked companies.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPVG43V2xXRWZHV2pWeG9mUjNoYUo1R1MzZ1Z6T1VvMksyRGpnamI2ZGFvWDJnVDJGVEdaRDZ2aTA3ZVlPODJhOWUzNWxpdVVlUnVucVVOWkxrQjZhTDVIUm8wYnhhOFFZeUpmVjNrZUdBSUxUM3dHbEExX0R1X1BXWld5UjJ3WVZRMGRERFI0MmNkTWJwbE1CS20tSWtBbGdYQkZuODctOG1yX09iaVlhTFg5SmZoZUNHMjhpelQwTmk4Ty1lZXc2YkJ0WWRmckYz?oc=5",
-    "https://news.google.com/rss/articles/CBMivwFBVV95cUxPNDlQcHdQV3JRUlRzNFBzX0FRZjJEWk1Ca2FuTlpnTVU0djRZLWRIVXFrZEdHNF9UQmE1bGN3aERjWnJ6dGp4NjQxdENzV0dpd3ZwWmVjRnYwTl9uTXZWeFpEbkVuWFRTOUJxdU8zMU4xTGlSajRNUzRWdGN1RjFhbTZfWURLSjBzbWg4NDFWUXkwdVh5SHQ0RGIxb2NJcEJ5RnZKSGJTT0NFQ1haOGtUakJQR2pxSGRqYU9BeTBfTQ?oc=5"
+    "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPeXZPcVZCX0Mwb3lucTZ6N0daelJDS0tIVWhnVEpTenRYZ1lHWmZhU3ZZOVhuaFpKdEpjZEV3Rl9VUFVvWG5GRVBad1FjV3VSQThOOTQ4T2NtNHhPNG9vdU8wT09zSnRqVVN2cDhlYXd1TFBRcGw2YUdzVl9QQ21qbktwcjJZSUdxeUJ3TWM1dC1wM09nSHdGaG0tTmc3TE11MW9pSHQwaHVGUQ?oc=5"
    ]
   }
  ],
- "watch": [
-  "RBI policy decision"
- ]
+ "watch": []
 }
