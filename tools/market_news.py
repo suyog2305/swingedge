@@ -70,7 +70,13 @@ TOPICS = [
 ]
 # pages that are not news: live price tickers, results stubs, price-of-the-day posts
 JUNK = re.compile(r"share price (today|live)|stock price (today|live)|price live|live updates|nine monthly results|quarterly results, |"
-                  r"earnings for |horoscope|today.s fuel prices|current price of|income tax notice", re.I)
+                  r"earnings for |horoscope|today.s fuel prices|current price of|income tax notice|"
+                  # templated pages from trusted outlets (city gold-rate pages, futures "predictions", Form 4 stubs),
+                  # which the trusted-first sort below would otherwise put ahead of real news
+                  r"(gold|silver|petrol|diesel|cng|lpg) (rate|price)s? today|rate today in |"
+                  r"\bprediction\b.{0,40}\b(tomorrow|today|monday|tuesday|wednesday|thursday|friday)|futures prediction|"
+                  r"stocks to watch tomorrow|\bform 4\b|\b(higher or lower|rise or fall)\b", re.I)
+PER_STEM = 2                       # at most this many items per (outlet, first three words of the title) in a topic
 TRUSTED = ('reuters', 'bloomberg', 'cnbc', 'economic times', 'moneycontrol', 'mint', 'livemint', 'business standard',
            'financial times', 'wall street journal', 'wsj', 'businessline', 'ndtv profit', 'associated press', 'ap news',
            'financial express', 'business today', 'marketwatch', "barron's", 'nikkei', 'the hindu', 'yahoo finance',
@@ -122,13 +128,17 @@ def collect(hours):
             except Exception as e:
                 errors.append(f'{label}: "{q}": {type(e).__name__}: {str(e)[:80]}')
             time.sleep(0.4)
-        keep = []
+        keep, stems = [], {}
         for it in sorted(items, key=lambda x: (not any(s in x['src'].lower() for s in TRUSTED), -x['at'].timestamp())):
             k = norm(it['t'])
             if it['at'] < since or it['at'] > now + dt.timedelta(minutes=10) or len(k) < 18 or k in seen:
                 continue
             if JUNK.search(it['t']) or not must.search(it['t']):
                 continue                              # off-topic for this section, or not a news story
+            stem = (it['src'].lower(), ' '.join(k.split()[:3]))
+            if stems.get(stem, 0) >= PER_STEM:
+                continue                              # a templated series JUNK has not learned yet (the same outlet, the same opening)
+            stems[stem] = stems.get(stem, 0) + 1
             seen.add(k)
             keep.append(it)
             if len(keep) >= PER_TOPIC:

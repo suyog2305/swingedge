@@ -6,8 +6,9 @@ rem
 rem screener.in refreshes a close in stages -- prices first; moving averages, 3/6-month returns
 rem and volume later -- so eod.py polls from 15:50 until all of those have moved against the
 rem previous scan (--wait-until 21:00, a check every 10 minutes) and builds the moment the close
-rem is complete. The 20:00 trigger exits at once if the day is already built, and the scheduler
-rem ignores it while the 15:50 run is still polling. The task wakes a sleeping PC for both.
+rem is complete. The 20:00 trigger exits at once if the day is already built (first pushing any
+rem built close whose push failed earlier), and the scheduler ignores it while the 15:50 run is
+rem still polling. The task wakes a sleeping PC for both.
 rem
 rem Until 2026-09-10 this file chained fetch_screener -> build_shortlist -> build_s2history
 rem -> git by hand, and called fetch_screener WITHOUT a date. That defaulted to the previous

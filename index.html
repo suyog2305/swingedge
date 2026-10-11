@@ -107,7 +107,7 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:500;color:var(--t1);letter-spac
 .sb-name{font-family:var(--serif);font-size:17px;font-weight:500;letter-spacing:-0.03em;color:var(--t1);}
 .sb-sub{font-size:10px;color:var(--t3);font-family:var(--mono);margin-top:2px;letter-spacing:0.05em;text-transform:uppercase;}
 .sb-scroll{flex:1;overflow-y:auto;padding:10px 0;}
-.sb-group{padding:14px 18px 6px;font-size:9px;color:var(--t4);letter-spacing:0.16em;font-weight:600;text-transform:uppercase;font-family:var(--mono);}
+.sb-group{padding:14px 18px 6px;font-size:9px;color:var(--t4);letter-spacing:0.12em;font-weight:600;text-transform:uppercase;font-family:var(--mono);}
 .nav{
   display:flex;align-items:center;gap:11px;
   padding:7px 13px;margin:1px 10px;
@@ -130,6 +130,7 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:500;color:var(--t1);letter-spac
   border-radius:99px;padding:1px 7px;font-size:10px;font-weight:600;display:none;font-family:var(--mono);
 }
 .nav-badge.show{display:inline;}
+.nav-lbl{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}   /* long label stays on one row */
 .sb-bottom{flex-shrink:0;padding:11px 13px;border-top:1px solid var(--b1);background:var(--bg2);}
 .mkt-pill{
   display:flex;align-items:center;gap:9px;
@@ -145,14 +146,19 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:500;color:var(--t1);letter-spac
 /* ============= MAIN ============= */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--bg0);}
 .topbar{
-  height:var(--th);padding:0 26px;
-  display:flex;align-items:center;justify-content:space-between;
+  min-height:var(--th);padding:8px 26px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;
   border-bottom:1px solid var(--b1);background:var(--bg1);flex-shrink:0;
 }
-.tb-left{display:flex;align-items:baseline;gap:12px;}
-.tb-title{font-family:var(--serif);font-size:19px;font-weight:500;letter-spacing:-0.02em;color:var(--t1);}
-.tb-crumb{font-size:11px;color:var(--t3);font-family:var(--mono);letter-spacing:0.02em;}
-.tb-right{display:flex;align-items:center;gap:8px;}
+/* desktop: the left block takes the free space and a long crumb ends in an ellipsis, so the bar keeps one 56px row */
+.tb-left{display:flex;align-items:baseline;gap:12px;min-width:0;flex:1 1 0;}
+.tb-title{font-family:var(--serif);font-size:19px;font-weight:500;letter-spacing:-0.02em;color:var(--t1);flex-shrink:0;}
+.tb-crumb{font-size:11px;color:var(--t3);font-family:var(--mono);letter-spacing:0.02em;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tb-right{display:flex;align-items:center;gap:8px;min-width:0;}
+.tb-right select{max-width:100%;min-width:0;text-overflow:ellipsis;}
+/* the phone menu button: injected into every topbar by init(), shown only under 760px */
+.nav-btn{display:none;align-items:center;justify-content:center;width:44px;height:44px;margin:-6px 2px -6px -6px;padding:0;border:1px solid var(--b2);border-radius:var(--r2);background:var(--bg1);color:var(--t1);font-size:20px;cursor:pointer;flex-shrink:0;align-self:center;}
+@media(max-width:900px){.tb-crumb{display:none;}.tb-left{flex:1 1 auto;flex-wrap:wrap;}.tb-right{flex-wrap:wrap;margin-left:auto;}}
 .content{flex:1;overflow-y:auto;padding:22px 26px 32px;}
 
 /* ============= BUTTONS ============= */
@@ -260,7 +266,7 @@ td b,td strong{color:var(--t1);font-weight:600;}
 
 /* ============= SCAN PANELS ============= */
 /* ============= SCANS (Stage 2 + 52W) ============= */
-.scan-content{display:flex;flex-direction:column;padding-bottom:0;height:calc(100vh - var(--th));overflow:hidden;}
+.scan-content{display:flex;flex-direction:column;padding-bottom:0;flex:1;min-height:0;overflow:hidden;}
 .scan-conv-pill{
   display:inline-flex;align-items:center;gap:6px;
   background:var(--lime-soft);color:var(--lime2);
@@ -385,6 +391,7 @@ td b,td strong{color:var(--t1);font-weight:600;}
 .scan-dot.rem{background:var(--rose);}
 .scan-status{font-size:11px;color:var(--t2);font-family:var(--mono);}
 
+.scan-flag.asm-stale{opacity:.55;filter:grayscale(1);}
 .scan-flag{
   display:inline-block;padding:1px 6px;border-radius:3px;
   font-size:9.5px;font-family:var(--mono);
@@ -789,7 +796,7 @@ code{font-family:var(--mono);font-size:11px;background:var(--neutral-soft);paddi
 .conv-empty i{font-size:32px;color:var(--t4);display:block;margin-bottom:12px;}
 
 /* ============= RESEARCH LIBRARY ============= */
-.lib-content{height:calc(100vh - var(--th));overflow-y:auto;}
+.lib-content{flex:1;min-height:0;overflow-y:auto;}
 .lib-reader-bar{display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap;}
 .lib-reader-meta{font-size:11px;color:var(--t3);font-family:var(--mono);}
 .lib-article{
@@ -936,7 +943,7 @@ tr:hover .wr-act{opacity:1;} .wr-act:hover{background:var(--bg3);color:var(--lim
   html,body{overflow:visible!important;height:auto!important;}
   body::before{display:none;}
   .shell{height:auto!important;overflow:visible!important;display:block!important;}
-  .sidebar,#toast,.overlay{display:none!important;}
+  .sidebar,#toast,.overlay,.nav-btn{display:none!important;}
   .main{display:block!important;}
   .sec{display:none!important;} .sec.active{display:block!important;overflow:visible!important;}
   .content{overflow:visible!important;}
@@ -1278,6 +1285,26 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
 .rd-frame{width:100%;height:calc(100vh - 150px);min-height:600px;border:0;display:block;background:#fff;}
 @media(max-width:700px){.rd-reader-actions{width:100%;}.rd-frame{height:calc(100vh - 220px);}}
 
+/* ============= PHONE ============= */
+/* under 760px the sidebar is an off-canvas drawer: the menu button in each topbar opens it, a tap outside it or
+   opening a page closes it, so .main gets the full width */
+@media(max-width:760px){
+  .shell{height:100vh;height:100dvh;}
+  .sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%);transition:transform .2s;z-index:40;}
+  .shell.nav-open .sidebar{transform:none;box-shadow:var(--shadow-pop);}
+  .shell.nav-open::after{content:'';position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:30;}
+  .nav-btn{display:inline-flex;}
+  .topbar{padding:8px 12px;}
+  .content{padding:16px 14px 24px;}
+}
+/* tap targets: nav rows ~41px, small buttons and the week select 40px, and a ~35px hit area round each 15px "i" */
+@media (pointer:coarse), (max-width:760px){
+  .nav{padding:12px 14px;}
+  .btn-sm,.wr-week-sel{min-height:40px;}
+  .se-i{position:relative;}
+  .se-i::after{content:'';position:absolute;inset:-10px;}
+}
+
 </style>
 </head>
 <body>
@@ -1329,7 +1356,7 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
     <div class="nav" id="nav-checklist" onclick="show('checklist')"><i class="ti ti-checklist"></i>Checklist</div>
     <div class="nav" id="nav-procedure" onclick="show('procedure')"><i class="ti ti-list-check"></i>Procedure</div>
     <div class="nav" id="nav-scans" onclick="show('scans')"><i class="ti ti-radar"></i>Legacy · Stage 2 · 52W</div>
-    <div class="nav" id="nav-converge" onclick="show('converge')"><i class="ti ti-crosshair"></i>Legacy · Convergence<span class="nav-badge" id="converge-badge">0</span></div>
+    <div class="nav" id="nav-converge" onclick="show('converge')"><i class="ti ti-crosshair"></i><span class="nav-lbl">Legacy · Convergence</span><span class="nav-badge" id="converge-badge">0</span></div>
     <div class="nav" id="nav-feedback" onclick="show('feedback')"><i class="ti ti-message-2"></i>Send Feedback<span class="nav-badge" id="fb-badge">0</span></div>
   </div>
   <div class="sb-bottom">
@@ -1376,7 +1403,7 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
   <div class="topbar">
     <div class="tb-left"><span class="tb-title">Track Record</span><span class="tb-crumb">/ signal forward returns</span></div>
     <div class="tb-right">
-      <button class="btn btn-sm" onclick="loadSE(true).then(loadTR).then(()=>loadTR(true))"><i class="ti ti-refresh"></i>Refresh</button>
+      <button class="btn btn-sm" onclick="loadSE(true).then(()=>loadTR(true))"><i class="ti ti-refresh"></i>Refresh</button>
     </div>
   </div>
   <div class="content se-content"><div id="tr-body"></div></div>
@@ -3156,6 +3183,7 @@ function fbBadge(){
 }
 const NAV_ALIAS = { comm: 'pulse', markets: 'pulse' };   // pages folded into another one keep working as a link
 function show(id){
+  const shell0 = document.querySelector('.shell'); if(shell0) shell0.classList.remove('nav-open');   // opening a page closes the phone drawer
   id = NAV_ALIAS[id] || id;
   const sec = document.getElementById('sec-'+id);
   if(!sec){ console.warn('show: no such page', id); return; }
@@ -3171,6 +3199,7 @@ function show(id){
   if(id === 'peers'){ if(!PR.loaded && !PR.loading) loadPR(false); else renderPR(); }
   if(id === 'pulse'){ if(!MK.loaded && !MK.loading) loadMK(false); else renderMK(); }
   if(id === 'news'){ if(!MN.loaded && !MN.loading) loadMN(false); else renderMN(); }
+  if(id === 'rstrend' && typeof SE !== 'undefined' && SE.loaded) seRenderTrend();   // always redraw on open: fetches missing anchor scans, and clears a spinner left while the page was hidden
   if(id === 'tr' && !TR.loaded && !TR.loading) loadTR(false);   // reads every scan on file (about 20 MB), so only when the page is opened
   // P&L Analytics: auto-default to snapshot tab if user has snapshots but no P&L statements
   if(id === 'pnl'){
@@ -6837,7 +6866,14 @@ function wrPct(v, dec, opts){
 }
 function wrNum(v, dec){
   if(!wrIsNum(v)) return '—';
-  return (+v).toLocaleString('en-IN', {minimumFractionDigits: dec || 0, maximumFractionDigits: dec || 0});
+  // one Intl formatter per decimal count, reused (building one per call cost ~100 µs; seTrend calls this thousands of times)
+  const d = dec || 0, C = wrNum._nf || (wrNum._nf = {});
+  return (C[d] || (C[d] = new Intl.NumberFormat('en-IN', {minimumFractionDigits: d, maximumFractionDigits: d}))).format(+v);
+}
+// debounce per key: a search box updates its state at once and re-renders 150 ms after the last keystroke
+function wrDeb(k, f, ms){
+  const T = wrDeb._t || (wrDeb._t = {});
+  clearTimeout(T[k]); T[k] = setTimeout(f, ms == null ? 150 : ms);
 }
 function wrSigned(v, dec, cur){
   if(!wrIsNum(v)) return '<span class="flat">—</span>';
@@ -7580,7 +7616,7 @@ function rlRow(code, x){
   return {code, name: x.n, industry: x.i, rs: x.rs, rank: x.rk, rs_hist: x.h, rank_hist: x.k, streak: x.st, weeks_in_top: x.w, weakening_weeks: x.wk,
           rank_d1w: x.d, rs_d1d: x.dd, status: x.s, flags: x.f, exhaustion: (x.f || []).length, ex_label: x.ex, trend: {pass: x.tp, total: x.tt, label: x.t}, verdict: x.v, r1w: x.r1w, from_52wh: x.fh};
 }
-const RL_FLAG_SHORT = { climax: 'climax run', rolling: 'rolling over', off_high: 'well off its high', below50: 'below the 50-DMA', ext50: 'stretched above the 50-DMA', dist: 'distribution day', trend: 'failing the trend template' };
+const RL_FLAG_SHORT = { climax: 'climax run', rolling: 'rolling over', off_high: 'well off its high', below50: 'below the 50-day EMA', ext50: 'stretched above the 50-day EMA', dist: 'distribution day', trend: 'failing the trend template' };
 const RL_STATUS_WHY = { holding: 'inside the list now and at the previous weekly anchor', new: 'entered the list this week', slipping: 'still inside, but it lost 8 or more places in a week, or lost ground two weeks running',
   dropped: 'was inside the list and is now outside it', fading: 'left the list and has kept losing rank for two weeks', out: 'has not been inside the list during this window', unrated: 'is not in the scan, so it has no rating' };
 // the reason behind one stock's Trend, Exhaustion or Verdict — the row-level "i"
@@ -7622,7 +7658,7 @@ SE_INFO['rl-status'] = () => `<h4>Status — where it stands against the list</h
 SE_INFO['rl-ex'] = () => { const dict = (RL.doc || {}).flags || {}; return `<h4>Exhaustion — is the leader tiring?</h4><p>Seven warning signs, each read off the newest scan. The number beside the label is how many are raised.</p><ol>${Object.keys(dict).map(k => `<li>${wrEsc(dict[k])}</li>`).join('')}</ol>
   <table><tr><td>${rlPill({h: ['Healthy', 'up']}, 'h')}</td><td>no flag</td></tr><tr><td>${rlPill({h: ['Watch', 'na']}, 'h')}</td><td>one flag</td></tr><tr><td>${rlPill({h: ['Tiring', 'down']}, 'h')}</td><td>two flags</td></tr><tr><td>${rlPill({h: ['Exhausted', 'strongdown']}, 'h')}</td><td>three or more</td></tr></table>
   <p>A strong stock can carry flags for weeks — a climax run is itself a sign of strength. The Evidence panel at the foot of the page shows how often flagged leaders actually left the list in your own archive. Click any label in the column for that stock's flags.</p>`; };
-SE_INFO['rl-trend'] = `<h4>Trend — the seven-point template</h4><p>Seven yes/no checks on the price structure. The cell shows how many pass, for example 7/7.</p><ol><li>Price above the 50-day moving average</li><li>Price above the 200-day moving average</li><li>50-day average above the 200-day</li><li>At least 30% above the 52-week low</li><li>Within 25% of the 52-week high</li><li>RS rating of 70 or more</li><li>200-day average higher than at the previous scan (rising)</li></ol>
+SE_INFO['rl-trend'] = `<h4>Trend — the seven-point template</h4><p>Seven yes/no checks on the price structure. The cell shows how many pass, for example 7/7.</p><ol><li>Price above the 50-day EMA</li><li>Price above the 200-day EMA</li><li>50-day EMA above the 200-day EMA</li><li>At least 30% above the 52-week low</li><li>Within 25% of the 52-week high</li><li>RS rating of 70 or more</li><li>200-day EMA higher than at the previous scan (rising)</li></ol><p>EMA = exponential moving average. The 50- and 200-day lines are screener's "DMA" columns, which are exponential, not simple averages, so a chart drawing simple averages can show slightly different levels. A Minervini-style template: EMA-based, with no 150-day average.</p>
   <table><tr><td><b>Very strong</b></td><td>all seven — a Stage 2 uptrend</td></tr><tr><td><b>Strong</b></td><td>six</td></tr><tr><td><b>Weak</b></td><td>four or five</td></tr><tr><td><b>Very weak</b></td><td>three or fewer</td></tr></table><p>Click any cell in the column to see which checks that stock passes and fails, with the numbers.</p>`;
 SE_INFO['rl-verdict'] = () => `<h4>Verdict — is the strength holding?</h4><table><tr><td>${rlPill(RL_VERDICT, 'strong')}</td><td>holding its place in the list and carrying no exhaustion flag</td></tr><tr><td>${rlPill(RL_VERDICT, 'watch')}</td><td>new to the list this week, or carrying exactly one flag</td></tr><tr><td>${rlPill(RL_VERDICT, 'weakening')}</td><td>status is Slipping, Dropped or Fading, or it carries two or more flags</td></tr></table>
   <p>It is direction only. RS gives the level; the verdict says whether the level is being kept. It is a reading of the data, not a recommendation. Click any verdict in the column for that stock's reason. A dash means no verdict: the stock is outside the list, so there is no place to hold.</p>`;
@@ -7630,7 +7666,8 @@ SE_INFO['rl-gap'] = () => `<h4>Gap to cut</h4><p>How many places the stock sits 
 // ---- the "i" texts for the RS Screen, Stage 2 Tracker and Shortlist columns (owner's rule: every label explained) ----
 SE_INFO['se-rs'] = `<h4>RS — relative strength rating</h4><p>A 1–99 score of how the stock's price has done against every other stock in the scan over the last year: the average of the four quarterly returns with the latest quarter counted twice (weights 40/20/20/20), then ranked. <b>RS 95 means it out-performed 95% of the scan.</b></p>`;
 SE_INFO['se-rs-sector'] = `<h4>RS vs sector</h4><p>The same RS score, but ranked only against the other stocks in its own sector (1–99). 90 means it beats 90% of its own group, whatever the group itself is doing. Blank when the sector has fewer than 5 stocks in the scan.</p>`;
-SE_INFO['se-template'] = `<h4>Trend — the seven-point template</h4><p>Seven yes/no checks on the price structure; the cell shows how many pass, for example 7/7.</p><ol><li>Price above the 50-day moving average</li><li>Price above the 200-day moving average</li><li>50-day average above the 200-day</li><li>At least 30% above the 52-week low</li><li>Within 25% of the 52-week high</li><li>RS rating of 70 or more</li><li>200-day average higher than at the previous scan (rising)</li></ol><p>On the RS Screen, hover a cell to see which checks pass.</p>`;
+SE_INFO['se-bse'] = `<h4>BSE-only names</h4><p>A few names in the scan are listed on BSE only and carry no NSE code. They are ranked and checked like every other name, so they count here, but they have no chart, and the Shortlist and the Stage 2 Journal (which track names by NSE code) leave them out. That is why the Journal's count is lower by this number. Such rows carry a small <b>BSE</b> tag in the tables.</p>`;
+SE_INFO['se-template'] = `<h4>Trend — the seven-point template</h4><p>Seven yes/no checks on the price structure; the cell shows how many pass, for example 7/7.</p><ol><li>Price above the 50-day EMA</li><li>Price above the 200-day EMA</li><li>50-day EMA above the 200-day EMA</li><li>At least 30% above the 52-week low</li><li>Within 25% of the 52-week high</li><li>RS rating of 70 or more</li><li>200-day EMA higher than at the previous scan (rising)</li></ol><p>EMA = exponential moving average. The 50- and 200-day lines are screener's "DMA" columns, which are exponential, not simple averages, so a chart drawing simple averages can show slightly different levels. A Minervini-style template: EMA-based, with no 150-day average.</p><p>On the RS Screen, hover a cell to see which checks pass.</p>`;
 SE_INFO['se-instage2'] = `<h4>In Stage 2</h4><ul><li><b>S2 list</b> — on the provider's weekly Stage 2 list (Weinstein's stage analysis: Stage 2 is the advancing phase); the number is weeks on that list.</li><li><b>S2 calc</b> — passes this app's own trend template on the scan.</li><li><b>S2 ✓✓</b> — both.</li></ul><p>A dash means neither.</p>`;
 SE_INFO['se-s2weeks'] = `<h4>Wks in S2</h4><p>How many weeks the stock has been on the provider's weekly Stage 2 list in its current spell. The list rides on every daily scan until a new one lands, so check its date: the Stage 2 Tracker header gives it, and the Shortlist shows a tag at the top when it is old. On the Shortlist the count is carried forward to the scan date, so it adds the weeks between the list's date and the scan.</p>`;
 SE_INFO['se-earnings'] = `<h4>Earnings — PEAD tier</h4><p>From the newest quarter on PEAD Radar. The provider classifies each company's latest results as <b>Strong</b>, <b>Moderate</b>, <b>Weak</b> or <b>No PEAD</b>. PEAD is post-earnings-announcement drift: the tendency of a stock with a strong result to keep moving the same way for weeks afterwards. Counts of "strong earnings" in the app include Strong and Moderate. A dash means the company is not in that quarter's file.</p>`;
@@ -7640,9 +7677,9 @@ SE_INFO['st-rspct'] = `<h4>RS% (list)</h4><p>The provider's own relative-strengt
 SE_INFO['st-rsscan'] = `<h4>RS (scan)</h4><p>This app's 1–99 RS rating for the stock in the selected scan, the same number as on the RS Screen. A dash means the stock is not in the scan's universe (for example, below its market-cap floor).</p>`;
 SE_INFO['st-ret'] = `<h4>Return since entry</h4><p>The provider's % price change since the stock entered its current Stage 2 spell, as of the list's own date.</p>`;
 SE_INFO['st-status'] = `<h4>Status</h4><ul><li><b>New</b> — entered the list on this file.</li><li><b>Re-entry</b> — back on the list after dropping off earlier.</li><li><b>Continues</b> — was already on the list.</li><li><b>Exited</b> — was on the previous list and is not on this one.</li></ul><p>Taken from the provider's own status column; when that is blank, worked out against the previous list.</p>`;
-SE_INFO['st-asm'] = `<h4>ASM / GSM</h4><p>The exchange's surveillance frameworks (Additional, Graded or Enhanced Surveillance Measure). A stock under one trades under tighter rules, such as higher margins or trade-for-trade settlement. ASM days is how long it has been under the measure.</p>`;
+SE_INFO['st-asm'] = `<h4>ASM / GSM</h4><p>The exchange's surveillance frameworks (Additional, Graded or Enhanced Surveillance Measure). A stock under one trades under tighter rules, such as higher margins or trade-for-trade settlement. ASM days is how long it has been under the measure.</p><p>These tags come from the provider's weekly Stage 2 list, not from NSE's live surveillance list, so they are only as fresh as that list. When the list is more than 9 days older than the scan, the tags are greyed and the list's date is shown: NSE adds and removes names, and moves them between stages, every week.</p>`;
 SE_INFO['sl-score'] = `<h4>Score — how a name earns its place</h4><p>Every point comes from a rule in <code>tools/build_shortlist.py</code>, and each one also appears in "Why it surfaced". The most a name can score is 20.</p><table>
-  <tr><td>+3 / +2</td><td>at a new 52-week high / within 5% of it</td></tr>
+  <tr><td>+3 / +2</td><td>at or within 1.5% of its 52-week high (the new-high zone) / within 5% of it</td></tr>
   <tr><td>+3 / +2</td><td>entered or re-entered the Stage 2 list on a list at most a week older than the scan / on an older list, or already on the list</td></tr>
   <tr><td>+1</td><td>still early in the Stage 2 move (8 weeks or less)</td></tr>
   <tr><td>+2</td><td>passes the seven-point trend template</td></tr>
@@ -7826,7 +7863,7 @@ function renderIX(){
       seKpi('Level', x.last != null ? x.last.toFixed(1) : '—', x.start ? `base 100 on ${wrDate(x.start)}` : ''),
       seKpi('From index high', ixPct(x.from_high), x.high ? `high ${x.high.level.toFixed(1)} on ${wrShort(x.high.date)}` : ''),
       seKpi('1W / 1M / 3M', `${ixPct(x.ret.w1)} / ${ixPct(x.ret.m1)} / ${ixPct(x.ret.m3)}`, `vs market: ${ixPct(x.rel.w1)} / ${ixPct(x.rel.m1)} / ${ixPct(x.rel.m3)}`),
-      seKpi('Breadth', `${x.breadth.above50}/${x.breadth.of}`, 'members above their 50-DMA', x.breadth.of && x.breadth.above50 / x.breadth.of >= 0.6 ? 'ok' : 'warn'),
+      seKpi('Breadth', `${x.breadth.above50}/${x.breadth.of}`, 'members above their 50-day EMA', x.breadth.of && x.breadth.above50 / x.breadth.of >= 0.6 ? 'ok' : 'warn'),
       seKpi('Median RS', x.med_rs ?? '—', 'of the members'),
     ];
     const cols = [
@@ -7855,7 +7892,8 @@ function renderIX(){
 // (every member rebased to 100), a pairs table with the read-across numbers, and "Read-across now": the global names
 // by their week, next to their Indian counterparts. Correlations describe the past; nothing here rates a stock.
 const PR = { doc: null, loaded: false, loading: false, error: null, win: '6M', sel: null };
-const PR_WINS = [['3M', 93], ['6M', 186], ['1Y', 370]];
+// windows in INDIAN SESSIONS (build_peers CHG: 3M/6M/1Y = 63/126/250), so the chart starts where the table's moves start
+const PR_WINS = [['3M', 63], ['6M', 126], ['1Y', 250]];
 const PR_REL = { peer: 'Peer', customer: 'Customer', supplier: 'Supplier', parent: 'Parent', bellwether: 'Bellwether' };
 const PR_TONE = { strong: 'strongup', moderate: 'up', weak: 'na', none: 'na', inverse: 'down' };
 async function loadPR(manual){
@@ -7993,12 +8031,22 @@ function prRegChart(g){
   const key = 'pr-' + g.id, M = g.members || {};
   const ser = Object.entries(M).filter(([, m]) => m.series && (m.series.dates || []).length > 1).map(([k, m], i) => ({
     label: m.side === 'india' ? k : (m.name || k), pts: m.series.dates.map((dt, j) => [dt, m.series.close[j]]).filter(p => p[1] != null),
-    unit: m.currency || '', digits: 2, slot: (i % 8) + 1}));
+    unit: m.currency || '', digits: 2, slot: (i % 8) + 1, india: m.side === 'india'}));
   const end = ser.reduce((a, s) => { const l = s.pts.length ? s.pts[s.pts.length - 1][0] : ''; return l > a ? l : a; }, '');
+  // the window start is the Indian session n sessions back (the longest Indian member's dates), as in the table
+  const base = (ser.filter(s => s.india).sort((a, b) => b.pts.length - a.pts.length)[0] || ser.slice().sort((a, b) => b.pts.length - a.pts.length)[0] || {pts: []}).pts.map(p => p[0]);
+  const startOf = n => base.length ? base[Math.max(0, base.length - 1 - n)] : null;
+  // a global name with no close on that Indian date (its own holiday) carries its last earlier close onto it,
+  // so chGrid's common-start rule does not move every line, the Indian ones included, to a later date
+  const atStart = st => ser.map(s => {
+    if(s.india || !s.pts.length || s.pts.some(p => p[0] === st)) return s;
+    const before = s.pts.filter(p => p[0] < st); if(!before.length) return s;
+    return {...s, pts: [[st, before[before.length - 1][1]], ...s.pts.filter(p => p[0] > st)]};
+  });
   CH.reg[key] = {title: `${g.name}: Indian and global names together`, sub: 'every name rebased to 100 at the start of the window — a line\'s height is its percentage move since then, whatever its currency',
     wins: PR_WINS, win: PR.win, hidden: (CH.reg[key] || {}).hidden,
     note: 'Each market trades on its own calendar; across the other side\'s holiday the last close is carried. US and European closes land a day after the Indian close they are read against.',
-    build: days => end ? chGrid(ser, chIso(chDay(end) - days), true) : null};
+    build: n => { const st = startOf(n); return end && st ? chGrid(atStart(st), st, true) : null; }};
   return key;
 }
 function renderPR(){
@@ -8105,7 +8153,7 @@ const chEndLabels = { id: 'chEndLabels', afterDatasetsDraw(c){
   const ends = c.data.datasets.map((ds, i) => { const meta = c.getDatasetMeta(i); if(meta.hidden || ds._mute) return null; let j = ds.data.length - 1; while(j >= 0 && ds.data[j].y == null) j--; if(j < 0) return null; const el = meta.data[j]; return el ? {x: el.x, y: el.y, ds, j} : null; }).filter(Boolean).sort((a, b) => a.y - b.y);
   g.save(); g.font = '600 11px ' + (ttCss('--sans') || 'system-ui'); g.textBaseline = 'middle'; let lastY = -99;
   ends.forEach(e => { g.beginPath(); g.arc(e.x, e.y, 6, 0, Math.PI * 2); g.fillStyle = surface; g.fill(); g.beginPath(); g.arc(e.x, e.y, 4, 0, Math.PI * 2); g.fillStyle = e.ds.borderColor; g.fill();
-    if(e.y - lastY < 13) return; lastY = e.y; g.fillStyle = ink; g.fillText(`${e.ds.label} ${chFmt(e.ds.data[e.j].y, e.ds._labelDigits, e.ds._unit)}`, e.x + 9, e.y); });
+    if(e.ds._noEndText || e.y - lastY < 13) return; lastY = e.y; g.fillStyle = ink; g.fillText(`${e.ds.label} ${chFmt(e.ds.data[e.j].y, e.ds._labelDigits, e.ds._unit)}`, e.x + 9, e.y); });
   g.restore();
 } };
 function chMake(canvas, cfg){
@@ -8116,8 +8164,12 @@ function chMake(canvas, cfg){
       pointHoverBackgroundColor: col, pointHoverBorderColor: surface, pointHoverBorderWidth: 2, tension: 0, spanGaps: true, borderJoinStyle: 'round', borderCapStyle: 'round', hidden: !!s.hidden, order: mute ? 2 : 1,
       _raw: s.raw, _unit: s.unit, _digits: s.digits != null ? s.digits : 2, _labelDigits: cfg.indexed ? 1 : Math.min(2, s.digits != null ? s.digits : 2), _mute: mute }; });
   const mctx = document.createElement('canvas').getContext('2d'); mctx.font = '600 11px ' + (ttCss('--sans') || 'system-ui');
-  const padRight = Math.min(200, Math.ceil(Math.max(0, ...datasets.filter(ds => !ds._mute).map(ds => { let j = ds.data.length - 1; while(j >= 0 && ds.data[j].y == null) j--; return j < 0 ? 0 : mctx.measureText(`${ds.label} ${chFmt(ds.data[j].y, ds._labelDigits, ds._unit)}`).width; }))) + 20);
   const w = canvas.parentElement.clientWidth || 700, h = canvas.parentElement.clientHeight || 300;
+  // end-of-line labels need room on the right; on a narrow (phone) canvas draw only the end dots (the legend above names
+  // every line and its latest value) and never give the labels more than 30% of the width
+  const narrow = w < 480;
+  const padRight = narrow ? 12 : Math.min(200, Math.round(w * 0.3), Math.ceil(Math.max(0, ...datasets.filter(ds => !ds._mute).map(ds => { let j = ds.data.length - 1; while(j >= 0 && ds.data[j].y == null) j--; return j < 0 ? 0 : mctx.measureText(`${ds.label} ${chFmt(ds.data[j].y, ds._labelDigits, ds._unit)}`).width; }))) + 20);
+  datasets.forEach(ds => { ds._noEndText = narrow; });
   const ticks = chTicks(xs[0], xs[xs.length - 1], Math.floor((w - padRight) / 60)), tlab = new Map(ticks.map(t => [t.v, t.t]));
   const unit0 = (cfg.ser[0] || {}).unit;
   // decimals follow the gap between gridlines: 60, 70, 80 need none; 4.25, 4.50 need two
@@ -8211,6 +8263,7 @@ async function loadMK(manual){
   finally{ MK.loading = false; MK.loaded = true; }
   if(typeof IX !== 'undefined' && !IX.loaded && !IX.loading){ try{ await loadIX(false); }catch(e){} }
   renderMK(); mkDashTile();
+  try{ if(typeof renderSL === 'function' && SL.loaded) renderSL(); }catch(e){}   // the pull card's session count reads markets.json's holidays
 }
 function mkS(id){
   if(MK.cache.has(id)) return MK.cache.get(id);
@@ -8342,7 +8395,7 @@ function mkFlowBlock(){
     const rows = cur.rows.filter(r => r.auc || r.net).map(r => { const ix = MK_SECTOR_MAP[r.s], s = ix ? mkS(ix) : null, m1 = s ? mkChg(s, 31) : null; return {...r, sum3: sum3.get(r.s), pct: r.auc_prev ? r.net / r.auc_prev * 100 : null, ixn: s ? s.name : '', ix1m: m1 ? m1.pct : null}; });
     const top = rows.slice().sort((a, b) => b.net - a.net), names = l => l.map(r => `${wrEsc(r.s)} (${wrSigned(r.net, 0)})`).join(', ');
     secHtml = `<p class="tt-thesis" style="margin:0 0 10px;">In the fortnight of <b>${wrEsc(cur.period)}</b> foreign investors were net ${cur.total && cur.total.net >= 0 ? 'buyers' : 'sellers'} of ${wrSigned(cur.total ? cur.total.net : null, 0, '₹')} Cr of Indian equity. Most bought: ${names(top.slice(0, 3))}. Most sold: ${names(top.slice(-3).reverse())}.</p>
-      ${wrTable('se-mk-sec', [{k: 's', t: 'Sector', type: 'text'}, {k: 'net', t: cur.period.replace(/, \d{4}$/, ''), type: 'signed'}, {k: 'net_prev', t: cur.prev_period.replace(/, \d{4}$/, ''), type: 'signed'}, {k: 'sum3', t: `Last ${sec.length} fortnights`, type: 'signed'}, {k: 'pct', t: 'Net as % of holdings', type: 'pct', dec: 2}, {k: 'auc', t: 'FPI holdings (₹ Cr)', type: 'int'}, {k: 'ixn', t: 'Nearest NSE index', type: 'text'}, {k: 'ix1m', t: 'Index 1M', type: 'pct', dec: 1}], rows, {sort: {col: 'net', dir: 'desc'}, maxHeight: '520px'})}
+      <div id="mk-sec-tbl">${(MK._secTbl = () => wrTable('se-mk-sec', [{k: 's', t: 'Sector', type: 'text'}, {k: 'net', t: cur.period.replace(/, \d{4}$/, ''), type: 'signed'}, {k: 'net_prev', t: cur.prev_period.replace(/, \d{4}$/, ''), type: 'signed'}, {k: 'sum3', t: `Last ${sec.length} fortnights`, type: 'signed'}, {k: 'pct', t: 'Net as % of holdings', type: 'pct', dec: 2}, {k: 'auc', t: 'FPI holdings (₹ Cr)', type: 'int'}, {k: 'ixn', t: 'Nearest NSE index', type: 'text'}, {k: 'ix1m', t: 'Index 1M', type: 'pct', dec: 1}], rows, {sort: {col: 'net', dir: 'desc'}, maxHeight: '520px'}))()}</div>
       <div class="wr-hint" style="margin-top:6px;">₹ crore, equity only. Source: <a href="${wrAttr(cur.url || d.sources.sectors.url)}" target="_blank" rel="noopener">NSDL fortnightly sector-wise FPI report</a>, as on ${wrDate(cur.asof)}; the next one covers the second half of the month and appears about a week after it ends. The NSE index beside each sector is the closest match, not the same basket.</div>`; }
   return `<div class="se-kpis" style="margin-bottom:12px;">${kp.join('')}</div>
     <div class="tt-grid">${chCard('mk-fpi', corr ? `<div class="tt-stat">Weekly FPI equity flow and the Nifty 50's weekly return have moved together with a correlation of <b>${corr.r >= 0 ? '' : '−'}${Math.abs(corr.r).toFixed(2)}</b> over ${corr.n} weeks. A correlation describes the past; it is not a mechanism.</div>` : '')}
@@ -8369,8 +8422,8 @@ function mkTrackersBlock(){
   const ix = (typeof IX !== 'undefined' && IX.doc) || null; if(!ix) return `<div class="wr-hint">No sub-sector trackers on file yet${IX.error ? ` (${wrEsc(IX.error)})` : ''}.</div>`;
   const rows = (ix.indices || []).map(x => ({id: x.id, name: x.name, group: x.group, n: (x.codes || []).length, last: x.last, d1: x.ret.d1, w1: x.ret.w1, m1: x.ret.m1, rel: x.rel.m1, hi: x.from_high, br: x.breadth.of ? x.breadth.above50 / x.breadth.of * 100 : null, brt: `${x.breadth.above50}/${x.breadth.of}`, rs: x.med_rs}));
   const cols = [{k: 'name', t: 'Tracker', type: 'html', sortType: 'text', fn: r => r.name, html: r => `<a href="#" onclick="IX.sel='${wrAttr(r.id)}';show('indices');return false;"><b>${wrEsc(r.name)}</b></a> <span class="flat">${r.n} names</span>`}, {k: 'last', t: 'Level', type: 'num', dec: 1}, {k: 'd1', t: '1D', type: 'pct', dec: 1}, {k: 'w1', t: '1W', type: 'pct', dec: 1}, {k: 'm1', t: '1M', type: 'pct', dec: 1},
-    {k: 'rel', t: '1M vs market', type: 'pct', dec: 1, info: 'ix-rel'}, {k: 'hi', t: 'From its high', type: 'pct0', dec: 1}, {k: 'br', t: 'Above 50-DMA', type: 'html', sortType: 'num', fn: r => r.br, html: r => `<span class="${r.br >= 60 ? 'up' : r.br < 40 ? 'dn' : 'flat'}">${r.brt}</span>`, info: 'ix-breadth'}, {k: 'rs', t: 'Median RS', type: 'html', sortType: 'num', fn: r => r.rs, html: r => seRsCell(r.rs)}];
-  return `${chCard('mk-trk')}<div style="height:12px;"></div>${wrTable('se-mk-trk', cols, rows, {sort: {col: 'm1', dir: 'desc'}})}
+    {k: 'rel', t: '1M vs market', type: 'pct', dec: 1, info: 'ix-rel'}, {k: 'hi', t: 'From its high', type: 'pct0', dec: 1}, {k: 'br', t: 'Above 50-day EMA', type: 'html', sortType: 'num', fn: r => r.br, html: r => `<span class="${r.br >= 60 ? 'up' : r.br < 40 ? 'dn' : 'flat'}">${r.brt}</span>`, info: 'ix-breadth'}, {k: 'rs', t: 'Median RS', type: 'html', sortType: 'num', fn: r => r.rs, html: r => seRsCell(r.rs)}];
+  return `${chCard('mk-trk')}<div style="height:12px;"></div><div id="mk-trk-tbl">${(MK._trkTbl = () => wrTable('se-mk-trk', cols, rows, {sort: {col: 'm1', dir: 'desc'}}))()}</div>
     <div class="wr-hint" style="margin-top:6px;">Each tracker is an equal-weight basket of the names you chose, chain-linked from the daily scan, base 100 on ${wrDate(ix.dates[0])}; the market line is every coded name in the scan, weighted the same way. Click a tracker for its members, or open <a href="#" onclick="show('indices');return false;">Indices</a>.</div>`;
 }
 function renderMK(){
@@ -8415,7 +8468,7 @@ SE_INFO['mk-corr'] = () => `<h4>Measured against</h4><p>The correlation between 
 SE_INFO['mk-rel'] = `<h4>1M vs Nifty 500</h4><p>The index's one-month return minus the Nifty 500's. Positive means the sector beat the broad market over the month — money moved toward it relative to everything else, whatever the market itself did.</p>`;
 SE_INFO['mk-turn'] = `<h4>Turnover vs 20-day average</h4><p>Today's traded value in the index's stocks divided by its own average over the previous 20 sessions. 1.50× means half as much again as usual. A sector rising on turnover well above its average is being accumulated; one rising on thin turnover is drifting.</p>`;
 SE_INFO['ix-rel'] = `<h4>1M vs market</h4><p>The tracker's one-month return minus the return of the whole scan, weighted equally. It is the sub-sector's own relative strength: positive means its stocks beat the average stock.</p>`;
-SE_INFO['ix-breadth'] = `<h4>Above 50-DMA</h4><p>How many of the tracker's members closed above their own 50-day moving average. A tracker can rise on one or two names; breadth shows whether the group is moving together. Above 60% is broad, below 40% is narrow.</p>`;
+SE_INFO['ix-breadth'] = `<h4>Above 50-day EMA</h4><p>How many of the tracker's members closed above their own 50-day exponential moving average (EMA: screener's 50-DMA column, which is exponential, not a simple average). A tracker can rise on one or two names; breadth shows whether the group is moving together. Above 60% is broad, below 40% is narrow.</p>`;
 
 // ============= MARKET NEWS — what moved markets overnight, collected early each morning IST =============
 // Reads data/daily/market_news.json (tools/market_news.py). Two layers, kept apart on the page:
@@ -8462,7 +8515,7 @@ function renderMN(){
 //   • RS rating      — IBD-style: average quarterly return over the last year, most recent quarter
 //                      counted twice, percentile-ranked 1–99 within the loaded universe (seScore / tools/rs.py)
 //   • RS vs sector   — the same percentile inside the stock's industry group (≥5 peers)
-//   • Trend template — 7 Weinstein/Minervini checks from DMA50/200 + 52-week position (+ RS ≥ 70)
+//   • Trend template — 7 Weinstein/Minervini checks from DMA50/200 (screener's EMAs) + 52-week position (+ RS ≥ 70)
 //   • Stage 2 diffs  — entered / continues / re-entry / exited by comparing consecutive lists
 //   • Sector rotation— industry-group median RS, Stage 2 share, momentum, and week-over-week drift
 const SE = {
@@ -8475,7 +8528,7 @@ const SE = {
   weights: { r3m: 0.5, r1m: 0.3, r1w: 0.2 }   // fallback composite when only 3-month history is available
 };
 const SE_BANDS = [['Large', 50000], ['Mid', 15000], ['Small', 3000], ['Micro', 0]];
-const SE_NEWHIGH = 1.5;   // within this % of the 52-week high counts as 'at a new high'
+const SE_NEWHIGH = 1.5;   // within this % of the 52-week high counts as the new-high zone ('at / near a 52W high')
 const SE_GROUP_COLORS = ['#10B981','#3B82F6','#F59E0B','#8B5CF6','#EC4899','#14B8A6','#F97316','#6366F1','#84CC16','#06B6D4','#E11D48','#A855F7'];
 
 // ---------- loading ----------
@@ -8488,7 +8541,7 @@ async function loadSE(manual){
     const idx = await res.json();
     SE.scans = (Array.isArray(idx.scans) ? idx.scans : []).filter(s => s && s.file).sort((a, b) => String(b.date).localeCompare(String(a.date)));
     SE.error = null;
-    if(manual){ SE.data = {}; SE.bust = true; if(typeof RT !== 'undefined'){ RT.cache = {}; RT.anchors = null; } }   // drop memory caches AND make seFetch revalidate: a scan rebuilt in place keeps its filename
+    if(manual){ SE.data = {}; SE.inflight = {}; SE.bust = true; if(typeof RT !== 'undefined'){ RT.cache = {}; RT.anchors = null; } }   // drop memory caches AND make seFetch revalidate: a scan rebuilt in place keeps its filename
     const keep = SE.cur && SE.scans.some(s => s.file === SE.cur);
     SE.cur = keep ? SE.cur : (SE.scans[0] ? SE.scans[0].file : null);
     if(SE.cur) await seLoadSet(SE.cur);
@@ -8506,22 +8559,33 @@ async function loadSE(manual){
 }
 async function seFetch(file){
   if(SE.data[file]) return SE.data[file];
-  const res = await fetch('data/scans/' + file, {cache: SE.bust ? 'reload' : 'default'});   // Pages serves scans with max-age=600; a manual Refresh must see a scan rebuilt under the same name
-  if(!res.ok) throw new Error(file + ': HTTP ' + res.status);
-  const d = await res.json();
-  d.universe = Array.isArray(d.universe) ? d.universe : [];
-  d.stage2 = Array.isArray(d.stage2) ? d.stage2 : [];
-  d.universe.forEach(r => { r._key = String(r.code || r.name || '').trim().toUpperCase(); });
-  d.stage2.forEach(r => { r._key = String(r.code || '').trim().toUpperCase(); });
-  SE.data[file] = d;
-  return d;
+  // one request per file at a time: a second caller joins the one in flight. The entry is dropped once it
+  // settles (a kept promise would hand back the old scan after a manual Refresh empties SE.data).
+  SE.inflight = SE.inflight || {};
+  if(SE.inflight[file]) return SE.inflight[file];
+  const p = (async () => {
+    const res = await fetch('data/scans/' + file, {cache: SE.bust ? 'reload' : 'default'});   // Pages serves scans with max-age=600; a manual Refresh must see a scan rebuilt under the same name
+    if(!res.ok) throw new Error(file + ': HTTP ' + res.status);
+    const d = await res.json();
+    d.universe = Array.isArray(d.universe) ? d.universe : [];
+    d.stage2 = Array.isArray(d.stage2) ? d.stage2 : [];
+    d.universe.forEach(r => { r._key = String(r.code || r.name || '').trim().toUpperCase(); });
+    d.stage2.forEach(r => { r._key = String(r.code || '').trim().toUpperCase(); });
+    SE.data[file] = d;
+    return d;
+  })();
+  SE.inflight[file] = p;
+  try{ return await p; }finally{ if(SE.inflight[file] === p) delete SE.inflight[file]; }
 }
 async function seLoadSet(file){
   const d = await seFetch(file);
   const i = SE.scans.findIndex(s => s.file === file);
-  const priors = SE.scans.slice(i + 1, i + 4);
-  const rs = await Promise.allSettled(priors.map(p => seFetch(p.file)));
-  rs.forEach((r, k) => { if(r.status === 'rejected') console.warn('Edge: prior scan failed', priors[k].file, r.reason); });
+  // the previous week with a universe (seCompute's prevU): walk back one scan at a time, usually one fetch
+  for(let k = i + 1; k < SE.scans.length; k++){
+    if(SE.scans[k].universe === 0) continue;   // index.json says this scan has no universe: nothing to fetch
+    try{ const p = await seFetch(SE.scans[k].file); if(p.universe.length) break; }
+    catch(e){ console.warn('Edge: prior scan failed', SE.scans[k].file, e); }
+  }
   // The weekly Stage 2 file rides along on every daily scan until a new one lands, so entries and
   // exits need the newest prior carrying a DIFFERENT file. index.json's count / s2asof jump straight to
   // the first scan that looks like another list (usually one fetch), then the walk confirms on sources.stage2.
@@ -8611,16 +8675,18 @@ function sePercentiles(rows, key){
     i = j + 1;
   }
 }
-function seTrend(r, prevRow){
-  const checks = [];
+function seTrend(r, prevRow, noDetail){
+  // dma50 / dma200 are screener's "DMA" columns, which are exponential averages (EMA): the labels say so.
+  // noDetail: the caller only reads .s2 / .pass (Track Record), so skip building the tooltip strings.
+  const checks = [], nd = !!noDetail;
   const add = (k, label, ok, detail) => { if(ok === null) return; checks.push({k, label, ok, detail}); };
-  add('p50', 'Price above 50-DMA', wrIsNum(r.price) && wrIsNum(r.dma50) ? +r.price > +r.dma50 : null, wrIsNum(r.dma50) ? `${wrNum(r.price, 0)} vs ${wrNum(r.dma50, 0)}` : '');
-  add('p200', 'Price above 200-DMA', wrIsNum(r.price) && wrIsNum(r.dma200) ? +r.price > +r.dma200 : null, wrIsNum(r.dma200) ? `${wrNum(r.price, 0)} vs ${wrNum(r.dma200, 0)}` : '');
-  add('ma', '50-DMA above 200-DMA', wrIsNum(r.dma50) && wrIsNum(r.dma200) ? +r.dma50 > +r.dma200 : null, '');
-  add('low', '≥30% above 52-week low', wrIsNum(r.up_52wl) ? +r.up_52wl >= 30 : null, wrIsNum(r.up_52wl) ? `+${wrNum(r.up_52wl, 0)}% off the low` : '');
-  add('high', 'Within 25% of 52-week high', wrIsNum(r.from_52wh) ? +r.from_52wh >= -25 : null, wrIsNum(r.from_52wh) ? `${wrNum(r.from_52wh, 1)}% from high` : '');
-  add('rs', 'RS rating ≥ 70', wrIsNum(r.rs) ? +r.rs >= 70 : null, wrIsNum(r.rs) ? `RS ${r.rs}` : '');
-  add('slope', '200-DMA rising vs last scan', prevRow && wrIsNum(prevRow.dma200) && wrIsNum(r.dma200) ? +r.dma200 > +prevRow.dma200 : null, prevRow && wrIsNum(prevRow.dma200) ? `${wrNum(prevRow.dma200, 0)} → ${wrNum(r.dma200, 0)}` : '');
+  add('p50', 'Price above 50-day EMA', wrIsNum(r.price) && wrIsNum(r.dma50) ? +r.price > +r.dma50 : null, !nd && wrIsNum(r.dma50) ? `${wrNum(r.price, 0)} vs ${wrNum(r.dma50, 0)}` : '');
+  add('p200', 'Price above 200-day EMA', wrIsNum(r.price) && wrIsNum(r.dma200) ? +r.price > +r.dma200 : null, !nd && wrIsNum(r.dma200) ? `${wrNum(r.price, 0)} vs ${wrNum(r.dma200, 0)}` : '');
+  add('ma', '50-day EMA above 200-day EMA', wrIsNum(r.dma50) && wrIsNum(r.dma200) ? +r.dma50 > +r.dma200 : null, '');
+  add('low', '≥30% above 52-week low', wrIsNum(r.up_52wl) ? +r.up_52wl >= 30 : null, !nd && wrIsNum(r.up_52wl) ? `+${wrNum(r.up_52wl, 0)}% off the low` : '');
+  add('high', 'Within 25% of 52-week high', wrIsNum(r.from_52wh) ? +r.from_52wh >= -25 : null, !nd && wrIsNum(r.from_52wh) ? `${wrNum(r.from_52wh, 1)}% from high` : '');
+  add('rs', 'RS rating ≥ 70', wrIsNum(r.rs) ? +r.rs >= 70 : null, !nd && wrIsNum(r.rs) ? `RS ${r.rs}` : '');
+  add('slope', '200-day EMA rising vs last scan', prevRow && wrIsNum(prevRow.dma200) && wrIsNum(r.dma200) ? +r.dma200 > +prevRow.dma200 : null, !nd && prevRow && wrIsNum(prevRow.dma200) ? `${wrNum(prevRow.dma200, 0)} → ${wrNum(r.dma200, 0)}` : '');
   const pass = checks.filter(c => c.ok).length;
   return { checks, pass, total: checks.length, s2: checks.length >= 5 && pass === checks.length };
 }
@@ -8634,6 +8700,13 @@ function seS2AsofLbl(c){
   if(!c || !c.s2asof) return null;
   const age = Math.max(0, Math.round((new Date(c.date + 'T00:00:00') - new Date(c.s2asof + 'T00:00:00')) / 86400000));
   return `provider list of ${wrDate(c.s2asof)}${age > 9 ? ` (${age} days old)` : ''}`;
+}
+// ASM / ESM / GSM tags ride on the provider's weekly Stage 2 list, so they are as old as that list:
+// past 9 days (seS2Note's threshold) they are shown greyed and labelled with the list's own date.
+function seAsmStale(c){
+  if(!c || !c.s2asof || !c.date) return null;
+  const age = Math.max(0, Math.round((new Date(c.date + 'T00:00:00') - new Date(c.s2asof + 'T00:00:00')) / 86400000));
+  return age > 9 ? {age, date: c.s2asof} : null;
 }
 function seS2Note(c){
   // "provider list of 13 Sep", how stale that is against this scan, and what it is compared with
@@ -8721,7 +8794,7 @@ function seCompute(){
   SE.c = { d, date: d.date, U, S2, exits, sectors, s2Industries, prevU, prevS2, hasPrevU: !!prevU, hasPrevS2: !!prevS2,
     s2src, s2asof: d.stage2_asof || null, s2floor: s2cut ? s2floor : null, s2cut, belowCut: belowCut.length,
     stats: { n: U.length, s2list: S2.length, entered: S2.filter(r => r.state === 'entered').length, reentry: S2.filter(r => r.state === 'reentry').length, exited: exits.length,
-      ttPass: U.filter(r => r.s2calc).length, inBoth: U.filter(r => r.s2calc && r.s2list).length, medR1w: med(U.map(r => r.r1w)), medR3m: med(U.map(r => r.r3m)), medFrom52: med(U.map(r => r.from_52wh)),
+      ttPass: U.filter(r => r.s2calc).length, ttPassBse: U.filter(r => r.s2calc && !r.code).length, inBoth: U.filter(r => r.s2calc && r.s2list).length, medR1w: med(U.map(r => r.r1w)), medR3m: med(U.map(r => r.r3m)), medFrom52: med(U.map(r => r.from_52wh)),
       nearATH: U.filter(r => r.near_ath).length, above200: U.filter(r => r.trend.checks.find(c => c.k === 'p200' && c.ok)).length, medWeeks: med(S2.map(r => r.weeks)), posRet: S2.length ? 100 * S2.filter(r => wrIsNum(r.ret) && r.ret > 0).length / S2.length : null, asm: S2.filter(r => r.asm).length } };
 }
 
@@ -8763,7 +8836,8 @@ function seStockCell(r){
   return `<span class="nm" title="${wrAttr((r.code ? r.code + ' \u00b7 ' : '') + nm)}">${wrEsc(nm)}</span>`
     + wrOwned(r)
     + (r.near_ath ? '<span class="wr-sup" title="Within 5% of all-time high">*</span>' : '')
-    + (r.isNew ? '<span class="se-pill new" title="Not in last week\'s scan">NEW</span>' : '');
+    + (r.isNew ? '<span class="se-pill new" title="Not in last week\'s scan">NEW</span>' : '')
+    + (!r.code && r.name ? '<span class="se-pill" title="Listed on BSE only: no NSE code, so it has no chart and is not tracked by the Shortlist or the Stage 2 Journal">BSE</span>' : '');
 }
 function seActCell(r){ return wrActCell({code: r.code || r.name, name: r.name, industry: r.industry || r.group}, r.industry || r.group); }
 function seKpi(label, value, sub, tone, count){
@@ -8792,9 +8866,7 @@ function seGfPass(r){
 }
 function seGfSet(k, v){
   if(k === 'reset') SE.gf = {sector: 'all', band: 'all'}; else SE.gf[k] = v;
-  seRenderAll();
-  if(typeof renderDG === 'function' && typeof DG !== 'undefined' && DG.loaded && document.getElementById('dg-body')) renderDG();
-  if(typeof renderPD === 'function' && typeof PD !== 'undefined' && PD.loaded && document.getElementById('pd-body')) renderPD();
+  seRenderAll();   // already redraws Daily Gainers and PEAD
 }
 function seGfBar(){
   const c = SE.c; if(!c) return '';
@@ -8810,6 +8882,9 @@ function seGfBar(){
 function seRenderAll(){ seRenderPulse(); seRenderRS(); seRenderTrend(); seRenderSectors(); seRenderS2(); if(typeof renderPD === 'function' && typeof PD !== 'undefined' && PD.loaded && document.getElementById('pd-body')) renderPD(); if(typeof renderDG === 'function' && typeof DG !== 'undefined' && DG.loaded && document.getElementById('dg-body')) renderDG(); }
 function seRerender(tableId){
   if(tableId.startsWith('se-mk-idx')) mkRenderIdx();
+  // FPI-by-sector and tracker tables: re-sort just the table, not the whole page and its ten charts
+  else if(tableId.startsWith('se-mk-sec') && MK._secTbl && document.getElementById('mk-sec-tbl')) document.getElementById('mk-sec-tbl').innerHTML = MK._secTbl();
+  else if(tableId.startsWith('se-mk-trk') && MK._trkTbl && document.getElementById('mk-trk-tbl')) document.getElementById('mk-trk-tbl').innerHTML = MK._trkTbl();
   else if(tableId.startsWith('se-mk')) renderMK();
   else if(tableId.startsWith('se-rs')) seRenderRSTable();
   else if(tableId.startsWith('se-trend')) seRenderTrendTable();
@@ -8846,10 +8921,10 @@ function seRenderPulse(){
   const kpis = [];
   if(hasU) kpis.push(seKpi('Stocks in scan', wrNum(s.n), `${wrEsc(c.d.screen && c.d.screen.name || 'weekly screener scan')}`, '', s.n));
   if(hasS2) kpis.push(seKpi('Stage 2 list', wrNum(s.s2list), c.hasPrevS2 ? `<span class="up">+${s.entered + s.reentry} in</span> · <span class="dn">−${s.exited} out</span> vs last list` : `${s.entered} flagged new by the list`, 'accent', s.s2list));
-  if(hasU) kpis.push(seKpi('Pass trend template', wrNum(s.ttPass), `${Math.round(100 * s.ttPass / s.n)}% of scan${hasS2 ? ` · ${s.inBoth} also on the S2 list` : ''}`, 'ok', s.ttPass));
+  if(hasU) kpis.push(seKpi('Pass trend template', wrNum(s.ttPass), `${Math.round(100 * s.ttPass / s.n)}% of scan${s.ttPassBse ? ` · ${wrNum(s.ttPassBse)} BSE-only, not tracked in the Stage 2 Journal (${wrNum(s.ttPass - s.ttPassBse)})${seInfoBtn('se-bse')}` : ''}${hasS2 ? ` · ${s.inBoth} also on the S2 list` : ''}`, 'ok', s.ttPass));
   if(hasU) kpis.push(seKpi('Median 1-wk move', wrPct(s.medR1w, 1, {plain: true}), `median 3-mo ${wrPct(s.medR3m, 0, {plain: true})} · ${s.nearATH} near all-time high`, s.medR1w >= 0 ? 'ok' : 'bad'));
-  if(hasU) kpis.push(seKpi('Distance to 52W high', wrPct(s.medFrom52, 1, {plain: true}), `median · ${s.above200} of ${s.n} above 200-DMA`, ''));
-  if(hasS2) kpis.push(seKpi('Median weeks in Stage 2', s.medWeeks != null ? wrNum(s.medWeeks) : '—', `${s.posRet != null ? Math.round(s.posRet) + '% positive since entry' : ''}${s.asm ? ` · ${s.asm} under ASM/GSM` : ''}`, '', s.medWeeks));
+  if(hasU) kpis.push(seKpi('Distance to 52W high', wrPct(s.medFrom52, 1, {plain: true}), `median · ${s.above200} of ${s.n} above 200-day EMA`, ''));
+  if(hasS2) kpis.push(seKpi('Median weeks in Stage 2', s.medWeeks != null ? wrNum(s.medWeeks) : '—', `${s.posRet != null ? Math.round(s.posRet) + '% positive since entry' : ''}${s.asm ? ` · ${s.asm} under ASM/GSM${seAsmStale(c) ? ` (list of ${wrDate(seAsmStale(c).date)})` : ''}` : ''}`, '', s.medWeeks));
   // industry leaders
   const leaders = c.sectors.filter(g => g.n >= 3).slice(0, 4);
   const leaderCards = leaders.map(g => `<div class="se-lead" onclick="seGo('sectors',{group:'${wrAttr(g.name)}'})" style="--gc:${g.color}">
@@ -8989,7 +9064,7 @@ function seRenderRS(){
   el.innerHTML = `
     ${seGfBar()}
     <div class="se-filters">
-      <input type="text" placeholder="Search stock, code, industry…" value="${wrAttr(u.rsq)}" oninput="SE.ui.rsq=this.value;seRenderRSTable()">
+      <input type="text" placeholder="Search stock, code, industry…" value="${wrAttr(u.rsq)}" oninput="SE.ui.rsq=this.value;wrDeb('rs',seRenderRSTable)">
       <select onchange="SE.ui.rsmin=this.value;seRenderRSTable()">${[['0', 'Any RS'], ['50', 'RS 50+'], ['70', 'RS 70+'], ['80', 'RS 80+'], ['90', 'RS 90+']].map(([v, t]) => `<option value="${v}" ${u.rsmin === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
       <select onchange="SE.ui.rss2=this.value;seRenderRSTable()">${[['all', 'Stage 2: any'], ['list', 'On Stage 2 list'], ['calc', 'Passes trend template'], ['both', 'List + template'], ['either', 'List or template'], ['none', 'Neither']].map(([v, t]) => `<option value="${v}" ${u.rss2 === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
       <select onchange="SE.ui.rsgroup=this.value;seRenderRSTable()"><option value="all">All industry groups</option>${groups.map(g => `<option value="${wrAttr(g)}" ${u.rsgroup === g ? 'selected' : ''}>${wrEsc(g)}</option>`).join('')}</select>
@@ -9001,7 +9076,7 @@ function seRenderRS(){
       <button class="btn btn-ghost btn-sm" onclick="seExportCsv()" title="Download the filtered rows as CSV"><i class="ti ti-download"></i>CSV</button>
     </div>
     <div id="se-rs-table"></div>
-    <div class="wr-hint" style="margin-top:8px;">Size bands (approx.): Large ≥ ₹50,000 Cr · Mid ≥ ₹15,000 Cr · Small ≥ ₹3,000 Cr · Micro below. Trend template: price &gt; 50/200-DMA, 50 &gt; 200-DMA, ≥30% above 52W low, within 25% of 52W high, RS ≥ 70, 200-DMA rising vs last scan (when available). Trend reads Very strong (every check passes), Strong (one miss), Weak (two–three), Very weak (more); hover it for the failing checks.</div>`;
+    <div class="wr-hint" style="margin-top:8px;">Size bands (approx.): Large ≥ ₹50,000 Cr · Mid ≥ ₹15,000 Cr · Small ≥ ₹3,000 Cr · Micro below. Trend template (EMA = screener's exponential 50/200-day averages): price &gt; 50/200-day EMA, 50 &gt; 200-day EMA, ≥30% above 52W low, within 25% of 52W high, RS ≥ 70, 200-day EMA rising vs last scan (when available). Trend reads Very strong (every check passes), Strong (one miss), Weak (two–three), Very weak (more); hover it for the failing checks.</div>`;
   seRenderRSTable();
 }
 function seRSFiltered(){
@@ -9184,7 +9259,8 @@ function seRenderTrend(){
   }
   if(anchors.some(a => a && !SE.data[a.file])){
     el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading earlier scans…</p></div>';
-    seTrendEnsure();
+    // the earlier anchor scans are fetched only once this page is open (show('rstrend') calls back in here)
+    if(document.getElementById('sec-rstrend') && document.getElementById('sec-rstrend').classList.contains('active')) seTrendEnsure();
     return;
   }
   seRenderTrendBody(el, anchors);
@@ -9216,7 +9292,7 @@ function seRenderTrendBody(el, anchors){
       <button class="${u.bucket === 'strongdown' ? 'active' : ''}" onclick="RT.ui.bucket='strongdown';seRenderTrendTable()">↓↓ Very weak<b>${wrNum(counts.strongdown)}</b></button>
     </div>
     <div class="se-filters">
-      <input type="text" placeholder="Search stock, code, industry…" value="${wrAttr(u.q)}" oninput="RT.ui.q=this.value;seRenderTrendTable()">
+      <input type="text" placeholder="Search stock, code, industry…" value="${wrAttr(u.q)}" oninput="RT.ui.q=this.value;wrDeb('rt',seRenderTrendTable)">
       <select onchange="RT.ui.group=this.value;seRenderTrendTable()"><option value="all">All sectors</option>${groups.map(g => `<option value="${wrAttr(g)}" ${u.group === g ? 'selected' : ''}>${wrEsc(g)}</option>`).join('')}</select>
       <select onchange="RT.ui.band=this.value;seRenderTrendTable()"><option value="all">All sizes</option>${SE_BANDS.map(([b]) => `<option value="${b}" ${u.band === b ? 'selected' : ''}>${b} cap</option>`).join('')}</select>
       <label class="se-check"><input type="checkbox" ${u.s2 ? 'checked' : ''} onchange="RT.ui.s2=this.checked;seRenderTrendTable()"> On Stage 2 list</label>
@@ -9409,7 +9485,7 @@ const ttEndLabels = { id: 'ttEndLabels', afterDatasetsDraw(c){
   ends.forEach(e => {
     g.beginPath(); g.arc(e.x, e.y, 6, 0, Math.PI * 2); g.fillStyle = surface; g.fill();          // 2px surface ring
     g.beginPath(); g.arc(e.x, e.y, 4, 0, Math.PI * 2); g.fillStyle = e.ds.borderColor; g.fill();
-    if(e.y - lastY < 13) return;                                                                // converging ends: the legend names them; never stack labels
+    if(e.ds._noEndText || e.y - lastY < 13) return;                                             // converging ends (or a narrow canvas): the legend names them; never stack labels
     lastY = e.y;
     g.fillStyle = ink; g.fillText(`${e.ds.label} ${ttFmt(e.ds.data[e.j], e.ds._labelDigits)}${e.ds._fcEnd ? ' f’cast' : ''}`, e.x + 9, e.y);
   });
@@ -9425,7 +9501,9 @@ function ttMakeChart(canvas, tr, chart, grid){
       _raw: x.raw, _unit: x.s.unit, _digits: x.s.digits != null ? x.s.digits : 2, _labelDigits: grid.indexed ? 0 : (x.s.digits != null ? Math.min(x.s.digits, 2) : 2), _fcIndex: x.fcIndex, _fcEnd: x.fcIndex >= 0 };
   });
   const mctx = document.createElement('canvas').getContext('2d'); mctx.font = '600 11px ' + (ttCss('--sans') || 'system-ui');
-  const padRight = Math.min(190, Math.ceil(Math.max(0, ...datasets.map(ds => { let j = ds.data.length - 1; while(j >= 0 && ds.data[j] == null) j--; return j < 0 ? 0 : mctx.measureText(`${ds.label} ${ttFmt(ds.data[j], ds._labelDigits)}${ds._fcEnd ? ' f’cast' : ''}`).width; }))) + 20);
+  const tw = canvas.parentElement.clientWidth || 700, narrow = tw < 480;   // phone width: end dots only, as in chMake
+  const padRight = narrow ? 12 : Math.min(190, Math.round(tw * 0.3), Math.ceil(Math.max(0, ...datasets.map(ds => { let j = ds.data.length - 1; while(j >= 0 && ds.data[j] == null) j--; return j < 0 ? 0 : mctx.measureText(`${ds.label} ${ttFmt(ds.data[j], ds._labelDigits)}${ds._fcEnd ? ' f’cast' : ''}`).width; }))) + 20);
+  datasets.forEach(ds => { ds._noEndText = narrow; });
   return new Chart(canvas, { type: 'line', data: { labels: grid.dates, datasets }, plugins: [ttCrosshair, ttEndLabels],
     options: { responsive: true, maintainAspectRatio: false, animation: false, layout: { padding: { right: padRight, top: 10 } },
       interaction: { mode: 'index', intersect: false },
@@ -9549,7 +9627,7 @@ function seRenderS2(){
       ${seKpi(c.s2cut ? 'Left the list or fell under its cut' : 'Exited', wrNum(s.exited), c.hasPrevS2 ? (c.s2cut ? `since scan ${wrDate(c.prevS2.date)} · ${wrNum(c.belowCut)} more absent names last sat near or under this file's RS ${wrNum(c.s2floor, 1)}% cut — not visible, not counted` : `dropped since the list of scan ${wrDate(c.prevS2.date)}`) : 'needs a previous list', s.exited ? 'bad' : '', s.exited)}
       ${seKpi('Median weeks in stage', s.medWeeks != null ? wrNum(s.medWeeks) : '—', `${s.posRet != null ? Math.round(s.posRet) + '% positive since entry' : ''}`, '', s.medWeeks)}
       ${seKpi('Also in the scan', wrNum(c.S2.filter(r => r.inScan).length), c.U.length ? `of ${c.U.length} scanned · convergence` : 'no screener universe in this scan', '', c.S2.filter(r => r.inScan).length)}
-      ${seKpi('Under ASM / GSM', wrNum(s.asm), 'surveillance flags', s.asm ? 'warn' : '', s.asm)}
+      ${(() => { const st = seAsmStale(c); return seKpi(st ? `Under ASM / GSM (list of ${wrDate(st.date)})` : 'Under ASM / GSM', wrNum(s.asm), st ? `surveillance flags from the provider list, ${st.age} days old: NSE's live list may differ` : 'surveillance flags', s.asm ? 'warn' : '', s.asm); })()}
     </div>
     <div class="se-grid2">
       <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">${c.s2asof ? 'Flagged on the ' + seS2AsofLbl(c) : 'This week'}</div><h2>Entries</h2></div></div><ul class="se-list tall">${c.S2.filter(r => r.state === 'entered' || r.state === 'reentry').sort((a, b) => (b.rs_pct || 0) - (a.rs_pct || 0)).map(r => `<li onclick="SE.ui.s2q='${wrAttr(r.code)}';seRenderS2Table();document.getElementById('se-s2-q').value='${wrAttr(r.code)}'"><span class="tk">${wrEsc(r.code)}</span>${r.state === 'reentry' ? '<span class="se-pill re">re-entry</span>' : ''}${r.inScan ? '<span class="se-pill calc">scan</span>' : ''}<span class="ind">${wrEsc(r.industry || '')}</span><span class="num">RS ${wrNum(r.rs_pct, 0)} · ₹${wrNum(r.mcap, 0)} Cr</span></li>`).join('') || '<li class="flat">No entries flagged.</li>'}</ul></div>
@@ -9558,14 +9636,14 @@ function seRenderS2(){
     <div class="se-panel">
       <div class="se-row-h"><div><div class="se-eyebrow">Full list</div><h2>Stage 2 stocks</h2></div><span class="wr-count" id="se-s2-count"></span></div>
       <div class="se-filters">
-        <input type="text" id="se-s2-q" placeholder="Search code or industry…" value="${wrAttr(u.s2q)}" oninput="SE.ui.s2q=this.value;seRenderS2Table()">
+        <input type="text" id="se-s2-q" placeholder="Search code or industry…" value="${wrAttr(u.s2q)}" oninput="SE.ui.s2q=this.value;wrDeb('s2',seRenderS2Table)">
         <select onchange="SE.ui.s2status=this.value;seRenderS2Table()">${[['all', 'All statuses'], ['entered', 'New entries'], ['reentry', 'Re-entries'], ['continues', 'Continuing']].map(([v, t]) => `<option value="${v}" ${u.s2status === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
         <select onchange="SE.ui.s2ind=this.value;seRenderS2Table()"><option value="all">All industries</option>${inds.map(i => `<option value="${wrAttr(i)}" ${u.s2ind === i ? 'selected' : ''}>${wrEsc(i)}</option>`).join('')}</select>
         <select onchange="SE.ui.s2minrs=this.value;seRenderS2Table()">${[['0', 'Any list RS%'], ['25', 'RS% 25+'], ['50', 'RS% 50+'], ['75', 'RS% 75+'], ['100', 'RS% 100+']].map(([v, t]) => `<option value="${v}" ${u.s2minrs === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
         <select onchange="SE.ui.s2minmcap=this.value;seRenderS2Table()">${[['0', 'Any mcap'], ['1000', '≥ ₹1,000 Cr'], ['3000', '≥ ₹3,000 Cr'], ['10000', '≥ ₹10,000 Cr']].map(([v, t]) => `<option value="${v}" ${u.s2minmcap === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
         <select onchange="SE.ui.s2band=this.value;seRenderS2Table()"><option value="all">All caps</option>${SE_BANDS.map(([b]) => `<option value="${b}" ${u.s2band === b ? 'selected' : ''}>${b} cap</option>`).join('')}</select>
         <label class="se-check"><input type="checkbox" ${u.s2scan ? 'checked' : ''} onchange="SE.ui.s2scan=this.checked;seRenderS2Table()"> Also in the scan</label>
-        <label class="se-check"><input type="checkbox" ${u.s2new ? 'checked' : ''} onchange="SE.ui.s2new=this.checked;seRenderS2Table()"> At a new 52W high</label>
+        <label class="se-check"><input type="checkbox" ${u.s2new ? 'checked' : ''} onchange="SE.ui.s2new=this.checked;seRenderS2Table()"> At / near a 52W high (within 1.5%)</label>
       </div>
       <div id="se-s2-table"></div>
     </div>
@@ -9577,7 +9655,7 @@ function seRenderS2(){
 }
 function seRenderS2Table(){
   const host = document.getElementById('se-s2-table'); if(!host || !SE.c) return;
-  const u = SE.ui, q = u.s2q.trim().toLowerCase();
+  const u = SE.ui, q = u.s2q.trim().toLowerCase(), asmSt = seAsmStale(SE.c);
   const list = SE.c.S2.filter(r => {
     if(q && !((r.code || '') + ' ' + (r.industry || '')).toLowerCase().includes(q)) return false;
     if(u.s2status !== 'all' && r.state !== u.s2status) return false;
@@ -9606,7 +9684,7 @@ function seRenderS2Table(){
     {k:'since', t:'Since', type:'html', html: r => r.since ? `<span class="num">${wrDate(r.since)}</span>` : '<span class="flat">—</span>'},
     {k:'state', t:'Status', type:'html', html: r => seStateCell(r.state), info: 'st-status'},
     {k:'inScan', t:'In scan', type:'html', sortType:'num', fn: r => r.inScan ? 1 : 0, html: r => seYesCell(r.inScan, 'Yes', 'Also in this screener scan')},
-    {k:'asm', t:'ASM / GSM', type:'html', sortType:'text', info: 'st-asm', fn: r => r.asm || '', html: r => r.asm ? `<span class="scan-flag" title="${wrAttr(r.asm)}${r.asm_days ? ' for ' + r.asm_days + ' days' : ''}">${wrEsc(r.asm)}</span>` : '<span class="flat">—</span>'},
+    {k:'asm', t:'ASM / GSM', type:'html', sortType:'text', info: 'st-asm', fn: r => r.asm || '', html: r => r.asm ? `<span class="scan-flag${asmSt ? ' asm-stale' : ''}" title="${wrAttr(r.asm)}${r.asm_days ? ' for ' + r.asm_days + ' days' : ''}${asmSt ? ` · provider list ${wrDate(asmSt.date)} (${asmSt.age} days old), may be out of date` : ''}">${wrEsc(r.asm)}</span>` : '<span class="flat">—</span>'},
     {k:'asm_days', t:'ASM days', type:'int'}
   ];
   host.innerHTML = wrTable('se-s2', cols, list, {sort:{col:'rs_pct', dir:'desc'}, tall:true, empty:'No stocks match the filters.'});
@@ -9620,7 +9698,9 @@ function seFeedLegacy(){
     const newer = (a, b) => !b || String(a) > String(b);
     const loaded = SE.scans.map(sc => SE.data[sc.file]).filter(Boolean);          // newest first
     const s2w = loaded.find(w => w.stage2.length), uw = loaded.find(w => w.universe.length);
+    let changed = false;   // write the local store only when a newer week was fed in (a startup with nothing new writes nothing)
     if(s2w && newer(s2w.date, DB.stage2Date)){
+      changed = true;
       const prev = loaded.find(w => w.stage2.length && String(w.date) < String(s2w.date));
       const prevMap = new Map(prev ? prev.stage2.map(r => [r._key, r]) : []), curKeys = new Set(s2w.stage2.map(r => r._key));
       const stat = (r) => { const st = String(r.status || '').toLowerCase(); if(/re-?\s?entry/.test(st)) return 'Reentry'; if(/new/.test(st)) return 'New Addition'; if(st.includes('continue')) return 'Continues Trend'; return (prev && !prevMap.has(r._key)) ? 'New Addition' : 'Continues Trend'; };
@@ -9629,11 +9709,12 @@ function seFeedLegacy(){
       DB.stage2Date = s2w.date;
     }
     if(uw && newer(uw.date, DB.w52Date)){
+      changed = true;
       DB.w52 = uw.universe.map((r, i) => ({id: Date.now() + 200000 + i, name: r.name, code: r.code || '', industry: r.industry || r.group || '', price: r.price || 0, mcap: r.mcap || 0, dist: wrIsNum(r.from_52wh) ? Math.abs(r.from_52wh) : null, ret1d: r.r1d || 0, ret1w: r.r1w || 0, ret1m: r.r1m || 0, ret3m: r.r3m || 0, epsYoY: r.eps_yoy != null ? r.eps_yoy : null, salesYoY: r.sales_yoy != null ? r.sales_yoy : null, npQoQ: r.np_qoq != null ? r.np_qoq : null, npYoY: r.np_yoy != null ? r.np_yoy : null, opmL: r.opm_q != null ? r.opm_q : null, opmP: r.opm_pq != null ? r.opm_pq : null, pe: r.pe != null ? r.pe : null})).filter(x => x.dist !== null);
       DB.w52Date = uw.date;
       if(typeof record52WHistory === 'function') record52WHistory(DB.w52, DB.w52Date);
     }
-    save();
+    if(changed) save();
     if(typeof renderS2 === 'function') renderS2(); if(typeof render52W === 'function') render52W(); if(typeof renderConverge === 'function') renderConverge(); if(typeof renderDash === 'function') renderDash();
   }catch(err){ console.warn('Edge: could not feed legacy scans', err); }
 }
@@ -9697,8 +9778,9 @@ async function loadPD(manual){
     if(manual) toast('Could not load PEAD data — is data/pead/index.json in the repo?', 'error');
   }finally{ PD.loading = false; }
   pdFillSelect();
-  if(typeof seCompute === 'function') seCompute();   // so RS Screen etc. pick up PEAD stamps
-  renderPD(); if(typeof seRenderAll === 'function') seRenderAll();
+  // so RS Screen etc. pick up PEAD stamps; before the scans load there is nothing to stamp, and loadSE computes afterwards
+  if(typeof seCompute === 'function' && typeof SE !== 'undefined' && SE.loaded) seCompute();
+  if(typeof seRenderAll === 'function' && typeof SE !== 'undefined' && SE.loaded) seRenderAll(); else renderPD();   // seRenderAll draws PEAD too: once, not twice
 }
 async function pdFetch(file){
   if(PD.data[file]) return PD.data[file];
@@ -9746,12 +9828,14 @@ function pdXref(){
   // universe keyed by normalized name; stage 2 keyed by code
   const uniByKey = new Map(), uniKeys = [], uniByCode = new Map();
   if(c){ c.U.forEach(u => { const k = peadKey(u.name); if(k && !uniByKey.has(k)){ uniByKey.set(k, u); uniKeys.push(k); } if(u.code) uniByCode.set(String(u.code).toUpperCase(), u); }); }
+  const uniMulti = uniKeys.filter(k => k.split(' ').length >= 2).map(k => [k, k + ' ']);   // built once, not per PEAD row
   const s2ByCode = new Map(); if(c){ c.S2.forEach(s => s2ByCode.set(String(s.code || '').toUpperCase(), s)); }
   const matchUni = (r) => {                                   // prefer the PEAD row's own ticker code, else its normalized name
     if(r.code && uniByCode.has(String(r.code).toUpperCase())) return uniByCode.get(String(r.code).toUpperCase());
     const pk = r.key;
     if(uniByKey.has(pk)) return uniByKey.get(pk);
-    for(const uk of uniKeys){ if(uk.split(' ').length >= 2 && (pk.startsWith(uk + ' ') || uk.startsWith(pk + ' '))) return uniByKey.get(uk); }
+    const pks = pk + ' ';
+    for(const [uk, uks] of uniMulti){ if(pk.startsWith(uks) || uk.startsWith(pks)) return uniByKey.get(uk); }
     return null;
   };
   const rows = d.rows.map(r => {
@@ -9783,10 +9867,12 @@ function pdStampUniverse(U){
   const f = PD.quarters[0] && PD.quarters[0].file; const d = f && PD.data[f]; if(!d || !U) return;
   const byKey = new Map(), byCode = new Map();
   d.rows.forEach(r => { if(r.code) byCode.set(String(r.code).toUpperCase(), r); if(!byKey.has(r.key)) byKey.set(r.key, r); });
-  const keys = [...byKey.keys()];
+  // multi-word keys with their ' '-suffixed form, built once (same order as byKey, so the first match is unchanged)
+  const multi = [...byKey.keys()].filter(k => k.split(' ').length >= 2).map(k => [k, k + ' ']);
   U.forEach(u => {
-    let p = (u.code && byCode.get(String(u.code).toUpperCase())) || byKey.get(peadKey(u.name));   // code first, then name
-    if(!p){ const uk = peadKey(u.name); for(const pk of keys){ if(pk.split(' ').length >= 2 && (uk.startsWith(pk + ' ') || pk.startsWith(uk + ' '))){ p = byKey.get(pk); break; } } }
+    const uk = peadKey(u.name), uks = uk + ' ';
+    let p = (u.code && byCode.get(String(u.code).toUpperCase())) || byKey.get(uk);   // code first, then name
+    if(!p){ for(const [pk, pks] of multi){ if(uk.startsWith(pks) || pk.startsWith(uks)){ p = byKey.get(pk); break; } } }
     if(p){ u.pead = p.tier; u.peadLabel = p.pead; u.peadRow = p; }
   });
 }
@@ -9904,7 +9990,7 @@ function renderPD(){
       <div class="se-panel">
         <div class="se-row-h"><div><div class="se-eyebrow">Full quarter</div><h2>All companies</h2></div><span class="wr-count" id="pd-count"></span></div>
         <div class="se-filters">
-          <input type="text" id="pd-q" placeholder="Search company or industry…" value="${wrAttr(PD.ui.q)}" oninput="PD.ui.q=this.value;pdRenderTable()">
+          <input type="text" id="pd-q" placeholder="Search company or industry…" value="${wrAttr(PD.ui.q)}" oninput="PD.ui.q=this.value;wrDeb('pd',pdRenderTable)">
           <select onchange="PD.ui.tier=this.value;pdRenderTable()">${[['all','All tiers'],['3','Strong only'],['2','Moderate+'],['1','Weak+'],['strongmod','Strong + Moderate']].map(([v,t])=>`<option value="${v}" ${PD.ui.tier===v?'selected':''}>${t}</option>`).join('')}</select>
           <select onchange="PD.ui.xref=this.value;pdRenderTable()">${[['all','Any momentum'],['near','Near 52W high'],['scan','In the scan'],['s2','On Stage 2'],['converge','Convergence ★']].map(([v,t])=>`<option value="${v}" ${PD.ui.xref===v?'selected':''}>${t}</option>`).join('')}</select>
           <select onchange="PD.ui.ind=this.value;pdRenderTable()"><option value="all">All industries</option>${[...new Set(rows.map(r=>r.industry||'Other'))].sort().map(i=>`<option value="${wrAttr(i)}" ${PD.ui.ind===i?'selected':''}>${wrEsc(i)}</option>`).join('')}</select>
@@ -10087,7 +10173,7 @@ function renderDG(){
       <div class="se-panel">
         <div class="se-row-h"><div><div class="se-eyebrow">Ranked by 1-day move</div><h2>All advancers</h2></div><span class="wr-count" id="dg-count"></span></div>
         <div class="se-filters">
-          <input type="text" id="dg-q" placeholder="Search stock or industry…" value="${wrAttr(DG.ui.q)}" oninput="DG.ui.q=this.value;dgRenderTable()">
+          <input type="text" id="dg-q" placeholder="Search stock or industry…" value="${wrAttr(DG.ui.q)}" oninput="DG.ui.q=this.value;wrDeb('dg',dgRenderTable)">
           <select onchange="DG.ui.minmove=this.value;dgRenderTable()">${[['0','Any gain'],['2','≥ 2%'],['5','≥ 5%'],['10','≥ 10%']].map(([v,t])=>`<option value="${v}" ${DG.ui.minmove===v?'selected':''}>${t}</option>`).join('')}</select>
           <select onchange="DG.ui.flt=this.value;dgRenderTable()">${[['all','Any'],['pead','Strong/Mod PEAD'],['s2','On Stage 2'],['conv','Convergence ★'],['news','Has a headline']].map(([v,t])=>`<option value="${v}" ${DG.ui.flt===v?'selected':''}>${t}</option>`).join('')}</select>
           <select onchange="DG.ui.ind=this.value;dgRenderTable()"><option value="all">All industries</option>${[...new Set(gainers.map(r=>r.industry||r.group||'Other'))].sort().map(i=>`<option value="${wrAttr(i)}" ${DG.ui.ind===i?'selected':''}>${wrEsc(i)}</option>`).join('')}</select>
@@ -10165,17 +10251,21 @@ async function loadTR(manual){
   try{
     for(let i = 0; i < 160 && !(typeof SE !== 'undefined' && SE.loaded); i++) await new Promise(r => setTimeout(r, 250));  // wait for the scan index
     if(typeof SE !== 'undefined' && SE.scans){
-      for(const s of SE.scans){ if(!SE.data[s.file]){ try{ await seFetch(s.file); }catch(e){} } }
+      // fetch the missing scans six at a time (seFetch folds a file already in flight); errors are ignored as before
+      const miss = SE.scans.filter(s => !SE.data[s.file]);
+      for(let j = 0; j < miss.length; j += 6) await Promise.allSettled(miss.slice(j, j + 6).map(s => seFetch(s.file)));
       const list = SE.scans.map(s => SE.data[s.file]).filter(Boolean)
         .filter(d => Array.isArray(d.universe) && d.universe.some(r => r.code && wrIsNum(r.price)));
       list.sort((a, b) => String(a.date).localeCompare(String(b.date)));   // oldest first
       let prev = null;
       for(const d of list){
-        const U = d.universe.filter(r => r.code && wrIsNum(r.price)).map(r => Object.assign({}, r));
-        seRank(U);
+        // rank over the whole universe first, then keep coded, priced rows: same RS as seCompute / the RS Screen
+        const A = d.universe.map(r => Object.assign({}, r));
+        seRank(A);
+        const U = A.filter(r => r.code && wrIsNum(r.price));
         const s2set = new Set((d.stage2 || []).map(s => String(s.code || '').toUpperCase()));
         const prevMap = prev ? prev._map : null;
-        U.forEach(r => { r._s2 = s2set.has(String(r.code).toUpperCase()); r._trend = (typeof seTrend === 'function') ? seTrend(r, prevMap ? prevMap.get(String(r.code).toUpperCase()) : null).s2 : false; });
+        U.forEach(r => { r._s2 = s2set.has(String(r.code).toUpperCase()); r._trend = (typeof seTrend === 'function') ? seTrend(r, prevMap ? prevMap.get(String(r.code).toUpperCase()) : null, true).s2 : false; });
         d._U = U; d._map = new Map(U.map(r => [String(r.code).toUpperCase(), r]));
         prev = d;
       }
@@ -10325,7 +10415,7 @@ function rdViewStock(code){
 // came from). What it says NOW is computed here from the newest scan, so it refreshes with every
 // daily pull. Showing the two side by side is how a published verdict is allowed to age in public.
 const RD_NOW = { file: null, date: null, byKey: null, prevByKey: null, s2: null, s2date: null, pending: false };
-const RD_CHECK_SHORT = { p50: '50-DMA', p200: '200-DMA', ma: '50>200', low: '52w low', high: '52w band', rs: 'RS', slope: '200 slope' };
+const RD_CHECK_SHORT = { p50: '50 EMA', p200: '200 EMA', ma: '50>200 EMA', low: '52w low', high: '52w band', rs: 'RS', slope: '200 EMA slope' };
 function rdNow(){
   if(!SE.scans || !SE.scans.length) return null;
   const newest = SE.scans.find(s => (s.universe || 0) >= 500) || null; if(!newest) return null;
@@ -10346,6 +10436,7 @@ function rdNow(){
   RD_NOW.prevByKey = new Map(prevMeta ? SE.data[prevMeta.file].universe.map(r => [r._key, r]) : []);
   RD_NOW.s2 = new Map(s2meta ? SE.data[s2meta.file].stage2.map(r => [r._key, r]) : []);
   RD_NOW.s2date = s2meta ? s2meta.date : null;
+  RD_NOW.s2asof = s2meta ? (SE.data[s2meta.file].stage2_asof || s2meta.s2asof || s2meta.date) : null;   // the provider list's own date
   return RD_NOW;
 }
 function rdNowFor(code){
@@ -10357,7 +10448,7 @@ function rdNowFor(code){
   const flag = s && typeof s.asm === 'string' && s.asm.trim() && s.asm.trim() !== '-' ? s.asm.trim() : null;
   return { date: N.date, rs: r.rs, price: r.price, template: t.total >= 5 ? (t.s2 ? 'PASS' : 'FAIL') : null,
            passed: t.pass, checks: t.total, failed: t.checks.filter(c => !c.ok).map(c => RD_CHECK_SHORT[c.k] || c.label),
-           s2: s, s2date: N.s2date, flag };
+           s2: s, s2date: N.s2date, flag, flagDate: flag ? (N.s2asof || N.s2date) : null };
 }
 function rdDrift(r){
   const a = r.signals_at_pub, n = r.code ? rdNowFor(r.code) : null;
@@ -10372,7 +10463,8 @@ function rdSigHalf(label, date, sig){
     ? `<span class="${sig.template === 'PASS' ? 'pass' : 'fail'}">${sig.template === 'PASS' ? 'PASSES' : 'FAILS'} ${sig.passed}/${sig.checks}</span>`
     : '<span class="na">template n/a</span>';
   const why = sig.template === 'FAIL' && sig.failed && sig.failed.length ? `<span class="k">on ${sig.failed.map(wrEsc).join(', ')}</span>` : '';
-  const flag = sig.flag ? `<span class="fail">${wrEsc(sig.flag)}</span>` : '';
+  // the surveillance tag is from the provider's list, not this scan date: say which list
+  const flag = sig.flag ? `<span class="fail" title="ASM / ESM / GSM tag from the provider's Stage 2 list${sig.flagDate ? ' of ' + wrAttr(wrDate(sig.flagDate)) : ''}, not NSE's live list">${wrEsc(sig.flag)}${sig.flagDate ? ` (list of ${wrEsc(wrDate(sig.flagDate))})` : ''}</span>` : '';
   return `<span class="half"><span class="k">${label} ${wrEsc(wrDate(date))}</span><span class="v">RS ${sig.rs == null ? '—' : sig.rs}</span>${verdict}${why}${flag}</span>`;
 }
 function rdSigStrip(r, wide){
@@ -10502,7 +10594,10 @@ function eodAge(d){
   const exp = new Date(ist.getFullYear(), ist.getMonth(), ist.getDate());
   const wkend = t => t.getDay() === 0 || t.getDay() === 6;
   if(wkend(exp) || ist.getHours() * 60 + ist.getMinutes() < 15 * 60 + 50){ do { exp.setDate(exp.getDate() - 1); } while(wkend(exp)); }
-  const closed = new Set((typeof MK !== 'undefined' && MK.doc && MK.doc.nse && MK.doc.nse.closed) || []);
+  // NSE holidays: markets.json's known closures plus the date eod.py records in pull_status.json when it finds the
+  // market shut (doc.closed), so a holiday never reads as "1 session behind"
+  let psClosed = []; try{ psClosed = (PS.doc && Array.isArray(PS.doc.closed)) ? PS.doc.closed : []; }catch(e){}
+  const closed = new Set([...((typeof MK !== 'undefined' && MK.doc && MK.doc.nse && MK.doc.nse.closed) || []), ...psClosed]);
   const t = new Date(d.scan_date + 'T00:00:00'); if(isNaN(t)) return null;
   let n = 0;
   for(t.setDate(t.getDate() + 1); t <= exp; t.setDate(t.getDate() + 1)) if(!wkend(t) && !closed.has(ttIso(t))) n++;
@@ -10720,7 +10815,7 @@ function renderSL(){
   const kpis = [
     seKpi('Shortlisted', wrNum(rows.length), `from ${wrNum(d.universe)} scanned · ${wrNum(d.considered)} scored`, 'accent', rows.length),
     seKpi('Top score', String(rows[0].score), `${wrEsc(rows[0].name || rows[0].code)} · ${(rows[0].reasons || []).length} reasons`, 'ok'),
-    seKpi('At a new 52W high', wrNum(rows.filter(r => r.new_high).length), 'of the shortlist', ''),
+    seKpi('At or within 1.5% of the 52W high', wrNum(rows.filter(r => r.new_high).length), 'of the shortlist', ''),
     seKpi('Strong/Moderate earnings', wrNum(rows.filter(r => r.pead && r.pead.tier >= 2).length), d.quarter ? `${wrEsc(d.quarter)} · Strong + Moderate PEAD` : 'Strong + Moderate PEAD', ''),
     seKpi('You have picked', `${SL.picks.size} / ${SL.max}`, picked.length ? picked.map(r => wrEsc(r.code)).join(', ') : 'tick rows below', SL.picks.size ? 'ok' : '')
   ];
@@ -11156,6 +11251,21 @@ function init(){
   step('feedback', () => { fbLoad(); fbBadge(); });
   step('theme', () => seApplyTheme());
   step('market clock', () => { updateMarket(); setInterval(updateMarket, 30000); });
+  step('phone menu', seNavInit);
+}
+// Phone (under 760px): the sidebar is a drawer. A 44px menu button goes into every topbar (CSS hides it on wider
+// screens); a tap on the dimmed area outside the drawer, or opening any page (show), closes it.
+function seNavInit(){
+  document.querySelectorAll('.topbar .tb-left').forEach(t => {
+    if(!t.querySelector('.nav-btn')) t.insertAdjacentHTML('afterbegin', '<button type="button" class="nav-btn" aria-label="Open the menu" title="Menu" onclick="seNavToggle(event)"><i class="ti ti-menu-2"></i></button>');
+  });
+  const sh = document.querySelector('.shell'); if(!sh) return;
+  sh.addEventListener('click', e => { if(sh.classList.contains('nav-open') && !e.target.closest('.sidebar') && !e.target.closest('.nav-btn')) sh.classList.remove('nav-open'); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') sh.classList.remove('nav-open'); });
+}
+function seNavToggle(ev){
+  if(ev) ev.stopPropagation();
+  const sh = document.querySelector('.shell'); if(sh) sh.classList.toggle('nav-open');
 }
 
 document.addEventListener('DOMContentLoaded', init);

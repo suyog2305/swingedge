@@ -266,18 +266,31 @@ def nse_day(day):
 
 
 def yahoo_daily(symbol, days):
-    """[(iso date, close)] for the last `days` calendar days, dated in the exchange's own time zone."""
+    """[(iso date, close)] for the last `days` calendar days, dated in the exchange's own time zone.
+
+    A cash session that is still open is left out: the morning job runs during Tokyo and Seoul hours, and
+    Yahoo's bar for a live session is an intraday price, not a close (the Nikkei "close" for 9 Oct 2026 was
+    68,237 in the morning file against a real 69,031). The same test as build_peers.py, applied only when the
+    regular session is shorter than 12 hours: FX and futures (INR=X, BZ=F) run close to 24 hours, so
+    their bar is always "live", and dropping it would leave USD/INR and crude a day behind on the evening page."""
     now = int(time.time())
     url = ('https://query1.finance.yahoo.com/v8/finance/chart/' + urllib.parse.quote(symbol, safe='')
            + f'?period1={now - (days + 6) * 86400}&period2={now + 86400}&interval=1d')
     res = json.loads(get(url, timeout=35))['chart']['result'][0]
-    off = int((res.get('meta') or {}).get('gmtoffset') or 0)
+    meta = res.get('meta') or {}
+    off = int(meta.get('gmtoffset') or 0)
+    reg = (meta.get('currentTradingPeriod') or {}).get('regular') or {}
+    start, end = reg.get('start') or 0, reg.get('end') or 0
+    live = bool(start) and start <= now < end and end - start < 12 * 3600
     ts = res.get('timestamp') or []
     cl = (res.get('indicators', {}).get('quote') or [{}])[0].get('close') or []
     out = {}
     for t, c in zip(ts, cl):
-        if c is not None:
-            out[dt.datetime.fromtimestamp(t + off, dt.timezone.utc).date().isoformat()] = float(c)
+        if c is None:
+            continue
+        if live and t >= start:
+            continue                                   # today's bar while a cash session is still open
+        out[dt.datetime.fromtimestamp(t + off, dt.timezone.utc).date().isoformat()] = float(c)
     return sorted(out.items())
 
 

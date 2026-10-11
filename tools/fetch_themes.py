@@ -21,9 +21,12 @@ SOURCES, all public and keyless
   steo      EIA's Short-Term Energy Outlook bulk file: Permian production, active rigs, wells
             drilled and completed, DUCs — with EIA's own forecast, marked as forecast.
   bh_rigs   Baker Hughes' North America rig count workbook: every rig, by county, every week
-            since January 2024, summed here to Texas and to the Permian basin. Their server
-            answers a plain client and returns 403 to anything pretending to be a browser, so
-            this source identifies itself honestly instead of spoofing one.
+            since January 2024, summed here to Texas and to the Permian basin. As of Oct 2026
+            their Akamai front end returns 403 to every non-browser client, the honest
+            user-agent this source sends included, so the weekly rig series stay as last built
+            (marked stale) unless the workbook is downloaded by hand in a browser and dropped
+            into exports/themes_cache/ as bh_manual*.xlsx or under its own "... Rig Count ....xlsx"
+            name: the newest such file is read with the same code when the site refuses.
   points    a hand-curated list of dated datapoints, each with its source URL, for series no
             public feed carries (memory contract prices). Never interpolated.
   derived   a difference of two other series (the WTI-Brent spread).
@@ -172,30 +175,64 @@ def src_steo(spec):
 
 
 _BH = {}
+_BH_ERR = None                     # the first failure, re-raised for the second region: one request a run, not two
+
+
+def bh_manual_drop():
+    """(path, key) of the newest hand-downloaded rig-count workbook in exports/themes_cache/, or None.
+    Only .xlsx files: a plain bh_* glob would also pick up bh_landing.html and the bh_weekly_*.json sums."""
+    cands = set(glob.glob(os.path.join(CACHE, 'bh_manual*.xlsx'))) | set(glob.glob(os.path.join(CACHE, '*Rig Count*.xlsx')))
+    if not cands:
+        return None
+    path = max(cands, key=os.path.getmtime)
+    name = re.sub(r'[^A-Za-z0-9]+', '-', os.path.splitext(os.path.basename(path))[0]).strip('-')
+    return path, f'manual-{name}-{int(os.path.getmtime(path))}'
 
 
 def bh_weekly():
     """{'texas': [[date, rigs], ...], 'permian': [...]} from the current Baker Hughes workbook.
     The landing page links the workbook by a GUID that changes every Friday; the workbook is 7 MB
-    and its weekly sheet has 110,000 rows, so both the file and the sums are cached by GUID."""
+    and its weekly sheet has 110,000 rows, so both the file and the sums are cached by GUID. When the
+    site refuses (403 for every non-browser client since Oct 2026), a hand-dropped workbook is read instead."""
+    global _BH_ERR
     if _BH:
         return _BH
-    page = cached('https://rigcount.bakerhughes.com/na-rig-count', 'bh_landing.html', 6, ua=HONEST_UA).decode('utf-8', 'replace')
-    best = None
-    for href, title in re.findall(r'href="(/static-files/[0-9a-f\-]+)"[^>]*title="([^"]+)"', page):
-        m = re.match(r'(\d{2})-(\d{2})-(\d{4}) .*Rig.?Count Report\.xlsx$', title)
-        if m:
-            key = (m.group(3), m.group(1), m.group(2))
-            if best is None or key > best[0]:
-                best = (key, href, title)
-    if not best:
-        raise RuntimeError('no dated rig-count workbook linked from the Baker Hughes page')
-    guid = best[1].rsplit('/', 1)[1]
+    if _BH_ERR is not None:
+        raise _BH_ERR
+    try:
+        return _bh_weekly()
+    except Exception as e:
+        _BH_ERR = e
+        raise
+
+
+def _bh_weekly():
+    try:
+        page = cached('https://rigcount.bakerhughes.com/na-rig-count', 'bh_landing.html', 6, ua=HONEST_UA).decode('utf-8', 'replace')
+        best = None
+        for href, title in re.findall(r'href="(/static-files/[0-9a-f\-]+)"[^>]*title="([^"]+)"', page):
+            m = re.match(r'(\d{2})-(\d{2})-(\d{4}) .*Rig.?Count Report\.xlsx$', title)
+            if m:
+                key = (m.group(3), m.group(1), m.group(2))
+                if best is None or key > best[0]:
+                    best = (key, href, title)
+        if not best:
+            raise RuntimeError('no dated rig-count workbook linked from the Baker Hughes page')
+        guid, workbook = best[1].rsplit('/', 1)[1], best[2]
+        fetch_raw = lambda: cached('https://rigcount.bakerhughes.com' + best[1], f'bh_{guid}.xlsx', 24 * 365, ua=HONEST_UA)
+    except Exception as e:
+        drop = bh_manual_drop()
+        if not drop:
+            raise RuntimeError(f'{type(e).__name__}: {e} (Baker Hughes 403s non-browser clients; download the '
+                               'workbook in a browser into exports/themes_cache/ as bh_manual.xlsx to refresh)') from e
+        path, guid = drop
+        workbook = os.path.basename(path) + ' (dropped by hand)'
+        fetch_raw = lambda: io.open(path, 'rb').read()
     agg_path = os.path.join(CACHE, f'bh_weekly_{guid}.json')
     if os.path.exists(agg_path):
         _BH.update(json.load(io.open(agg_path, encoding='utf-8')))
         return _BH
-    raw = cached('https://rigcount.bakerhughes.com' + best[1], f'bh_{guid}.xlsx', 24 * 365, ua=HONEST_UA)
+    raw = fetch_raw()
     z = zipfile.ZipFile(io.BytesIO(raw))
     M = 'http://schemas.openxmlformats.org/spreadsheetml/2006/main'
     R = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships'
@@ -244,10 +281,11 @@ def bh_weekly():
             pm[day] = pm.get(day, 0) + n
     if not tx or not pm:
         raise RuntimeError('no Texas or Permian rows found in the weekly sheet')
-    out = {'texas': [[d, tx[d]] for d in sorted(tx)], 'permian': [[d, pm[d]] for d in sorted(pm)], 'workbook': best[2]}
+    out = {'texas': [[d, tx[d]] for d in sorted(tx)], 'permian': [[d, pm[d]] for d in sorted(pm)], 'workbook': workbook}
     io.open(agg_path, 'w', encoding='utf-8').write(json.dumps(out))
     for old in glob.glob(os.path.join(CACHE, 'bh_*')):               # last week's 7 MB is no use to anyone
-        if guid not in os.path.basename(old) and not old.endswith('bh_landing.html'):
+        if (guid not in os.path.basename(old) and not old.endswith('bh_landing.html')
+                and not os.path.basename(old).startswith('bh_manual')):      # the owner's hand-dropped workbook stays
             try: os.remove(old)
             except OSError: pass
     _BH.update(out)

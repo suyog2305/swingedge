@@ -26,7 +26,8 @@ CREDENTIALS — you stay in control, the cookie never goes through chat:
     script stops with a clear message — nothing partial is written.
 
 EXIT CODES (eod.py reads them): 0 done; 5 the cookie is missing or the session has expired;
-  6 screener.in could not be reached (network down or not up yet); 1 anything else.
+  6 screener.in could not be reached (network down or not up yet), dropped the connection mid-read,
+  or answered the screen page with a 5xx or 429 (busy) - eod.py waits and retries; 1 anything else.
 
 CONFIG — tools/screener_config.json (copy tools/screener_config.example.json):
   {
@@ -50,6 +51,7 @@ CONFIG — tools/screener_config.json (copy tools/screener_config.example.json):
   3m/1m/1w blend market-wide; add those columns to a SAVED screen if you want IBD weighting.
 """
 import argparse, datetime as dt, html, io, json, os, re, subprocess, sys, time
+import http.client, ssl
 import urllib.request, urllib.error, urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -106,12 +108,20 @@ def request(method, url, jar=None, referer=None, form=None):
         r = _OPENER.open(req, timeout=60)
         return getattr(r, 'status', 200), r.headers, r.read()
     except urllib.error.HTTPError as e:      # 3xx (no-redirect) and 4xx/5xx land here
-        return e.code, e.headers, e.read()
+        try:
+            body = e.read()
+        except (http.client.HTTPException, ssl.SSLError, TimeoutError, ConnectionError) as x:
+            print(f'  ! lost the connection to {url}: {type(x).__name__}')   # IncompleteRead inside the error body
+            raise SystemExit(6)
+        return e.code, e.headers, body
     except urllib.error.URLError as e:       # DNS / connection failure: exit 6, so eod.py waits and retries
         print(f'  ! could not reach {url}: {e.reason}')
         raise SystemExit(6)
     except (TimeoutError, ConnectionError) as e:   # the connection dropped while the export was being read
         print(f'  ! lost the connection to {url}: {type(e).__name__}: {e}')
+        raise SystemExit(6)
+    except (http.client.HTTPException, ssl.SSLError) as e:   # IncompleteRead / an SSL error during r.read(): not OSErrors urllib wraps
+        print(f'  ! lost the connection to {url}: {type(e).__name__}')
         raise SystemExit(6)
 
 def is_redirect(status):
@@ -143,6 +153,10 @@ def fetch_screen(page_url, jar, kind_hint='screen'):
     """screener.in flow: GET the screen (saved or raw-query) results page, read the export form's CSRF
     token, and POST it. Works for a saved screen_url and for a /screen/raw/?query=... page alike."""
     status, headers, body = request('GET', page_url, jar)
+    if status >= 500 or status == 429:
+        # busy, not a bad screen or cookie: exit 6 puts it on eod.py's retry-until-the-deadline path
+        print(f'  ! screener.in returned HTTP {status} for the screen page (busy) - nothing written.')
+        raise SystemExit(6)
     loc = headers.get('Location', '') if is_redirect(status) else ''
     if loc and re.search(r'/(login|register)/', loc.lower()):
         # screener sends a logged-out session to /register/ (5 Oct 2026) as well as /login/

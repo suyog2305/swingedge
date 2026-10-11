@@ -35,7 +35,8 @@ fails. So this pulls the broad export, checks that the averages, the 3-month ret
 volume have all moved against the previous scan, and if any has not, sleeps --poll minutes and
 pulls again - until the close is complete, or the deadline passes, or the session changes
 under it. A second trigger at 20:00 is a safety net: if the day is already built it exits at
-once, and the scheduler ignores it while the 15:50 run is still polling.
+once - after pushing any local commit an earlier run built but could not publish - and the
+scheduler ignores it while the 15:50 run is still polling.
 
 THE COOKIE
 
@@ -46,7 +47,16 @@ The cookie expires; when it does the log says so, and somebody has to notice.
 With --wait-until (the scheduled task) neither a dead or missing cookie (fetch_screener exit 5) nor a
 network that is not up yet (exit 6) ends the run: it tries again every --poll minutes until the
 deadline. A cookie problem is written to data/daily/pull_status.json at once, for the app's sidebar;
-an unreachable screener.in only if it lasts past the deadline.
+an unreachable screener.in only if it lasts past the deadline. When the run gives up on screener, NSE's
+index block and the theme trackers are still refreshed and committed on their own (side_refresh), so a
+dead cookie does not freeze them too.
+
+PUBLISHING
+
+Only the files this run writes are committed (OUT, below), so another session's half-done edit under data/
+is never swept into an unattended commit. publish() rebases on origin/main and pushes, three tries; a
+rebase conflict confined to generated files (GENERATED) keeps this run's version, anything else aborts
+cleanly and is written to pull_status as 'stale'.
 """
 import argparse, atexit, datetime as dt, functools, glob, io, json, os, subprocess, sys, time, urllib.request
 
@@ -71,15 +81,20 @@ def utf8_stdio():
             pass
 
 
-def run(step, cmd, dry):
+def run(step, cmd, dry, timeout=None):
     print(f'\n--- {step}')
     print('    ' + ' '.join(cmd[1:] if cmd[0] == sys.executable else cmd))
     if dry:
         print('    (dry-run, not executed)')
         return True
     env = {**os.environ, 'PYTHONIOENCODING': 'utf-8', 'PYTHONUNBUFFERED': '1'}
-    p = subprocess.run(cmd, cwd=ROOT, env=env)
     global LAST_RC
+    try:
+        p = subprocess.run(cmd, cwd=ROOT, env=env, timeout=timeout)
+    except subprocess.TimeoutExpired:                  # a hung source must not hold the day's close back from the push
+        LAST_RC = -1
+        print(f'    -> FAILED (no answer within {timeout} s; stopped)')
+        return False
     LAST_RC = p.returncode
     ok = p.returncode == 0
     print(f'    -> {"ok" if ok else "FAILED (exit %d)" % p.returncode}')
@@ -89,8 +104,113 @@ def run(step, cmd, dry):
 LAST_RC = 0                                   # exit code of the last step run(); 5 = screener session expired
 STATUS = os.path.join(ROOT, 'data', 'daily', 'pull_status.json')
 
+# Every path this run writes, and nothing else: the data commit names these and only these. `git add data` once
+# swept another session's uncommitted Global Peers config into "EOD data refresh" (c08fc78). indices.json,
+# watchlist.json, news.json, market_news.json, market_digest.json, data/peers and data/pead have other writers
+# and stay out. KEEP IN STEP WITH THE STEPS IN main(): a new output file that is not listed here never publishes.
+OUT = ['data/scans',                                            # build_scan
+       'data/daily/shortlist.json', 'data/daily/shortlist',     # build_shortlist (latest + dated copy)
+       'data/daily/s2history.json',                             # build_s2history
+       'data/daily/rs_tracker.json',                            # build_rs_tracker
+       'data/indices/series.json',                              # build_indices (indices.json is the owner's config)
+       'data/themes',                                           # fetch_themes
+       'data/daily/gainers_candidates.json',                    # gainers_news collect
+       'data/markets/markets.json',                             # fetch_markets (other files in data/markets are not ours)
+       'data/daily/pull_status.json']                           # pull_status()
+# Files a bot rewrites on both sides (this run and the early-morning GitHub job). A rebase conflict confined to
+# these keeps this run's version: it was built from the pre-synced copy and refreshes the same sources.
+GENERATED = {'data/markets/markets.json', 'data/daily/gainers_candidates.json', 'data/daily/pull_status.json'}
 
-def pull_status(status, message, push):
+
+def _git(*x):
+    return subprocess.run(['git', *x], cwd=ROOT, capture_output=True, text=True)
+
+
+def _existing(paths):
+    """The paths that exist on disk: a pathspec that matches nothing makes `git add` and `git commit` fail outright."""
+    return [p for p in paths if os.path.exists(os.path.join(ROOT, p))]
+
+
+def _first_error(r):
+    lines = [x.strip() for x in ((r.stderr or '') + '\n' + (r.stdout or '')).strip().splitlines() if x.strip()]
+    return next((x for x in lines if x.startswith(('error', 'fatal', 'CONFLICT', '!'))), lines[0] if lines else '')
+
+
+def _rebasing():
+    """True while a rebase is stopped in this repo."""
+    for d in ('rebase-merge', 'rebase-apply'):
+        path = _git('rev-parse', '--git-path', d).stdout.strip() or os.path.join('.git', d)
+        if os.path.exists(os.path.join(ROOT, path)):
+            return True
+    return False
+
+
+def _settle_rebase():
+    """A `pull --rebase` stopped on a conflict. While every conflicted file is in GENERATED, keep the local side
+    (in a rebase 'theirs' is the commit being replayed, i.e. this run's) and continue, once per replayed commit.
+    Returns '' when the rebase finished, else why it could not (the caller aborts)."""
+    env = {**os.environ, 'GIT_EDITOR': 'true'}
+    cont = lambda *x: subprocess.run(['git', 'rebase', *x], cwd=ROOT, env=env, capture_output=True, text=True)
+    for _ in range(100):
+        if not _rebasing():
+            return ''
+        bad = [f.strip() for f in _git('diff', '--name-only', '--diff-filter=U').stdout.splitlines() if f.strip()]
+        if not bad:
+            if _git('diff', '--cached', '--quiet').returncode == 0:     # keeping our side left this commit empty
+                r = cont('--skip')
+                if r.returncode and _rebasing():
+                    return 'rebase stopped: ' + _first_error(r)
+                continue
+            return 'the rebase stopped with no conflicted file to resolve'
+        other = [f for f in bad if f not in GENERATED]
+        if other:
+            return 'conflict in ' + ', '.join(other[:4]) + (' ...' if len(other) > 4 else '')
+        for f in bad:
+            _git('checkout', '--theirs', '--', f)
+            _git('add', '--', f)
+        print('    conflict in generated ' + ', '.join(bad) + " - kept this run's version")
+        r = cont('--continue')
+        if r.returncode and _rebasing() and not _git('diff', '--name-only', '--diff-filter=U').stdout.strip() \
+                and _git('diff', '--cached', '--quiet').returncode:
+            return 'rebase --continue failed: ' + _first_error(r)
+    return 'too many conflicting commits to replay'
+
+
+def publish(note=None, tries=3):
+    """Rebase the local commits on origin/main and push them: True when pushed. Up to `tries` attempts, 5 and
+    10 s apart, for a push that lost a race or a network blip. A rebase conflict confined to GENERATED files
+    is resolved (see _settle_rebase); any other conflict aborts the rebase, so the repo is never left mid-rebase,
+    and stops at once. On failure, with `note`, the reason goes to pull_status as 'stale' (written, not pushed:
+    the next push carries it), and the 20:00 trigger or the next run finds the unpushed commit and retries."""
+    why = ''
+    for i in range(tries):
+        if i:
+            time.sleep(5 * i)
+        r = _git('pull', '--rebase', '--autostash', 'origin', 'main')
+        if r.returncode:
+            if not _rebasing():
+                why = 'pull failed: ' + _first_error(r)            # fetch or network: worth another try
+                print(f'    ({why[:200]}; attempt {i + 1}/{tries})')
+                continue
+            why = _settle_rebase()
+            if why:
+                _git('rebase', '--abort')
+                why = 'rebase failed - ' + why
+                print(f'    {why}. Aborted so the repo is not left mid-rebase; the commit stays local.')
+                break                                               # a real conflict does not go away by retrying
+        p = _git('push', 'origin', 'main')
+        if p.returncode == 0:
+            return True
+        why = 'push failed: ' + _first_error(p)
+        print(f'    ({why[:200]}; attempt {i + 1}/{tries})')
+    print('    NOT PUBLISHED - ' + (why[:240] or 'unknown reason') + '. The commit is local; the next run (or the 20:00 '
+          'trigger) pushes it, or pull --rebase by hand and push.')
+    if note:
+        pull_status('stale', f'{note}: {why[:200]}', False)
+    return False
+
+
+def pull_status(status, message, push, closed=None):
     """What the last evening pull did, for the app's sidebar: ok, or why nothing new came. Written only when
     it changes, and pushed on its own when asked, so a failure is on the site within a minute of happening
     instead of only in a log nobody reads (5 Oct 2026: a dead cookie went unnoticed for a day)."""
@@ -101,6 +221,8 @@ def pull_status(status, message, push):
     if old.get('status') == status and old.get('message') == message:
         return
     doc = {'status': status, 'at': dt.datetime.now().strftime('%Y-%m-%dT%H:%M'), 'message': message}
+    if closed:
+        doc['closed'] = list(closed)               # dates known not to be NSE sessions: the page must not count them as missed
     try:
         io.open(STATUS, 'w', encoding='utf-8').write(json.dumps(doc, ensure_ascii=False, indent=1) + '\n')
     except OSError as e:
@@ -109,24 +231,18 @@ def pull_status(status, message, push):
         return
     # Only this one file goes into the commit, whatever else is staged (a half-edited index.html must never be
     # published under "Pull status"), and --autostash lets the rebase run on a tree with uncommitted edits.
-    # Nothing here may stop the run: every failure is reported and the caller carries on.
+    # Nothing here may stop the run: every failure is reported and the caller carries on. The push goes through
+    # publish(), so a conflict on a generated file no longer keeps the status off the site.
     try:
-        g = lambda *x: subprocess.run(['git', *x], cwd=ROOT, capture_output=True, text=True)
+        g = _git
         rel = os.path.relpath(STATUS, ROOT)
         g('add', rel)
         if g('diff', '--cached', '--quiet', '--', rel).returncode == 0 or g('commit', '-q', '-m', f'Pull status: {status}', '--', rel).returncode:
             return
-        r = g('pull', '--rebase', '--autostash', 'origin', 'main')
-        if r.returncode:
-            g('rebase', '--abort')
-            lines = (r.stderr or r.stdout or '').strip().splitlines()
-            why = next((x for x in lines if x.startswith(('error', 'fatal'))), lines[0] if lines else '')
-            print('    (pull status not pushed: rebase failed' + (f' - {why[:160]}' if why else '') + '. '
-                  'The commit is local and goes out with the next push.)'); return
-        if g('push', 'origin', 'main').returncode == 0:
+        if publish():
             print(f'    pull status "{status}" published to the site')
         else:
-            print('    (pull status not pushed: push failed. The commit is local and goes out with the next push.)')
+            print('    (pull status not pushed. The commit is local and goes out with the next push.)')
     except Exception as e:
         print(f'    (pull status not pushed: {type(e).__name__}: {e})')
 
@@ -546,10 +662,10 @@ def main():
               "yesterday's close nor today's. If it is a holiday, the 15:50 run settles it. Nothing fetched, "
               'nothing written. Run after 15:40 IST, or pass --date YYYY-MM-DD to override.')
         return 3
+    date_cal = date                  # the calendar's session, before any holiday re-dating: the session-changed check compares with this
     session_note = None
     if not a.date:
         oracle = last_nse_session()
-        date_cal = date
         date, session_note = resolve_session(date, oracle)
         if oracle is None:
             print('    (the last NSE session could not be confirmed online; dating by the calendar)')
@@ -563,6 +679,25 @@ def main():
             print(f'SwingEdge EOD refresh — {date} is already built ({os.path.relpath(scan_path, ROOT)}). Nothing to do.')
             print('    This is the second trigger of the day, or a run after the first one succeeded. '
                   'Pass --force to pull again and rebuild, or --skip-fetch to rebuild from the export on disk.')
+            if a.push and not a.dry_run:
+                # The safety net: a close built by an earlier run whose push failed (or whose rebase hit a conflict)
+                # is still a local commit. Push it now rather than leave the site a day behind.
+                f = _git('fetch', 'origin')
+                ahead = _git('rev-list', '--count', 'origin/main..HEAD').stdout.strip() if f.returncode == 0 else ''
+                if not ahead.isdigit():
+                    print('    (could not compare with origin/main: ' + (_first_error(f) or 'unknown') + ')')
+                elif int(ahead) > 0:
+                    print(f'\n--- publish: {ahead} local commit(s) not on origin/main yet')
+                    if not acquire_lock():
+                        return 0
+                    if not publish(note=f'{date} close built but not published'):
+                        return 1
+                    print('    pushed - live in about a minute')
+                    try:
+                        if json.load(io.open(STATUS, encoding='utf-8')).get('status') != 'ok':
+                            pull_status('ok', f'{date} close pulled and built (published late: the first push had failed)', True)
+                    except Exception:
+                        pass
             return 0
         print(f'SwingEdge EOD refresh — {os.path.relpath(scan_path, ROOT)} exists but does not count as built: {why}.')
         print('    Pulling again and rebuilding it.')
@@ -607,6 +742,38 @@ def main():
                 return False
         return True
 
+    def side_refresh():
+        """The screener pull has been given up on (a dead cookie, an unreachable site). NSE's index block and the
+        theme trackers do not depend on screener, so refresh them anyway and commit only their files: a dead cookie
+        froze the NSE block from 1 to 11 Oct 2026. Never during the retry loop (NSE's file is usually not out at
+        15:50), never in a dry run, and never `git add data` - a half-built scan must not go out with them."""
+        if a.dry_run:
+            return
+        rc = LAST_RC
+        print('\n--- the screener pull failed: refreshing the NSE index block and the theme trackers on their own')
+        ok_nse = run('refresh the NSE index block (never blocks)',
+                     [py, os.path.join('tools', 'fetch_markets.py'), '--only', 'nse', '--quiet'], False, timeout=300)
+        ok_th = run('refresh the theme trackers (never blocks)',
+                    [py, os.path.join('tools', 'fetch_themes.py'), '--quiet'], False, timeout=300)
+        if rc == 5 and (ok_nse or ok_th):
+            pull_status('cookie', cookie_msg() + '; index and theme data were still refreshed', False)
+        if not a.push:
+            return
+        paths = _existing(['data/markets/markets.json', 'data/themes', 'data/daily/pull_status.json'])
+        _git('add', '--', *paths)
+        if _git('diff', '--cached', '--quiet', '--', *paths).returncode == 0:
+            print('    nothing changed in the index or theme data - not committing')
+            return
+        if _git('commit', '-q', '-m', 'Markets and themes (screener pull failed)', '--', *paths).returncode:
+            print('    commit failed'); return
+        if publish():
+            print('    index and theme data pushed')
+
+    def cookie_msg():
+        return (f'{dt.date.today()}: the screener.in session has expired, so the {date} close cannot be pulled '
+                'until a new sessionid is pasted into .secrets/screener_cookie.txt (the run retries every '
+                f'{a.poll} minutes until {a.wait_until})')
+
     # ---- the close, complete or not at all -------------------------------------------------
     # screener refreshes in stages (see the docstring). The broad pull alone carries two of the
     # three sentinel columns, so it is pulled first and checked before the other two pulls are
@@ -644,14 +811,17 @@ def main():
         """After a failed screener pull. True: slept, pull again. False: the caller returns 1.
         fetch_screener exits 5 when the session has expired or no cookie is set, 6 when screener.in could not
         be reached (the network is often not up yet just after the task wakes the PC). Anything else stops."""
-        if LAST_RC not in (5, 6) or deadline is None or a.dry_run:
+        if deadline is None or a.dry_run:
+            return False
+        if LAST_RC not in (5, 6):
+            # not a cookie or network fault (a markup change, a rejected query): retrying for hours would only add
+            # noise, but the sidebar must say the pull stopped. A stable message, so pull_status writes it once.
+            pull_status('error', f'{date}: the pull stopped (exit {LAST_RC}); see .secrets/daily_pull.log', a.push)
             return False
         if LAST_RC == 5:
             # say so where it will be seen, then keep trying - every pull reads the cookie file afresh,
             # so a new sessionid pasted this evening lets this run finish on its own
-            pull_status('cookie', f'{dt.date.today()}: the screener.in session has expired, so the {date} close cannot be pulled '
-                                  'until a new sessionid is pasted into .secrets/screener_cookie.txt (the run retries every '
-                                  f'{a.poll} minutes until {a.wait_until})', a.push)
+            pull_status('cookie', cookie_msg(), a.push)
         now = dt.datetime.now()
         if now < deadline:
             what = 'a new cookie' if LAST_RC == 5 else 'screener.in to be reachable'
@@ -673,7 +843,7 @@ def main():
             print('\n--- no new data')
             print(f"    {det.get('matches', n)} of {n} prices are identical to the {prev} scan{extra} - screener is "
                   f'still serving that close, so {date} was not a trading day. Nothing written, nothing committed.')
-            pull_status('ok', f'{date} was not a trading day; the {prev} close stands', a.push and not a.dry_run)
+            pull_status('ok', f'{date} was not a trading day; the {prev} close stands', a.push and not a.dry_run, closed=[date])
         return same
 
     if a.skip_fetch:
@@ -687,13 +857,16 @@ def main():
                 return 2
     else:
         while True:
-            if not a.date and not a.dry_run and default_scan_date() != date:
+            if not a.date and not a.dry_run and default_scan_date() != date_cal:
                 print(f'\n--- the session changed while waiting: screener no longer serves the {date} close. '
                       'Stopping so nothing is mislabelled; nothing written, nothing committed.')
+                pull_status('stale', f'{date}: the session changed before the close could be pulled '
+                                     f'(now {default_scan_date() or "market open"}); nothing was written', a.push)
                 return 2
             if not go([('pull the broad universe (decides coverage)', fetch + ['--query', BROAD, '--suffix', '_base'])]):
                 if fetch_retry():
                     continue
+                side_refresh()
                 return 1
             if not a.dry_run:
                 if non_trading(base):
@@ -711,6 +884,7 @@ def main():
             ]):
                 if fetch_retry():                         # a variant pull hit 5 or 6 mid-run: start again from the broad pull
                     continue
+                side_refresh()
                 return 1
             if not a.dry_run:
                 stale, det = stale_partial_refresh(os.path.join(ROOT, merged), date)
@@ -783,13 +957,13 @@ def main():
     # last good series when a source does not answer, and whatever it returns is reported and
     # ignored - the scan, shortlist and journal above are already complete.
     if not run('refresh the theme trackers (never blocks the scan)',
-               [py, os.path.join('tools', 'fetch_themes.py'), '--quiet'], a.dry_run):
+               [py, os.path.join('tools', 'fetch_themes.py'), '--quiet'], a.dry_run, timeout=300):
         print('    ignored - the scan, shortlist and journal above are complete')
 
     # ---- candidate headlines for today's gainers (no model, no web search) ------------------
     # The daily news routine only chooses among these, so it never has to search. Never blocks.
     if not run("collect candidate headlines for today's gainers (never blocks the scan)",
-               [py, os.path.join('tools', 'gainers_news.py'), 'collect', '--quiet'], a.dry_run):
+               [py, os.path.join('tools', 'gainers_news.py'), 'collect', '--quiet'], a.dry_run, timeout=300):
         print('    ignored - the scan, shortlist and journal above are complete')
 
     # ---- markets and macro: NSE's index file, yields, the dollar, crude, foreign flows -------
@@ -797,7 +971,7 @@ def main():
     # its last good data when it does not answer, and nothing here may stop the run. (The early-morning
     # GitHub job tops up everything except NSE's file, which only this run fetches.)
     if not run('refresh the Markets & Macro data (never blocks the scan)',
-               [py, os.path.join('tools', 'fetch_markets.py'), '--quiet'], a.dry_run):
+               [py, os.path.join('tools', 'fetch_markets.py'), '--quiet'], a.dry_run, timeout=300):
         print('    ignored - the scan, shortlist and journal above are complete')
 
     if a.dry_run:
@@ -829,27 +1003,21 @@ def main():
 
     if a.push:
         print('\n--- publish')
-        # Scoped to data/: anything else that happens to be staged (a half-edited index.html) stays out of
-        # this commit, and --autostash lets the rebase run on a tree with uncommitted edits.
-        subprocess.run(['git', 'add', 'data'], cwd=ROOT)
-        if subprocess.run(['git', 'diff', '--cached', '--quiet', '--', 'data'], cwd=ROOT).returncode == 0:
+        # Only the files this run wrote (OUT): anything else under data/ or elsewhere that happens to be modified or
+        # staged (another session's half-edited config) stays out, and --autostash carries it through the rebase.
+        paths = _existing(OUT)
+        subprocess.run(['git', 'add', '--', *paths], cwd=ROOT)
+        if subprocess.run(['git', 'diff', '--cached', '--quiet', '--', *paths], cwd=ROOT).returncode == 0:
             print('    nothing changed — not committing')
             return 0
         msg = (f'EOD data refresh {after_date}\n\n'
                f'Shortlist {len(after)} names ({len(joined)} new, {len(dropped)} gone). '
-               f'Built by tools/eod.py: three screener pulls unioned by exact code.\n\n'
-               f'Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n')
-        if subprocess.run(['git', 'commit', '-q', '-m', msg, '--', 'data'], cwd=ROOT).returncode:
+               f'Built by tools/eod.py: three screener pulls unioned by exact code.\n')
+        if subprocess.run(['git', 'commit', '-q', '-m', msg, '--', *paths], cwd=ROOT).returncode:
             print('    commit failed'); return 1
         # A failed rebase must never leave the repo mid-rebase: tomorrow's run would then fail
-        # at git add with no obvious cause. Abort, keep the local commit, and say so.
-        if subprocess.run(['git', 'pull', '--rebase', '--autostash', 'origin', 'main'], cwd=ROOT).returncode:
-            subprocess.run(['git', 'rebase', '--abort'], cwd=ROOT)
-            print('    rebase failed — aborted so the repo is not left mid-rebase. The commit is local; '
-                  'pull by hand and push.')
-            return 1
-        if subprocess.run(['git', 'push', 'origin', 'main'], cwd=ROOT).returncode:
-            print('    push failed — the commit is local, try again')
+        # at git add with no obvious cause. publish() resolves generated-file conflicts, aborts on anything else.
+        if not publish(note=f'{after_date} close built but not published'):
             return 1
         print('    pushed — live in about a minute')
     else:

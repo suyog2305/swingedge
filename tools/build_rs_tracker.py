@@ -14,34 +14,37 @@ WHAT IT ANSWERS
   classic signs of a tired leader before the rating itself turns.
 
 HOW (every number is explainable)
-  Anchors   The newest scan, then the nearest scan on or before each 7-day step back (up to --weeks),
-            only while the RS mode stays comparable with the newest scan.
+  Anchors   The newest scan, then for each 7-day step back (up to --weeks) the newest scan dated
+            from 9 days before that step up to the step itself, never one already used by a nearer
+            step (the windows overlap by 3 days), and only while the RS mode stays comparable with
+            the newest scan. Each anchor carries gap_days, so a 12-day "week" says so.
   Rank      Position by raw RS score among every coded name in that scan (1 = strongest). Rank, not
             the 1-99 rating, is what moves at the top: RS 99 -> 98 can be rank 5 -> 40.
   Status    in the top N now:  new (not in last week) · slipping (rank worse by 8+ places vs last
-            week, or worsening two weeks running) · holding (everything else)
+            week, or worsening two weeks running) · holding (everything else) · unknown (there is
+            no comparable scan for last week, so "new" cannot be told apart from "holding")
             not in the top N:  dropped (was in last week, or within the window) · fading (left the
             list and rank worsened two weeks running) · out (never in the window)
   Exhaustion flags, read off the newest scan's own fields:
             climax   +20% in a week or +45% in a month (a climax run)
             rolling  -5% or worse this week while the rating is still 90+
             off_high more than 15% below the 52-week high
-            below50  closed below the 50-DMA
-            ext50    stretched 40%+ above the 50-DMA
+            below50  closed below the 50-day EMA (screener's "DMA 50" is an exponential average)
+            ext50    stretched 40%+ above the 50-day EMA
             dist     a -3% day on twice the 1-month average volume (distribution)
             trend    fails the trend template by two or more checks
             0 = Healthy · 1 = Watch · 2 = Tiring · 3+ = Exhausted
   Verdict   direction only (RS gives the level): weakening = slipping / dropped / fading or 2+ flags;
             watch = new, or exactly 1 flag; strong = otherwise; none for "out" names (never in the
-            window), so nothing outside the list reads as "holding its place"
+            window), so nothing outside the list reads as "holding its place"; for "unknown" names the
+            verdict comes from the flags alone (2+ weakening, 1 watch, 0 strong)
   Evidence  for every consecutive pair of anchors: how many of the top N stayed, split by how many
             exhaustion flags they carried at the time — so the flags earn (or lose) your trust
             against your own archive, week by week.
 
-PORTFOLIO  data/daily/holdings.json, if present, lists what you hold (written by hand or by a
-           broker-MCP routine): {"updated":"YYYY-MM-DD","source":"...","names":[{"code":"NSE","qty":0,"avg":0}]}.
-           Each holding gets the same stats plus "is it inside the top N and by how much". The app
-           also overlays positions it already knows about, so the file is optional.
+PORTFOLIO  .secrets/holdings.json (PRIVATE, gitignored; tools/kite_sync.py writes it), if present, lists what you hold: {"updated":"YYYY-MM-DD","source":"...","names":[{"code":"NSE","qty":0,"avg":0}]}.
+           Each holding is printed with its rank and RS; only the counts (in_top, of) are written to the public
+           tracker file. The app overlays positions it already knows about, so the file is optional.
 """
 import argparse, datetime as dt, glob, io, json, os, re, sys
 
@@ -51,14 +54,14 @@ from rs import num, rate, rs_mode, trend_label, utf8_stdio
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCANS = os.path.join(ROOT, 'data', 'scans')
 OUT = os.path.join(ROOT, 'data', 'daily', 'rs_tracker.json')
-HOLDINGS = os.path.join(ROOT, 'data', 'daily', 'holdings.json')
+HOLDINGS = os.path.join(ROOT, '.secrets', 'holdings.json')     # PRIVATE: gitignored; never under data/ (the repo and site are public)
 
 FLAGS = {
     'climax':   'Climax run: +20% in a week or +45% in a month',
     'rolling':  'Rolling over: -5% or worse this week while the rating is still 90+',
     'off_high': 'More than 15% below the 52-week high',
-    'below50':  'Closed below the 50-DMA',
-    'ext50':    'Stretched 40%+ above the 50-DMA',
+    'below50':  'Closed below the 50-day EMA (screener DMA 50)',
+    'ext50':    'Stretched 40%+ above the 50-day EMA (screener DMA 50)',
     'dist':     'Distribution day: -3% on twice the 1-month average volume',
     'trend':    'Fails the trend template by two or more checks',
 }
@@ -138,14 +141,25 @@ def enrich(rows, prev_rows):
     return out
 
 
-def pick_anchors(files, weeks):
-    """[(date, path)] newest first: the newest scan, then the nearest scan on or before each 7-day step."""
+def empty_scans():
+    """Dates whose scan carries no universe (a Stage-2-list-only pull), from data/scans/index.json; empty if unreadable."""
+    try: return {s['date'] for s in jload(os.path.join(SCANS, 'index.json')).get('scans', []) if s.get('universe') == 0}
+    except (ValueError, OSError, KeyError, TypeError, AttributeError): return set()
+
+
+def pick_anchors(files, weeks, skip=()):
+    """[(date, path)] newest first: the newest scan, then for each 7-day step the newest scan in
+    [step - 9 days, step] that no nearer step has taken (None where the window holds no unused scan).
+    Dates in `skip` (scans with no universe) are never picked."""
     dates = [dt.date.fromisoformat(d) for d, _ in files]
     newest = dates[-1]
     anchors = [files[-1]]
+    used = {len(files) - 1} | {i for i, (d, _) in enumerate(files) if d in skip}
     for k in range(1, weeks + 1):
         target = newest - dt.timedelta(days=7 * k)
-        cands = [i for i, d in enumerate(dates) if target - dt.timedelta(days=4) <= d <= target]
+        lo = target - dt.timedelta(days=9)
+        cands = [i for i, d in enumerate(dates) if lo <= d <= target and i not in used]
+        if cands: used.add(max(cands))
         anchors.append(files[max(cands)] if cands else None)
     while anchors and anchors[-1] is None: anchors.pop()
     return anchors
@@ -161,7 +175,7 @@ def main():
 
     files = scan_files()
     if not files: sys.exit('no dated scan in data/scans/')
-    anchors = pick_anchors(files, a.weeks)
+    anchors = pick_anchors(files, a.weeks, empty_scans() - {files[-1][0]})
     newest_rows = scan_rows(anchors[0][1])
     if newest_rows is None: sys.exit(f'the newest scan {os.path.basename(anchors[0][1])} is unreadable - rebuild it with tools/build_scan.py')
     mode = rs_mode(newest_rows)
@@ -188,6 +202,9 @@ def main():
 
     N = a.top
     in_top = lambda m, c: bool(m) and c in m and m[c]['rank'] <= N
+    no_last_week = len(weeks) < 2 or weeks[1] is None             # unreadable / missing / other-mode week-1 scan
+    if no_last_week:
+        print('WARNING: no comparable scan for last week - leaders get status "unknown", not "new"', file=sys.stderr)
     codes = {}
     for c, r in now.items():
         rs_hist = [(w['map'][c]['rs'] if w and c in w['map'] else None) for w in weeks]
@@ -205,11 +222,17 @@ def main():
         last = tops[1] if len(tops) > 1 else False
         ever = any(tops[1:5])
         if tops[0]:
-            status = 'new' if not last else 'slipping' if ((d1w is not None and d1w >= SLIP) or weakening >= 2) else 'holding'
+            if not no_last_week:
+                status = 'new' if not last else 'slipping' if ((d1w is not None and d1w >= SLIP) or weakening >= 2) else 'holding'
+            else:
+                status = 'unknown'                              # no comparable last-week scan: cannot say "new"
         else:
             status = 'dropped' if last else 'fading' if (ever and weakening >= 2) else 'dropped' if ever else 'out'
         ex = r['exhaustion']
-        verdict = None if status == 'out' else ('weakening' if status in ('slipping', 'dropped', 'fading') or ex >= 2 else 'watch' if status == 'new' or ex == 1 else 'strong')
+        if status == 'unknown':
+            verdict = 'weakening' if ex >= 2 else 'watch' if ex == 1 else 'strong'
+        else:
+            verdict = None if status == 'out' else ('weakening' if status in ('slipping', 'dropped', 'fading') or ex >= 2 else 'watch' if status == 'new' or ex == 1 else 'strong')
         codes[c] = dict(r, rs_hist=rs_hist, rank_hist=rk_hist, in_top=tops, streak=streak, weeks_in_top=sum(tops),
                         weakening_weeks=weakening, rank_d1w=d1w, rs_d1d=(r['rs'] - prev_rs[c]) if c in prev_rs else None,
                         status=status, verdict=verdict)
@@ -248,8 +271,10 @@ def main():
                               'rank': stat['rank'] if stat else None, 'rs': stat['rs'] if stat else None,
                               'in_top': bool(stat and stat['in_top'][0]), 'gap_to_cut': (stat['rank'] - N) if stat and stat['rank'] > N else 0,
                               'status': stat['status'] if stat else 'unrated', 'verdict': stat['verdict'] if stat else None})
-            portfolio = {'updated': h.get('updated'), 'source': h.get('source'), 'names': names,
-                         'in_top': sum(1 for n in names if n['in_top']), 'of': len(names)}
+            # the per-name rows stay on this machine (printed below); the public tracker carries only the two counts
+            portfolio = {'updated': h.get('updated'), 'in_top': sum(1 for n in names if n['in_top']), 'of': len(names)}
+            for n in names:
+                print(f"    {n['code']:<12} rank {n['rank'] or '-':>5}  RS {n['rs'] or '-':>3}  {'inside the top ' + str(N) if n['in_top'] else n['status']}")
         except Exception as e:
             portfolio = {'error': f'could not read holdings.json: {e}'}
 
@@ -261,7 +286,8 @@ def main():
         'cutoff': {'rank': N, 'rs': cut['rs'] if cut else None, 'score': cut['score'] if cut else None},
         'counts': {'retained': sum(1 for v in leaders if v['status'] in ('holding', 'slipping')), 'new': sum(1 for v in leaders if v['status'] == 'new'),
                    'slipping': sum(1 for v in leaders if v['status'] == 'slipping'), 'dropped': sum(1 for v in left if v['status'] == 'dropped'),
-                   'fading': sum(1 for v in left if v['status'] == 'fading'), 'rated': len(codes)},
+                   'fading': sum(1 for v in left if v['status'] == 'fading'), 'unknown': sum(1 for v in leaders if v['status'] == 'unknown'),
+                   'rated': len(codes)},
         'leaders': leaders, 'left': left,
         'evidence': {'transitions': transitions, 'summary': summary},
         'portfolio': portfolio,
@@ -280,7 +306,7 @@ def main():
     wk = ' · '.join(f"{w['date']}" if w else '—' for w in weeks)
     print(f"scan {doc['scan_date']} · top {N} · anchors: {wk}")
     k = doc['counts']
-    print(f"retained {k['retained']} (slipping {k['slipping']}) · new {k['new']} · dropped {k['dropped']} · fading {k['fading']} · cut-off rank {N} = RS {doc['cutoff']['rs']}")
+    print(f"retained {k['retained']} (slipping {k['slipping']}) · new {k['new']} · dropped {k['dropped']} · fading {k['fading']}{(' · unknown %d' % k['unknown']) if k['unknown'] else ''} · cut-off rank {N} = RS {doc['cutoff']['rs']}")
     hist = lambda v: ' '.join(f"{x:>2}" if x is not None else ' —' for x in v['rs_hist'][:5])
     print(f"{'#':>3} {'Code':<12}{'RS hist (newest first)':<22}{'rank':>5}{'Δ1w':>5}{'wks':>4}  {'status':<9}{'exhaustion':<11}{'trend':<12}verdict   flags")
     for v in leaders + left:

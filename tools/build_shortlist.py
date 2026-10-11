@@ -8,7 +8,7 @@ emit the 15-20 names worth a research report, with the reason each one qualified
     python tools/build_shortlist.py --date 2026-08-25 --quiet
 
 Runs on data already in the repo — no LLM, no API key, no cost:
-  data/scans/<date>.json   universe (price, returns, DMAs, 52W position) + the Stage 2 list
+  data/scans/<date>.json   universe (price, returns, DMAs = screener's 50/200-day EMAs, 52W position) + the Stage 2 list
   data/pead/<quarter>.json most recent quarterly results (PEAD tier + growth)
   data/daily/news.json     curated headlines (the "trigger" leg), if present; only a headline
                            dated within NEWS_DAYS of the scan counts
@@ -24,7 +24,7 @@ score and their true rank out of all scored names. They also bypass the --min-mc
 and any pinned name that DOES earn a top-N slot is tagged `pinned` in doc.rows.
 
 SCORING — every point is explainable; each contributing factor becomes a `reason` string:
-  new 52-week high / near high        +3 / +2
+  at / within 1.5% of the 52W high    +3 (the reason says the exact distance), within 5% +2
   Stage 2 (fresh entry or re-entry)   +3, else on the list +2, early in the move (<=8 wks) +1
     "fresh" only while the provider's list is at most 7 days older than the scan; an older list's
     entries score +2 and say the list's date, and its week count is aged to the scan date
@@ -75,7 +75,7 @@ def band_of(mcap):
         if mcap >= lo: return name
     return 'Micro'
 
-NEWHIGH = 1.5          # within this % of the 52-week high counts as "at a new high"
+NEWHIGH = 1.5          # within this % of the 52-week high scores as the new-high zone (+3); the reason says "at" only at the high
 NEARHIGH = 5.0
 NEWS_DAYS = 5          # a headline counts as a trigger if dated up to this many days before the scan's date (covers a weekend)
 NEWS_AHEAD = 3         # ...and up to this many days after it: headlines are curated after the scan
@@ -132,8 +132,9 @@ def main():
         except Exception: prev = None
 
     # ---- sector strength ------------------------------------------------------
+    # over the WHOLE universe (BSE-only rows included), as the page's sector table does - RS is rated on ALL
     groups = {}
-    for r in U:
+    for r in ALL:
         g = r.get('group') or r.get('industry') or 'Other'
         groups.setdefault(g, []).append(r)
     sector_rs = {g: med([x.get('_rs') for x in rows]) for g, rows in groups.items()}
@@ -209,7 +210,7 @@ def main():
 
         score, reasons = 0.0, []
         if f52 is not None and f52 >= -NEWHIGH:
-            score += 3; reasons.append('at a new 52-week high')
+            score += 3; reasons.append('at a new 52-week high' if f52 >= -0.05 else f'within {abs(f52):.1f}% of the 52-week high (new-high zone)')
         elif f52 is not None and f52 >= -NEARHIGH:
             score += 2; reasons.append(f'within {abs(f52):.1f}% of the 52-week high')
         if s2:

@@ -15,7 +15,11 @@ on two independent tracks:
           changes on the days you upload a new one.
   CALC  — Stage 2 computed here from the 7-point trend template on that day's screener
           data. Available EVERY scan, so this is what gives you daily tracking without
-          any new data source.
+          any new data source. Only broad scans (MIN_NAMES coded names or more) count as days
+          here: a narrow seed export is marked unknown/narrow and skipped, so the first broad
+          scan is the track's first day and its spells are flagged seen (began on or before).
+          A name that drops out of the scan universe is carried as missing, not exited, and
+          its spell closes (uncertain, on the last scan that saw it) after CALC_MISS_MAX scans.
 
 and per stock, its whole life in Stage 2: every spell (entered -> exited), how many days
 each lasted, whether it is in right now, and how long the current run has been.
@@ -36,6 +40,14 @@ from rs import rate as rs_rate, utf8_stdio
 # drifts 10 points in a fortnight (its own 4-week trend sheet shows that), so 10 is the width
 # of ordinary noise, not a tuned number.
 S2_FLOOR_MARGIN = 10.0
+# The computed track needs a broad-market pull: the early seed exports (22 May, 5 Jun) carry ~190
+# coded names, and reading them as market days turned 21 Aug - the first broad scan - into 334
+# "entries" and bridged spells across a 77-day gap. Same cut as build_indices.MIN_NAMES.
+MIN_NAMES = 1000
+# A Stage 2 name that vanishes from the scan universe (delisted, or below the scan's market-cap cut)
+# is carried as "missing", not exited; after this many consecutive broad scans without it, its spell
+# is closed on the last scan that saw it and flagged uncertain.
+CALC_MISS_MAX = 3
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCHEMA = 'swingedge-s2history/1'
@@ -93,6 +105,7 @@ def main():
     prev_members = {'list': None, 'calc': None}
     prev_universe = None
     prev_rs, prev_src = {}, None             # the previous provider list: code -> its RS%, and which file it was
+    calc_miss, calc_seen = {}, {}            # computed track: code -> consecutive broad scans absent, last scan date present
 
     for p in files:
         try: d = jload(p)
@@ -111,6 +124,9 @@ def main():
         if s2_floor is None and any(v is not None for v in cur_rs.values()):
             s2_floor = min(v for v in cur_rs.values() if v is not None)
         umap = {r['code'].upper(): r for r in U}
+        narrow = len(U) < MIN_NAMES               # a seed export or a list-only pull: no computed-track data
+        if not narrow:
+            for c in umap: calc_miss.pop(c, None); calc_seen[c] = date
 
         for r in U:
             c = r['code'].upper()
@@ -126,11 +142,16 @@ def main():
             if c and c not in meta:
                 meta[c] = OrderedDict(name=c, sector=s.get('industry') or '', band=None)
         members['calc'] = {r['code'].upper() for r in U
-                           if trend_pass(r, (prev_universe or {}).get(r['code'].upper()))} if U else set()
+                           if trend_pass(r, (prev_universe or {}).get(r['code'].upper()))} if U and not narrow else set()
 
         day = OrderedDict(date=date)
         for tk in ('list', 'calc'):
             cur, prev = members[tk], prev_members[tk]
+            # a narrow scan is not a market day for the computed track: no entries, no exits, and the
+            # previous broad scan stays the comparison point
+            if tk == 'calc' and narrow:
+                day[tk] = OrderedDict(count=0, entered=[], exited=[], unknown=True, narrow=True)
+                continue
             # a track with no data on this scan is "unknown", not "everyone exited"
             if not cur and prev:
                 day[tk] = OrderedDict(count=0, entered=[], exited=[], unknown=True)
@@ -188,24 +209,43 @@ def main():
                 prev_rs = {c: r for c, r in prev_rs.items() if c in presumed}; prev_rs.update(cur_rs)
                 prev_src = s2_src
                 continue
+            gone = (prev - cur) if prev is not None else set()
+            # computed track: a name that left the scan universe altogether has not been seen to fail the
+            # template - carry it as missing, and close its spell (uncertain) only after CALC_MISS_MAX scans
+            missing, lapsed = set(), []
+            if tk == 'calc':
+                for c in sorted(gone):
+                    if c in umap: continue
+                    calc_miss[c] = calc_miss.get(c, 0) + 1
+                    if calc_miss[c] >= CALC_MISS_MAX: lapsed.append(c); calc_miss.pop(c, None)
+                    else: missing.add(c)
             entered = sorted(cur - prev) if prev is not None else sorted(cur)
-            exited = sorted(prev - cur) if prev is not None else []
+            exited = sorted(gone - missing - set(lapsed))
             for c in entered:
                 st = tracks[tk].setdefault(c, {'spells': []})
-                st['spells'].append(OrderedDict([('from', date), ('to', None), ('days', None)]))
+                sp = OrderedDict([('from', date), ('to', None), ('days', None)])
+                if prev is None: sp['seen'] = True       # the track's first day: the run began on or before this date
+                st['spells'].append(sp)
             for c in exited:
                 st = tracks[tk].get(c)
                 if st and st['spells'] and st['spells'][-1]['to'] is None:
                     sp = st['spells'][-1]; sp['to'] = date; sp['days'] = days_between(sp['from'], date)
+            for c in lapsed:                             # dated to the last scan that carried the name
+                st = tracks[tk].get(c)
+                if st and st['spells'] and st['spells'][-1]['to'] is None:
+                    sp = st['spells'][-1]; last_seen = calc_seen.get(c, date)
+                    sp['to'] = last_seen; sp['days'] = days_between(sp['from'], last_seen); sp['uncertain'] = True
             day[tk] = OrderedDict(count=len(cur), entered=entered, exited=exited,
                                   first=prev is None)
+            if missing: day[tk]['missing'] = len(missing)    # in Stage 2 when last seen, absent from this scan's universe
+            if lapsed: day[tk]['lapsed'] = lapsed            # absent CALC_MISS_MAX scans running: spell closed, uncertain
             if tk == 'list':
                 day[tk]['source'] = s2_src            # the file this week's list came from
                 if cur: list_updates.append(date)     # a genuinely new list landed today
                 prev_rs, prev_src = dict(cur_rs), s2_src
-            prev_members[tk] = cur
+            prev_members[tk] = cur | missing
         days.append(day)
-        if U: prev_universe = umap
+        if U and not narrow: prev_universe = umap     # the 200-DMA slope compares broad scans only
 
     last_date = days[-1]['date']
     stocks = OrderedDict()
@@ -218,10 +258,13 @@ def main():
             e[tk] = OrderedDict(
                 current=bool(open_spell),
                 since=open_spell['from'] if open_spell else None,
+                seen=bool(open_spell and open_spell.get('seen')),   # since = first seen: the run may be older ("days" is a floor)
                 days=days_between(open_spell['from'], last_date) if open_spell else None,
                 spells=len(st['spells']),
                 total_days=sum(s['days'] or 0 for s in closed) + (days_between(open_spell['from'], last_date) or 0 if open_spell else 0),
                 history=st['spells'][-6:])
+            if tk == 'calc' and open_spell and c in calc_miss:
+                e[tk]['missing'] = calc_miss[c]   # carried as in, but absent from the last N scans' universe
 
     doc = OrderedDict(schema=SCHEMA, generated=dt.date.today().isoformat(), last_scan=last_date,
                       scans=[x['date'] for x in days], list_updates=list_updates,

@@ -53,7 +53,12 @@ TICKER_PAGE = re.compile(r'share price (today|live|target)|stock price (today|li
                          r'share price, stock price|stock price & news|historical data|financials, |balance sheet|'
                          r'(share|stock) price\s*$|share/stock price|(yearly|half[- ]yearly|quarterly|nine monthly) results[,:]|'
                          r'earnings for |financial summary|company profile|stock quote|stock analysis|'
-                         r'^[\w\s&.()\-]{3,60}\b(limited|ltd\.?)\s*$', re.I)
+                         r'^[\w\s&.()\-]{3,60}\b(limited|ltd\.?)\s*$|'
+                         # quote and stat page farms (Univest, TradingView, TechGraph): titles only, never the source,
+                         # because the same outlets also publish real news the routine has used
+                         r'price,? data and peers|share price with |\bstatistics\s*[–-]|book value per share|'
+                         r'share price, (nse|bse)\s*$|52 week (low|high) streak|price action near|'
+                         r'\bvs\b.*\bvs\b.*:\s*comparison\s*$', re.I)
 
 
 def load(path):

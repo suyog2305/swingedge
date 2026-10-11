@@ -102,6 +102,10 @@ def usable_scans(max_gap=4):
     """
     files = sorted(glob.glob(os.path.join(ROOT, 'data', 'scans', '20*.json')))
     loaded = [(p, jload(p)) for p in files]
+    # RS is ranked across each WHOLE universe (BSE-only rows included), as the app does, BEFORE the
+    # coded-row lists below are cut: they hold the same dicts, so they keep the full-universe _rs.
+    # Ranking the coded subset alone lifts percentiles ~0.8 points and moves ~20 names across RS 70.
+    for _, d in loaded: rs_percentiles(d.get('universe') or [])
     # every scan that carries a real universe, newest last
     unis = [(d.get('date'), [r for r in d.get('universe', []) if r.get('code')])
             for _, d in loaded if len([r for r in d.get('universe', []) if r.get('code')]) >= 500]
@@ -162,8 +166,8 @@ def main():
     if not scans:
         raise SystemExit('no scan carries both a broad universe (500+ rows) and a provider Stage 2 list')
 
-    for s in scans:
-        rs_percentiles(s['U'])
+    # RS was ranked on each full universe inside usable_scans(); re-ranking s['U'] (coded rows only) here
+    # would bring back the shifted scale.
 
     print(f'Calibrating on {len(scans)} scan(s): ' + ', '.join(s["date"] for s in scans) + '\n')
 

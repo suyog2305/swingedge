@@ -11,17 +11,25 @@ from the scans already in the repo.
 Constituents live in data/indices/indices.json (edit by hand, or with `add`, which also rebuilds).
 Each index is EQUAL-WEIGHT and CHAIN-LINKED: between two consecutive scans it moves by the average
 of its members' price changes (a member without a price on either day sits that step out), starting
-at 100 on the first scan where at least half the members have a price. One step is capped at +/-20%
-per trading day in the gap, so a bonus or split in screener's price column cannot print a fake
-crash. The whole coded universe is chain-linked the same way as the "market" line, so index /
-market is the sub-sector's own relative-strength line.
+at 100 on the first scan where at least half the members have a price. Screener's price column is
+not adjusted for splits and bonuses, so a member's step is read in this order (step_return):
+  1. One session apart (no weekday between the two scans) and screener's own split-adjusted 1-day
+     return (r1d) disagrees with the price ratio by more than 5 points: use r1d.
+  2. Otherwise, when the share count (`float`) changed by more than 5%, divide the change out of the
+     price ratio - but only when the market cap confirms it (adjusted move within 3 points of the
+     mcap move) and the adjustment shrinks the move. Free-float reshuffles and new issues (QIP,
+     merger) also move `float`; they fail that check and keep the plain price ratio.
+  3. Last resort: a step still outside x0.55 .. x1.8 is an unexplained jump, so that member sits
+     the step out. Nothing is clipped: a clipped split is a fake move of its own.
+The whole coded universe is chain-linked the same way as the "market" line, so index / market is
+the sub-sector's own relative-strength line.
 
 Per index: levels aligned to the scan dates, returns over 1 day / 1 week / 1 month / 3 months /
 since start, the same relative to the market, distance from the index high, breadth (members above
-their 50-DMA), median RS, and every member's price, returns, RS rating, rank and trend label from
-the newest scan. No network, no LLM.
+their 50-day EMA - screener's "DMA 50" is an exponential average), median RS, and every member's
+price, returns, RS rating, rank and trend label from the newest scan. No network, no LLM.
 """
-import argparse, datetime as dt, glob, io, json, os, re, statistics, sys
+import argparse, datetime as dt, glob, io, json, math, os, re, statistics, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from rs import num, rate, trend_label, utf8_stdio
@@ -30,7 +38,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCANS = os.path.join(ROOT, 'data', 'scans')
 CFG = os.path.join(ROOT, 'data', 'indices', 'indices.json')
 OUT = os.path.join(ROOT, 'data', 'indices', 'series.json')
-CAP_PER_DAY = 0.20
+R1D_TOL = 5.0           # points: r1d vs the price ratio before a one-session step is read off r1d
+FLOAT_TOL = 0.05        # share-count change that counts as a possible split / bonus
+MCAP_TOL = 0.03         # the float-adjusted move must sit this close to the market-cap move
+STEP_BAND = (0.55, 1.8) # last resort: a step ratio outside this is skipped for that member, never clipped
 MIN_NAMES = 1000        # a scan counts as an index date only when it is a broad-market pull
 
 
@@ -60,8 +71,33 @@ def trading_days(a, b):
     return max(1, round((dt.date.fromisoformat(b) - dt.date.fromisoformat(a)).days * 5 / 7))
 
 
-def chain(dates, prices, codes):
-    """Equal-weight chain-linked levels for `codes`, aligned to `dates`; None before the index starts."""
+def one_session(a, b):
+    """True when no weekday falls strictly between the two scan dates (Fri->Mon counts; a skipped day does not)."""
+    d0, d1 = dt.date.fromisoformat(a), dt.date.fromisoformat(b)
+    return all((d0 + dt.timedelta(days=k)).weekday() >= 5 for k in range(1, (d1 - d0).days))
+
+
+def step_return(p0, p1, x0, x1, single):
+    """One member's return between two consecutive scans, or None to sit the step out (see the docstring).
+    x0 / x1 are (r1d, float, mcap) from the older / newer scan."""
+    raw = p1 / p0 - 1
+    r1d = x1[0] if x1 else None
+    if single and r1d is not None and abs(raw * 100 - r1d) > R1D_TOL:
+        r = r1d / 100
+    else:
+        r = raw
+        f0, f1 = (x0[1], x1[1]) if x0 and x1 else (None, None)
+        m0, m1 = (x0[2], x1[2]) if x0 and x1 else (None, None)
+        if f0 and f1 and m0 and m1 and abs(f1 / f0 - 1) > FLOAT_TOL:
+            adj = p1 / (p0 * f0 / f1) - 1
+            if abs(adj - (m1 / m0 - 1)) <= MCAP_TOL and abs(adj) < abs(raw): r = adj
+    return r if STEP_BAND[0] <= 1 + r <= STEP_BAND[1] else None
+
+
+def chain(dates, prices, codes, facts=None):
+    """Equal-weight chain-linked levels for `codes`, aligned to `dates`; None before the index starts.
+    `facts` = {date: {code: (r1d, float, mcap)}} drives the split / bonus handling in step_return."""
+    facts = facts or {}
     levels, level = [], None
     for i, d in enumerate(dates):
         pm = prices[d]
@@ -69,8 +105,10 @@ def chain(dates, prices, codes):
             if sum(1 for c in codes if c in pm) >= max(1, len(codes) / 2): level = 100.0; levels.append(100.0)
             else: levels.append(None)
             continue
-        prev, cap = prices[dates[i - 1]], CAP_PER_DAY * trading_days(dates[i - 1], d)
-        rets = [max(-cap, min(cap, pm[c] / prev[c] - 1)) for c in codes if c in pm and c in prev and prev[c] > 0]
+        prev, fp, fn = prices[dates[i - 1]], facts.get(dates[i - 1], {}), facts.get(d, {})
+        single = one_session(dates[i - 1], d)
+        rets = [step_return(prev[c], pm[c], fp.get(c), fn.get(c), single) for c in codes if c in pm and c in prev and prev[c] > 0]
+        rets = [r for r in rets if r is not None]
         if rets: level *= 1 + sum(rets) / len(rets)
         levels.append(round(level, 3))
     return levels
@@ -113,7 +151,7 @@ def build(quiet):
     cfg = jload(CFG)
     files = scan_files()
     if not files: sys.exit('no dated scan in data/scans/')
-    dates, prices, universes = [], {}, {}
+    dates, prices, universes, facts = [], {}, {}, {}
     for d, p in files:
         try: rows = jload(p).get('universe', [])
         except (ValueError, OSError) as e:                     # a truncated scan: say so loudly, never drop a day silently
@@ -121,20 +159,21 @@ def build(quiet):
         pm = {key(r): num(r.get('price')) for r in rows if key(r) and num(r.get('price'))}
         if len(pm) < MIN_NAMES: continue                       # the narrow seed exports are not a market day
         dates.append(d); prices[d] = pm; universes[d] = rows
+        facts[d] = {key(r): (num(r.get('r1d')), num(r.get('float')), num(r.get('mcap'))) for r in rows if key(r) in pm}
     newest = universes[dates[-1]]
     rate(newest)
     coded = sorted((r for r in newest if key(r) and r.get('_rs') is not None), key=lambda r: -r['_m'])
     rank = {key(r): i for i, r in enumerate(coded, 1)}
     by = {key(r): r for r in newest if key(r)}
     prev_d200 = {key(r): num(r.get('dma200')) for r in universes[dates[-2]]} if len(dates) > 1 else {}
-    market = chain(dates, prices, list(prices[dates[-1]].keys()))
+    market = chain(dates, prices, list(prices[dates[-1]].keys()), facts)
     mret = {k: ret_over(market, dates, n) for k, n in (('d1', 0), ('w1', 7), ('m1', 30), ('m3', 91))}
 
     out = []
     for ix in cfg.get('indices', []):
         codes = [str(c).strip().upper() for c in ix.get('codes', [])]
         missing = [c for c in codes if c not in by]
-        levels = chain(dates, prices, codes)
+        levels = chain(dates, prices, codes, facts)
         have = [(i, v) for i, v in enumerate(levels) if v is not None]
         last = have[-1][1] if have else None
         hi = max(have, key=lambda t: t[1]) if have else None
@@ -154,7 +193,7 @@ def build(quiet):
                     'high': {'level': hi[1], 'date': dates[hi[0]]} if hi else None, 'from_high': (last / hi[1] - 1) * 100 if hi else None,
                     'ret': r, 'rel': {k: rel(r[k], mret[k]) for k in ('d1', 'w1', 'm1', 'm3')},
                     'breadth': {'above50': sum(1 for m in above50 if m['price'] > m['dma50']), 'of': len(above50)},
-                    'med_rs': round(statistics.median(rss)) if rss else None, 'members': members})
+                    'med_rs': math.floor(statistics.median(rss) + 0.5) if rss else None, 'members': members})
         if missing and not quiet: print(f"  {ix['id']}: not in the newest scan — {', '.join(missing)}")
 
     doc = {'schema': 'swingedge-index-series/1', 'updated': dt.date.today().isoformat(), 'scan_date': dates[-1], 'dates': dates,
