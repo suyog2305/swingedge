@@ -12,7 +12,9 @@ generate the reports per tools/report/REPORT_SPEC.md -> publish them with this.
 
 WHAT IT ENFORCES
 
-  1. The report file exists and its HTML is balanced (unclosed tags break the iframe silently).
+  1. The report file exists and its HTML is balanced (unclosed tags break the iframe silently),
+     and neither it nor its body carries the owner's position data (share counts, average cost,
+     "Position in your book" rows, holdings-screenshot notes). The site is public.
   2. It is registered in library/research/index.json.
   3. tools/report/verify_numbers.py reports ZERO mismatches for it.
 
@@ -29,6 +31,11 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 RESEARCH = os.path.join(ROOT, 'library', 'research')
 INDEX = os.path.join(RESEARCH, 'index.json')
 PAIRED = ('section', 'div', 'table', 'tr', 'tbody', 'thead')
+# The owner's holdings are private and the site is public: a report that quotes a position is
+# refused outright. 13 August reports shipped "Position in your book" rows with share counts and
+# average cost (found 11 Oct 2026). Keep in step with PRIVATE in build_report.py.
+PRIVATE = re.compile(r'avg\.? cost|Position in your book|holdings screenshot'
+                     r'|\d+ shares? (?:·|&middot;|&#183;)|you (?:hold|own) [\d,]+ shares?', re.I)
 
 
 def run(cmd, **kw):
@@ -67,6 +74,16 @@ def check_html(path):
         if o != c:
             bad.append(f'{t} {o}/{c}')
     return bad
+
+
+def private_hits(*paths):
+    """Position data (quantities, average cost, book rows) in any of these files."""
+    hits = []
+    for p in paths:
+        if p and os.path.exists(p):
+            s = io.open(p, encoding='utf-8').read()
+            hits += [f'{os.path.relpath(p, ROOT)}: "{m.group(0)}"' for m in PRIVATE.finditer(s)]
+    return hits
 
 
 def main():
@@ -108,6 +125,10 @@ def main():
         bad = check_html(path)
         if bad:
             problems.append(f"{r['id']}: unbalanced HTML — {', '.join(bad)}")
+        priv = private_hits(path, os.path.join(ROOT, 'tools', 'report', 'bodies', r['id'].split('-')[0] + '.html'))
+        if priv:
+            bad = bad + ['private']
+            problems.append(f"{r['id']}: quotes private position data — " + '; '.join(priv[:5]))
         print(f"  {'ok ' if not bad else 'BAD'} {r['id']:<26} {os.path.getsize(path):>8,} bytes")
     if problems:
         print('\nABORTED — fix these before publishing:')

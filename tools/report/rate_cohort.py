@@ -2,12 +2,18 @@
 """
 rate_cohort.py — rank a set of names on the evidence in their research reports.
 
-    python tools/report/rate_cohort.py                        # the holdings
-    python tools/report/rate_cohort.py --cohort chemicals     # the dye-intermediates cluster + GIPCL
-    python tools/report/rate_cohort.py --cohort chemicals --top 3
+    python tools/report/rate_cohort.py                        # the dye-intermediates cluster + GIPCL
+    python tools/report/rate_cohort.py --top 3
+    python tools/report/rate_cohort.py --cohort holdings      # your own book, read from .secrets/
 
 Cohorts are defined in COHORTS at the top of this file; add one by listing its NSE codes
 and giving each name an entry in JUDGEMENT.
+
+The 'holdings' cohort is PRIVATE and is never written into this file (the repo is public).
+It is built at run time from .secrets/holdings.json (names[].code, the file holdings_check.py
+reads), and its stated scores come from .secrets/judgement_holdings.json when that file exists:
+{"CODE": [earnings 1-5, durability 1-5, "the fact that set the earnings score"], ...}.
+Names without a row there score a neutral 3/3. Both files are gitignored.
 
 This is a RATING OF EVIDENCE, not a buy list and not an allocation. It answers one
 question: across a cohort, where is the case strongest on the four things the reports
@@ -22,7 +28,7 @@ Four components, three computed and one stated:
               has excluded should not rank on momentum at all.
 
   VALUATION   computed — where P/E and P/B sit within this cohort, not against the
-              whole market. 5 = cheapest of the eighteen, 1 = dearest.
+              whole market. 5 = cheapest in the cohort, 1 = dearest.
 
   EARNINGS    STATED, from the reports. Is the growth real, clean and repeatable, or
   QUALITY     is it a base effect, an acquisition, an accounting artefact, or a number
@@ -42,39 +48,22 @@ constraint on how a position can be held.
 Re-run after each scan. The computed halves update automatically; the stated halves go
 stale as results come in and should be revisited when a report is rebuilt.
 """
-import argparse, glob, io, json, os, sys
+import argparse, glob, io, json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(ROOT, 'tools'))
 from build_s2history import rs_percentiles, trend_pass, num          # noqa: E402
 
 COHORTS = {
-    'holdings': ('AKUMS DIVGIITTS EBGNG FCL HAPPYFORGE HFCL IOLCP JYOTICNC KRN MCX '
-                 'MOTILALOFS OLAELEC RATEGAIN RBA RKFORGE RPTECH SHADOWFAX TDPOWERSYS').split(),
     'chemicals': ('BODALCHEM BHAGERIA KIRIINDUS OAL SHREEPUSHK IGPL GIPCL FOSECOIND').split(),
 }
+PRIVATE_COHORT = 'holdings'     # built at run time from .secrets/ - never listed in this file
+SECRETS = os.path.join(ROOT, '.secrets')
 
 # code: (earnings quality 1-5, durability 1-5, the fact that set the earnings score)
-# Sourced from the August 2026 reports in library/research/.
+# Sourced from the August 2026 reports in library/research/. Rows for a private cohort live in
+# .secrets/judgement_holdings.json, never here.
 JUDGEMENT = {
-    'HAPPYFORGE': (5, 4, 'clean print, margin +275bps, guides BELOW its own run-rate'),
-    'IOLCP':      (5, 3, 'margin +220bps, capex self-funded, mix shift is measurable'),
-    'DIVGIITTS':  (4, 3, 'PAT margin +620bps, but the 5-yr order value is undisclosed'),
-    'TDPOWERSYS': (4, 3, 'revenue/EBITDA/PAT all +72% - clean, but no margin leverage left'),
-    'MOTILALOFS': (4, 3, 'no adjustments flagged; earnings cyclical to market activity'),
-    'MCX':        (4, 5, 'exchange economics, near-monopoly position; NP +103%'),
-    'AKUMS':      (4, 4, 'CDMO qualification moat; NP +56%'),
-    'FCL':        (4, 3, 'NP +93% on sales +175%'),
-    'KRN':        (3, 2, 'strong, but a Rs 183cr state incentive exceeds a full year of profit'),
-    'EBGNG':      (3, 3, 'good print, but the limit-down reaction is unexplained; WC-heavy'),
-    'HFCL':       (3, 4, 'loss to Rs 246cr profit - real, but ONE quarter of history'),
-    'RPTECH':     (3, 2, 'margin COMPRESSED as revenue grew; PAT outgrew EBITDA'),
-    'SHADOWFAX':  (2, 2, '8x growth off a Rs 8cr base; 6.79% margin against buyer power'),
-    'RKFORGE':    (2, 3, '+297% off a 1.2%-margin base; revenue FLAT sequentially'),
-    'JYOTICNC':   (2, 3, 'consolidated PAT BELOW standalone; Huron probe unresolved'),
-    'RATEGAIN':   (2, 2, '188% is consolidation; organic segments grew 22.7% and 3.1%'),
-    'RBA':        (2, 3, 'still loss-making; Rs 118cr gap between store profit and net loss'),
-    'OLAELEC':    (1, 1, 'fails every signal; the report rates it Avoid'),
     # --- chemicals cluster + GIPCL, from the August 2026 reports ----------
     'GIPCL':      (5, 4, '+1,807bps margin from solar - STRUCTURAL, 3rd straight quarter'),
     'BHAGERIA':   (5, 3, '+255bps margin, 7th straight sequential quarter, PRE-dates the squeeze'),
@@ -93,6 +82,32 @@ def jload(p):
         return json.load(fh)
 
 
+def private_codes():
+    """The holdings cohort, read from .secrets/holdings.json the way tools/holdings_check.py reads it."""
+    path = os.path.join(SECRETS, 'holdings.json')
+    if not os.path.exists(path):
+        raise SystemExit('no .secrets/holdings.json - pull it through Kite (see CLAUDE.md), or rate a '
+                         'public cohort: --cohort ' + ', '.join(sorted(COHORTS)))
+    obj = jload(path)
+    arr = obj if isinstance(obj, list) else (obj.get('names') or obj.get('holdings') or [])
+    out = []
+    for h in arr:
+        code = str((h or {}).get('code') or (h or {}).get('tradingsymbol') or '').strip().upper()
+        code = re.sub(r'-(EQ|BE)$|\.NS$', '', code)
+        if code and code not in out:
+            out.append(code)
+    if not out:
+        raise SystemExit('.secrets/holdings.json has no names[].code entries')
+    return out
+
+
+def private_judgement():
+    path = os.path.join(SECRETS, 'judgement_holdings.json')
+    if not os.path.exists(path):
+        return {}
+    return {str(k).upper(): tuple(v) for k, v in jload(path).items()}
+
+
 def cohort_score(value, pool):
     """5 = cheapest in this cohort, 1 = dearest. Missing value -> neutral 3."""
     if value is None or not pool:
@@ -102,11 +117,24 @@ def cohort_score(value, pool):
 
 
 def main():
+    # UTF-8 console (the '−' and '·' below crash a cp1252 pipe). Inline, not a tools/_io.py: that name
+    # '_io' is a built-in module, so 'from _io import utf8_stdio' raises ImportError.
+    for s in (sys.stdout, sys.stderr):
+        try:
+            s.reconfigure(encoding='utf-8', errors='replace')
+        except Exception:
+            pass
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('--cohort', default='holdings', choices=sorted(COHORTS),
-                    help='which set of names to rate (default: holdings)')
+    ap.add_argument('--cohort', default='chemicals', choices=sorted(COHORTS) + [PRIVATE_COHORT],
+                    help='which set of names to rate (default: chemicals; "holdings" reads .secrets/)')
     ap.add_argument('--top', type=int, default=0, help='show only the top N')
     a = ap.parse_args()
+    judgement = dict(JUDGEMENT)
+    if a.cohort == PRIVATE_COHORT:
+        codes = private_codes()
+        judgement.update(private_judgement())
+    else:
+        codes = COHORTS[a.cohort]
 
     scans = sorted(glob.glob(os.path.join(ROOT, 'data', 'scans', '20*.json')))
     cur, prev = jload(scans[-1]), jload(scans[-2])
@@ -119,12 +147,12 @@ def main():
         os.path.join(ROOT, 'library', 'research', 'index.json'))['reports'] if r.get('code')}
 
     rows = []
-    for code in COHORTS[a.cohort]:
+    for code in codes:
         row = next((x for x in universe if (x.get('code') or '').upper() == code), None)
         if not row:
             continue
         spell = (hist['stocks'].get(code) or {}).get('calc') or {}
-        eq, dur, why = JUDGEMENT.get(code, (3, 3, ''))
+        eq, dur, why = judgement.get(code, (3, 3, ''))
         rows.append(dict(code=code, rs=row.get('_rs') or 0, tt=trend_pass(row, prev_map.get(code)),
                          days=spell.get('days') or 0, wh=num(row.get('from_52wh')) or 0,
                          pe=num(row.get('pe')), pb=num(row.get('pb')),
@@ -164,7 +192,8 @@ def main():
         print(f'\n{sum(1 for x in rows if x["tt"])} of {len(rows)} pass the trend template · '
               f'{sum(1 for x in rows if x["asm"])} carry an ASM flag')
     print('\nEarnings quality and durability are judgement, taken from the reports and '
-          'editable in JUDGEMENT at the top of this file.')
+          'editable in JUDGEMENT at the top of this file'
+          + (' (or .secrets/judgement_holdings.json for the holdings).' if a.cohort == PRIVATE_COHORT else '.'))
 
 
 if __name__ == '__main__':
