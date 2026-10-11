@@ -1,0 +1,56 @@
+{
+ "schema": 1,
+ "note": "Global Peers: the US and global names that lead, supply or mirror Indian stocks. Edit by hand and run python tools/build_peers.py. `rel` is the relationship (peer = same business listed abroad, customer = buys from the Indian company, supplier = sells to it, parent = majority owner, bellwether = reports first and sets the tone). `for` limits a global name to some Indian codes in the group; leave it out to pair it with all of them. `lag` is set by the tool from the exchange: Asian closes come before India's (same day), US and European closes come after (next India session).",
+ "groups": [
+  {"id": "optical", "name": "Optical fibre & AI data-centre connectivity", "owner": true,
+   "why": "HFCL and Sterlite Tech sell optical fibre, cable and connectivity into the same data-centre build-out that Corning serves; Lumentum and Coherent are the optical-components end of it.",
+   "india": [{"code": "HFCL"}, {"code": "STLTECH"}, {"code": "TEJASNET", "note": "telecom gear rather than fibre; added for the same AI-network read-across"}],
+   "global": [
+    {"sym": "GLW", "name": "Corning", "rel": "peer", "note": "optical fibre and connectivity for AI data centres - the closest listed replica of the fibre business"},
+    {"sym": "LITE", "name": "Lumentum", "rel": "peer", "note": "optical transceivers and lasers for AI data centres"},
+    {"sym": "COHR", "name": "Coherent", "rel": "peer", "note": "optical networking components"}
+   ]},
+  {"id": "memory", "name": "Memory & chips", "owner": true,
+   "why": "GNG Electronics refurbishes and sells computing hardware whose cost and demand follow the memory cycle that Samsung, SK hynix and Micron report on.",
+   "india": [{"code": "EBGNG"}],
+   "global": [
+    {"sym": "000660.KS", "name": "SK hynix", "rel": "peer", "note": "memory (DRAM, HBM) - closes before India's market, so the read-across is same-day"},
+    {"sym": "005930.KS", "name": "Samsung Electronics", "rel": "peer", "note": "memory and devices - same-day read-across"},
+    {"sym": "MU", "name": "Micron", "rel": "peer", "note": "US memory maker - reports quarterly guidance the whole memory chain trades on"}
+   ]},
+  {"id": "aicloud", "name": "AI cloud & GPU servers", "owner": true,
+   "why": "Netweb builds GPU servers (as Super Micro does) and E2E Networks rents GPU capacity (as Nebius and CoreWeave do); NVIDIA supplies all of them and its results set the tone.",
+   "india": [{"code": "NETWEB"}, {"code": "E2E"}],
+   "global": [
+    {"sym": "NVDA", "name": "NVIDIA", "rel": "supplier", "note": "GPUs for every name in this group; its quarter sets the whole chain's tone"},
+    {"sym": "NBIS", "name": "Nebius", "rel": "peer", "for": ["E2E"], "note": "GPU cloud - the listed replica of E2E Networks"},
+    {"sym": "CRWV", "name": "CoreWeave", "rel": "peer", "for": ["E2E"], "note": "GPU cloud"},
+    {"sym": "SMCI", "name": "Super Micro Computer", "rel": "peer", "for": ["NETWEB"], "note": "AI server maker - the listed replica of Netweb"}
+   ]},
+  {"id": "fuelcell", "name": "Bloom Energy supply chain", "owner": true,
+   "why": "MTAR Technologies makes hot boxes and other assemblies for Bloom Energy's fuel cells; Bloom is its largest customer, so Bloom's orders and results lead MTAR's.",
+   "india": [{"code": "MTARTECH"}],
+   "global": [{"sym": "BE", "name": "Bloom Energy", "rel": "customer", "note": "MTAR's largest customer"}]},
+  {"id": "powerparents", "name": "Power equipment parents", "owner": false,
+   "why": "The listed Indian arms of the grid-equipment majors move with their parents' order books and results; added by Claude as a read-across worth tracking (remove if not wanted).",
+   "india": [{"code": "POWERINDIA"}, {"code": "GVT&D"}, {"code": "ENRIN"}, {"code": "ABB"}, {"code": "SIEMENS"}, {"code": "CGPOWER"}],
+   "global": [
+    {"sym": "6501.T", "name": "Hitachi", "rel": "parent", "for": ["POWERINDIA"], "note": "owns Hitachi Energy; closes before India (same-day read-across)"},
+    {"sym": "GEV", "name": "GE Vernova", "rel": "parent", "for": ["GVT&D", "CGPOWER"], "note": "parent of GE Vernova T&D India; grid-equipment bellwether for CG Power too"},
+    {"sym": "ENR.DE", "name": "Siemens Energy", "rel": "parent", "for": ["ENRIN"], "note": "parent of Siemens Energy India"},
+    {"sym": "ABBN.SW", "name": "ABB", "rel": "parent", "for": ["ABB"], "note": "parent of ABB India"},
+    {"sym": "SIE.DE", "name": "Siemens", "rel": "parent", "for": ["SIEMENS"], "note": "parent of Siemens Ltd"}
+   ]},
+  {"id": "itservices", "name": "IT services vs Accenture", "owner": false,
+   "why": "Accenture reports weeks before Infosys, TCS and HCL and its guidance is the standard read-across for Indian IT demand; added by Claude (remove if not wanted).",
+   "india": [{"code": "INFY"}, {"code": "TCS"}, {"code": "HCLTECH"}],
+   "global": [
+    {"sym": "ACN", "name": "Accenture", "rel": "bellwether", "note": "reports first; its outlook is the read-across for Indian IT"},
+    {"sym": "CTSH", "name": "Cognizant", "rel": "peer", "note": "US-listed peer with an India delivery base"}
+   ]},
+  {"id": "cdmo", "name": "CDMO & pharma services", "owner": false,
+   "why": "Divi's and Laurus sell into the same outsourced-manufacturing demand that Lonza reports on; added by Claude (remove if not wanted).",
+   "india": [{"code": "DIVISLAB"}, {"code": "LAURUSLABS"}],
+   "global": [{"sym": "LONN.SW", "name": "Lonza", "rel": "peer", "note": "the largest listed CDMO; closes after India (next-day read-across)"}]}
+ ]
+}
