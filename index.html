@@ -2072,7 +2072,7 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
 
         <div style="max-width:680px;margin:18px auto 0;">
           <label style="display:block;font-size:11px;color:var(--t3);font-family:var(--mono);text-align:left;margin-bottom:5px;">Paste Kite Holdings rows (tab or 2-space separated):</label>
-          <textarea id="snap-paste-area" placeholder="AEQUS&#9;3100&#9;197.66&#9;205.02&#9;635562.00&#9;22816.11&#9;3.72%&#9;7.06%&#10;SCI&#9;2700&#9;324.79&#9;326.00&#9;882630.00&#9;5701.90&#9;0.65%&#9;-1.46%" style="width:100%;min-height:130px;background:var(--bg2);border:1px solid var(--b2);border-radius:var(--r2);padding:10px;color:var(--t1);font-family:var(--mono);font-size:11.5px;line-height:1.5;resize:vertical;" oninput="previewSnapPaste()"></textarea>
+          <textarea id="snap-paste-area" placeholder="SYMBOL&#9;qty&#9;avg&#9;LTP&#9;value&#9;P&amp;L&#9;net%&#9;day%&#10;ABCD&#9;100&#9;250.00&#9;262.50&#9;26250.00&#9;1250.00&#9;5.00%&#9;1.20%" style="width:100%;min-height:130px;background:var(--bg2);border:1px solid var(--b2);border-radius:var(--r2);padding:10px;color:var(--t1);font-family:var(--mono);font-size:11.5px;line-height:1.5;resize:vertical;" oninput="previewSnapPaste()"></textarea>
           <div id="snap-paste-preview" style="margin-top:8px;font-size:11px;color:var(--t3);font-family:var(--mono);"></div>
           <div style="display:flex;gap:8px;margin-top:10px;justify-content:flex-end;">
             <button class="btn btn-sm" onclick="document.getElementById('snap-paste-area').value='';previewSnapPaste();"><i class="ti ti-x"></i>Clear</button>
@@ -3064,32 +3064,12 @@ let DB = {
   convMode: 'strict',
   checklist: {},
   procedure: {},
-  positions: [
-    {stock:"FedFina",qty:1000,avg:152.30,ltp:158.45,sl:144.00,target:195.00,dayChg:1.85},
-    {stock:"E2E Networks",qty:250,avg:1840.00,ltp:1925.50,sl:1750.00,target:2400.00,dayChg:2.10},
-    {stock:"Aeroflex",qty:500,avg:218.75,ltp:225.80,sl:205.00,target:280.00,dayChg:0.95}
-  ],
+  positions: [],
   pnlStatements: [],
   pnlActiveId: null,
   pnlSort: {col:'rpl', dir:'desc'},
-  snapshots: [
-    {
-      id: 'snap_seed_kite',
-      createdAt: '2026-05-14T11:30:00.000Z',
-      label: 'Kite Holdings · 14 May (seeded from screenshot)',
-      positions: [
-        {sym:'AEQUS',     qty:3100, avg:197.66,   ltp:205.02,   val:635562.00,  pnl:22816.11,  netChg:3.72,  dayChg:7.06},
-        {sym:'DYNAMATECH',qty:30,   avg:11051.60, ltp:10872.00, val:326160.00,  pnl:-5388.00,  netChg:-1.63, dayChg:1.47},
-        {sym:'GALLANTT',  qty:340,  avg:872.16,   ltp:768.55,   val:261307.00,  pnl:-35226.95, netChg:-11.88,dayChg:-3.64},
-        {sym:'PARACABLES',qty:200,  avg:58.90,    ltp:57.76,    val:11552.00,   pnl:-228.00,   netChg:-1.94, dayChg:-3.15},
-        {sym:'QPOWER',    qty:350,  avg:1250.18,  ltp:1102.30,  val:385805.00,  pnl:-51758.10, netChg:-11.83,dayChg:-9.35},
-        {sym:'SCI',       qty:2700, avg:324.79,   ltp:326.00,   val:882630.00,  pnl:5701.90,   netChg:0.65,  dayChg:-1.46}
-      ],
-      image: null,
-      note: 'Seeded from Kite Holdings screenshot. Total invested ₹25.67L · Current ₹25.03L · Total P&L -₹64,083 (-2.50%) · Day P&L -₹16,491. MTARTECH excluded (qty=0).'
-    }
-  ],
-  snapActiveId: 'snap_seed_kite',
+  snapshots: [],
+  snapActiveId: null,
   snapSort: {col:'pnl', dir:'desc'}
 };
 
