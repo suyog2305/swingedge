@@ -1,6 +1,6 @@
 {
  "schema": "swingedge-market-news/1",
- "updated": "2026-10-11T05:57+0530",
+ "updated": "2026-10-11T10:34+0530",
  "run_date": "2026-10-11",
  "window_hours": 30,
  "topics": [
@@ -9,6 +9,18 @@
    "label": "Indian market",
    "why": "the tape at home: indices, flows, the rupee, RBI",
    "items": [
+    {
+     "t": "India’s Rupee defense raises question of how far RBI will go",
+     "src": "Moneycontrol.com",
+     "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNamlGQUtVNEtxV1UwNXlmZlJzTnY3dGRocEEtR2xyaUo4c3c1c2MxWWNCOVpmS2duR2twbmVDMF9mYkFZV0RHaUxIRnJacGtuM3RuQVh0dEVQRzZtR2hyMDBFYlJnT2NsNVRQd2F5Z0RFeGtUQ2JqSFdvQjRTOVJvLWhfdUszQXJ0MWM5TzNWb0RzMzRxLVdUWWc1dXU2ZjFKZUo5NnlBWG54TDRYd3V1T1BDZUpjd0Zs0gG-AUFVX3lxTE1meGpKVVFNVEZfMUgzMzNQcHhWVmkzV1k0YnFMMEJpVUFPcE1kUUhfLXNGdFc5ZmM4M2ZvMnRFWnRPajk4RkVETlZBUWxMc1lONTFCLUcxTjU2YnJEcGs0U1I1WUt4Z1FTYm5uWEpuc2dKNVVULWJQNXgwMGtFeHZ5azQtNV9pTGFkNUlhamlUaTVMY1gtek5DazVuUzZjWWY4RVo0UGZtTlRFdXVYS1d1dUVaWFk4YTBrc3hneVE?oc=5",
+     "at": "2026-10-11T04:26Z"
+    },
+    {
+     "t": "RBI takes strong steps to support rupee without sacrificing growth; its success will depend on crude oil...",
+     "src": "Moneycontrol.com",
+     "url": "https://news.google.com/rss/articles/CBMi_gFBVV95cUxPaFByTXhOczhIM3Y4SkluUzBBVUQwQlRUa2o3R0ZlbnBBbEdKY0JoUGVVNGt4X2RwbUs3VU5tVlc4VE5JSkwzZ0Z2SWd6ZFhkUTM0OHhEbHptYUY3OVB3SGNBc2huXzRZbndkMjVzWHpPWjlHVy1MRGJtdHR5Tl90eWQxY0ZpSnNTcHk2Zm54UzB3cjFYenMtNWxfSW51X3pMb2FndlVFZDNIcjJyQ01oZG1QNThlTFpDX2dxcUFLOFVldFowcjdFZTBoT201cW56ejdmcXJHaUZnR3BlODdYOHBnLUlKa2ZGNW4zZXE0cWZYclJzYnY3cXltUkxvZ9IBgwJBVV95cUxPeUk5YldzcEQ4dkhXUkJDSXRGenNIa3BFQTY5MEJNME9lSzFXWG10U3VxWXZ0Y1Iyak1EM0cwenNfUmdEMTY0SnFrU3M4Qlh5RWlrZFBlMExTZk1KdGlLWGxaM1ZOQlN1WldKeUh5MjdMU2RyMEZXZjl1a3REOHhfY25Kb1JQTVZibXlsalBhbWRxQ2JEenJubU9CcEgwcTFMYV9VcEFzSF9ZQXpCTGdjNkJMbVFVeTZKN1NYd3BtaklSam9TMDNuN0RDeXlrMDlCWkdZcmZ3YTVGcGo0ekxJOTdTalhiLW1CeXpHTGFCV1psLWU4bzhpdzFzbG1admpiOHpB?oc=5",
+     "at": "2026-10-11T01:50Z"
+    },
     {
      "t": "RBI tightens rules for forex bets to shield bruised rupee",
      "src": "The Economic Times",
@@ -68,18 +80,6 @@
      "src": "The Economic Times",
      "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNWWR6cjFpYmtuUVcyX0RWLVVMRVN2LTNWdUoxanBNNEQwTXpOZGdkSnM1SXpWb3ZOS2trRll6X2Q4UFc3S2NmSFV1TVFGSmVyazdNTGdHYXFmc3hIeFp1TWtEcTBBY05FNjV1a0QtTGtWU1BXbkNaMGtFel9HYkpnY3I0cUFFTkdBNmdDSGVacGE0WDktb29US2RFOHZ2WWVWVTBmSGlwbUljc1pGLXZFRzQwck96QlI4dGVMblJQN2NpUEM3TERkTXNmQ0xrVW4zZUpBNzEweGRqQW1nZ0ZZNNIB2gFBVV95cUxNRjVQYi1hVDBOYkxicWFXTW0yZFRNcjdnNGpuLWo4M3d4NEY1UWxfQlV2WEg3OHZjRDRTVndnLTFwM2RXTFNPQ2hNaWthY0k4bnFYQVlxX01XOEVvVkV0NDltWFB0TnBLMTJiRlpMT0s0VGVJdGNhYUhPdWtOY29LT2hZeC1YZzBkeWprc0FDZ1NxNU9JdHJiVkJzOUhLMXhzMWlmVDZ5WjJHUGlGdDJZTGVyZ1NNY2J0M2hwckVMUGdBQ1pVWHRTZmhZTTNaQ3llNFlpa2FsX3dudw?oc=5",
      "at": "2026-10-10T08:13Z"
-    },
-    {
-     "t": "RBI Announces Special Oil Window, Regulatory Steps for Rupee",
-     "src": "Bloomberg.com",
-     "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPcjNURXR0Z09rZS1RQXJSaXkxeVR1UkcwdGF6YmF5b0NvX2dXaWZaM0FtblhoMm1GWHlLQl9yU3NMd3d3NWp2WmphcVRMZk02Q1ZhMWRMdm01R2tMaWZPVFlGbVdZRlZLTnNFdWhPdWxxQXRoamdHWE9DUE1kWERFanIwZ1J3ckYybTdhWkt0bHlQbHNiTVNBRVdQdEVBR0lGWFNuS3g5SWpTT1A4RlM4?oc=5",
-     "at": "2026-10-10T08:12Z"
-    },
-    {
-     "t": "RBI opens oil dollar window, tightens forex trades to arrest rupee slide",
-     "src": "Moneycontrol.com",
-     "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxOTS0wcEtHcGJiR0lBM2hxLUVUYXlqWHJiWTZfR0loSTVhZjVnbWVqSTM1N0Z0Sl95OXp3SmREMGgzNV9feklSQ2puY2hTYWJxZTJZY1RDRVNNdndvUFlKOWlUcm5CU2loVC1wTTh2THZ4Nm5fcmoxR2VtOFFaY19iLVlUaENuRlllQlhXQ3Z6RldjcHY0NV81aURQMnpzcmc0NUlidThTR3l2eEdZdlR1RmVZT2tFWDJ4eVNZZEVMX0x6UkZHdUxkWVVyLTIwWVXSAdQBQVVfeXFMUHpkT3FERV9zVGdjZlh3UERHRHRRU0J3dTFtYjRHbHhyOHZZM0JIQl9RR3JoX3VURWNwZTVSSC1mYXB4dnhBOUcyVm5xNTYxa3hscVFIYWNKekFrWEZaSU5tOFRfNzBRNTBkT3RHNDdyZ2t0Ql8xZXFsM0tTM0piaDgtaF94NHRST2djWnNLX3FzMnpJUk1TNzMtX3hudGh2YW9EOWdtc2tSTHQwYVVVUGVHWUZpZFZZVy1tNG1sY0JCT3dOZlo4Y1pENWNuWFBGUFlKN0M?oc=5",
-     "at": "2026-10-10T07:06Z"
     }
    ]
   },
@@ -125,6 +125,12 @@
      "at": "2026-10-10T14:23Z"
     },
     {
+     "t": "Fabtech Cleanrooms Secures ₹35.60 Crore Orders in September; Consolidated Order Book Reaches ₹468.18 Crore",
+     "src": "EquityBulls",
+     "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE94Y1h6UnRDWkcweE81QUJwOXhzdUwtSTBKcTlwdHNoaEcxeEE4c2xUczkwN0NFc1Fob2hVc1k5YUg2eDBWb2lkRk1JclNFZEI1R2xBNGE3T3lzajEyLXA4?oc=5",
+     "at": "2026-10-10T14:23Z"
+    },
+    {
      "t": "Authum Investment completes Wind World asset acquisition, takes 25% stake in Vibhav",
      "src": "scanx.trade",
      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPSDhubHBzZGdhQk9vcDdCVC0wZW9LMml5M2l1NGtJRV9Mc0cyd2toeDh4TF9iX0NmUmZES1dZUlFSclJJa2RQYm81bnBQam9kYWdETUo5TU1fLTh4R0FRX3pPa1NJREFXdzlIcUkxaktMdDZfdVNhV1BSUWxIQUhhQ2VTUHNHUnlpbXFhU2FCNlJ4N29hUVBNUTVJX3NPWll2VzJ0YnBORTZLNnFIWWoxZGpZV054MEc2VU55djNzVQ?oc=5",
@@ -149,12 +155,6 @@
      "at": "2026-10-10T12:33Z"
     },
     {
-     "t": "Bajel Projects wins EPC order for two 220kV GIS substations in Mumbai",
-     "src": "T&D India",
-     "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPblFXcXZlcmQ4b1g0WnNHRzFvV3ctVmlJTGRIRkVoUHE0U3dPNTJCd1NtYXM2UjFlcXBDQjZWOEF3Um1uenVqR3JBUjdqZ0Y2X3pVZmYwZHV5akpRVTFPWnByOGdkZmh3cFNyeUNtMmFMb3pjQUxDeGh6bFVNZ0NQSFFkMWw1ZEdCWDNHaWtVMFU2c0NjVWZmT3Zjc9IBoAFBVV95cUxPVV9zOXJWV1RxdTdFZnlwalY2dUVfckVsQzdTNUN5X1lqX0Z6NkY3bkF4VFhhZllHZE41LTFGcmNoajRvWVJvTzBDajFMM0NjSjd4TGxqZHlGTURhN3RkMVEyc095TzM1ZV9SZzNPeVR3UTBLSUd6Y25qOEpQYU9YcXVwOFhZV05ndmRBeGlES3B1bFIwMUdDRlBwQlpXdFRL?oc=5",
-     "at": "2026-10-10T12:19Z"
-    },
-    {
      "t": "KEC International bags new transmission and distribution orders worth ₹1,014 crore in India",
      "src": "CNBC TV18",
      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQWDBMWEdrX1IxOWdScXJ2ZXhaSEVEWVI0SkpONmZSS2ptQmY4eTZOLUtPT0d4aHhKRE43b1VkQlZfdDA3a181Z29FY0ZaQXd3Nmk0ZHlCWk5RTE1RZDNUWm8tbjQxWl8zNWV1NkdyZk1sWFpQcnBIbVJpbUZIV19BSUx6RTRvNlhzRlM3QU1oeE1UWFk0dW42UjlLUHFaRGZNb3lFekpkeF85c2xOd3JWUUJTb3dBanNLQjlRVGxwZ3fSAcABQVVfeXFMUFgwTFhHa19SMTlnUnFydmV4WkhFRFlSNEpKTjZmUktqbUJmOHk2Ti1LT09HeGh4SkRON29VZEJWX3QwN2tfNWdvRWNGWkF3dzZpNGR5QlpOUUxNUWQzVFpvLW40MVpfMzVldTZHcmZNbFhaUHJwSG1SaW1GSFdfQUlMekU0bzZYc0ZTN0FNaHhNVFhZNHVuNlI5S1BxWkRmTW95RXpKZHhfOXNsTndyVlFCU293QWpzS0I5UVRscGd3?oc=5",
@@ -168,70 +168,70 @@
    "why": "the import bill, inflation, oil marketers, upstream",
    "items": [
     {
+     "t": "Gold signals significant movement as high oil prices erode wealth.",
+     "src": "Vietnam.vn",
+     "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPaXoweFkyTXZ3aVFsY1A4czJWRW00MzBuSXBPaURXQ2FDSmFXNzAwcFl5X2gtNFBndDE5T1FhMmZDcmc2MTVIMVZ6c3N2WWR1b18yV0E2aFhnY1VpV2VKcll4WmZJVE9LckYtNmc4LWw4ZGVqWnlLeWJNSkhyeDhBQUNEOG84ZEpkeTBRQ1ZhaFdpN0NLN2Mw?oc=5",
+     "at": "2026-10-11T03:15Z"
+    },
+    {
+     "t": "Gasoline and oil prices today, October 11: Week of price increases",
+     "src": "Laodong.vn",
+     "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQdmN2RDFsSzlMWWRUTkNmUFRhSGQ2Tmk4OU5ObmtzaHBPaTVxTjhDaUhuUElJeTdhT3ZRZWlTNTk1XzZPenc2S2ZLMlFKTGwzcjhFcHcydmRKWTI0Vk9FS2J0U3FsbjBmWk00aWVqdjhKcnZFdkh0YVJTcm9UNzdvVXU1SmRKZkxrN2xDQ2RTcw?oc=5",
+     "at": "2026-10-11T02:43Z"
+    },
+    {
+     "t": "Oil Prices Fall Back As Supply Optimism Outweighs Conflict, Storm Risks",
+     "src": "WSJ",
+     "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQRHUxNFFZWVFoTFM4cFRPMW50NmpZd1JBRWN2OGlJRm1IWnZ1aVVlZTc5MU5uZXV5M1c5Uk8wR2FEQzR4VHVkaWxjMUV1UVBra05GaVpiQXE3X2VGMlRVNTdYeFR5THBOdjFQV2cydGpiR3ZWUmhvV1NMMFRvMEtwY2Y2RDZIanFYbW9WVTRFRElCQ2txcHVqQW04NEwwUHZSeERzd3BtVnV3WUtPbm5CcWZjaHQ4Ylk?oc=5",
+     "at": "2026-10-11T01:45Z"
+    },
+    {
+     "t": "Oil prices settle higher as more production shut ahead of hurricane",
+     "src": "Qatar Tribune",
+     "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOemV4SmcxRTFSeUFnbUJxdTJvdzhJWVNhc3dXbzY1QldtZkNtRzFDOFBOZ2wyaV9JMWJLamcwVk11bHVuU1hTWnNSa2dGSVljOW4zOGJIS1AzSTUwbUx0Qi1ySUc5VUpWX0NOa29PcTB2a2djTkRxdjFBSURXYkMyUFZJT2gyWW1wUmtFODdUal9tTDZOS2l2eXRKWEtlemoxUmVZdnppSHA1cE9YYUdXZUp0OWRHNThOdWJOV0NR0gHDAUFVX3lxTE1ySVRSMWh6X2JURU1wS1R0RXJyQWVrdThCNzF1UkpFanFBcTlUOWlEX2FhS3dzT2hkWDgybFN5QUlGUjFLb1BMYTFoazhMZ3UzN2I1T1lLU3lkNXhINl9wU0xTSjg1dGJQa1FJMEtQOE1MZjRqTjViZTFhYkxWZ3c2dXFnQlkxbFI5SDViMW9RUXBWT01tMHIySjVCUENCRGwwT3JsMDZWU00wRnptelp3MFBtamRROHc0aXZHT1V3a3MzOA?oc=5",
+     "at": "2026-10-11T00:35Z"
+    },
+    {
+     "t": "Citi Sees Oil Prices Trending Lower to $60 to $65 Per Barrel by First Quarter of 2027",
+     "src": "EnergyNow",
+     "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNZVRvdEVMYk8zSzZmdDlaNG00SXpaZ0tSc2owT2c2bWgyVzQ1MGtRdWp6a21jXzlwTjU2UU1CNnZ5dTRPQ2pmcno1Y3dVX3AybU9qMXBBSnBfQlRKRmNtTEwtUEdfcHZpejBEYjRJRXIxNFkyYS1hc2hBOUMtRm8zaTEwY2tLbTBWNm5xM3lyc1BXVWI1NXFkLWYwenBZNzIwdi04Vm5ZeFFXLWtEUzFWMkZzUQ?oc=5",
+     "at": "2026-10-11T00:14Z"
+    },
+    {
+     "t": "Citi Says Geopolitics to Support Oil Near Term – Peace Deals Seen Lowering Prices",
+     "src": "EnergyNow.com",
+     "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOeF9qb09XLWlkV2FPRU5LdGhIci1ZWW41aEFkY2FBRzk0ZTlISnRYdlZsSDhHZnduWV9KZkdRUzJGeVlZcXdZN3Q5Qk5ya1phb1Atc25hYV9ZcTc3S0FFY25RMFIySDFFbWVGWjBEOEo0RUtuQTBzb0I5a0dmMUljTUZnY2V5Vmh0RmNwNU4yaVNIbE5YZktkbmd3bkprMEtZS0F2TVUwT092R1V5ZzJR?oc=5",
+     "at": "2026-10-11T00:13Z"
+    },
+    {
+     "t": "Analysts Hike Oil Forecasts Again as Energy Flows Face Slow Recovery",
+     "src": "EnergyNow",
+     "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOMzg3aWlBQnBmc1Ayd3JhamhRbHNFOGJiTGxhanBHUjdvUl8yTTNKNHZ3WGx4a0lqSHpTQTJUeHowdG5rOW1aVjJVNzA5UFIxYl9UQUx0X2FSUVV2X3pYRndCdERWRGo4T09KQ0FXMFNnRTVabkU3dnZQeFkzQm1PbVh6SlhtTUhHS1BxdlFGYzZxMmpidkFVWEJqT2Jxelk?oc=5",
+     "at": "2026-10-11T00:01Z"
+    },
+    {
+     "t": "Port of Fujairah Resumes Oil Loadings After Attack and Why it Matters Globally",
+     "src": "EnergyNow.com",
+     "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOVkp0Q2hNMmJIWS1RLTBFWUNVZnlydF9NemhEVEVhcWJzV29TX1huZGlNUUpFRFMxSkljQkY0RUxlVmxKUThDWlJHRFJXcXdVdVF5a2hINlV5NlEtSG1rR05zMGtUb2VUbEJoTUFZUERJRE1Oc1hIUmlzU3l5UEpSeG5Xc1BVNUI1TFFUekVfVGdqcDhvQ2VfOXZhbXR0OTExNGJJRF9oOHdqbUpKZGc?oc=5",
+     "at": "2026-10-10T23:52Z"
+    },
+    {
+     "t": "UAE Crude Output Falls by More Than Half as Hormuz Closure Forces Shut-Ins",
+     "src": "EnergyNow.com",
+     "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOb2k4RHBPd0V4OEFXVEw5T2hxMy1UaDZOU1dfcXluNnM0NzY4RlZjSzhNekFzWUNCUFJYY0pBT0FWOXBtQzZ3VXRBYjdEeXlRMm1Na0hyRkZQUnNZdTNRYTdxMWItS0h6ZnB3Ny1sTFhGQWRCd0xvSktGcGp1NHJZTzV4czZxZkprQnVWMHRmcmxqM3hIMENydDd5R1ViLS0ySGM1c2tkMVI?oc=5",
+     "at": "2026-10-10T23:42Z"
+    },
+    {
      "t": "Oil Falls on Signs of Recovering Middle Eastern Flows, G-7 Stock Release",
      "src": "WSJ",
      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQTm81UUFpaklWcncxVExTVXZoNkJiampkeFhnT2gzZEhRbFUyRmVhdmo1NGYzY3NodU05OExNYWNtekMxVUhoV3E3Q2hqNkF3ZEFQYk55cGdCeUg3LVNCOVVBd21IazUxbVJTRzJEdXBXZmRVX0xVaTdzOEdtT29jaE12cUw4X3JBdjJCcUxWcGVZTVVKRmZlMWc1eHNoWmNWRi16dDVneDBpeWwtb2xVRmNKeF95MGJ3UW5XQld1THE0TjlrNTBPOUp3QlEyMGZ0S0E?oc=5",
      "at": "2026-10-10T21:44Z"
     },
     {
-     "t": "Oil prices fall as supply fears ease",
-     "src": "The Express Tribune",
-     "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9VNVMyeXJDZWVnSHU3SnA1aGRFalplTzlvUHhINm9YOE5rUkhkRFZyeEVRSnItRDZ3VjRsR1h0LXBQU2N4U01uLXgtQm5VSjJJeXZ6NUlialpkSVFrZXJRVG5wOFZ6SWpTZ2o5aW4wTENmUERDVHo3U2luUU8xUdIBhgFBVV95cUxNM21Cc0FVUU9kZ09tWmVwRGdjYWNLYzJrbm5ZUGVOeWloWEdiLU5teENSVkdvNjl4akE1Ny0yVHFlLWVYeHpTWTczZ3ZRNVV3MldhRks1a1BoNFBZblZVRzZQY1FBRmYyVktjWi0ycmRoejhxRTM1bHhNQUxBMk1ycF9oRjJTQQ?oc=5",
-     "at": "2026-10-10T19:44Z"
-    },
-    {
-     "t": "OMC Stocks Fall Up To 5% As Brent Crude Crosses $104 Amid Gulf Supply Risks",
-     "src": "BW Businessworld",
-     "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNRjJwaDVpN2JEZWlCd3dmNU9Wem5WenBKSkl0aU1CMk1MNnA2X05XeXpsVHM4c2tEbS1jbHlfZTNhM3JHWVREZUczaFJXQ3dkSUhMYUxJekhEU3ZFR1BUWHlLZkVXTUtMLTVXR2Y5TzJfMExZcXlyRmN6SnhUeEJiSWdLeURjOTRUa0lCM28wVXhoNm10dFNUeWhKeW5JdVl1ZXpqa3dWclQ0ZV9sTVlma1JuT05vRl8t?oc=5",
-     "at": "2026-10-10T19:13Z"
-    },
-    {
-     "t": "Urals now costs more than Brent, and India's Russian crude share has fallen to 35%",
-     "src": "Business Upturn",
-     "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPcVA4WlJ0ZGQwbTFPb1RhU0JiOG1xZEJMeG5lbEVyZDZaWEM1VFJfTFgzVkxMeFVBbEZ2UHlUNkFJY1lCYU5kTnVUTnFJR0FSY0pyZzZDdlFoSGZlS3JVdlgzWFhPeldRSXRVVlVLa0ZZeXVRZkpPUGhjRGZoUlllVFotWTI5bjY0OGRuWDhyMmdDUmszbUJQVWs1Z295TWp6Y1dYVVBrU1ZqR1U?oc=5",
-     "at": "2026-10-10T19:05Z"
-    },
-    {
-     "t": "Crude Oil Price Forecast: Trump Says He Won't Attack Iran Before Midterm Elections, Will Oil Prices Start a New Decline?",
-     "src": "TradingKey",
-     "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPWFVZYURKcFNuLXl4aUJ6UTNOVmxoc3h5V1k4anFaZHNQVXJaVmlKYk5WVUloamZES2lQSDN0NDh5UkdPSXp6M0lSWjZVeC1GYldIWlkwMllYUVoxTHdMbkIyNVFqUmE5Rk9Jd1ZNNWNsalZNM0Z5OHMxSXR6aTN5eUVGb1R3RnRzMjRyMGx6Q1VEQm53LUlqV2Fhc0tlcWk4dEFQbFJjbl9QLTFBSG01a1pEZURjcFZlNi1jUFlhQUhPWlJZd3Z5OEFyWTVuY0ZOcThzRFByYXlJLVU?oc=5",
-     "at": "2026-10-10T18:07Z"
-    },
-    {
-     "t": "Oil Prices Rise as US, Iran Trade Strikes, Israel Moves Further Into Lebanon",
-     "src": "EnergyNow",
-     "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQOVJQY1ltUFNqWkdiSGxyTHluMk91TzRuQS1keU8xWEE5dHFEZ29BMnlYTUJ6azl1WlN1REQ3cWg4dTBmaHVZRWFqYXV6UloycThYSHRPdGh3ei14VXV3eC1XZDdJRnNGNU9qalhkSWtwVWprZjRTcmJ3VXk3ZktBQnhXc0JzSzVLSGp5djhWamE1WXZHTnQ4QUNvNS1mX284RE96cW1uUQ?oc=5",
-     "at": "2026-10-10T15:38Z"
-    },
-    {
-     "t": "Oil Prices Up Over 3% Over Concerns About Prolonged Hormuz Disruption",
-     "src": "EnergyNow",
-     "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOODd3TTNncHlPazlzTldQN2ZPNXI5blFLYlBrUXE3VU1lRmNlMWxXNlVodU9LQUZCRlkzcnpyeC00OVMzcENDQjZfLTJSSG9QVXQ3MVpmYjhCSEFqUEdnd1I3SXF1M2dEdE5XYlA3akg3ZThCRjhuc0NEd3M3b0dBQ3hQWGFRMUhON1NmTDR1TklxQjl1M2dFSjA1SnkwVUk?oc=5",
-     "at": "2026-10-10T15:38Z"
-    },
-    {
-     "t": "Trump announces deal for Russian diesel as Zelensky calls it a 'gift to Putin'",
-     "src": "BBC",
-     "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBienVVTnRKNXU2d0JqVGJDU3ljYlpadlltOE1jc3pkb3pacGFpQXhXUzZ5OUJESU5mUmdXekZ3eFNMeF8xajBwdHlYLUJNcFJqOE9ldHNXYXhVVXc?oc=5",
-     "at": "2026-10-10T14:24Z"
-    },
-    {
-     "t": "Oil Prices Fall Back As Supply Optimism Outweighs Conflict, Storm Risks",
+     "t": "Oil Prices Rebound as Middle East Risks Persist",
      "src": "WSJ",
-     "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQRHUxNFFZWVFoTFM4cFRPMW50NmpZd1JBRWN2OGlJRm1IWnZ1aVVlZTc5MU5uZXV5M1c5Uk8wR2FEQzR4VHVkaWxjMUV1UVBra05GaVpiQXE3X2VGMlRVNTdYeFR5THBOdjFQV2cydGpiR3ZWUmhvV1NMMFRvMEtwY2Y2RDZIanFYbW9WVTRFRElCQ2txcHVqQW04NEwwUHZSeERzd3BtVnV3WUtPbm5CcWZjaHQ4Ylk?oc=5",
-     "at": "2026-10-10T14:19Z"
-    },
-    {
-     "t": "Saudi Arabia February Crude Exports Up, Output Highest Since 2022, JODI Says",
-     "src": "EnergyNow.com",
-     "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOeVdCYUdFRGpwMnB5ODFZUGFBQlBhNi1wOVJTa3d5UFRXTVB5aVV4YXppZVdINTBZazl3X2thcS10LWRMaXNPekJwMVI0X0lFVEJUUmlYSnBtUFB2c2tZRGswaW1lTlhRWXAtOUVFV295RWJEWHA2UUtGYk1ibGlDcXJzdWtLcGdWVE5lQjE5dkRFS1JWLUFObWlfQVdpNXZQS0JjZDJTQUg?oc=5",
-     "at": "2026-10-10T12:57Z"
-    },
-    {
-     "t": "Citi Raises Brent Forecast for 2026; Sees $150 Oil if Hormuz Disruption Persists",
-     "src": "EnergyNow.com",
-     "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQdk5UVWpBQWFNVy1reG1ZeFlEdlQxcWlxWkMzTFNfUmFKdVFZaWRqNm4zTFo5V05Pd2o5b3hpOXNLeWJ3Tm9XdzR1aEk1VWd1S29vaW1GUVZ1OTU5c0hsUE5fWnhUV1RoakRubVlGcW14cHBhaER0VzZmeDVFNGZkeEVUb2l6WGhtTVlBUXBMTFFYNkMwalRYZmYzQUItWEhDLUhiVkdaOFBoU0Q4Vnc?oc=5",
-     "at": "2026-10-10T12:46Z"
+     "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOVHVZLXFFMjdhMG9hOXRob1I5d1BIMFk5dWFWWHRNaFhyMnhaYVJjczRuYXRJT1lpWjI0VVVFSFY3N0RZZGM5czhjTHRkd055RTBwdndIWXYzU2lYZVFvc2VWdTFkWF9FSjRnZk5LRUJSdXp6b3Q4azdHUUhBb0xCUWxIcGxOVkNIWDEwTHFCVGFrU1djLUxDX18zVHU?oc=5",
+     "at": "2026-10-10T19:30Z"
     },
     {
      "t": "Brent commands a war premium as Middle East supply risks keep oil on edge",
@@ -250,13 +250,25 @@
      "t": "A Guide to Buying Bonds When Yields Are on the Rise",
      "src": "WSJ",
      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPclZWR245eFNHVTF5SzY0bEhxak9JT3pwZlU5NGFYd1NnQXRDNzRPNUlMaC15aXVQY0VObG9HUEZvZTRURk44N0l0dUdKeGxHSjlvT1ItQWwwQldtaTZEbzdqU0t5Mk10cFFuOHhOZFlMNkNNaV9xeXl2VGNEbV9UekVnSkVVeGd2bzJCMXp3MEFibzNESkVZVFFNc1Q2U1U?oc=5",
-     "at": "2026-10-11T00:08Z"
+     "at": "2026-10-11T03:08Z"
+    },
+    {
+     "t": "U.S. Interest Rates Could Rise Over Next Six to Nine Months, Fed’s Musalem Says",
+     "src": "WSJ",
+     "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOeHRyMnRQZ0p3RDBMZ2J3eDFvbXIwNFlMbWY0eE9GQnRMYVljeGZ0NlZKaVBGbkFnY090QzZHeE13c05hLUpTT3h6Rm9pcGtiOFBnUnI2RFcwVFlkUzk4MjNoY01PVlRLV0FMekNqVkdRRTFDZHVxNGFTQ0hLZEM4d1UzSHhBWF9scWh2d0txRW91emUzTzFIUEhKMVE2WUVpdmdlb0I3NGhHX0VCRV9yZTJlNmQyX3BRZVNuaDBVRjNtM2M?oc=5",
+     "at": "2026-10-11T02:04Z"
     },
     {
      "t": "Global Bond Yields Turn Lower",
      "src": "WSJ",
      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPTFpfSFJVQXNZSERFMG4yaFVObVdNdkZZay1Td0VpbE14enhKd1g2dW5NNldSWU5VR3FFWHFHRXowZmlmSjNya256OUVMOXVFbFVpRGstSlNWbVpaX2NESWF1QUYyTXBfWldfZVhlcUFxN2NSZG16MW42RkhxOUthMFhzYXFUV2hibENLazMyX19pTVNydXNkMExveWxsWktCQUtFZGcyQWJZcmZNb3RtTkQ3M3lKTkpxcXc?oc=5",
      "at": "2026-10-10T23:37Z"
+    },
+    {
+     "t": "Week Ahead for FX, Bonds: U.S. Inflation Data in Focus",
+     "src": "WSJ",
+     "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQQmlZQ2ZqUDhpS2pheVNOZTBWSUhPMGNNbWJIcEVkdDRJUFpEOHhTUmY3OWN2R095YUR5ZXIyUXN5RWw2MzA2OVgzeXNlTThTRVh1WTJZLVRoREl6T3g4UlVUN3JMLWFKRmpBZzFqMEtWVDdGb2FrdGlfR2QwZ0ItQ3NXRVVBb1RGOWZjVDZpTmpabnpqeTFXbWpnN1ZkSmoxRDQ0dVZMQQ?oc=5",
+     "at": "2026-10-10T21:05Z"
     },
     {
      "t": "US CPI to Show Overall Inflation Boosted by Higher Gasoline Prices",
@@ -283,12 +295,6 @@
      "at": "2026-10-10T18:12Z"
     },
     {
-     "t": "U.S. Treasury Yields Retreat From Early Highs; Eurozone Yields Remain Elevated",
-     "src": "WSJ",
-     "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQVktTdlI3bkRJUTFtb0hZd1RNa1F2UmRlRy1LTWxpR0txNmgyX0R2TnNCbXFpZ3pVTUFuSTJGc2U2T3Z0WkZIenpzNDBtdUxqbEIzOTNtU0hNR3g3OXYxNFVxS192VTNaSGdfbl8xVXotMUVieHgzUlpTVkwxbHhMdTdJcjNuU0lXYTFYZFhtUkxiSjdIOUVDcS1DNnp6VzFPaWNrVWxVbnA?oc=5",
-     "at": "2026-10-10T17:39Z"
-    },
-    {
      "t": "The 10-Year Treasury Yield Just Broke a Record That Stood Since 2007",
      "src": "Startup Fortune",
      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQWjFfRmU4OHdXVG5jNDRkanp6SWduVTBzS211cWNYUzBSdGdoSGl0U1FBVlRnemtrc1BrTVpENGt3YjlKWTI4d0VqaGwxQ3M2d1BfcHlQa0JfUnh2dE5UVk56TmRPaVdLYVMzZXg4cTdncUp0dU9Eb25pMTdseklxT3hpeEpTZkl2LUZsZEFWNjk0UEpPX01BdTlxU3g?oc=5",
@@ -311,12 +317,6 @@
      "src": "Yahoo Finance",
      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQR21wSkFfbTVfSlpnN3ZOZWJrVDMwcVVES3Myek1walFnRFpXUThMLVdRcVliTVFodlJSbHVTd29KekI3YVhnd0NLYlczTUF6aEZqWmhlUEpLVFB1RlJYQlBXU0U3SkN4cl9vbHdLcEZQTGhDMkFZZm9aa2xmTFhFNkJ4V3BKWHU0aWtXNmQ1ZFlnX28?oc=5",
      "at": "2026-10-10T10:12Z"
-    },
-    {
-     "t": "Advisors to the ultra-wealthy steer clients back to bonds as yields climb",
-     "src": "CNBC",
-     "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNMWswNElSUEFiLWJZRmQzdlJVQXhnU2Zqb0VGODdtcldoYXJpT2hMNW5UWVV0M3Nkbllfcy1EbjRKZFNScU5mZXpIck5OZ1gyLWMwc2xQZFpfNmVXVi1QcndBbzBHbjVOckJ0bENIUmtfTVdpeldqWHd1LUhsVllXbU1ZdHVWdV82d2pGQ0RZNjE5VGVWS19xU0dB0gGfAUFVX3lxTFB4X2xQckthQWU0UU5vX0pJV0JDcmNpcUt6ckZXWDIwMkdkaE5mNXVhQTJ1c2FIR3VHbVBRSnRYUmlEQ0o0NDdpYzlmX0RITUUzOFQzamNqdm5JalBLb0tvLVRROWQ3YUVPeXdISk5WeURzcEo1dmFwRlpxVU0zVzdDRDhMWDNmTE1lSnY5Q1B5VF9mVEVCS2RlNmt1b25MRQ?oc=5",
-     "at": "2026-10-10T10:00Z"
     }
    ]
   },
@@ -325,6 +325,18 @@
    "label": "Wall Street",
    "why": "the overnight lead for Asia",
    "items": [
+    {
+     "t": "US futures edge higher, oil prices dip and bond yields hover near record highs",
+     "src": "ABC News - Breaking News, Latest News and Videos",
+     "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOSU5kRXVKWEtIaUJrdmRuV1BtdEJRTTgwUnhENkpQVkw4Zkw5VlFGdjdBdk9yVm1yeUFUUE9JaVZNNnhYMFI2SThlY1lDTkVwSlJwTFJPYkJZVmp6b1BUVWNjeS1UMzNoMkpaQlhkQlFJakJZTDl5eDlaTmJoTURVOEhNVERZYnJWUGFYRnExLUZIRkpETXdmRXBSY9IBoAFBVV95cUxQcXUzbVY3czlOQjJ5OUpTVkp0T1ZjUWN1cl85UFBIVnNQYUVqZEtzVW5aWE9JWkRKaFVxZ1RqbGlGLW5NV0t2MEQzMFFZdXJoWUZKUEhPV3NjUVhQTklPUFVrZDRzVk9MNnRHd0RtM0Rlb1B3R3JOVVpGaTVRN2hsZGtSOXgxZFFIQkNBRmtWTXNRRXF4S2MyTENEWmYzS1B1?oc=5",
+     "at": "2026-10-10T23:18Z"
+    },
+    {
+     "t": "Moderna Now Trades 61% Above Wall Street's Average Price Target. Should You Sell?",
+     "src": "The Motley Fool",
+     "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNRTFPWTVCSmM5RGNJeFdCVjA5MnZUTW1CZVVOZHk4UGRfSW5SMXBNWmJ2Rll3UW9FNmFJUTNaUmxMc1MwYTN4Y3JBZEtjZEVWYjBZRGVoOXUxZ1RTUDh0ekpJWDhKaTllZF8yT2ZxVmJ5eWdIS0x6bmVteDRWQ0EyaE8zdkVkbS1qWEwzS0M4SGVENjZreXc?oc=5",
+     "at": "2026-10-10T23:15Z"
+    },
     {
      "t": "3 AI Infrastructure Stocks Retail Investors Are Watching For Data Center Growth",
      "src": "Simply Wall Street",
@@ -342,6 +354,12 @@
      "src": "JournalArta",
      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1tSFFYekZsX3lQRmNrQTdFSzBaMGJYamVPaDNsUDZjdnc4SHRnSmkwek9jWnRxYlZkWjFnZTIweC1adVFtZHRfNVlHS2ZFVWNIYVdXS2hWY1lYVFEtV3ZSQ3JadFVmTnFqRTJwMS0zWWpqWXd0YUJtVXRWa2J6VFU?oc=5",
      "at": "2026-10-10T20:16Z"
+    },
+    {
+     "t": "Nvidia CEO Calls AI Data Centers 'Investable Assets' After Partnership With Wall Street Firms For $500B Financing Venture",
+     "src": "Stocktwits",
+     "url": "https://news.google.com/rss/articles/CBMikAJBVV95cUxOZFZtNGh4QnJlWUFRSFNIdHVEWTBWYzdDaGVlZWM1SmRRb21tdjRkSU1jRGtNWXFneEUySC00bG90c2dIc0dHcGxxSXRiNTNmNHB2X1FxcS15SmZzWVZELThkbEl0a2ZqaXNNU1owZWQwbkg3Z0RObUlFbi1pbWtQbXZJempWb0lSM01vMzBEUEk3NzRhYW03bkZ1MkVKd0p2c0d1dl94YmdNXzl3a2hwQ3VVTzkwZDVzd0trYjNDYnNQN21NNlNiR0Q0TkU4Y1B3NUJBMXE5U0NIcHEtOHZ6S0dsUi03R3ZwZGlDZ21hdGRvS1FkYVY5dy1tU1g5bmJkblhReWxJNnlLS2oyNkFDMQ?oc=5",
+     "at": "2026-10-10T19:27Z"
     },
     {
      "t": "Wall Street Nears Record Highs as U.S. Consumer Confidence Crashes Toward a Historic Low",
@@ -368,34 +386,16 @@
      "at": "2026-10-10T16:06Z"
     },
     {
-     "t": "Whatever Happens to Bonds, Stocks Win",
+     "t": "U.S. Stocks Mixed as Oil Spikes, AI Profit Doubts Hit Tech",
      "src": "WSJ",
-     "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOZUtudkFSQ25lNDZHa0g5dDVEQmFTelZDRlAtMmJsZW9UTXk2b1FiMVN1UVNaTlRCVzhUOUx0WTNlUHJHTjhyN2xHZHNtcy1NemNTd0lOek92bXpwcVdMdHdJUU1DQ19RMFRuMk9pVDhKY1JIc3JTeDNMQ0QtT2k0TlpXeXpKblBKRHNz?oc=5",
-     "at": "2026-10-10T15:36Z"
-    },
-    {
-     "t": "Prediction: This Is What a $5,000 Investment in the Vanguard S&P 500 ETF (VOO) Will Be Worth by 2040",
-     "src": "The Motley Fool",
-     "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQUlpDYzJKTXptSEJUZ3VDSExwaXpUcU9qU2hkdmk0Qi1NbTd6VlFUWEZfcVhqakllV0xPd3I4c2oyYjl4VlBzOW9ETkN2RzFLandNY1VpeW1XZkF3TmlfQVNIZHVJaW95aG5tNEV1WE9TNml1RklSWjhwa1M1QlpGcmMzZ1JJX3p1MGQ0MVdDZjI4Z3c?oc=5",
-     "at": "2026-10-10T15:35Z"
+     "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOcmRmSzBtSkZNNUdzbkJoOThxUHFJNlhXVDQ3aUhtQklNTTlCN2lyckhrSGxJY2d2OGV3QnFlYzdXYTltUmdvb01Kd3Uwa0ZGYnJ3VnE2OFkxUzRpSWpLUURoX2hkcVVhc056UXAxTEdrR0k3S3A1U3RUOUhjMlVjNk5WM1JXazV6VFpBY2lZeUpPa0E4YVBmZEFQVzhuWUZCNWc?oc=5",
+     "at": "2026-10-10T15:39Z"
     },
     {
      "t": "Wall Street's Rate Shock Spreads Beneath AI-Fueled Market Rally",
      "src": "NDTV Profit",
      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQQUZHVzc3ZDB0SE53UUhGdDZPMmVrcm1VU1hyY1ZSUUp2VDNMVDZRaWpEd1VyenRaVkVWQTRHWU83QzhmZnB5SVdRdlVnSzlFaVdpOUNqdEJ5OGI5eGJiT09UU1NISTRQOU5yQmZ2M3diYkdNYjBqaHMxU3YtSTZsdmNCVEZJVEZESVhpSnNPYjRTalFwRjhrdDVUWTBrMC1yTTNjbkhCNNIBrwFBVV95cUxPYzVnR0Q5UTY4UVRMSnR3Q0dmejMxYW9fZTV2akRQU3lzZzU3WlNMSmwtVlFHTXZnbDY3R3hrZzd6VHAtb3dMa2dDenY2MGFmQ0U4MmNUUUQ4dkNpbldlSThTUUI3QTMxQUZfNjQ2dXlOX19YTnpTdzRaRTZSczdIZ255aWdMXzRtTXdXUmRrVDJwbW5uVzhQQ2JxSEwxZ3BUd0xlV3ZYR3ozX0VFWUY4?oc=5",
      "at": "2026-10-10T10:49Z"
-    },
-    {
-     "t": "Wall Street posts weekly gains with earnings, inflation data on tap",
-     "src": "Moneycontrol.com",
-     "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPVnFtc2RzeWJXWmVyTUpRSWZaWXprZUphVm1NbE1PcUpOQW02bkMwVEktakkyaElxSmRpM0VfVnZINnVhZ1g2SE4zcTlBcm5LXzU5RkpoQXBmcDlkV0xKT2U0YkRWakRobXQxUHBtSTBMYWdZT0xYWWR3N3l6WDVIU2RTVG9yYmRPcUx2TnpqQms3c19kZzF4Yy1OMFZidU9LTmhjYXhZc1M0d2h0QmRJVUl5QUp6WHg3QUNmMlBCd3pONjJ5aTdpRU4zMV9iRzc00gHQAUFVX3lxTE9WcW1zZHN5YldaZXJNSlFJZlpZemtlSmFWbU1sTU9xSk5BbTZuQzBUSS1qSTJoSXFKZGkzRV9Wdkg2dWFnWDZITjNxOUFybktfNTlGSmhBcGZwOWRXTEpPZTRiRFZqRGhtdDFQcG1JMExhZ1lPTFhZZHc3eXpYNUhTZFNUb3JiZE9xTHZOempCazdzX2RnMXhjLU4wVmJ1T0tOaGNheFlzUzR3aHRCZElVSXlBSnpYeDdBQ2YyUEJ3ek42MnlpN2lFTjMxX2JHNzQ?oc=5",
-     "at": "2026-10-10T04:20Z"
-    },
-    {
-     "t": "US stocks rise as tech shares recover, Treasury yields retreat from 24-year highs",
-     "src": "The Financial Express",
-     "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxNUnFwUncwenV5bEV6VVRLX3ZXblEzZ2JYb3J2cWxTWTVBWjU3Rk1Eb0tzZ1RjRmlSRndmWGNCdGRUS0U3ZlRtLWZjeHBndTRZeUp4ZTEzMDV1X0k1OVZ2VmZyS3g1XzU5VnpETzN5NmEtdXRCS2tRZm1zTXoyblhFVG5HLWdvX2sySl9Yd3Z2QXd1c1ByeG01cC1lNjhnZV9rNmx6UC1Ud1llYkI0Q0w0cDJPX2dIeHRSY05mejVnQWFnclpjOG5OUjdKdjFuV2d0X3c5NGhuX2FNQmxG0gHjAUFVX3lxTE1qb2pta0dhbkFoTHVDblRaVGwxcTJFOWtOWmRDc0lYLU9HaTBzaEZ6NGVocGRtU1g3eXVhcDU3SmRPYmR0eG02RlduMlVIek5YVHFOUFpCZW1hanhBMTJFX1JuQTVtdVc3Ykdrc0c4cDI3VWhLendBSmpZYmNGMjlWTENUeFZOLWJqbXU3SWJpLWx1cld2bEp5R0E5OWdNaTV3WjRUTk9kVEdRalFvZ2Y4UVR0WlZIcUtxOTZQMHYyczZKM2FzSW5LbE01eWsxU3plb2NmUXVDejNXRUswWW1CZ2ZF?oc=5",
-     "at": "2026-10-10T01:19Z"
     }
    ]
   },
@@ -405,22 +405,40 @@
    "why": "the theme behind the AI data-centre, fibre and EMS trackers",
    "items": [
     {
+     "t": "Amazon lays off 121 more Washington workers as its AI spending hits $220 billion",
+     "src": "Startup Fortune",
+     "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOTURHSlJEbzNjOXM5M2l3SUt1enJsb2lLTXNHVE1RNDNxWXk1UE41UGhCV2pTMlR0b01sTEZpR3prbGs2MHNtV2ZwbExRb0tIbTVjTmtSQjhOclljcHhaNFRjTmlkTTgxcEExUFRvc2xueXVsdEh5RzBrbzBuTUJ6VDc3bzBpemFmcXVuNkNfUzJMZl9rZGloQ2JfU2ozTHMwam5zVHc0azRxVjQ?oc=5",
+     "at": "2026-10-11T02:18Z"
+    },
+    {
      "t": "Amazon (AMZN) Wants Investors to Finance $8 Billion of Nvidia Chips. Is AI Spending Getting Too Heavy?",
      "src": "Yahoo Finance",
      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPU1kyZ2tfd25GSzZFZDhyQ3ozMmNYV2I4OTRtR05KcXFDR3kwYkp0djRwNEtyallTcXJrbmt6S2d4bWRBOWZ4YVVKM0UyX2VjUFkxZWVlMXg5V0NFTjJiUXROU1h5NmNOWUY3aVd6Q2tZSkJtTktqRHF4RDhtWERrTHlvQTFTQXpsWTk4alFNbngyZmtQNk0xZEg4QU9YVjFo?oc=5",
      "at": "2026-10-10T22:11Z"
     },
     {
-     "t": "How Investors Are Reacting To Amazon.com (AMZN) AI Spending Surge",
-     "src": "Simply Wall Street",
-     "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQQUlwVVNjaWN0Qk1OeGdnbnE0cnBjblpzQjg3S2VTWkJwMVllT2hvRzRZUXZUS3M4OUJtbzk1YTZFalUxeUYwNWFlVnd0M2dmWGhwQXdROTNaVUV4VldaN1pGdWI4YjQwOHlLRVg1Um5PVlllcmVsVnphQXBRT1FBc0ZDWHBnMnlvZVZSYVpCRi1pMFFFeFlCdTJDdWlrT0JUWEVPazV0TDF1Ulo3czVnZ3g3YklsSWZkNEtycHZSOGVnZVBn0gHKAUFVX3lxTE9tc29ra3BSMzlXRElSSF90UVJmZUxMREJTMmxqa0xlcDRHMzhFYWk2YVpWN3oxVld3UUVSSTQ4U2NZMVc4WU5Makk5WHkxcmpjcHFIRWxIdThnb0FFTDBSd3pMT2EzVG8zNEExQ3QzN1NackVxZUpaUFVMdXBYdXdEeXV6WTBESXhheU9GdElEZEZpVkRKTk52akdYR0RIamtsSjE2VHpiWXVDQjBabUEyREFsdnpSSVhGVUZWQzZwYU9qd3hQUWpjY3c?oc=5",
-     "at": "2026-10-10T20:49Z"
+     "t": "Banks are now trying to offload the AI data center debt they just underwrote",
+     "src": "Startup Fortune",
+     "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQNFhIM0RHa21tNXF4WExhRmRUNHFWWG1NWFhUZzZ5Zm1LLTl4VmhRUld0R053dThYRjZUM0M5UDBhcmxNQXpKTzdJeFFtcUc1bmQ0MU1zNTY3YWhmbGR6Q0lKNEhqV242WlRFdF9LUHBFREpKRFVxUC04dDcybzlTZVl5ZUVZN1M5TXBDLUVVTEtZeVRmVm5fYk15UUVFMDhwV2FXYkpSdw?oc=5",
+     "at": "2026-10-10T18:55Z"
+    },
+    {
+     "t": "Nvidia in talks to acquire US ‘open’ model start-up Reflection AI",
+     "src": "Financial Times",
+     "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNSFAzNzlXTG5BbHZkbU5EX3lMZEl6Z3ZROVJPbE5NbFNwdXQtZ3N3cDlCYTNBVlg2VF9fTVE5RnIxS0I3b0dUejNudmZseG03RzVCdTBBS3hWaWM5S05KYV9WLWVOMENkODV0N2RXQzctank0bVpfSWo1bjNmbGg0Wi1RWFA?oc=5",
+     "at": "2026-10-10T18:14Z"
     },
     {
      "t": "Super Micro Contractor Pleads Guilty In $2.5 Billion AI Chip Diversion Case Linked To China",
      "src": "NDTV Profit",
      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNNEhLbjc1Q2luOGNST2RSNVJQMmJNRXhybkl0UUprRWdRbG9vMmNCZ1l3TkZBbHZmRjduRmh3ckRfcU45Z2dBeTBYMUxOR0dBaWNDU1Mwckh3RW82M3RUNHZLTUhXQWs2a2lrb2J5emhoYzlIeWEtcmZPaS00cHpnM2lKbGhlUGNjYVdLLWo1Nzg3alV4bHkyNl9zMEFhaWxjaUFEUUtwNG0xUEtxTVVkUElXTERnRGJFRXdiVFljSkYzbXFWSHI5NUtqcDTSAdQBQVVfeXFMTU9EMzVuTklXQkpVaURLeEZ5OEx4VzF4N0YyYWlndkxvWVlCZlp4SVNEWnRjU2VSMHpGcG80bjdjcExBdktveHdQWVBWV0hOLXZodm5pVWUzS2doRGJRdHZsQVc4UVJVY0hCN25NQTdwZHJ4SWdHREtrREY1ZDBFNWNpdnhSeWp3cXB2RUFuV3VjTWRNNFZQN0p0Y1ZsZGVxd3E2b2p3bFBOUkdUNXV6MVBDT2V1ZkxMZ05mdHYwcXR3aWJ6NW9xTjE4ZklKcEVCU0kxZFE?oc=5",
      "at": "2026-10-10T16:46Z"
+    },
+    {
+     "t": "NVIDIA Corporation (NVDA) stock price, news, quote and history",
+     "src": "Yahoo Finance UK",
+     "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE81OEFKQTktenlhclpBTlVtWEJqNVpKOVNWNlRaNlRDRnR0dHRielpfZXdtR0pXcUcyNDN1WTlzOWVrWXZTNVhTbEVIOUxEaklxVWc?oc=5",
+     "at": "2026-10-10T16:20Z"
     },
     {
      "t": "The AI data center build-out has made the US more reliant than ever on foreign semiconductors",
@@ -433,6 +451,12 @@
      "src": "Startup Fortune",
      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQODY3cWZvLWVPQUxzQVJodWhOdWI5NkFPMlU3QWdtd3ZkM2dHLVBMei1qQzc0UGxadVBOYVRTVWEzYzNob2l5V045WWhubDBFYWFXT212Rzdfck9HSk42UmNOZTI3UkMyZmlkWEVOTnhibkdMbk5tZHZKYURya1BmM0RZM1EtNS1ubjY0eVJ3SQ?oc=5",
      "at": "2026-10-10T14:55Z"
+    },
+    {
+     "t": "Google’s Orbital TPU Test: Why SpaceX Wins No Matter Which Hyperscaler Gets There First",
+     "src": "Yahoo Finance Singapore",
+     "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQWkxhWTZ3djRhSGVvTFlDNnZ2ckd3SjdnT1pKWkFGUUJrc3BQX3RnSThrMVBZcXJQREVZbUpta3J3c01qYlI1a0cwQjhlUWZGbFlMV0dYYldBcUllN01uY2M3NmlPdkVpbU9MZ2lZQmFOR2dfOXVsTW13WUtPUWx4VWZ3?oc=5",
+     "at": "2026-10-10T14:18Z"
     },
     {
      "t": "How Data Centers Are Pushing Up US Power Costs",
@@ -451,30 +475,6 @@
      "src": "Startup Fortune",
      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPUjVnRlhEempCcWQ0RjRrN21Wdmt1bU1Dank5QU10RVFVUWZkcUwtd0RoZVhLVzNPWENUcmtqVVpKNndTQzhzeGo4VmRaa3hWNnNRTEZPMVRTLWplOThBY2pQWGdyR09XWFZEQ1kxaDNUTFN0elZ1MEdnajBESUhiLU5iMkRNSG1SMjZiVWZXTQ?oc=5",
      "at": "2026-10-10T13:35Z"
-    },
-    {
-     "t": "Super Micro contractor pleads guilty in scheme to divert AI servers with Nvidia chips to China By Reuters",
-     "src": "Investing.com",
-     "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxOWkJ1amRoRnhfLUlIRHNsWERyRE5lSUdXMkROYTU1MHF5eTlvNnYtNkZqU3NGbl9KVG9iZ2xxSjJWWjJSWUlnMjgzbTF2MVZOWkk4dEJGd3dUajV2THY5OXh0SHV1bXl6elNGanRfQjhFU015eUk3SEdGcGZTM0xKRlNmS3BrZURJUVBwLUdaNkt4MThGb0xhSFMwTjFzeDROeDE0c2ZOOVlDUjd6TUdNQWtjTzZuRkFoZWo1dFI5NmhQRWxraGhYQ01hVG1CMlU2R0JFZ1RpOFpRQ1NWeGx2REZPcDlzQQ?oc=5",
-     "at": "2026-10-10T10:14Z"
-    },
-    {
-     "t": "Roundhill Memory ETF (DRAM) stock price, news, quote and history",
-     "src": "Yahoo Finance UK",
-     "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFAwWVllNy1xNHVzemlNa3Vtd1ZTakxUaFNnY0hxcnFRLUZuM05XTGJTUEJaRXZrMmVUcVhBd2FGa2VQbUx1SElfemhZa29hdi13NFE?oc=5",
-     "at": "2026-10-10T09:25Z"
-    },
-    {
-     "t": "SEERS Heads 3 AI Penny Stocks To Watch",
-     "src": "Yahoo Finance",
-     "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPUWZGV1pORlBpb0JTNnVmQ2lLZ3pRSWt2X0g2TUxmd21RNkNOSU5lYUNEY3RMaFpsSExYdmtlMzNDY3k2QmM5bVktTzdQdTFzTGN5TGhNLWU5c29YYVh0ODRVZE5oN1FIcG1ocmlXX2JQX0JnQ0RaZTZ3WEJPMEZma05aSXpFQ2tQT3BBSmcxRQ?oc=5",
-     "at": "2026-10-10T04:16Z"
-    },
-    {
-     "t": "Supermicro Smuggling Fixer Ting-Wei Sun Pleads Guilty in Nvidia Chip Case",
-     "src": "Startup Fortune",
-     "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOcGkwX0x2ODFQZlJPak03dVc4dVJhWHNNOGdrSVQ3RmtybXVtMUIzWi1tVld2R0dSZjJQaG0xdTFVMVZMY3pYVi1OWDU3eDJaS3JFOHlwM3RJRGxVV1NmanRwWDhUSWRLc3p1aUc5M01LclNZNUJQaFFVTjdGR0hEVjdJYmROOXhuUjhHVkxBNExkY1J4NE9MZUZ0aTVzY29za0Y4?oc=5",
-     "at": "2026-10-10T02:20Z"
     }
    ]
   },
@@ -484,76 +484,76 @@
    "why": "gold, silver, copper",
    "items": [
     {
+     "t": "Gold Futures Streaming Chart",
+     "src": "Investing.com",
+     "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1aeTFoLWFsUHNUX24yTVZlQm03eU5lbWJIM3VwX3hnY0JkZW9mWXB2Z2ROaEkyazZrSEI5UGlDM2p3MEE2R2pDeEYtM0liVkNRN1ZJdHZ5SWs0R3BhNnpsX1A2TlpybEdRbUE?oc=5",
+     "at": "2026-10-11T03:14Z"
+    },
+    {
      "t": "Gold Rate Today in Delhi 11th October 2026 : 22 & 24 Carat, Todays Gold Price in Delhi",
      "src": "Business Today",
      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5uN0hKSXRHZGo3S1pxTWZIdVAzWmhUVG5OU1lCdDV1cG0wN1ZsNXpXWkJnTEt4WUlDTGpZZHItV2I2bnNPX2V0UDk2Zzd3T18zcWc4RHRIYWxoc20yRXYxa2ZNMVVCTkRqZDQ3LW5QdFc?oc=5",
-     "at": "2026-10-10T21:56Z"
+     "at": "2026-10-11T02:49Z"
     },
     {
-     "t": "Form 4 Lion Copper Corp. For: 10 October By Investing.com",
-     "src": "Investing.com Nigeria",
-     "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPMTMtZkxwSkphZ191SlJJWDFJQWVENDZIVTRqRldaVU40X1pNNEdOUTJlZWxtZGw2STVGYUtVQkNHTnVzdGZMN2wzZTdBZG5uUkJ4bDhQX3pQb3hMZUd3Nk8yM2l4dkMxRGt2V1JvbzI2N20yTVdzNENnY1lJSkFmdjloZG4xNUZvVW1WUENmZGpkNnRlcHBpeWpId1NyWGRL?oc=5",
-     "at": "2026-10-10T21:45Z"
-    },
-    {
-     "t": "Gold Rate Today in Latur 11th October 2026 : 22 & 24 Carat, Todays Gold Price in Latur",
+     "t": "Gold Rate Today in Kadapa 11th October 2026 : 22 & 24 Carat, Todays Gold Price in Kadapa",
      "src": "Business Today",
-     "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9RQ2hEeHpISUMza25XVVd6Zy1qNUxFdFlUUWxxeGtJVGhHOERXblctS1dpeU1RNkhTVzF6OWpXbXhPbzJFUDVqWU1GclRDUFRLUUo0dS1RUm52VC1BX3NpdklBSW1UUUplU2VzOVNzVVU?oc=5",
-     "at": "2026-10-10T20:44Z"
+     "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE9weXFsMkl4dDRnRV82eHBPSGlMaWpybVBwVDdkcTRDOHRlcFN1T0R0UzRkV3p0STE2bWQxQVZEZTZOV1Y1V21WT0FTaFZpLWw3aldfOWVQOTRDd0J4ekx1akZaVnR2TVZ5bzB4MVA4UVRVZw?oc=5",
+     "at": "2026-10-11T01:43Z"
     },
     {
-     "t": "Silver Rate Today in Lucknow 11th October 2026 : 1 KG, Todays Silver Price in Lucknow",
+     "t": "Gold Rate Today in Tamil Nadu 11th October 2026 : 22 & 24 Carat, Todays Gold Price in Tamil Nadu",
      "src": "Business Today",
-     "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1VLVBEaWNyb2w0MElheUlldW53SjRNMTFxT1ZrdlZFdkFBSlFrS0F1VDhCZ2g5dmF2UER2Vm1mblR5WDB0WXlOM3NiVGQwMFlSY3BxWUJKdW9NeWVjNzVqMmpQVUVFamtkdnh5SGh2dnN0aWMxUkE?oc=5",
-     "at": "2026-10-10T20:36Z"
+     "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9vakg5ZlJCZnYwY0JVeGMydkx3RHBXUXE0bGdHOVZ1Um1leHJXSnE3R0NxZzlyR3IxZXdaLVd2eUdzMUF4bzZKVGdRd09vNUlNQWo0czJuY2hUaEJmbmlWaWRwS1J5ZVBfNkJCNERvNGVsTU5vTmF3?oc=5",
+     "at": "2026-10-11T01:38Z"
     },
     {
-     "t": "Gold Rate Today In Thiruvananthapuram, Check Live 22 And 24 Carat Gold Price",
+     "t": "Gold Rate Today in Kapurthala 11th October 2026 : 22 & 24 Carat, Todays Gold Price in Kapurthala",
+     "src": "Business Today",
+     "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5QbjJzWnhRa29nNDRrcE1DY0pXRVRZQ2llVWVneFpTWGx1LVRmbFdxTF81bVpSSmgtVmY5SlZrSklSXzM0S28wUU5fZ05LNGZKcFhPdXhfOHRISnRwUGlHcVc0MzlFeWk0TmVFQ2NkdFhzOFRmdGo4?oc=5",
+     "at": "2026-10-11T00:44Z"
+    },
+    {
+     "t": "Silver Rate Today In Amritsar Live, Latest Silver Price",
      "src": "NDTV Profit",
-     "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNV2Vua1lKeFNEbXBtdG5fTUQ3aWp2Y0Vxd0Y4VEFSRkczelcteGJBeDl6cGUyZDZkNXdRUjZteV9fMDAzbHdEVGFQQUg0Rlo1NVI0UHFGSU9rSnhnYUZNV1pHbXhwTlE1V1UwXzZVMlREMGFLalVKbzlMUi1IV2hVOFFn?oc=5",
-     "at": "2026-10-10T20:03Z"
+     "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTFBRVkwwQkl2WUl6OXBJZmEydENXdHhjNlpBeXBPZlpKUmxhd21IVElPeTFPMGhnektrdWt2MktJLVRSOWNMVnkxenV6Q1hJUlVWbG9KdmJHbXFXQ2NYVDJGMzUtQllWTlhSM0t4MFZVVjkwX1l6emdLYy1R?oc=5",
+     "at": "2026-10-11T00:36Z"
     },
     {
-     "t": "Gold Rate Today in Nagpur 11th October 2026 : 22 & 24 Carat, Todays Gold Price in Nagpur",
+     "t": "Gold Rate Today in Uttar Pradesh 11th October 2026 : 22 & 24 Carat, Todays Gold Price in Uttar Pradesh",
      "src": "Business Today",
-     "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE80OGU4WWtxb2hXd1dIN1VEYTRtWlFZSFZvaGZsUi1vcUl4MERnM2pCVHZRTllZcEUyV1NGNlplSzZMQTFIM2RaX3JNUjEtT25HZW1IRmtUVHcwS1J2WXByekpsZzZMU0RHNE95OFNlME9OZw?oc=5",
-     "at": "2026-10-10T19:53Z"
+     "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5SeGZIWl9hZERFamdMT3dQR0g5WUI3elBZYm54V2FuZlQ2ZUpuT0JlVG9NUkxwSXZieDZYeDlDdDR6Z0tyM2x6VWctQ3RIRGtRWXVDVkQwbTZyNW1vYWtxbjMyX3lHRW8wN0xuRFdNODdURVBlN1BmbVplZw?oc=5",
+     "at": "2026-10-10T22:58Z"
     },
     {
-     "t": "Gold Rate Today in Vadodara 11th October 2026 : 22 & 24 Carat, Todays Gold Price in Vadodara",
+     "t": "Gold Rate Today in Akola 11th October 2026 : 22 & 24 Carat, Todays Gold Price in Akola",
      "src": "Business Today",
-     "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1nWEtqMFBqRTczVHZRYjNvU2c0OHNjR2plNnFSYS1GTUlYMUlLak5MQ013Tnp3dzFzUi10YmRjVWRidS1UVVhSYVV1Y1F0OHVGRVl3Y1ptX094ekVDR2lpZ28wV2RTSVoyNW9TTnhLc2V5bmpu?oc=5",
-     "at": "2026-10-10T19:53Z"
+     "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE42cFF2Um9iWW90dnlxSWcwZWlNTlVIWUxZcTNLeENOQjYyd2ppM0thUU1ZVkZhZ09zX3FOenhXNnNid2ZQZ0lTeWVwX084SFdYVnVWd19CSU1hNnM5QmhRUzRCd25IV3pHSVp2NGFiZW0?oc=5",
+     "at": "2026-10-10T22:48Z"
     },
     {
-     "t": "Gold Rate Today in Chandigarh 11th October 2026 : 22 & 24 Carat, Todays Gold Price in Chandigarh",
+     "t": "Gold Rate Today in Amritsar 11th October 2026 : 22 & 24 Carat, Todays Gold Price in Amritsar",
      "src": "Business Today",
-     "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBJTVRrbDFaN0MweGNJLXlhdkxCUTVTYTZvU25KQ0NuYnR3YmxyN0IzTjg3YWZoeTA5dzU5ajBwbUN6WC11bFpWdkRYS3V5cUEzdWFKY2xCdzJXOHVIaVRZUnRMVW9kY0NsMlpmckE5VTBfeWFEQTZR?oc=5",
-     "at": "2026-10-10T18:54Z"
+     "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1WUzR4N3FuVmFkTVNtR3JZZnN1VWZ3RXRpUUoxQnlJRmEyVVJRWHZ1b1ljenIxMXdubUd1TWFadk5YOHlndkVmTkVXdFJfaDZiek5JdEpBWlBKTzQtc3FMWXJNOVpOWWtrUGd1czJBajYzZTZF?oc=5",
+     "at": "2026-10-10T22:48Z"
     },
     {
-     "t": "Gold Rate Today in Nashik 11th October 2026 : 22 & 24 Carat, Todays Gold Price in Nashik",
+     "t": "Gold Rate Today in Haryana 11th October 2026 : 22 & 24 Carat, Todays Gold Price in Haryana",
      "src": "Business Today",
-     "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE9XS1BUSmFQWFJUNkoxRkhSQmxwbUZwUDU1aXRHOFFralRKdFVLTkh1eGFCSXVEZ3BaNlAyZEdoNkFwczdFZXlWcDRXYVJvRFZUUHhCWTU3U3dTWDVCSV9fY0tHckZFNkZDam9xOVhYNDNzZw?oc=5",
-     "at": "2026-10-10T18:54Z"
+     "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5JX1d0SlFjOG5keUtfdmR5SlZ3TV82VEd2LTBzR3JqMnVydF9UMzZNVEFwZUpGVVJ5czVTY040LXVHalNTa3o3elBQZHZCODFnbVFha001UWNrcEdxQ0d4V052V3MyLUxDWVRZcG1WeUZETkE?oc=5",
+     "at": "2026-10-10T22:48Z"
     },
     {
-     "t": "Veteran Trader Gives Critical Warning for Gold Price",
-     "src": "Yahoo Finance",
-     "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOcHY2THNkcFQ4NWdTd3NMNVh6OVBpMFVHU0hKTXpDMlFpN2w4NEdCQ0s4RlBOSFVEZFptUlhWTmwyS0h4SVZackt0UWlhaXlPM3JpQndfXzVxUlVZSmNncldrdWp1NlVPZVg0clJOR2NrNzBsTFNWS2kwbmU3THZvSlM1RkE4ZkZfRlpaXzdKckhTZmNVQTBWRlhzU0NVVzVNZnZvbVROaGtBekU?oc=5",
-     "at": "2026-10-10T18:37Z"
-    },
-    {
-     "t": "Will gold prices fall further? Check reasons behind the recent dip, forecasts and more",
-     "src": "Livemint",
-     "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQSlQ2NW1rdG1SUGFEQlVnZXpsZjBCczJPNVNfUGp6ZDRCQldhNU04TF9JSTF1MXIxYnM2M08zNE1nTHNHUVlLd2tOMTB5ZzVmR3FWYnBLcDNrVm52bFBQekdZeXpzNmREY0RrcWV2Y2NPbHdsVGUzZGhmZG1EUVRyR21Vd2dzRy1iVkVQTW16NkZWcFdEeEFoVEdvTEFMdkx6UVgzd2RZWVVzdmF3T1NOTUU3UmVTNmlxeWZMNE5vSjhMQk9BNjNZLWwxNlpuVlMw0gHWAUFVX3lxTE1XbXFVanlhUEhsYlF5cGJnM3RSNFp2NERMM2FPNlVLcGdfUnREWTFIaHBtZUx5SjREVWZVelBYUkxjQ0IyWmh6QVRJYllQMU5MQU53cVZMcWhjM3oyS3VpVVhHcWdYWGs4RlBWaEp2Y0liLWZQazdzdXdkdXY1RVpmdkFIZzJJcmRiamRjdkpVMktYNXhTeEVuSkVKVWlicUVMRE5lTG40SEJvQkZOUkZxVVBFZFF0eGsyUnN3ZEk4d0JaRl9ac1RFNjA5N2J5eEZidDVTTUE?oc=5",
-     "at": "2026-10-10T18:32Z"
-    },
-    {
-     "t": "Gold Rate Today in Bihar 10th October 2026 : 22 & 24 Carat, Todays Gold Price in Bihar",
+     "t": "Gold Rate Today in Gaya 11th October 2026 : 22 & 24 Carat, Todays Gold Price in Gaya",
      "src": "Business Today",
-     "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9jRnBvMEpzRFhZUVBpR0ZrMzVLVVZZRWhxSVZkZ1hkOXQtLS1uTkZ0Rlp1UUZrT05WN0Z4SWJPbFpsR0lQRUh6YzBLWm5jRDdUbTNVaE16WmFRX3BNSlNrN01WWThrdGlRRTdxeHNCaFM?oc=5",
-     "at": "2026-10-10T17:56Z"
+     "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1JWkVxWW8xTWRlQU4ydFI5VUVndk5tMk5JSFJ5REpPUm1MNWVZbWgwUDNvazZySG1JM241T3B1V0JYRUxtZkxpS01WRUt4S3ZsX3o5Ym9tbUhTUGk1Z2dMYmJNbkVJZHRXbGtlc3BiVQ?oc=5",
+     "at": "2026-10-10T22:48Z"
+    },
+    {
+     "t": "Gold Rate Today in Rajasthan 11th October 2026 : 22 & 24 Carat, Todays Gold Price in Rajasthan",
+     "src": "Business Today",
+     "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1hY2RBNEZ0RkExUEhyckxqMlQ3VUFwc2tjeEVhakwyVEdzRjdPWXJIZVFldkFWaGstcEpkMlBsUkM2SVpXUGpJeGREc1FZMFBSWnVMNmc0dTBHRzhGZ1I4OFBlUlZzeWNVWDBoSWliaTV6aGFHZWc?oc=5",
+     "at": "2026-10-10T22:42Z"
     }
    ]
   },
@@ -562,6 +562,30 @@
    "label": "Policy and geopolitics",
    "why": "tariffs, sanctions, wars, budgets",
    "items": [
+    {
+     "t": "Bangladesh accelerates trade deals ahead of LDC exit",
+     "src": "Traders Union",
+     "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNam9oRlRtVkdhQ2R6TnFPbVFpc0ZkVXBXcFlTTlU3Y19sSEk4U2Vjel81dVl3cnNVRTl6MDFUZHpGRzJGTFFEVmR2a2s4bDJoNm1lMXhrUVVwQVZpUkhzS0ZjNzZsMDZnVldGaG12Z3BnRVVIbE5mZnZja2hyTWw5a0p3VFdJaWgzMUNDcGJmdFJNQkZD?oc=5",
+     "at": "2026-10-11T04:40Z"
+    },
+    {
+     "t": "Trump's trade wars sting US manufacturers ahead of midterms",
+     "src": "Yahoo Finance",
+     "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPVWM0bGtkZ0M3YjVzY2xiTFVJcldEYUxCOHUxRlVOS1o1T0MzU3gycjBRV2c2Sm8yVGxORkN6My12Ymp1ZWxrSU5ZWVhDeTRrTVQ5VGkxSGFrYngzTjlRV2VuSU9UUkVqdnhVZ25Ka3ZBNDNZaS1Sc3RHRzZ0eG1yb2xrV09BNGlabm9fVWI0NmNkSmtTRUE?oc=5",
+     "at": "2026-10-11T01:31Z"
+    },
+    {
+     "t": "US trade deal to be finalised as 'circumstances have changed': Piyush Goyal",
+     "src": "The Economic Times",
+     "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxPVDZtMk5UbUxrTExJXzJnME5zNW1fbmg0LXUzclhKbU0zTkhycG1ORG9rWVpCMTh5YV9jRnNjY2xKVllRUERxbVhXM3B4Mmo0OXVFa2FjWXoxQ2hLeV9wYkJteXMtSjdYdkdPWDZDRS1kanQ1U0lpSDA2dXJIZHEyaUtPS3R6WEhvYVVlWVBFWkdvWDhKYVc4WURTT1paZF83SjNIYmpIcTVTTVNWbGhiNGlSLTVhS1Z5bW5fMlNpWTc1aTZNS1Z3bXB5T0RWbmpWbzdBYnN1NFhWVmhLX1hjQXkwTXpDYldJalQyS2tR0gHuAUFVX3lxTE9UNm0yTlRtTGtMTElfMmcwTnM1bV9uaDQtdTNyWEptTTNOSHJwbU5Eb2tZWkIxOHlhX2NGc2NjbEpWWVFQRHFtWFczcHgyajQ5dUVrYWNZejFDaEt5X3BiQm15cy1KN1h2R09YNkNFLWRqdDVTSWlIMDZ1ckhkcTJpS09LdHpYSG9hVWVZUEVaR29YOEphVzhZRFNPWlpkXzdKM0hiakhxNVNNU1ZsaGI0aVItNWFLVnltbl8yU2lZNzVpNk1LVndtcHlPRFZualZvN0Fic3U0WFZWaEtfWGNBeTBNekNiV0lqVDJLa1E?oc=5",
+     "at": "2026-10-11T00:30Z"
+    },
+    {
+     "t": "India-US Trade Negotiations Hit A Plateau: Sitharaman Hints At Limited Room For New Deals",
+     "src": "Goodreturns",
+     "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQX2hMV1gzQTVxQW9MMTZIa05yS1FkQ1k2aS1BYUllbUpULXN6WEFvQkNWVDFobmNrdjZ6Y3gzaVVxNElnOVRkUmZkUlpmUER0OVVLMnRZVEVEZHZLOTZheS1ETjl1YnhWakNTdzZ5UTgzZVh1ZTZnSU1BYUwxZVo0WHNJb3ZhMzBfOTZXS0xBQUYzMUxXb0o3cmxlZzFVVklRTEtSSXlrQi1aOHpSeGRna3JtXzJtY3hqdFE0aA?oc=5",
+     "at": "2026-10-10T22:32Z"
+    },
     {
      "t": "EU-China Preliminary Trade Pact Targets 50% Cut In Chinese Hybrid Exports",
      "src": "BW Businessworld",
@@ -575,46 +599,28 @@
      "at": "2026-10-10T18:16Z"
     },
     {
+     "t": "U.S. Tariffs Are Putting The Brakes On Mexico's Auto Industry",
+     "src": "Yahoo Finance",
+     "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOcDFrODJ5TTc4YnJDNUdjVVE2SzA3WnpDaDY5Nk42TnM2cXRtcHZsUnAxeVFBeDZXQlRnLTdTVEZ1YTVlbXNna1lQckFnYU5OVmxCUHhYVWpBM0xqbVIwNGxWbUNXUmdGZnU4eEFUQm0zY1ZjZFV3bEJuZGhpMFVzeUVCQlh0bFRjZ3lNSlhscVFoN05pWll1ZWlER3diQQ?oc=5",
+     "at": "2026-10-10T18:00Z"
+    },
+    {
      "t": "The US Treasury Department has sanctioned 17 vessels for transporting Iranian crude oil and petroleum products as Washington tightens pressure on Tehran.",
      "src": "Facebook",
      "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNSGNRZGx4akFYZGRjWUljblloTzhWSW1nSnBvVGtqT2JwNmxsMmpldUhwMGRTSm9COVhqS1pudmZHekdoMkU0TTdMVXVtYWh4TWpBaTdMVFRuYWc5YWFZWXQweXd3a0hpalNoLVVmSjVDU292VHdOMEpGMWVKWFFoc3JmMndGSU9HaGlUYjg3MW81YW16Wjd2YXFMTmlULUhGZDFnUHZjZDUwczlsaHJiamJFTkE0T2FDTHl1dC1CaFNBdTlCeExxSVVrZG5SS1RVTG5EcHI0RDY?oc=5",
      "at": "2026-10-10T15:16Z"
     },
     {
-     "t": "Ukraine rattled as Trump eases Russia oil sanctions, says Zelenskyy should be replaced",
-     "src": "NBC News",
-     "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNRU1Ja2RHUFhhYVRTdFk4R2c3YW5GNUc3dkp4MW16VDV5MFFKdUI5WUhnZXlvVVpCSXQtQURIblljN3c3MzNmd21ydFRjWUZMLWxxaGdVQVNGNk5Mc1lFV0RPMnl6Szl3SEhFNFZRYnNuaUJMaVFIN1JIa2F2cnRCc0tsb0JfVHZWUHpkZUJkMnZJYldlZHFBZTY4Yk96ZXlQdHJndUdZS3poS2wxa1hB?oc=5",
-     "at": "2026-10-10T14:46Z"
-    },
-    {
-     "t": "‘To be finalised in line with changed circumstances’: Piyush Goyal on India-US trade deal",
-     "src": "The Times of India",
-     "url": "https://news.google.com/rss/articles/CBMiggJBVV95cUxQZEZ0d04tVHdsMFhMRmRENXIzODhKREJhU2hRZDJ5c01ndm5NZmw4YjFwVHFwb1Q5WDg4Qnd6cHNpcXoyRmVHNHB4cGVrUjMyT2xEOUpYajBvZTdRM3V6dktiUGFOTVhCalBYOUNOa29RRHlJS1dyZnZ5eU9ZVkpZR2pid3d0alpCeDhRWjAzbDFMUVV3Y0RJdGtvR2o5TW9GcDBkWnVDbk1jMWlDVFhydXRBSHNpbi10cENEVDJYQXlkb0lfTkdRTHgwYVY2b21QUTBIeUJPOWE3XzY4YWYtM3Q4c090R1dqdnBsWmxIZVNMeEI0bDlHeTQ0TWNtRUtoTUHSAYcCQVVfeXFMTWduazJ4QjlyX1hKOXRDaGlJc3BUZkJEcU9OQUI4R2M4Si03SHA2Q0xWekFodDhhNlRzdGwyZDdkVGNNQ01jQVg5anNMaWViMXpBX1R3T0Q4YkpwVElPZUl4MDcwWG9aUXVnVGMyRDVuVkJfcGZOUU9oR2dYVXhhOHZ4bDJMeVJTa2E0a3N4QVJ4VmIyTVU4cDRXZlgyUmEwVnhocGs3dW52X25HcUVYNWc1b1E2THVnMlAyTVB5Ul91eFNDNElmOE5iZzdpOTNIYzcyRU5acnpKQkhBQi03NUFHNXpSUGt0SExZbmdhTGhnWUNoTTR2anAyNU9wQjdXN0VwM3JLV3M?oc=5",
-     "at": "2026-10-10T14:45Z"
+     "t": "Flood celebrates the lifting of tariffs by the European Union",
+     "src": "norfolkneradio.com",
+     "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNcW85NDYwMko0WDRUdUUzNUU4dlE2bTUwQ1BCeVlETFhRV0NaOENlOU5HaGUxV1BPb0J2clpMQ2d0b2hNcm50LXdIUFdhVnZZcTBUdmczdUo5ZFhLS0FrZHh5Vm85NjZJNHlZOXR0dXN5c2VOSmpSVHNqUkg3cHBRR3N1RTdGUDFpX0xpOVBYMFZ4U0QwY3VIWVdzQUtOZUJQc0VMU2ZvNEJ3TVY4WFdUVkZZZm9aMTRRbk9SYkhRbG92X0Q0OVRiNzYtVGQzeG9nUlFrM0pNVEY2RW1iM1ZMVw?oc=5",
+     "at": "2026-10-10T14:49Z"
     },
     {
      "t": "China shock: EU says trade deal could cut up to 50% of Chinese EV and plug-in hybrid imports",
      "src": "Fortune",
      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPbUFrTWQzaUoxTHJDZWlmZUJ3eldNOFRlQ0V3WVJlTmo5UjEzOEFaSmpLVzc0bVlJQl9ZWllxdldzTzJETzNEblYwVjkzNFgtR3RyZnNBTi1NM2RPeUVIMGRYZzdKZnNhamV6ODhmd3B6VHRnUDJFRFpvSDFTd2tTdGdJa3pNWFRUUXN5Rl9rZkxLUElNMnBsQ2NkMmpuRFV5?oc=5",
      "at": "2026-10-10T14:37Z"
-    },
-    {
-     "t": "India-US Trade Pact to Adapt to Changed Circumstances: Goyal",
-     "src": "Rediff MoneyWiz",
-     "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQN3pucXRoQnlQX0xTdGx1eHpsRlNqV1F6Wjhya3VDTUctcWRjQ2tVa0pianczSmh6SWQtZ1ZWd1lxRTVUNEo3dnZGaE5zdmdVWTM0aDZmVjlpSlNBOUhCQThlcmhiZ0dhODVuYU5KeHoybXphSWtZRk1XT2w0WkE1QnlzekVrdHdxeUloOHpteVhtVWJjVlFPeW9FT2FtU29qMjlZQTNBdGNLTVhZenFradIBtgFBVV95cUxOaktRb1VZekdMY0cxUjFXZFptWi1VbW4wdXJpb0JmNzZZclU1N2JZVHU5WHA0VTJxTjB2V0F0RnRIcEcxc0RRQUliMmVFd0szS0QtWUZkMEU2SVFXR3JYVXNJTHliRGFqNkJGa3RMY3lhWkk2OG1EOXJ0RjFJWTVVbEZkdjFqMmZ1MEJtVGxJWFpnMGoxb01EbXBnelJnTlU1ODBPQVhJRGYxem8zUTczWUdPXzZHZw?oc=5",
-     "at": "2026-10-10T14:22Z"
-    },
-    {
-     "t": "Ukraine says it will keep attacking Russian refineries despite Trump-Putin diesel deal",
-     "src": "The New Voice of Ukraine",
-     "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNSmpRYkxoUW8yTG0zWThxZXJITmh2cXh4a3hZZ1Zic0VoRFRLR0xfbktGc0Nnc1hTdjBNTnNtaTFyTEl2alpOcWRaY01CcUVERGRJc2RjNTlkOEtrcDlfd1ZJSkJRVW5vcWliUXBuMXhtUi11NFkwaTFTNXpzUDlzZGdWU05xMEpCblcyMTluWE9pdFI3c3NYcDJWcG1aSVdocXhoSm1BQldUempMVnFqN3M0eFpxbHZKVDFqWkRGVF9COEVSRi1sRE5WbTBNbjlDd1llatIB1AFBVV95cUxNSmpRYkxoUW8yTG0zWThxZXJITmh2cXh4a3hZZ1Zic0VoRFRLR0xfbktGc0Nnc1hTdjBNTnNtaTFyTEl2alpOcWRaY01CcUVERGRJc2RjNTlkOEtrcDlfd1ZJSkJRVW5vcWliUXBuMXhtUi11NFkwaTFTNXpzUDlzZGdWU05xMEpCblcyMTluWE9pdFI3c3NYcDJWcG1aSVdocXhoSm1BQldUempMVnFqN3M0eFpxbHZKVDFqWkRGVF9COEVSRi1sRE5WbTBNbjlDd1llag?oc=5",
-     "at": "2026-10-10T13:22Z"
-    },
-    {
-     "t": "Rescue or sanctions? Sri Lanka’s dilemma regarding Iranian oil tankers",
-     "src": "AsiaNews",
-     "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNTUtnMFRFR1pMbERUT1RTcGgyQU9fUDBudUtSc3d1RGY2M0Y3MGVxUzI1OXdsM2VQM1RMQk84Q1REaTFGazFhakF4dS1hNUZySFJPN2o3UWNIX2lTZ3BGOXFRazFpZXFWRjRVMDhWQXQxeHZLVEt4RlEydWhPRWdCejlOeVRGVlkycUJqcDNfOFFkSXVOdzlwOEJQLW53Mk1vMDRjVVVwTml2R3haZmVoWjhQTnE1TG13?oc=5",
-     "at": "2026-10-10T12:59Z"
     },
     {
      "t": "India, Mexico to launch trade deal talks next week, says Piyush Goyal",
@@ -627,12 +633,6 @@
      "src": "NDTV Profit",
      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNel90TjZiMXpHSlU5My1LQTJmX0g3ODg3Qll5S3k5Wm1iRk1MQk53Z0k1TnREWEJIZVN3U3JNenJ2ckhFdTRZV3RzNlhkSl90TVE5R0M4dEg5SEpVdUpZdGpseWI2c1BFUGh0dFBzM180WFNLcDB4UEdLS05McDdjdWVKdDFEaWllU1pBMnVzaWZQdjUwUzB0U1JodXJVYWlmenRqdktWMlJIcTdqcmlHUzFhZ9IBuwFBVV95cUxNSk9aYUVZc1k3YTlvaGpzWlVCeEtFRkdWYWs5MWpqbzRkMWxYWG5ocmRYZGZZZzY5WmxacXRPdDJyekJTenkyMm90UUZoSFROZUE5bDI2WE5wXzBrZ3ZEWGFqS0kxMHpDM01sQmt6OVAtZ3lTalpxanBtQW94WndzQTVGbXRnT1ZaTnVPc3hlVGc1WC1KVlMySm5xYV82dXFhVU5vMzJEQk9udmFqekxwamR2Wk1sNC0zN3pV?oc=5",
      "at": "2026-10-10T05:18Z"
-    },
-    {
-     "t": "China and European Union Reach Broad Trade Deal to Lower Tariffs and Stabilise Supply Chains",
-     "src": "CNBC TV18",
-     "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNTzlibEtZcmllNUNmaHJnazlMOHNQaTZSWllGaGpvVkNzNi1meFlzcDlnY2RZV3lMZlotR3cwdEktOVNEcl8xUlZlaUN3bXVNYktsUW9lWElFeFNKVWlBektGUWtkWkZpd1BoV3ZYS2NjLXVtaW5PdGIycVhISlF6MHo4M1YydU9YNGlfODJ3NXpXZmpIdF9Id0tXNXZRandFQ0J0dlhPczdmRzFBbm1hVUpPX29MRkXSAbwBQVVfeXFMTk83OFZ1R0ZXbmdTbE9jcDZ3cjA3NFBSakU5THVCWi1jd1pZV2hGSDB3a3IzbmJZV0k4d2oyaWk2VHRPTUc1U3BwUEkxZU5hOEtLMmYxUjN2ZU1DM2NiYzBya2V1MDNLVWlyRUZOUlZ1U3lnWEZqbmdCYUtOTjRYV3BScGQzaG9iSjB0WDcxYWszcjVqNWFtMGNod1NyajVidWdpTWJkZXZQb0JGRXc5Zmg3TkxmQ05xREpsMDQ?oc=5",
-     "at": "2026-10-10T04:09Z"
     }
    ]
   }
