@@ -66,6 +66,13 @@ brief to hand to the report generator. Details in [data/scans/README.md](data/sc
 - **Market News** collects the overnight headlines early each morning (`tools/market_news.py collect`, run by
   `.github/workflows/market_news.yml`, scheduled for 03:13 IST; GitHub often starts it late) and groups them by topic; a short digest written from those
   headlines alone is merged on top by a Claude routine.
+- **Global Peers** puts the Indian names you follow next to the US and global companies that mirror, supply or
+  buy from them (HFCL and Sterlite Tech with Corning, MTAR with Bloom Energy, Netweb and E2E with NVIDIA, Super
+  Micro and Nebius, GNG with SK hynix and Samsung), with each side's moves, how closely their daily returns have
+  tracked over 3, 6 and 12 months, the next US earnings dates and recent headlines. Pairs live in
+  `data/peers/pairs.json` (edit by hand); `python tools/build_peers.py` rebuilds `data/peers/peers.json`, and the
+  morning GitHub job runs it too. Correlation is co-movement, not cause: a strong one says the two have tended to
+  move together, not that one will follow the other.
 - **RS Leaders** explains itself: an **i** beside every column, and a click on any Trend, Exhaustion or
   Verdict cell gives that stock's own reason. It also lists the names that entered the top 25 this week
   and the ones climbing toward it, and checks your holdings against the list.

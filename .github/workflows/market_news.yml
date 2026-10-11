@@ -3,7 +3,8 @@ name: Market news and macro (before the Indian morning)
 # Collects the overnight headlines for the Market News page, the candidate headlines for the newest
 # scan's gainers, and tops up the macro file behind Markets & Macro, then commits them. No model runs
 # here and nothing needs a key: tools/market_news.py and tools/gainers_news.py read public news feeds,
-# tools/fetch_markets.py reads Yahoo, RBI, NSDL and SEBI. NSE's index file is left to the evening pull
+# tools/fetch_markets.py reads Yahoo, RBI, NSDL and SEBI; tools/build_peers.py reads Yahoo, Nasdaq's earnings
+# calendar and Google News for the Global Peers page. NSE's index file is left to the evening pull
 # on the owner's PC.
 #
 # The time: 21:43 UTC = 03:13 IST, after the US close in either daylight-saving regime. GitHub's
@@ -48,11 +49,18 @@ jobs:
       - name: Top up the macro file
         run: python tools/fetch_markets.py --only global,rbi,fpi,sectors,mf || true
 
+      # bounded on its own: a slow Yahoo or Google News must not eat the job's 15 minutes
+      # and keep the news, gainers and macro files above from being committed
+      - name: Rebuild Global Peers (US and global names next to the Indian ones)
+        timeout-minutes: 6
+        continue-on-error: true
+        run: python3 tools/build_peers.py --quiet || true
+
       - name: Commit and push
         run: |
           git config user.name "swingedge-bot"
           git config user.email "swingedge-bot@users.noreply.github.com"
-          git add data/daily/market_news.json data/daily/gainers_candidates.json data/markets/markets.json
+          git add data/daily/market_news.json data/daily/gainers_candidates.json data/markets/markets.json data/peers
           if git diff --cached --quiet; then echo "nothing changed"; exit 0; fi
           git commit -m "Market news and macro $(date -u +%Y-%m-%d)"
           for i in 1 2 3 4; do

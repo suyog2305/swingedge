@@ -8,7 +8,7 @@ sidebar and on the Shortlist pull card. `fetch_screener.py` exits 5 when screene
 (session expired); `eod.py --wait-until` then keeps retrying every poll until the deadline, re-reading the cookie file
 each time, so a fresh `sessionid` pasted into `.secrets/screener_cookie.txt` in the evening lets the run finish by itself.
 A GitHub job (`.github/workflows/market_news.yml`) is scheduled for 03:13 IST (cron 21:43 UTC; GitHub
-often starts it late): market_news collect + fetch_markets (everything except NSE's index file). Work on `main`
+often starts it late): market_news collect + fetch_markets (everything except NSE's index file) + build_peers. Work on `main`
 directly; rebase on `origin/main` before pushing (the pull, the early-morning job or a routine may have landed a commit).
 
 ## After any edit to index.html
@@ -47,6 +47,19 @@ or BSE: they serve it only to a browser session and this project does not preten
 The Indices page and the tracker block on Markets & Macro render whatever is in `indices.json`: no HTML changes. Indices
 are equal-weight, chain-linked, base 100, with an equal-weight "market" line for relative strength. Editing a member
 list rebuilds the whole series from history.
+
+## Global Peers — the cheap path (do not open index.html for this)
+1. Edit `data/peers/pairs.json`: a group is `{id, name, why, owner, india: [{code}], global: [{sym, name, rel, note, for?}]}`
+   (`rel` peer / customer / supplier / parent / bellwether; `for` limits a global name to some Indian codes).
+2. `python tools/build_peers.py [--only <group id>] [--no-news] [--no-earnings]` (stdlib, Yahoo + Nasdaq + Google News).
+3. `git add data/peers && git commit -m "Peers: <what changed>" && git push origin main`. The morning GitHub job reruns it.
+File contract: the tool writes `data/peers/peers.json` (`schema` 1, `asof`, `windows` 3M/6M/1Y = 63/126/250 trading
+days, `groups[]` each with `members` keyed by NSE code or Yahoo symbol: side, last, chg, from_52w_high, a 260-day
+`series`; global ones add rel, for, lag, earnings, news) and `pairs[]` (n, same, next, beta_same, beta_next, hit,
+read, label). `lag` is "same" for exchanges that close before India (.KS .T .HK ...) and "next" for US/Europe, whose
+day d is matched with India's next session; `read` is the correlation in that alignment and `label` is its word
+(strong >= 0.5, moderate >= 0.3, weak >= 0.15, none, inverse <= -0.3) from the 3M window. The page renders whatever
+is in the file. Co-movement, not cause; describe it, never rate a stock from it.
 
 ## Relative strength
 One engine: `tools/rs.py` ⇄ `seRsQuarters` / `seScore` / `seRank` in `index.html` — IBD 40/20/20/20 weighted average

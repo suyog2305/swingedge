@@ -466,6 +466,22 @@ wait would show today's prices against yesterday's averages, which is worse than
 One day is one day: if the completion time drifts, the log now shows every poll with its
 fractions, and the deadline is 21:00.
 
+### 2026-10-11, evening — the cookie came back; Global Peers
+
+The owner pasted a new session cookie at 21:36; the watcher pulled the 9 Oct close two minutes later (scan
+2026-10-01 → 2026-10-09, 20 shortlist names, 16 new). Monday's 15:50 run is back on the normal path.
+
+**Global Peers** (Markets & Macro → Global Peers): the US and global names that lead, supply or mirror Indian
+stocks — HFCL and Sterlite against Corning, GNG Electronics against SK hynix and Samsung, Netweb and E2E against
+Super Micro, Nebius and NVIDIA, MTAR against Bloom Energy (its largest customer), plus three groups Claude added
+(grid-equipment parents, Accenture for Indian IT, Lonza for CDMOs; marked `owner: false`). `data/peers/pairs.json`
+is the config; `tools/build_peers.py` pulls a year of Yahoo closes for both sides, measures the correlation of daily
+returns on the day that matters (US and European closes against India's next session, Asian closes against the same
+day), a hit rate and a beta per window, the next US results date from Nasdaq's calendar and three headlines per
+global name; the GitHub job rebuilds it each morning. First numbers: HFCL–Corning r 0.41 on the next-session basis
+against 0.14 same-day (the lag design is the point), MTAR–Bloom 0.50, Infosys–Accenture 0.61, GNG–hynix none yet
+(GNG listed in July). The page says what every number means and never rates a stock.
+
 ### 2026-10-11 — the cookie was never renewed; a 62-agent audit; the book, reviewed by the API
 
 Nothing was pulled all week: the cookie file is still the one from 9 Sep, every 15:50 run polled until 21:00 and

@@ -1145,6 +1145,7 @@ html[data-theme="lab"]{--viz-1:#3987e5;--viz-2:#d95926;--viz-3:#199e70;--viz-4:#
 .ix-card .g{font-size:10px;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;} .ix-card .nm{font-weight:700;font-size:13px;}
 .ix-card .lv{font-family:var(--mono);font-size:20px;font-weight:700;margin:4px 0 2px;} .ix-card .rt{display:flex;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:10.5px;color:var(--t3);}
 .ix-spark{width:100%;height:34px;display:block;margin-top:6px;} .ix-spark path{fill:none;stroke:var(--lime);stroke-width:1.5;vector-effect:non-scaling-stroke;}
+.pr-cp{display:block;white-space:nowrap;line-height:1.9;} .scan-table td.pr-l,.scan-table thead th.pr-l{text-align:left;} .pr-hl{min-width:220px;max-width:380px;white-space:normal;line-height:1.4;} .pr-hl a{color:var(--t1);text-decoration:none;font-weight:600;} .pr-hl a:hover{text-decoration:underline;color:var(--teal);}
 .mk-tile .ix-spark{height:28px;} .mk-tile .ix-spark path{stroke:var(--t3);stroke-width:1.3;}
 .se-stock .se-nm{font-size:10.5px;color:var(--t3);margin-top:1px;max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .se-hist{display:flex;align-items:flex-end;gap:6px;height:150px;padding:8px 4px 0;}
@@ -1300,6 +1301,7 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
     <div class="nav" id="nav-indices" onclick="show('indices')"><i class="ti ti-chart-line"></i>Indices</div>
     <div class="nav" id="nav-sectors" onclick="show('sectors')"><i class="ti ti-chart-pie-2"></i>Sectors</div>
     <div class="nav" id="nav-themes" onclick="show('themes')"><i class="ti ti-chart-dots"></i>Theme Trackers</div>
+    <div class="nav" id="nav-peers" onclick="show('peers')"><i class="ti ti-world-share"></i>Global Peers</div>
     <div class="nav" id="nav-wr" onclick="show('wr')"><i class="ti ti-report-analytics"></i>Weekly Report</div>
     <div class="sb-group">Relative Strength &amp; Stage 2</div>
     <div class="nav" id="nav-rsscreen" onclick="show('rsscreen')"><i class="ti ti-chart-arrows-vertical"></i>RS Screen</div>
@@ -1495,6 +1497,15 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
     </div>
   </div>
   <div class="content se-content se-pad"><div id="tt-body"></div></div>
+</div>
+<div class="sec" id="sec-peers">
+  <div class="topbar">
+    <div class="tb-left"><span class="tb-title">Global Peers</span><span class="tb-crumb">/ the US and global names your Indian stocks follow</span></div>
+    <div class="tb-right">
+      <button class="btn btn-sm" onclick="loadPR(true)"><i class="ti ti-refresh"></i>Refresh</button>
+    </div>
+  </div>
+  <div class="content se-content se-pad"><div id="pr-body"></div></div>
 </div>
 
 <!-- ── EDGE: SECTORS ── -->
@@ -3157,6 +3168,7 @@ function show(id){
   if(id === 'themes'){ if(!TT.loaded && !TT.loading) loadTT(false); else ttRender(); }   // charts need a visible canvas, so draw on show
   if(id === 'rsleaders'){ if(!RL.loaded && !RL.loading) loadRL(false); else renderRL(); }  // re-render: positions may have changed
   if(id === 'indices'){ if(!IX.loaded && !IX.loading) loadIX(false); else renderIX(); }
+  if(id === 'peers'){ if(!PR.loaded && !PR.loading) loadPR(false); else renderPR(); }
   if(id === 'pulse'){ if(!MK.loaded && !MK.loading) loadMK(false); else renderMK(); }
   if(id === 'news'){ if(!MN.loaded && !MN.loading) loadMN(false); else renderMN(); }
   if(id === 'tr' && !TR.loaded && !TR.loading) loadTR(false);   // reads every scan on file (about 20 MB), so only when the page is opened
@@ -6952,6 +6964,7 @@ function wrSort(id, col){
   else if(s.startsWith('pd-')) renderPD();
   else if(s.startsWith('sj-')) renderSJ();
   else if(s.startsWith('tr-')) renderTR();
+  else if(s.startsWith('pr-')) renderPR();
   else wrRenderTab();
 }
 
@@ -7836,6 +7849,200 @@ function renderIX(){
   seCountUp(el);
   ['ix-detail', 'ix-rs', 'ix-all'].forEach(chMount);
 }
+
+// ============= GLOBAL PEERS — the US and global names that lead, supply or mirror Indian stocks =============
+// Reads data/peers/peers.json (tools/build_peers.py; the pairings are in data/peers/pairs.json). One chart per group
+// (every member rebased to 100), a pairs table with the read-across numbers, and "Read-across now": the global names
+// by their week, next to their Indian counterparts. Correlations describe the past; nothing here rates a stock.
+const PR = { doc: null, loaded: false, loading: false, error: null, win: '6M', sel: null };
+const PR_WINS = [['3M', 93], ['6M', 186], ['1Y', 370]];
+const PR_REL = { peer: 'Peer', customer: 'Customer', supplier: 'Supplier', parent: 'Parent', bellwether: 'Bellwether' };
+const PR_TONE = { strong: 'strongup', moderate: 'up', weak: 'na', none: 'na', inverse: 'down' };
+async function loadPR(manual){
+  if(PR.loading) return; PR.loading = true;
+  try{ const res = await fetch('data/peers/peers.json', {cache: manual ? 'reload' : 'default'}); if(!res.ok) throw new Error('HTTP ' + res.status); PR.doc = await res.json(); PR.error = null; }
+  catch(err){ PR.doc = null; PR.error = err.message || String(err); }
+  finally{ PR.loading = false; PR.loaded = true; }
+  renderPR();
+}
+// the tool's word scale, applied to the chosen window (the tool's own `label` is the 3M one)
+function prWord(r){ if(!wrIsNum(r)) return null; r = +r; if(r <= -0.3) return 'inverse'; const a = Math.abs(r); return a >= 0.5 ? 'strong' : a >= 0.3 ? 'moderate' : a >= 0.15 ? 'weak' : 'none'; }
+function prPairWord(p, w){ return w === '3M' && p.label ? p.label : prWord((p.read || {})[w]); }
+function prPill(word){ return word ? `<span class="se-pill trend ${PR_TONE[word] || 'na'}">${wrEsc(word)}</span>` : '<span class="flat">—</span>'; }
+function prR(v){ return wrIsNum(v) ? (+v).toFixed(2) : '<span class="flat">—</span>'; }
+function prLag(lag){ return lag === 'same' ? 'Same India day' : 'Next India session'; }
+function prDays(iso){ return iso ? chDay(iso) - chDay(ttIso(new Date())) : null; }
+function prEarnTime(t){ t = String(t || ''); return /after/.test(t) ? ', after the US close' : /pre/.test(t) ? ', before the US open' : ''; }
+function prEarn(e){
+  if(!e || !e.date) return '<span class="flat">—</span>'; const d = prDays(e.date); if(d == null || d < 0) return '<span class="flat">—</span>';
+  return `${wrShort(e.date)} <span class="flat">(${d === 0 ? 'today' : 'in ' + d + ' d'}${prEarnTime(e.time)})</span>`;
+}
+function prSoon(e){ const d = e && e.date ? prDays(e.date) : null; return d != null && d >= 0 && d <= 21; }
+function prHeadline(list){
+  const n = (list || [])[0]; if(!n || !n.t) return '<span class="flat">—</span>';
+  const safe = /^https?:\/\//i.test(n.url || ''), t = wrEsc(n.t);
+  return `<div class="pr-hl">${safe ? `<a href="${wrAttr(n.url)}" target="_blank" rel="noopener">${t}</a>` : t}<div class="mn-s">${wrEsc(n.src || '')}${n.date ? ' · ' + wrShort(n.date) : ''}</div></div>`;
+}
+// every global name once (a symbol can sit in two groups), with its Indian counterparts and their read-across in window w
+function prGlobals(d, w){
+  const out = new Map();
+  (d.groups || []).forEach(g => {
+    const M = g.members || {};
+    Object.entries(M).forEach(([k, m]) => {
+      if(m.side !== 'global') return;
+      const row = out.get(k) || {sym: k, name: m.name || k, w1: (m.chg || {})['1W'], lag: m.lag, earn: m.earnings || null, news: m.news || [], groups: [], cps: []};
+      row.edays = row.earn && row.earn.date ? prDays(row.earn.date) : null;
+      if(!row.groups.includes(g.name)) row.groups.push(g.name);
+      (g.pairs || []).filter(p => p.global === k).forEach(p => { const im = M[p.india] || {}; if(row.cps.some(c => c.code === p.india)) return;
+        row.cps.push({code: p.india, w1: (im.chg || {})['1W'], read: (p.read || {})[w], word: prPairWord(p, w)}); });
+      out.set(k, row);
+    });
+  });
+  return [...out.values()].map(r => ({...r, cpW1: r.cps.length && r.cps.some(c => wrIsNum(c.w1)) ? r.cps.filter(c => wrIsNum(c.w1)).reduce((s, c) => s + c.w1, 0) / r.cps.filter(c => wrIsNum(c.w1)).length : null}));
+}
+function prPairRows(g, w){
+  const M = g.members || {}, at = (o, k) => o && o[k] != null ? o[k] : null;
+  return (g.pairs || []).map(p => { const im = M[p.india] || {}, gm = M[p.global] || {}, lag = p.lag || gm.lag;
+    return {india: p.india, iname: im.name || p.india, global: p.global, gname: gm.name || p.global, rel: p.rel || gm.rel, lag, note: gm.note || '', stale: !!(gm.stale || im.stale),
+      read: at(p.read, w), word: prPairWord(p, w), same: at(p.same, w), next: at(p.next, w), beta: at(lag === 'same' ? p.beta_same : p.beta_next, w),
+      hit: at(p.hit, w), n: at(p.n, w), gw1: (gm.chg || {})['1W'], iw1: (im.chg || {})['1W'], earn: gm.earnings || null, edays: gm.earnings && gm.earnings.date ? prDays(gm.earnings.date) : null}; });
+}
+function prPairsTable(g, w){
+  const num2 = v => wrIsNum(v) ? (+v).toFixed(2) : '<span class="flat">—</span>';
+  const cols = [
+    {k:'iname', t:'India', type:'html', html: r => `<b>${wrEsc(r.india)}</b>${r.iname !== r.india ? `<div class="mn-s">${wrEsc(r.iname)}</div>` : ''}`, info: 'pr-pair'},
+    {k:'gname', t:'Global', type:'html', html: r => `<b>${wrEsc(r.gname)}</b><div class="mn-s">${wrEsc(r.global)}${r.note ? ' · ' + wrEsc(r.note) : ''}</div>${r.stale ? '<span class="wr-tag stale">not refreshed</span>' : ''}`, info: 'pr-pair'},
+    {k:'rel', t:'Relationship', type:'html', html: r => wrEsc(PR_REL[r.rel] || r.rel || '—'), info: 'pr-rel'},
+    {k:'lag', t:'Lines up with', type:'html', html: r => prLag(r.lag), info: 'pr-lag'},
+    {k:'read', t:`Read-across r (${w})`, type:'html', sortType:'num', html: r => `<b>${prR(r.read)}</b>`, info: 'pr-readacross'},
+    {k:'word', t:'Link', type:'html', sortType:'num', fn: r => r.read, html: r => prPill(r.word), info: 'pr-label'},
+    {k:'same', t:'Same-day r', type:'html', sortType:'num', html: r => prR(r.same), info: 'pr-corr'},
+    {k:'next', t:'Next-session r', type:'html', sortType:'num', html: r => prR(r.next), info: 'pr-corr'},
+    {k:'beta', t:'Beta', type:'html', sortType:'num', html: r => num2(r.beta), info: 'pr-beta'},
+    {k:'hit', t:'Hit rate', type:'html', sortType:'num', html: r => num2(r.hit), info: 'pr-hit'},
+    {k:'n', t:'Days', type:'int', info: 'pr-n'},
+    {k:'gw1', t:'Global 1W', type:'pct', dec: 1, info: 'pr-move'},
+    {k:'iw1', t:'India 1W', type:'pct', dec: 1, info: 'pr-move'},
+    {k:'edays', t:'Global results', type:'html', sortType:'num', html: r => prEarn(r.earn), info: 'pr-earnings'},
+  ];
+  return wrTable('pr-' + g.id, cols, prPairRows(g, w), {sort: {col: 'read', dir: 'desc'}, empty: 'No pairs in this group.'});
+}
+function prMembersTable(g){
+  const rows = Object.entries(g.members || {}).map(([k, m]) => ({code: k, name: m.name || k, side: m.side, exch: m.exchange || '', cur: m.currency || '', last: m.last, ld: m.last_date,
+    w1: (m.chg || {})['1W'], m1: (m.chg || {})['1M'], m3: (m.chg || {})['3M'], m6: (m.chg || {})['6M'], y1: (m.chg || {})['1Y'], hi: m.from_52w_high, earn: m.earnings || null, edays: m.earnings && m.earnings.date ? prDays(m.earnings.date) : null, noSeries: !m.series}));
+  const cols = [
+    {k:'name', t:'Name', type:'html', html: r => `<b>${wrEsc(r.name)}</b><div class="mn-s">${wrEsc(r.code)}${r.noSeries ? ' · <span class="dn">no price history fetched</span>' : ''}</div>`, info: 'pr-member'},
+    {k:'side', t:'Side', type:'html', html: r => (r.side === 'india' ? 'India' : 'Global') + (r.exch ? ` <span class="flat">${wrEsc(r.exch)}</span>` : ''), info: 'pr-member'},
+    {k:'last', t:'Last close', type:'html', sortType:'num', html: r => wrIsNum(r.last) ? `${wrNum(r.last, 2)} <span class="flat">${wrEsc(r.cur)}${r.ld ? ' · ' + wrShort(r.ld) : ''}</span>` : '<span class="flat">—</span>', info: 'pr-last'},
+    {k:'w1', t:'1W %', type:'pct', dec: 1, info: 'pr-move'}, {k:'m1', t:'1M %', type:'pct', dec: 1, info: 'pr-move'}, {k:'m3', t:'3M %', type:'pct', dec: 1, info: 'pr-move'},
+    {k:'m6', t:'6M %', type:'pct', dec: 1, info: 'pr-move'}, {k:'y1', t:'1Y %', type:'pct', dec: 1, info: 'pr-move'},
+    {k:'hi', t:'vs 52W high', type:'pct', dec: 1, info: 'pr-52w'},
+    {k:'edays', t:'Results', type:'html', sortType:'num', html: r => r.side === 'india' ? '<span class="flat">—</span>' : prEarn(r.earn), info: 'pr-earnings'},
+  ];
+  return wrTable('pr-m-' + g.id, cols, rows, {sort: {col: 'w1', dir: 'desc'}});
+}
+function prNowTable(d, w){
+  const cols = [
+    {k:'name', t:'Global name', type:'html', html: r => `<b>${wrEsc(r.name)}</b><div class="mn-s">${wrEsc(r.sym)} · ${wrEsc(r.groups.join(', '))}</div>`, info: 'pr-pair'},
+    {k:'w1', t:'1W %', type:'pct', dec: 1, info: 'pr-move'},
+    {k:'lag', t:'Lines up with', type:'html', html: r => prLag(r.lag), info: 'pr-lag'},
+    {k:'edays', t:'Results', type:'html', sortType:'num', html: r => prSoon(r.earn) ? `<span class="se-pill re" style="margin-left:0;">results on ${wrShort(r.earn.date)}</span>` : '<span class="flat">—</span>', info: 'pr-earnings'},
+    {k:'cpW1', t:`Indian counterparts — 1W %, read-across r (${w})`, type:'html', sortType:'num', cls: 'pr-l',
+      html: r => r.cps.length ? r.cps.map(c => `<span class="pr-cp"><b>${wrEsc(c.code)}</b> ${wrPct(c.w1, 1)} <span class="flat">· r</span> ${prR(c.read)} ${prPill(c.word)}</span>`).join('') : '<span class="flat">—</span>', info: 'pr-readacross'},
+    {k:'news', t:'Latest headline', type:'html', fn: r => ((r.news || [])[0] || {}).date || '', html: r => prHeadline(r.news), info: 'pr-headline'},
+  ];
+  return wrTable('pr-readacross', cols, prGlobals(d, w), {sort: {col: 'w1', dir: 'desc'}, empty: 'No global names yet.'});
+}
+function prKpis(d, w){
+  const groups = d.groups || [], pairs = groups.flatMap(g => prPairRows(g, w).map(r => ({...r, group: g.name})));
+  const glob = prGlobals(d, w), india = new Set(pairs.map(p => p.india));
+  const linked = pairs.filter(p => wrIsNum(p.read) && p.read >= 0.3);
+  const best = pairs.filter(p => wrIsNum(p.read)).sort((a, b) => b.read - a.read)[0];
+  const soon = glob.filter(g => prSoon(g.earn)).sort((a, b) => a.edays - b.edays);
+  const moved = glob.filter(g => wrIsNum(g.w1)).sort((a, b) => Math.abs(b.w1) - Math.abs(a.w1))[0];
+  return [
+    seKpi('Pairs tracked', String(pairs.length), `${glob.length} global names against ${india.size} Indian stocks in ${groups.length} groups`, '', pairs.length),
+    seKpi(`r 0.3 or more (${w})`, `${linked.length}/${pairs.length}`, 'pairs whose read-across correlation is moderate or strong', linked.length ? 'ok' : ''),
+    seKpi('Strongest link', best ? `${wrEsc(best.india)} ↔ ${wrEsc(best.gname)}` : '—', best ? `r ${prR(best.read)} over ${w} · ${wrEsc(best.word || '—')}` : 'not enough paired days yet'),
+    seKpi('Results in 21 days', String(soon.length), soon.length ? soon.slice(0, 4).map(g => `${wrEsc(g.name)} ${wrShort(g.earn.date)}`).join(' · ') : 'none on the Nasdaq calendar', soon.length ? 'warn' : ''),
+    seKpi('Biggest global week', moved ? `${wrEsc(moved.name)} ${wrPct(moved.w1, 1)}` : '—', moved ? `counterparts: ${wrEsc(moved.cps.map(c => c.code).join(', ') || '—')}` : ''),
+    seKpi('Closes used', `${wrShort((d.asof || {}).india)} / ${wrShort((d.asof || {}).global)}`, `India / global · built ${wrEsc(String(d.updated || '').replace('T', ' '))}`),
+  ];
+}
+function prCards(d, w){
+  return (d.groups || []).map(g => {
+    const M = g.members || {}, ind = Object.keys(M).filter(k => M[k].side === 'india'), glo = Object.keys(M).filter(k => M[k].side === 'global').map(k => M[k].name || k);
+    const best = prPairRows(g, w).filter(p => wrIsNum(p.read)).sort((a, b) => b.read - a.read)[0];
+    return `<div class="se-panel ix-card ${g.id === PR.sel ? 'sel' : ''}" data-pr="${wrAttr(g.id)}" onclick="prPick('${wrAttr(g.id)}')">
+      <div class="g">${g.owner ? 'Your pairing' : 'Suggested pairing'} · ${Object.keys(M).length} names</div><div class="nm">${wrEsc(g.name)}</div>
+      <div class="rt" style="margin-top:6px;"><span>${wrEsc(ind.join(', '))} ↔ ${wrEsc(glo.join(', '))}</span></div>
+      <div class="rt" style="margin-top:6px;">${best ? `<span>best: ${wrEsc(best.india)} ↔ ${wrEsc(best.gname)} <b>${prR(best.read)}</b> ${prPill(best.word)}</span>` : '<span>no pair measured yet</span>'}</div></div>`;
+  }).join('');
+}
+function prPick(id){ PR.sel = id; document.querySelectorAll('#pr-cards .ix-card').forEach(c => c.classList.toggle('sel', c.dataset.pr === id)); mkJump('pr-g-' + id); }
+function prWinSeg(){ return `<div class="tt-filter" style="margin:0;"><span class="wr-hint" style="margin:0;">Window</span><div class="se-seg pr-win">${PR_WINS.map(([w]) => `<button class="${PR.win === w ? 'active' : ''}" onclick="prSetWin('${w}')">${w}</button>`).join('')}</div></div>`; }
+// the Indices chip mechanism (chSetWin re-mounts every registered pr- chart), plus the tables, whose numbers follow the window
+function prSetWin(w){
+  PR.win = w; chSetWin('pr-', w);
+  document.querySelectorAll('.pr-win button').forEach(b => b.classList.toggle('active', b.textContent === w));
+  const d = PR.doc; if(!d) return; const put = (id, html) => { const el = document.getElementById(id); if(el) el.innerHTML = html; };
+  put('pr-kpis', prKpis(d, w).join('')); put('pr-cards', prCards(d, w)); put('pr-now', prNowTable(d, w));
+  (d.groups || []).forEach(g => put('pr-tb-' + g.id, prPairsTable(g, w)));
+}
+function prRegChart(g){
+  const key = 'pr-' + g.id, M = g.members || {};
+  const ser = Object.entries(M).filter(([, m]) => m.series && (m.series.dates || []).length > 1).map(([k, m], i) => ({
+    label: m.side === 'india' ? k : (m.name || k), pts: m.series.dates.map((dt, j) => [dt, m.series.close[j]]).filter(p => p[1] != null),
+    unit: m.currency || '', digits: 2, slot: (i % 8) + 1}));
+  const end = ser.reduce((a, s) => { const l = s.pts.length ? s.pts[s.pts.length - 1][0] : ''; return l > a ? l : a; }, '');
+  CH.reg[key] = {title: `${g.name}: Indian and global names together`, sub: 'every name rebased to 100 at the start of the window — a line\'s height is its percentage move since then, whatever its currency',
+    wins: PR_WINS, win: PR.win, hidden: (CH.reg[key] || {}).hidden,
+    note: 'Each market trades on its own calendar; across the other side\'s holiday the last close is carried. US and European closes land a day after the Indian close they are read against.',
+    build: days => end ? chGrid(ser, chIso(chDay(end) - days), true) : null};
+  return key;
+}
+function renderPR(){
+  const el = document.getElementById('pr-body'); if(!el) return;
+  if(!PR.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading…</p></div>'; return; }
+  Object.keys(CH.live).filter(k => k.startsWith('pr-')).forEach(k => { try{ CH.live[k].destroy(); }catch(e){} delete CH.live[k]; });
+  const d = PR.doc;
+  if(!d || !(d.groups || []).length){ el.innerHTML = seEmpty('No peers data yet', `Run <code>python tools/build_peers.py</code>, commit <code>data/peers/</code>, then Refresh.${PR.error ? ` <span class="flat">(${wrEsc(PR.error)})</span>` : ''}`); return; }
+  const w = PR_WINS.some(x => x[0] === PR.win) ? PR.win : (PR.win = '6M'), groups = d.groups;
+  const live = new Set(groups.map(g => 'pr-' + g.id)); Object.keys(CH.reg).filter(k => k.startsWith('pr-') && !live.has(k)).forEach(k => delete CH.reg[k]);
+  const keys = groups.map(prRegChart);
+  const panels = groups.map(g => `<div class="se-panel mk-sec" id="pr-g-${wrAttr(g.id)}"><div class="se-row-h"><div><div class="se-eyebrow">${g.owner ? 'Your pairing' : 'Suggested pairing — remove it from pairs.json if not wanted'}</div><h2>${wrEsc(g.name)}</h2>${g.why ? `<div class="wr-hint">${wrEsc(g.why)}</div>` : ''}</div>${prWinSeg()}</div>
+      <div style="margin-top:10px;">${chCard('pr-' + g.id)}</div>
+      <div class="se-row-h" style="margin-top:12px;"><div><h2 style="font-size:14px;">Pairs — how closely each Indian name has followed each global one${seInfoBtn('pr-corr')}</h2></div></div>
+      <div id="pr-tb-${wrAttr(g.id)}">${prPairsTable(g, w)}</div>
+      <div class="se-row-h" style="margin-top:12px;"><div><h2 style="font-size:14px;">Members — price moves</h2></div></div>
+      ${prMembersTable(g)}</div>`).join('');
+  el.innerHTML = `<div class="se-row-h"><div><div class="se-eyebrow">Markets &amp; Macro · global read-across</div><h2>Global Peers — ${groups.length} groups, India close ${wrDate((d.asof || {}).india)}, global close ${wrDate((d.asof || {}).global)}</h2></div>${prWinSeg()}</div>
+    ${d.sample ? '<div class="wr-hint"><span class="dn">Sample data: these prices and numbers are made up to show the layout. Run <code>python tools/build_peers.py</code> for real ones.</span></div>' : ''}
+    <div class="wr-hint">The US and global names that mirror the Indian stocks you follow, supply them or are their customers. Correlation of daily returns describes how they moved together in the past; it does not mean one causes the other and it can change. The window sets the charts and every number in the tables.${seInfoBtn('pr-chart')}</div>
+    <div class="se-kpis" id="pr-kpis">${prKpis(d, w).join('')}</div>
+    <div class="ix-grid" id="pr-cards" style="margin-top:12px;">${prCards(d, w)}</div>
+    <div class="se-panel mk-sec"><div class="se-row-h"><div><div class="se-eyebrow">This week</div><h2>Read-across now${seInfoBtn('pr-readacross')}</h2><div class="wr-hint">Global names by their one-week move, with their Indian counterparts' week next to them. A US or European move shows up in India the next session; a Korean, Japanese or Hong Kong move the same day.</div></div></div>
+      <div id="pr-now">${prNowTable(d, w)}</div></div>
+    ${panels}`;
+  seCountUp(el);
+  keys.forEach(chMount);
+}
+SE_INFO['pr-chart'] = `<h4>The group chart</h4><p>Every Indian and global name in the group, each rebased to 100 at the start of the window you pick (3M, 6M or 1Y). A line at 120 has gained 20% since then; at 90 it has lost 10%. Rebasing lets a rupee stock, a dollar stock and a won stock share one axis.</p><p>Click a name in the legend to hide it; the axis re-fits. Expand opens it full-screen with a log scale.</p><p>The chart shows the path. The tables below put a number on how closely the day-to-day moves lined up.</p>`;
+SE_INFO['pr-corr'] = `<h4>Correlation (r)</h4><p>How closely two stocks' <b>daily returns</b> moved together over the window, from −1 to +1. +1 means every up day of one was an up day of the other in proportion; 0 means no visible link; −1 means they moved opposite ways.</p><ul><li><b>Same-day r</b> pairs each Indian day with the global name's move on the same calendar date.</li><li><b>Next-session r</b> pairs the global name's move on day d with the Indian stock's move on its next trading session after d.</li></ul><p>It measures co-movement, not cause: two stocks can line up because the same news moved both. Scale: 0.5 or more strong, 0.3 moderate, 0.15 weak, below that none; −0.3 or lower inverse.</p>`;
+SE_INFO['pr-readacross'] = () => `<h4>Read-across</h4><p>The one correlation that matters for each pair: the one that lines up with when news can actually reach India. For US and European names it is the <b>next-session r</b>; for Korean, Japanese, Hong Kong and other Asian names it is the <b>same-day r</b>. Shown for the ${PR.win} window you picked.</p><p>"Read-across now" lists the global names by their move over the last week, with each Indian counterpart's own week and this number beside it. A high r next to a large global move is the signal this page exists for: the two names' daily moves have lined up in the past, so the global move is worth reading before the Indian open. r measures daily co-movement, not reactions on results days, and it describes the past, not a forecast.</p>`;
+SE_INFO['pr-lag'] = `<h4>Lines up with</h4><p>Which Indian session a global move is compared with. India closes at 15:30 IST.</p><ul><li><b>Next India session</b> — the US and Europe close after India (New York at about 01:30 IST). A US move on Thursday can only show up in India on Friday, so the US day is paired with India's next session.</li><li><b>Same India day</b> — Korea, Japan, Hong Kong, China and Taiwan close before India does, so their move on a date is paired with India's move on the same date.</li></ul>`;
+SE_INFO['pr-hit'] = `<h4>Hit rate</h4><p>The share of days on which the two moved in the same direction (both up or both down), using the pair's read-across timing. 0.60 means they agreed on 6 days out of 10. A coin toss gives about 0.50, so 0.55 is a faint lean and 0.65 or more is a clear one.</p>`;
+SE_INFO['pr-beta'] = `<h4>Beta</h4><p>How big the Indian move has been per 1% move of the global name, on the read-across timing. A beta of 0.55 means India moved about 0.55% for each 1% of the global name, on average. It says nothing on its own about how reliable that is — read it next to r: a beta with an r near 0 is noise.</p>`;
+SE_INFO['pr-label'] = `<h4>Link</h4><p>A word for the read-across r so the table can be scanned: <b>strong</b> 0.5 or more, <b>moderate</b> 0.3 to 0.5, <b>weak</b> 0.15 to 0.3, <b>none</b> below 0.15, and <b>inverse</b> at −0.3 or lower (they tended to move opposite ways). With fewer than 40 paired days there is no number and no word.</p>`;
+SE_INFO['pr-earnings'] = `<h4>Results dates</h4><p>The next quarterly results date of the global name, from Nasdaq's public earnings calendar, looked up for the next 60 days. "After the US close" results reach Indian prices the next morning.</p><p>Only US-listed names appear there: Korean, Japanese and European names (Samsung, SK hynix, Hitachi, Siemens, ABB, Lonza) show a dash even when they report soon. The "results on" tag in Read-across now marks a date within 21 days.</p>`;
+SE_INFO['pr-pair'] = `<h4>India and global names</h4><p>Each pair is one Indian stock and one listed company abroad that mirrors it, supplies it or is its customer, as set in <code>data/peers/pairs.json</code>. The small text is the exchange symbol (for example GLW is Corning on the New York exchange, 000660.KS is SK hynix in Seoul).</p>`;
+SE_INFO['pr-rel'] = `<h4>Relationship</h4><ul><li><b>Peer</b> — the same business listed abroad.</li><li><b>Customer</b> — a customer of the Indian company (Bloom Energy is MTAR's largest).</li><li><b>Supplier</b> — supplies the Indian company (NVIDIA supplies GPUs to Netweb and E2E).</li><li><b>Parent</b> — owns most of the Indian company.</li><li><b>Bellwether</b> — reports first and sets the tone for the group.</li></ul>`;
+SE_INFO['pr-n'] = `<h4>Days</h4><p>How many paired trading days went into the numbers for this window. Below 40 the correlation, beta and hit rate are left blank, because a handful of days can show a link that is not there.</p>`;
+SE_INFO['pr-move'] = `<h4>Price moves</h4><p>Close-to-close change in percent, each in its own currency, over one week (1W), one month (1M), three months (3M), six months (6M) and one year (1Y). Indian and global moves end on their own latest close, so a US week usually ends a day after the Indian week. A dash means the history is shorter than the period.</p>`;
+SE_INFO['pr-headline'] = `<h4>Latest headline</h4><p>The newest headline about the global name from the last seven days, from Google News (US edition), collected by the build with no model choosing it. It is there so a big move has its reason beside it; open it to read the story.</p>`;
+SE_INFO['pr-member'] = `<h4>Members</h4><p>Every stock in the group. India means listed on the NSE; Global shows the exchange code (NMS and NYQ are Nasdaq and New York, KSC Seoul, JPX Tokyo, GER Xetra, EBS Swiss).</p>`;
+SE_INFO['pr-last'] = `<h4>Last close</h4><p>The latest closing price in the stock's own currency, with its date. Indian names close a few hours before US names on the same date.</p>`;
+SE_INFO['pr-52w'] = `<h4>vs 52-week high</h4><p>How far the last close is below the highest close of the past year. −5% means 5% below that high; 0% means at it.</p>`;
 
 // ============= INFO POPOVER — the "i" beside a column or a number =============
 // One floating card for the whole app. SE_INFO[key] is the explanation (html, or a function returning
@@ -10700,7 +10907,7 @@ function fbWhatsApp(){
   window.open('https://wa.me/?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
 }
 
-const FB_SECTIONS = ['Overall / general','Markets & Macro','Market News','Indices','Sectors','Theme Trackers','Weekly Report',
+const FB_SECTIONS = ['Overall / general','Markets & Macro','Market News','Indices','Sectors','Theme Trackers','Global Peers','Weekly Report',
   'RS Screen','RS Trend','RS Leaders','Stage 2 Tracker','Stage 2 Journal','Shortlist','Daily Gainers','PEAD Radar',
   'Research Desk','Research Library','Track Record'];
 
