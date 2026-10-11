@@ -72,4 +72,11 @@ brief to hand to the report generator. Details in [data/scans/README.md](data/sc
 - **Your holdings stay private.** They are kept in `.secrets/holdings.json` on your PC (gitignored) and in
   your browser's storage after **Import holdings**; nothing about them is published.
   `python tools/holdings_check.py` prints the same check in a terminal.
+- **Your book, reviewed from the candles.** `python tools/kite_sync.py` logs you in to Zerodha once a day
+  through the free Kite Connect "Personal" API and writes your holdings and positions to `.secrets/`;
+  `python tools/positions_review.py` then pulls daily and hourly candles (Yahoo, no key), computes the
+  structure, patterns and levels, adds the RS Leaders context, and has Claude (the Claude API, paid from your
+  API credits; the cost is printed after each run) write a structured review to `.secrets/positions_review.md`.
+  It describes the charts and checks your own rules; it never says buy or sell. `--dry-run` shows what would
+  be sent, `--loop 60` keeps it running through the session, `--model claude-sonnet-5-5` halves the cost.
 - `python tools/check_page.py` verifies `index.html` still loads after an edit.

@@ -64,6 +64,13 @@ a manual login every day; it cannot run unattended) → `mcp__kite__get_holdings
 against the top 25 (the owner's own rule: 70–80% of the book inside it). Read-only: never call a Kite order, GTT or
 modify tool. Never write holdings to `data/daily/holdings.json` — the page would read it, but so would everyone else.
 Describe the book; do not advise on it.
+Two tools extend this, both stdlib-only, both writing only under `.secrets/`: `python tools/kite_sync.py` (the free Kite
+Connect "Personal" API: a browser login once a day, then GET holdings/positions; needs `.secrets/kite_app.json` with the
+app's key and secret - never ask for them in chat) and `python tools/positions_review.py` (daily + hourly candles from
+Yahoo, features computed in Python, ONE Claude API call per run with structured JSON output, refusal fallbacks and a
+cached system prompt; `--dry-run` sends nothing; `--loop N` runs through the session). The API key lives in
+`.secrets/anthropic_key.txt` or `ANTHROPIC_API_KEY`. The review's rules are in the SYSTEM text of that tool: describe
+structure, patterns, levels and the owner's own rule checks; no buy/sell/size/stop/target/timing language, ever.
 
 ## The news routine — ONE routine, no web search
 Collectors with no model gather headlines (`tools/market_news.py collect` for the market, `tools/gainers_news.py collect`
@@ -74,6 +81,9 @@ for the newest scan's gainers; run by the evening pull and by the GitHub job). T
    — only the parts that are due. Digest: 5–8 points, each citing collected ids, nothing that is not in the headlines.
    Gainers: one of the stock's own candidate ids, or null when none is about that company.
 3. `python3 tools/daily_news.py merge findings.json --commit` — validates, publishes, one commit.
+Schedule (changed 11 Oct 2026): `15 2,13 * * *` UTC = 07:45 and 18:45 IST. The 04:45 IST slot was dropped: the sandbox
+cannot reach news.google.com ("nothing could be collected here" every night) and the GitHub job never lands before
+05:57 IST, so that run was a guaranteed no-op. A no-op costs 2 turns; the digest run about 4. Do not add slots.
 One writer per file, so the collector and the routine can commit at the same moment without a conflict: collectors write
 `market_news.json` and `gainers_candidates.json`; the routine writes `market_digest.json` and `news.json` (which also records
 `vetted_scan`). Keep it that way.
