@@ -1,217 +1,622 @@
 {
-  "schema": "swingedge-indices/1",
-  "_comment": "Custom sub-sector indices, equal-weight and chain-linked from the daily scans by tools/build_indices.py (run by the daily pull; output data/indices/series.json, read by the Indices page). Add one: python tools/build_indices.py add --id cnc --name 'CNC Machines' --codes JYOTICNC,MACPOWER,LMW -- or edit this file. Codes are NSE codes exactly as they appear in data/scans/. Remove a name by deleting it; the series rebuilds from history on the next run.",
-  "indices": [
-    {
-      "id": "aidc",
-      "name": "AI Data Centre",
-      "group": "Technology",
-      "note": "The build-out chain for AI compute in India: optical fibre, power systems, servers, GPU cloud, networking, DC real estate and EPC.",
-      "codes": [
-        "MTARTECH",
-        "STLTECH",
-        "HFCL",
-        "TDPOWERSYS",
-        "BBOX",
-        "NETWEB",
-        "E2E",
-        "TEJASNET",
-        "ANANTRAJ",
-        "TECHNOE"
-      ]
-    },
-    {
-      "id": "cdmo",
-      "name": "CDMO",
-      "group": "Pharma",
-      "note": "Contract development and manufacturing: the outsourcing leaders and the smaller API/intermediate CDMOs riding the same demand.",
-      "codes": [
-        "MOREPENLAB",
-        "LAURUSLABS",
-        "DIVISLAB",
-        "INDSWFTLAB",
-        "KPL",
-        "AARTIPHARM",
-        "NEULANDLAB",
-        "SUVEN",
-        "SYNGENE",
-        "PPLPHARMA",
-        "ANTHEM",
-        "COHANCE",
-        "BLUEJET",
-        "CONCORDBIO"
-      ]
-    },
-    {
-      "id": "pharma",
-      "name": "Pharma Mid & Small",
-      "group": "Pharma",
-      "note": "Mid and small-cap pharma with a live trigger — IOL and SMS on the ibuprofen shortage — plus the strongest-RS names in the group.",
-      "codes": [
-        "IOLCP",
-        "SMSPHARMA",
-        "BLISSGVS",
-        "AHCL",
-        "SHILPAMED",
-        "SUDEEPPHRM",
-        "FREDUN",
-        "VENUSREM",
-        "SENORES",
-        "INNOVACAP",
-        "GLAND",
-        "RPGLIFE",
-        "CAPLIPOINT",
-        "SUPRIYA"
-      ]
-    },
-    {
-      "id": "pipes",
-      "name": "Pipes",
-      "group": "Industrials",
-      "note": "Line pipes, stainless and structural tubes: the export and pipeline capex cycle.",
-      "codes": [
-        "WELCORP",
-        "VENUSPIPES",
-        "MANINDS",
-        "JINDALSAW",
-        "RATNAMANI",
-        "APLAPOLLO",
-        "HITECH",
-        "SURYAROSNI"
-      ]
-    },
-    {
-      "id": "spchem",
-      "name": "Specialty Chem — Dyes",
-      "group": "Chemicals",
-      "note": "Dye intermediates and pigments: H-acid, K-acid and vinyl sulphone tightness out of China.",
-      "codes": [
-        "KIRIINDUS",
-        "BODALCHEM",
-        "SHREEPUSHK",
-        "BHAGERIA",
-        "SUDARSCHEM",
-        "ULTRAMAR"
-      ]
-    },
-    {
-      "id": "cnc",
-      "name": "CNC Machines",
-      "group": "Capital goods",
-      "note": "Machine tools and CNC systems.",
-      "codes": [
-        "JYOTICNC",
-        "MACPOWER",
-        "LMW"
-      ]
-    },
-    {
-      "id": "aerodef",
-      "name": "Aerospace & Defence",
-      "group": "Defence",
-      "note": "Aircraft, missiles, defence electronics, aero structures and explosives. Shipyards sit in their own tracker.",
-      "codes": [
-        "HAL",
-        "BEL",
-        "BDL",
-        "DATAPATTNS",
-        "SIGMAADV",
-        "ASTRAMICRO",
-        "APOLLO",
-        "ZENTEC",
-        "PARAS",
-        "MIDHANI",
-        "UNIMECH",
-        "AEQUS",
-        "AXISCADES",
-        "ROSSTECH",
-        "AVANTEL",
-        "IDEAFORGE",
-        "DCXINDIA",
-        "SOLARINDS",
-        "DYNAMATECH",
-        "AZAD"
-      ]
-    },
-    {
-      "id": "fibre",
-      "name": "Optical Fibre & Telecom Gear",
-      "group": "Technology",
-      "note": "Optical fibre and cable makers and telecom equipment: the passive and active layer of fibre roll-outs and data-centre interconnect.",
-      "codes": [
-        "STLTECH",
-        "HFCL",
-        "BIRLACABLE",
-        "VINDHYATEL",
-        "UNIVCABLES",
-        "TEJASNET",
-        "PARACABLES",
-        "FINCABLES"
-      ]
-    },
-    {
-      "id": "ems",
-      "name": "EMS & Electronics",
-      "group": "Manufacturing",
-      "note": "Contract electronics manufacturers: consumer, industrial, automotive and aerospace boards and box builds.",
-      "codes": [
-        "DIXON",
-        "KAYNES",
-        "SYRMA",
-        "AMBER",
-        "PGEL",
-        "AVALON",
-        "CYIENTDLM",
-        "CENTUM",
-        "OPTIEMUS",
-        "AIMTRON",
-        "SAHASRA",
-        "EPACK"
-      ]
-    },
-    {
-      "id": "powertd",
-      "name": "Power T&D & Transformers",
-      "group": "Capital goods",
-      "note": "Transformers, switchgear, conductors and the contractors who build transmission lines.",
-      "codes": [
-        "POWERINDIA",
-        "GVT&D",
-        "CGPOWER",
-        "ENRIN",
-        "VOLTAMP",
-        "TARIL",
-        "SHILCTECH",
-        "INDOTECH",
-        "BBL",
-        "ATLANTAELE",
-        "QPOWER",
-        "APARINDS",
-        "SCHNEIDER",
-        "DANISH",
-        "SKIPPER",
-        "TRANSRAILL",
-        "KEC",
-        "KPIL"
-      ]
-    },
-    {
-      "id": "ship",
-      "name": "Shipbuilding & Marine",
-      "group": "Defence",
-      "note": "Shipyards, ship owners, marine services and marine electricals.",
-      "codes": [
-        "MAZDOCK",
-        "COCHINSHIP",
-        "GRSE",
-        "SWANDEF",
-        "GESHIP",
-        "KMEW",
-        "MARINE",
-        "SEAMECLTD",
-        "DREDGECORP",
-        "SHREEJISPG"
-      ]
-    }
-  ]
+ "schema": "swingedge-indices/1",
+ "_comment": "Custom sub-sector indices, equal-weight and chain-linked from the daily scans by tools/build_indices.py (run by the daily pull; output data/indices/series.json, read by the Indices page). Add one: python tools/build_indices.py add --id cnc --name 'CNC Machines' --codes JYOTICNC,MACPOWER,LMW -- or edit this file. Codes are NSE codes exactly as they appear in data/scans/. Remove a name by deleting it; the series rebuilds from history on the next run.",
+ "indices": [
+  {
+   "id": "aidc",
+   "name": "AI Data Centre",
+   "group": "Technology",
+   "note": "The build-out chain for AI compute in India: optical fibre, power systems, servers, GPU cloud, networking, DC real estate and EPC.",
+   "codes": [
+    "MTARTECH",
+    "STLTECH",
+    "HFCL",
+    "TDPOWERSYS",
+    "BBOX",
+    "NETWEB",
+    "E2E",
+    "TEJASNET",
+    "ANANTRAJ",
+    "TECHNOE"
+   ]
+  },
+  {
+   "id": "fibre",
+   "name": "Optical Fibre & Telecom Gear",
+   "group": "Technology",
+   "note": "Fibre, optical cable and telecom equipment. The power-cable names that used to sit here moved to Wires & Cables (12 Oct 2026).",
+   "codes": [
+    "STLTECH",
+    "HFCL",
+    "TEJASNET",
+    "BIRLACABLE",
+    "VINDHYATEL"
+   ]
+  },
+  {
+   "id": "semis",
+   "name": "Semiconductors & Chip Design",
+   "group": "Technology",
+   "codes": [
+    "MOSCHIP",
+    "CGPOWER",
+    "TATAELXSI",
+    "SAHASRA",
+    "HIRECT",
+    "MICEL",
+    "KAYNES"
+   ],
+   "note": "Chip design, OSAT and power semiconductors in India: small and early, which is why the moves are large."
+  },
+  {
+   "id": "ems",
+   "name": "EMS & Electronics",
+   "group": "Manufacturing",
+   "note": "Contract electronics manufacturers: consumer, industrial, automotive and aerospace boards and box builds.",
+   "codes": [
+    "DIXON",
+    "KAYNES",
+    "SYRMA",
+    "AMBER",
+    "PGEL",
+    "AVALON",
+    "CYIENTDLM",
+    "CENTUM",
+    "OPTIEMUS",
+    "AIMTRON",
+    "SAHASRA",
+    "EPACK"
+   ]
+  },
+  {
+   "id": "cnc",
+   "name": "CNC Machines",
+   "group": "Capital goods",
+   "note": "Machine tools and CNC systems.",
+   "codes": [
+    "JYOTICNC",
+    "MACPOWER",
+    "LMW"
+   ]
+  },
+  {
+   "id": "xfmr",
+   "name": "Transformers & Reactors",
+   "group": "Capital goods",
+   "codes": [
+    "TARIL",
+    "VOLTAMP",
+    "SHILCTECH",
+    "INDOTECH",
+    "BBL",
+    "DANISH",
+    "ATLANTAELE",
+    "QPOWER",
+    "MARSONS"
+   ],
+   "note": "Transformer and reactor makers on their own, as the owner asked: the grid-equipment names with the longest order books."
+  },
+  {
+   "id": "cables",
+   "name": "Wires & Cables",
+   "group": "Capital goods",
+   "codes": [
+    "POLYCAB",
+    "KEI",
+    "RRKABEL",
+    "FINCABLES",
+    "APARINDS",
+    "UNIVCABLES",
+    "PARACABLES",
+    "DYCL",
+    "VMARCIND"
+   ],
+   "note": "Wire, cable and conductor makers, separated from transformers and from telecom fibre."
+  },
+  {
+   "id": "powertd",
+   "name": "Power T&D Equipment & EPC",
+   "group": "Capital goods",
+   "note": "Grid equipment majors and the transmission-line EPC names; transformers and cables now have their own trackers.",
+   "codes": [
+    "POWERINDIA",
+    "GVT&D",
+    "CGPOWER",
+    "ENRIN",
+    "ABB",
+    "SIEMENS",
+    "SCHNEIDER",
+    "SKIPPER",
+    "TRANSRAILL",
+    "KEC",
+    "KPIL",
+    "TECHNOE"
+   ]
+  },
+  {
+   "id": "pipes",
+   "name": "Pipes",
+   "group": "Industrials",
+   "note": "Line pipes, stainless and structural tubes: the export and pipeline capex cycle.",
+   "codes": [
+    "WELCORP",
+    "VENUSPIPES",
+    "MANINDS",
+    "JINDALSAW",
+    "RATNAMANI",
+    "APLAPOLLO",
+    "HITECH",
+    "SURYAROSNI"
+   ]
+  },
+  {
+   "id": "rail",
+   "name": "Railways",
+   "group": "Industrials",
+   "codes": [
+    "RVNL",
+    "IRCON",
+    "RAILTEL",
+    "RITES",
+    "IRFC",
+    "TITAGARH",
+    "JWL",
+    "TEXRAIL",
+    "BEML",
+    "CONCOR",
+    "RKFORGE",
+    "KERNEX"
+   ],
+   "note": "Rail EPC, wagons, financing and signalling: one budget line moves all of them."
+  },
+  {
+   "id": "defence",
+   "name": "Defence",
+   "group": "Defence",
+   "codes": [
+    "HAL",
+    "BEL",
+    "BDL",
+    "DATAPATTNS",
+    "ASTRAMICRO",
+    "APOLLO",
+    "ZENTEC",
+    "PARAS",
+    "MIDHANI",
+    "SOLARINDS",
+    "IDEAFORGE",
+    "DCXINDIA",
+    "AVANTEL",
+    "KRISHNADEF",
+    "PREMEXPLN",
+    "BEML"
+   ],
+   "note": "Platforms, electronics, missiles, drones and explosives: the order-driven defence names, separated from aerospace components."
+  },
+  {
+   "id": "aerocomp",
+   "name": "Aerospace Components & Machining",
+   "group": "Defence",
+   "codes": [
+    "UNIMECH",
+    "SIGMAADV",
+    "AZAD",
+    "AEQUS",
+    "DYNAMATECH",
+    "AXISCADES",
+    "ROSSTECH",
+    "PTCIL",
+    "WALCHANNAG",
+    "CYIENTDLM"
+   ],
+   "note": "Precision parts, castings and engineering for aero engines and airframes (Unimech, Sigma, Azad, Aequs...): a global-supply-chain read rather than an Indian defence-budget read."
+  },
+  {
+   "id": "ship",
+   "name": "Shipbuilding & Marine",
+   "group": "Defence",
+   "note": "Shipyards, ship owners, marine services and marine electricals.",
+   "codes": [
+    "MAZDOCK",
+    "COCHINSHIP",
+    "GRSE",
+    "SWANDEF",
+    "GESHIP",
+    "KMEW",
+    "MARINE",
+    "SEAMECLTD",
+    "DREDGECORP",
+    "SHREEJISPG"
+   ]
+  },
+  {
+   "id": "cdmo",
+   "name": "CDMO",
+   "group": "Pharma",
+   "note": "Contract development and manufacturing: the outsourcing leaders and the smaller API/intermediate CDMOs riding the same demand.",
+   "codes": [
+    "MOREPENLAB",
+    "LAURUSLABS",
+    "DIVISLAB",
+    "INDSWFTLAB",
+    "KPL",
+    "AARTIPHARM",
+    "NEULANDLAB",
+    "SUVEN",
+    "SYNGENE",
+    "PPLPHARMA",
+    "ANTHEM",
+    "COHANCE",
+    "BLUEJET",
+    "CONCORDBIO"
+   ]
+  },
+  {
+   "id": "pharma",
+   "name": "Pharma Mid & Small",
+   "group": "Pharma",
+   "note": "Mid and small-cap pharma with a live trigger — IOL and SMS on the ibuprofen shortage — plus the strongest-RS names in the group.",
+   "codes": [
+    "IOLCP",
+    "SMSPHARMA",
+    "BLISSGVS",
+    "AHCL",
+    "SHILPAMED",
+    "SUDEEPPHRM",
+    "FREDUN",
+    "VENUSREM",
+    "SENORES",
+    "INNOVACAP",
+    "GLAND",
+    "RPGLIFE",
+    "CAPLIPOINT",
+    "SUPRIYA"
+   ]
+  },
+  {
+   "id": "api",
+   "name": "API & Bulk Drugs",
+   "group": "Pharma",
+   "codes": [
+    "IOLCP",
+    "SMSPHARMA",
+    "GRANULES",
+    "SOLARA",
+    "AARTIDRUGS",
+    "NEULANDLAB",
+    "SHILPAMED",
+    "KOPRAN",
+    "HIKAL",
+    "SUPRIYA",
+    "JUBLPHARMA",
+    "MOREPENLAB"
+   ],
+   "note": "Active-ingredient makers (ibuprofen, paracetamol, metformin...): the Middle East ibuprofen shortage of Oct 2026 is the kind of move this tracker is for."
+  },
+  {
+   "id": "hospitals",
+   "name": "Hospitals",
+   "group": "Healthcare",
+   "codes": [
+    "APOLLOHOSP",
+    "MAXHEALTH",
+    "FORTIS",
+    "KIMS",
+    "JLHL",
+    "YATHARTH",
+    "RAINBOW",
+    "ASTERDM",
+    "HCG",
+    "SHALBY",
+    "NH",
+    "MEDANTA",
+    "KOVAI",
+    "INDRAMEDCO",
+    "ARTEMISMED"
+   ],
+   "note": "Hospital chains, large and regional."
+  },
+  {
+   "id": "dyes",
+   "name": "Dyes & Pigments (H-acid, K-acid)",
+   "group": "Chemicals",
+   "note": "Dye intermediates and pigments: the H-acid and K-acid price cycle (Shree Pushkar, Bodal, Kiri, Bhageria) shows up here first. Was \"Specialty Chem - Dyes\" until 12 Oct 2026.",
+   "codes": [
+    "KIRIINDUS",
+    "BODALCHEM",
+    "SHREEPUSHK",
+    "BHAGERIA",
+    "SUDARSCHEM",
+    "ULTRAMAR",
+    "MOL"
+   ]
+  },
+  {
+   "id": "spchem",
+   "name": "Specialty Chemicals",
+   "group": "Chemicals",
+   "note": "Fluorochemicals, amines, surfactants, aroma and performance chemicals: the specialty names proper, without dyes or agrochemicals.",
+   "codes": [
+    "NAVINFLUOR",
+    "SRF",
+    "DEEPAKNTR",
+    "AARTIIND",
+    "CLEAN",
+    "FINEORG",
+    "VINATIORGA",
+    "ANURAS",
+    "ALKYLAMINE",
+    "BALAMINES",
+    "GALAXYSURF",
+    "JUBLINGREA",
+    "PRIVISCL",
+    "ROSSARI",
+    "VALIANTORG",
+    "ACI",
+    "NOCIL"
+   ]
+  },
+  {
+   "id": "battery",
+   "name": "Battery Materials & Cells",
+   "group": "Chemicals",
+   "codes": [
+    "NEOGEN",
+    "TATVA",
+    "HEGAM",
+    "GRAPHITE",
+    "HSCL",
+    "EXIDEIND",
+    "HBLENGINE"
+   ],
+   "note": "Electrolytes and salts (Neogen, Tatva Chintan), anode and electrode carbon (Himadri, HEG, Graphite), cell makers (Exide, HBL)."
+  },
+  {
+   "id": "agchem",
+   "name": "Agrochemicals",
+   "group": "Chemicals",
+   "codes": [
+    "PIIND",
+    "UPL",
+    "RALLIS",
+    "SUMICHEM",
+    "DHANUKA",
+    "BAYERCROP",
+    "SHARDACROP",
+    "INSECTICID",
+    "ASTEC",
+    "BHARATRAS",
+    "IPL",
+    "EXCELINDUS"
+   ],
+   "note": "Crop-protection makers and formulators; monsoon, channel inventory and China pricing drive them."
+  },
+  {
+   "id": "fert",
+   "name": "Fertilisers",
+   "group": "Chemicals",
+   "codes": [
+    "CHAMBLFERT",
+    "DEEPAKFERT",
+    "PARADEEP",
+    "GSFC",
+    "RCF",
+    "NFL",
+    "FACT",
+    "GNFC",
+    "COROMANDEL"
+   ],
+   "note": "Urea, phosphatics and complex fertilisers: subsidy and gas-price driven."
+  },
+  {
+   "id": "solar",
+   "name": "Solar Modules & EPC",
+   "group": "Energy",
+   "codes": [
+    "WAAREEENER",
+    "PREMIERENE",
+    "WEBELSOLAR",
+    "BORORENEW",
+    "SWSOLAR",
+    "KPIGREEN",
+    "ACMESOLAR",
+    "NTPCGREEN",
+    "ADANIGREEN",
+    "VIKRAMSOLR",
+    "EMMVEE",
+    "SAATVIKGL",
+    "ORIANA",
+    "SOLARWORLD",
+    "INA"
+   ],
+   "note": "Module and cell makers, solar glass, EPC and the listed renewable developers."
+  },
+  {
+   "id": "wind",
+   "name": "Wind",
+   "group": "Energy",
+   "codes": [
+    "SUZLON",
+    "INOXWIND",
+    "INOXGREEN",
+    "KPEL"
+   ],
+   "note": "Turbine makers and wind O&M: four names, so one of them moves the index."
+  },
+  {
+   "id": "powergen",
+   "name": "Power Generators, Grid & Financiers",
+   "group": "Energy",
+   "codes": [
+    "NTPC",
+    "POWERGRID",
+    "TATAPOWER",
+    "JSWENERGY",
+    "ADANIPOWER",
+    "NHPC",
+    "SJVN",
+    "PFC",
+    "RECLTD",
+    "IREDA",
+    "TORNTPOWER",
+    "CESC",
+    "ADANIENSOL",
+    "NLCINDIA",
+    "JPPOWER"
+   ],
+   "note": "Generators, the transmission utility and the power lenders: the demand side of the electricity story."
+  },
+  {
+   "id": "psubanks",
+   "name": "PSU Banks",
+   "group": "Financials",
+   "codes": [
+    "SBIN",
+    "BANKBARODA",
+    "PNB",
+    "CANBK",
+    "UNIONBANK",
+    "INDIANB",
+    "BANKINDIA",
+    "MAHABANK",
+    "UCOBANK",
+    "CENTRALBK",
+    "IOB",
+    "PSB"
+   ],
+   "note": "All twelve public-sector banks, equal weight, so the small ones count as much as SBI."
+  },
+  {
+   "id": "capmkt",
+   "name": "Capital Markets",
+   "group": "Financials",
+   "codes": [
+    "BSE",
+    "MCX",
+    "CDSL",
+    "CAMS",
+    "KFINTECH",
+    "ANGELONE",
+    "NUVAMA",
+    "MOTILALOFS",
+    "IIFLCAPS",
+    "360ONE",
+    "HDFCAMC",
+    "NAM-INDIA",
+    "UTIAMC",
+    "ANANDRATHI",
+    "PRUDENT",
+    "GROWW",
+    "SHAREINDIA"
+   ],
+   "note": "Exchanges, depositories, registrars, brokers, AMCs and distributors: the names that earn from market activity itself."
+  },
+  {
+   "id": "jewellery",
+   "name": "Jewellery & Gold Retail",
+   "group": "Consumer",
+   "codes": [
+    "TITAN",
+    "KALYANKJIL",
+    "SENCO",
+    "PCJEWELLER",
+    "TBZ",
+    "THANGAMAYL",
+    "PNGJL",
+    "SHANTIGOLD",
+    "GOLDIAM",
+    "VAIBHAVGBL",
+    "SKYGOLD",
+    "BLUESTONE",
+    "LALITHAA",
+    "RAJESHEXPO"
+   ],
+   "note": "Gold and diamond jewellers: gold price, festival demand and store expansion."
+  },
+  {
+   "id": "hotels",
+   "name": "Hotels",
+   "group": "Consumer",
+   "codes": [
+    "INDHOTEL",
+    "EIHOTEL",
+    "CHALET",
+    "LEMONTREE",
+    "ITCHOTELS",
+    "SAMHI",
+    "VENTIVE",
+    "JUNIPER",
+    "ORIENTHOT",
+    "PARKHOTELS",
+    "BRIGHOTEL",
+    "MHRIL",
+    "TAJGVK"
+   ],
+   "note": "Hotel owners and operators: room rates and occupancy."
+  },
+  {
+   "id": "textiles",
+   "name": "Textiles & Apparel Exporters",
+   "group": "Consumer",
+   "codes": [
+    "GOKEX",
+    "KPRMILL",
+    "WELSPUNLIV",
+    "TRIDENT",
+    "VTL",
+    "ARVIND",
+    "RAYMONDLSL",
+    "ICIL",
+    "NITINSPIN",
+    "SIYSIL",
+    "KITEX",
+    "PAGEIND",
+    "GANECOS"
+   ],
+   "note": "Garment and home-textile exporters and spinners: US tariffs and cotton prices."
+  },
+  {
+   "id": "sugar",
+   "name": "Sugar & Ethanol",
+   "group": "Consumer",
+   "codes": [
+    "BALRAMCHIN",
+    "TRIVENI",
+    "DALMIASUG",
+    "DHAMPURSUG",
+    "EIDPARRY",
+    "BAJAJHIND",
+    "UTTAMSUGAR",
+    "AVADHSUGAR",
+    "BANARISUG",
+    "RENUKA"
+   ],
+   "note": "Sugar mills with ethanol capacity: policy-driven (ethanol price, export quota)."
+  },
+  {
+   "id": "realty",
+   "name": "Real Estate",
+   "group": "Infrastructure",
+   "codes": [
+    "DLF",
+    "LODHA",
+    "GODREJPROP",
+    "OBEROIRLTY",
+    "PRESTIGE",
+    "SOBHA",
+    "BRIGADE",
+    "SIGNATURE",
+    "KOLTEPATIL",
+    "SUNTECK",
+    "MAHLIFE",
+    "PHOENIXLTD",
+    "RAYMONDREL",
+    "RUSTOMJEE",
+    "PURVA",
+    "ASHIANA",
+    "MAXESTATES"
+   ],
+   "note": "Listed developers and the one mall owner: pre-sales, launches and rates."
+  }
+ ]
 }
