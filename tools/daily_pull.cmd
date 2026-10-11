@@ -34,6 +34,9 @@ set "LOG=.secrets\daily_pull.log"
 echo(>> "%LOG%"
 echo ====================================================================>> "%LOG%"
 echo [%date% %time%] daily pull start (tools\eod.py --push --wait-until 21:00 --poll 10)>> "%LOG%"
+rem The finish line puts the redirect FIRST. With the code written last, right before the redirect, it
+rem expanded to e.g. "0>>", which cmd reads as a redirect of handle 0: until 2026-10-11 only exit-1 runs
+rem logged that line (with the code missing) and every other run logged none.
 "%PY%" tools\eod.py --push --wait-until 21:00 --poll 10 >> "%LOG%" 2>&1
-echo [%date% %time%] finished with exit code %errorlevel%>> "%LOG%"
+>> "%LOG%" echo [%date% %time%] finished with exit code %errorlevel%
 endlocal

@@ -25,6 +25,9 @@ CREDENTIALS — you stay in control, the cookie never goes through chat:
     commits it. If the cookie is missing/expired screener.in redirects to its login page and the
     script stops with a clear message — nothing partial is written.
 
+EXIT CODES (eod.py reads them): 0 done; 5 the cookie is missing or the session has expired;
+  6 screener.in could not be reached (network down or not up yet); 1 anything else.
+
 CONFIG — tools/screener_config.json (copy tools/screener_config.example.json):
   {
     "sources": [
@@ -104,8 +107,12 @@ def request(method, url, jar=None, referer=None, form=None):
         return getattr(r, 'status', 200), r.headers, r.read()
     except urllib.error.HTTPError as e:      # 3xx (no-redirect) and 4xx/5xx land here
         return e.code, e.headers, e.read()
-    except urllib.error.URLError as e:
-        raise SystemExit(f'  ! could not reach {url}: {e.reason}')
+    except urllib.error.URLError as e:       # DNS / connection failure: exit 6, so eod.py waits and retries
+        print(f'  ! could not reach {url}: {e.reason}')
+        raise SystemExit(6)
+    except (TimeoutError, ConnectionError) as e:   # the connection dropped while the export was being read
+        print(f'  ! lost the connection to {url}: {type(e).__name__}: {e}')
+        raise SystemExit(6)
 
 def is_redirect(status):
     return status in (301, 302, 303, 307, 308)
@@ -193,7 +200,18 @@ def last_friday(today=None):
     today = today or dt.date.today()
     return (today - dt.timedelta(days=(today.weekday() - 4) % 7)).isoformat()
 
+def utf8_stdio():
+    """The same as tools/rs.py's utf8_stdio, kept here (no reason to import rs.py for it): `from _io import utf8_stdio` resolves to CPython's own
+    built-in _io module, never to that file. A '—' or '→' in a print on a cp1252 console would otherwise
+    end the run with UnicodeEncodeError."""
+    for s in (sys.stdout, sys.stderr):
+        try:
+            s.reconfigure(encoding='utf-8', errors='replace')
+        except Exception:
+            pass
+
 def main():
+    utf8_stdio()
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--config', default=DEF_CONFIG)
     ap.add_argument('--date', default=None, help='week-ending ISO date; default = most recent Friday')
@@ -237,7 +255,9 @@ def main():
     if a.dry_run:
         print('dry-run: nothing fetched.'); return
     if not raw_cookie:
-        raise SystemExit('refusing to fetch without a cookie (the download would just be a login page).')
+        print('refusing to fetch without a cookie (the download would just be a login page).')
+        print('    Log in to screener.in, copy the sessionid cookie into .secrets/screener_cookie.txt, and run again.')
+        raise SystemExit(5)                      # treated like an expired session: eod.py keeps polling for a cookie
 
     os.makedirs(EXPORTS, exist_ok=True)
     built = {'screener': None, 'stage2': None}

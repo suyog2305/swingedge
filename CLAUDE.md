@@ -7,9 +7,9 @@ build_s2history → build_rs_tracker → build_indices → fetch_themes → fetc
 sidebar and on the Shortlist pull card. `fetch_screener.py` exits 5 when screener redirects to /login/ or /register/
 (session expired); `eod.py --wait-until` then keeps retrying every poll until the deadline, re-reading the cookie file
 each time, so a fresh `sessionid` pasted into `.secrets/screener_cookie.txt` in the evening lets the run finish by itself.
-A GitHub job (`.github/workflows/market_news.yml`) runs at 04:00 IST: market_news collect + fetch_markets
-(everything except NSE's index file). Work on `main` directly; rebase on `origin/main` before pushing (the pull, the
-4 a.m. job or a routine may have landed a commit).
+A GitHub job (`.github/workflows/market_news.yml`) is scheduled for 03:13 IST (cron 21:43 UTC; GitHub
+often starts it late): market_news collect + fetch_markets (everything except NSE's index file). Work on `main`
+directly; rebase on `origin/main` before pushing (the pull, the early-morning job or a routine may have landed a commit).
 
 ## After any edit to index.html
 `python tools/check_page.py` — syntax, a top-to-bottom load in a stubbed page, duplicate ids, sidebar/section pairs.
@@ -40,8 +40,8 @@ limits are in the tool's docstring. Each block fails soft and keeps its last goo
 or BSE: they serve it only to a browser session and this project does not pretend to be one.
 
 ## Custom indices — the cheap path (do not open scans or index.html for this)
-1. `python3 tools/build_indices.py find <name fragments>` → NSE codes from the newest scan.
-2. `python3 tools/build_indices.py --quiet add --id <slug> --name "<Name>" --group "<Group>" --codes A,B,C --note "<one line>"`
+1. `python tools/build_indices.py find <name fragments>` → NSE codes from the newest scan (`python3` on Linux).
+2. `python tools/build_indices.py --quiet add --id <slug> --name "<Name>" --group "<Group>" --codes A,B,C --note "<one line>"`
    → updates `data/indices/indices.json` and rebuilds `data/indices/series.json` (`--quiet` goes before `add`).
 3. `git add data/indices && git commit -m "Indices: add <Name>" && git push origin main`.
 The Indices page and the tracker block on Markets & Macro render whatever is in `indices.json`: no HTML changes. Indices

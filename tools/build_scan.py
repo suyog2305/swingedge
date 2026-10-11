@@ -25,6 +25,7 @@ from collections import OrderedDict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from build_weekly import read_table, map_columns, num, rnd, clean_code, norm, ALIASES, ALIAS_LOOKUP  # noqa: E402
+from rs import utf8_stdio  # noqa: E402
 
 SCHEMA = 'swingedge-scan/1'
 
@@ -160,7 +161,14 @@ def build_stage2(path):
     if not out: raise SystemExit(f'--stage2 {path}: no usable rows')
     return out, headers
 
+def save_json(p, doc, **kw):
+    """Write to p.tmp, then swap it in: a run killed mid-write leaves the old file whole, never a truncated one."""
+    tmp = p + '.tmp'
+    with io.open(tmp, 'w', encoding='utf-8') as fh: json.dump(doc, fh, ensure_ascii=False, **kw)
+    os.replace(tmp, p)
+
 def main():
+    utf8_stdio()
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--date', required=True, help='week-ending (Friday) ISO date the data represents, e.g. 2026-08-21')
     ap.add_argument('--screener', help='screener.in export (.csv/.xlsx)')
@@ -173,10 +181,14 @@ def main():
     except ValueError: raise SystemExit('--date must be YYYY-MM-DD')
     os.makedirs(a.out, exist_ok=True)
     path = os.path.join(a.out, f'{a.date}.json')
+    d = None
     if os.path.exists(path):
-        with io.open(path, encoding='utf-8') as fh: d = json.load(fh, object_pairs_hook=OrderedDict)
-        print(f'updating {path}')
-    else:
+        try:
+            with io.open(path, encoding='utf-8') as fh: d = json.load(fh, object_pairs_hook=OrderedDict)
+            print(f'updating {path}')
+        except (ValueError, OSError) as e:      # truncated by a killed run: rebuild it rather than crash on it forever
+            print(f'existing file unreadable, starting fresh: {path} ({type(e).__name__}: {e})')
+    if d is None:
         d = OrderedDict([('schema', SCHEMA), ('date', a.date), ('sources', OrderedDict())]); print(f'creating {path}')
     d['schema'] = SCHEMA; d['date'] = a.date
     d.setdefault('sources', OrderedDict())
@@ -203,20 +215,31 @@ def main():
             else: d[k] = v
         done.append(f'stage2: {len(rows)} rows' + (f' (list of {d["stage2_asof"]}, RS floor {d["stage2_rs_floor"]})' if sinces and floors else ''))
     if not done: print('nothing to build — pass --screener and/or --stage2')
-    with io.open(path, 'w', encoding='utf-8') as fh: json.dump(d, fh, ensure_ascii=False, separators=(',', ':'))
+    save_json(path, d, separators=(',', ':'))
     print('wrote', path, f'({os.path.getsize(path):,} bytes)')
     for line in done: print('  +', line)
     ipath = os.path.join(a.out, 'index.json')
     idx = OrderedDict(updated=dt.date.today().isoformat(), scans=[])
     if os.path.exists(ipath):
-        with io.open(ipath, encoding='utf-8') as fh: idx = json.load(fh, object_pairs_hook=OrderedDict)
+        try:
+            with io.open(ipath, encoding='utf-8') as fh: idx = json.load(fh, object_pairs_hook=OrderedDict)
+        except (ValueError, OSError) as e:      # unreadable: re-list the dated scans on disk so the app keeps its history
+            print(f'index.json unreadable ({type(e).__name__}: {e}); re-listing the scans in {a.out}')
+            for f in sorted(os.listdir(a.out)):
+                if not re.fullmatch(r'\d{4}-\d{2}-\d{2}\.json', f) or f == f'{a.date}.json': continue
+                try:
+                    with io.open(os.path.join(a.out, f), encoding='utf-8') as fh: s = json.load(fh)
+                except (ValueError, OSError): continue
+                e2 = OrderedDict(date=f[:10], file=f, universe=len(s.get('universe') or []), stage2=len(s.get('stage2') or []))
+                if s.get('stage2_asof'): e2['s2asof'] = s['stage2_asof']
+                idx['scans'].append(e2)
     scans = [s for s in idx.get('scans', []) if s.get('file') != f'{a.date}.json']
     entry = OrderedDict(date=a.date, file=f'{a.date}.json', universe=len(d.get('universe', [])), stage2=len(d.get('stage2', [])))
     if d.get('stage2_asof'): entry['s2asof'] = d['stage2_asof']
     scans.append(entry)
     scans.sort(key=lambda s: s['date'], reverse=True)
     idx['updated'] = dt.date.today().isoformat(); idx['scans'] = scans
-    with io.open(ipath, 'w', encoding='utf-8') as fh: json.dump(idx, fh, ensure_ascii=False, indent=2)
+    save_json(ipath, idx, indent=2)
     print('updated', ipath, f'({len(scans)} weeks)')
 
 if __name__ == '__main__':

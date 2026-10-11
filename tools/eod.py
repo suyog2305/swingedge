@@ -43,6 +43,10 @@ Step 1 needs your screener.in session cookie, in .secrets/screener_cookie.txt or
 SCREENER_COOKIE environment variable (both gitignored). Without it screener.in redirects to
 its login page and this stops at step 1 with a clear message — nothing partial is written.
 The cookie expires; when it does the log says so, and somebody has to notice.
+With --wait-until (the scheduled task) neither a dead or missing cookie (fetch_screener exit 5) nor a
+network that is not up yet (exit 6) ends the run: it tries again every --poll minutes until the
+deadline. A cookie problem is written to data/daily/pull_status.json at once, for the app's sidebar;
+an unreachable screener.in only if it lasts past the deadline.
 """
 import argparse, atexit, datetime as dt, functools, glob, io, json, os, subprocess, sys, time, urllib.request
 
@@ -54,6 +58,17 @@ print = functools.partial(print, flush=True)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SHORTLIST = os.path.join(ROOT, 'data', 'daily', 'shortlist.json')
+
+
+def utf8_stdio():
+    """The same as tools/rs.py's utf8_stdio, kept here (no reason to import rs.py for it): `from _io import utf8_stdio` resolves to CPython's own
+    built-in _io module, never to that file. The scheduled task's log and Claude's Bash tool use cp1252, and
+    one '→' or '₹' in a print would otherwise end the run with UnicodeEncodeError."""
+    for s in (sys.stdout, sys.stderr):
+        try:
+            s.reconfigure(encoding='utf-8', errors='replace')
+        except Exception:
+            pass
 
 
 def run(step, cmd, dry):
@@ -86,17 +101,34 @@ def pull_status(status, message, push):
     if old.get('status') == status and old.get('message') == message:
         return
     doc = {'status': status, 'at': dt.datetime.now().strftime('%Y-%m-%dT%H:%M'), 'message': message}
-    io.open(STATUS, 'w', encoding='utf-8').write(json.dumps(doc, ensure_ascii=False, indent=1) + '\n')
+    try:
+        io.open(STATUS, 'w', encoding='utf-8').write(json.dumps(doc, ensure_ascii=False, indent=1) + '\n')
+    except OSError as e:
+        print(f'    (pull status not written: {e})'); return
     if not push:
         return
-    g = lambda *x: subprocess.run(['git', *x], cwd=ROOT, capture_output=True, text=True)
-    g('add', os.path.relpath(STATUS, ROOT))
-    if g('diff', '--cached', '--quiet').returncode == 0 or g('commit', '-q', '-m', f'Pull status: {status}').returncode:
-        return
-    if g('pull', '--rebase', 'origin', 'main').returncode:
-        g('rebase', '--abort'); print('    (pull status not pushed: rebase failed)'); return
-    if g('push', 'origin', 'main').returncode == 0:
-        print(f'    pull status "{status}" published to the site')
+    # Only this one file goes into the commit, whatever else is staged (a half-edited index.html must never be
+    # published under "Pull status"), and --autostash lets the rebase run on a tree with uncommitted edits.
+    # Nothing here may stop the run: every failure is reported and the caller carries on.
+    try:
+        g = lambda *x: subprocess.run(['git', *x], cwd=ROOT, capture_output=True, text=True)
+        rel = os.path.relpath(STATUS, ROOT)
+        g('add', rel)
+        if g('diff', '--cached', '--quiet', '--', rel).returncode == 0 or g('commit', '-q', '-m', f'Pull status: {status}', '--', rel).returncode:
+            return
+        r = g('pull', '--rebase', '--autostash', 'origin', 'main')
+        if r.returncode:
+            g('rebase', '--abort')
+            lines = (r.stderr or r.stdout or '').strip().splitlines()
+            why = next((x for x in lines if x.startswith(('error', 'fatal'))), lines[0] if lines else '')
+            print('    (pull status not pushed: rebase failed' + (f' - {why[:160]}' if why else '') + '. '
+                  'The commit is local and goes out with the next push.)'); return
+        if g('push', 'origin', 'main').returncode == 0:
+            print(f'    pull status "{status}" published to the site')
+        else:
+            print('    (pull status not pushed: push failed. The commit is local and goes out with the next push.)')
+    except Exception as e:
+        print(f'    (pull status not pushed: {type(e).__name__}: {e})')
 
 
 def snapshot():
@@ -375,28 +407,78 @@ def newest_stage2_file(date):
 LOCK = os.path.join(ROOT, '.secrets', 'eod.lock')
 
 
-def _pid_alive(pid):
+def _pid_image(pid):
+    """The image name of the live process with this PID ('python.exe'), '' when no process has it, or None
+    when it cannot be told (tasklist missing, failed or slow)."""
     try:
-        out = subprocess.run(['tasklist', '/FI', f'PID eq {pid}', '/NH'], capture_output=True, text=True, timeout=30).stdout
-        return str(pid) in out
+        import csv
+        out = subprocess.run(['tasklist', '/FI', f'PID eq {pid}', '/NH', '/FO', 'CSV'],
+                             capture_output=True, text=True, timeout=30).stdout
+        for row in csv.reader(out.splitlines()):
+            if len(row) > 1 and row[1].strip() == str(pid):
+                return row[0].strip()
+        return ''
     except Exception:
-        return True                                        # cannot tell - never clobber a run that may be live
+        return None
+
+
+def _pid_alive(pid):
+    img = _pid_image(pid)
+    return img is None or img != ''                        # cannot tell - never clobber a run that may be live
+
+
+def _boot_time():
+    """When this machine last booted (local time), or None when it cannot be read (not Windows). Stdlib only.
+    GetTickCount64 counts milliseconds since boot, sleep included; restype must be 64-bit, or after 24.8 days
+    of uptime the default 32-bit int wraps and the boot lands in the future."""
+    try:
+        import ctypes
+        k = ctypes.windll.kernel32
+        k.GetTickCount64.restype = ctypes.c_ulonglong
+        return dt.datetime.now() - dt.timedelta(milliseconds=k.GetTickCount64())
+    except Exception:
+        return None
 
 
 def acquire_lock():
     """One eod.py at a time. The scheduled run may poll for hours; a second run alongside it would
     pull, build and commit the same close twice and race on git. A lock left by a process that no
-    longer exists (a reboot, a kill) is removed, not obeyed."""
+    longer exists (a reboot, a kill) is removed, not obeyed.
+
+    The PID alone does not prove the owner is alive: after a power-off or a crash, Windows hands that
+    PID to some other process, and every run then refused to start until it exited. So a lock is stale
+    when it was written before the last boot, when its PID now belongs to something that is not Python,
+    or when it is more than a day old (a run's deadline is the same day, so none lasts that long; this
+    also covers Fast Startup, where a shutdown does not reset the boot clock). Only when tasklist cannot
+    answer is a lock obeyed on the PID alone."""
     os.makedirs(os.path.dirname(LOCK), exist_ok=True)
     if os.path.exists(LOCK):
         try:
             pid, since = io.open(LOCK, encoding='utf-8').read().split()[:2]
         except Exception:
             pid, since = '?', '?'
-        if pid.isdigit() and _pid_alive(int(pid)):
+        try:
+            since_t = dt.datetime.strptime(since, '%Y-%m-%dT%H:%M')
+        except ValueError:
+            since_t = None
+        boot = _boot_time()
+        stale = None
+        if not pid.isdigit():
+            stale = 'it cannot be read'
+        elif since_t and boot and since_t + dt.timedelta(minutes=1) <= boot:   # `since` is cut to the minute
+            stale = f'it was written before the last boot ({boot:%Y-%m-%d %H:%M})'
+        elif since_t and dt.datetime.now() - since_t > dt.timedelta(hours=24):
+            stale = 'it is more than a day old'
+        else:
+            img = _pid_image(int(pid))
+            if img == '':
+                stale = 'that process is gone'
+            elif img is not None and not img.lower().startswith('python'):
+                stale = f'PID {pid} now belongs to {img}, not to a Python run'
+        if not stale:
             print(f'SwingEdge EOD refresh — another run is in progress (PID {pid}, since {since}). Not starting a second one.')
             return False
-        print(f'    (a lock from PID {pid} at {since} is stale: that process is gone - removing it)')
+        print(f'    (a lock from PID {pid} at {since} is stale: {stale} - removing it)')
         os.remove(LOCK)
     io.open(LOCK, 'w', encoding='utf-8').write(f'{os.getpid()} {dt.datetime.now():%Y-%m-%dT%H:%M}\n')
     atexit.register(lambda: os.path.exists(LOCK) and os.remove(LOCK))
@@ -441,6 +523,7 @@ def scan_is_complete(path, date):
 
 
 def main():
+    utf8_stdio()
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--date', help='scan date (default: today)')
     ap.add_argument('--push', action='store_true', help='commit and push the refreshed data')
@@ -485,6 +568,16 @@ def main():
         print('    Pulling again and rebuilding it.')
     if not a.dry_run and not acquire_lock():
         return 4
+    if a.push and not a.dry_run:
+        # Start from what is on origin. The early-morning GitHub job commits data/markets/markets.json (and
+        # data/daily/gainers_candidates.json) every night, and this run rewrites both; built on a stale copy,
+        # the publish-time rebase conflicted on that one-line file and the day's close stayed in a local
+        # commit. Pulled now, every write below starts from the job's version and the rebase applies cleanly.
+        print('\n--- sync with origin before building')
+        if subprocess.run(['git', 'pull', '--rebase', '--autostash', 'origin', 'main'], cwd=ROOT).returncode:
+            subprocess.run(['git', 'rebase', '--abort'], cwd=ROOT, capture_output=True)
+            print('    WARNING: could not pull origin/main (aborted so the repo is not left mid-rebase). Carrying on; '
+                  'the publish step rebases again before pushing.')
     py = sys.executable
     print(f'SwingEdge EOD refresh — {date}'
           + ('' if a.date or date == dt.date.today().isoformat()
@@ -547,6 +640,31 @@ def main():
         time.sleep(a.poll * 60)
         return True
 
+    def fetch_retry():
+        """After a failed screener pull. True: slept, pull again. False: the caller returns 1.
+        fetch_screener exits 5 when the session has expired or no cookie is set, 6 when screener.in could not
+        be reached (the network is often not up yet just after the task wakes the PC). Anything else stops."""
+        if LAST_RC not in (5, 6) or deadline is None or a.dry_run:
+            return False
+        if LAST_RC == 5:
+            # say so where it will be seen, then keep trying - every pull reads the cookie file afresh,
+            # so a new sessionid pasted this evening lets this run finish on its own
+            pull_status('cookie', f'{dt.date.today()}: the screener.in session has expired, so the {date} close cannot be pulled '
+                                  'until a new sessionid is pasted into .secrets/screener_cookie.txt (the run retries every '
+                                  f'{a.poll} minutes until {a.wait_until})', a.push)
+        now = dt.datetime.now()
+        if now < deadline:
+            what = 'a new cookie' if LAST_RC == 5 else 'screener.in to be reachable'
+            print(f'    [{now:%H:%M}] waiting for {what} - trying again in {a.poll} min, until {a.wait_until}.')
+            time.sleep(a.poll * 60)
+            return True
+        if LAST_RC == 5:
+            print(f'    The deadline ({a.wait_until}) has passed with no working cookie. Nothing written.')
+        else:
+            print(f'    The deadline ({a.wait_until}) has passed and screener.in still could not be reached. Nothing written.')
+            pull_status('network', f'{date}: screener.in could not be reached by {a.wait_until}; nothing was written', a.push)
+        return False
+
     def non_trading(path):
         same, n, prev = same_data_as_previous(os.path.join(ROOT, path), date)
         if same:
@@ -574,17 +692,8 @@ def main():
                       'Stopping so nothing is mislabelled; nothing written, nothing committed.')
                 return 2
             if not go([('pull the broad universe (decides coverage)', fetch + ['--query', BROAD, '--suffix', '_base'])]):
-                if LAST_RC == 5 and deadline is not None and not a.dry_run:
-                    # the session has expired: say so where it will be seen, then keep trying - every pull reads the
-                    # cookie file afresh, so a new sessionid pasted this evening lets this run finish on its own
-                    pull_status('cookie', f'{dt.date.today()}: the screener.in session has expired, so the {date} close cannot be pulled '
-                                          'until a new sessionid is pasted into .secrets/screener_cookie.txt (the run retries every '
-                                          f'{a.poll} minutes until {a.wait_until})', a.push)
-                    now = dt.datetime.now()
-                    if now < deadline:
-                        print(f'    [{now:%H:%M}] waiting for a new cookie - trying again in {a.poll} min, until {a.wait_until}.')
-                        time.sleep(a.poll * 60); continue
-                    print(f'    The deadline ({a.wait_until}) has passed with no working cookie. Nothing written.')
+                if fetch_retry():
+                    continue
                 return 1
             if not a.dry_run:
                 if non_trading(base):
@@ -600,6 +709,8 @@ def main():
                 ('union: broad + returns',                            merge + ['--base', base, '--overlay', returns, '--out', m1]),
                 ('union: + volume',                                   merge + ['--base', m1,   '--overlay', volume,  '--out', merged]),
             ]):
+                if fetch_retry():                         # a variant pull hit 5 or 6 mid-run: start again from the broad pull
+                    continue
                 return 1
             if not a.dry_run:
                 stale, det = stale_partial_refresh(os.path.join(ROOT, merged), date)
@@ -660,7 +771,9 @@ def main():
                 out[k] = v
                 if k == 'date':
                     out['note'] = session_note
-            io.open(scan_path, 'w', encoding='utf-8').write(json.dumps(out, ensure_ascii=False, separators=(',', ':')))
+            tmp = scan_path + '.tmp'            # atomic: a kill mid-write must not leave a truncated scan behind
+            io.open(tmp, 'w', encoding='utf-8').write(json.dumps(out, ensure_ascii=False, separators=(',', ':')))
+            os.replace(tmp, scan_path)
         except Exception as e:
             print(f'    (could not stamp the session note on the scan: {type(e).__name__}: {e})')
 
@@ -681,7 +794,7 @@ def main():
 
     # ---- markets and macro: NSE's index file, yields, the dollar, crude, foreign flows -------
     # What the Markets & Macro page reads. The same rule as the theme trackers: each source keeps
-    # its last good data when it does not answer, and nothing here may stop the run. (The 4 a.m.
+    # its last good data when it does not answer, and nothing here may stop the run. (The early-morning
     # GitHub job tops up everything except NSE's file, which only this run fetches.)
     if not run('refresh the Markets & Macro data (never blocks the scan)',
                [py, os.path.join('tools', 'fetch_markets.py'), '--quiet'], a.dry_run):
@@ -716,19 +829,21 @@ def main():
 
     if a.push:
         print('\n--- publish')
+        # Scoped to data/: anything else that happens to be staged (a half-edited index.html) stays out of
+        # this commit, and --autostash lets the rebase run on a tree with uncommitted edits.
         subprocess.run(['git', 'add', 'data'], cwd=ROOT)
-        if subprocess.run(['git', 'diff', '--cached', '--quiet'], cwd=ROOT).returncode == 0:
+        if subprocess.run(['git', 'diff', '--cached', '--quiet', '--', 'data'], cwd=ROOT).returncode == 0:
             print('    nothing changed — not committing')
             return 0
         msg = (f'EOD data refresh {after_date}\n\n'
                f'Shortlist {len(after)} names ({len(joined)} new, {len(dropped)} gone). '
                f'Built by tools/eod.py: three screener pulls unioned by exact code.\n\n'
                f'Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n')
-        if subprocess.run(['git', 'commit', '-q', '-m', msg], cwd=ROOT).returncode:
+        if subprocess.run(['git', 'commit', '-q', '-m', msg, '--', 'data'], cwd=ROOT).returncode:
             print('    commit failed'); return 1
         # A failed rebase must never leave the repo mid-rebase: tomorrow's run would then fail
         # at git add with no obvious cause. Abort, keep the local commit, and say so.
-        if subprocess.run(['git', 'pull', '--rebase', 'origin', 'main'], cwd=ROOT).returncode:
+        if subprocess.run(['git', 'pull', '--rebase', '--autostash', 'origin', 'main'], cwd=ROOT).returncode:
             subprocess.run(['git', 'rebase', '--abort'], cwd=ROOT)
             print('    rebase failed — aborted so the repo is not left mid-rebase. The commit is local; '
                   'pull by hand and push.')

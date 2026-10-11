@@ -24,6 +24,9 @@ import argparse, csv, datetime as dt, io, json, os, re, sys, zipfile
 from collections import OrderedDict
 from xml.etree import ElementTree as ET
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from rs import utf8_stdio  # noqa: E402  (stdout/stderr as UTF-8, so a cp1252 pipe cannot end the run on a print)
+
 SCHEMA = 'swingedge-weekly/1'
 
 # ----------------------------------------------------------------------------- aliases
@@ -332,6 +335,7 @@ def week_label(week_ending):
     return f'{ws.day} {ws.strftime("%b")} – {we.day} {we.strftime("%b %Y")}'
 
 def main():
+    utf8_stdio()
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--week-ending', required=True, help='ISO date of the last trading day, e.g. 2026-08-21')
     ap.add_argument('--label', help='display label, default derived e.g. "17–21 Aug 2026"')

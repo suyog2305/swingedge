@@ -19,6 +19,7 @@ weights rescaled so its number stays on the same one-quarter scale as everyone e
 rated on less than one quarter of history. A scan with no 6m/1y columns at all falls back to a
 3m/1m/1w blend for every row.
 """
+import math, sys
 
 Q1_W, Q2_W, Q34_W = 0.4, 0.2, 0.2
 BLEND = (('r3m', 0.5), ('r1m', 0.3), ('r1w', 0.2))
@@ -74,7 +75,7 @@ def percentiles(rows, key, out):
     while i < n:
         j = i
         while j + 1 < n and rk[j + 1][key] == rk[i][key]: j += 1
-        pct = 99 if n == 1 else round(1 + 98 * ((i + j) / 2) / (n - 1))
+        pct = 99 if n == 1 else math.floor(1 + 98 * ((i + j) / 2) / (n - 1) + 0.5)   # half up, as the app's Math.round (Python's round() goes to even)
         for k in range(i, j + 1): rk[k][out] = pct
         i = j + 1
 
@@ -85,6 +86,18 @@ def rate(rows, out='_rs', score_key='_m'):
     for r in rows: r[score_key] = momentum(r, mode)
     percentiles(rows, score_key, out)
     return mode
+
+
+def utf8_stdio():
+    """Console output that survives Windows: stdout/stderr captured with cp1252 (the scheduled task, Claude's
+    Bash tool, a pipe) raise UnicodeEncodeError on the first '→', 'Δ' or '₹'. Every tool calls this first thing in
+    main(), before argparse can print a --help. Lives here because every tool can already import rs, and a
+    tools/_io.py cannot be imported at all: CPython's own built-in `_io` module wins over the file."""
+    for s in (sys.stdout, sys.stderr):
+        try:
+            s.reconfigure(encoding='utf-8', errors='replace')
+        except Exception:
+            pass
 
 
 def trend_label(passed, total):

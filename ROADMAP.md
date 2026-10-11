@@ -1,7 +1,7 @@
 # Roadmap
 
 What's built, what's blocked, and what's next — in dependency order rather than wish order.
-Status as of **2026-10-06**.
+Status as of **2026-10-11**.
 
 ---
 
@@ -465,6 +465,33 @@ around 17:20. That is the earliest an honest close can be had; a pull at 15:50 t
 wait would show today's prices against yesterday's averages, which is worse than yesterday's data.
 One day is one day: if the completion time drifts, the log now shows every poll with its
 fractions, and the deadline is 21:00.
+
+### 2026-10-11 — the cookie was never renewed; a 62-agent audit; the book, reviewed by the API
+
+Nothing was pulled all week: the cookie file is still the one from 9 Sep, every 15:50 run polled until 21:00 and
+wrote the red status line, and the last scan is still 1 Oct. The 9 Oct close can be pulled until Monday 09:15; a
+watcher in the Claude session runs `eod.py --date 2026-10-09 --push` the moment the cookie file changes.
+
+The owner asked for an error sweep of the whole app. Seven read-only finders (one lens each: JS runtime, data
+contracts, tools and automation, UI text, the live site in a browser, the report libraries, privacy) produced 55
+candidates; a skeptic per candidate reproduced 54. The four that mattered most were privacy: the page's seed DB
+shipped a real Kite holdings snapshot and three positions to every visitor (since the first upload on 4 Jun), 13
+published research reports carried "Position in your book" rows with quantities and average prices, and
+`rate_cohort.py` listed the 18 holdings by name. All removed from the tree the same day; the git history still
+carries them (the owner's call whether to rewrite it). The rest: column sorts that never re-rendered on five pages,
+a +9114% legend on a running total, the Stage 2 "previous list" search that stopped 8 scans back, RS ranked over
+coded rows only in the shortlist and the journal (1–2 points off the app), "w/e" labels on daily scans, dates one
+day early before 05:30 IST, a lock file that a recycled PID could hold forever, the evening pull's publish racing
+the 03:13 job on markets.json, a `%errorlevel%>>` that never logged the exit code, cp1252 crashes on `→` in five
+tools, and twenty smaller ones. Fixed in four parallel groups by file, each reviewed against the brief, then the
+derived data rebuilt. Lesson kept: a helper file named `_io.py` is shadowed by CPython's built-in `_io` — the
+console fix lives in `tools/rs.py` as `utf8_stdio()`.
+
+New: `tools/kite_sync.py` (the free Kite Connect Personal plan: one browser login a day, holdings and positions
+into `.secrets/`) and `tools/positions_review.py` (Yahoo daily + hourly candles, features in Python, one Claude API
+call with structured output; the review describes structure, patterns and levels and checks the owner's own
+rules; it never advises). The news routine runs at 07:45 and 18:45 IST only; the 04:45 slot could never do
+anything (the sandbox cannot reach Google News and the GitHub job lands after 05:57).
 
 ### 2026-10-05/06 — a dead cookie went unnoticed for a day; now it is on the site within a minute
 

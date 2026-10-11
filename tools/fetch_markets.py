@@ -49,6 +49,9 @@ fetches only the dates and reports it does not already hold.
 import argparse, csv, datetime as dt, html.parser, io, json, os, re, sys, time
 import urllib.error, urllib.parse, urllib.request
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from rs import utf8_stdio  # noqa: E402  (stdout/stderr as UTF-8, so a cp1252 pipe cannot end the run on a print)
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'data', 'markets', 'markets.json')
 SCHEMA = 'swingedge-markets/1'
@@ -394,7 +397,9 @@ def block_global(doc, days, today):
         meta.setdefault(sid, {}).update({'name': label, 'group': group, 'unit': unit, 'dec': dec, 'symbol': sym})
         time.sleep(0.08)
     first = (today - dt.timedelta(days=days)).isoformat()
-    dates = sorted({d for pts in table.values() for d in pts if d >= first})
+    # weekdays only: Yahoo returns the odd Saturday FX tick (USD/INR on 10 Oct 2026), which moved `asof` to a day
+    # no other series has and gave USD/INR a bogus 1-day move. Weekday holidays stay - some markets trade on them.
+    dates = sorted({d for pts in table.values() for d in pts if d >= first and dt.date.fromisoformat(d).weekday() < 5})
     series = {}
     for sid in table:
         s = dict(meta[sid]); s['v'] = [None if table[sid].get(d) is None else round(table[sid][d], s['dec'] + 1) for d in dates]
@@ -615,6 +620,7 @@ def block_mf(doc, days, today):
 # ------------------------------------------------------------------ driver
 def main():
     global QUIET
+    utf8_stdio()
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--only', help='comma-separated blocks: ' + ' '.join(BLOCKS))
     ap.add_argument('--days', type=int, default=400, help='calendar days of daily history to keep (default 400)')

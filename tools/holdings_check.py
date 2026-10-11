@@ -31,6 +31,9 @@ STDLIB ONLY.
 """
 import argparse, glob, io, json, os, re, sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from rs import utf8_stdio  # noqa: E402  (stdout/stderr as UTF-8, so a cp1252 pipe cannot end the run on a print)
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PRIVATE = os.path.join(ROOT, '.secrets', 'holdings.json')
 TRACKER = os.path.join(ROOT, 'data', 'daily', 'rs_tracker.json')
@@ -63,6 +66,7 @@ def climbing(x, n):
 
 
 def main():
+    utf8_stdio()
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--from-kite', metavar='FILE', help='a Kite holdings JSON dump to convert into .secrets/holdings.json first')
     ap.add_argument('--codes', help='comma-separated NSE codes, instead of the private file')

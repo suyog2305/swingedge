@@ -35,6 +35,7 @@ import argparse, datetime as dt, io, json, os, subprocess, sys, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import gainers_news as gn
 import market_news as mn
+from rs import utf8_stdio
 
 ROOT = mn.ROOT
 IST = mn.IST
@@ -177,6 +178,7 @@ def cmd_merge(a):
 
 
 def main():
+    utf8_stdio()
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sp = ap.add_subparsers(dest='cmd', required=True)
     b = sp.add_parser('brief'); b.add_argument('--no-pull', action='store_true'); b.add_argument('--no-collect', action='store_true'); b.set_defaults(fn=cmd_brief)

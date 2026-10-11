@@ -24,7 +24,7 @@ the newest scan. No network, no LLM.
 import argparse, datetime as dt, glob, io, json, os, re, statistics, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from rs import num, rate, trend_label
+from rs import num, rate, trend_label, utf8_stdio
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCANS = os.path.join(ROOT, 'data', 'scans')
@@ -77,12 +77,18 @@ def chain(dates, prices, codes):
 
 
 def ret_over(levels, dates, days):
-    """% change from the latest level at least `days` before the newest level (None = not enough history)."""
+    """% change over `days` calendar days to the newest level, from the newest level `days` to `days`+4 days back
+    (the RS tracker's tolerance window). None when no scan sits in that window, so a gap in the archive shows as
+    "—" instead of a longer span under the same label. days=0 is the 1-day move: None when the previous scan is
+    more than 4 days older (4 covers Fri->Mon and a one-day holiday)."""
     j = max((i for i, v in enumerate(levels) if v is not None), default=None)
     if j is None: return None
-    if days == 0: return (levels[j] / levels[j - 1] - 1) * 100 if j > 0 and levels[j - 1] else None
     end = dt.date.fromisoformat(dates[j])
-    base = [i for i in range(j) if levels[i] is not None and (end - dt.date.fromisoformat(dates[i])).days >= days]
+    if days == 0:
+        if j > 0 and levels[j - 1] and (end - dt.date.fromisoformat(dates[j - 1])).days <= 4:
+            return (levels[j] / levels[j - 1] - 1) * 100
+        return None
+    base = [i for i in range(j) if levels[i] is not None and days <= (end - dt.date.fromisoformat(dates[i])).days <= days + 4]
     return (levels[j] / levels[base[-1]] - 1) * 100 if base else None
 
 
@@ -109,7 +115,9 @@ def build(quiet):
     if not files: sys.exit('no dated scan in data/scans/')
     dates, prices, universes = [], {}, {}
     for d, p in files:
-        rows = jload(p).get('universe', [])
+        try: rows = jload(p).get('universe', [])
+        except (ValueError, OSError) as e:                     # a truncated scan: say so loudly, never drop a day silently
+            print(f'WARNING: skipping unreadable scan {os.path.basename(p)}: {type(e).__name__}: {e}', file=sys.stderr); continue
         pm = {key(r): num(r.get('price')) for r in rows if key(r) and num(r.get('price'))}
         if len(pm) < MIN_NAMES: continue                       # the narrow seed exports are not a market day
         dates.append(d); prices[d] = pm; universes[d] = rows
@@ -182,10 +190,11 @@ def add(a):
     cfg['indices'] = [x for x in cfg.get('indices', []) if x.get('id') != a.id] + [entry]
     jsave(CFG, cfg, pretty=True)
     print(f"{a.id}: {len(codes)} names saved to data/indices/indices.json")
-    build(quiet=False)
+    build(quiet=a.quiet)
 
 
 def main():
+    utf8_stdio()
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--quiet', action='store_true')
     sub = ap.add_subparsers(dest='cmd')

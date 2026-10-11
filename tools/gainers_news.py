@@ -32,6 +32,9 @@ candidates).
 """
 import argparse, datetime as dt, glob, json, os, re, subprocess, sys, time
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from rs import utf8_stdio  # noqa: E402  (stdout/stderr as UTF-8, so a cp1252 pipe cannot end the run on a print)
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCANS = os.path.join(ROOT, 'data', 'scans')
 NEWS = os.path.join(ROOT, 'data', 'daily', 'news.json')
@@ -217,6 +220,7 @@ def cmd_collect(a):
 
 
 def main():
+    utf8_stdio()
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest='cmd', required=True)
     l = sub.add_parser('list'); l.add_argument('--top', type=int, default=15); l.add_argument('--fresh-days', type=int, default=3)

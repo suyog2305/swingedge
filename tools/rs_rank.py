@@ -13,7 +13,7 @@ the change in RS since the previous scan. No LLM, no network, no cost.
 import argparse, glob, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from rs import num, rate
+from rs import num, rate, utf8_stdio
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCANS = os.path.join(ROOT, 'data', 'scans')
@@ -28,6 +28,7 @@ def load(path):
 
 
 def main():
+    utf8_stdio()
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--top', type=int, default=25)
     ap.add_argument('--date', help='scan date YYYY-MM-DD (default: newest)')

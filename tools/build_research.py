@@ -39,6 +39,24 @@ def rating_cell(cls, html):
     return strip(m.group(1)) if m else None
 
 MONTHS = {m: i + 1 for i, m in enumerate(['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'])}
+def scan_sector(code):
+    """The sector the app itself uses for a code: `group` (else `industry`) from the newest scan. Used before the
+    subtitle fallback, which produced 62 near-unique 'sectors' out of business descriptions (audit, 11 Oct 2026)."""
+    if not code or str(code).upper() == 'CLUSTER':
+        return None
+    try:
+        import glob
+        files = sorted(p for p in glob.glob(os.path.join(ROOT, 'data', 'scans', '20*.json')) if re.search(r'[0-9]{4}-[0-9]{2}-[0-9]{2}[.]json$', p))
+        if not files:
+            return None
+        for r in json.load(io.open(files[-1], encoding='utf-8')).get('universe') or []:
+            if str(r.get('code') or '').upper() == str(code).upper():
+                return r.get('group') or r.get('industry') or None
+    except Exception:
+        return None
+    return None
+
+
 def guess_date(html, title):
     for src in (find(r'report-eyebrow"[^>]*>(.*?)</p>', html) or '', title or ''):
         m = re.search(r'([A-Za-z]{3,9})\s+(\d{4})', src)
@@ -73,7 +91,7 @@ def main():
     sub = find(r'report-subtitle"[^>]*>(.*?)</p>', html)
     if sub: rep['subtitle'] = sub
     if code: rep['code'] = code.upper()
-    sector = a.sector or find(r'<td class="bold">Sector</td>\s*<td[^>]*>(.*?)</td>', html) or (sub.split('·')[0].strip() if sub else None)
+    sector = a.sector or find(r'<td class="bold">Sector</td>\s*<td[^>]*>(.*?)</td>', html) or scan_sector(rep.get('code'))         or (sub.split('·')[0].strip() if sub else None)
     if sector: rep['sector'] = re.split(r'\s[—/]\s', sector)[0].strip()   # keep the lead sector phrase
     rep['date'] = date
     # The first cell of the rating bar is the call, whatever colour it wears: the template classes it

@@ -29,7 +29,7 @@ import argparse, datetime as dt, io, json, os, glob, sys
 from collections import OrderedDict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from rs import rate as rs_rate
+from rs import rate as rs_rate, utf8_stdio
 
 # How far above a cut export's RS floor a previously-listed name must have sat for its absence
 # to count as an exit rather than "probably dipped under the cut". The provider's RS% commonly
@@ -80,6 +80,7 @@ def trend_pass(r, prev_row):
     return len(c) >= 5 and all(c)
 
 def main():
+    utf8_stdio()
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--quiet', action='store_true')
     a = ap.parse_args()
@@ -94,16 +95,21 @@ def main():
     prev_rs, prev_src = {}, None             # the previous provider list: code -> its RS%, and which file it was
 
     for p in files:
-        d = jload(p)
+        try: d = jload(p)
+        except (ValueError, OSError) as e:      # a truncated scan: say so loudly, never drop a day silently
+            print(f'WARNING: skipping unreadable scan {os.path.basename(p)}: {type(e).__name__}: {e}', file=sys.stderr); continue
         date = d.get('date') or os.path.basename(p)[:-5]
-        U = [r for r in d.get('universe', []) if r.get('code')]
+        # RS is ranked across the WHOLE universe, as the app does, and only then narrowed to coded rows:
+        # ranking the coded rows alone lifts every percentile about a point (RS 69 in the app read 70 here)
+        full = d.get('universe', []) or []
+        rs_percentiles(full)
+        U = [r for r in full if r.get('code')]
         S2 = d.get('stage2', []) or []
         s2_src = (d.get('sources') or {}).get('stage2')
         cur_rs = {str(s.get('code', '')).upper(): num(s.get('rs_pct')) for s in S2 if s.get('code')}
         s2_floor = num(d.get('stage2_rs_floor'))
         if s2_floor is None and any(v is not None for v in cur_rs.values()):
             s2_floor = min(v for v in cur_rs.values() if v is not None)
-        rs_percentiles(U)
         umap = {r['code'].upper(): r for r in U}
 
         for r in U:

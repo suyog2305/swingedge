@@ -32,7 +32,8 @@ HOW (every number is explainable)
             trend    fails the trend template by two or more checks
             0 = Healthy · 1 = Watch · 2 = Tiring · 3+ = Exhausted
   Verdict   direction only (RS gives the level): weakening = slipping / dropped / fading or 2+ flags;
-            watch = new, or exactly 1 flag; strong = otherwise
+            watch = new, or exactly 1 flag; strong = otherwise; none for "out" names (never in the
+            window), so nothing outside the list reads as "holding its place"
   Evidence  for every consecutive pair of anchors: how many of the top N stayed, split by how many
             exhaustion flags they carried at the time — so the flags earn (or lose) your trust
             against your own archive, week by week.
@@ -45,7 +46,7 @@ PORTFOLIO  data/daily/holdings.json, if present, lists what you hold (written by
 import argparse, datetime as dt, glob, io, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from rs import num, rate, rs_mode, trend_label
+from rs import num, rate, rs_mode, trend_label, utf8_stdio
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCANS = os.path.join(ROOT, 'data', 'scans')
@@ -67,6 +68,14 @@ SLIP = 8            # rank places lost in a week that count as slipping
 
 def jload(p):
     with io.open(p, encoding='utf-8') as fh: return json.load(fh)
+
+
+def scan_rows(p):
+    """A scan's universe, or None when the file is unreadable (a run killed mid-write) - said loudly, never silently."""
+    try: return jload(p).get('universe', [])
+    except (ValueError, OSError) as e:
+        print(f'WARNING: skipping unreadable scan {os.path.basename(p)}: {type(e).__name__}: {e}', file=sys.stderr)
+        return None
 
 
 def scan_files():
@@ -143,6 +152,7 @@ def pick_anchors(files, weeks):
 
 
 def main():
+    utf8_stdio()
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--top', type=int, default=25)
     ap.add_argument('--weeks', type=int, default=8)
@@ -152,17 +162,19 @@ def main():
     files = scan_files()
     if not files: sys.exit('no dated scan in data/scans/')
     anchors = pick_anchors(files, a.weeks)
-    newest_rows = jload(anchors[0][1]).get('universe', [])
+    newest_rows = scan_rows(anchors[0][1])
+    if newest_rows is None: sys.exit(f'the newest scan {os.path.basename(anchors[0][1])} is unreadable - rebuild it with tools/build_scan.py')
     mode = rs_mode(newest_rows)
 
     # enrich every anchor (and the newest scan's previous daily scan, for the DMA-200 slope + 1-day RS change)
     idx = {d: i for i, (d, _) in enumerate(files)}
     def prev_of(date):
-        i = idx[date]; return jload(files[i - 1][1]).get('universe', []) if i > 0 else None
+        i = idx[date]; return scan_rows(files[i - 1][1]) if i > 0 else None
     weeks = []                                                   # [{date, gap, map}] newest first; None where no comparable scan
     for k, an in enumerate(anchors):
         if an is None: weeks.append(None); continue
-        rows = newest_rows if k == 0 else jload(an[1]).get('universe', [])
+        rows = newest_rows if k == 0 else scan_rows(an[1])
+        if rows is None: weeks.append(None); continue             # unreadable (warned above): treated as a week with no scan
         if rs_mode(rows) != mode: weeks.append(None); continue   # a week ranked on a different composite is not comparable
         prev = prev_of(an[0])
         weeks.append({'date': an[0], 'file': os.path.basename(an[1]), 'gap_days': (dt.date.fromisoformat(anchors[0][0]) - dt.date.fromisoformat(an[0])).days,
@@ -197,7 +209,7 @@ def main():
         else:
             status = 'dropped' if last else 'fading' if (ever and weakening >= 2) else 'dropped' if ever else 'out'
         ex = r['exhaustion']
-        verdict = 'weakening' if status in ('slipping', 'dropped', 'fading') or ex >= 2 else 'watch' if status == 'new' or ex == 1 else 'strong'
+        verdict = None if status == 'out' else ('weakening' if status in ('slipping', 'dropped', 'fading') or ex >= 2 else 'watch' if status == 'new' or ex == 1 else 'strong')
         codes[c] = dict(r, rs_hist=rs_hist, rank_hist=rk_hist, in_top=tops, streak=streak, weeks_in_top=sum(tops),
                         weakening_weeks=weakening, rank_d1w=d1w, rs_d1d=(r['rs'] - prev_rs[c]) if c in prev_rs else None,
                         status=status, verdict=verdict)

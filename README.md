@@ -11,11 +11,11 @@ A native, JSON-driven weekly markets digest (FII/DII flows, derivatives, FX, com
 - Data lives in `library/weekly/` — one JSON per week plus `index.json`. The contract is documented in [library/weekly/README.md](library/weekly/README.md).
 - Build a week from your exports with `python tools/build_weekly.py --week-ending YYYY-MM-DD --india … --us … --etf … --fiidii … --indices …` (csv or xlsx, no extra packages), then author the commentary fields (or hand the file to Claude) and push.
 
-## Edge — Market Pulse · RS Screen · Sectors · Stage 2 Tracker
+## Momentum cockpit — RS Screen · RS Trend · Sectors · Stage 2 Tracker
 
 A WealthLab-style momentum cockpit built natively into SwingEdge (dark **Lab** theme by default; toggle to the cream **Ledger** theme in the sidebar):
 
-- **Market Pulse** — the weekly landing: RS distribution, industry momentum leaders, a sector-rotation quadrant, top-RS stocks, and Stage 2 entries/exits at a glance.
+- **Markets & Macro** — the landing page (see below); the old Market Pulse's sector rotation and leaders now sit at the bottom of it.
 - **RS Screen** — every scanned stock ranked by a relative-strength rating (1–99) with a 7-point Weinstein/Minervini trend template, RS-vs-sector, filters, and CSV export.
 - **Sectors** — industry-group rankings by median RS with a leading/improving/weakening/lagging rotation map and drill-down.
 - **Stage 2 Tracker** — the weekly Stage 2 list with automatic **entered / re-entry / continues / exited** diffs and convergence against the weekly scan.
@@ -52,7 +52,7 @@ Add one with `python tools/build_research.py --file "<report>.html" --feature` (
 
 `python tools/build_shortlist.py` ranks the whole scan for convergence (new 52-week high + Stage 2 +
 earnings + today's move + a news trigger) and writes the top 15-20 names, each with the reason it
-qualified. No model, no API key, no cost. Open **Edge -> Shortlist**, tick up to five, and copy the
+qualified. No model, no API key, no cost. Open **Ideas -> Shortlist**, tick up to five, and copy the
 brief to hand to the report generator. Details in [data/scans/README.md](data/scans/README.md).
 
 ## Markets & Macro, Market News, and your own book
@@ -63,8 +63,8 @@ brief to hand to the report generator. Details in [data/scans/README.md](data/sc
   portfolio flows by day, by month and by sector; NSE's sector indices with turnover and P/E; and your
   sub-sector trackers. Data: `data/markets/markets.json`, built by `python tools/fetch_markets.py` from
   NSE's end-of-day index file, Yahoo, RBI, NSDL and SEBI. Every chart has an **Expand** view.
-- **Market News** collects the overnight headlines at 04:00 IST (`tools/market_news.py collect`, run by
-  `.github/workflows/market_news.yml`) and groups them by topic; a short digest written from those
+- **Market News** collects the overnight headlines early each morning (`tools/market_news.py collect`, run by
+  `.github/workflows/market_news.yml`, scheduled for 03:13 IST; GitHub often starts it late) and groups them by topic; a short digest written from those
   headlines alone is merged on top by a Claude routine.
 - **RS Leaders** explains itself: an **i** beside every column, and a click on any Trend, Exhaustion or
   Verdict cell gives that stock's own reason. It also lists the names that entered the top 25 this week

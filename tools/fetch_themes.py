@@ -38,6 +38,9 @@ evening scan. Downloads are cached in exports/themes_cache/ (gitignored) and reu
 import argparse, datetime as dt, glob, io, json, os, re, sys, time, urllib.request, zipfile
 from collections import OrderedDict
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from rs import utf8_stdio  # noqa: E402  (stdout/stderr as UTF-8, so a cp1252 pipe cannot end the run on a print)
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONFIGS = os.path.join(ROOT, 'tools', 'themes')
 OUT = os.path.join(ROOT, 'data', 'themes')
@@ -77,9 +80,15 @@ def src_yahoo(spec):
     d = json.loads(cached(url, 'yahoo_' + re.sub(r'[^A-Za-z0-9]+', '_', sym) + '.json', 6).decode('utf-8'))
     res = d['chart']['result'][0]
     closes = res['indicators']['quote'][0]['close']
+    # NSE stocks only: Yahoo prints a flat zero-volume bar on Indian market holidays (2 Oct 2026, 14 Sep, ...),
+    # which is not a session. Futures and foreign stocks (CL=F, BZ=F, MU, 000660.KS) are left as they come.
+    equity = bool(spec.get('scan_code')) or sym.upper().endswith(('.NS', '.BO'))
+    vols = (res['indicators']['quote'][0].get('volume') or []) if equity else []
     pts = OrderedDict()
-    for ts, c in zip(res['timestamp'], closes):
+    for i, (ts, c) in enumerate(zip(res['timestamp'], closes)):
         if c is None:
+            continue
+        if equity and i < len(vols) and vols[i] == 0:
             continue
         day = dt.datetime.fromtimestamp(ts, dt.timezone.utc).date().isoformat()
         pts[day] = round(float(c), 4)
@@ -348,6 +357,7 @@ def build(cfg_path):
 
 def main():
     global OFFLINE
+    utf8_stdio()
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('ids', nargs='*', help='tracker ids (default: every config in tools/themes/)')
     ap.add_argument('--offline', action='store_true', help='use cached downloads only')

@@ -10,7 +10,8 @@ emit the 15-20 names worth a research report, with the reason each one qualified
 Runs on data already in the repo — no LLM, no API key, no cost:
   data/scans/<date>.json   universe (price, returns, DMAs, 52W position) + the Stage 2 list
   data/pead/<quarter>.json most recent quarterly results (PEAD tier + growth)
-  data/daily/news.json     curated headlines (the "trigger" leg), if present
+  data/daily/news.json     curated headlines (the "trigger" leg), if present; only a headline
+                           dated within NEWS_DAYS of the scan counts
 
 Writes data/daily/shortlist.json (latest, what the app reads) and a dated copy under
 data/daily/shortlist/<date>.json. Prints a readable table unless --quiet.
@@ -25,19 +26,21 @@ and any pinned name that DOES earn a top-N slot is tagged `pinned` in doc.rows.
 SCORING — every point is explainable; each contributing factor becomes a `reason` string:
   new 52-week high / near high        +3 / +2
   Stage 2 (fresh entry or re-entry)   +3, else on the list +2, early in the move (<=8 wks) +1
+    "fresh" only while the provider's list is at most 7 days older than the scan; an older list's
+    entries score +2 and say the list's date, and its week count is aged to the scan date
   passes the 7-point trend template   +2
   Strong / Moderate PEAD earnings     +3 / +2
   today's move  >=5% / >=2%           +2 / +1
   week's move   >=10%                 +1
   RS  >=90 / >=80                     +2 / +1
-  a news trigger on file              +2
+  a recent news trigger on file       +2   (headline dated within NEWS_DAYS of the scan)
   leading sector (median RS >=60)     +1
 """
 import argparse, datetime as dt, io, json, os, re, glob, sys
 from collections import OrderedDict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from rs import rate as rs_rate
+from rs import rate as rs_rate, utf8_stdio
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCHEMA = 'swingedge-shortlist/1'
@@ -74,8 +77,12 @@ def band_of(mcap):
 
 NEWHIGH = 1.5          # within this % of the 52-week high counts as "at a new high"
 NEARHIGH = 5.0
+NEWS_DAYS = 5          # a headline counts as a trigger if dated up to this many days before the scan's date (covers a weekend)
+NEWS_AHEAD = 3         # ...and up to this many days after it: headlines are curated after the scan
+FRESH_S2 = 7           # a Stage 2 entry reads "this week" only while the list is at most this many days old
 
 def main():
+    utf8_stdio()
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--date', help='scan date to use (default: newest in data/scans)')
     ap.add_argument('--top', type=int, default=20, help='how many names to shortlist (default 20)')
@@ -90,10 +97,17 @@ def main():
     path = next((p for p in scans if a.date and os.path.basename(p) == a.date + '.json'), None) if a.date else scans[-1]
     if path is None: raise SystemExit(f'no scan for {a.date}')
     scan = jload(path)
-    U = [r for r in scan.get('universe', []) if r.get('code')]
+    # RS: percentile of a recency-weighted momentum composite (tools/rs.py), ranked across the WHOLE universe
+    # as the app and rs_tracker.json do, then narrowed to coded rows (the same dicts, so _rs/_mom carry over)
+    ALL = scan.get('universe', []) or []
+    rs_rate(ALL, out='_rs', score_key='_mom')
+    U = [r for r in ALL if r.get('code')]
     if not U: raise SystemExit(f'{os.path.basename(path)} has no universe rows')
     S2 = scan.get('stage2', []) or []
     scan_date = scan.get('date') or os.path.basename(path)[:-5]
+    s2_asof = scan.get('stage2_asof')          # the provider list's own date (build_scan stamps it)
+    try: s2_lag = max(0, (dt.date.fromisoformat(scan_date) - dt.date.fromisoformat(s2_asof)).days) if s2_asof else 0
+    except (TypeError, ValueError): s2_lag = 0
 
     # ---- pinned watchlist (optional) -----------------------------------------
     watch, watch_note = set(), {}
@@ -116,9 +130,6 @@ def main():
             p = jload(scans[idx - 1])
             prev = {r['code']: r for r in p.get('universe', []) if r.get('code')}
         except Exception: prev = None
-
-    # ---- RS: percentile of a recency-weighted momentum composite (tools/rs.py) ----
-    rs_rate(U, out='_rs', score_key='_mom')
 
     # ---- sector strength ------------------------------------------------------
     groups = {}
@@ -157,6 +168,12 @@ def main():
         try: news = {k.upper(): v for k, v in (jload(npath).get('stocks') or {}).items()}
         except Exception: news = {}
 
+    def news_fresh(nw):
+        """A headline is a trigger only when it is dated close to the scan; news.json keeps every old one."""
+        try: age = (dt.date.fromisoformat(scan_date) - dt.date.fromisoformat(str((nw or {}).get('date'))[:10])).days
+        except (TypeError, ValueError): return False
+        return -NEWS_AHEAD <= age <= NEWS_DAYS
+
     # ---- trend template -------------------------------------------------------
     def trend_pass(r):
         price, d50, d200 = num(r.get('price')), num(r.get('dma50')), num(r.get('dma200'))
@@ -185,6 +202,7 @@ def main():
         s2 = s2map.get(code)
         pd = pead_by_code.get(code) or pead_by_name.get(pead_key(r.get('name')))
         nw = (news.get(code) or [None])[0]
+        if not news_fresh(nw): nw = None
         tpass, tp, tt = trend_pass(r)
         g = r.get('group') or r.get('industry') or 'Other'
         srs = sector_rs.get(g)
@@ -197,12 +215,19 @@ def main():
         if s2:
             st = str(s2.get('status', '')).lower()
             wk = num(s2.get('weeks'))
-            if re.search(r're-?\s?entry', st):
+            wk = wk + s2_lag / 7 if wk else wk          # the list's count, aged to the scan date
+            fresh = s2_lag <= FRESH_S2
+            old = f' of {s2_asof} ({s2_lag} days before this scan)'
+            if re.search(r're-?\s?entry', st) and fresh:
                 score += 3; reasons.append('re-entered the Stage 2 list this week')
-            elif 'new' in st:
+            elif re.search(r're-?\s?entry', st):
+                score += 2; reasons.append('re-entered the Stage 2 list' + old)
+            elif 'new' in st and fresh:
                 score += 3; reasons.append('entered the Stage 2 list this week')
+            elif 'new' in st:
+                score += 2; reasons.append('entered the Stage 2 list' + old)
             else:
-                score += 2; reasons.append(f'on the Stage 2 list{f" ({int(wk)} wks)" if wk else ""}')
+                score += 2; reasons.append(f'on the Stage 2 list{f" ({int(wk + 0.5)} wks)" if wk else ""}')
             if wk and wk <= 8: score += 1; reasons.append('still early in the Stage 2 move')
         if tpass: score += 2; reasons.append(f'passes the trend template ({tp}/{tt})')
         if pd:
@@ -225,8 +250,9 @@ def main():
                            new_high=bool(f52 is not None and f52 >= -NEWHIGH),
                            trend=f'{tp}/{tt}', trend_pass=tpass)
         if s2:
-            item['s2'] = OrderedDict(weeks=num(s2.get('weeks')), status=s2.get('status'),
-                                     rs_pct=num(s2.get('rs_pct')), since=s2.get('since'))
+            item['s2'] = OrderedDict(weeks=int(wk + 0.5) if wk else num(s2.get('weeks')), status=s2.get('status'),
+                                     rs_pct=num(s2.get('rs_pct')), since=s2.get('since'),
+                                     weeks_listed=num(s2.get('weeks')), asof=s2_asof, age_days=s2_lag if s2_asof else None)
         if pd:
             item['pead'] = OrderedDict(tier=pd.get('tier'), label=pd.get('pead'), quarter=quarter,
                                        eps_yoy=num(pd.get('eps_yoy')), pat_yoy=num(pd.get('pat_yoy')),
@@ -247,7 +273,7 @@ def main():
     watched = [r for r in rows if r.get('pinned') and r['code'] not in in_top]
 
     doc = OrderedDict(schema=SCHEMA, date=dt.date.today().isoformat(), scan_date=scan_date,
-                      quarter=quarter, universe=len(U), considered=len(rows), count=len(top),
+                      stage2_asof=s2_asof, stage2_age_days=s2_lag if s2_asof else None, quarter=quarter, universe=len(U), considered=len(rows), count=len(top),
                       params=OrderedDict(top=a.top, min_mcap=a.min_mcap, min_score=a.min_score),
                       rows=top, watchlist=watched)
 

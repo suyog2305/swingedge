@@ -1374,7 +1374,6 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
   <div class="topbar">
     <div class="tb-left"><span class="tb-title">Track Record</span><span class="tb-crumb">/ signal forward returns</span></div>
     <div class="tb-right">
-      <select class="wr-week-sel se-week" onchange="seSelectWeek(this.value)"><option value="">Loading…</option></select>
       <button class="btn btn-sm" onclick="loadSE(true).then(loadTR).then(()=>loadTR(true))"><i class="ti ti-refresh"></i>Refresh</button>
     </div>
   </div>
@@ -1438,7 +1437,7 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
 <!-- ── MARKET NEWS ── -->
 <div class="sec" id="sec-news">
   <div class="topbar">
-    <div class="tb-left"><span class="tb-title">Market News</span><span class="tb-crumb">/ what moved markets overnight, collected at 4 a.m.</span></div>
+    <div class="tb-left"><span class="tb-title">Market News</span><span class="tb-crumb">/ what moved markets overnight, collected before the Indian morning</span></div>
     <div class="tb-right">
       <button class="btn btn-sm" onclick="loadMN(true)"><i class="ti ti-refresh"></i>Refresh</button>
     </div>
@@ -2353,7 +2352,7 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
 <div class="overlay" id="m-research">
   <div class="modal">
     <div class="modal-hdr"><h3>Add Research</h3><button class="xbtn" onclick="closeModal('m-research')">×</button></div>
-    <form onsubmit="saveResearch(event)">
+    <form id="research-form" onsubmit="saveResearch(event)">
       <div class="g2">
         <div class="fg"><label>Stock</label><input name="stock" required></div>
         <div class="fg"><label>Sector</label><input name="sector"></div>
@@ -3112,8 +3111,18 @@ function save(){
 // reading saved there has no positions, and the position code threw on it at start-up, which stopped every
 // page from loading. Such readings are moved to DB.macroSnaps (shown at the foot of Markets & Macro).
 function dbMigrate(){
+  // One-time cleanup: older versions shipped three sample positions in the default data, and a browser that
+  // saved that default still holds them. Remove only rows that exactly match those samples.
   try{
-    const all = Array.isArray(DB.snapshots) ? DB.snapshots : [], macro = all.filter(x => x && !Array.isArray(x.positions));
+    if(Array.isArray(DB.positions)){
+      const SEED_POS = [['FedFina',1000,152.3],['E2E Networks',250,1840],['Aeroflex',500,218.75]];
+      const before = DB.positions.length;
+      DB.positions = DB.positions.filter(p => !SEED_POS.some(([s,q,a]) => p && p.stock === s && Number(p.qty) === q && Number(p.avg) === a));
+      if(DB.positions.length !== before) save();
+    }
+  }catch(e){ console.warn('sample position cleanup failed', e); }
+  try{
+    const all =Array.isArray(DB.snapshots) ? DB.snapshots : [], macro = all.filter(x => x && !Array.isArray(x.positions));
     if(!macro.length && all.every(Boolean)) return;
     DB.macroSnaps = (DB.macroSnaps || []).concat(macro.filter(x => x.week));
     DB.snapshots = all.filter(x => x && Array.isArray(x.positions));
@@ -3161,7 +3170,7 @@ function show(id){
 
 function openModal(id){
   document.getElementById(id).classList.add('open');
-  const today = new Date().toISOString().slice(0,10);
+  const today = ttIso(new Date());
   document.querySelectorAll('#'+id+' input[type=date]').forEach(i=>{ if(!i.value) i.value = today; });
 }
 function closeModal(id){
@@ -3791,7 +3800,7 @@ function parseS2File(file){
       // Try to extract date from filename like Stage_2_8th_May_26.xlsx
       let dt = extractDateFromFilename(file.name);
       DB.stage2 = parsed;
-      DB.stage2Date = dt || new Date().toISOString().slice(0,10);
+      DB.stage2Date = dt || ttIso(new Date());
       save();
       renderS2(); renderDash(); renderConverge();
       const active = parsed.filter(s=>s.status!=='Removed').length;
@@ -3814,7 +3823,7 @@ function extractDateFromFilename(name){
   let y = parseInt(m[3]);
   if(y < 100) y += 2000;
   const dt = new Date(y, mo, d);
-  return dt.toISOString().slice(0,10);
+  return ttIso(dt);
 }
 
 // ============= 52W HIGHS =============
@@ -4001,7 +4010,7 @@ function parse52WFile(file){
       }).filter(s=>s.dist !== null);
 
       DB.w52 = parsed;
-      DB.w52Date = new Date().toISOString().slice(0,10);
+      DB.w52Date = ttIso(new Date());
       record52WHistory(parsed, DB.w52Date);
       save();
       render52W(); renderDash(); renderConverge();
@@ -6409,7 +6418,7 @@ function editCatalyst(sym){
 function convToWatch(sym, industry){
   if(!Array.isArray(DB.watchlist)) DB.watchlist = [];
   if(DB.watchlist.some(w => (w.stock||'').toUpperCase() === sym)){ toast(sym+' already in watchlist','error'); return; }
-  DB.watchlist.unshift({id:Date.now(), stock:sym, sector:industry, date:new Date().toISOString().slice(0,10), source:'Convergence', thesis:'', action:'Research', priority:'High'});
+  DB.watchlist.unshift({id:Date.now(), stock:sym, sector:industry, date:ttIso(new Date()), source:'Convergence', thesis:'', action:'Research', priority:'High'});
   save(); renderWatch(); renderDash();
   toast(sym+' added to watchlist','success');
 }
@@ -6441,7 +6450,7 @@ function exportHistory(){
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `SwingEdge_backup_${new Date().toISOString().slice(0,10)}.json`;
+  a.download = `SwingEdge_backup_${ttIso(new Date())}.json`;
   a.click();
   URL.revokeObjectURL(url);
   toast('Backup downloaded — save to your Drive folder','success');
@@ -6933,14 +6942,24 @@ function wrSort(id, col){
   const st = WR.sort[id];
   if(st && st.col === col) WR.sort[id] = {col, dir: st.dir === 'asc' ? 'desc' : 'asc'};
   else WR.sort[id] = {col, dir: ['name','code','bucket','industry','region','date','day','ticker','group','band','state','since'].includes(col) ? 'asc' : 'desc'};
-  if(String(id).startsWith('se-') && typeof seRerender === 'function') seRerender(id); else wrRenderTab();
+  // Each page's tables redraw through that page's own renderer; wrRenderTab only knows the Weekly Report panels.
+  const s = String(id);
+  if(s.startsWith('se-') && typeof seRerender === 'function') seRerender(s);
+  else if(s.startsWith('sl-')) renderSL();
+  else if(s === 'dg-all') dgRenderTable();
+  else if(s.startsWith('dg-')) renderDG();
+  else if(s === 'pd-all') pdRenderTable();
+  else if(s.startsWith('pd-')) renderPD();
+  else if(s.startsWith('sj-')) renderSJ();
+  else if(s.startsWith('tr-')) renderTR();
+  else wrRenderTab();
 }
 
 function wrToWatch(sym, industry){
   if(!Array.isArray(DB.watchlist)) DB.watchlist = [];
   if(DB.watchlist.some(w => (w.stock||'').toUpperCase() === String(sym).toUpperCase())){ toast(sym + ' already in watchlist', 'error'); return; }
   const wk = WR.cur && WR.data[WR.cur] ? WR.data[WR.cur].week_ending : '';
-  DB.watchlist.unshift({id:Date.now(), stock:sym, sector:industry || '', date:new Date().toISOString().slice(0,10), source:'Weekly Report' + (wk ? ' · w/e ' + wk : ''), thesis:'', action:'Research', priority:'🟡 Medium'});
+  DB.watchlist.unshift({id:Date.now(), stock:sym, sector:industry || '', date:ttIso(new Date()), source:'Weekly Report' + (wk ? ' · w/e ' + wk : ''), thesis:'', action:'Research', priority:'🟡 Medium'});
   save(); renderWatch(); renderDash();
   toast(sym + ' added to watchlist', 'success');
   wrRenderTab();
@@ -7124,6 +7143,11 @@ function wrChips(chartId){
 }
 
 // ---------- render: shell ----------
+// Weekly files are built by hand (tools/build_weekly.py), so the newest can be weeks old: say so.
+function wrAgeDays(d){ const t = d && d.week_ending ? Date.parse(d.week_ending + 'T00:00:00') : NaN; return isNaN(t) ? null : Math.max(0, Math.floor((Date.now() - t) / 864e5)); }
+function wrAgeTxt(d){ const a = wrAgeDays(d); return a == null || a <= 9 ? '' : a < 14 ? `${a} days old` : `${Math.floor(a / 7)} weeks old`; }
+function wrSample(d){ return /^(Sample|Back-filled)\b/.test(String((d && d.lead) || '')); }
+function wrAgeTags(d){ return (wrAgeTxt(d) ? `<span class="wr-tag stale">${wrAgeTxt(d)}</span>` : '') + (wrSample(d) ? '<span class="wr-tag stale" title="this file is placeholder data, not a real weekly report">sample data</span>' : ''); }
 function renderWR(){
   const body = document.getElementById('wr-body');
   if(!body) return;
@@ -7139,7 +7163,7 @@ function renderWR(){
   const tags = (d.tags || []).map((t, i) => `<span class="wr-tag ${i === 0 ? 'am' : i === 1 ? 'tl' : ''}">${wrEsc(t)}</span>`).join('');
   const quotes = (d.headline || []).map(q => `<div class="wr-q"><div class="k">${wrEsc(q.label || q.k || '')}</div><div class="v ${wrToneCls(q.tone)}">${wrInline(String(q.value != null ? q.value : (q.v != null ? q.v : '—')))}</div>${(q.sub || q.d) ? `<div class="d ${wrToneCls(q.subTone)}">${wrInline(q.sub || q.d)}</div>` : ''}</div>`).join('');
   const meta = (d.ticker || []).map(t => `<span><b>${wrEsc(t.label || '')}</b> ${wrEsc(t.value || '')}${t.delta ? ` <span class="${wrToneCls(t.tone)}">${t.tone === 'down' ? '▼' : t.tone === 'up' ? '▲' : ''} ${wrEsc(t.delta)}</span>` : ''}</span>`).join('')
-    + `<span><b>Week ending</b> ${wrDate(d.week_ending)}</span>` + (d.report_date ? `<span><b>Report date</b> ${wrDate(d.report_date)}</span>` : '');
+    + `<span><b>Week ending</b> ${wrDate(d.week_ending)} ${wrAgeTags(d)}</span>` + (d.report_date ? `<span><b>Report date</b> ${wrDate(d.report_date)}</span>` : '');
   const tabs = WR_TABS.map(t => `<div class="wr-tab ${WR.tab === t.id ? 'active' : ''}" data-tab="${t.id}" onclick="wrTab('${t.id}')">${wrEsc(t.t)}</div>`).join('');
   const panels = WR_TABS.map(t => `<div class="wr-panel ${WR.tab === t.id ? 'active' : ''}" id="wr-panel-${t.id}"></div>`).join('');
   body.innerHTML = `
@@ -7497,7 +7521,7 @@ function wrRenderDashTile(){
   const d = WR.weeks[0] && WR.data[WR.weeks[0].file];
   if(!d){ card.style.display = 'none'; return; }
   card.style.display = '';
-  document.getElementById('d-wr-week').textContent = `w/e ${wrDate(d.week_ending)}`;
+  document.getElementById('d-wr-week').innerHTML = `w/e ${wrDate(d.week_ending)} ${wrAgeTags(d)}`;
   const items = (d.headline || []).slice(0, 4);
   document.getElementById('d-wr-grid').innerHTML = items.length ? items.map(q => `<div class="mc"><div class="mc-label">${wrEsc(q.label || q.k || '')}</div><div class="mc-val ${wrToneCls(q.tone) === 'up' ? 'up' : wrToneCls(q.tone) === 'down' ? 'dn' : ''}">${wrInline(String(q.value != null ? q.value : (q.v != null ? q.v : '—')))}</div>${(q.sub || q.d) ? `<div class="mc-chg flat">${wrInline(q.sub || q.d)}</div>` : ''}</div>`).join('')
     : `<div class="mc"><div class="mc-label">${wrEsc(d.title || 'Weekly report')}</div><div class="mc-val" style="font-size:13px;">${wrEsc(d.week_label || '')}</div></div>`;
@@ -7567,7 +7591,9 @@ function rlWhy(ev, kind, code){
     if(!why.length && st === 'new') why.push('it <b>entered the list this week</b>, so it has no record yet of holding the place');
     if(!why.length && fl.length === 1) why.push(`it carries <b>one exhaustion flag</b> (${names})`);
     if(x.v === 'watch' && st === 'new' && fl.length === 1) why.push(`it also carries one exhaustion flag (${names})`);
-    if(!why.length) why.push(`it is holding its place inside the top ${N} and carries no exhaustion flag`);
+    if(!why.length && st === 'out') why.push(`it is outside the top ${N}${fl.length ? '' : ' and carries no exhaustion flag'}`);
+    if(!why.length && st === 'holding') why.push(`it is holding its place inside the top ${N} and carries no exhaustion flag`);
+    if(!why.length) why.push(fl.length ? `it carries ${fl.length} exhaustion flag${fl.length === 1 ? '' : 's'} (${names})` : 'it carries no exhaustion flag');
     const path = (x.k || []).slice().reverse().map(v => v == null ? '—' : '#' + v).join(' → ');
     html = `<h4>${wrEsc(name)} — ${wrEsc((RL_VERDICT[x.v] || [x.v])[0])}</h4><p>Because ${why.join('; and ')}.</p><p>Rank by week, oldest to newest: <b>${path}</b>. RS now ${x.rs}.</p>
       <p class="flat">The verdict is about direction only. The RS rating says how strong the stock is; the verdict says whether that strength is holding.</p>`;
@@ -7586,8 +7612,33 @@ SE_INFO['rl-ex'] = () => { const dict = (RL.doc || {}).flags || {}; return `<h4>
 SE_INFO['rl-trend'] = `<h4>Trend — the seven-point template</h4><p>Seven yes/no checks on the price structure. The cell shows how many pass, for example 7/7.</p><ol><li>Price above the 50-day moving average</li><li>Price above the 200-day moving average</li><li>50-day average above the 200-day</li><li>At least 30% above the 52-week low</li><li>Within 25% of the 52-week high</li><li>RS rating of 70 or more</li><li>200-day average higher than at the previous scan (rising)</li></ol>
   <table><tr><td><b>Very strong</b></td><td>all seven — a Stage 2 uptrend</td></tr><tr><td><b>Strong</b></td><td>six</td></tr><tr><td><b>Weak</b></td><td>four or five</td></tr><tr><td><b>Very weak</b></td><td>three or fewer</td></tr></table><p>Click any cell in the column to see which checks that stock passes and fails, with the numbers.</p>`;
 SE_INFO['rl-verdict'] = () => `<h4>Verdict — is the strength holding?</h4><table><tr><td>${rlPill(RL_VERDICT, 'strong')}</td><td>holding its place in the list and carrying no exhaustion flag</td></tr><tr><td>${rlPill(RL_VERDICT, 'watch')}</td><td>new to the list this week, or carrying exactly one flag</td></tr><tr><td>${rlPill(RL_VERDICT, 'weakening')}</td><td>status is Slipping, Dropped or Fading, or it carries two or more flags</td></tr></table>
-  <p>It is direction only. RS gives the level; the verdict says whether the level is being kept. It is a reading of the data, not a recommendation. Click any verdict in the column for that stock's reason.</p>`;
+  <p>It is direction only. RS gives the level; the verdict says whether the level is being kept. It is a reading of the data, not a recommendation. Click any verdict in the column for that stock's reason. A dash means no verdict: the stock is outside the list, so there is no place to hold.</p>`;
 SE_INFO['rl-gap'] = () => `<h4>Gap to cut</h4><p>How many places the stock sits below rank ${(RL.doc || {}).top || 25}, the last place in the list. "inside" means it is in the list.</p>`;
+// ---- the "i" texts for the RS Screen, Stage 2 Tracker and Shortlist columns (owner's rule: every label explained) ----
+SE_INFO['se-rs'] = `<h4>RS — relative strength rating</h4><p>A 1–99 score of how the stock's price has done against every other stock in the scan over the last year: the average of the four quarterly returns with the latest quarter counted twice (weights 40/20/20/20), then ranked. <b>RS 95 means it out-performed 95% of the scan.</b></p>`;
+SE_INFO['se-rs-sector'] = `<h4>RS vs sector</h4><p>The same RS score, but ranked only against the other stocks in its own sector (1–99). 90 means it beats 90% of its own group, whatever the group itself is doing. Blank when the sector has fewer than 5 stocks in the scan.</p>`;
+SE_INFO['se-template'] = `<h4>Trend — the seven-point template</h4><p>Seven yes/no checks on the price structure; the cell shows how many pass, for example 7/7.</p><ol><li>Price above the 50-day moving average</li><li>Price above the 200-day moving average</li><li>50-day average above the 200-day</li><li>At least 30% above the 52-week low</li><li>Within 25% of the 52-week high</li><li>RS rating of 70 or more</li><li>200-day average higher than at the previous scan (rising)</li></ol><p>On the RS Screen, hover a cell to see which checks pass.</p>`;
+SE_INFO['se-instage2'] = `<h4>In Stage 2</h4><ul><li><b>S2 list</b> — on the provider's weekly Stage 2 list (Weinstein's stage analysis: Stage 2 is the advancing phase); the number is weeks on that list.</li><li><b>S2 calc</b> — passes this app's own trend template on the scan.</li><li><b>S2 ✓✓</b> — both.</li></ul><p>A dash means neither.</p>`;
+SE_INFO['se-s2weeks'] = `<h4>Wks in S2</h4><p>How many weeks the stock has been on the provider's weekly Stage 2 list in its current spell. The list rides on every daily scan until a new one lands, so check its date: the Stage 2 Tracker header gives it, and the Shortlist shows a tag at the top when it is old. On the Shortlist the count is carried forward to the scan date, so it adds the weeks between the list's date and the scan.</p>`;
+SE_INFO['se-earnings'] = `<h4>Earnings — PEAD tier</h4><p>From the newest quarter on PEAD Radar. The provider classifies each company's latest results as <b>Strong</b>, <b>Moderate</b>, <b>Weak</b> or <b>No PEAD</b>. PEAD is post-earnings-announcement drift: the tendency of a stock with a strong result to keep moving the same way for weeks afterwards. Counts of "strong earnings" in the app include Strong and Moderate. A dash means the company is not in that quarter's file.</p>`;
+SE_INFO['se-yoy'] = `<h4>EPS YoY / Sales YoY</h4><p>The latest reported quarter's earnings per share (or revenue) against the same quarter a year earlier, in %. +40% means 40% higher than a year ago.</p>`;
+SE_INFO['st-sectorrs'] = `<h4>Sector RS</h4><p>The median RS rating (1–99) of every scanned stock in this stock's sector. High means the whole group is strong, not just this name.</p>`;
+SE_INFO['st-rspct'] = `<h4>RS% (list)</h4><p>The provider's own relative-strength figure, as printed in the Stage 2 file. It is on the provider's scale, not this app's 1–99 rating, so compare it with RS (scan) only loosely.</p>`;
+SE_INFO['st-rsscan'] = `<h4>RS (scan)</h4><p>This app's 1–99 RS rating for the stock in the selected scan, the same number as on the RS Screen. A dash means the stock is not in the scan's universe (for example, below its market-cap floor).</p>`;
+SE_INFO['st-ret'] = `<h4>Return since entry</h4><p>The provider's % price change since the stock entered its current Stage 2 spell, as of the list's own date.</p>`;
+SE_INFO['st-status'] = `<h4>Status</h4><ul><li><b>New</b> — entered the list on this file.</li><li><b>Re-entry</b> — back on the list after dropping off earlier.</li><li><b>Continues</b> — was already on the list.</li><li><b>Exited</b> — was on the previous list and is not on this one.</li></ul><p>Taken from the provider's own status column; when that is blank, worked out against the previous list.</p>`;
+SE_INFO['st-asm'] = `<h4>ASM / GSM</h4><p>The exchange's surveillance frameworks (Additional, Graded or Enhanced Surveillance Measure). A stock under one trades under tighter rules, such as higher margins or trade-for-trade settlement. ASM days is how long it has been under the measure.</p>`;
+SE_INFO['sl-score'] = `<h4>Score — how a name earns its place</h4><p>Every point comes from a rule in <code>tools/build_shortlist.py</code>, and each one also appears in "Why it surfaced". The most a name can score is 20.</p><table>
+  <tr><td>+3 / +2</td><td>at a new 52-week high / within 5% of it</td></tr>
+  <tr><td>+3 / +2</td><td>entered or re-entered the Stage 2 list on a list at most a week older than the scan / on an older list, or already on the list</td></tr>
+  <tr><td>+1</td><td>still early in the Stage 2 move (8 weeks or less)</td></tr>
+  <tr><td>+2</td><td>passes the seven-point trend template</td></tr>
+  <tr><td>+3 / +2</td><td>Strong / Moderate PEAD earnings</td></tr>
+  <tr><td>+2 / +1</td><td>up 5% or more / 2% or more on the day</td></tr>
+  <tr><td>+1</td><td>up 10% or more on the week</td></tr>
+  <tr><td>+2 / +1</td><td>RS 90 or more / 80 or more</td></tr>
+  <tr><td>+2</td><td>a news headline dated close to the scan</td></tr>
+  <tr><td>+1</td><td>its sector is leading (median RS 60 or more)</td></tr></table><p>The bar is the score out of 20. A score ranks convergence of signals; it is not a rating of the stock.</p>`;
 SE_INFO['rl-climb'] = () => { const N = (RL.doc || {}).top || 25; return `<h4>Gaining a top-${N} spot</h4><p>Two groups, both read from the weekly ranks in RS Trend's own scans.</p><p><b>Entered this week</b> — inside the top ${N} now and outside it at the previous weekly anchor. "From" is the rank it held then.</p><p><b>Knocking on the door</b> — ranked ${N + 1} to ${N + 50}, and either up 10 or more places in a week, or up two weeks running. These are the names moving toward the list.</p><p>A fast climb is a fact about the last few weeks; it is not a forecast.</p>`; };
 SE_INFO['rl-align'] = () => { const N = (RL.doc || {}).top || 25; return `<h4>Your book against the list</h4><p>Each holding is placed in one of four groups:</p><table><tr><td><b>In the top ${N}</b></td><td>rank ${N} or better</td></tr><tr><td><b>Gaining strength</b></td><td>outside the list but within 125 places of it, and up 10+ places in a week or up two weeks running</td></tr><tr><td><b>Stage 2 list only</b></td><td>on the provider's Stage 2 list, outside the top ${N} and not climbing</td></tr><tr><td><b>Outside</b></td><td>none of the above</td></tr></table>
   <p>The 70–80% line is the rule you set for yourself: most of the book inside the list, with room for a new position that is still gaining strength.</p><p><b>Privacy:</b> imported holdings are kept in this browser's storage only. They are never uploaded, and nothing about them is written to the public site or repository.</p>`; };
@@ -7888,7 +7939,8 @@ function chCard(key, extra){
 }
 function chLegend(key, cfg, hidden, where){
   return cfg.ser.map((s, k) => { let j = s.vals.length - 1; while(j >= 0 && s.vals[j] == null) j--; let f = 0; while(f < s.vals.length && s.vals[f] == null) f++;
-    const ch = j > f && s.raw[f] ? (s.unit === '%' ? {t: wrSigned((s.raw[j] - s.raw[f]) * 100, 0) + ' bp'} : {t: wrPct((s.raw[j] / s.raw[f] - 1) * 100, 1)}) : null;
+    // delta:'none' = a running total (no meaningful % change); the % branch also needs a positive base
+    const ch = s.delta === 'none' ? null : j > f && s.raw[f] ? (s.unit === '%' ? {t: wrSigned((s.raw[j] - s.raw[f]) * 100, 0) + ' bp'} : s.raw[f] > 0 ? {t: wrPct((s.raw[j] / s.raw[f] - 1) * 100, 1)} : null) : null;
     return `<span class="${hidden.has(k) ? 'off' : ''}" onclick="chToggle('${wrAttr(key)}',${k},'${where}')" title="click to hide or show; the axis re-fits"><i style="background:${s.slot === 'mute' ? 'var(--t4)' : s.slot ? `var(--viz-${s.slot})` : 'var(--t2)'}"></i>${wrEsc(s.label)}<b>${j >= 0 ? chFmt(s.raw[j], s.digits != null ? s.digits : 2, s.unit) + (s.unit === '%' ? '%' : '') : '—'}</b>${ch ? `<em>${ch.t}</em>` : ''}</span>`; }).join('');
 }
 function chTable(cfg){
@@ -7985,7 +8037,7 @@ function mkCorr(a, b, weeks){
   let sab = 0, saa = 0, sbb = 0; for(let i = 0; i < n; i++){ sab += (xa[i] - ma) * (xb[i] - mb); saa += (xa[i] - ma) ** 2; sbb += (xb[i] - mb) ** 2; }
   return saa && sbb ? {r: sab / Math.sqrt(saa * sbb), n} : null;
 }
-function mkCorrChip(a, b){ const c = mkCorr(a, b, MK.corr), nm = b === 'fpi' ? 'FPI flow' : MK_SHORT[b] || (mkS(b) || {}).name || b; if(!c) return ''; return `<span class="mk-link" style="background:${mkHeat(c.r)}" title="correlation of weekly changes over ${c.n} weeks">${wrEsc(nm.replace(/^Nifty /, ''))} <b>${c.r >= 0 ? '+' : '−'}${Math.abs(c.r).toFixed(2)}</b></span>`; }
+function mkCorrChip(a, b){ const c = mkCorr(a, b, MK.corr), nm = b === 'fpi' ? 'FPI flow' : MK_SHORT[b] || (mkS(b) || {}).name || b; if(!c) return ''; return `<span class="mk-link" style="background:${mkHeat(c.r)}" title="correlation of weekly changes over ${c.n} weeks">${wrEsc(nm.replace(/^Nifty (?=\D)/, ''))} <b>${c.r >= 0 ? '+' : '−'}${Math.abs(c.r).toFixed(2)}</b></span>`; }
 function mkHeat(r){ const a = Math.min(.62, Math.abs(r) * .8).toFixed(2); return r >= 0 ? `rgba(57,135,229,${a})` : `rgba(234,112,48,${a})`; }
 function mkFlowSums(){
   const d = ((MK.doc || {}).fpi || {}).daily || [], last = d[d.length - 1]; if(!last) return null;
@@ -8064,7 +8116,7 @@ function mkDriverRows(){
 }
 function mkHeatTable(){
   const cols = MK_HEAT_COLS.filter(c => mkS(c)), name = id => id === 'fpi' ? 'FPI equity flow' : (MK_SHORT[id] || (mkS(id) || {}).name || id);
-  const head = `<tr><th class="r">weekly change in ↓ against →</th>${cols.map(c => `<th>${wrEsc(mkS(c).name.replace(/^Nifty /, '').replace('Financial Services', 'Fin. Services').replace('Consumer Durables', 'Cons. Durables').replace('Smallcap 250', 'Smallcap').replace('Midcap 150', 'Midcap'))}</th>`).join('')}</tr>`;
+  const head = `<tr><th class="r">weekly change in ↓ against →</th>${cols.map(c => `<th>${wrEsc(mkS(c).name.replace(/^Nifty (?=\D)/, '').replace('Financial Services', 'Fin. Services').replace('Consumer Durables', 'Cons. Durables').replace('Smallcap 250', 'Smallcap').replace('Midcap 150', 'Midcap'))}</th>`).join('')}</tr>`;
   const body = MK_HEAT_ROWS.filter(r => r === 'fpi' || mkS(r)).map(r => `<tr><th class="r">${wrEsc(name(r))}</th>${cols.map(c => { const x = mkCorr(r, c, MK.corr); return x ? `<td style="background:${mkHeat(x.r)}" title="${wrAttr(name(r))} against ${wrAttr(mkS(c).name)}: ${x.r.toFixed(2)} over ${x.n} weeks">${x.r >= 0 ? '+' : '−'}${Math.abs(x.r).toFixed(2).slice(1)}</td>` : '<td class="flat">—</td>'; }).join('')}</tr>`).join('');
   return `<div class="wr-twrap" style="max-height:none;padding:8px;"><table class="mk-heat"><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
 }
@@ -8123,7 +8175,7 @@ function renderMK(){
   mkRegister();
   CH.reg['mk-fpi'] = {title: 'Foreign money, running total', sub: '₹ crore — net equity investment by FPIs, added up from the start of the window', wins: MK_WINS, win: MK.win, hidden: (CH.reg['mk-fpi'] || {}).hidden,
     build: days => { const all = (d.fpi || {}).daily || []; if(!all.length) return null; const t = new Date(all[all.length - 1].d + 'T00:00:00'); t.setDate(t.getDate() - days); const st = ttIso(t); let run = 0;
-      return chGrid([{label: 'Cumulative FPI equity', pts: all.filter(r => r.d >= st).map(r => [r.d, (run += r.eq || 0)]), unit: 'INR', digits: 0, slot: 0}], st, false); }};
+      return chGrid([{label: 'Cumulative FPI equity', pts: all.filter(r => r.d >= st).map(r => [r.d, (run += r.eq || 0)]), unit: 'INR', digits: 0, slot: 0, delta: 'none'}], st, false); }};
   const errs = d.errors || [], src = d.sources || {}, as = b => (d[b] || {}).asof;
   const legacy = (DB.macroSnaps || []).length ? `<details class="tt-table" style="margin-top:10px;"><summary>Your ${DB.macroSnaps.length} manual snapshot(s) from the old Commodities page</summary><div class="wr-twrap" style="max-height:260px;"><table class="scan-table"><thead><tr><th>Week</th><th class="num">Brent</th><th class="num">WTI</th><th class="num">DXY</th><th class="num">USD/INR</th><th class="num">Gold</th><th class="num">Silver</th><th class="num">10Y</th><th class="num">Nifty</th><th>Note</th></tr></thead><tbody>${DB.macroSnaps.map(s => `<tr><td>${wrEsc(s.week || '')}</td>${['brent', 'wti', 'dxy', 'usdinr', 'gold', 'silver', 'yield', 'nifty'].map(k => `<td class="num">${s[k] == null || s[k] === '' ? '—' : wrEsc(s[k])}</td>`).join('')}<td class="tt-note">${wrEsc(s.notes || '')}</td></tr>`).join('')}</tbody></table></div></details>` : '';
   el.innerHTML = `
@@ -8147,18 +8199,18 @@ function mkWinBtns(btn){ btn.parentElement.querySelectorAll('button').forEach(b 
 function mkJump(id){ const el = document.getElementById(id); if(el) el.scrollIntoView({behavior: 'smooth', block: 'start'}); }
 function mkDashTile(){
   const box = document.getElementById('d-macro'), wk = document.getElementById('d-macro-wk'); if(!box || !MK.doc) return;
-  const t = id => { const s = mkS(id); return s && s.last ? `<div class="mc"><div class="mc-label">${wrEsc(MK_SHORT[id] || s.name)}</div><div class="mc-val">${mkVal(s)}</div><div class="mc-unit">1W ${mkChgHtml(s, 7)}</div></div>` : ''; };
+  const t = id => { const s = mkS(id); return s && s.last ? `<div class="mc"><div class="mc-label">${wrEsc(MK_SHORT[id] || s.name)}</div><div class="mc-val">${mkVal(s)}</div><div class="mc-unit">1W ${mkChgHtml(s, 7)} · ${wrShort(s.last[0])}</div></div>` : ''; };   // each tile carries its own close date
   const r = MK.doc.rbi; box.innerHTML = ['nifty50', 'brent', 'wti', 'dxy', 'usdinr', 'gold', 'silver', 'us10y'].map(t).join('') + (r ? `<div class="mc"><div class="mc-label">India 10-year</div><div class="mc-val">${r.y10.toFixed(2)}%</div><div class="mc-unit">${wrShort(r.asof)}</div></div>` : '');
-  if(wk) wk.textContent = 'as of ' + wrDate((MK.doc.global || {}).asof);
+  if(wk) wk.textContent = 'India ' + wrDate((MK.doc.nse || {}).asof) + ' · global ' + wrDate((MK.doc.global || {}).asof);
 }
-SE_INFO['mk-reading'] = `<h4>Reading</h4><p>A plain label for where the driver stands. For crude, the dollar and the US 10-year it uses fixed levels — the same ones your old Commodities page used: crude comfortable at $80–90 and stressed above $100; the dollar index strong above 105 and weak below 102; the US 10-year elevated above 4.5% and a problem above 4.8%. For the rest it uses the one-month move: more than 5% either way for gold, copper and the Nasdaq, 1.5% for the rupee, 1% for the bond price.</p><p>It describes the driver, not what to do about it.</p>`;
+SE_INFO['mk-reading'] = `<h4>Reading</h4><p>A plain label for where the driver stands. For crude, the dollar, the US 10-year and India VIX it uses fixed levels — the same ones your old Commodities page used: crude comfortable at $80–90 and stressed above $100; the dollar index strong above 105 and weak below 102; the US 10-year elevated above 4.5% and a problem above 4.8%; India VIX calm below 15, elevated from 15 to 20 and stressed above 20. For the rest it uses the one-month move: more than 5% either way for gold, copper and the Nasdaq, 1.5% for the rupee, 1% for the bond price.</p><p>It describes the driver, not what to do about it.</p>`;
 SE_INFO['mk-corr'] = () => `<h4>Measured against</h4><p>The correlation between the driver's weekly change and the index's weekly change over the last ${MK.corr} weeks. It runs from −1 to +1.</p><ul><li><b>Above +0.4</b> — they have tended to rise and fall together.</li><li><b>Below −0.4</b> — when one rose the other tended to fall.</li><li><b>Between −0.2 and +0.2</b> — no visible link in this period.</li></ul><p>Weekly, not daily, because the US closes after India: a daily comparison would pair Monday in Mumbai with Monday in New York, which had not happened yet. FPI flow is the week's net equity investment in rupees.</p><p>A correlation describes the past. It is not a mechanism and it can flip.</p>`;
 SE_INFO['mk-rel'] = `<h4>1M vs Nifty 500</h4><p>The index's one-month return minus the Nifty 500's. Positive means the sector beat the broad market over the month — money moved toward it relative to everything else, whatever the market itself did.</p>`;
 SE_INFO['mk-turn'] = `<h4>Turnover vs 20-day average</h4><p>Today's traded value in the index's stocks divided by its own average over the previous 20 sessions. 1.50× means half as much again as usual. A sector rising on turnover well above its average is being accumulated; one rising on thin turnover is drifting.</p>`;
 SE_INFO['ix-rel'] = `<h4>1M vs market</h4><p>The tracker's one-month return minus the return of the whole scan, weighted equally. It is the sub-sector's own relative strength: positive means its stocks beat the average stock.</p>`;
 SE_INFO['ix-breadth'] = `<h4>Above 50-DMA</h4><p>How many of the tracker's members closed above their own 50-day moving average. A tracker can rise on one or two names; breadth shows whether the group is moving together. Above 60% is broad, below 40% is narrow.</p>`;
 
-// ============= MARKET NEWS — what moved markets overnight, collected at 4 a.m. =============
+// ============= MARKET NEWS — what moved markets overnight, collected early each morning IST =============
 // Reads data/daily/market_news.json (tools/market_news.py). Two layers, kept apart on the page:
 // the HEADLINES are collected by a scheduled job from public news feeds and grouped by topic — no
 // model touches them; the DIGEST above them is written by a Claude routine that reads only those
@@ -8180,14 +8232,14 @@ function renderMN(){
   const el = document.getElementById('mnews-body'); if(!el) return;
   if(!MN.loaded){ el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading…</p></div>'; return; }
   const d = MN.doc;
-  if(!d){ el.innerHTML = seEmpty('No market news yet', `The collector runs at 4 a.m. IST and writes <code>data/daily/market_news.json</code>. By hand: <code>python tools/market_news.py collect</code>.${MN.error ? ` <span class="flat">(${wrEsc(MN.error)})</span>` : ''}`); return; }
+  if(!d){ el.innerHTML = seEmpty('No market news yet', `The collector runs early each morning IST (a GitHub job, usually done by about 7 a.m.) and writes <code>data/daily/market_news.json</code>. By hand: <code>python tools/market_news.py collect</code>.${MN.error ? ` <span class="flat">(${wrEsc(MN.error)})</span>` : ''}`); return; }
   const topics = d.topics || [], dg = d.digest, total = topics.reduce((s, t) => s + (t.items || []).length, 0);
   const fresh = dg && dg.for === d.run_date;
   const digest = dg && (dg.points || []).length ? `<div class="se-panel mn-digest"><div class="se-row-h"><div><div class="se-eyebrow">The digest · written by a Claude routine from the headlines below</div><h2>${wrEsc(dg.headline || 'What moved markets')}</h2></div><span class="wr-hint">${wrDate(dg.for)}${fresh ? '' : ' · <span class="dn">older than the headlines below</span>'}</span></div>
       <ul class="mn-points">${dg.points.map(p => `<li><b>${wrEsc(p.t || '')}</b>${p.why ? ` — ${wrEsc(p.why)}` : ''}${(p.refs || []).length ? ` <span class="mn-refs">${p.refs.map((u, i) => `<a href="${wrAttr(u)}" target="_blank" rel="noopener">source${p.refs.length > 1 ? ' ' + (i + 1) : ''}</a>`).join(' · ')}</span>` : ''}</li>`).join('')}</ul>
       ${dg.watch && dg.watch.length ? `<div class="wr-sub">On the calendar</div><ul class="mn-points">${dg.watch.map(w => `<li>${wrEsc(w)}</li>`).join('')}</ul>` : ''}
       <div class="wr-hint" style="margin-top:8px;">A summary of reported news, not a view on any stock. Check the source before relying on a line.</div></div>`
-    : `<div class="se-panel"><div class="wr-hint" style="margin:0;">No digest for this run yet — the headlines below are complete on their own. The digest is added by a Claude routine shortly after the 4 a.m. collection.</div></div>`;
+    : `<div class="se-panel"><div class="wr-hint" style="margin:0;">No digest for this run yet — the headlines below are complete on their own. The digest is added by a Claude routine shortly after the morning collection.</div></div>`;
   const shown = topics.filter(t => MN.topic === 'all' || t.id === MN.topic);
   el.innerHTML = `<div class="se-row-h"><div><div class="se-eyebrow">Markets &amp; Macro · news</div><h2>Overnight, in ${total} headlines</h2></div><span class="wr-hint">collected ${wrEsc(mnWhen(d.updated))} IST · the last ${d.window_hours || 30} hours</span></div>
     ${digest}
@@ -8264,10 +8316,16 @@ async function seLoadSet(file){
   const rs = await Promise.allSettled(priors.map(p => seFetch(p.file)));
   rs.forEach((r, k) => { if(r.status === 'rejected') console.warn('Edge: prior scan failed', priors[k].file, r.reason); });
   // The weekly Stage 2 file rides along on every daily scan until a new one lands, so entries and
-  // exits need the newest prior carrying a DIFFERENT file. Keep fetching (bounded) until one is in.
+  // exits need the newest prior carrying a DIFFERENT file. index.json's count / s2asof jump straight to
+  // the first scan that looks like another list (usually one fetch), then the walk confirms on sources.stage2.
   const src = (d.sources || {}).stage2 || null;
   if(src && Array.isArray(d.stage2) && d.stage2.length){
-    for(let k = i + 1; k < Math.min(SE.scans.length, i + 9); k++){
+    const cur = SE.scans[i] || {};
+    let j = SE.scans.findIndex((sc, k) => k > i && sc.stage2 && ((sc.s2asof || null) !== (cur.s2asof || null) || sc.stage2 !== cur.stage2));
+    // no metadata boundary: probably no earlier list at all, so keep the old short bounded walk rather than fetch every scan
+    const end = j < 0 ? Math.min(SE.scans.length, i + 9) : SE.scans.length;
+    if(j < 0) j = i + 1;
+    for(let k = j; k < end; k++){
       const sc = SE.scans[k]; if(!sc.stage2) continue;
       if(!SE.data[sc.file]){ try{ await seFetch(sc.file); }catch(e){ console.warn('Edge: prior scan failed', sc.file, e); continue; } }
       const pr = SE.data[sc.file];
@@ -8288,7 +8346,7 @@ async function seSelectWeek(file){
 }
 function seFillWeekSelects(){
   document.querySelectorAll('select.se-week').forEach(sel => {
-    sel.innerHTML = SE.scans.map(s => `<option value="${wrAttr(s.file)}">w/e ${wrDate(s.date)}${s.universe ? ` · ${s.universe} scan` : ''}${s.stage2 ? ` · ${s.stage2} S2${s.s2asof ? ' (' + wrDate(s.s2asof) + ')' : ''}` : ''}</option>`).join('') || '<option value="">No scans published</option>';
+    sel.innerHTML = SE.scans.map(s => `<option value="${wrAttr(s.file)}">scan ${wrDate(s.date)}${s.universe ? ` · ${s.universe} scan` : ''}${s.stage2 ? ` · ${s.stage2} S2${s.s2asof ? ' (' + wrDate(s.s2asof) + ')' : ''}` : ''}</option>`).join('') || '<option value="">No scans published</option>';
     if(SE.cur) sel.value = SE.cur;
   });
 }
@@ -8363,9 +8421,16 @@ function seTrend(r, prevRow){
 // to read as an exit rather than "probably dipped under the cut". Same constant as
 // tools/build_s2history.py; the provider's RS% drifts about this much in a fortnight.
 const SE_S2_FLOOR_MARGIN = 10;
+// "provider list of 13 Sep 2026 (18 days old)": the weekly list rides on every daily scan until a new
+// one lands, so a label must name the list's own date, never "this week". Same 9-day threshold as seS2Note.
+function seS2AsofLbl(c){
+  if(!c || !c.s2asof) return null;
+  const age = Math.max(0, Math.round((new Date(c.date + 'T00:00:00') - new Date(c.s2asof + 'T00:00:00')) / 86400000));
+  return `provider list of ${wrDate(c.s2asof)}${age > 9 ? ` (${age} days old)` : ''}`;
+}
 function seS2Note(c){
   // "provider list of 13 Sep", how stale that is against this scan, and what it is compared with
-  const prev = c.hasPrevS2 ? `vs ${wrNum(c.prevS2.stage2.length)} on the previous list (w/e ${wrDate(c.prevS2.date)})` : '';
+  const prev = c.hasPrevS2 ? `vs ${wrNum(c.prevS2.stage2.length)} on the previous list (scan ${wrDate(c.prevS2.date)})` : '';
   if(!c.s2asof) return prev || 'first list loaded';
   const age = Math.max(0, Math.round((new Date(c.date + 'T00:00:00') - new Date(c.s2asof + 'T00:00:00')) / 86400000));
   return `provider list of ${wrDate(c.s2asof)}${age > 9 ? ` (${age} days old)` : ''}${prev ? ' · ' + prev : ''}`;
@@ -8449,7 +8514,7 @@ function seCompute(){
   SE.c = { d, date: d.date, U, S2, exits, sectors, s2Industries, prevU, prevS2, hasPrevU: !!prevU, hasPrevS2: !!prevS2,
     s2src, s2asof: d.stage2_asof || null, s2floor: s2cut ? s2floor : null, s2cut, belowCut: belowCut.length,
     stats: { n: U.length, s2list: S2.length, entered: S2.filter(r => r.state === 'entered').length, reentry: S2.filter(r => r.state === 'reentry').length, exited: exits.length,
-      ttPass: U.filter(r => r.s2calc).length, inBoth: U.filter(r => r.s2list).length, medR1w: med(U.map(r => r.r1w)), medR3m: med(U.map(r => r.r3m)), medFrom52: med(U.map(r => r.from_52wh)),
+      ttPass: U.filter(r => r.s2calc).length, inBoth: U.filter(r => r.s2calc && r.s2list).length, medR1w: med(U.map(r => r.r1w)), medR3m: med(U.map(r => r.r3m)), medFrom52: med(U.map(r => r.from_52wh)),
       nearATH: U.filter(r => r.near_ath).length, above200: U.filter(r => r.trend.checks.find(c => c.k === 'p200' && c.ok)).length, medWeeks: med(S2.map(r => r.weeks)), posRet: S2.length ? 100 * S2.filter(r => wrIsNum(r.ret) && r.ret > 0).length / S2.length : null, asm: S2.filter(r => r.asm).length } };
 }
 
@@ -8532,7 +8597,7 @@ function seGfBar(){
     <span class="se-slicer-tag"><i class="ti ti-filter"></i>Dashboard filters</span>
     <select onchange="seGfSet('sector',this.value)"><option value="all">All sectors</option>${sectors.map(g => `<option value="${wrAttr(g)}" ${SE.gf.sector === g ? 'selected' : ''}>${wrEsc(g)}</option>`).join('')}</select>
     <select onchange="seGfSet('band',this.value)"><option value="all">All market caps</option>${SE_BANDS.map(([b]) => `<option value="${b}" ${SE.gf.band === b ? 'selected' : ''}>${b} cap</option>`).join('')}</select>
-    ${on ? `<button class="btn btn-ghost btn-sm" onclick="seGfSet('reset')"><i class="ti ti-x"></i>Clear</button><span class="se-slicer-on">applied to every page</span>` : '<span class="se-slicer-hint">applies across Market Pulse, Daily Gainers, RS Screen, Sectors, Stage 2 and PEAD</span>'}
+    ${on ? `<button class="btn btn-ghost btn-sm" onclick="seGfSet('reset')"><i class="ti ti-x"></i>Clear</button><span class="se-slicer-on">applied to every page</span>` : '<span class="se-slicer-hint">applies across Markets &amp; Macro, Daily Gainers, RS Screen, Sectors, Stage 2 and PEAD</span>'}
   </div>`;
 }
 function seRenderAll(){ seRenderPulse(); seRenderRS(); seRenderTrend(); seRenderSectors(); seRenderS2(); if(typeof renderPD === 'function' && typeof PD !== 'undefined' && PD.loaded && document.getElementById('pd-body')) renderPD(); if(typeof renderDG === 'function' && typeof DG !== 'undefined' && DG.loaded && document.getElementById('dg-body')) renderDG(); }
@@ -8588,7 +8653,7 @@ function seRenderPulse(){
         <div><div class="k">Median RS</div><div class="v">${g.medRS != null ? g.medRS.toFixed(1) : '—'}</div></div>
         <div><div class="k">Stocks</div><div class="v">${g.n}</div></div>
       </div>
-      <div class="se-lead-bar"><span>Relative strength</span><b>${g.medRS != null ? Math.round(g.medRS) : '—'}</b>${g.delta != null ? `<small class="${g.delta > 0 ? 'up' : g.delta < 0 ? 'dn' : 'flat'}" title="vs w/e ${wrDate(c.prevU.date)}">${g.delta > 0 ? '▲' : g.delta < 0 ? '▼' : '•'} ${Math.abs(g.delta).toFixed(0)} vs ${wrShort(c.prevU.date)}</small>` : ''}</div>
+      <div class="se-lead-bar"><span>Relative strength</span><b>${g.medRS != null ? Math.round(g.medRS) : '—'}</b>${g.delta != null ? `<small class="${g.delta > 0 ? 'up' : g.delta < 0 ? 'dn' : 'flat'}" title="vs scan ${wrDate(c.prevU.date)}">${g.delta > 0 ? '▲' : g.delta < 0 ? '▼' : '•'} ${Math.abs(g.delta).toFixed(0)} vs ${wrShort(c.prevU.date)}</small>` : ''}</div>
     </div>`).join('');
   // top RS
   const top = c.U.filter(r => wrIsNum(r.rs)).sort((a, b) => b.rs - a.rs || (b.r1w || 0) - (a.r1w || 0)).slice(0, 12);
@@ -8605,15 +8670,15 @@ function seRenderPulse(){
   const quad = seQuadrantSvg(c.sectors.filter(g => g.n >= 3 && g.medRS != null), 'se-quad-pulse');
   el.innerHTML = `
     <div class="se-hero"><div class="se-hero-inner">
-      <div class="wr-tags"><span class="wr-tag am">Markets &amp; Macro</span><span class="wr-tag tl">RS · Stage 2 · Sector rotation</span><span class="wr-tag">w/e ${wrDate(c.date)}</span></div>
+      <div class="wr-tags"><span class="wr-tag am">Markets &amp; Macro</span><span class="wr-tag tl">RS · Stage 2 · Sector rotation</span><span class="wr-tag">scan ${wrDate(c.date)}</span></div>
       <h1>Where the strength is, and what is moving it</h1>
-      <div class="wr-lead">${hasU ? `${wrNum(s.n)} stocks from the <b>${wrEsc(c.d.screen && c.d.screen.name || 'weekly scan')}</b> ranked by relative strength` : 'No screener universe this week'}${hasS2 ? `${hasU ? ', cross-checked against' : 'Tracking'} the <b>${wrNum(s.s2list)}-stock Stage 2 list</b>` : ''}${c.hasPrevU ? ` · drift measured against w/e ${wrDate(c.prevU.date)}` : ''}.</div>
+      <div class="wr-lead">${hasU ? `${wrNum(s.n)} stocks from the <b>${wrEsc(c.d.screen && c.d.screen.name || 'scan')}</b> ranked by relative strength` : 'No screener universe in this scan'}${hasS2 ? `${hasU ? ', cross-checked against' : 'Tracking'} the <b>${wrNum(s.s2list)}-stock Stage 2 list</b>` : ''}${c.hasPrevU ? ` · drift measured against the scan of ${wrDate(c.prevU.date)}` : ''}.</div>
       <div class="se-kpis">${kpis.join('')}</div>
     </div></div>`;
   if(rest) rest.innerHTML = `
     <div class="se-body" style="padding-top:0;">
       <div class="se-panel mk-sec" id="mk-a-rot">
-        <div class="se-row-h"><div><div class="se-eyebrow">Where the money is going · your scan</div><h2>Sector rotation</h2></div><span class="wr-hint">${c.hasPrevU ? `median RS (x) vs change since w/e ${wrDate(c.prevU.date)} (y) \u00b7 bubble = stocks in group \u00b7 click a bubble to dive in` : 'needs two scans with a universe'}</span></div>
+        <div class="se-row-h"><div><div class="se-eyebrow">Where the money is going · your scan</div><h2>Sector rotation</h2></div><span class="wr-hint">${c.hasPrevU ? `median RS (x) vs change since scan ${wrDate(c.prevU.date)} (y) \u00b7 bubble = stocks in group \u00b7 click a bubble to dive in` : 'needs two scans with a universe'}</span></div>
         ${quad}
       </div>
       ${seGfBar()}
@@ -8625,9 +8690,9 @@ function seRenderPulse(){
           <div class="wr-twrap" style="max-height:520px;"><table class="scan-table"><thead><tr><th>Stock</th><th>Group</th><th class="num">RS</th><th>Stage 2</th><th class="num">1W</th><th class="num">3M</th><th class="num">vs 52WH</th></tr></thead><tbody>${topRows || '<tr><td colspan="7" class="flat" style="text-align:center;padding:24px;">No universe this week.</td></tr>'}</tbody></table></div>
         </div>
         <div class="se-panel">
-          <div class="se-row-h"><div><div class="se-eyebrow">Weinstein Stage 2</div><h2>Stage 2 list — this week</h2></div><button class="btn btn-ghost btn-sm" onclick="seGo('s2track')">Tracker →</button></div>
-          ${hasS2 ? `${c.hasPrevS2 ? `<div class="wr-hint" style="margin:-2px 0 8px;">Entries are the provider's own New/Re-entry flags for this week; exits are stocks on the list of w/e ${wrDate(c.prevS2.date)} that have since dropped off.</div>` : ''}
-            <div class="wr-sub" style="margin-top:2px;">Entered this week (${c.S2.filter(r => r.state === 'entered' || r.state === 'reentry').length})</div>
+          <div class="se-row-h"><div><div class="se-eyebrow">Weinstein Stage 2</div><h2>Stage 2 list — ${c.s2asof ? wrShort(c.s2asof) : 'this week'}</h2></div><button class="btn btn-ghost btn-sm" onclick="seGo('s2track')">Tracker →</button></div>
+          ${hasS2 ? `${c.hasPrevS2 ? `<div class="wr-hint" style="margin:-2px 0 8px;">Entries are the provider's own New/Re-entry flags ${seS2AsofLbl(c) ? 'on the ' + seS2AsofLbl(c) : 'for this week'}; exits are stocks on the previous list (scan ${wrDate(c.prevS2.date)}) that have since dropped off.</div>` : ''}
+            <div class="wr-sub" style="margin-top:2px;">Entered ${seS2AsofLbl(c) ? 'on the ' + seS2AsofLbl(c) : 'this week'} (${c.S2.filter(r => r.state === 'entered' || r.state === 'reentry').length})</div>
             ${wrTable('se-pulse-in', SE_S2_MINI_COLS, c.S2.filter(r => r.state === 'entered' || r.state === 'reentry').filter(seGfPass), {sort:{col:'rs_pct', dir:'desc'}, maxHeight:'260px', cap:60, empty:'No entries flagged.'})}
             <div class="wr-sub">Exited since the last list (${c.exits.length})</div>
             ${wrTable('se-pulse-out', SE_S2_MINI_COLS, c.exits.filter(seGfPass), {sort:{col:'weeks', dir:'desc'}, maxHeight:'240px', cap:60, empty: c.hasPrevS2 ? 'No exits.' : 'Need a previous list to detect exits.'})}
@@ -8638,7 +8703,7 @@ function seRenderPulse(){
       </div>
       <div class="se-panel se-pipeline">
         <div class="se-row-h"><div><div class="se-eyebrow">Pipeline</div><h2>Data loaded</h2></div><button class="btn btn-ghost btn-sm" onclick="loadSE(true)"><i class="ti ti-refresh"></i>Refresh</button></div>
-        <div class="se-steps">${SE.scans.slice(0, 6).map(sc => `<div class="se-step ${sc.file === SE.cur ? 'cur' : ''}" onclick="seSelectWeek('${wrAttr(sc.file)}')"><div class="k">w/e ${wrDate(sc.date)}</div><div class="v">${sc.universe ? `<span class="up">●</span> ${sc.universe} scan` : '<span class="flat">○ no scan</span>'}<br>${sc.stage2 ? `<span class="up">●</span> ${sc.stage2} Stage 2` : '<span class="flat">○ no Stage 2 list</span>'}</div></div>`).join('')}</div>
+        <div class="se-steps">${SE.scans.slice(0, 6).map(sc => `<div class="se-step ${sc.file === SE.cur ? 'cur' : ''}" onclick="seSelectWeek('${wrAttr(sc.file)}')"><div class="k">scan ${wrDate(sc.date)}</div><div class="v">${sc.universe ? `<span class="up">●</span> ${sc.universe} scan` : '<span class="flat">○ no scan</span>'}<br>${sc.stage2 ? `<span class="up">●</span> ${sc.stage2} Stage 2` : '<span class="flat">○ no Stage 2 list</span>'}</div></div>`).join('')}</div>
         <div class="wr-hint" style="margin-top:10px;">RS rating = each stock's average quarterly return over the last year with the most recent quarter counted twice (IBD's 40/20/20/20), ranked against every other stock in this scan on a 1–99 scale — RS 95 out-performed 95% of the market. Hover a rating for its four quarters. ▲/▼ is the change since the previous scan. New listings are rated on the quarters they have; nothing is rated on less than one. Export a full-market screen (e.g. market cap &gt; ₹1,000 Cr) for market-wide RS; without 6-month/1-year columns it falls back to a ${SE.weights.r3m * 100}/${SE.weights.r1m * 100}/${SE.weights.r1w * 100} blend of 3-mo/1-mo/1-wk.</div>
       </div>
     </div>`;
@@ -8761,15 +8826,15 @@ function seRenderRSTable(){
     {k:'industry', t:'Industry', type:'text'},
     {k:'band', t:'Cap', type:'html', sortType:'num', fn: r => SE_BAND_ORD[r.band] || 0, html: seBandCell},
     {k:'mcap', t:'MCap (₹Cr)', type:'int'},
-    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => seRsCell(r.rs, {delta: r.rsDelta != null ? Math.round(r.rsDelta) : null, row: r})},
-    {k:'rsSector', t:'RS vs sector', type:'num', fn: r => r.rsSector},
-    {k:'trend', t:'Trend', type:'html', sortType:'num', fn: r => r.trend.total ? r.trend.pass + r.trend.pass / (r.trend.total + 1) : null, html: seTrendCell},
-    {k:'s2', t:'In Stage 2', type:'html', sortType:'num', fn: r => (r.s2list ? 2 : 0) + (r.s2calc ? 1 : 0), html: seS2Cell},
-    {k:'s2weeks', t:'Wks in S2', type:'int', fn: r => r.s2list ? r.s2list.weeks : null},
-    {k:'pead', t:'Earnings', type:'html', sortType:'num', fn: r => r.pead != null ? r.pead : null, html: r => r.pead != null && typeof pdTierCell === 'function' ? pdTierCell(r.pead) : '<span class="flat">—</span>'},
+    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => seRsCell(r.rs, {delta: r.rsDelta != null ? Math.round(r.rsDelta) : null, row: r}), info: 'rl-rs'},
+    {k:'rsSector', t:'RS vs sector', type:'num', fn: r => r.rsSector, info: 'se-rs-sector'},
+    {k:'trend', t:'Trend', type:'html', sortType:'num', fn: r => r.trend.total ? r.trend.pass + r.trend.pass / (r.trend.total + 1) : null, html: seTrendCell, info: 'se-template'},
+    {k:'s2', t:'In Stage 2', type:'html', sortType:'num', fn: r => (r.s2list ? 2 : 0) + (r.s2calc ? 1 : 0), html: seS2Cell, info: 'se-instage2'},
+    {k:'s2weeks', t:'Wks in S2', type:'int', fn: r => r.s2list ? r.s2list.weeks : null, info: 'se-s2weeks'},
+    {k:'pead', t:'Earnings', type:'html', sortType:'num', fn: r => r.pead != null ? r.pead : null, html: r => r.pead != null && typeof pdTierCell === 'function' ? pdTierCell(r.pead) : '<span class="flat">—</span>', info: 'se-earnings'},
     {k:'r1w', t:'1W %', type:'pct', dec:1}, {k:'r1m', t:'1M %', type:'pct', dec:1}, {k:'r3m', t:'3M %', type:'pct', dec:0},
     {k:'from_52wh', t:'vs 52WH', type:'pct0', dec:1},
-    {k:'eps_yoy', t:'EPS YoY', type:'pct', dec:0}, {k:'sales_yoy', t:'Sales YoY', type:'pct', dec:0}, {k:'pe', t:'P/E', type:'num', dec:1}
+    {k:'eps_yoy', t:'EPS YoY', type:'pct', dec:0, info: 'se-yoy'}, {k:'sales_yoy', t:'Sales YoY', type:'pct', dec:0, info: 'se-yoy'}, {k:'pe', t:'P/E', type:'num', dec:1}
   ];
   host.innerHTML = wrTable('se-rs', cols, list, {sort:{col:'rs', dir:'desc'}, tall:true, cap:800, empty:'No stocks match the filters.'});
   const cnt = document.getElementById('se-rs-count'); if(cnt) cnt.textContent = `${wrNum(list.length)} of ${wrNum(SE.c.U.length)} stocks`;
@@ -8929,7 +8994,7 @@ function seRenderTrendBody(el, anchors){
 
   el.innerHTML = `
     <div class="se-row-h">
-      <div><div class="se-eyebrow">Edge · momentum over time</div><h2>${field === 'rs' ? 'Relative Strength Trend' : 'Volume Trend'}</h2></div>
+      <div><div class="se-eyebrow">Relative strength · momentum over time</div><h2>${field === 'rs' ? 'Relative Strength Trend' : 'Volume Trend'}</h2></div>
       <div class="se-seg">
         <button class="${RT.tab !== 'vol' ? 'active' : ''}" onclick="RT.tab='rs';seRenderTrend()">RS Trend</button>
         <button class="${RT.tab === 'vol' ? 'active' : ''}" onclick="RT.tab='vol';seRenderTrend()">Volume Trend</button>
@@ -8989,7 +9054,7 @@ function seRenderTrendTable(){
   const fmtDelta = (v) => {
     if(!wrIsNum(v)) return '<span class="flat">—</span>';
     const cls = v > 0 ? 'up' : v < 0 ? 'dn' : 'flat';
-    return `<span class="${cls}">${wrSigned(v, 0)}${field === 'vol' ? '%' : ''}</span>`;
+    return `<span class="${cls}">${wrSigned(v, 0)}${field === 'val' ? '%' : ''}</span>`;
   };
   const hdr = (a, fallback) => a ? wrShort(a.date).replace('-', ' ') : (fallback || '—');
   const cols = [
@@ -9274,14 +9339,14 @@ function seRenderS2(){
     <div class="se-kpis">
       ${seKpi('On the list', wrNum(s.s2list), seS2Note(c), 'accent', s.s2list)}
       ${seKpi('Entered', wrNum(s.entered + s.reentry), `${s.reentry} re-entries`, 'ok', s.entered + s.reentry)}
-      ${seKpi(c.s2cut ? 'Left the list or fell under its cut' : 'Exited', wrNum(s.exited), c.hasPrevS2 ? (c.s2cut ? `since w/e ${wrDate(c.prevS2.date)} · ${wrNum(c.belowCut)} more absent names last sat near or under this file's RS ${wrNum(c.s2floor, 1)}% cut — not visible, not counted` : `dropped since the list of w/e ${wrDate(c.prevS2.date)}`) : 'needs a previous list', s.exited ? 'bad' : '', s.exited)}
+      ${seKpi(c.s2cut ? 'Left the list or fell under its cut' : 'Exited', wrNum(s.exited), c.hasPrevS2 ? (c.s2cut ? `since scan ${wrDate(c.prevS2.date)} · ${wrNum(c.belowCut)} more absent names last sat near or under this file's RS ${wrNum(c.s2floor, 1)}% cut — not visible, not counted` : `dropped since the list of scan ${wrDate(c.prevS2.date)}`) : 'needs a previous list', s.exited ? 'bad' : '', s.exited)}
       ${seKpi('Median weeks in stage', s.medWeeks != null ? wrNum(s.medWeeks) : '—', `${s.posRet != null ? Math.round(s.posRet) + '% positive since entry' : ''}`, '', s.medWeeks)}
-      ${seKpi('Also in weekly scan', wrNum(c.S2.filter(r => r.inScan).length), c.U.length ? `of ${c.U.length} scanned · convergence` : 'no scan this week', '', c.S2.filter(r => r.inScan).length)}
+      ${seKpi('Also in the scan', wrNum(c.S2.filter(r => r.inScan).length), c.U.length ? `of ${c.U.length} scanned · convergence` : 'no screener universe in this scan', '', c.S2.filter(r => r.inScan).length)}
       ${seKpi('Under ASM / GSM', wrNum(s.asm), 'surveillance flags', s.asm ? 'warn' : '', s.asm)}
     </div>
     <div class="se-grid2">
-      <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">This week</div><h2>Entries</h2></div></div><ul class="se-list tall">${c.S2.filter(r => r.state === 'entered' || r.state === 'reentry').sort((a, b) => (b.rs_pct || 0) - (a.rs_pct || 0)).map(r => `<li onclick="SE.ui.s2q='${wrAttr(r.code)}';seRenderS2Table();document.getElementById('se-s2-q').value='${wrAttr(r.code)}'"><span class="tk">${wrEsc(r.code)}</span>${r.state === 'reentry' ? '<span class="se-pill re">re-entry</span>' : ''}${r.inScan ? '<span class="se-pill calc">scan</span>' : ''}<span class="ind">${wrEsc(r.industry || '')}</span><span class="num">RS ${wrNum(r.rs_pct, 0)} · ₹${wrNum(r.mcap, 0)} Cr</span></li>`).join('') || '<li class="flat">No entries flagged.</li>'}</ul></div>
-      <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">${c.s2cut ? `Absent, last seen ${SE_S2_FLOOR_MARGIN}+ pts above this file's RS ${wrNum(c.s2floor, 1)}% cut` : 'This week'}</div><h2>Exits</h2></div></div><ul class="se-list tall">${c.exits.slice().sort((a, b) => (b.weeks || 0) - (a.weeks || 0)).map(r => `<li><span class="tk">${wrEsc(r.code)}</span><span class="ind">${wrEsc(r.industry || '')}</span><span class="num">${r.weeks || '?'}w · ${wrPct(r.ret, 0)} at exit</span></li>`).join('') || `<li class="flat">${c.hasPrevS2 ? (c.s2cut && c.belowCut ? `No exits above the cut · ${wrNum(c.belowCut)} absent under it, not visible.` : 'No exits.') : 'Load a previous list to detect exits.'}</li>`}</ul></div>
+      <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">${c.s2asof ? 'Flagged on the ' + seS2AsofLbl(c) : 'This week'}</div><h2>Entries</h2></div></div><ul class="se-list tall">${c.S2.filter(r => r.state === 'entered' || r.state === 'reentry').sort((a, b) => (b.rs_pct || 0) - (a.rs_pct || 0)).map(r => `<li onclick="SE.ui.s2q='${wrAttr(r.code)}';seRenderS2Table();document.getElementById('se-s2-q').value='${wrAttr(r.code)}'"><span class="tk">${wrEsc(r.code)}</span>${r.state === 'reentry' ? '<span class="se-pill re">re-entry</span>' : ''}${r.inScan ? '<span class="se-pill calc">scan</span>' : ''}<span class="ind">${wrEsc(r.industry || '')}</span><span class="num">RS ${wrNum(r.rs_pct, 0)} · ₹${wrNum(r.mcap, 0)} Cr</span></li>`).join('') || '<li class="flat">No entries flagged.</li>'}</ul></div>
+      <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">${c.s2cut ? `Absent, last seen ${SE_S2_FLOOR_MARGIN}+ pts above this file's RS ${wrNum(c.s2floor, 1)}% cut` : c.s2asof ? 'Dropped off by the ' + seS2AsofLbl(c) : 'This week'}</div><h2>Exits</h2></div></div><ul class="se-list tall">${c.exits.slice().sort((a, b) => (b.weeks || 0) - (a.weeks || 0)).map(r => `<li><span class="tk">${wrEsc(r.code)}</span><span class="ind">${wrEsc(r.industry || '')}</span><span class="num">${r.weeks || '?'}w · ${wrPct(r.ret, 0)} at exit</span></li>`).join('') || `<li class="flat">${c.hasPrevS2 ? (c.s2cut && c.belowCut ? `No exits above the cut · ${wrNum(c.belowCut)} absent under it, not visible.` : 'No exits.') : 'Load a previous list to detect exits.'}</li>`}</ul></div>
     </div>
     <div class="se-panel">
       <div class="se-row-h"><div><div class="se-eyebrow">Full list</div><h2>Stage 2 stocks</h2></div><span class="wr-count" id="se-s2-count"></span></div>
@@ -9292,7 +9357,7 @@ function seRenderS2(){
         <select onchange="SE.ui.s2minrs=this.value;seRenderS2Table()">${[['0', 'Any list RS%'], ['25', 'RS% 25+'], ['50', 'RS% 50+'], ['75', 'RS% 75+'], ['100', 'RS% 100+']].map(([v, t]) => `<option value="${v}" ${u.s2minrs === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
         <select onchange="SE.ui.s2minmcap=this.value;seRenderS2Table()">${[['0', 'Any mcap'], ['1000', '≥ ₹1,000 Cr'], ['3000', '≥ ₹3,000 Cr'], ['10000', '≥ ₹10,000 Cr']].map(([v, t]) => `<option value="${v}" ${u.s2minmcap === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
         <select onchange="SE.ui.s2band=this.value;seRenderS2Table()"><option value="all">All caps</option>${SE_BANDS.map(([b]) => `<option value="${b}" ${u.s2band === b ? 'selected' : ''}>${b} cap</option>`).join('')}</select>
-        <label class="se-check"><input type="checkbox" ${u.s2scan ? 'checked' : ''} onchange="SE.ui.s2scan=this.checked;seRenderS2Table()"> Also in weekly scan</label>
+        <label class="se-check"><input type="checkbox" ${u.s2scan ? 'checked' : ''} onchange="SE.ui.s2scan=this.checked;seRenderS2Table()"> Also in the scan</label>
         <label class="se-check"><input type="checkbox" ${u.s2new ? 'checked' : ''} onchange="SE.ui.s2new=this.checked;seRenderS2Table()"> At a new 52W high</label>
       </div>
       <div id="se-s2-table"></div>
@@ -9324,17 +9389,17 @@ function seRenderS2Table(){
     {k:'sector', t:'Sector', type:'text'},
     {k:'industry', t:'Industry', type:'text'},
     {k:'band', t:'Cap', type:'html', sortType:'num', fn: r => SE_BAND_ORD[r.band] || 0, html: seBandCell},
-    {k:'sectorRS', t:'Sector RS', type:'html', sortType:'num', fn: r => r.sectorRS, html: r => r.sectorRS != null ? seRsCell(Math.round(r.sectorRS)) : '<span class="flat">—</span>'},
-    {k:'rs_pct', t:'RS% (list)', type:'num', dec:1},
-    {k:'rsCalc', t:'RS (scan)', type:'html', sortType:'num', fn: r => r.rsCalc, html: r => r.rsCalc != null ? seRsCell(r.rsCalc) : '<span class="flat">—</span>'},
+    {k:'sectorRS', t:'Sector RS', type:'html', sortType:'num', fn: r => r.sectorRS, html: r => r.sectorRS != null ? seRsCell(Math.round(r.sectorRS)) : '<span class="flat">—</span>', info: 'st-sectorrs'},
+    {k:'rs_pct', t:'RS% (list)', type:'num', dec:1, info: 'st-rspct'},
+    {k:'rsCalc', t:'RS (scan)', type:'html', sortType:'num', fn: r => r.rsCalc, html: r => r.rsCalc != null ? seRsCell(r.rsCalc) : '<span class="flat">—</span>', info: 'st-rsscan'},
     {k:'mcap', t:'MCap (₹Cr)', type:'int'}, {k:'vol_cr', t:'Wk vol (₹Cr)', type:'num', dec:1},
     {k:'r1w', t:'1W %', type:'pct', dec:1},
     {k:'from_52wh', t:'vs 52WH', type:'html', sortType:'num', fn: r => r.from_52wh, html: r => seHighCell(r.from_52wh)},
-    {k:'ret', t:'Return since entry', type:'pct', dec:1}, {k:'weeks', t:'Wks in S2', type:'int'},
+    {k:'ret', t:'Return since entry', type:'pct', dec:1, info: 'st-ret'}, {k:'weeks', t:'Wks in S2', type:'int', info: 'se-s2weeks'},
     {k:'since', t:'Since', type:'html', html: r => r.since ? `<span class="num">${wrDate(r.since)}</span>` : '<span class="flat">—</span>'},
-    {k:'state', t:'Status', type:'html', html: r => seStateCell(r.state)},
-    {k:'inScan', t:'In scan', type:'html', sortType:'num', fn: r => r.inScan ? 1 : 0, html: r => seYesCell(r.inScan, 'Yes', 'Also in this week\'s screener scan')},
-    {k:'asm', t:'ASM / GSM', type:'html', sortType:'text', fn: r => r.asm || '', html: r => r.asm ? `<span class="scan-flag" title="${wrAttr(r.asm)}${r.asm_days ? ' for ' + r.asm_days + ' days' : ''}">${wrEsc(r.asm)}</span>` : '<span class="flat">—</span>'},
+    {k:'state', t:'Status', type:'html', html: r => seStateCell(r.state), info: 'st-status'},
+    {k:'inScan', t:'In scan', type:'html', sortType:'num', fn: r => r.inScan ? 1 : 0, html: r => seYesCell(r.inScan, 'Yes', 'Also in this screener scan')},
+    {k:'asm', t:'ASM / GSM', type:'html', sortType:'text', info: 'st-asm', fn: r => r.asm || '', html: r => r.asm ? `<span class="scan-flag" title="${wrAttr(r.asm)}${r.asm_days ? ' for ' + r.asm_days + ' days' : ''}">${wrEsc(r.asm)}</span>` : '<span class="flat">—</span>'},
     {k:'asm_days', t:'ASM days', type:'int'}
   ];
   host.innerHTML = wrTable('se-s2', cols, list, {sort:{col:'rs_pct', dir:'desc'}, tall:true, empty:'No stocks match the filters.'});
@@ -9417,6 +9482,7 @@ async function loadPD(manual){
     const keep = PD.cur && PD.quarters.some(q => q.file === PD.cur);
     PD.cur = keep ? PD.cur : (PD.quarters[0] ? PD.quarters[0].file : null);
     if(PD.cur) await pdLoadSet(PD.cur);
+    if(PD.quarters[0]){ try{ await pdFetch(PD.quarters[0].file); }catch(e){ console.warn('PEAD: newest quarter failed', e); } }   // other pages stamp from the newest quarter
     PD.loaded = true;
     if(manual) toast(`PEAD refreshed — ${PD.quarters.length} quarter${PD.quarters.length === 1 ? '' : 's'}`, 'success');
   }catch(err){
@@ -9506,7 +9572,8 @@ function pdMedian(a){ const s = a.filter(wrIsNum).map(Number).sort((x, y) => x -
 
 // stamp PEAD tier onto SE universe rows (so RS Screen / Pulse can show an earnings badge)
 function pdStampUniverse(U){
-  const d = pdCur(); if(!d || !U) return;
+  // Other pages always show the NEWEST quarter's tiers, whatever quarter the PEAD page is viewing.
+  const f = PD.quarters[0] && PD.quarters[0].file; const d = f && PD.data[f]; if(!d || !U) return;
   const byKey = new Map(), byCode = new Map();
   d.rows.forEach(r => { if(r.code) byCode.set(String(r.code).toUpperCase(), r); if(!byKey.has(r.key)) byKey.set(r.key, r); });
   const keys = [...byKey.keys()];
@@ -9538,8 +9605,8 @@ function pdQoQ(){
 function pdTierCell(tier){ return `<span class="pd-tier ${PD_TIER_CLS[tier]}">${PD_TIER_LABEL[tier]}</span>`; }
 function pdXrefCell(r){
   let s = '';
-  if(r.nearHigh) s += `<span class="se-pill s2" title="Near its 52-week high in the scan of w/e ${r.uni && SE.c ? wrDate(SE.c.date) : ''}${wrIsNum(r.from_52wh) ? ' · ' + wrPct(r.from_52wh, 1, {plain:true}) + ' from high' : ''}">near high</span>`;
-  else if(r.inScan) s += `<span class="se-pill calc" title="In this week's scan${wrIsNum(r.from_52wh) ? ' · ' + wrPct(r.from_52wh, 1, {plain:true}) + ' from high' : ''}">in scan</span>`;
+  if(r.nearHigh) s += `<span class="se-pill s2" title="Near its 52-week high in the scan of ${r.uni && SE.c ? wrDate(SE.c.date) : ''}${wrIsNum(r.from_52wh) ? ' · ' + wrPct(r.from_52wh, 1, {plain:true}) + ' from high' : ''}">near high</span>`;
+  else if(r.inScan) s += `<span class="se-pill calc" title="In this scan${wrIsNum(r.from_52wh) ? ' · ' + wrPct(r.from_52wh, 1, {plain:true}) + ' from high' : ''}">in scan</span>`;
   if(r.inS2) s += `<span class="se-pill re" title="On the Stage 2 list${r.s2weeks ? ' · ' + r.s2weeks + ' wk' : ''}">S2${r.s2weeks ? ' · ' + r.s2weeks + 'w' : ''}</span>`;
   return s || '<span class="flat">—</span>';
 }
@@ -9567,7 +9634,7 @@ function renderPD(){
   const kpis = [
     seKpi('Companies', wrNum(stats.count), `${wrEsc(d.quarter)}${d.reported ? ' · compiled ' + wrDate(d.reported) : ''}`, '', stats.count),
     seKpi('Strong + Moderate PEAD', wrNum(curStrong), qoqDelta != null ? `<span class="${qoqDelta>=0?'up':'dn'}">${qoqDelta>=0?'+':''}${qoqDelta}</span> vs ${wrEsc(qoq.prev.quarter)}` : `${stats.strong} strong · ${stats.moderate} moderate`, 'accent', curStrong),
-    seKpi('Near 52W high', stats.hasScan ? wrNum(stats.nearHigh) : '—', stats.hasScan ? `of the scan (w/e ${wrDate(stats.scanDate)}) · ${stats.strongNearHigh} are strong/mod` : 'load a weekly scan to cross-ref', 'ok', stats.nearHigh),
+    seKpi('Near 52W high', stats.hasScan ? wrNum(stats.nearHigh) : '—', stats.hasScan ? `of the scan of ${wrDate(stats.scanDate)} · ${stats.strongNearHigh} are strong/mod` : 'load a scan to cross-ref', 'ok', stats.nearHigh),
     seKpi('On Stage 2 list', stats.hasScan ? wrNum(stats.inS2) : '—', stats.hasScan ? `${stats.strongS2} of them strong/mod` : 'load a Stage 2 list to cross-ref', '', stats.inS2),
     seKpi('Convergence ★', wrNum(stats.converge), 'strong/mod PEAD + near high + Stage 2', stats.converge ? 'ok' : '', stats.converge),
     seKpi('Median EPS · PAT YoY', `${wrPct(stats.medEps,0,{plain:true})} · ${wrPct(stats.medPat,0,{plain:true})}`, 'across all companies this quarter', '')
@@ -9585,7 +9652,7 @@ function renderPD(){
     {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs != null ? seRsCell(r.rs) : '<span class="flat">—</span>'},
     {k:'eps_yoy', t:'EPS YoY', type:'pct', dec:0}, {k:'pat_yoy', t:'PAT YoY', type:'pct', dec:0},
     {k:'sales_yoy', t:'Sales YoY', type:'pct', dec:0}, {k:'mcap', t:'MCap (₹Cr)', type:'int'}, {k:'peg', t:'PEG', type:'num', dec:2}
-  ], spot, {sort:{col:'xref', dir:'desc'}, maxHeight:'460px', empty: stats.hasScan ? 'No strong/moderate PEAD names are near a high or in Stage 2 in the current scan.' : 'Load a weekly scan (Edge) to light up the cross-reference.'});
+  ], spot, {sort:{col:'xref', dir:'desc'}, maxHeight:'460px', empty: stats.hasScan ? 'No strong/moderate PEAD names are near a high or in Stage 2 in the current scan.' : 'Load a scan (Edge) to light up the cross-reference.'});
 
   // industry earnings strength
   const byInd = new Map();
@@ -9617,7 +9684,7 @@ function renderPD(){
     <div class="se-hero"><div class="se-hero-inner">
       <div class="wr-tags">${tags}</div>
       <h1>Quarterly earnings, ranked by drift potential</h1>
-      <div class="wr-lead">${wrNum(stats.count)} companies with results this quarter — <b>${stats.strong} Strong</b>, ${stats.moderate} Moderate, ${stats.weak} Weak, ${stats.none} No PEAD. ${stats.hasScan ? `Cross-referenced against the weekly scan of <b>w/e ${wrDate(stats.scanDate)}</b>: ${stats.converge} names hit the earnings + momentum + Stage 2 trifecta.` : 'Open an Edge week to cross-reference against the scan and Stage 2 list.'}</div>
+      <div class="wr-lead">${wrNum(stats.count)} companies with results this quarter — <b>${stats.strong} Strong</b>, ${stats.moderate} Moderate, ${stats.weak} Weak, ${stats.none} No PEAD. ${stats.hasScan ? `Cross-referenced against the scan of <b>${wrDate(stats.scanDate)}</b>: ${stats.converge} names hit the earnings + momentum + Stage 2 trifecta.` : 'Open an Edge week to cross-reference against the scan and Stage 2 list.'}</div>
       <div class="pd-dist">${distBar}</div>
       <div class="se-kpis" style="margin-top:14px;">${kpis.join('')}</div>
     </div></div>
@@ -9632,7 +9699,7 @@ function renderPD(){
         <div class="se-filters">
           <input type="text" id="pd-q" placeholder="Search company or industry…" value="${wrAttr(PD.ui.q)}" oninput="PD.ui.q=this.value;pdRenderTable()">
           <select onchange="PD.ui.tier=this.value;pdRenderTable()">${[['all','All tiers'],['3','Strong only'],['2','Moderate+'],['1','Weak+'],['strongmod','Strong + Moderate']].map(([v,t])=>`<option value="${v}" ${PD.ui.tier===v?'selected':''}>${t}</option>`).join('')}</select>
-          <select onchange="PD.ui.xref=this.value;pdRenderTable()">${[['all','Any momentum'],['near','Near 52W high'],['scan','In weekly scan'],['s2','On Stage 2'],['converge','Convergence ★']].map(([v,t])=>`<option value="${v}" ${PD.ui.xref===v?'selected':''}>${t}</option>`).join('')}</select>
+          <select onchange="PD.ui.xref=this.value;pdRenderTable()">${[['all','Any momentum'],['near','Near 52W high'],['scan','In the scan'],['s2','On Stage 2'],['converge','Convergence ★']].map(([v,t])=>`<option value="${v}" ${PD.ui.xref===v?'selected':''}>${t}</option>`).join('')}</select>
           <select onchange="PD.ui.ind=this.value;pdRenderTable()"><option value="all">All industries</option>${[...new Set(rows.map(r=>r.industry||'Other'))].sort().map(i=>`<option value="${wrAttr(i)}" ${PD.ui.ind===i?'selected':''}>${wrEsc(i)}</option>`).join('')}</select>
           <select onchange="PD.ui.minmcap=this.value;pdRenderTable()">${[['0','Any mcap'],['1000','≥ ₹1,000 Cr'],['5000','≥ ₹5,000 Cr'],['20000','≥ ₹20,000 Cr']].map(([v,t])=>`<option value="${v}" ${PD.ui.minmcap===v?'selected':''}>${t}</option>`).join('')}</select>
           <button class="btn btn-ghost btn-sm" onclick="pdExportCsv()"><i class="ti ti-download"></i>CSV</button>
@@ -9710,7 +9777,14 @@ async function loadDG(manual){
   renderDG();
 }
 
-function dgNewsFor(code){ return code ? (DG.news.stocks[String(code).toUpperCase()] || null) : null; }
+// Date-aware: with a scan date, keep only headlines dated within the 7 days up to that scan (none from after it).
+function dgNewsFor(code, asof){
+  const it = code ? DG.news.stocks[String(code).toUpperCase()] : null;
+  if(!it || !it.length || !asof) return it || null;
+  const lo = new Date(new Date(asof).getTime() - 7 * 864e5).toISOString().slice(0, 10);
+  const ok = it.filter(n => n.date && n.date <= asof && n.date >= lo);
+  return ok.length ? ok : null;
+}
 function dgGoogleNews(r){
   const q = encodeURIComponent((r.name || r.code || '') + ' share news');
   return `https://news.google.com/search?q=${q}&hl=en-IN&gl=IN&ceid=IN:en`;
@@ -9718,13 +9792,13 @@ function dgGoogleNews(r){
 function dgScreener(r){ return r.code ? `https://www.screener.in/company/${encodeURIComponent(r.code)}/` : null; }
 
 function dgNewsCell(r){
-  const items = dgNewsFor(r.code);
+  const items = dgNewsFor(r.code, SE.c && SE.c.date);
   const gn = `<a class="dg-news-ico" href="${dgGoogleNews(r)}" target="_blank" rel="noopener" title="Latest news (Google News)"><i class="ti ti-news"></i></a>`;
   const sc = r.code ? `<a class="dg-news-ico" href="${dgScreener(r)}" target="_blank" rel="noopener" title="screener.in company page & announcements"><i class="ti ti-external-link"></i></a>` : '';
   let head = '';
   if(items && items.length){
     const n = items[0];
-    head = `<a class="dg-headline" href="${wrAttr(n.url || dgGoogleNews(r))}" target="_blank" rel="noopener" title="${wrAttr((n.src || '') + (n.date ? ' · ' + n.date : ''))}">${wrEsc(n.t)}</a>`;
+    head = `<a class="dg-headline" href="${wrAttr(n.url || dgGoogleNews(r))}" target="_blank" rel="noopener" title="${wrAttr((n.src || '') + (n.date ? ' · ' + n.date : ''))}">${wrEsc(n.t)}</a>${n.date ? `<span class="dg-growth">${wrEsc(wrDate(n.date))}${n.src ? ' · ' + wrEsc(n.src) : ''}</span>` : ''}`;
   }
   return `<div class="dg-news">${head}<span class="dg-news-links">${gn}${sc}</span></div>`;
 }
@@ -9766,7 +9840,7 @@ function renderDG(){
   const conv = gainers.filter(r => +r.r1d >= 3 && r.pead >= 2 && (r.s2list || r.s2calc)).length;
   const top = all[0];
   const kpis = [
-    seKpi('Advancers', wrNum(gainers.length), `of ${wrNum(all.length)} scanned · as of the ${wrEsc(c.d.screen && c.d.screen.name || 'scan')} (w/e ${wrDate(c.date)})`, 'ok', gainers.length),
+    seKpi('Advancers', wrNum(gainers.length), `of ${wrNum(all.length)} scanned · as of the ${wrEsc(c.d.screen && c.d.screen.name || 'scan')} (scan ${wrDate(c.date)})`, 'ok', gainers.length),
     seKpi('Top move', top ? wrPct(top.r1d, 1, {plain:true}) : '—', top ? wrEsc(top.name || top.code) : '', 'ok'),
     seKpi('Gaining + strong earnings', peadReady ? wrNum(withPead) : '—', peadReady ? 'up today with Strong/Moderate PEAD' : 'load PEAD Radar to cross-ref', 'accent', withPead),
     seKpi('Gaining + on Stage 2', wrNum(withS2), 'up today and trending', '', withS2),
@@ -9795,8 +9869,8 @@ function renderDG(){
   ];
   el.innerHTML = `
     <div class="se-hero"><div class="se-hero-inner">
-      <div class="wr-tags"><span class="wr-tag am">Daily Gainers</span><span class="wr-tag tl">Movers · earnings · news</span><span class="wr-tag">as of w/e ${wrDate(c.date)}</span></div>
-      <h1>Today's movers, and why they moved</h1>
+      <div class="wr-tags"><span class="wr-tag am">Daily Gainers</span><span class="wr-tag tl">Movers · earnings · news</span><span class="wr-tag">scan ${wrDate(c.date)}</span></div>
+      <h1>${c.date === ttIso(new Date()) ? "Today's movers" : `Latest movers (${wrDate(c.date)})`}, and why they moved</h1>
       <div class="wr-lead">${wrNum(gainers.length)} advancers in the ${wrEsc(c.d.screen && c.d.screen.name || 'scan')} — ranked by 1-day return and cross-linked to recent quarterly results, RS/Stage 2, and live news.${DG.news.updated ? ` Curated headlines updated ${wrDate(DG.news.updated)}.` : ''}</div>
       <div class="se-kpis">${kpis.join('')}</div>
     </div></div>
@@ -9832,7 +9906,7 @@ function dgRenderTable(){
     if(u.flt === 'pead' && !(r.pead >= 2)) return false;
     if(u.flt === 's2' && !(r.s2list || r.s2calc)) return false;
     if(u.flt === 'conv' && !(+r.r1d >= 3 && r.pead >= 2 && (r.s2list || r.s2calc))) return false;
-    if(u.flt === 'news' && !dgNewsFor(r.code)) return false;
+    if(u.flt === 'news' && !dgNewsFor(r.code, SE.c && SE.c.date)) return false;
     if(typeof seGfPass === 'function' && !seGfPass(r)) return false;
     return true;
   });
@@ -10105,15 +10179,18 @@ function rdSigStrip(r, wide){
   const dtxt = delta == null ? '' : `<span class="${delta < 0 ? 'fail' : delta > 0 ? 'pass' : 'k'}">${delta > 0 ? '+' : ''}${delta} RS</span>`;
   return `<div class="rd-sig ${wide ? 'wide' : ''}">${rdSigHalf('At publication', a ? a.date : r.date, a)}<span class="arrow">→</span>${rdSigHalf('Now', n ? n.date : null, n)}${dtxt}${pill}</div>`;
 }
+// A multi-name note stores code 'CLUSTER': not a ticker, so never show it or link it as one.
+function rdTicker(r){ return (r && r.code && String(r.code).toUpperCase() !== 'CLUSTER') ? r.code : ''; }
 function rdHeroKpis(){
   const N = rdNow(); if(!N) return '';
-  const tracked = RD.reports.filter(r => r.code && N.byKey.has(String(r.code).toUpperCase()));
-  const nowPass = tracked.filter(r => { const n = rdNowFor(r.code); return n && n.template === 'PASS'; }).length;
+  // count NAMES, not reports: a stock with several editions is one covered name
+  const codes = [...new Set(RD.reports.filter(r => r.code).map(r => String(r.code).toUpperCase()))].filter(k => N.byKey.has(k));
+  const nowPass = codes.filter(k => { const n = rdNowFor(k); return n && n.template === 'PASS'; }).length;
   const flipped = RD.reports.filter(r => (rdDrift(r) || '').startsWith('flipped'));
   const down = flipped.filter(r => rdDrift(r) === 'flipped-down').length;
   return `<div class="se-kpis">
-        ${seKpi('Passing the template now', wrNum(nowPass), `of ${wrNum(tracked.length)} covered names in the ${wrDate(N.date)} scan`, nowPass ? 'ok' : '')}
-        ${seKpi('Verdict flipped since publication', wrNum(flipped.length), flipped.length ? `${down} now fail · ${flipped.length - down} now pass` : 'every published verdict still holds', flipped.length ? 'bad' : 'ok')}
+        ${seKpi('Passing the template now', wrNum(nowPass), `of ${wrNum(codes.length)} covered names in the ${wrDate(N.date)} scan`, nowPass ? 'ok' : '')}
+        ${seKpi('Verdict flipped since publication', wrNum(flipped.length), flipped.length ? `${down} reports now fail · ${flipped.length - down} now pass` : 'every published verdict still holds', flipped.length ? 'bad' : 'ok')}
         ${seKpi('Newest scan', wrDate(N.date), 'signals refresh with each daily pull', '')}
       </div>`;
 }
@@ -10124,7 +10201,7 @@ function rdCard(r, big){
   const targets = (tg.base || tg.bull || tg.bear) ? `<div class="rd-targets">${tg.base ? `<span>Base <b>${wrEsc(tg.base)}</b></span>` : ''}${tg.bull ? `<span class="up">Bull <b>${wrEsc(tg.bull)}</b></span>` : ''}${tg.bear ? `<span class="dn">Bear <b>${wrEsc(tg.bear)}</b></span>` : ''}</div>` : '';
   return `<div class="rd-card ${big ? 'big' : ''}" onclick="rdOpen('${wrAttr(r.id)}')">
     <div class="rd-card-top">${rating}<span class="rd-date">${wrDate(r.date)}</span></div>
-    <h3 class="rd-title">${wrEsc(r.title)}${r.code ? `<span class="rd-code">${wrEsc(r.code)}</span>` : ''}</h3>
+    <h3 class="rd-title">${wrEsc(r.title)}${rdTicker(r) ? `<span class="rd-code">${wrEsc(rdTicker(r))}</span>` : ''}</h3>
     ${r.sector ? `<div class="rd-sector">${wrEsc(r.sector)}${r.cmp ? ` · CMP ${wrEsc(r.cmp)}` : ''}${r.mcap ? ` · ${wrEsc(r.mcap)}` : ''}</div>` : ''}
     ${rdSigStrip(r)}
     ${r.summary ? `<p class="rd-summary">${wrEsc(r.summary)}</p>` : ''}
@@ -10182,14 +10259,14 @@ function rdRenderReader(el){
   const r = RD.reports.find(x => x.id === RD.cur);
   if(!r){ RD.cur = null; return renderRD(); }
   const tg = r.targets || {};
-  const meta = [r.code, r.sector, r.cmp ? 'CMP ' + r.cmp : '', wrDate(r.date)].filter(Boolean).map(wrEsc).join(' · ');
+  const meta = [rdTicker(r), r.sector, r.cmp ? 'CMP ' + r.cmp : '', wrDate(r.date)].filter(Boolean).map(wrEsc).join(' · ');
   el.innerHTML = `
     <div class="rd-reader-bar">
       <button class="btn btn-sm" onclick="rdClose()"><i class="ti ti-arrow-left"></i>All reports</button>
       <div class="rd-reader-meta"><b>${wrEsc(r.title)}</b><span>${meta}</span>${rdSigStrip(r, true)}</div>
       <div class="rd-reader-actions">
         ${r.rating ? `<span class="rd-rating ${rdRatingCls(r.rating)}">${wrEsc(r.rating)}</span>` : ''}
-        ${r.code ? `<button class="btn btn-sm" onclick="rdViewStock('${wrAttr(r.code)}')" title="See this stock's live RS / Stage 2 / earnings"><i class="ti ti-chart-line"></i>View ${wrEsc(r.code)}</button>` : ''}
+        ${rdTicker(r) ? `<button class="btn btn-sm" onclick="rdViewStock('${wrAttr(rdTicker(r))}')" title="See this stock's live RS / Stage 2 / earnings"><i class="ti ti-chart-line"></i>View ${wrEsc(rdTicker(r))}</button>` : ''}
         <a class="btn btn-sm" href="library/research/${wrAttr(r.file)}" target="_blank" rel="noopener" title="Open in a new tab"><i class="ti ti-external-link"></i>Open</a>
       </div>
     </div>
@@ -10202,17 +10279,27 @@ function rdRenderReader(el){
 // + a news trigger — with the reason each name qualified. You tick the ones you want written
 // up; the picks are remembered in this browser and the brief for them can be copied out.
 // ---- EOD pull -------------------------------------------------------------
-// A static site cannot run Python, so this cannot fetch anything by itself. What it CAN do is
-// be the thing that reminds you at 15:40 and hands you the exact command — which is the part
-// that was actually failing, since the cookie means the pull has to happen while you are here.
+// A static site cannot run Python, so this cannot fetch anything by itself. The scheduled task
+// (tools/daily_pull.cmd) runs the pull on weekdays from 15:50 IST and keeps trying until 21:00;
+// this card says whether its close has landed and hands you the exact command if it has not.
 const EOD_SCREEN = 'https://www.screener.in/screen/raw/?sort=return+over+1day&order=&source_id=1016109&query=Market+Capitalization+%3E+1000';
 const EOD_CMD = 'python tools/eod.py --push';
 
+// Trading sessions the scan is behind the last close that can actually be pulled (mirrors eod.py's
+// default scan date): today's close only from 15:50 IST on a weekday, otherwise the previous weekday.
+// So Friday's scan is current all weekend and on Monday until 15:50. Known NSE holidays are skipped;
+// that list stops at the last NSE file, so a later holiday can still read one session behind.
 function eodAge(d){
   if(!d || !d.scan_date) return null;
-  const scan = new Date(d.scan_date + 'T00:00:00');
-  const today = new Date(); today.setHours(0,0,0,0);
-  return Math.round((today - scan) / 86400000);
+  const now = new Date(), ist = new Date(now.getTime() + ((now.getTimezoneOffset() + 330) * 60000));
+  const exp = new Date(ist.getFullYear(), ist.getMonth(), ist.getDate());
+  const wkend = t => t.getDay() === 0 || t.getDay() === 6;
+  if(wkend(exp) || ist.getHours() * 60 + ist.getMinutes() < 15 * 60 + 50){ do { exp.setDate(exp.getDate() - 1); } while(wkend(exp)); }
+  const closed = new Set((typeof MK !== 'undefined' && MK.doc && MK.doc.nse && MK.doc.nse.closed) || []);
+  const t = new Date(d.scan_date + 'T00:00:00'); if(isNaN(t)) return null;
+  let n = 0;
+  for(t.setDate(t.getDate() + 1); t <= exp; t.setDate(t.getDate() + 1)) if(!wkend(t) && !closed.has(ttIso(t))) n++;
+  return n;
 }
 function eodCopyCmd(){
   navigator.clipboard.writeText(EOD_CMD).then(
@@ -10237,12 +10324,12 @@ function psNote(){
   return `<div class="wr-note red" style="margin:0 0 10px;"><div class="lab">${p.status === 'cookie' ? 'The screener.in session has expired' : p.status === 'stale' ? 'The close was not ready in time' : 'The last pull did not finish'} · ${wrEsc(String(p.at || '').replace('T', ' '))}</div>${wrEsc(p.message || '')}${p.status === 'cookie' ? ' Log in to screener.in in your browser, copy the <code>sessionid</code> cookie into <code>.secrets/screener_cookie.txt</code> on the PC, and the 15:50 run picks it up on its next try; after 21:00, run the pull by hand.' : ''}</div>`;
 }
 function eodCard(d){
-  const age = eodAge(d);
-  const stale = age == null || age >= 2;
+  const age = eodAge(d);                       // sessions behind, not calendar days
+  const stale = age == null || age >= 1;
   const label = age == null ? 'no scan loaded'
-              : age <= 0 ? 'today'
-              : age === 1 ? 'yesterday'
-              : `${age} days old`;
+              : age <= 0 ? 'latest close'
+              : age === 1 ? '1 session behind'
+              : `${age} sessions behind`;
   return `
   <div class="eod-card">
     <div class="se-row-h" style="margin-bottom:8px;">
@@ -10252,8 +10339,8 @@ function eodCard(d){
     ${psNote()}
     <div class="wr-lead" style="margin:0 0 10px;">
       ${stale
-        ? `This screen is showing <b>${label === 'no scan loaded' ? 'no' : label}</b> data. Run the pull now, while you are at the desk — it needs your screener.in login, so it cannot run on a timer.`
-        : `Data is current. Press this again after tomorrow's close, around <b>15:40 IST</b>.`}
+        ? `${label === 'no scan loaded' ? 'No scan is loaded.' : `This scan is <b>${label}</b> the last close that can be pulled.`} The scheduled pull runs on weekdays at <b>15:50 IST</b> and keeps trying until 21:00; if it has not landed, run it by hand.`
+        : `Data is current. The scheduled pull picks up the next session's close from <b>15:50 IST</b>; press this only if it has not landed by 21:00.`}
     </div>
     <div class="wr-ctl">
       <button class="btn btn-primary" onclick="eodCopyCmd()"><i class="ti ti-terminal-2"></i>Copy EOD command</button>
@@ -10362,8 +10449,15 @@ function slCopyBrief(){
                                         () => toast('Could not copy', 'error'));
 }
 
+// The Stage 2 list is weekly and rides on every daily scan: say how old it is when it is old.
+// Same arithmetic and 9-day threshold as seS2Note. Older shortlist files have no stage2_asof: no tag.
+function slS2AgeTag(d){
+  if(!d || !d.stage2_asof || !d.scan_date) return '';
+  const age = Math.max(0, Math.round((new Date(d.scan_date + 'T00:00:00') - new Date(d.stage2_asof + 'T00:00:00')) / 86400000));
+  return age > 9 ? `<span class="wr-tag stale" title="The Stage 2 status and reasons come from the provider list of this date; Wks in S2 is counted forward from it to the scan date">Stage 2 list ${wrDate(d.stage2_asof)} · ${age} days old</span>` : '';
+}
 function slScoreCell(r){
-  const pct = Math.max(6, Math.min(100, (r.score / 18) * 100));
+  const pct = Math.max(6, Math.min(100, (r.score / 20) * 100));   // 20 = the most build_shortlist.py can award (see SE_INFO['sl-score'])
   return `<span class="sl-score"><span class="sl-score-bar"><i style="width:${pct.toFixed(0)}%"></i></span><b>${r.score}</b></span>`;
 }
 
@@ -10420,7 +10514,7 @@ function renderSL(){
     seKpi('Shortlisted', wrNum(rows.length), `from ${wrNum(d.universe)} scanned · ${wrNum(d.considered)} scored`, 'accent', rows.length),
     seKpi('Top score', String(rows[0].score), `${wrEsc(rows[0].name || rows[0].code)} · ${(rows[0].reasons || []).length} reasons`, 'ok'),
     seKpi('At a new 52W high', wrNum(rows.filter(r => r.new_high).length), 'of the shortlist', ''),
-    seKpi('With strong earnings', wrNum(rows.filter(r => r.pead && r.pead.tier >= 2).length), d.quarter ? `${wrEsc(d.quarter)} PEAD` : '', ''),
+    seKpi('Strong/Moderate earnings', wrNum(rows.filter(r => r.pead && r.pead.tier >= 2).length), d.quarter ? `${wrEsc(d.quarter)} · Strong + Moderate PEAD` : 'Strong + Moderate PEAD', ''),
     seKpi('You have picked', `${SL.picks.size} / ${SL.max}`, picked.length ? picked.map(r => wrEsc(r.code)).join(', ') : 'tick rows below', SL.picks.size ? 'ok' : '')
   ];
   const cols = [
@@ -10428,24 +10522,24 @@ function renderSL(){
     {k:'pick', t:'Pick', type:'html', html: r => `<label class="sl-pick"><input type="checkbox" ${SL.picks.has(r.code) ? 'checked' : ''} onclick="event.stopPropagation();slToggle('${wrAttr(r.code)}')"></label>`},
     {k:'name', t:'Stock', type:'html', html: r => `<span class="nm" title="${wrAttr(r.code + ' · ' + (r.name || ''))}">${wrEsc(r.name || r.code)}</span>${typeof wrOwned === 'function' ? wrOwned(r) : ''}${slPinBadge(r)}`},
     {k:'act', t:'', type:'html', html: r => typeof wrActCell === 'function' ? wrActCell({code: r.code, name: r.name, industry: r.industry || r.sector}, r.industry || r.sector) : ''},
-    {k:'score', t:'Score', type:'html', sortType:'num', fn: r => r.score, html: slScoreCell},
+    {k:'score', t:'Score', type:'html', sortType:'num', fn: r => r.score, html: slScoreCell, info: 'sl-score'},
     {k:'sector', t:'Sector', type:'text'},
     {k:'industry', t:'Industry', type:'text'},
     {k:'band', t:'Cap', type:'html', sortType:'num', fn: r => SE_BAND_ORD[r.band] || 0, html: r => r.band ? `<span class="se-band ${String(r.band).toLowerCase()}">${wrEsc(r.band)}</span>` : '<span class="flat">—</span>'},
-    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs != null ? seRsCell(r.rs) : '<span class="flat">—</span>'},
+    {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs != null ? seRsCell(r.rs) : '<span class="flat">—</span>', info: 'se-rs'},
     {k:'r1d', t:'Day %', type:'pct', dec:1},
     {k:'r1w', t:'1W %', type:'pct', dec:1},
     {k:'from_52wh', t:'vs 52WH', type:'html', sortType:'num', fn: r => r.from_52wh, html: r => seHighCell(r.from_52wh)},
-    {k:'s2w', t:'Wks in S2', type:'int', fn: r => r.s2 ? r.s2.weeks : null},
-    {k:'pead', t:'Earnings', type:'html', sortType:'num', fn: r => r.pead ? r.pead.tier : null, html: r => r.pead && typeof pdTierCell === 'function' ? pdTierCell(r.pead.tier) : '<span class="flat">—</span>'},
-    {k:'eps', t:'EPS YoY', type:'pct', dec:0, fn: r => r.pead ? r.pead.eps_yoy : null},
-    {k:'trend', t:'Trend', type:'text'},
+    {k:'s2w', t:'Wks in S2', type:'int', fn: r => r.s2 ? r.s2.weeks : null, info: 'se-s2weeks'},
+    {k:'pead', t:'Earnings', type:'html', sortType:'num', fn: r => r.pead ? r.pead.tier : null, html: r => r.pead && typeof pdTierCell === 'function' ? pdTierCell(r.pead.tier) : '<span class="flat">—</span>', info: 'se-earnings'},
+    {k:'eps', t:'EPS YoY', type:'pct', dec:0, fn: r => r.pead ? r.pead.eps_yoy : null, info: 'se-yoy'},
+    {k:'trend', t:'Trend', type:'text', info: 'se-template'},
     {k:'news', t:'Trigger', type:'html', sortType:'num', fn: r => r.news ? 1 : 0, html: r => r.news ? `<a class="dg-headline" href="${wrAttr(r.news.url || '#')}" target="_blank" rel="noopener" title="${wrAttr((r.news.src || '') + (r.news.date ? ' · ' + r.news.date : ''))}">${wrEsc(r.news.t)}</a>` : '<span class="flat">—</span>'},
     {k:'why', t:'Why it surfaced', type:'html', html: r => `<span class="sl-why" title="${wrAttr((r.reasons || []).join(' · '))}">${wrEsc((r.reasons || []).join(' · '))}</span>`}
   ];
   el.innerHTML = `
     <div class="se-hero"><div class="se-hero-inner">
-      <div class="wr-tags"><span class="wr-tag am">Shortlist</span><span class="wr-tag tl">End-of-day decision loop</span><span class="wr-tag">scan ${wrDate(d.scan_date)}</span></div>
+      <div class="wr-tags"><span class="wr-tag am">Shortlist</span><span class="wr-tag tl">End-of-day decision loop</span><span class="wr-tag">scan ${wrDate(d.scan_date)}</span>${slS2AgeTag(d)}</div>
       <h1>Today's candidates for a report</h1>
       <div class="wr-lead">${wrNum(d.universe)} stocks ranked for convergence — <b>new 52-week high + Stage 2 + earnings + today's move + a news trigger</b> — and the ${wrNum(rows.length)} strongest are below with the reason each one qualified. Tick up to ${SL.max}, then copy the brief and hand it to the report generator. Computed from committed data: no model, no API key.</div>
       <div class="se-kpis">${kpis.join('')}</div>
@@ -10460,7 +10554,7 @@ function renderSL(){
       ${wrTable('sl-all', cols, rows, {sort:{col:'score', dir:'desc'}, tall:true, empty:'Nothing scored above the threshold.'})}
       ${slWatchPanel(d, cols)}
       ${slHandoff()}
-      <div class="wr-foot" style="border:none;padding:14px 0 0;">Scoring is transparent and deterministic — new high +3, fresh Stage 2 entry +3, trend template +2, Strong PEAD +3, big day +2, RS 90+ +2, news trigger +2, leading sector +1 (see tools/build_shortlist.py). Rebuild after each scan with <code>python tools/build_shortlist.py</code>. Not investment advice.</div>
+      <div class="wr-foot" style="border:none;padding:14px 0 0;">Scoring is transparent and deterministic — every rule, out of a maximum of 20, is behind the <b>i</b> on the Score column (and in tools/build_shortlist.py). Rebuild after each scan with <code>python tools/build_shortlist.py</code>. Not investment advice.</div>
     </div>`;
   const badge = document.getElementById('sl-badge');
   if(badge){ badge.textContent = SL.picks.size; badge.classList.toggle('show', SL.picks.size > 0); }
@@ -10472,7 +10566,7 @@ function renderSL(){
 // (localStorage) until they export it. Screenshots are downscaled and JPEG-compressed on
 // the way in so a handful of them fit inside the storage budget; Export produces ONE
 // self-contained HTML file with the images embedded, which is what gets sent back.
-const FB = { items: [], ui: { sec: '', text: '', shots: [], name: '' }, KEY: 'swingedge.feedback.v1', MAX_MB: 4 };
+const FB = { items: [], ui: { sec: 'Overall / general', text: '', shots: [], name: '' }, KEY: 'swingedge.feedback.v1', MAX_MB: 4 };
 
 function fbLoad(){
   try{ FB.items = JSON.parse(localStorage.getItem(FB.KEY) || '[]'); }
@@ -10589,7 +10683,7 @@ ${body}`;
   const blob = new Blob([html], { type: 'text/html' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = `swingedge-feedback-${(who || 'tester').replace(/\W+/g, '-').toLowerCase()}-${new Date().toISOString().slice(0,10)}.html`;
+  a.download = `swingedge-feedback-${(who || 'tester').replace(/\W+/g, '-').toLowerCase()}-${ttIso(new Date())}.html`;
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 4000);
   toast('Exported — send that file back', 'success');
@@ -10606,8 +10700,9 @@ function fbWhatsApp(){
   window.open('https://wa.me/?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
 }
 
-const FB_SECTIONS = ['Market Pulse','Shortlist','Daily Gainers','RS Screen','Sectors','Stage 2 Tracker',
-  'Stage 2 Journal','PEAD Radar','Track Record','Research Desk','Research Library','Overall / general'];
+const FB_SECTIONS = ['Overall / general','Markets & Macro','Market News','Indices','Sectors','Theme Trackers','Weekly Report',
+  'RS Screen','RS Trend','RS Leaders','Stage 2 Tracker','Stage 2 Journal','Shortlist','Daily Gainers','PEAD Radar',
+  'Research Desk','Research Library','Track Record'];
 
 function renderFB(){
   const el = document.getElementById('fb-body'); if(!el) return;
@@ -10650,7 +10745,7 @@ function renderFB(){
           <span class="wr-hint">Ctrl+V pastes a screenshot straight in</span></div>
         <div class="wr-ctl">
           <input type="text" id="fb-name" placeholder="Your name" value="${wrAttr(FB.ui.name)}" style="min-width:170px">
-          <select id="fb-sec">${FB_SECTIONS.map(s => `<option ${s === FB.ui.sec ? 'selected' : ''}>${s}</option>`).join('')}</select>
+          <select id="fb-sec">${FB_SECTIONS.map(s => `<option ${s === FB.ui.sec ? 'selected' : ''}>${wrEsc(s)}</option>`).join('')}</select>
           <label class="btn btn-sm"><i class="ti ti-paperclip"></i>Attach screenshot
             <input type="file" accept="image/*" multiple hidden onchange="fbAddFiles(this.files);this.value=''"></label>
         </div>
@@ -10704,13 +10799,21 @@ function sjStock(code){ return (SJ.doc.stocks || {})[code] || null; }
 function sjSet(k, v){ SJ.ui[k] = v; renderSJ(); }
 
 // a stock row for the entered/exited tables, joined to whatever we know about it
-function sjRow(code){
+// date + kind ('in' | 'out') = a row for that day's Joined / Dropped table: the spell is the one that
+// started (in) or ended (out) on that day, not the stock's latest one, and RS / returns come from the
+// selected Edge scan only when that scan IS that day (otherwise a dash). No date = latest state.
+function sjRow(code, date, kind){
   const s = sjStock(code) || {};
   const t = s[SJ.ui.track] || {};
-  const u = (typeof SE !== 'undefined' && SE.c) ? SE.c.U.find(x => (x.code || '').toUpperCase() === code) : null;
-  return { code, name: s.name || code, sector: s.sector || (u ? (u.group || u.industry) : ''), band: s.band || (u ? u.band : null),
+  const h = t.history || [];
+  const sp = kind === 'out' ? h.find(x => x.to === date) : kind === 'in' ? h.find(x => x.from === date) : null;
+  const uAny = (typeof SE !== 'undefined' && SE.c) ? SE.c.U.find(x => (x.code || '').toUpperCase() === code) : null;
+  const u = (uAny && (!date || SE.c.date === date)) ? uAny : null;
+  return { code, name: s.name || code, sector: s.sector || (uAny ? (uAny.group || uAny.industry) : ''), band: s.band || (uAny ? uAny.band : null),
            rs: u ? u.rs : null, from_52wh: u ? u.from_52wh : null, r1d: u ? u.r1d : null, r1w: u ? u.r1w : null,
-           since: t.since || null, days: t.days != null ? t.days : null, spells: t.spells || null, total_days: t.total_days || null,
+           since: sp ? sp.from : (t.since || null),
+           days: sp ? (sp.days != null ? sp.days : (sp.to == null && t.days != null ? t.days : null)) : (t.days != null ? t.days : null),
+           spells: t.spells || null, total_days: t.total_days || null,
            current: !!t.current };
 }
 const SJ_COLS = () => [
@@ -10744,7 +10847,9 @@ function renderSJ(){
   // The provider's list is weekly. A scan that reused last week's file has no diff to show —
   // reporting it as "0 joined, 0 dropped" would read as "nobody moved", which is not what happened.
   const carried = !!T.carried;
-  const entered = (T.entered || []).map(sjRow), exited = (T.exited || []).map(sjRow);
+  const entered = (T.entered || []).map(c => sjRow(c, day.date, 'in')), exited = (T.exited || []).map(c => sjRow(c, day.date, 'out'));
+  const mktNote = (typeof SE !== 'undefined' && SE.c && SE.c.date && SE.c.date !== day.date)
+    ? `<div class="wr-hint">RS, Day %, 1W % and vs 52WH come from the scan selected on the Edge pages (${wrDate(SE.c.date)}), so on this day they show a dash.</div>` : '';
   const inNow = Object.entries(d.stocks || {}).filter(([, s]) => (s[track] || {}).current).map(([c]) => c);
 
   const kpis = [
@@ -10766,7 +10871,7 @@ function renderSJ(){
       ? `<div class="wr-note"><div class="lab">No data on this track for ${wrDate(day.date)}</div>Your provider's list is weekly, so it only changes on the days you upload a new one. Switch to the computed track above to see daily movement.</div>`
       : first
       ? `<div class="wr-note"><div class="lab">First scan on record</div>Everything counts as "already in" on the first scan — movements start from the next one.</div>`
-      : `<div class="wr-sub">Joined Stage 2 on ${wrDate(day.date)} (${entered.length})</div>
+      : `${mktNote}<div class="wr-sub">Joined Stage 2 on ${wrDate(day.date)} (${entered.length})</div>
          <div class="wr-hint">These stocks were not in Stage 2 on the previous scan and are now. A fresh entry is usually the most interesting moment in the whole cycle.</div>
          ${wrTable('sj-in', SJ_COLS(), entered, {sort:{col:'rs', dir:'desc'}, maxHeight:'420px', cap:200, empty:'Nobody joined on this day.'})}
          <div class="wr-sub">Dropped out of Stage 2 on ${wrDate(day.date)} (${exited.length})</div>
@@ -10792,7 +10897,7 @@ function renderSJ(){
       ], rows, {sort:null, maxHeight:'520px', empty:'No scans.'})}`;
   } else {
     const q = SJ.ui.q.trim().toLowerCase();
-    const list = Object.keys(d.stocks || {}).map(sjRow)
+    const list = Object.keys(d.stocks || {}).map(c => sjRow(c))
       .filter(r => !q || (r.code + ' ' + r.name + ' ' + (r.sector || '')).toLowerCase().includes(q))
       .filter(r => r.spells);
     body = `<div class="se-filters"><input type="text" placeholder="Search a stock…" value="${wrAttr(SJ.ui.q)}" oninput="SJ.ui.q=this.value;renderSJ()">

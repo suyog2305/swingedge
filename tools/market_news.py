@@ -30,6 +30,9 @@ import argparse, datetime as dt, email.utils, io, json, os, re, subprocess, sys,
 import urllib.parse, urllib.request
 import xml.etree.ElementTree as ET
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from rs import utf8_stdio  # noqa: E402  (stdout/stderr as UTF-8, so a cp1252 pipe cannot end the run on a print)
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'data', 'daily', 'market_news.json')        # headlines: written only by `collect`
 DIGEST = os.path.join(ROOT, 'data', 'daily', 'market_digest.json')   # the digest: written only by the routine
@@ -279,6 +282,7 @@ def cmd_digest(a):
 
 def main():
     global QUIET
+    utf8_stdio()
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--quiet', action='store_true')
     sp = ap.add_subparsers(dest='cmd', required=True)
