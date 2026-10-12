@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04",
+  "updated": "2026-10-12",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -1385,8 +1385,40 @@
         "url": "https://marketsmojo.com/news/stocks-in-action/diffusion-engineers-ltd-shows-bullish-momentum-amid-technical-upgrades-4207738",
         "date": "2026-09-26"
       }
+    ],
+    "INOXGREEN": [
+      {
+        "t": "Inox Green completes ₹550-crore acquisition of Wind World India’s 4.5 GW O&M business",
+        "src": "Fortune India",
+        "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOSDNZTzNoakRmblpqY2hlNlNkblpxVm81X2JoQ3RHWnFjY3BQRktRN0puT2VsaVNfRWJMdlpzcGs3TmRhZXZLWVdtcXdGR0F4QkZBelUzTTZoX0F2b2JkZDlQTENYOWxmM0dsZ3dPQlFJdHh6ZGR4cGVMMFZCS3pMWWxURGFUSFNaanhTQi03ZWM4MnJLbm1pOVJYQTZDYXB6T2lscmxCcTZHU2l0c0QxcjBSLVlPclJPcERXblVSZVBYMGZhMjV1NXBBWdIB2AFBVV95cUxNOWc2VFlLaEFrU3VuZEZDb3E1M1BEaDBfazVJUVhTc1lVeG5XblVtUFBjcF82a2h0V2p0U2JLOVRwa2VmUTVXOVM2UHFyblowUHk3d2NwZjJ6ZGlnaUM3RXdQamNoV3ZCY1g2bE9iRTRCa2NCM0F4eGY2dVgxUFFfU293M3c4dWlFMFVWS09HYlhRT291M1pnX1lGSGlLYWRuQy1lalpJUEpjaW9rWWVCTWRpaUQyY1EyNkxJN25pdzlCUEpWLWRjSWdZTGEzMHlfaDhYMjJ0QTA?oc=5",
+        "date": "2026-10-07"
+      }
+    ],
+    "MONEYVIEW": [
+      {
+        "t": "Pine Labs, CAMS, Moneyview, other fintech stocks rally up to 11% after RBI MPC move. Here’s why",
+        "src": "The Economic Times",
+        "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxPZHUzWmJpOE1jS0dRMDhjM0ZVV0NiSmJpMlpNcVBlN1dGSEZyNlRJUjdxd1lPY3QwWXZQR2ZiRzB3a0w1Mmk2NTd5UnJJSmtscVd5eEppQmFlOGlqYjIxNUZLVUhSak5MVkJzNmstNWxoZ19RUG1sSzd4eW55allyRUJVS1BBYmJSamFydHhDaFZhbkVXQkxOZU02YVgtSmpLRDZlbERPeF9RV0pRSmhyU0dvWTExSWIyWmxKVHlBZEdKbXJrTUJyNmd1c3Z0U1JRcWZPc2tmWWxHblBoRFMzVkVYQmpDNHlaNDdOdTVvRHVhdlVjNkHSAfsBQVVfeXFMTld0TTBSSWYtb3ZNdC13OHdEQWFNMHptaTJIeG5leS1md1I0UEVGbEllQ0M2bFd3eFFaU2ZGbVFSR05Lb3dhd1FyVU1wOXZMYW9SbndnZDFWNVlhaWN2TUVyZS13cTFVdWd1b3NGVkhNc2xlVy10SFJ2azk0MFNaT0swdGxHT2Z4XzYtOFFjRUpLaEFtUXFoWWhpLVZqU2hvSGF0bUlnRTRZZnY4b1haczNnNFRJSUdKckh3V0hyaTlwSzFHajlGQ1ctVU1BaXRrVWtza19XY0hHdTFQcG1uaTQ2Qlp4WmVEemZRMHluSVQ1Nll6cndCSmJ6Rk0?oc=5",
+        "date": "2026-10-07"
+      }
+    ],
+    "SMCGLOBAL": [
+      {
+        "t": "SMC Global Securities board to meet Oct 14 on share issuance",
+        "src": "scanx.trade",
+        "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOZEh5RkNpOHE3NldfYndFYml2LWhvajQzczBBaERNSXZrNy1rNlBTWlZvS3JBUGVEbEQ5dTdIV3JMWGtaTElLSURhWkJId0NlSFpMWjgxM19qWlZrejhkdE5mY1JHTHpZQy05VlZ0WkpMUlF1WmJkZG94MlNqUDBRUmdDeVhYdmJzUTk4a0JWMVMzWUhEMmdfWHN3cm0xSnFFdmxTN3JXYU9kX2RvZHQ2Wg?oc=5",
+        "date": "2026-10-09"
+      }
+    ],
+    "SEPC": [
+      {
+        "t": "SEPC shares jump 11% on ₹855 crore SAIL-IISCO contract win; order book crosses ₹10,000 crore",
+        "src": "CNBC TV18",
+        "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQQWFqVUFGZ3p6RzhyUUNSdFFiUHJ6WGoyekVpYWk3UU5xYTdTa2liWTBCWWdFRHNwVkloX1FXVHRXX0l0b044dXduUGREeVdiX0EwVFJkRHppZU11VGl5dU81Q05jWVZiZHM0RUZzbVNlemJSczlrbHNEbkZMSldxVkc3QVdNVHN4TjdKdndiSm8wckF4VmItaDVBMmZKRkFUNmpOMTB3VFU5eDlVN2RabzVENzMydmpScm1BYW1VT185b2ps0gHKAUFVX3lxTE9KbXRCcklkX19XcFNkMjNKT3ZDSEdqbl83a0NXUDlibTIzMExpS2x1dDhUVHNFbzFrbUcwX0M2eXIwYUMyYTZjN1JiYVA4Z090NVRMYUU2eC1qS2l1eUtSakJTN3NiSDY0TTU1cWF5aHZIdVh1YVFQdUNTV0haZWVGaUk4UndVbEtQdXp6Z2NUTU4tc0Y5N050SGVYYUxSNXM1YkhDcWdoQkpvUmRSOW1sWXUzYnlpbENrVUFmZEs1MUxwNmhxTWRGV2c?oc=5",
+        "date": "2026-10-09"
+      }
     ]
   },
-  "vetted_scan": "2026-10-01",
-  "vetted_at": "2026-10-04T14:26+0530"
+  "vetted_scan": "2026-10-09",
+  "vetted_at": "2026-10-12T07:45+0530"
 }
