@@ -7228,7 +7228,7 @@ function renderWR(){
       <div class="wr-tags">${tags}</div>
       <h1>${wrEsc(d.title || 'Weekly Markets Report')}</h1>
       ${d.strap ? `<div class="wr-strap">${wrEsc(d.strap)}</div>` : ''}
-      <div class="wr-lead">Week of <b>${wrEsc(d.week_label || d.week_ending || '')}</b>${d.lead ? ' — ' + wrInline(d.lead) : ''}</div>
+      <div class="wr-lead">Week of <b>${wrEsc(d.week_label || d.week_ending || '')}</b>${d.lead ? ' — ' + wrInline(d.lead) : ''} ${seInfoBtn('wr-auto')}</div>
       ${quotes ? `<div class="wr-quotes">${quotes}</div>` : ''}
     </div></div>
     <div class="wr-meta">${meta}</div>
@@ -7273,7 +7273,7 @@ function wrTabMacros(d, priors){
   if(m.fii_dii){
     const sn = next();
     const f = m.fii_dii, days = (f.days || []).slice().sort((a, b) => String(a.date).localeCompare(String(b.date)));
-    const tot = (k) => days.reduce((s, x) => s + (wrIsNum(x[k]) ? +x[k] : 0), 0);
+    const tot = (k) => days.some(x => wrIsNum(x[k])) ? days.reduce((s, x) => s + (wrIsNum(x[k]) ? +x[k] : 0), 0) : null;
     const weekRows = days.map(x => ({date: x.date, day: wrDay(x.date), fii_net: x.fii_net, dii_net: x.dii_net}));
     if(days.length) weekRows.push({date: 'Week Total', day: '—', fii_net: tot('fii_net'), dii_net: tot('dii_net'), _total: true});
     let body = wrP(f.lead, true);
@@ -7298,10 +7298,10 @@ function wrTabMacros(d, priors){
         {k:'fii_buy', t:'FII Buy', type:'int'}, {k:'fii_sell', t:'FII Sell', type:'int'}, {k:'fii_net', t:'FII Net', type:'signed', dec:0},
         {k:'dii_buy', t:'DII Buy', type:'int'}, {k:'dii_sell', t:'DII Sell', type:'int'}, {k:'dii_net', t:'DII Net', type:'signed', dec:0}
       ], all, {sort:{col:'date', dir:'desc'}, maxHeight:'420px'});
-      const sum = (k) => all.reduce((s, x) => s + (wrIsNum(x[k]) ? +x[k] : 0), 0);
-      const fmt = (v) => (v >= 0 ? '+' : '−') + '₹' + wrNum(Math.abs(v)) + ' Cr';
+      const sum = (k) => all.some(x => wrIsNum(x[k])) ? all.reduce((s, x) => s + (wrIsNum(x[k]) ? +x[k] : 0), 0) : null;
+      const fmt = (v) => v == null ? '—' : (v >= 0 ? '+' : '−') + '₹' + wrNum(Math.abs(v)) + ' Cr';
       body += wrCards([{k:`FII Net (all ${all.length} sessions)`, v: fmt(sum('fii_net')), d: `${wrDate(first)} – ${wrDate(last)}`, tone: sum('fii_net') >= 0 ? 'up' : 'down'},
-                       {k:`DII Net (all ${all.length} sessions)`, v: fmt(sum('dii_net')), d: `${wrDate(first)} – ${wrDate(last)}`, tone: sum('dii_net') >= 0 ? 'up' : 'down'}], 2);
+                       {k:`DII Net (all ${all.length} sessions)`, v: fmt(sum('dii_net')), d: sum('dii_net') == null ? 'no keyless source for DII; see the i on the lead' : `${wrDate(first)} – ${wrDate(last)}`, tone: sum('dii_net') == null ? '' : sum('dii_net') >= 0 ? 'up' : 'down'}], 2);
     }
     out += wrSection(sn, 'FII / DII Cashflows', body);
   }
@@ -7596,6 +7596,7 @@ function wrPrint(){
 
 // The explanations behind every "i" button, keyed by name; filled by the sections below, shown by seInfoOpen().
 const SE_INFO = {};
+SE_INFO['wr-auto'] = `<h4>Where this week's numbers come from</h4><p>Since 13 Oct 2026 the Weekly Report builds itself on the week's last session from data the pipeline already holds (<code>tools/auto_weekly.py</code>): the stock rows are the Friday scan; index moves come from NSE's own closing file; <b>FPI Equity Net</b> is NSDL's figure <i>by report date</i>, which lands one session after the trades, so the week's total is NSDL's reported week, not the exchanges' provisional number; the rupee, the dollar index, crude, metals and the US 10-year come from Yahoo; the India 10-year, the repo rate and the 91-day bill from RBI's page; the <b>NSE 10Y G-Sec index</b> is a price index (up means yields fell); the <b>Breadth Regime</b> is the share of names above their 50- and 200-day averages (60%/50% broad uptrend, under 40% downtrend); the trackers table is the week's move of each sub-sector index; US names and ETFs are Yahoo closes up to the last US session before the build. <b>DII</b> and <b>derivatives</b> have no keyless source and are left blank. Anything edited by hand in the week's file is kept on the next build.</p>`;
 
 // ============= RS LEADERS — persistence + exhaustion intelligence on the top-N RS names =============
 // Reads data/daily/rs_tracker.json (tools/build_rs_tracker.py). Your own positions (Trade Log / Kite
@@ -7762,6 +7763,7 @@ function rlCols(extra, opt){
     {k:'status', t:'Status', type:'html', sortType:'text', fn: r => r.status, html: r => rlPill(RL_STATUS, r.status), info: 'rl-status'},
     {k:'ex', t:'Exhaustion', type:'html', sortType:'num', fn: r => r.exhaustion, html: rlExCell, info: 'rl-ex'},
     {k:'trend', t:'Trend', type:'html', sortType:'num', fn: r => r.trend && r.trend.total ? r.trend.pass : null, html: rlTrendCell, info: 'rl-trend'},
+    avCol(),
     {k:'verdict', t:'Verdict', type:'html', sortType:'text', fn: r => r.verdict, html: rlVerdictCell, info: 'rl-verdict'},
   ]).concat(extra || []);
 }
@@ -8552,7 +8554,7 @@ async function loadSE(manual){
     const idx = await res.json();
     SE.scans = (Array.isArray(idx.scans) ? idx.scans : []).filter(s => s && s.file).sort((a, b) => String(b.date).localeCompare(String(a.date)));
     SE.error = null;
-    if(manual){ SE.data = {}; SE.inflight = {}; SE.bust = true; if(typeof RT !== 'undefined'){ RT.cache = {}; RT.anchors = null; } }   // drop memory caches AND make seFetch revalidate: a scan rebuilt in place keeps its filename
+    if(manual){ SE.data = {}; SE.inflight = {}; SE.bust = true; if(typeof RT !== 'undefined'){ RT.cache = {}; RT.anchors = null; } if(typeof RH !== 'undefined'){ RH.doc = null; RH.idx = null; RH.tried = false; } if(typeof TR !== 'undefined') TR.track = undefined; }   // drop memory caches AND make seFetch revalidate: a scan rebuilt in place keeps its filename
     const keep = SE.cur && SE.scans.some(s => s.file === SE.cur);
     SE.cur = keep ? SE.cur : (SE.scans[0] ? SE.scans[0].file : null);
     if(SE.cur) await seLoadSet(SE.cur);
@@ -9207,13 +9209,48 @@ function seTrendUniverse(file){
   U.forEach(r => { const k = String(r.code || r.name || '').trim().toUpperCase(); if(k) map.set(k, r); });
   return (RT.cache[file] = map);
 }
+// data/daily/rs_history.json (tools/build_history.py, from the evening pull): every broad scan's RS and value traded,
+// ranked the same way, so the earlier columns need one small file instead of three ~1 MB scans. Used for a column only
+// when the file reaches the newest broad scan and holds that column's date; anything else fetches the scan as before.
+// The newest column always comes from the scan itself (it carries the names, sectors and the Stage 2 list).
+const RH = { doc: null, idx: null, tried: false, pending: null };
+async function rhLoad(){
+  if(RH.tried) return RH.doc;
+  if(RH.pending) return RH.pending;
+  RH.pending = (async () => {
+    let d = null;
+    try{ const r = await fetch('data/daily/rs_history.json', {cache: SE.bust ? 'reload' : 'default'}); d = r.ok ? await r.json() : null; }catch(e){ d = null; }
+    RH.doc = d && Array.isArray(d.dates) && d.dates.length && d.codes && typeof d.codes === 'object' ? d : null;
+    RH.idx = RH.doc ? new Map(RH.doc.dates.map((x, i) => [x, i])) : null;
+    RH.tried = true; RH.pending = null;
+    return RH.doc;
+  })();
+  return RH.pending;
+}
+function seTrendRH(date){
+  const d = RH.doc; if(!d || !RH.idx || !RT._lastCur) return null;
+  if(String(d.dates[d.dates.length - 1]) < String(RT._lastCur)) return null;        // older than the newest broad scan: not trusted
+  const i = RH.idx.get(date); if(i == null) return null;
+  const ck = 'rh:' + date; if(RT.cache[ck]) return RT.cache[ck];
+  const map = new Map();
+  Object.keys(d.codes).forEach(k => {
+    const c = d.codes[k], rs = c.rs ? c.rs[i] : null, vol = c.vol ? c.vol[i] : null, price = c.price ? c.price[i] : null;
+    if(rs != null || vol != null) map.set(k, {rs, vol_1m: vol, price});      // the same fields seTrendBuild reads off a scan row
+  });
+  return (RT.cache[ck] = map);
+}
+// column k of the trend: k = 0 is the newest scan itself; earlier columns read rs_history.json when it has the date
+function seTrendMap(a, k){ return a ? ((k > 0 && seTrendRH(a.date)) || seTrendUniverse(a.file)) : null; }
+function seTrendHave(a, k){ return !a || !!SE.data[a.file] || (k > 0 && !!seTrendRH(a.date)); }
 async function seTrendEnsure(){
-  const field = RT.tab === 'vol' ? 'val' : 'rs';
-  const need = seTrendAnchors(field).filter(Boolean).filter(a => !SE.data[a.file]);
-  if(!need.length || RT.pending) return;
+  if(RT.pending) return;
   RT.pending = true;
-  await Promise.allSettled(need.map(a => seFetch(a.file)));
-  RT.pending = false;
+  try{
+    if(!RH.tried) await rhLoad();
+    const field = RT.tab === 'vol' ? 'val' : 'rs';
+    const need = seTrendAnchors(field).filter((a, k) => a && !seTrendHave(a, k));
+    if(need.length) await Promise.allSettled(need.map(a => seFetch(a.file)));
+  }finally{ RT.pending = false; }
   if(document.getElementById('se-trend-body')) seRenderTrend();
 }
 // field: 'rs' = percentile 1-99 (absolute-point deltas) · 'val' = 1-month avg volume x price in
@@ -9222,7 +9259,7 @@ async function seTrendEnsure(){
 function seTrendBuild(field){
   const anchors = seTrendAnchors(field);             // [now, ~1w, ~2w, ~3w]
   if(!anchors[0]) return {rows: []};
-  const maps = anchors.map(a => a ? seTrendUniverse(a.file) : null);
+  const maps = anchors.map((a, k) => seTrendMap(a, k));
   if(!maps[0]) return {rows: []};
   // the provider's weekly Stage 2 list carried on the newest scan: its own RS% sits beside our percentile
   const s2 = new Map((((SE.data[anchors[0].file] || {}).stage2) || []).map(r => [String(r.code || '').trim().toUpperCase(), r]));
@@ -9273,7 +9310,7 @@ function seRenderTrend(){
         : 'RS Trend needs at least two broad-market scans (1,000+ names) on different dates to show any trend. ') + SE_EMPTY_BODY);
     return;
   }
-  if(anchors.some(a => a && !SE.data[a.file])){
+  if(!RH.tried || anchors.some((a, k) => !seTrendHave(a, k))){
     el.innerHTML = '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading earlier scans…</p></div>';
     // the earlier anchor scans are fetched only once this page is open (show('rstrend') calls back in here)
     if(document.getElementById('sec-rstrend') && document.getElementById('sec-rstrend').classList.contains('active')) seTrendEnsure();
@@ -10249,9 +10286,9 @@ function dgRenderTable(){
 // versus the market (all names matched forward). Everything is recomputed client-side from the
 // committed data/scans history — no look-ahead beyond matching prices by code across dated scans.
 // Thin now (few scans, long gaps); it thickens automatically as the daily pull adds scans.
-const TR = { scans: [], loaded: false, loading: false, ui: { cohortSignal: 'conv' } };
+const TR = { scans: [], loaded: false, loading: false, source: null, track: undefined, ui: { cohortSignal: 'conv' } };
 const TR_SIGNALS = [
-  { k: 'nearhigh', t: 'Near 52W high', test: r => wrIsNum(r.from_52wh) && r.from_52wh >= -3 },
+  { k: 'nearhigh', t: 'Near 52W high', test: r => r._nh != null ? r._nh : (wrIsNum(r.from_52wh) && r.from_52wh >= -3) },   // _nh: the same test, precomputed in track.json
   { k: 'rs80', t: 'RS ≥ 80', test: r => wrIsNum(r.rs) && r.rs >= 80 },
   { k: 'rs90', t: 'RS ≥ 90', test: r => wrIsNum(r.rs) && r.rs >= 90 },
   { k: 'trend', t: 'Passes trend template', test: r => r._trend },
@@ -10261,13 +10298,42 @@ const TR_SIGNALS = [
 function trMean(a){ const s = a.filter(wrIsNum); return s.length ? s.reduce((x, y) => x + y, 0) / s.length : null; }
 function trMed(a){ return typeof pdMedian === 'function' ? pdMedian(a) : (a.length ? a.slice().sort((x, y) => x - y)[Math.floor(a.length / 2)] : null); }
 function trDays(a, b){ return Math.round((new Date(b + 'T00:00:00Z') - new Date(a + 'T00:00:00Z')) / 86400000); }
+// data/daily/track.json (tools/build_history.py, from the evening pull): per scan date, every coded, priced row's
+// price and RS (ranked over that scan's whole universe), and one character each for on the Stage 2 list, passes the
+// trend template and near the 52-week high. Rebuilt here into the same per-scan rows the scan path makes, so
+// trResults / trCohorts / renderTR are untouched. Used only when it reaches the newest scan with a universe;
+// otherwise (or when the file is missing) every scan is fetched and ranked as before.
+async function trLoadTrack(manual){
+  try{ const r = await fetch('data/daily/track.json', {cache: manual ? 'reload' : 'default'}); return r.ok ? await r.json() : null; }catch(e){ return null; }
+}
+function trFromTrack(doc){
+  if(!doc || !Array.isArray(doc.dates) || !doc.dates.length || !doc.codes || typeof doc.codes !== 'object') return null;
+  const newest = (SE.scans || []).find(s => (s.universe || 0) > 0);               // SE.scans is newest first
+  if(!newest || String(doc.dates[doc.dates.length - 1]) !== String(newest.date)) return null;
+  const n = doc.dates.length, asof = Array.isArray(doc.stage2_asof) ? doc.stage2_asof : [];
+  const list = doc.dates.map((date, i) => ({date, stage2_asof: asof[i] || null, _U: [], _map: new Map()}));
+  Object.keys(doc.codes).forEach(code => {
+    const c = doc.codes[code]; if(!c || !Array.isArray(c.price)) return;
+    for(let i = 0; i < n; i++){
+      const p = c.price[i]; if(!wrIsNum(p)) continue;
+      const r = {code, price: +p, rs: c.rs && wrIsNum(c.rs[i]) ? +c.rs[i] : null,
+                 _s2: (c.s2 || '')[i] === '1', _trend: (c.tt || '')[i] === '1', _nh: typeof c.nh === 'string' ? c.nh[i] === '1' : undefined};
+      list[i]._U.push(r); list[i]._map.set(code, r);
+    }
+  });
+  return list.filter(d => d._U.length);
+}
 
 async function loadTR(manual){
   if(TR.loading) return;
   TR.loading = true;
   try{
     for(let i = 0; i < 160 && !(typeof SE !== 'undefined' && SE.loaded); i++) await new Promise(r => setTimeout(r, 250));  // wait for the scan index
-    if(typeof SE !== 'undefined' && SE.scans){
+    if(manual || TR.track === undefined) TR.track = await trLoadTrack(manual);
+    const fromFile = (typeof SE !== 'undefined' && SE.scans) ? trFromTrack(TR.track) : null;
+    if(fromFile){ TR.scans = fromFile; TR.source = 'file'; }
+    else if(typeof SE !== 'undefined' && SE.scans){
+      TR.source = 'scans';
       // fetch the missing scans six at a time (seFetch folds a file already in flight); errors are ignored as before
       const miss = SE.scans.filter(s => !SE.data[s.file]);
       for(let j = 0; j < miss.length; j += 6) await Promise.allSettled(miss.slice(j, j + 6).map(s => seFetch(s.file)));
@@ -10375,7 +10441,7 @@ function renderTR(){
         ], cohorts, {sort:{col:'date', dir:'desc'}, empty:'No cohorts with this signal yet.'})}
         <div class="wr-hint" style="margin-top:6px;">Each row = names meeting <b>${wrEsc(cohortSig.t)}</b> on that scan date, held to the latest scan. Mixed holding periods (shown), so read edge-vs-market rather than the absolute number.</div>
       </div>
-      <div class="wr-foot" style="border:none;padding:14px 0 0;">Computed from the committed scan archive (data/scans); prices matched by NSE code across dated scans, no forward look beyond that. This is a study aid, not a backtest — small samples and uneven gaps until the daily pull fills the history. Not investment advice.</div>
+      <div class="wr-foot" style="border:none;padding:14px 0 0;">Computed from the committed scan archive (${TR.source === 'file' ? 'data/scans, precomputed into data/daily/track.json' : 'data/scans'}); prices matched by NSE code across dated scans, no forward look beyond that. This is a study aid, not a backtest — small samples and uneven gaps until the daily pull fills the history. Not investment advice.</div>
     </div>`;
   if(typeof seCountUp === 'function') seCountUp(el);
 }
@@ -10596,7 +10662,7 @@ function rdRenderReader(el){
 // (tools/fetch_nse_lists.py, from the evening pull) and data/daily/breadth.json (tools/build_breadth.py, from the
 // scan archive). Each one is optional: a missing file leaves its tags, column, panel or strip empty and says so;
 // nothing here may throw. The tags only describe what the exchange has published; none of them rates a stock.
-const NL = { ev: null, surv: null, hol: null, dl: null, br: null, loaded: false, evBy: new Map() };
+const NL = { ev: null, surv: null, hol: null, dl: null, br: null, av: null, loaded: false, evBy: new Map() };
 const NL_RESULTS = new Set(['results', 'results+dividend']);
 const NL_DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 SE_INFO['nl-tags'] = `<h4>Tags beside a name</h4><p><b>results 15-Oct</b> — the company's board meets that day to approve its results (NSE event calendar). Grey when the meeting is 8–21 days away, warm when it is 7 days or fewer, <b>today</b> on the day. Press a tag for more.</p><p><b>LTASM I</b>, <b>STASM II</b>, <b>GSM 0</b> — the stock is on one of NSE's surveillance lists today (long- or short-term Additional Surveillance Measure, or the Graded Surveillance Measure), with its stage. Press a tag for what each one changes about trading the stock.</p>`;
@@ -10618,12 +10684,13 @@ function nlDaysTo(iso, from){ return Math.round((new Date(iso + 'T00:00:00') - n
 function nlIsResults(e){ return e.kind ? NL_RESULTS.has(e.kind) : /financial result/i.test(e.purpose || ''); }
 async function nlGet(path, manual){ try{ const r = await fetch(path, {cache: manual ? 'reload' : 'default'}); return r.ok ? await r.json() : null; }catch(e){ return null; } }
 async function loadNL(manual){
-  const [ev, surv, hol, dl, br] = await Promise.all(['data/markets/events.json', 'data/markets/surveillance.json', 'data/markets/holidays.json', 'data/daily/delivery.json', 'data/daily/breadth.json'].map(p => nlGet(p, manual)));
+  const [ev, surv, hol, dl, br, av] = await Promise.all(['data/markets/events.json', 'data/markets/surveillance.json', 'data/markets/holidays.json', 'data/daily/delivery.json', 'data/daily/breadth.json', 'data/daily/averages.json'].map(p => nlGet(p, manual)));
   NL.ev = ev && Array.isArray(ev.events) ? ev : null;
   NL.surv = surv && (surv.asm || surv.gsm) ? surv : null;
   NL.hol = hol && hol.closed && typeof hol.closed === 'object' ? hol : null;
   NL.dl = dl && dl.rows && dl.date ? dl : null;
   NL.br = br && br.rows && Array.isArray(br.dates) && br.dates.length ? br : null;
+  NL.av = av && av.rows && typeof av.rows === 'object' ? av : null;
   NL.evBy = new Map();
   ((NL.ev || {}).events || []).forEach(e => { if(!e || !e.symbol || !e.date || e.past || !nlIsResults(e)) return; const k = String(e.symbol).toUpperCase(); if(!NL.evBy.has(k)) NL.evBy.set(k, []); NL.evBy.get(k).push(e); });
   NL.evBy.forEach(v => v.sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
@@ -10680,6 +10747,23 @@ function dlCol(scanDate){
     fn: r => { const x = ok ? nlDl(r.code) : null; return x ? x.pct : null; },
     html: r => { const x = ok ? nlDl(r.code) : null;
       return x ? `<span title="${wrAttr(`${wrNum(x.deliv, 0)} of ${wrNum(x.traded, 0)} shares traded on ${wrDate(d.date)} were delivered${x.series && x.series !== 'EQ' ? ' · series ' + x.series : ''}`)}">${(+x.pct).toFixed(0)}%</span>` : `<span class="flat" title="${wrAttr(tip)}">—</span>`; }};
+}
+// ---- true simple averages (data/daily/averages.json, tools/build_averages.py, from NSE closes in data/prices) ----
+SE_INFO['sma-true'] = `<h4>150-SMA — the true simple average</h4><p>The average of the stock's last 150 NSE closing prices, worked out from the app's own price store (<code>data/prices</code>, NSE's daily bhavcopy) and written to <code>data/daily/averages.json</code> by the evening pull.</p><p><b>150-SMA ✓</b> (green) — the last close is above that average. <b>below 150-SMA</b> (grey) — it closed below it. Hover the chip for the 50-, 150- and 200-day figures and whether they are <b>stacked</b> (50-day above 150-day above 200-day). A dash means the store does not yet hold 150 closes for the stock, or it has no row there.</p><p>The 50- and 200-day figures in the Trend column come from screener's DMA columns, which are <b>exponential</b> averages (recent days count more), so they can differ a little from these simple ones. The 7-check trend verdict still uses screener's figures and is unchanged; this chip sits beside it as a second reading.</p>`;
+function avRow(code){ const a = NL.av; return a && code ? (a.rows[String(code).trim().toUpperCase()] || null) : null; }
+function avCol(){
+  const a = NL.av;
+  const tip = a ? `True simple averages of NSE closes to ${wrDate(a.date)} (data/daily/averages.json)` : 'No price-store averages loaded (data/daily/averages.json)';
+  return {k:'sma150', t:'150-SMA', type:'html', sortType:'num', info:'sma-true', tip,
+    fn: r => { const x = avRow(r.code); return x && typeof x.above150 === 'boolean' ? (x.above150 ? 1 : 0) : null; },
+    html: r => {
+      const x = avRow(r.code);
+      if(!x || typeof x.above150 !== 'boolean') return `<span class="flat" title="${wrAttr(!a ? tip : x ? `Only ${wrIsNum(x.n) ? x.n : 'a few'} NSE closes in the price store: the 150-SMA needs 150` : 'No row for this code in the price-store averages')}">—</span>`;
+      const stack = x.stack === true ? 'Stacked: 50-SMA above 150-SMA above 200-SMA' : x.stack === false ? 'Not stacked: 50-SMA > 150-SMA > 200-SMA does not hold' : 'Stack unknown (fewer than 200 closes)';
+      const lv = [['50', x.sma50], ['150', x.sma150], ['200', x.sma200]].filter(v => wrIsNum(v[1])).map(v => `${v[0]}-SMA ${wrNum(v[1], 1)}`).join(' · ');
+      const title = `${stack} · ${wrIsNum(x.close) ? `last close ${wrNum(x.close, 1)} · ` : ''}${lv}${wrIsNum(x.n) ? ` · ${x.n} NSE closes` : ''}${a.date ? ' to ' + wrDate(a.date) : ''}`;
+      return x.above150 ? `<span class="se-pill trend up" title="${wrAttr(title)}">150-SMA ✓</span>` : `<span class="flat" title="${wrAttr(title)}">below 150-SMA</span>`;
+    }};
 }
 // ---- market regime (breadth of the scan) ----
 function nlBrLatest(){ const b = NL.br; return b ? (b.latest && b.rows[b.latest] ? b.latest : b.dates[b.dates.length - 1]) : null; }
@@ -11037,6 +11121,7 @@ function renderSL(){
     {k:'pead', t:'Earnings', type:'html', sortType:'num', fn: r => r.pead ? r.pead.tier : null, html: r => r.pead && typeof pdTierCell === 'function' ? pdTierCell(r.pead.tier) : '<span class="flat">—</span>', info: 'se-earnings'},
     {k:'eps', t:'EPS YoY', type:'pct', dec:0, fn: r => r.pead ? r.pead.eps_yoy : null, info: 'se-yoy'},
     {k:'trend', t:'Trend', type:'text', info: 'se-template'},
+    avCol(),
     {k:'news', t:'Trigger', type:'html', sortType:'num', fn: r => r.news ? 1 : 0, html: r => r.news ? `<a class="dg-headline" href="${wrAttr(r.news.url || '#')}" target="_blank" rel="noopener" title="${wrAttr((r.news.src || '') + (r.news.date ? ' · ' + r.news.date : ''))}">${wrEsc(r.news.t)}</a>` : '<span class="flat">—</span>'},
     {k:'why', t:'Why it surfaced', type:'html', html: r => `<span class="sl-why" title="${wrAttr((r.reasons || []).join(' · '))}">${wrEsc((r.reasons || []).join(' · '))}</span>`}
   ];

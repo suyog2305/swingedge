@@ -17,10 +17,14 @@ WHAT IT RUNS, IN ORDER
   3. build_s2history.py  append today to the Stage 2 journal
   4. build_rs_tracker.py the top-25 RS persistence / exhaustion tracker
      build_breadth.py    market breadth day by day from the scan archive (data/daily/breadth.json); never blocks
+     build_history.py    RS Trend / Track Record history files (rs_history.json, track.json); never blocks
   5. build_indices.py    the custom sub-sector indices (data/indices/)
   6. fetch_themes.py     refresh the theme trackers (crude, rigs, the stock); never blocks
   7. fetch_markets.py    refresh the Markets & Macro data (NSE indices, yields, flows); never blocks
      fetch_nse_lists.py  NSE results dates, ASM/GSM lists, holidays, the session's delivery %; never blocks
+     fetch_bhav.py       NSE's full bhavcopy for the session into the price store (data/prices/); never blocks
+     build_averages.py   true simple 50/150/200-day averages from the store (data/daily/averages.json); never blocks
+     auto_weekly.py      on the week's last session only: the automatic weekly review (library/weekly/); never blocks
 
 Each step is reported pass/fail with its own line. A failed step STOPS the run — a shortlist
 built on yesterday's scan looks perfectly fine and is silently wrong, which is exactly the
@@ -121,6 +125,9 @@ OUT = ['data/scans',                                            # build_scan
        'data/markets/events.json', 'data/markets/surveillance.json',   # fetch_nse_lists
        'data/markets/holidays.json', 'data/daily/delivery.json',       # fetch_nse_lists (holidays: the GitHub job too)
        'data/daily/breadth.json',                               # build_breadth
+       'data/daily/rs_history.json', 'data/daily/track.json',   # build_history
+       'data/prices', 'data/daily/averages.json',               # fetch_bhav (price store), build_averages
+       'library/weekly',                                        # auto_weekly (Fridays)
        'data/daily/pull_status.json']                           # pull_status()
 # Files a bot rewrites on both sides (this run and the early-morning GitHub job). A rebase conflict confined to
 # these keeps this run's version: it was built from the pre-synced copy and refreshes the same sources.
@@ -455,6 +462,48 @@ def holiday_session(date, closed=None):
     return x.isoformat()
 
 
+def last_session_of_week(date, closed=None):
+    """True when `date` is the last NSE session of its Mon-Fri week: a Friday, or the last weekday before the
+    Friday when Friday (and any day between) is a listed holiday. The automatic weekly review runs then."""
+    closed = closed_dates() if closed is None else closed
+    d = dt.date.fromisoformat(date)
+    if d.weekday() > 4:
+        return False
+    x = d + dt.timedelta(days=4 - d.weekday())              # that week's Friday
+    while x > d and x.isoformat() in closed:
+        x -= dt.timedelta(days=1)
+    return x == d
+
+
+def first_session_of_week(date, closed=None):
+    """True when `date` is the first NSE session of its Mon-Fri week (Monday, or the first weekday after listed holidays)."""
+    closed = closed_dates() if closed is None else closed
+    d = dt.date.fromisoformat(date)
+    if d.weekday() > 4:
+        return False
+    x = d - dt.timedelta(days=d.weekday())                   # that week's Monday
+    while x < d and x.isoformat() in closed:
+        x += dt.timedelta(days=1)
+    return x == d
+
+
+def previous_week_last_session(date, closed=None):
+    """The last NSE session of the week before `date`'s week (a Friday, or the last open weekday before it)."""
+    closed = closed_dates() if closed is None else closed
+    d = dt.date.fromisoformat(date)
+    x = d - dt.timedelta(days=d.weekday() + 3)               # the previous week's Friday
+    for _ in range(5):
+        if x.isoformat() not in closed:
+            return x.isoformat()
+        x -= dt.timedelta(days=1)
+    return None
+
+
+def price_file(date):
+    """The price store's file for a session (tools/fetch_bhav.py writes it)."""
+    return os.path.join(ROOT, 'data', 'prices', f'{date}.json')
+
+
 def default_scan_date(now=None):
     """The session whose close screener is serving right now, as YYYY-MM-DD - or None while a
     session is live. The task is set to start as soon as possible after a missed run, so a 20:00
@@ -754,18 +803,32 @@ def main():
                         return json.load(io.open(dl, encoding='utf-8')).get('date')
                     except Exception:
                         return None
+                late = []                              # files the catch-up wrote, committed together (narrow pathspecs)
                 if dl_date() != date:
                     print(f'\n--- delivery percentages for {date} (never blocks)')
                     run('fetch the delivery file', [sys.executable, os.path.join('tools', 'fetch_nse_lists.py'), '--only', 'delivery', '--date', date, '--quiet'], False, timeout=300)
-                    if dl_date() == date and a.push:
-                        if not locked and not acquire_lock():
-                            return 0
-                        rel = os.path.relpath(dl, ROOT)
-                        _git('add', rel)
-                        if _git('diff', '--cached', '--quiet', '--', rel).returncode:
-                            _git('commit', '-q', '-m', f'Delivery percentages {date}', '--', rel)
-                            if publish():
-                                print('    delivery percentages published')
+                    if dl_date() == date:
+                        late.append(os.path.relpath(dl, ROOT))
+                # NSE's bhavcopy (the price store's source) is also published in the evening, usually after the
+                # 15:50 run: fetch it for the built close when the store has no file for it, then the averages.
+                if not os.path.exists(price_file(date)):
+                    print(f'\n--- the price store for {date} (never blocks)')
+                    run("fetch NSE's bhavcopy into the price store", [sys.executable, os.path.join('tools', 'fetch_bhav.py'), '--date', date, '--quiet'], False, timeout=300)
+                    if os.path.exists(price_file(date)):
+                        late += [os.path.relpath(price_file(date), ROOT), os.path.join('data', 'prices', 'index.json')]
+                        if run('rebuild the true averages from the store', [sys.executable, os.path.join('tools', 'build_averages.py'), '--quiet'], False, timeout=300):
+                            late.append(os.path.join('data', 'daily', 'averages.json'))
+                late = _existing(late)
+                if late and a.push:
+                    if not locked and not acquire_lock():
+                        return 0
+                    _git('add', '--', *late)
+                    if _git('diff', '--cached', '--quiet', '--', *late).returncode:
+                        what = ' and '.join(x for x, on in (('delivery percentages', any('delivery' in p for p in late)),
+                                                            ('NSE prices', any('prices' in p for p in late))) if on)
+                        _git('commit', '-q', '-m', f'{what[:1].upper() + what[1:]} {date}', '--', *late)
+                        if publish():
+                            print(f'    {what} published')
             return 0
         print(f'SwingEdge EOD refresh — {os.path.relpath(scan_path, ROOT)} exists but does not count as built: {why}.')
         print('    Pulling again and rebuilding it.')
@@ -1009,6 +1072,12 @@ def main():
                [py, os.path.join('tools', 'build_breadth.py'), '--quiet'], a.dry_run, timeout=300):
         print('    ignored - the scan, shortlist and journal above are complete')
 
+    # ---- RS Trend / Track Record history, precomputed from the scan archive (tools/build_history.py) ----
+    # Never blocks: the page falls back to fetching the scans itself when the files are missing or old.
+    if not run('rebuild the RS / track-record history files (never blocks the scan)',
+               [py, os.path.join('tools', 'build_history.py'), '--quiet'], a.dry_run, timeout=300):
+        print('    ignored - the scan, shortlist and journal above are complete')
+
     if not go([
         ('rebuild the custom indices', [py, os.path.join('tools', 'build_indices.py'), '--quiet']),
     ]):
@@ -1059,6 +1128,28 @@ def main():
     if not run("refresh NSE's lists: results dates, ASM/GSM, holidays, delivery (never blocks the scan)",
                [py, os.path.join('tools', 'fetch_nse_lists.py'), '--date', date, '--quiet'], a.dry_run, timeout=300):
         print('    ignored - the scan, shortlist and journal above are complete')
+
+    # ---- the NSE price store: the session's full bhavcopy, then true simple averages from it ----------
+    # NSE publishes the file in the evening; before that fetch_bhav prints NOT YET and writes nothing, and the
+    # 20:00 trigger's catch-up (the "already built" branch) fetches it. Neither step may stop the run.
+    if not run("fetch NSE's bhavcopy into the price store (never blocks the scan)",
+               [py, os.path.join('tools', 'fetch_bhav.py'), '--date', date, '--quiet'], a.dry_run, timeout=300):
+        print('    ignored - the scan, shortlist and journal above are complete')
+    if not run('rebuild the true averages from the price store (never blocks the scan)',
+               [py, os.path.join('tools', 'build_averages.py'), '--quiet'], a.dry_run, timeout=300):
+        print('    ignored - the scan, shortlist and journal above are complete')
+
+    # ---- the automatic weekly review, on the week's last session (Friday, or earlier when Friday is closed) ----
+    if last_session_of_week(date):
+        if not run('build the automatic weekly review (never blocks the scan)',
+                   [py, os.path.join('tools', 'auto_weekly.py'), '--week-ending', date, '--quiet'], a.dry_run, timeout=300):
+            print('    ignored - the scan, shortlist and journal above are complete')
+    # ---- and once more on the next week's first session: by then Friday's US close and NSDL's Friday report exist ----
+    prev_wk = previous_week_last_session(date)
+    if prev_wk and first_session_of_week(date):
+        if not run(f'refresh last week\'s weekly review ({prev_wk}) with the figures that landed after it (never blocks the scan)',
+                   [py, os.path.join('tools', 'auto_weekly.py'), '--week-ending', prev_wk, '--quiet'], a.dry_run, timeout=300):
+            print('    ignored - the scan, shortlist and journal above are complete')
 
     if a.dry_run:
         print('\n--dry-run: nothing was fetched, built, or pushed.')

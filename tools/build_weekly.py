@@ -186,6 +186,31 @@ def cell(row, cols, f):
     return row[i] if i is not None and i < len(row) else None
 
 # ----------------------------------------------------------------------------- builders
+def india_item(name, code=None, industry=None, mcap=None, w1=None, m1=None, y1=None, from_52wh=None,
+               price=None, high_52w=None, ath=None, dma50=None, dma200=None, above_dma50=None, above_dma200=None):
+    """One india.universe row from already-parsed values (the contract's row shape, in its key order).
+    from_52wh is the % below the 52-week high, negative or zero; the DMA flags fall back to price vs DMA.
+    Shared with tools/auto_weekly.py, which fills it from a scan instead of an export."""
+    item = OrderedDict(name=name)
+    if code: item['code'] = code
+    ind = (industry or '').strip()
+    if ind: item['industry'] = ind
+    if mcap is not None: item['mcap'] = rnd(mcap, 0)
+    item['w1'] = rnd(w1)
+    for k, v in (('m1', m1), ('y1', y1)):
+        if v is not None: item[k] = rnd(v)
+    if from_52wh is not None:
+        item['from_52wh'] = rnd(from_52wh)
+    elif price is not None and high_52w:
+        item['from_52wh'] = pct_below_high(price, high_52w)
+    if price is not None and ath:
+        item['near_ath'] = bool(price / ath >= 0.95)
+    for flag, dma, flagk in ((above_dma50, dma50, 'above_dma50'), (above_dma200, dma200, 'above_dma200')):
+        if flag is None and price is not None and dma:
+            flag = price > dma
+        if flag is not None: item[flagk] = flag
+    return item
+
 def build_india(path, min_mcap):
     headers, rows = read_table(path)
     cols = map_columns(headers, ['name', 'code', 'bse', 'industry', 'price', 'mcap', 'w1', 'm1', 'y1', 'from_52wh', 'high_52w', 'ath', 'dma50', 'dma200', 'above_dma50', 'above_dma200'])
@@ -197,34 +222,15 @@ def build_india(path, min_mcap):
         if not name: continue
         mcap = num(cell(r, cols, 'mcap'))
         if min_mcap and mcap is not None and mcap < min_mcap: continue
-        price = num(cell(r, cols, 'price'))
-        item = OrderedDict(name=name)
-        code = clean_code(cell(r, cols, 'code'))
-        if code: item['code'] = code
-        ind = (cell(r, cols, 'industry') or '').strip()
-        if ind: item['industry'] = ind
-        if mcap is not None: item['mcap'] = rnd(mcap, 0)
-        item['w1'] = rnd(num(cell(r, cols, 'w1')))
-        for k in ('m1', 'y1'):
-            v = num(cell(r, cols, k))
-            if v is not None: item[k] = rnd(v)
         f52 = num(cell(r, cols, 'from_52wh'))
         if f52 is not None:
             # screener's "Down from 52w high" is a positive % below the high; a 0..1 ratio means price/high
             f52 = (f52 - 1) * 100 if 0 <= f52 <= 1.5 and cols.get('from_52wh') is not None and 'from' in norm(headers[cols['from_52wh']]) and 'down' not in norm(headers[cols['from_52wh']]) else -abs(f52)
-            item['from_52wh'] = rnd(f52)
-        elif price is not None and num(cell(r, cols, 'high_52w')):
-            item['from_52wh'] = pct_below_high(price, num(cell(r, cols, 'high_52w')))
-        ath = num(cell(r, cols, 'ath'))
-        if price is not None and ath:
-            item['near_ath'] = bool(price / ath >= 0.95)
-        for k, flagk in (('dma50', 'above_dma50'), ('dma200', 'above_dma200')):
-            flag = yesno(cell(r, cols, flagk))
-            dma = num(cell(r, cols, k))
-            if flag is None and price is not None and dma:
-                flag = price > dma
-            if flag is not None: item[flagk] = flag
-        out.append(item)
+        out.append(india_item(name, code=clean_code(cell(r, cols, 'code')), industry=cell(r, cols, 'industry'),
+                              mcap=mcap, w1=num(cell(r, cols, 'w1')), m1=num(cell(r, cols, 'm1')), y1=num(cell(r, cols, 'y1')),
+                              from_52wh=f52, price=num(cell(r, cols, 'price')), high_52w=num(cell(r, cols, 'high_52w')),
+                              ath=num(cell(r, cols, 'ath')), dma50=num(cell(r, cols, 'dma50')), dma200=num(cell(r, cols, 'dma200')),
+                              above_dma50=yesno(cell(r, cols, 'above_dma50')), above_dma200=yesno(cell(r, cols, 'above_dma200'))))
     if not out: raise SystemExit(f'--india {path}: no usable rows')
     src = f'{os.path.basename(path)} ({len(out)} rows' + (f', mcap ≥ {min_mcap:,.0f} Cr' if min_mcap else '') + ')'
     return OrderedDict(source=src, min_mcap=min_mcap, rows=out)
@@ -334,6 +340,23 @@ def week_label(week_ending):
     if ws.month == we.month: return f'{ws.day}–{we.day} {we.strftime("%b %Y")}'
     return f'{ws.day} {ws.strftime("%b")} – {we.day} {we.strftime("%b %Y")}'
 
+def upsert_index(out_dir, week_ending, label, title):
+    """Add or replace one week in <out_dir>/index.json (newest first). -> (path, number of weeks).
+    Shared with tools/auto_weekly.py. Written atomically (tmp + os.replace)."""
+    ipath = os.path.join(out_dir, 'index.json')
+    idx = OrderedDict(updated=dt.date.today().isoformat(), weeks=[])
+    if os.path.exists(ipath):
+        with io.open(ipath, encoding='utf-8') as fh: idx = json.load(fh, object_pairs_hook=OrderedDict)
+    weeks = [w for w in idx.get('weeks', []) if w.get('file') != f'{week_ending}.json']
+    weeks.append(OrderedDict(week_ending=week_ending, label=label, file=f'{week_ending}.json', title=title))
+    weeks.sort(key=lambda w: w.get('week_ending', ''), reverse=True)
+    idx['updated'] = dt.date.today().isoformat(); idx['weeks'] = weeks
+    tmp = ipath + '.tmp'
+    with io.open(tmp, 'w', encoding='utf-8') as fh:
+        json.dump(idx, fh, ensure_ascii=False, indent=2)
+    os.replace(tmp, ipath)
+    return ipath, len(weeks)
+
 def main():
     utf8_stdio()
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -407,18 +430,8 @@ def main():
     print('wrote', path, f'({os.path.getsize(path):,} bytes)')
     for line in done: print('  +', line)
 
-    # upsert index.json
-    ipath = os.path.join(a.out, 'index.json')
-    idx = OrderedDict(updated=dt.date.today().isoformat(), weeks=[])
-    if os.path.exists(ipath):
-        with io.open(ipath, encoding='utf-8') as fh: idx = json.load(fh, object_pairs_hook=OrderedDict)
-    weeks = [w for w in idx.get('weeks', []) if w.get('file') != f'{a.week_ending}.json']
-    weeks.append(OrderedDict(week_ending=a.week_ending, label=d.get('week_label', a.week_ending), file=f'{a.week_ending}.json', title=d.get('title', a.title)))
-    weeks.sort(key=lambda w: w.get('week_ending', ''), reverse=True)
-    idx['updated'] = dt.date.today().isoformat(); idx['weeks'] = weeks
-    with io.open(ipath, 'w', encoding='utf-8') as fh:
-        json.dump(idx, fh, ensure_ascii=False, indent=2)
-    print('updated', ipath, f'({len(weeks)} weeks)')
+    ipath, n = upsert_index(a.out, a.week_ending, d.get('week_label', a.week_ending), d.get('title', a.title))
+    print('updated', ipath, f'({n} weeks)')
 
     missing = [k for k in ('lead', 'headline', 'ticker') if not d.get(k)]
     auth = [k for k in ('derivatives', 'fx', 'commodities', 'debt', 'summary') if k not in d['macros']]

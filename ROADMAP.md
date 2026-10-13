@@ -1,7 +1,7 @@
 # Roadmap
 
 What's built, what's blocked, and what's next — in dependency order rather than wish order.
-Status as of **2026-10-12**.
+Status as of **2026-10-13**.
 
 ---
 
@@ -465,6 +465,29 @@ around 17:20. That is the earliest an honest close can be had; a pull at 15:50 t
 wait would show today's prices against yesterday's averages, which is worse than yesterday's data.
 One day is one day: if the completion time drifts, the log now shows every poll with its
 fractions, and the deadline is 21:00.
+
+### 2026-10-13 — a year of NSE closes; the pages stop loading scans; the Weekly Report builds itself
+
+**The price store** (`data/prices/<session>.json`, 254 sessions from 1 Oct 2025, `tools/fetch_bhav.py`): NSE's own
+bhavcopy, keyless, one file per session, about 200 KB each (50 MB on disk, 50 MB a year). It does three things at
+once. The 32 trackers now chain from October 2025 instead of 21 August, so 3M, 6M and 1Y returns exist and the
+join onto the scan archive was checked to 1e-5. `tools/build_averages.py` gives every name true simple averages
+(50, 150, 200-day) from NSE closes, adjusted for 68 splits and bonuses found in the data, next to screener's
+exponential ones; the page shows a "150-SMA" chip on RS Leaders and the Shortlist and says which is which. And the
+close no longer depends on the cookie for anything the store can answer. Checking the archive against NSE's
+closes also showed that the first scans are not what their dates say: 21 Aug carries the 24 Aug close on every
+name, 25 and 27 Aug match no session, 9 and 25 Sep were half-refreshed; from 10 Sep on, every scan matches its own
+date. Those early points stay as they are and are now known.
+
+**History files** (`tools/build_history.py` → `data/daily/rs_history.json`, `track.json`): RS Trend and Track Record
+read two columnar files instead of fetching up to twenty 1 MB scans; the tables were diffed byte-for-byte against
+the old path in the browser.
+
+**The Weekly Report lives again** (`tools/auto_weekly.py`, run on the week's last session): five real weeks (11 Sep
+to 9 Oct) built from the pipeline's own data — the Friday scan's rows, NSE index moves, NSDL's FPI figures by report
+date, the rupee, crude, metals and yields, the trackers' week, the Stage 2 entries and exits, the regime — with
+templated factual prose and Yahoo closes for the US names and a fixed ETF list. DII and derivatives stay null with
+a note: no keyless source. Hand edits to a week file are preserved.
 
 ### 2026-10-12 — 32 trackers; a second audit; the app learns results dates, surveillance, delivery and the market regime
 

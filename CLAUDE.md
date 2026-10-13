@@ -3,7 +3,8 @@
 Static app (`index.html`, ~10k lines — grep it, never read it whole) + JSON under `data/`, built by `tools/*.py`
 (no LLM). The owner's Windows daily pull runs `tools/eod.py` after the close: build_scan → build_shortlist →
 build_s2history → build_rs_tracker → build_breadth → build_indices → fetch_themes → fetch_markets → fetch_nse_lists, then commits its own files under `data/` and pushes
-`main`. The pull writes `data/daily/pull_status.json` (ok / cookie / stale); the app shows anything but ok in red in the
+`main` (Phase 4 added build_history after build_breadth, fetch_bhav + build_averages after fetch_nse_lists, and
+auto_weekly on the week's last session; see "Phase-4 files"). The pull writes `data/daily/pull_status.json` (ok / cookie / stale); the app shows anything but ok in red in the
 sidebar and on the Shortlist pull card. `fetch_screener.py` exits 5 when screener redirects to /login/ or /register/
 (session expired); `eod.py --wait-until` then keeps retrying every poll until the deadline, re-reading the cookie file
 each time, so a fresh `sessionid` pasted into `.secrets/screener_cookie.txt` in the evening lets the run finish by itself.
@@ -52,6 +53,34 @@ morning GitHub job runs only `--only holidays` (NSE's /api/ may refuse its runne
 `resolve_session()` read holidays.json as the second session oracle (Yahoo first; no file = the old behaviour).
 `.github/workflows/pull_watchdog.yml` (22:00 IST weekdays) opens a `pull-watchdog` issue when the newest scan is older
 than the expected session and closes it on catch-up.
+
+## Phase-4 files (price store, history files, true averages, automatic weekly review)
+All stdlib, all "never blocks" steps in eod.py, all in its `OUT`; each tool has `--status` or `--dry-run` and `--quiet`.
+- `data/prices/YYYY-MM-DD.json` + `data/prices/index.json` — the NSE price store, written by `tools/fetch_bhav.py`
+  (NSE `sec_bhavdata_full`, series EQ/BE/SM/ST, compact `cols` + `rows` by symbol; a complete day is never rewritten).
+  The evening pull runs `--date <session>` after fetch_nse_lists; NSE publishes in the evening, so a 404 prints NOT
+  YET and the 20:00 trigger's catch-up branch fetches it. `--backfill N` is resumable; misses go under `missing`.
+  PREV_CLOSE is not split-adjusted: readers skip a day-step beyond ±25%.
+- `data/daily/averages.json` — true simple 50/150/200-day averages of NSE closes (`sma200_22ago` for the slope,
+  `above50/150/200`, `stack`), written by `tools/build_averages.py` right after fetch_bhav, for codes with 60+ closes.
+  Screener's DMA columns (used by the 7-check template) are exponential; the verdict does not change.
+- `data/indices/series.json` — `tools/build_indices.py` now chain-links each tracker and the market line daily from
+  the store before the first broad scan (2026-08-21), then continues scan to scan; `ret` gains `m6` and `y1`.
+  `--no-store` reproduces the old scan-only series.
+- `data/daily/rs_history.json` (last 60 broad scans: rs, vol, price per code) and `data/daily/track.json` (last 120:
+  price, rs, `s2` and `tt` as one character per date) — written by `tools/build_history.py` right after build_breadth,
+  RS ranked over the whole universe with tools/rs.py exactly as the page does. RS Trend and Track Record read them
+  and fall back to fetching scans when a file is missing or older than the newest scan.
+- `library/weekly/<week-ending>.json` + `index.json` — the automatic weekly review, written by
+  `tools/auto_weekly.py --week-ending <date>` on the week's last session (Friday, or earlier when Friday is a
+  holiday; the file is named by the week's last broad scan). It imports `tools/build_weekly.py` for the row shape
+  (`india_item`) and the index upsert (`upsert_index`). Sources: the scan, markets.json (nse, fpi.daily, global,
+  rbi, mf), breadth.json, s2history.json, series.json, and Yahoo for a fixed US/ETF list in the tool (`--no-us`
+  skips it). DII and derivatives are null with a note (no keyless source). An `auto` block in each file holds a hash
+  of every section the tool wrote: a section edited or deleted by hand no longer matches and is kept on the next
+  run (`--force` overrides); a file with no `auto` block only gets the sections it lacks. Prose is templated from
+  the numbers, facts only. The four 2026 Jul-Aug sample weeks are still in the folder but no longer in index.json,
+  so placeholder figures never enter the rolling comparison.
 
 ## Custom indices — the cheap path (do not open scans or index.html for this)
 1. `python tools/build_indices.py find <name fragments>` → NSE codes from the newest scan (`python3` on Linux).

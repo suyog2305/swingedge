@@ -23,7 +23,29 @@ library/weekly/
 
 Because the comparison, FII/DII history and breadth history are assembled from **the other files in this folder**, the rolling window extends itself: publish week 5 and week 1 drops off automatically.
 
-## Producing a weekly file
+## Producing a weekly file automatically
+
+`python tools/auto_weekly.py --week-ending 2026-10-09` builds the whole file from data already in the repo (the
+week's last broad scan, `data/markets/markets.json`, `data/daily/breadth.json`, `data/daily/s2history.json`,
+`data/indices/series.json`) plus Yahoo closes for a fixed US / ETF list in the tool, and upserts `index.json`.
+The evening pull runs it on the week's last session. What it fills and from where:
+
+| section | source |
+|---|---|
+| `india.universe` | the scan's coded rows (mcap ≥ ₹1,000 Cr): screener's 1-week / 1-month / 1-year return, mcap, industry, down-from-52W-high, `near_ath`, price vs DMA 50 / 200 |
+| `india.indices` | NSE's index file: the week's last close vs the last close before the week began; 1M / 1Y vs the same date a month / year earlier; vs 52W high |
+| `macros.fii_dii` | NSDL FPI equity net per **reporting** day of the week (one session after the trades); FPI debt and SEBI mutual-fund equity in the cards; `dii_net` is `null` and `note` says why |
+| `macros.fx`, `commodities`, `debt` | Yahoo closes (USD/INR, DXY, Brent, WTI, gold, silver, copper, US 10Y) and RBI's current rates (India 10Y, repo, 91-day bill) |
+| `macros.derivatives` | `null`, with `macros.derivatives_note` (no keyless source yet) |
+| `us`, `etf` | Yahoo closes for the fixed lists in the tool (`--no-us` leaves these sections as they are) |
+| `lead`, `headline`, `ticker`, `macros.summary`, notes | sentences templated from the numbers (no model): FPI flows, rupee / crude / 10-year, Stage 2 entries and exits, sub-sector trackers, the breadth regime |
+| `extra.india` | a table of the SwingEdge sub-sector trackers' weekly change |
+
+Each file it writes carries an `auto` block: a hash of every section it wrote. Edit any section by hand and the
+next run keeps your version (`--force` overwrites); a file without an `auto` block (built by hand or by
+`build_weekly.py`) only gets the sections it lacks. `--dry-run` prints what would change, `--status` lists the weeks.
+
+## Producing a weekly file from exports
 
 1. Export your data as usual (screener.in stock export, US stock / ETF exports, the daily FII/DII file, NSE indices, the global ETF list).
 2. Run the converter — every input is optional, it accepts `.csv` or `.xlsx`, and matches columns by name:
@@ -131,4 +153,4 @@ Any section that is absent is simply not rendered, so a back-filled or partial w
 
 ## Sample data
 
-`2026-07-24` → `2026-08-14` were seeded from the public market figures in a reference weekly report so that every tab renders on day one; the commentary in them is placeholder text. Replace them with your own pipeline output whenever you like — nothing else references them.
+`2026-07-24` → `2026-08-14` were seeded from the public market figures in a reference weekly report so that every tab renders on day one; the commentary in them is placeholder text. Since the automatic weeks began (13 Oct 2026, back-filled from 11 Sep) they are no longer listed in `index.json`, so their figures cannot enter the rolling comparison or the FII/DII history; the files remain here, and adding an entry back to `index.json` lists one again.

@@ -9,7 +9,15 @@ A native, JSON-driven weekly markets digest (FII/DII flows, derivatives, FX, com
 
 - Open **Weekly Report** in the sidebar; pick a week from the selector.
 - Data lives in `library/weekly/` — one JSON per week plus `index.json`. The contract is documented in [library/weekly/README.md](library/weekly/README.md).
-- Build a week from your exports with `python tools/build_weekly.py --week-ending YYYY-MM-DD --india … --us … --etf … --fiidii … --indices …` (csv or xlsx, no extra packages), then author the commentary fields (or hand the file to Claude) and push.
+- **Automatic weekly review.** `python tools/auto_weekly.py --week-ending YYYY-MM-DD` builds the week from data the
+  evening pull already has, with no exports and no model: the Friday scan's rows (1-week return, mcap, DMAs, 52-week
+  position, industry), NSE's index closes, NSDL's daily FPI flows, the rupee, crude, metals and yields (Yahoo, RBI),
+  22 US-listed ETFs and the US Global Peers names (Yahoo), and plain-English sentences filled from the numbers
+  (FPI flows, rupee / crude / 10-year, Stage 2 entries and exits, the leading and lagging sub-sector trackers, the
+  breadth regime). The evening pull runs it on the week's last session. DII daily flows and derivatives positioning
+  have no keyless source and are left empty, with a note saying so. Anything you later edit by hand in a week file
+  is kept on the next run. `--dry-run` writes nothing, `--no-us` skips the network, `--status` lists the weeks.
+- Or build a week from your own exports with `python tools/build_weekly.py --week-ending YYYY-MM-DD --india … --us … --etf … --fiidii … --indices …` (csv or xlsx, no extra packages), then author the commentary fields (or hand the file to Claude) and push.
 
 ## Momentum cockpit — RS Screen · RS Trend · Sectors · Stage 2 Tracker
 
@@ -76,6 +84,22 @@ brief to hand to the report generator. Details in [data/scans/README.md](data/sc
   its 52-week high, advances and declines, the trend-template and Stage 2 counts, a regime word and the
   4-week changes in the three percentages, all against one reference scan whose date is `ref_4w`
   (`data/daily/breadth.json`, rebuilt from the scan archive by `python tools/build_breadth.py`).
+- **NSE price store** - one file per session with every NSE-listed stock's open, high, low, close, previous
+  close, volume, delivery % and turnover, from NSE's full bhavcopy (`data/prices/YYYY-MM-DD.json` plus
+  `data/prices/index.json`, about a year back). `python tools/fetch_bhav.py --date D` adds a session (a day NSE
+  has not published yet prints NOT YET and writes nothing), `--backfill N` fills the last N weekdays, `--status`
+  shows what is on file. The evening pull adds each session. The sub-sector trackers and their market line are
+  now chain-linked back through the store, so the Indices page has about a year of history and 6-month and
+  1-year returns.
+- **True averages** - simple 50-, 150- and 200-day averages of NSE closes from the price store for every name in
+  the newest scan, whether the price is above each and whether they are stacked 50 > 150 > 200
+  (`data/daily/averages.json`, `python tools/build_averages.py`). RS Leaders and the Shortlist show a small
+  "150-SMA" mark from it; screener's own DMA columns, which the 7-check trend template still uses, are
+  exponential averages.
+- **History files** - `data/daily/rs_history.json` (each name's RS rating, 1-month average volume and price on the last 60
+  broad scans) and `data/daily/track.json` (price, RS, on the provider's Stage 2 list, and passing the 7-check
+  template, on the last 120 broad scans), rebuilt by `python tools/build_history.py`. RS Trend and Track Record
+  read these instead of opening every scan, and fall back to the scans when a file is missing or stale.
 - **Pull watchdog** - `.github/workflows/pull_watchdog.yml` checks at 22:00 IST on weekdays that the evening
   pull has built the expected session, opens a `pull-watchdog` issue when it has not, and closes it when the
   scans catch up.
