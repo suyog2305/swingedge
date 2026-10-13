@@ -1,7 +1,7 @@
 # Roadmap
 
 What's built, what's blocked, and what's next — in dependency order rather than wish order.
-Status as of **2026-10-11**.
+Status as of **2026-10-12**.
 
 ---
 
@@ -465,6 +465,33 @@ around 17:20. That is the earliest an honest close can be had; a pull at 15:50 t
 wait would show today's prices against yesterday's averages, which is worse than yesterday's data.
 One day is one day: if the completion time drifts, the log now shows every poll with its
 fractions, and the deadline is 21:00.
+
+### 2026-10-12 — 32 trackers; a second audit; the app learns results dates, surveillance, delivery and the market regime
+
+**Indices.** 32 sub-sector trackers replace the 11, with the splits the owner asked for (transformers apart from
+wires and cables, defence apart from aerospace components, dyes apart from specialty chemicals, battery materials,
+API and bulk drugs for the ibuprofen move) and the ones Claude added (railways, solar, wind, power generators, PSU
+banks, capital markets, hospitals, jewellery, hotels, textiles, sugar, real estate, semiconductors). Every code was
+resolved against the 9 Oct scan; the series rebuild from the 19 scans since 21 Aug.
+
+**Second audit** (six lenses — data sourcing, load performance, analytics, the phone, automation, ideas — 96 agents,
+39 defects confirmed by a skeptic each, 38 fixed; the 7th-check baseline waits for a history file). The ones that
+mattered: a dead cookie also froze the NSE index block and the theme trackers for a week (they now refresh even when
+the screener pull fails); the Yahoo fetch stored Tokyo's and Seoul's open session as a close in the morning file;
+the index chain-linking clipped splits to −20% instead of excluding them; the RS Leaders anchor picker would have
+called every leader "new" from 13 Oct; the publish step was one-shot (now three tries, generated-file conflicts
+resolved, tested against real git); `git add data` swept whatever was lying under data/ into the public commit;
+Track Record took 22–31 s because every number built its own formatter (2.4 s now); the page had no phone layout at
+all (a drawer now). Lessons kept: label screener's averages as EMAs, they are not simple; test git logic in a
+throwaway clone, never by reading; keep fixtures out of data/ while a pull can run.
+
+**Phase 3** (keyless NSE sources that answered from the PC on 12 Oct): `tools/fetch_nse_lists.py` writes the board
+meeting calendar (results dates), the ASM/GSM lists, NSE's holiday master and the day's delivery percentages;
+`tools/build_breadth.py` writes a breadth history from the scan archive (today: 30% above the 50-day EMA, 45% above
+the 200-day, "mixed", the 50-day share down 17 points in four weeks); the page shows results dates on every
+row the owner acts on, live surveillance chips, a delivery column, a regime strip with its chart, and a holiday-aware
+pull card; a GitHub watchdog opens an issue when the newest scan falls behind the last session. NSE's `/api/` may
+refuse GitHub's runners, so those blocks run from the evening pull on the PC.
 
 ### 2026-10-11, evening — the cookie came back; Global Peers
 

@@ -1,0 +1,103 @@
+name: Evening pull watchdog
+
+# The dead-man's switch for the evening pull on the owner's PC (tools/eod.py). Every weekday at 22:00 IST it
+# reads what is on main - the newest scan in data/scans/index.json, NSE's closed dates in
+# data/markets/holidays.json and data/daily/pull_status.json - and works out which session should be built by
+# now. If the newest scan is older, it opens one issue labelled pull-watchdog (or comments on the open one),
+# with the pull status message in the body, so a dead cookie, a sleeping PC or a failed push is seen the same
+# evening, not days later. When the scans catch up, it says so on that issue and closes it. Reads only; never
+# commits. No key needed: GH_TOKEN is the job's own token.
+#
+# The time: 16:30 UTC = 22:00 IST, an hour after the pull's --wait-until deadline (21:00). GitHub's timer is
+# best-effort and often late, which only makes the check safer. A manual run before 21:00 IST expects the
+# previous session, not today's, so it never cries wolf in the afternoon.
+on:
+  schedule:
+    - cron: '30 16 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: read
+
+concurrency:
+  group: pull-watchdog
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      # Prints "OK <expected> <newest> <status>" or "BEHIND <expected> <newest> <status>" and hands the verdict to
+      # the next step. WATCHDOG_NOW (YYYY-MM-DDTHH:MM, IST) and WATCHDOG_NEWEST (YYYY-MM-DD) override the clock and
+      # the newest scan for a local test; the job sets neither.
+      - name: Is the newest scan the session it should be?
+        id: check
+        run: |
+          python3 - <<'PY'
+          import datetime as dt, json, os
+          IST = dt.timezone(dt.timedelta(hours=5, minutes=30))
+          def load(p):
+              try:
+                  return json.load(open(p, encoding='utf-8'))
+              except Exception:
+                  return {}
+          closed = set((load('data/markets/holidays.json').get('closed') or {}).keys())
+          closed |= set(load('data/daily/pull_status.json').get('closed') or [])
+          st = load('data/daily/pull_status.json')
+          scans = load('data/scans/index.json').get('scans') or []
+          dates = [s.get('date') for s in scans if s.get('date') and (s.get('universe') is None or s.get('universe') >= 500)]
+          newest = os.environ.get('WATCHDOG_NEWEST') or (max(dates) if dates else 'none')
+          now = dt.datetime.fromisoformat(os.environ['WATCHDOG_NOW']) if os.environ.get('WATCHDOG_NOW') else dt.datetime.now(IST).replace(tzinfo=None)
+          trading = lambda d: d.weekday() < 5 and d.isoformat() not in closed
+          d = now.date()
+          if not (trading(d) and now.time() >= dt.time(21, 0)):   # today's close is due only after the pull's 21:00 deadline
+              d -= dt.timedelta(days=1)
+              while not trading(d):
+                  d -= dt.timedelta(days=1)
+          expected = d.isoformat()
+          status = st.get('status') or 'unknown'
+          behind = newest == 'none' or newest < expected
+          print(f"{'BEHIND' if behind else 'OK'} {expected} {newest} {status}")
+          body = (f"The newest scan on main is **{newest}**; by {now:%Y-%m-%d %H:%M} IST the **{expected}** close should have been built "
+                  f"and pushed by the evening pull (tools/eod.py on the owner's PC).\n\n"
+                  f"Pull status: **{status}** (at {st.get('at') or '?'}): {st.get('message') or '(no message)'}\n\n"
+                  "Usual causes: the screener.in cookie expired (paste a fresh sessionid into .secrets/screener_cookie.txt), "
+                  "the PC was asleep or off at 15:50-21:00, or the push failed (the 20:00 trigger or the next run retries it). "
+                  "This issue closes itself when the scans catch up.")
+          out = os.environ.get('GITHUB_OUTPUT')
+          if out:
+              with open(out, 'a', encoding='utf-8') as fh:
+                  fh.write(f"state={'BEHIND' if behind else 'OK'}\nexpected={expected}\nnewest={newest}\n")
+              with open(os.path.join(os.environ.get('RUNNER_TEMP', '.'), 'watchdog_body.md'), 'w', encoding='utf-8') as fh:
+                  fh.write(body + '\n')
+          PY
+
+      - name: Open, update or close the watchdog issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          STATE: ${{ steps.check.outputs.state }}
+          EXPECTED: ${{ steps.check.outputs.expected }}
+          NEWEST: ${{ steps.check.outputs.newest }}
+        run: |
+          num=$(gh issue list --label pull-watchdog --state open --json number --jq '.[0].number // empty')
+          if [ "$STATE" = "BEHIND" ]; then
+            if [ -n "$num" ]; then
+              gh issue comment "$num" --body-file "$RUNNER_TEMP/watchdog_body.md"
+            else
+              gh label create pull-watchdog --color B60205 --description "The evening pull is behind" --force || true
+              gh issue create --title "Evening pull is behind: newest scan $NEWEST, expected $EXPECTED" \
+                --body-file "$RUNNER_TEMP/watchdog_body.md" --label pull-watchdog
+            fi
+          elif [ -n "$num" ]; then
+            gh issue comment "$num" --body "caught up: the newest scan is $NEWEST (expected $EXPECTED)."
+            gh issue close "$num"
+          else
+            echo "OK - nothing to do"
+          fi

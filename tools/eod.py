@@ -16,9 +16,11 @@ WHAT IT RUNS, IN ORDER
   2. build_shortlist.py  rank the universe into the 20 daily candidates
   3. build_s2history.py  append today to the Stage 2 journal
   4. build_rs_tracker.py the top-25 RS persistence / exhaustion tracker
+     build_breadth.py    market breadth day by day from the scan archive (data/daily/breadth.json); never blocks
   5. build_indices.py    the custom sub-sector indices (data/indices/)
   6. fetch_themes.py     refresh the theme trackers (crude, rigs, the stock); never blocks
   7. fetch_markets.py    refresh the Markets & Macro data (NSE indices, yields, flows); never blocks
+     fetch_nse_lists.py  NSE results dates, ASM/GSM lists, holidays, the session's delivery %; never blocks
 
 Each step is reported pass/fail with its own line. A failed step STOPS the run — a shortlist
 built on yesterday's scan looks perfectly fine and is silently wrong, which is exactly the
@@ -115,11 +117,15 @@ OUT = ['data/scans',                                            # build_scan
        'data/indices/series.json',                              # build_indices (indices.json is the owner's config)
        'data/themes',                                           # fetch_themes
        'data/daily/gainers_candidates.json',                    # gainers_news collect
-       'data/markets/markets.json',                             # fetch_markets (other files in data/markets are not ours)
+       'data/markets/markets.json',                             # fetch_markets
+       'data/markets/events.json', 'data/markets/surveillance.json',   # fetch_nse_lists
+       'data/markets/holidays.json', 'data/daily/delivery.json',       # fetch_nse_lists (holidays: the GitHub job too)
+       'data/daily/breadth.json',                               # build_breadth
        'data/daily/pull_status.json']                           # pull_status()
 # Files a bot rewrites on both sides (this run and the early-morning GitHub job). A rebase conflict confined to
 # these keeps this run's version: it was built from the pre-synced copy and refreshes the same sources.
-GENERATED = {'data/markets/markets.json', 'data/daily/gainers_candidates.json', 'data/daily/pull_status.json'}
+GENERATED = {'data/markets/markets.json', 'data/daily/gainers_candidates.json', 'data/daily/pull_status.json',
+             'data/markets/holidays.json'}
 
 
 def _git(*x):
@@ -424,6 +430,31 @@ def stage2_asof(path):
         return None
 
 
+HOLIDAYS = os.path.join(ROOT, 'data', 'markets', 'holidays.json')
+
+
+def closed_dates():
+    """NSE trading holidays (CM segment) from data/markets/holidays.json, written by tools/fetch_nse_lists.py: a set
+    of YYYY-MM-DD, empty when the file is missing or unreadable - and then every caller behaves exactly as it did
+    before the file existed (weekends only)."""
+    try:
+        return set((json.load(io.open(HOLIDAYS, encoding='utf-8')).get('closed') or {}).keys())
+    except Exception:
+        return set()
+
+
+def holiday_session(date, closed=None):
+    """The second session oracle, after Yahoo: when `date` is a listed NSE holiday, the last weekday before it
+    that is not one; else None (not a holiday, or no holiday file)."""
+    closed = closed_dates() if closed is None else closed
+    if date not in closed:
+        return None
+    x = dt.date.fromisoformat(date) - dt.timedelta(days=1)
+    while x.weekday() >= 5 or x.isoformat() in closed:
+        x -= dt.timedelta(days=1)
+    return x.isoformat()
+
+
 def default_scan_date(now=None):
     """The session whose close screener is serving right now, as YYYY-MM-DD - or None while a
     session is live. The task is set to start as soon as possible after a missed run, so a 20:00
@@ -431,19 +462,21 @@ def default_scan_date(now=None):
     the open screener still serves the previous session's fully refreshed close; dating that
     "today" wrote 17 Sep 2026's close as 2026-09-18 at 08:05, and the true 17 Sep close was lost
     when the 20:00 run rebuilt the file. While the market is open the prices are live and partial,
-    and no date is right. This function knows weekends, not exchange holidays: a holiday whose
+    and no date is right. Weekends always; exchange holidays when data/markets/holidays.json lists
+    them (closed_dates(): a listed holiday counts like a weekend). Without that file, a holiday whose
     previous close is already on file is caught by the same-data guard (identical prices, nothing
     written); a holiday whose previous close was MISSED is caught by resolve_session() below.
     Times are local; this machine runs on IST."""
     now = now or dt.datetime.now()
     d, t = now.date(), now.time()
+    closed = closed_dates()
 
     def prev_weekday(x):
         x -= dt.timedelta(days=1)
-        while x.weekday() >= 5:
+        while x.weekday() >= 5 or x.isoformat() in closed:
             x -= dt.timedelta(days=1)
         return x
-    if d.weekday() >= 5 or t < dt.time(9, 10):
+    if d.weekday() >= 5 or d.isoformat() in closed or t < dt.time(9, 10):
         return prev_weekday(d).isoformat()
     if t < dt.time(15, 40):
         return None
@@ -480,7 +513,15 @@ def resolve_session(date, oracle, have=None):
     So: when the exchange's last session (`oracle`) is earlier than the date about to be used AND
     there is no complete scan for that session, use the session's own date. In every other case
     the date stands, so a stale or unreachable oracle can never suppress a genuine close - at
-    worst it fails to correct a label, which is the behaviour this replaces."""
+    worst it fails to correct a label, which is the behaviour this replaces.
+
+    Yahoo is the first oracle. When it gives no answer (None), data/markets/holidays.json is the second: a
+    date it lists as a holiday has the session before it as its oracle (holiday_session). No file, or a date
+    it does not list, and the date stands exactly as before."""
+    source = "the Nifty 50's last trade, per Yahoo"
+    if not oracle:
+        oracle = holiday_session(date)
+        source = f'{date} is an NSE holiday in data/markets/holidays.json'
     if not oracle or oracle >= date:
         return date, None
     if have is None:
@@ -489,7 +530,7 @@ def resolve_session(date, oracle, have=None):
     if have(oracle):
         return date, None
     return oracle, (f'The {oracle} close. Pulled on {dt.date.today().isoformat()}: NSE had not traded since {oracle} '
-                    f'(the Nifty 50\'s last trade, per Yahoo), so {date} was not a trading day, and no complete scan '
+                    f'({source}), so {date} was not a trading day, and no complete scan '
                     f'for {oracle} was on file. Dated by the session, not the calendar.')
 
 
@@ -667,7 +708,10 @@ def main():
     if not a.date:
         oracle = last_nse_session()
         date, session_note = resolve_session(date, oracle)
-        if oracle is None:
+        if oracle is None and session_note:          # Yahoo silent; the holiday list re-dated the run
+            print(f'SwingEdge EOD refresh — the last NSE session could not be confirmed online, but {date_cal} is an '
+                  f'NSE holiday (data/markets/holidays.json) and the {date} close is not on file. This run is dated {date}.')
+        elif oracle is None:
             print('    (the last NSE session could not be confirmed online; dating by the calendar)')
         elif session_note:
             print(f'SwingEdge EOD refresh — NSE last traded on {oracle}; {date_cal} was not a trading day, and '
@@ -679,6 +723,7 @@ def main():
             print(f'SwingEdge EOD refresh — {date} is already built ({os.path.relpath(scan_path, ROOT)}). Nothing to do.')
             print('    This is the second trigger of the day, or a run after the first one succeeded. '
                   'Pass --force to pull again and rebuild, or --skip-fetch to rebuild from the export on disk.')
+            locked = False
             if a.push and not a.dry_run:
                 # The safety net: a close built by an earlier run whose push failed (or whose rebase hit a conflict)
                 # is still a local commit. Push it now rather than leave the site a day behind.
@@ -690,6 +735,7 @@ def main():
                     print(f'\n--- publish: {ahead} local commit(s) not on origin/main yet')
                     if not acquire_lock():
                         return 0
+                    locked = True
                     if not publish(note=f'{date} close built but not published'):
                         return 1
                     print('    pushed - live in about a minute')
@@ -698,6 +744,28 @@ def main():
                             pull_status('ok', f'{date} close pulled and built (published late: the first push had failed)', True)
                     except Exception:
                         pass
+            if not a.dry_run:
+                # NSE's delivery file (MTO) appears about 17:00 IST, often after the 15:50 run has finished, so the
+                # second trigger catches it up: fetch it for the built close and publish just that file.
+                dl = os.path.join(ROOT, 'data', 'daily', 'delivery.json')
+
+                def dl_date():
+                    try:
+                        return json.load(io.open(dl, encoding='utf-8')).get('date')
+                    except Exception:
+                        return None
+                if dl_date() != date:
+                    print(f'\n--- delivery percentages for {date} (never blocks)')
+                    run('fetch the delivery file', [sys.executable, os.path.join('tools', 'fetch_nse_lists.py'), '--only', 'delivery', '--date', date, '--quiet'], False, timeout=300)
+                    if dl_date() == date and a.push:
+                        if not locked and not acquire_lock():
+                            return 0
+                        rel = os.path.relpath(dl, ROOT)
+                        _git('add', rel)
+                        if _git('diff', '--cached', '--quiet', '--', rel).returncode:
+                            _git('commit', '-q', '-m', f'Delivery percentages {date}', '--', rel)
+                            if publish():
+                                print('    delivery percentages published')
             return 0
         print(f'SwingEdge EOD refresh — {os.path.relpath(scan_path, ROOT)} exists but does not count as built: {why}.')
         print('    Pulling again and rebuilding it.')
@@ -931,6 +999,17 @@ def main():
                                       '--top', str(a.top), '--quiet']),
         ('append to the Stage 2 journal', [py, os.path.join('tools', 'build_s2history.py'), '--quiet']),
         ('build the RS leaders tracker', [py, os.path.join('tools', 'build_rs_tracker.py'), '--quiet']),
+    ]):
+        return 1
+
+    # ---- market breadth from the scan archive: the regime strip on Markets & Macro ------------
+    # Rebuilt whole from data/scans/ each time (idempotent). Never blocks: the scan, shortlist, journal and
+    # tracker above are complete, and a breadth file one day old is only one day old.
+    if not run('rebuild market breadth (never blocks the scan)',
+               [py, os.path.join('tools', 'build_breadth.py'), '--quiet'], a.dry_run, timeout=300):
+        print('    ignored - the scan, shortlist and journal above are complete')
+
+    if not go([
         ('rebuild the custom indices', [py, os.path.join('tools', 'build_indices.py'), '--quiet']),
     ]):
         return 1
@@ -972,6 +1051,13 @@ def main():
     # GitHub job tops up everything except NSE's file, which only this run fetches.)
     if not run('refresh the Markets & Macro data (never blocks the scan)',
                [py, os.path.join('tools', 'fetch_markets.py'), '--quiet'], a.dry_run, timeout=300):
+        print('    ignored - the scan, shortlist and journal above are complete')
+
+    # ---- NSE's own lists: results dates, ASM/GSM, holidays, the session's delivery % ---------
+    # NSE's /api/ endpoints may refuse GitHub's runners, so this PC fetches them. Each block keeps its previous
+    # file when NSE does not answer (the delivery file is out about 17:00 IST; a 404 keeps the older one).
+    if not run("refresh NSE's lists: results dates, ASM/GSM, holidays, delivery (never blocks the scan)",
+               [py, os.path.join('tools', 'fetch_nse_lists.py'), '--date', date, '--quiet'], a.dry_run, timeout=300):
         print('    ignored - the scan, shortlist and journal above are complete')
 
     if a.dry_run:

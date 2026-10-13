@@ -4,7 +4,8 @@ name: Market news and macro (before the Indian morning)
 # scan's gainers, and tops up the macro file behind Markets & Macro, then commits them. No model runs
 # here and nothing needs a key: tools/market_news.py and tools/gainers_news.py read public news feeds,
 # tools/fetch_markets.py reads Yahoo, RBI, NSDL and SEBI; tools/build_peers.py reads Yahoo, Nasdaq's earnings
-# calendar and Google News for the Global Peers page. NSE's index file is left to the evening pull
+# calendar and Google News for the Global Peers page; tools/fetch_nse_lists.py --only holidays tops up NSE's
+# holiday list. NSE's index file and its /api/ lists (results dates, ASM/GSM, delivery) are left to the evening pull
 # on the owner's PC.
 #
 # The time: 21:43 UTC = 03:13 IST, after the US close in either daylight-saving regime. GitHub's
@@ -55,6 +56,14 @@ jobs:
         if: ${{ !cancelled() }}
         run: python tools/fetch_markets.py --only global,rbi,fpi,sectors,mf || true
 
+      # NSE's trading holidays only: the results calendar, ASM/GSM and delivery blocks are NSE /api/ calls that
+      # may refuse GitHub's runners, so the evening pull on the owner's PC fetches those. Keeps the file when NSE
+      # does not answer; a date is never dropped.
+      - name: Top up NSE's holiday list
+        if: ${{ !cancelled() }}
+        timeout-minutes: 2
+        run: python3 tools/fetch_nse_lists.py --only holidays --quiet || true
+
       # bounded on its own: a slow Yahoo or Google News must not eat the job's 15 minutes
       # and keep the news, gainers and macro files above from being committed. No `|| true`: a total
       # peers failure shows as a failed-but-continued step with an annotation, not a clean green one.
@@ -69,7 +78,7 @@ jobs:
         run: |
           git config user.name "swingedge-bot"
           git config user.email "swingedge-bot@users.noreply.github.com"
-          git add data/daily/market_news.json data/daily/gainers_candidates.json data/markets/markets.json data/peers
+          git add data/daily/market_news.json data/daily/gainers_candidates.json data/markets/markets.json data/markets/holidays.json data/peers
           if git diff --cached --quiet; then echo "nothing changed"; exit 0; fi
           git commit -m "Market news and macro $(date -u +%Y-%m-%d)"
           for i in 1 2 3 4; do

@@ -1058,6 +1058,14 @@ html[data-theme="lab"] .card,html[data-theme="lab"] .metric,html[data-theme="lab
 .se-pill.new{background:rgba(139,92,246,.16);color:#C4B5FD;border-color:rgba(139,92,246,.35);} html:not([data-theme="lab"]) .se-pill.new{color:#5B21B6;}
 .se-pill.re{background:var(--gold-soft);color:var(--gold2);border-color:rgba(245,158,11,.3);}
 .se-pill.q{margin-left:0;} .se-pill.q.leading{background:var(--sage-soft);color:var(--sage2);} .se-pill.q.improving{background:var(--sky-soft);color:var(--sky2);} .se-pill.q.weakening{background:var(--gold-soft);color:var(--gold2);} .se-pill.q.lagging{background:var(--rose-soft);color:var(--rose2);}
+.nl-tag{display:inline-block;font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.02em;padding:1px 6px;border-radius:3px;margin-left:5px;vertical-align:middle;white-space:nowrap;border:1px solid var(--b2);background:var(--bg3);color:var(--t3);cursor:help;}
+.nl-tag.warm{background:var(--gold-soft);color:var(--gold2);border-color:rgba(245,158,11,.4);} .nl-tag.surv{background:var(--rose-soft);color:var(--rose2);border-color:rgba(244,63,94,.3);}
+.br-strip{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);} .br-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+.br-head .lab{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#A9BFB0;} .br-head .br-none{font-size:12.5px;opacity:.85;} .br-head .se-i{border-color:rgba(255,255,255,.35);color:#E6E1D2;}
+.br-word{font-weight:800;font-size:15px;padding:2px 10px;border-radius:4px;background:rgba(255,255,255,.12);text-transform:capitalize;} .br-word.ok{color:#8FE0B0;} .br-word.bad{color:#FDA4AF;} .br-word.warn{color:#FCD34D;}
+.ev-days{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;} .ev-day{border:1px solid var(--b1);border-radius:var(--r4);padding:10px 12px;background:var(--bg2);}
+.ev-d{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:4px;} .ev-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 6px;padding:5px 0;border-top:1px dashed var(--b1);font-size:12.5px;}
+.ev-d + .ev-row{border-top:0;} .ev-row .tk{font-weight:700;font-family:var(--mono);} .ev-co{color:var(--t2);} .ev-row .nl-tag{margin-left:0;} .ev-why{flex-basis:100%;color:var(--t3);font-size:11px;} .mn-ev{margin:0 0 10px;}
 .se-pill.trend{margin-left:0;} .se-pill.trend.strongup{background:var(--lime);color:#fff;border-color:transparent;} .se-pill.trend.up{background:var(--lime-soft);color:var(--lime2);border-color:rgba(16,185,129,.3);} .se-pill.trend.down{background:var(--rose-soft);color:var(--rose2);border-color:rgba(244,63,94,.3);} .se-pill.trend.strongdown{background:var(--rose);color:#fff;border-color:transparent;} .se-pill.trend.na{background:var(--bg3);color:var(--t3);border-color:var(--b2);}
 .se-seg{display:inline-flex;background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r3);padding:2px;gap:2px;}
 .se-seg button{border:none;background:transparent;color:var(--t3);font:600 12px var(--sans);padding:6px 14px;border-radius:calc(var(--r3) - 2px);cursor:pointer;transition:background .15s,color .15s;}
@@ -2312,7 +2320,7 @@ html:not([data-theme="lab"]) .pd-tier.strong{color:var(--sage2);} html:not([data
           </div>
         </div>
         <div class="tw"><table>
-          <thead><tr><th>Stock</th><th>Qty</th><th>Avg ₹</th><th>LTP ₹</th><th>P&amp;L ₹</th><th>%</th><th>Day Chg %</th><th>SL/Tgt</th><th></th></tr></thead>
+          <thead><tr><th>Stock<button type="button" class="se-i" aria-label="What is this?" onclick="seInfoOpen(event,'nl-tags')">i</button></th><th>Qty</th><th>Avg ₹</th><th>LTP ₹</th><th>P&amp;L ₹</th><th>%</th><th>Day Chg %</th><th>SL/Tgt</th><th></th></tr></thead>
           <tbody id="mn-body"></tbody>
         </table></div>
       </div>
@@ -4325,7 +4333,7 @@ function renderMonitor(){
     const s2Flag = stage2Set.has((p.stock||'').toUpperCase()) ? '<span class="stage2-flag" title="In current Stage 2 list">S2</span>' : '';
     const concBadge = concPct > 25 ? `<span style="font-size:9px;color:var(--rose);margin-left:4px;">●${concPct.toFixed(0)}%</span>` : concPct > 15 ? `<span style="font-size:9px;color:var(--gold);margin-left:4px;">●${concPct.toFixed(0)}%</span>` : '';
     return `<tr>
-      <td><b>${p.stock}</b>${s2Flag}${concBadge}</td>
+      <td><b>${p.stock}</b>${s2Flag}${concBadge}${nlTags(p.stock)}</td>
       <td class="num">${p.qty}</td>
       <td class="num">₹${(+p.avg).toFixed(2)}</td>
       <td class="num"><b>₹${(+ltp).toFixed(2)}</b></td>
@@ -6960,7 +6968,7 @@ function wrTable(id, cols, rows, opt){
     const numCls = ['num','int','pct','pct0','signed','idx'].includes(c.sortType || c.type) ? 'num' : '';
     const sortCls = st && st.col === c.k ? (st.dir === 'asc' ? 'sort-asc' : 'sort-desc') : '';
     const click = sortable ? ` onclick="wrSort('${wrAttr(id)}','${wrAttr(c.k)}')"` : ' style="cursor:default"';
-    return `<th class="${numCls} ${sortCls}"${click}>${wrEsc(c.t)}${c.info ? seInfoBtn(c.info) : ''}${sortable ? '<span class="sort-arr"></span>' : ''}</th>`;
+    return `<th class="${numCls} ${sortCls}"${click}${c.tip ? ` title="${wrAttr(c.tip)}"` : ''}>${wrEsc(c.t)}${c.info ? seInfoBtn(c.info) : ''}${sortable ? '<span class="sort-arr"></span>' : ''}</th>`;
   }).join('');
   const tbody = list.map(({r, i}) => {
     const cls = opt.rowCls ? opt.rowCls(r) : '';
@@ -7742,7 +7750,7 @@ function rlCols(extra, opt){
   opt = opt || {};
   return [
     {k:'rank', t:'#', type:'int', fn: r => r.rank, info: 'rl-rank'},
-    {k:'code', t:'Stock', type:'html', html: r => seStockCell(r)},
+    {k:'code', t:'Stock', type:'html', html: r => seStockCell(r), info: 'nl-tags'},
     {k:'act', t:'', type:'html', html: r => seActCell(r)},
     {k:'industry', t:'Industry', type:'text'},
     {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => seRsCell(r.rs, {delta: r.rs_d1d != null ? Math.round(r.rs_d1d) : null}), info: 'rl-rs'},
@@ -7750,6 +7758,7 @@ function rlCols(extra, opt){
   ].concat(opt.from ? [{k:'from', t:'From → now', type:'html', sortType:'num', fn: r => r.gain, html: r => r.from == null ? '<span class="flat">new to the scan</span>' : `<span class="rl-h">#${r.from} → <b>#${r.rank}</b></span> <span class="up">+${r.gain}</span>`, info: 'rl-climb'}] : [
     {k:'rank_d1w', t:'Rank Δ1w', type:'html', sortType:'num', fn: r => r.rank_d1w == null ? null : -r.rank_d1w, html: r => r.rank_d1w == null ? '<span class="flat">—</span>' : `<span class="${r.rank_d1w < 0 ? 'up' : r.rank_d1w > 0 ? 'dn' : 'flat'}">${wrSigned(-r.rank_d1w, 0)}</span>`, info: 'rl-rankd'}]).concat([
     {k:'weeks', t:'Wks in top', type:'html', sortType:'num', fn: r => r.streak, html: r => `<span class="rl-h"><b>${r.streak ?? 0}</b>/${r.weeks_in_top ?? 0}</span>`, info: 'rl-weeks'},
+    dlCol(RL.doc && RL.doc.scan_date),
     {k:'status', t:'Status', type:'html', sortType:'text', fn: r => r.status, html: r => rlPill(RL_STATUS, r.status), info: 'rl-status'},
     {k:'ex', t:'Exhaustion', type:'html', sortType:'num', fn: r => r.exhaustion, html: rlExCell, info: 'rl-ex'},
     {k:'trend', t:'Trend', type:'html', sortType:'num', fn: r => r.trend && r.trend.total ? r.trend.pass : null, html: rlTrendCell, info: 'rl-trend'},
@@ -7815,6 +7824,7 @@ function renderRL(){
     ${book}
     <div class="se-panel mk-sec" id="rl-a-ev"><div class="se-row-h"><div><div class="se-eyebrow">Evidence</div><h2>Do the flags predict who drops?</h2></div></div><ul class="rl-ev">${evItems}</ul>${smLine ? `<div class="wr-hint">Across all weeks — ${smLine}. If names with 2+ flags stay as often as clean ones, the flags are early: read them as risk, not as a timer.</div>` : ''}</div>`;
   seCountUp(el);
+  nlRenderWeek();
 }
 
 // ============= INDICES — your own sub-sector indices, chain-linked from the daily scans =============
@@ -8199,7 +8209,7 @@ function chCard(key, extra){
 function chLegend(key, cfg, hidden, where){
   return cfg.ser.map((s, k) => { let j = s.vals.length - 1; while(j >= 0 && s.vals[j] == null) j--; let f = 0; while(f < s.vals.length && s.vals[f] == null) f++;
     // delta:'none' = a running total (no meaningful % change); the % branch also needs a positive base
-    const ch = s.delta === 'none' ? null : j > f && s.raw[f] ? (s.unit === '%' ? {t: wrSigned((s.raw[j] - s.raw[f]) * 100, 0) + ' bp'} : s.raw[f] > 0 ? {t: wrPct((s.raw[j] / s.raw[f] - 1) * 100, 1)} : null) : null;
+    const ch = s.delta === 'none' ? null : s.delta === 'pts' ? (j > f ? {t: wrSigned(s.raw[j] - s.raw[f], 1) + ' pts'} : null) : j > f && s.raw[f] ? (s.unit === '%' ? {t: wrSigned((s.raw[j] - s.raw[f]) * 100, 0) + ' bp'} : s.raw[f] > 0 ? {t: wrPct((s.raw[j] / s.raw[f] - 1) * 100, 1)} : null) : null;
     return `<span class="${hidden.has(k) ? 'off' : ''}" onclick="chToggle('${wrAttr(key)}',${k},'${where}')" title="click to hide or show; the axis re-fits"><i style="background:${s.slot === 'mute' ? 'var(--t4)' : s.slot ? `var(--viz-${s.slot})` : 'var(--t2)'}"></i>${wrEsc(s.label)}<b>${j >= 0 ? chFmt(s.raw[j], s.digits != null ? s.digits : 2, s.unit) + (s.unit === '%' ? '%' : '') : '—'}</b>${ch ? `<em>${ch.t}</em>` : ''}</span>`; }).join('');
 }
 function chTable(cfg){
@@ -8439,7 +8449,7 @@ function renderMK(){
   const errs = d.errors || [], src = d.sources || {}, as = b => (d[b] || {}).asof;
   const legacy = (DB.macroSnaps || []).length ? `<details class="tt-table" style="margin-top:10px;"><summary>Your ${DB.macroSnaps.length} manual snapshot(s) from the old Commodities page</summary><div class="wr-twrap" style="max-height:260px;"><table class="scan-table"><thead><tr><th>Week</th><th class="num">Brent</th><th class="num">WTI</th><th class="num">DXY</th><th class="num">USD/INR</th><th class="num">Gold</th><th class="num">Silver</th><th class="num">10Y</th><th class="num">Nifty</th><th>Note</th></tr></thead><tbody>${DB.macroSnaps.map(s => `<tr><td>${wrEsc(s.week || '')}</td>${['brent', 'wti', 'dxy', 'usdinr', 'gold', 'silver', 'yield', 'nifty'].map(k => `<td class="num">${s[k] == null || s[k] === '' ? '—' : wrEsc(s[k])}</td>`).join('')}<td class="tt-note">${wrEsc(s.notes || '')}</td></tr>`).join('')}</tbody></table></div></details>` : '';
   el.innerHTML = `
-    <div class="mk-jump"><a onclick="mkJump('mk-a-macro')">Macro now</a><a onclick="mkJump('mk-a-what')">What is moving what</a><a onclick="mkJump('mk-a-charts')">Charts</a><a onclick="mkJump('mk-a-flow')">Foreign money</a><a onclick="mkJump('mk-a-idx')">NSE indices</a><a onclick="mkJump('mk-a-trk')">Your trackers</a><a onclick="mkJump('mk-a-rot')">Sector rotation</a><a onclick="mkJump('mk-a-lead')">Leaders</a><a onclick="show('news')">Market news →</a></div>
+    <div class="mk-jump"><a onclick="mkJump('mk-a-macro')">Macro now</a><a onclick="mkJump('mk-a-what')">What is moving what</a><a onclick="mkJump('mk-a-charts')">Charts</a><a onclick="mkJump('mk-a-flow')">Foreign money</a><a onclick="mkJump('mk-a-idx')">NSE indices</a><a onclick="mkJump('mk-a-trk')">Your trackers</a><a onclick="mkJump('mk-a-ev')">Results this week</a><a onclick="mkJump('mk-a-rot')">Sector rotation</a><a onclick="mkJump('mk-a-lead')">Leaders</a><a onclick="show('news')">Market news →</a></div>
     <div class="se-row-h mk-sec" id="mk-a-macro"><div><div class="se-eyebrow">Macro now</div><h2>Indices, yields, the dollar, crude and metals</h2></div><span class="wr-hint">India ${wrDate(as('nse'))} · global ${wrDate(as('global'))} · 1D, 1W and 1M changes; yields in basis points</span></div>
     <div class="mk-tiles">${MK_TILES.map(mkTile).join('')}</div>
     <div class="se-panel mk-sec" id="mk-a-what"><div class="se-row-h"><div><div class="se-eyebrow">What is moving what</div><h2>The outside drivers, and what they usually touch</h2></div><div class="se-seg">${[[26, '6 months'], [52, '1 year']].map(([n, t]) => `<button class="${MK.corr === n ? 'active' : ''}" onclick="MK.corr=${n};renderMK()">${t}</button>`).join('')}</div></div>
@@ -8452,6 +8462,7 @@ function renderMK(){
     ${mkFlowBlock()}
     <div class="se-panel mk-sec" id="mk-a-idx"><div class="se-row-h"><div><div class="se-eyebrow">Where the money is going</div><h2>NSE indices: return, turnover and valuation</h2></div></div><div id="mk-idx">${mkIdxTable()}</div></div>
     <div class="se-panel mk-sec" id="mk-a-trk"><div class="se-row-h"><div><div class="se-eyebrow">Where the money is going</div><h2>Your sub-sector trackers</h2></div><button class="btn btn-ghost btn-sm" onclick="show('indices')">Open Indices →</button></div>${mkTrackersBlock()}</div>
+    <div class="se-panel mk-sec" id="mk-a-ev"><div id="ev-week">${nlWeekHtml()}</div></div>
     <div class="wr-hint" style="margin-top:12px;">Sources — ${Object.keys(src).map(k => `<a href="${wrAttr(src[k].url)}" target="_blank" rel="noopener">${wrEsc(src[k].label)}</a>`).join(' · ')}. Refreshed ${wrEsc(String(d.generated || '').replace('T', ' ').slice(0, 16))} IST by <code>tools/fetch_markets.py</code>.${errs.length ? ` <span class="wr-tag stale">${errs.length} source${errs.length === 1 ? '' : 's'} did not answer; the last good data is shown</span>` : ''} Reference prices from public daily feeds; nothing here is advice.</div>${legacy}`;
   MK_CHARTS.forEach(c => chMount(c.key)); chMount('mk-fpi'); if(CH.reg['mk-trk']) chMount('mk-trk');
 }
@@ -8501,7 +8512,7 @@ function renderMN(){
       <div class="wr-hint" style="margin-top:8px;">A summary of reported news, not a view on any stock. Check the source before relying on a line.</div></div>`
     : `<div class="se-panel"><div class="wr-hint" style="margin:0;">No digest for this run yet — the headlines below are complete on their own. The digest is added by a Claude routine shortly after the morning collection.</div></div>`;
   const shown = topics.filter(t => MN.topic === 'all' || t.id === MN.topic);
-  el.innerHTML = `<div class="se-row-h"><div><div class="se-eyebrow">Markets &amp; Macro · news</div><h2>Overnight, in ${total} headlines</h2></div><span class="wr-hint">collected ${wrEsc(mnWhen(d.updated))} IST · the last ${d.window_hours || 30} hours</span></div>
+  el.innerHTML = `<div class="se-row-h"><div><div class="se-eyebrow">Markets &amp; Macro · news</div><h2>Overnight, in ${total} headlines</h2></div><span class="wr-hint">collected ${wrEsc(mnWhen(d.updated))} IST · the last ${d.window_hours || 30} hours</span></div>${nlWeekLine()}
     ${digest}
     <div class="tt-filter"><div class="se-seg mn-seg">${[['all', 'All']].concat(topics.map(t => [t.id, t.label])).map(([k, l]) => `<button class="${MN.topic === k ? 'active' : ''}" onclick="MN.topic='${wrAttr(k)}';renderMN()">${wrEsc(l)}</button>`).join('')}</div></div>
     <div class="mn-grid">${shown.map(t => `<div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">${wrEsc(t.why || '')}</div><h2>${wrEsc(t.label)}</h2></div><span class="wr-hint">${(t.items || []).length}</span></div>
@@ -8837,7 +8848,8 @@ function seStockCell(r){
     + wrOwned(r)
     + (r.near_ath ? '<span class="wr-sup" title="Within 5% of all-time high">*</span>' : '')
     + (r.isNew ? '<span class="se-pill new" title="Not in last week\'s scan">NEW</span>' : '')
-    + (!r.code && r.name ? '<span class="se-pill" title="Listed on BSE only: no NSE code, so it has no chart and is not tracked by the Shortlist or the Stage 2 Journal">BSE</span>' : '');
+    + (!r.code && r.name ? '<span class="se-pill" title="Listed on BSE only: no NSE code, so it has no chart and is not tracked by the Shortlist or the Stage 2 Journal">BSE</span>' : '')
+    + nlTags(r.code);
 }
 function seActCell(r){ return wrActCell({code: r.code || r.name, name: r.name, industry: r.industry || r.group}, r.industry || r.group); }
 function seKpi(label, value, sub, tone, count){
@@ -8924,7 +8936,7 @@ function seRenderPulse(){
   if(hasU) kpis.push(seKpi('Pass trend template', wrNum(s.ttPass), `${Math.round(100 * s.ttPass / s.n)}% of scan${s.ttPassBse ? ` · ${wrNum(s.ttPassBse)} BSE-only, not tracked in the Stage 2 Journal (${wrNum(s.ttPass - s.ttPassBse)})${seInfoBtn('se-bse')}` : ''}${hasS2 ? ` · ${s.inBoth} also on the S2 list` : ''}`, 'ok', s.ttPass));
   if(hasU) kpis.push(seKpi('Median 1-wk move', wrPct(s.medR1w, 1, {plain: true}), `median 3-mo ${wrPct(s.medR3m, 0, {plain: true})} · ${s.nearATH} near all-time high`, s.medR1w >= 0 ? 'ok' : 'bad'));
   if(hasU) kpis.push(seKpi('Distance to 52W high', wrPct(s.medFrom52, 1, {plain: true}), `median · ${s.above200} of ${s.n} above 200-day EMA`, ''));
-  if(hasS2) kpis.push(seKpi('Median weeks in Stage 2', s.medWeeks != null ? wrNum(s.medWeeks) : '—', `${s.posRet != null ? Math.round(s.posRet) + '% positive since entry' : ''}${s.asm ? ` · ${s.asm} under ASM/GSM${seAsmStale(c) ? ` (list of ${wrDate(seAsmStale(c).date)})` : ''}` : ''}`, '', s.medWeeks));
+  if(hasS2) kpis.push(seKpi('Median weeks in Stage 2', s.medWeeks != null ? wrNum(s.medWeeks) : '—', `${s.posRet != null ? Math.round(s.posRet) + '% positive since entry' : ''}${nlAsmNote(c)}`, '', s.medWeeks));
   // industry leaders
   const leaders = c.sectors.filter(g => g.n >= 3).slice(0, 4);
   const leaderCards = leaders.map(g => `<div class="se-lead" onclick="seGo('sectors',{group:'${wrAttr(g.name)}'})" style="--gc:${g.color}">
@@ -8956,7 +8968,9 @@ function seRenderPulse(){
       <h1>Where the strength is, and what is moving it</h1>
       <div class="wr-lead">${hasU ? `${wrNum(s.n)} stocks from the <b>${wrEsc(c.d.screen && c.d.screen.name || 'scan')}</b> ranked by relative strength` : 'No screener universe in this scan'}${hasS2 ? `${hasU ? ', cross-checked against' : 'Tracking'} the <b>${wrNum(s.s2list)}-stock Stage 2 list</b>` : ''}${c.hasPrevU ? ` · drift measured against the scan of ${wrDate(c.prevU.date)}` : ''}.</div>
       <div class="se-kpis">${kpis.join('')}</div>
-    </div></div>`;
+      <div id="br-strip"></div>
+    </div></div>
+    <div class="se-body" id="br-chart" style="padding-bottom:0;"></div>`;
   if(rest) rest.innerHTML = `
     <div class="se-body" style="padding-top:0;">
       <div class="se-panel mk-sec" id="mk-a-rot">
@@ -8969,7 +8983,7 @@ function seRenderPulse(){
       <div class="se-grid2">
         <div class="se-panel">
           <div class="se-row-h"><div><div class="se-eyebrow">Relative strength</div><h2>Top RS stocks</h2></div><button class="btn btn-ghost btn-sm" onclick="seGo('rsscreen',{rsmin:70})">RS screen →</button></div>
-          <div class="wr-twrap" style="max-height:520px;"><table class="scan-table"><thead><tr><th>Stock</th><th>Group</th><th class="num">RS</th><th>Stage 2</th><th class="num">1W</th><th class="num">3M</th><th class="num">vs 52WH</th></tr></thead><tbody>${topRows || '<tr><td colspan="7" class="flat" style="text-align:center;padding:24px;">No universe this week.</td></tr>'}</tbody></table></div>
+          <div class="wr-twrap" style="max-height:520px;"><table class="scan-table"><thead><tr><th>Stock${seInfoBtn('nl-tags')}</th><th>Group</th><th class="num">RS</th><th>Stage 2</th><th class="num">1W</th><th class="num">3M</th><th class="num">vs 52WH</th></tr></thead><tbody>${topRows || '<tr><td colspan="7" class="flat" style="text-align:center;padding:24px;">No universe this week.</td></tr>'}</tbody></table></div>
         </div>
         <div class="se-panel">
           <div class="se-row-h"><div><div class="se-eyebrow">Weinstein Stage 2</div><h2>Stage 2 list — ${c.s2asof ? wrShort(c.s2asof) : 'this week'}</h2></div><button class="btn btn-ghost btn-sm" onclick="seGo('s2track')">Tracker →</button></div>
@@ -8990,6 +9004,7 @@ function seRenderPulse(){
       </div>
     </div>`;
   seCountUp(el); if(rest) seCountUp(rest);
+  nlRenderRegime(); nlRenderWeek();
 }
 function seQuadrantSvg(groups, id){
   if(!groups.length) return '<div class="wr-hint">No groups to plot.</div>';
@@ -9102,7 +9117,7 @@ function seRenderRSTable(){
   const list = seRSFiltered().sort((a, b) => (b.rs || 0) - (a.rs || 0) || (b.r1w || 0) - (a.r1w || 0));
   const cols = [
     {k:'_i', t:'#', type:'idx'},
-    {k:'code', t:'Stock', type:'html', html: seStockCell},
+    {k:'code', t:'Stock', type:'html', html: seStockCell, info: 'nl-tags'},
     {k:'act', t:'', type:'html', html: seActCell},
     {k:'group', t:'Sector', type:'text'},
     {k:'industry', t:'Industry', type:'text'},
@@ -9115,6 +9130,7 @@ function seRenderRSTable(){
     {k:'s2weeks', t:'Wks in S2', type:'int', fn: r => r.s2list ? r.s2list.weeks : null, info: 'se-s2weeks'},
     {k:'pead', t:'Earnings', type:'html', sortType:'num', fn: r => r.pead != null ? r.pead : null, html: r => r.pead != null && typeof pdTierCell === 'function' ? pdTierCell(r.pead) : '<span class="flat">—</span>', info: 'se-earnings'},
     {k:'r1w', t:'1W %', type:'pct', dec:1}, {k:'r1m', t:'1M %', type:'pct', dec:1}, {k:'r3m', t:'3M %', type:'pct', dec:0},
+    ...(NL.dl && NL.dl.date === SE.c.date ? [dlCol(SE.c.date)] : []),   // only when NSE's delivery file is for this scan's date
     {k:'from_52wh', t:'vs 52WH', type:'pct0', dec:1},
     {k:'eps_yoy', t:'EPS YoY', type:'pct', dec:0, info: 'se-yoy'}, {k:'sales_yoy', t:'Sales YoY', type:'pct', dec:0, info: 'se-yoy'}, {k:'pe', t:'P/E', type:'num', dec:1}
   ];
@@ -9596,7 +9612,7 @@ function seRenderSectors(){
       ${sel.industries.length > 1 ? `<div class="wr-sub">Industries inside ${wrEsc(sel.name)}</div><div class="wr-twrap" style="max-height:260px;"><table class="scan-table"><thead><tr><th>Industry</th><th class="num">Stocks</th><th class="num">Median RS</th><th class="num">Stage 2</th><th class="num">Avg 1W</th><th class="num">Avg 3M</th></tr></thead><tbody>${sel.industries.map(i => `<tr><td>${wrEsc(i.name)}</td><td class="num">${i.n}</td><td class="num">${seRsCell(i.medRS != null ? Math.round(i.medRS) : null)}</td><td class="num">${i.s2n}</td><td class="num">${wrPct(i.r1w, 1)}</td><td class="num">${wrPct(i.r3m, 0)}</td></tr>`).join('')}</tbody></table></div>` : ''}
       <div class="wr-sub">Stocks — ranked by RS</div>
       ${wrTable('se-sec-stocks', [
-        {k:'code', t:'Stock', type:'html', html: seStockCell}, {k:'act', t:'', type:'html', html: seActCell}, {k:'industry', t:'Industry', type:'text'}, {k:'band', t:'Size', type:'text'},
+        {k:'code', t:'Stock', type:'html', html: seStockCell, info: 'nl-tags'}, {k:'act', t:'', type:'html', html: seActCell}, {k:'industry', t:'Industry', type:'text'}, {k:'band', t:'Size', type:'text'},
         {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => seRsCell(r.rs, {delta: r.rsDelta != null ? Math.round(r.rsDelta) : null, row: r})}, {k:'rsSector', t:'RS vs sector', type:'num'},
         {k:'trend', t:'Trend', type:'html', sortType:'num', fn: r => r.trend.total ? r.trend.pass : null, html: seTrendCell}, {k:'s2', t:'Stage 2', type:'html', sortType:'num', fn: r => (r.s2list ? 2 : 0) + (r.s2calc ? 1 : 0), html: seS2Cell}, {k:'r1w', t:'1W', type:'pct', dec:1}, {k:'r3m', t:'3M', type:'pct', dec:0}, {k:'from_52wh', t:'vs 52WH', type:'pct0', dec:1}
       ], sel.rows, {sort:null, maxHeight:'520px'})}` : '';
@@ -9627,7 +9643,7 @@ function seRenderS2(){
       ${seKpi(c.s2cut ? 'Left the list or fell under its cut' : 'Exited', wrNum(s.exited), c.hasPrevS2 ? (c.s2cut ? `since scan ${wrDate(c.prevS2.date)} · ${wrNum(c.belowCut)} more absent names last sat near or under this file's RS ${wrNum(c.s2floor, 1)}% cut — not visible, not counted` : `dropped since the list of scan ${wrDate(c.prevS2.date)}`) : 'needs a previous list', s.exited ? 'bad' : '', s.exited)}
       ${seKpi('Median weeks in stage', s.medWeeks != null ? wrNum(s.medWeeks) : '—', `${s.posRet != null ? Math.round(s.posRet) + '% positive since entry' : ''}`, '', s.medWeeks)}
       ${seKpi('Also in the scan', wrNum(c.S2.filter(r => r.inScan).length), c.U.length ? `of ${c.U.length} scanned · convergence` : 'no screener universe in this scan', '', c.S2.filter(r => r.inScan).length)}
-      ${(() => { const st = seAsmStale(c); return seKpi(st ? `Under ASM / GSM (list of ${wrDate(st.date)})` : 'Under ASM / GSM', wrNum(s.asm), st ? `surveillance flags from the provider list, ${st.age} days old: NSE's live list may differ` : 'surveillance flags', s.asm ? 'warn' : '', s.asm); })()}
+      ${(() => { if(NL.surv){ const n = c.S2.filter(r => nlSurvText(r.code)).length; return seKpi(`Under ASM / GSM (NSE list of ${wrDate(NL.surv.asof)})`, wrNum(n), `NSE's own surveillance lists, not the provider's tags${seInfoBtn('surv-asm')}`, n ? 'warn' : '', n); } const st = seAsmStale(c); return seKpi(st ? `Under ASM / GSM (list of ${wrDate(st.date)})` : 'Under ASM / GSM', wrNum(s.asm), st ? `surveillance flags from the provider list, ${st.age} days old: NSE's live list may differ` : 'surveillance flags', s.asm ? 'warn' : '', s.asm); })()}
     </div>
     <div class="se-grid2">
       <div class="se-panel"><div class="se-row-h"><div><div class="se-eyebrow">${c.s2asof ? 'Flagged on the ' + seS2AsofLbl(c) : 'This week'}</div><h2>Entries</h2></div></div><ul class="se-list tall">${c.S2.filter(r => r.state === 'entered' || r.state === 'reentry').sort((a, b) => (b.rs_pct || 0) - (a.rs_pct || 0)).map(r => `<li onclick="SE.ui.s2q='${wrAttr(r.code)}';seRenderS2Table();document.getElementById('se-s2-q').value='${wrAttr(r.code)}'"><span class="tk">${wrEsc(r.code)}</span>${r.state === 'reentry' ? '<span class="se-pill re">re-entry</span>' : ''}${r.inScan ? '<span class="se-pill calc">scan</span>' : ''}<span class="ind">${wrEsc(r.industry || '')}</span><span class="num">RS ${wrNum(r.rs_pct, 0)} · ₹${wrNum(r.mcap, 0)} Cr</span></li>`).join('') || '<li class="flat">No entries flagged.</li>'}</ul></div>
@@ -9656,6 +9672,7 @@ function seRenderS2(){
 function seRenderS2Table(){
   const host = document.getElementById('se-s2-table'); if(!host || !SE.c) return;
   const u = SE.ui, q = u.s2q.trim().toLowerCase(), asmSt = seAsmStale(SE.c);
+  const provAsof = SE.c.s2asof || null, provAge = provAsof ? Math.max(0, nlDaysTo(nlToday(), provAsof)) : null;   // the provider's tags, shown only without NSE's file
   const list = SE.c.S2.filter(r => {
     if(q && !((r.code || '') + ' ' + (r.industry || '')).toLowerCase().includes(q)) return false;
     if(u.s2status !== 'all' && r.state !== u.s2status) return false;
@@ -9684,7 +9701,7 @@ function seRenderS2Table(){
     {k:'since', t:'Since', type:'html', html: r => r.since ? `<span class="num">${wrDate(r.since)}</span>` : '<span class="flat">—</span>'},
     {k:'state', t:'Status', type:'html', html: r => seStateCell(r.state), info: 'st-status'},
     {k:'inScan', t:'In scan', type:'html', sortType:'num', fn: r => r.inScan ? 1 : 0, html: r => seYesCell(r.inScan, 'Yes', 'Also in this screener scan')},
-    {k:'asm', t:'ASM / GSM', type:'html', sortType:'text', info: 'st-asm', fn: r => r.asm || '', html: r => r.asm ? `<span class="scan-flag${asmSt ? ' asm-stale' : ''}" title="${wrAttr(r.asm)}${r.asm_days ? ' for ' + r.asm_days + ' days' : ''}${asmSt ? ` · provider list ${wrDate(asmSt.date)} (${asmSt.age} days old), may be out of date` : ''}">${wrEsc(r.asm)}</span>` : '<span class="flat">—</span>'},
+    {k:'asm', t:'ASM / GSM', type:'html', sortType:'text', info: 'st-asm', fn: r => NL.surv ? nlSurvText(r.code) : (r.asm || ''), html: r => NL.surv ? (survChip(r.code) || '<span class="flat">—</span>') : r.asm ? `<span class="scan-flag${asmSt ? ' asm-stale' : ''}" title="${wrAttr(r.asm)}${r.asm_days ? ' for ' + r.asm_days + ' days' : ''}${provAsof ? ` · provider list of ${wrDate(provAsof)}, ${provAge} day${provAge === 1 ? '' : 's'} old; NSE's live list is not loaded` : ''}">${wrEsc(r.asm)}</span>${provAge != null ? `<span class="flat" style="font-size:10px;"> ${provAge}d old</span>` : ''}` : '<span class="flat">—</span>'},
     {k:'asm_days', t:'ASM days', type:'int'}
   ];
   host.innerHTML = wrTable('se-s2', cols, list, {sort:{col:'rs_pct', dir:'desc'}, tall:true, empty:'No stocks match the filters.'});
@@ -10143,7 +10160,7 @@ function renderDG(){
   const spot = gainers.filter(r => r.pead >= 2 || r.s2list).slice(0, 12);
   const cols = (withRank) => [
     ...(withRank ? [{k:'_i', t:'#', type:'idx'}] : []),
-    {k:'name', t:'Stock', type:'html', html: r => `<span class="nm" title="${wrAttr((r.code?r.code+' \u00b7 ':'')+(r.name||''))}">${wrEsc(r.name || r.code || '—')}</span>${typeof wrOwned==='function'?wrOwned(r):''}${(+r.r1d)>=3 && r.pead>=2 && (r.s2list||r.s2calc) ? '<span class="se-pill new" title="Big move + strong earnings + Stage 2">★</span>':''}`},
+    {k:'name', t:'Stock', type:'html', html: r => `<span class="nm" title="${wrAttr((r.code?r.code+' \u00b7 ':'')+(r.name||''))}">${wrEsc(r.name || r.code || '—')}</span>${typeof wrOwned==='function'?wrOwned(r):''}${(+r.r1d)>=3 && r.pead>=2 && (r.s2list||r.s2calc) ? '<span class="se-pill new" title="Big move + strong earnings + Stage 2">★</span>':''}${nlTags(r.code)}`, info: 'nl-tags'},
     {k:'act', t:'', type:'html', html: r => typeof wrActCell==='function' ? wrActCell({code:r.code||r.name, name:r.name, industry:r.industry||r.group}, r.industry||r.group) : ''},
     {k:'group', t:'Sector', type:'text', fn: r => r.group || r.industry},
     {k:'industry', t:'Industry', type:'text'},
@@ -10205,7 +10222,7 @@ function dgRenderTable(){
   });
   const cols = [
     {k:'_i', t:'#', type:'idx'},
-    {k:'name', t:'Stock', type:'html', html: r => `<span class="nm" title="${wrAttr((r.code?r.code+' \u00b7 ':'')+(r.name||''))}">${wrEsc(r.name || r.code || '—')}</span>${typeof wrOwned==='function'?wrOwned(r):''}${(+r.r1d)>=3 && r.pead>=2 && (r.s2list||r.s2calc) ? '<span class="se-pill new" title="Big move + strong earnings + Stage 2">★</span>':''}`},
+    {k:'name', t:'Stock', type:'html', html: r => `<span class="nm" title="${wrAttr((r.code?r.code+' \u00b7 ':'')+(r.name||''))}">${wrEsc(r.name || r.code || '—')}</span>${typeof wrOwned==='function'?wrOwned(r):''}${(+r.r1d)>=3 && r.pead>=2 && (r.s2list||r.s2calc) ? '<span class="se-pill new" title="Big move + strong earnings + Stage 2">★</span>':''}${nlTags(r.code)}`, info: 'nl-tags'},
     {k:'act', t:'', type:'html', html: r => typeof wrActCell==='function' ? wrActCell({code:r.code||r.name, name:r.name, industry:r.industry||r.group}, r.industry||r.group) : ''},
     {k:'group', t:'Sector', type:'text', fn: r => r.group || r.industry},
     {k:'industry', t:'Industry', type:'text'},
@@ -10445,10 +10462,11 @@ function rdNowFor(code){
   if(!r) return { missing: true, date: N.date };
   const t = seTrend(r, N.prevByKey.get(key) || null);
   const s = N.s2.get(key) || null;
-  const flag = s && typeof s.asm === 'string' && s.asm.trim() && s.asm.trim() !== '-' ? s.asm.trim() : null;
+  const pflag = s && typeof s.asm === 'string' && s.asm.trim() && s.asm.trim() !== '-' ? s.asm.trim() : null;
+  const flag = NL.surv ? (nlSurvText(key) || null) : pflag;   // NSE's own ASM / GSM file when loaded, else the provider's tag
   return { date: N.date, rs: r.rs, price: r.price, template: t.total >= 5 ? (t.s2 ? 'PASS' : 'FAIL') : null,
            passed: t.pass, checks: t.total, failed: t.checks.filter(c => !c.ok).map(c => RD_CHECK_SHORT[c.k] || c.label),
-           s2: s, s2date: N.s2date, flag, flagDate: flag ? (N.s2asof || N.s2date) : null };
+           s2: s, s2date: N.s2date, flag, flagDate: flag ? (NL.surv ? NL.surv.asof : (N.s2asof || N.s2date)) : null, flagSrc: NL.surv ? 'nse' : 'provider' };
 }
 function rdDrift(r){
   const a = r.signals_at_pub, n = r.code ? rdNowFor(r.code) : null;
@@ -10464,7 +10482,8 @@ function rdSigHalf(label, date, sig){
     : '<span class="na">template n/a</span>';
   const why = sig.template === 'FAIL' && sig.failed && sig.failed.length ? `<span class="k">on ${sig.failed.map(wrEsc).join(', ')}</span>` : '';
   // the surveillance tag is from the provider's list, not this scan date: say which list
-  const flag = sig.flag ? `<span class="fail" title="ASM / ESM / GSM tag from the provider's Stage 2 list${sig.flagDate ? ' of ' + wrAttr(wrDate(sig.flagDate)) : ''}, not NSE's live list">${wrEsc(sig.flag)}${sig.flagDate ? ` (list of ${wrEsc(wrDate(sig.flagDate))})` : ''}</span>` : '';
+  const flag = sig.flag && sig.flagSrc === 'nse' ? `<span class="fail" title="ASM / GSM from NSE's own surveillance lists${sig.flagDate ? ' of ' + wrAttr(wrDate(sig.flagDate)) : ''}">${wrEsc(sig.flag)}${sig.flagDate ? ` (NSE list of ${wrEsc(wrDate(sig.flagDate))})` : ''}</span>`
+    : sig.flag ? `<span class="fail" title="ASM / ESM / GSM tag from the provider's Stage 2 list${sig.flagDate ? ' of ' + wrAttr(wrDate(sig.flagDate)) : ''}, not NSE's live list">${wrEsc(sig.flag)}${sig.flagDate ? ` (list of ${wrEsc(wrDate(sig.flagDate))})` : ''}</span>` : '';
   return `<span class="half"><span class="k">${label} ${wrEsc(wrDate(date))}</span><span class="v">RS ${sig.rs == null ? '—' : sig.rs}</span>${verdict}${why}${flag}</span>`;
 }
 function rdSigStrip(r, wide){
@@ -10572,6 +10591,187 @@ function rdRenderReader(el){
     <div class="rd-frame-wrap"><iframe class="rd-frame" src="library/research/${wrAttr(r.file)}" title="${wrAttr(r.title)}" loading="lazy"></iframe></div>`;
 }
 
+// ============= NSE LISTS — results dates, surveillance, delivery, breadth, holidays =============
+// Five small files: data/markets/events.json, surveillance.json, holidays.json and data/daily/delivery.json
+// (tools/fetch_nse_lists.py, from the evening pull) and data/daily/breadth.json (tools/build_breadth.py, from the
+// scan archive). Each one is optional: a missing file leaves its tags, column, panel or strip empty and says so;
+// nothing here may throw. The tags only describe what the exchange has published; none of them rates a stock.
+const NL = { ev: null, surv: null, hol: null, dl: null, br: null, loaded: false, evBy: new Map() };
+const NL_RESULTS = new Set(['results', 'results+dividend']);
+const NL_DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+SE_INFO['nl-tags'] = `<h4>Tags beside a name</h4><p><b>results 15-Oct</b> — the company's board meets that day to approve its results (NSE event calendar). Grey when the meeting is 8–21 days away, warm when it is 7 days or fewer, <b>today</b> on the day. Press a tag for more.</p><p><b>LTASM I</b>, <b>STASM II</b>, <b>GSM 0</b> — the stock is on one of NSE's surveillance lists today (long- or short-term Additional Surveillance Measure, or the Graded Surveillance Measure), with its stage. Press a tag for what each one changes about trading the stock.</p>`;
+SE_INFO['ev-results'] = `<h4>Results date</h4><p>The day the company's board meets to consider its financial results, from NSE's event calendar (<code>data/markets/events.json</code>, refreshed by the evening pull). Results are usually published during or after that meeting, so the next session often opens with a gap in either direction.</p><p>The tag shows only results-type meetings (results, or results with a dividend) within 21 days: <b>grey</b> 8–21 days away, <b>warm</b> 7 days or fewer, <b>today</b> on the day. A company can move its date; NSE's calendar is the source.</p>`;
+SE_INFO['ev-week'] = `<h4>Results this week</h4><p>Results meetings in the next 7 days (from today, IST) among the names the app already tracks: the Shortlist, the RS top list (RS Leaders' top 25, or the scan's 25 highest RS ratings before that page has loaded), the holdings you imported on RS Leaders (kept in this browser only) and the members of your sub-sector trackers. The line under each name says why it is tracked.</p><p>NSE lists a few hundred meetings at a time; the rest are counted, not listed.</p>`;
+SE_INFO['surv-asm'] = `<h4>ASM — Additional Surveillance Measure</h4><p>NSE and BSE put a stock on ASM when its price or volume moves out of line with the market (big swings, concentrated buying, a high price-to-earnings with a thin float). There is a <b>long-term</b> list (LTASM, stages I to IV) and a <b>short-term</b> list (STASM, stages I and II). The exchange reviews both every week; stocks come off when the move cools.</p><p>What it changes for a swing trader, depending on the stage: <b>100% upfront margin</b> (no leverage, and margin-funded positions get cut), a <b>narrower price band</b> (5% or 2% a day, so a stock can lock at its limit), and at the higher long-term stages <b>trade-for-trade</b> settlement (every purchase must be paid in full and taken into delivery; nothing can be squared off within the day).</p><p>Source: NSE's own ASM report, as of the date in the tag's tooltip. The exchange's circulars set the exact rules for each stage.</p>`;
+SE_INFO['surv-gsm'] = `<h4>GSM — Graded Surveillance Measure</h4><p>For stocks whose price does not match the company's financial health (often small companies with weak results, insolvency filings, or very thin trading). Stages run from 0 to VI.</p><p>What it changes: from stage 0 the stock trades <b>trade-for-trade</b> (delivery only, nothing squared off within the day) with a <b>price band of 5% or lower</b>; higher stages add an <b>additional surveillance deposit</b> on buyers and limit trading to <b>once a week</b>, then <b>once a month</b>. Liquidity is thin, and getting out can take days.</p><p>The code may also name an IBC (insolvency) or ESM flag that applies at the same time. Source: NSE's own GSM report.</p>`;
+SE_INFO['dl-pct'] = `<h4>Delivery %</h4><p>Of all the shares traded on the scan day, the share that was <b>actually delivered</b> — bought and kept, rather than bought and sold again within the day. NSE publishes it for every stock each evening (the MTO file, <code>data/daily/delivery.json</code>).</p><p>A high figure on a big up-day means more of the buying was taken home; a low figure means the volume was mostly intraday turnover. It is one day's figure for the scan date only. When the loaded file is for a different day than the scan, the column shows a dash; hover the column heading to see which date the file holds.</p>`;
+SE_INFO['br-regime'] = `<h4>Market regime</h4><p>A word for how broad the trend is across the whole scan (every stock with a price in the latest full-market scan, about 1,500–1,700 names), from <code>data/daily/breadth.json</code>:</p><p><b>broad uptrend</b> — 60% or more of stocks above their 200-day average <i>and</i> 50% or more above their 50-day average.<br><b>downtrend</b> — fewer than 40% above their 200-day average.<br><b>mixed</b> — anything in between.</p><p>The 4-week change compares with the newest scan on or before 28 days earlier (no more than 14 days older than that), in percentage points; with no such scan it is left blank. It describes the market's backdrop; it says nothing about any one stock.</p>`;
+SE_INFO['br-50'] = `<h4>Above the 50-day average</h4><p>The share of stocks in the scan whose price closed above their 50-day moving average: the medium-term trend of the average stock. The 4-week change is in percentage points.</p>`;
+SE_INFO['br-200'] = `<h4>Above the 200-day average</h4><p>The share of stocks in the scan whose price closed above their 200-day moving average: the long-term trend of the average stock. 60% or more (with half the market above its 50-day average as well) is a broad uptrend; below 40% is a downtrend; anything else is mixed.</p>`;
+SE_INFO['br-high'] = `<h4>Within 10% of the 52-week high</h4><p>The share of stocks in the scan trading within 10% of their highest price of the last year. It rises when leadership is broad and shrinks when only a few names are still near their highs.</p>`;
+SE_INFO['br-ad'] = `<h4>Advancing / declining</h4><p>How many stocks in the scan closed up on the day, and how many closed down (unchanged ones are in neither). Below it, the median stock's move over one week and one month.</p>`;
+SE_INFO['br-tpl'] = `<h4>Pass the trend template</h4><p>How many stocks in the scan pass all seven checks of the trend template (price above the 50- and 200-day EMAs, the 50 above the 200, 30% or more above the 52-week low, within 25% of the 52-week high, RS 70 or more, a rising 200-day EMA), counted the same way as RS Leaders. Press the <b>i</b> beside Trend on the RS Screen for the full list. A dash means the breadth file does not carry the count for that date.</p>`;
+SE_INFO['st-asm'] += `<p>When NSE's own ASM / GSM file is loaded (<code>data/markets/surveillance.json</code>, from the evening pull), this column shows the exchange's list of that date instead of the provider's tag, and ASM days stays the provider's count. Without the file the provider's tag is shown with how old its list is.</p>`;
+function nlToday(){ const now = new Date(); return ttIso(new Date(now.getTime() + ((now.getTimezoneOffset() + 330) * 60000))); }   // today in IST
+function nlAddDays(iso, n){ const t = new Date(iso + 'T00:00:00'); t.setDate(t.getDate() + n); return ttIso(t); }
+function nlDaysTo(iso, from){ return Math.round((new Date(iso + 'T00:00:00') - new Date(from + 'T00:00:00')) / 864e5); }
+function nlIsResults(e){ return e.kind ? NL_RESULTS.has(e.kind) : /financial result/i.test(e.purpose || ''); }
+async function nlGet(path, manual){ try{ const r = await fetch(path, {cache: manual ? 'reload' : 'default'}); return r.ok ? await r.json() : null; }catch(e){ return null; } }
+async function loadNL(manual){
+  const [ev, surv, hol, dl, br] = await Promise.all(['data/markets/events.json', 'data/markets/surveillance.json', 'data/markets/holidays.json', 'data/daily/delivery.json', 'data/daily/breadth.json'].map(p => nlGet(p, manual)));
+  NL.ev = ev && Array.isArray(ev.events) ? ev : null;
+  NL.surv = surv && (surv.asm || surv.gsm) ? surv : null;
+  NL.hol = hol && hol.closed && typeof hol.closed === 'object' ? hol : null;
+  NL.dl = dl && dl.rows && dl.date ? dl : null;
+  NL.br = br && br.rows && Array.isArray(br.dates) && br.dates.length ? br : null;
+  NL.evBy = new Map();
+  ((NL.ev || {}).events || []).forEach(e => { if(!e || !e.symbol || !e.date || e.past || !nlIsResults(e)) return; const k = String(e.symbol).toUpperCase(); if(!NL.evBy.has(k)) NL.evBy.set(k, []); NL.evBy.get(k).push(e); });
+  NL.evBy.forEach(v => v.sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
+  NL.loaded = true;
+  nlRedraw();
+}
+// redraw the pages that show a tag, a column or a panel from these files, each on its own
+function nlRedraw(){
+  const t = (n, f) => { try{ f(); }catch(e){ console.error('nse lists: ' + n + ' redraw failed', e); } };
+  t('scan pages', () => { if(SE.loaded) seRenderAll(); });
+  t('markets', () => { if(MK.loaded) renderMK(); });
+  t('shortlist', () => { if(SL.loaded) renderSL(); });
+  t('rs leaders', () => { if(RL.loaded) renderRL(); });
+  t('monitor', () => renderMonitor());
+  t('news', () => { if(MN.loaded) renderMN(); });
+  t('research desk', () => { if(RD.loaded && !RD.cur) renderRD(); });
+  t('results week', nlRenderWeek);
+}
+// ---- results dates ----
+function evFor(code){
+  const list = NL.evBy.get(String(code || '').trim().toUpperCase()); if(!list) return null;
+  const today = nlToday(), e = list.find(x => x.date >= today); if(!e) return null;
+  const days = nlDaysTo(e.date, today);
+  return days <= 21 ? Object.assign({}, e, {days}) : null;
+}
+function evTag(code){
+  const e = evFor(code); if(!e) return '';
+  const tip = `Board meeting for results ${wrDate(e.date)}${e.days ? ` (in ${e.days} day${e.days === 1 ? '' : 's'})` : ' (today)'}: ${e.purpose || 'Financial Results'} · NSE event calendar`;
+  return `<span class="nl-tag${e.days <= 7 ? ' warm' : ''}" role="button" tabindex="0" title="${wrAttr(tip)}" onclick="seInfoOpen(event,'ev-results')">results ${e.days === 0 ? 'today' : wrShort(e.date)}</span>`;
+}
+// ---- surveillance (NSE's own ASM / GSM lists) ----
+function nlSurv(code){ const s = NL.surv; if(!s || !code) return null; const k = String(code).trim().toUpperCase(), a = (s.asm || {})[k], g = (s.gsm || {})[k]; return a || g ? {a: a || null, g: g || null} : null; }
+function nlAsmLbl(a){ return String(a.code || ((a.term === 'short' ? 'STASM' : 'LTASM') + ' ' + String(a.stage || '').replace(/^Stage\s*/i, ''))).replace(/\s*-\s*/, ' ').trim(); }
+function nlGsmLbl(g){ const m = String(g.code || '').match(/GSM\s*-?\s*([0IVX]+)\b/i) || String(g.desc || '').match(/GSM\s+Stage\s+([0IVX]+)\b/i); return 'GSM ' + (m ? m[1].toUpperCase() : String(g.stage || '').replace(/^GSM\s*/i, '')); }
+function nlSurvText(code){ const x = nlSurv(code); return x ? [x.a ? nlAsmLbl(x.a) : '', x.g ? nlGsmLbl(x.g) : ''].filter(Boolean).join(' · ') : ''; }
+function survChip(code){
+  const x = nlSurv(code); if(!x) return '';
+  const asof = NL.surv.asof ? ` · NSE list of ${wrDate(NL.surv.asof)}` : '';
+  return (x.a ? `<span class="nl-tag surv" role="button" tabindex="0" title="${wrAttr(`Additional Surveillance Measure, ${x.a.term === 'short' ? 'short-term' : 'long-term'} ${x.a.stage || ''}${x.a.since ? ', listed ' + wrDate(x.a.since) : ''}${asof}`)}" onclick="seInfoOpen(event,'surv-asm')">${wrEsc(nlAsmLbl(x.a))}</span>` : '')
+       + (x.g ? `<span class="nl-tag surv" role="button" tabindex="0" title="${wrAttr(`Graded Surveillance Measure: ${x.g.desc || x.g.code || ''}${x.g.since ? ', listed ' + wrDate(x.g.since) : ''}${asof}`)}" onclick="seInfoOpen(event,'surv-gsm')">${wrEsc(nlGsmLbl(x.g))}</span>` : '');
+}
+// a Stage 2 list's ASM / GSM count and note: NSE's live list when it is loaded, else the provider's tags with their age
+function nlAsmNote(c){
+  if(NL.surv){ const n = c.S2.filter(r => nlSurvText(r.code)).length; return n ? ` · ${n} under ASM/GSM (NSE list of ${wrDate(NL.surv.asof)})` : ''; }
+  const s = c.stats, st = seAsmStale(c); return s.asm ? ` · ${s.asm} under ASM/GSM${st ? ` (list of ${wrDate(st.date)})` : ''}` : '';
+}
+function nlTags(code){ return code && NL.loaded ? evTag(code) + survChip(code) : ''; }
+// ---- delivery % (the scan day's figure only) ----
+function nlDl(code){ const r = NL.dl && NL.dl.rows[String(code || '').trim().toUpperCase()]; return r && wrIsNum(r.pct) ? r : null; }
+function dlCol(scanDate){
+  const d = NL.dl, ok = !!(d && scanDate && d.date === scanDate);
+  const tip = !d ? 'Delivery %: no NSE delivery file loaded' : ok ? `Delivery % for ${wrDate(d.date)}, the scan day (NSE MTO file)` : `Delivery %: the loaded NSE file is for ${wrDate(d.date)}, not the scan day ${wrDate(scanDate)}, so the column shows a dash`;
+  return {k:'dlpct', t:'Deliv %', type:'html', sortType:'num', info:'dl-pct', tip,
+    fn: r => { const x = ok ? nlDl(r.code) : null; return x ? x.pct : null; },
+    html: r => { const x = ok ? nlDl(r.code) : null;
+      return x ? `<span title="${wrAttr(`${wrNum(x.deliv, 0)} of ${wrNum(x.traded, 0)} shares traded on ${wrDate(d.date)} were delivered${x.series && x.series !== 'EQ' ? ' · series ' + x.series : ''}`)}">${(+x.pct).toFixed(0)}%</span>` : `<span class="flat" title="${wrAttr(tip)}">—</span>`; }};
+}
+// ---- market regime (breadth of the scan) ----
+function nlBrLatest(){ const b = NL.br; return b ? (b.latest && b.rows[b.latest] ? b.latest : b.dates[b.dates.length - 1]) : null; }
+function nlBrRef(L){   // the newest scan on or before 28 days before L, no more than 14 days older than that: build_breadth.py's rule (LOOKBACK, SLACK)
+  const day = s => Date.UTC(+s.slice(0, 4), +s.slice(5, 7) - 1, +s.slice(8, 10)) / 864e5;   // whole days, no time-zone drift
+  const t = day(L) - 28; let best = null, bt = -Infinity;
+  NL.br.dates.forEach(d => { if(d >= L || !NL.br.rows[d]) return; const n = day(d); if(n <= t && n > bt){ bt = n; best = d; } });
+  return best && t - bt <= 14 ? best : null;
+}
+function nlBr4w(key){
+  const L = nlBrLatest(); if(!L) return null; const row = NL.br.rows[L] || {}, ref = nlBrRef(L);
+  if(key === 'pct50' && wrIsNum(row.pct50_4w_chg)) return {chg: row.pct50_4w_chg, from: ref};
+  if(!ref || !wrIsNum(row[key]) || !wrIsNum(NL.br.rows[ref][key])) return null;
+  return {chg: Math.round((row[key] - NL.br.rows[ref][key]) * 10) / 10, from: ref};
+}
+function nlRegimeStrip(){
+  if(!NL.loaded) return '';
+  if(!NL.br) return `<div class="br-strip"><div class="br-head"><span class="lab">Market regime</span><span class="br-none">no breadth file yet: <code>python tools/build_breadth.py</code> writes <code>data/daily/breadth.json</code> from the scan archive (the evening pull runs it)</span>${seInfoBtn('br-regime')}</div></div>`;
+  const L = nlBrLatest(), r = NL.br.rows[L] || {};
+  const tone = r.regime === 'broad uptrend' ? 'ok' : r.regime === 'downtrend' ? 'bad' : 'warn';
+  const pct = v => wrIsNum(v) ? (+v).toFixed(1) + '%' : '—';
+  const med = v => wrIsNum(v) ? `${v > 0 ? '+' : v < 0 ? '−' : ''}${Math.abs(v).toFixed(1)}%` : '—';
+  const ch = k => { const c = nlBr4w(k); return c ? `4 weeks ${c.chg > 0 ? '+' : c.chg < 0 ? '−' : '±'}${Math.abs(c.chg).toFixed(1)} pts${c.from ? ` (vs ${wrShort(c.from)})` : ''}` : 'no scan 4 weeks back to compare'; };
+  return `<div class="br-strip">
+    <div class="br-head"><span class="lab">Market regime · breadth of the scan of ${wrDate(L)}</span><span class="br-word ${tone}">${wrEsc(r.regime || '—')}</span>${seInfoBtn('br-regime')}</div>
+    <div class="se-kpis">
+      ${seKpi('Above the 50-day average', pct(r.pct50), `${wrNum(r.above50, 0)} of ${wrNum(r.n, 0)} · ${ch('pct50')}${seInfoBtn('br-50')}`)}
+      ${seKpi('Above the 200-day average', pct(r.pct200), `${wrNum(r.above200, 0)} of ${wrNum(r.n, 0)} · ${ch('pct200')}${seInfoBtn('br-200')}`)}
+      ${seKpi('Within 10% of the 52W high', pct(r.pct_near_high), `${wrNum(r.near_high, 0)} of ${wrNum(r.n, 0)} · ${ch('pct_near_high')}${seInfoBtn('br-high')}`)}
+      ${seKpi('Advancing / declining', `${wrNum(r.adv, 0)} / ${wrNum(r.dec, 0)}`, `on the day · median stock 1W ${med(r.med_r1w)}, 1M ${med(r.med_r1m)}${seInfoBtn('br-ad')}`)}
+      ${seKpi('Pass the trend template', wrIsNum(r.template) ? wrNum(r.template, 0) : '—', `${wrIsNum(r.template) ? `of ${wrNum(r.n, 0)}, all 7 checks` : 'not counted in the file for this date'}${wrIsNum(r.stage2_calc) ? ` · ${wrNum(r.stage2_calc, 0)} on the calculated Stage 2 track` : ''}${seInfoBtn('br-tpl')}`)}
+    </div></div>`;
+}
+function nlRegisterBreadth(){
+  const b = NL.br; if(!b){ delete CH.reg['br-hist']; return; }
+  const prev = CH.reg['br-hist'] || {};
+  CH.reg['br-hist'] = {title: 'Breadth, day by day', sub: 'per cent of the scan above the 50-day and 200-day averages, and within 10% of the 52-week high — one point per full-market scan', wins: MK_WINS, win: prev.win || '3M', hidden: prev.hidden,
+    build: days => { const L = b.dates[b.dates.length - 1], t = new Date(L + 'T00:00:00'); t.setDate(t.getDate() - days); const st = ttIso(t);
+      const s = (k, label, slot) => ({label, pts: b.dates.map(d => [d, (b.rows[d] || {})[k]]).filter(p => wrIsNum(p[1])), unit: '%', digits: 1, slot, delta: 'pts'});
+      return chGrid([s('pct50', 'Above 50-day', 1), s('pct200', 'Above 200-day', 2), s('pct_near_high', 'Near 52W high', 3)], st, false); }};
+}
+function nlRenderRegime(){
+  const strip = document.getElementById('br-strip'), wrap = document.getElementById('br-chart');
+  if(strip) strip.innerHTML = nlRegimeStrip();
+  if(!wrap) return;
+  if(CH.live['br-hist']){ try{ CH.live['br-hist'].destroy(); }catch(e){} delete CH.live['br-hist']; }
+  nlRegisterBreadth();
+  if(!NL.br){ wrap.innerHTML = ''; wrap.style.display = 'none'; return; }
+  wrap.style.display = '';
+  const e = CH.reg['br-hist'];
+  wrap.innerHTML = chCard('br-hist', `<div class="tt-filter" style="margin:8px 0 0;"><span class="wr-hint" style="margin:0;">Window</span><div class="se-seg">${MK_WINS.map(([w]) => `<button class="${w === e.win ? 'active' : ''}" onclick="nlBrWin('${w}',this)">${w}</button>`).join('')}</div><span class="wr-hint" style="margin:0;">Words and thresholds ${seInfoBtn('br-regime')}</span></div>`);
+  chMount('br-hist');
+}
+function nlBrWin(w, btn){ const e = CH.reg['br-hist']; if(!e) return; e.win = w; chMount('br-hist'); mkWinBtns(btn); }
+// ---- results this week, among the names the app tracks ----
+function nlTracked(){
+  const m = new Map(), add = (code, why) => { const k = String(code || '').trim().toUpperCase(); if(!k) return; if(!m.has(k)) m.set(k, []); if(!m.get(k).includes(why)) m.get(k).push(why); };
+  try{ ((SL.doc || {}).rows || []).forEach(r => add(r.code, 'Shortlist')); }catch(e){}
+  try{ const lead = RL.doc && RL.doc.leaders;
+    if(lead && lead.length) lead.forEach(r => add(r.code, `RS top ${RL.doc.top || lead.length}`));
+    else if(SE.c && SE.c.U) SE.c.U.filter(r => r.code && wrIsNum(r.rs)).sort((a, b) => b.rs - a.rs).slice(0, 25).forEach(r => add(r.code, 'RS top 25 (scan)'));
+  }catch(e){}
+  try{ ((DB.holdings || {}).names || []).forEach(h => add(h.code, 'Your book')); }catch(e){}
+  try{ ((IX.doc || {}).indices || []).forEach(x => (x.codes || []).forEach(c => add(c, 'Tracker: ' + x.name))); }catch(e){}
+  return m;
+}
+function nlWeek(){
+  if(!NL.ev) return null;
+  const today = nlToday(), end = nlAddDays(today, 6), tr = nlTracked(), seen = new Set();
+  const due = NL.ev.events.filter(e => e && e.symbol && e.date >= today && e.date <= end && !e.past && nlIsResults(e));
+  const rows = due.filter(e => { const k = String(e.symbol).toUpperCase(), id = k + e.date; if(!tr.has(k) || seen.has(id)) return false; seen.add(id); return true; })
+    .map(e => Object.assign({}, e, {why: tr.get(String(e.symbol).toUpperCase())}));
+  return {today, end, rows, all: new Set(due.map(e => e.symbol + e.date)).size, tracked: tr.size};
+}
+function nlWeekHtml(){
+  const head = sub => `<div class="se-row-h"><div><div class="se-eyebrow">Calendar · NSE board meetings ${seInfoBtn('ev-week')}</div><h2>Results this week</h2></div><span class="wr-hint">${sub}</span></div>`;
+  if(!NL.loaded) return head('') + '<div class="wr-hint">Loading the NSE event calendar…</div>';
+  const w = nlWeek();
+  if(!w) return head('') + '<div class="wr-hint">No event calendar loaded. <code>python tools/fetch_nse_lists.py --only events</code> writes <code>data/markets/events.json</code>; the evening pull runs it.</div>';
+  const sub = `${wrShort(w.today)} to ${wrShort(w.end)} · ${wrNum(w.all, 0)} results meetings across NSE, ${w.rows.length} among the ${wrNum(w.tracked, 0)} names the app tracks · calendar of ${wrDate(NL.ev.asof)}`;
+  if(!w.rows.length) return head(sub) + '<div class="wr-hint">None of the names on your Shortlist, the RS top list, your imported holdings or your trackers has a results meeting in the next 7 days.</div>';
+  const days = [...new Set(w.rows.map(e => e.date))].sort();
+  return head(sub) + `<div class="ev-days">${days.map(d => `<div class="ev-day"><div class="ev-d">${NL_DAYS[new Date(d + 'T00:00:00').getDay()]} ${wrDate(d)}${d === w.today ? ' · today' : ''}</div>${w.rows.filter(e => e.date === d).sort((a, b) => a.symbol < b.symbol ? -1 : 1).map(e => `<div class="ev-row"><span class="tk">${wrEsc(e.symbol)}</span><span class="ev-co">${wrEsc(e.company || '')}</span>${e.kind === 'results+dividend' ? '<span class="nl-tag" role="button" tabindex="0" title="results with a dividend on the agenda" onclick="seInfoOpen(event,\'ev-results\')">+ dividend</span>' : ''}${survChip(e.symbol)}<span class="ev-why">${e.why.map(wrEsc).join(' · ')}</span></div>`).join('')}</div>`).join('')}</div>`;
+}
+function nlRenderWeek(){ const el = document.getElementById('ev-week'); if(el) el.innerHTML = nlWeekHtml(); }
+function nlWeekLine(){
+  if(!NL.loaded || !NL.ev) return '';
+  const w = nlWeek(); if(!w) return '';
+  const names = w.rows.slice(0, 6).map(e => `${wrEsc(e.symbol)} ${wrShort(e.date)}`).join(', ');
+  return `<div class="wr-hint mn-ev">Results this week ${seInfoBtn('ev-week')}: ${w.rows.length ? `<b>${w.rows.length}</b> of the names the app tracks ${w.rows.length === 1 ? 'reports' : 'report'} in the next 7 days (${names}${w.rows.length > 6 ? ', …' : ''})` : 'none of the names the app tracks reports in the next 7 days'}, of ${wrNum(w.all, 0)} across NSE · <a onclick="show('pulse');setTimeout(() => mkJump('mk-a-ev'), 80)">see Markets &amp; Macro</a></div>`;
+}
+
 // ============= SHORTLIST — the end-of-day decision loop =============
 // Reads data/daily/shortlist.json (built by tools/build_shortlist.py, no LLM involved):
 // the market ranked for convergence — new 52-week high + Stage 2 + earnings + today's move
@@ -10597,7 +10797,7 @@ function eodAge(d){
   // NSE holidays: markets.json's known closures plus the date eod.py records in pull_status.json when it finds the
   // market shut (doc.closed), so a holiday never reads as "1 session behind"
   let psClosed = []; try{ psClosed = (PS.doc && Array.isArray(PS.doc.closed)) ? PS.doc.closed : []; }catch(e){}
-  const closed = new Set([...((typeof MK !== 'undefined' && MK.doc && MK.doc.nse && MK.doc.nse.closed) || []), ...psClosed]);
+  const closed = new Set([...((typeof MK !== 'undefined' && MK.doc && MK.doc.nse && MK.doc.nse.closed) || []), ...psClosed, ...Object.keys((NL.hol && NL.hol.closed) || {})]);   // + data/markets/holidays.json
   const t = new Date(d.scan_date + 'T00:00:00'); if(isNaN(t)) return null;
   let n = 0;
   for(t.setDate(t.getDate() + 1); t <= exp; t.setDate(t.getDate() + 1)) if(!wkend(t) && !closed.has(ttIso(t))) n++;
@@ -10822,7 +11022,7 @@ function renderSL(){
   const cols = [
     {k:'_i', t:'#', type:'idx'},
     {k:'pick', t:'Pick', type:'html', html: r => `<label class="sl-pick"><input type="checkbox" ${SL.picks.has(r.code) ? 'checked' : ''} onclick="event.stopPropagation();slToggle('${wrAttr(r.code)}')"></label>`},
-    {k:'name', t:'Stock', type:'html', html: r => `<span class="nm" title="${wrAttr(r.code + ' · ' + (r.name || ''))}">${wrEsc(r.name || r.code)}</span>${typeof wrOwned === 'function' ? wrOwned(r) : ''}${slPinBadge(r)}`},
+    {k:'name', t:'Stock', type:'html', html: r => `<span class="nm" title="${wrAttr(r.code + ' · ' + (r.name || ''))}">${wrEsc(r.name || r.code)}</span>${typeof wrOwned === 'function' ? wrOwned(r) : ''}${slPinBadge(r)}${nlTags(r.code)}`, info: 'nl-tags'},
     {k:'act', t:'', type:'html', html: r => typeof wrActCell === 'function' ? wrActCell({code: r.code, name: r.name, industry: r.industry || r.sector}, r.industry || r.sector) : ''},
     {k:'score', t:'Score', type:'html', sortType:'num', fn: r => r.score, html: slScoreCell, info: 'sl-score'},
     {k:'sector', t:'Sector', type:'text'},
@@ -10831,6 +11031,7 @@ function renderSL(){
     {k:'rs', t:'RS', type:'html', sortType:'num', fn: r => r.rs, html: r => r.rs != null ? seRsCell(r.rs) : '<span class="flat">—</span>', info: 'se-rs'},
     {k:'r1d', t:'Day %', type:'pct', dec:1},
     {k:'r1w', t:'1W %', type:'pct', dec:1},
+    dlCol(d.scan_date),
     {k:'from_52wh', t:'vs 52WH', type:'html', sortType:'num', fn: r => r.from_52wh, html: r => seHighCell(r.from_52wh)},
     {k:'s2w', t:'Wks in S2', type:'int', fn: r => r.s2 ? r.s2.weeks : null, info: 'se-s2weeks'},
     {k:'pead', t:'Earnings', type:'html', sortType:'num', fn: r => r.pead ? r.pead.tier : null, html: r => r.pead && typeof pdTierCell === 'function' ? pdTierCell(r.pead.tier) : '<span class="flat">—</span>', info: 'se-earnings'},
@@ -10861,6 +11062,7 @@ function renderSL(){
   const badge = document.getElementById('sl-badge');
   if(badge){ badge.textContent = SL.picks.size; badge.classList.toggle('show', SL.picks.size > 0); }
   if(typeof seCountUp === 'function') seCountUp(el);
+  nlRenderWeek();
 }
 
 // ============= FEEDBACK — for testers, with screenshots =============
@@ -11246,7 +11448,7 @@ function init(){
   [['renderDash', renderDash], ['renderTrades', renderTrades], ['renderResearch', renderResearch], ['renderWatch', renderWatch], ['renderS2', renderS2], ['render52W', render52W],
    ['renderConverge', renderConverge], ['renderWeekly', renderWeekly], ['renderLearn', renderLearn], ['renderChecklist', renderChecklist], ['renderProc', renderProc],
    ['renderMonitor', renderMonitor], ['renderPnl', renderPnl], ['renderSnap', renderSnap]].forEach(([n, f]) => step(n, f));
-  [['loadLibrary', loadLibrary], ['loadWR', loadWR], ['loadSE', loadSE], ['loadMK', loadMK], ['loadMN', loadMN], ['loadPD', loadPD], ['loadDG', loadDG], ['loadRD', loadRD],
+  [['loadNL', loadNL], ['loadLibrary', loadLibrary], ['loadWR', loadWR], ['loadSE', loadSE], ['loadMK', loadMK], ['loadMN', loadMN], ['loadPD', loadPD], ['loadDG', loadDG], ['loadRD', loadRD],
    ['loadSL', loadSL], ['loadSJ', loadSJ], ['loadPS', loadPS]].forEach(([n, f]) => step(n, () => f(false)));
   step('feedback', () => { fbLoad(); fbBadge(); });
   step('theme', () => seApplyTheme());

@@ -63,6 +63,22 @@ brief to hand to the report generator. Details in [data/scans/README.md](data/sc
   portfolio flows by day, by month and by sector; NSE's sector indices with turnover and P/E; and your
   sub-sector trackers. Data: `data/markets/markets.json`, built by `python tools/fetch_markets.py` from
   NSE's end-of-day index file, Yahoo, RBI, NSDL and SEBI. Every chart has an **Expand** view.
+- **Results dates** - NSE's board-meeting calendar (`data/markets/events.json`, next 60 days, each meeting
+  tagged results / results+dividend / fund-raising / other), refreshed by `python tools/fetch_nse_lists.py`
+  in the evening pull.
+- **Surveillance lists** - NSE's ASM (long and short term, with stage) and GSM lists by symbol, with the list
+  date (`data/markets/surveillance.json`, same tool).
+- **Trading holidays** - NSE's CM-segment holiday list (`data/markets/holidays.json`, same tool; the morning
+  GitHub job tops it up too). The evening pull uses it to tell a holiday from a missed session.
+- **Delivery %** - traded and deliverable quantity and the delivery percentage per symbol for the scan's
+  session, from NSE's MTO file (`data/daily/delivery.json`, same tool; NSE publishes it about 17:00 IST).
+- **Market breadth** - per scan day: the share of the universe above its 50- and 200-day averages and near
+  its 52-week high, advances and declines, the trend-template and Stage 2 counts, a regime word and the
+  4-week changes in the three percentages, all against one reference scan whose date is `ref_4w`
+  (`data/daily/breadth.json`, rebuilt from the scan archive by `python tools/build_breadth.py`).
+- **Pull watchdog** - `.github/workflows/pull_watchdog.yml` checks at 22:00 IST on weekdays that the evening
+  pull has built the expected session, opens a `pull-watchdog` issue when it has not, and closes it when the
+  scans catch up.
 - **Market News** collects the overnight headlines early each morning (`tools/market_news.py collect`, run by
   `.github/workflows/market_news.yml`, scheduled for 03:13 IST; GitHub often starts it late) and groups them by topic; a short digest written from those
   headlines alone is merged on top by a Claude routine.

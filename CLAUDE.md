@@ -2,7 +2,7 @@
 
 Static app (`index.html`, ~10k lines — grep it, never read it whole) + JSON under `data/`, built by `tools/*.py`
 (no LLM). The owner's Windows daily pull runs `tools/eod.py` after the close: build_scan → build_shortlist →
-build_s2history → build_rs_tracker → build_indices → fetch_themes → fetch_markets, then commits `data/` and pushes
+build_s2history → build_rs_tracker → build_breadth → build_indices → fetch_themes → fetch_markets → fetch_nse_lists, then commits its own files under `data/` and pushes
 `main`. The pull writes `data/daily/pull_status.json` (ok / cookie / stale); the app shows anything but ok in red in the
 sidebar and on the Shortlist pull card. `fetch_screener.py` exits 5 when screener redirects to /login/ or /register/
 (session expired); `eod.py --wait-until` then keeps retrying every poll until the deadline, re-reading the cookie file
@@ -38,6 +38,20 @@ label means from the page itself — add an entry whenever a column or label is 
 One file, `data/markets/markets.json`, which is its own cache (a run fetches only dates it lacks). Sources and their
 limits are in the tool's docstring. Each block fails soft and keeps its last good data. No same-day FII/DII from NSE
 or BSE: they serve it only to a browser session and this project does not pretend to be one.
+
+## Phase-3 files (results dates, surveillance, holidays, delivery, breadth)
+`python tools/fetch_nse_lists.py [--only events,surveillance,holidays,delivery] [--date D] [--quiet] [--status]` writes
+`data/markets/events.json` (board meetings, `kind` results / results+dividend / fund-raising / other),
+`data/markets/surveillance.json` (ASM long/short + GSM by symbol), `data/markets/holidays.json` (NSE CM holidays, never
+drops a date) and `data/daily/delivery.json` (the session's MTO delivery %; a 404 before ~17:00 IST keeps the old file).
+`python tools/build_breadth.py` rebuilds `data/daily/breadth.json` (pct above 50/200-DMA, near high, A/D, template,
+Stage 2 calc, regime, and pct50/pct200/pct_near_high 4-week changes against one
+reference scan `ref_4w`: the newest on or before 28 days back, within 14 days) from the scan archive. Both run in the evening pull as "never blocks" steps (breadth after
+build_rs_tracker, the NSE lists after fetch_markets with `--date <scan date>`), and all five are in eod.py's `OUT`. The
+morning GitHub job runs only `--only holidays` (NSE's /api/ may refuse its runners). eod.py's `default_scan_date()` and
+`resolve_session()` read holidays.json as the second session oracle (Yahoo first; no file = the old behaviour).
+`.github/workflows/pull_watchdog.yml` (22:00 IST weekdays) opens a `pull-watchdog` issue when the newest scan is older
+than the expected session and closes it on catch-up.
 
 ## Custom indices — the cheap path (do not open scans or index.html for this)
 1. `python tools/build_indices.py find <name fragments>` → NSE codes from the newest scan (`python3` on Linux).
