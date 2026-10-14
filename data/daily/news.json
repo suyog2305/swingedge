@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-12",
+  "updated": "2026-10-14",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -220,10 +220,10 @@
     ],
     "MVELECTRO": [
       {
-        "t": "MV Electrosystems stock up 37% in two days, trades 80% above IPO price",
-        "src": "Business Standard",
-        "url": "https://www.business-standard.com/markets/news/mv-electrosystems-this-stock-listed-in-august-trades-at-80-premium-up-37-in-two-days-126082800578_1.html",
-        "date": "2026-08-28"
+        "t": "MV Electrosystems shares surge 15% as Kotak MF exposure tops 5%",
+        "src": "Business Today",
+        "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxORDFnRU9IcFhBdkVjQWRmWEoybXpzLVFxN09QQ2VFZFFuc2czd3ktdkp0U2t2ZUM1cDYyS3NyUEcyaE1lVVhka1hqcTlQLWhBNGtqN3JrbXNjR2Vpem9CZmVaNXhIQlFXZlhqVXFDYTl4cmJsVGRSOUFWeWNYMjNkSHBqbFNoSUI1Q1VCRk1SWkV4amZSX2xPYXVZdmpXZkFEc2lHMFhlUEw5NlhLZEU1UzViTlFuNjcxb1dYMDRFbGt5RFU4RjFacHNB?oc=5",
+        "date": "2026-10-14"
       }
     ],
     "PRECWIRE": [
@@ -1417,8 +1417,56 @@
         "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQQWFqVUFGZ3p6RzhyUUNSdFFiUHJ6WGoyekVpYWk3UU5xYTdTa2liWTBCWWdFRHNwVkloX1FXVHRXX0l0b044dXduUGREeVdiX0EwVFJkRHppZU11VGl5dU81Q05jWVZiZHM0RUZzbVNlemJSczlrbHNEbkZMSldxVkc3QVdNVHN4TjdKdndiSm8wckF4VmItaDVBMmZKRkFUNmpOMTB3VFU5eDlVN2RabzVENzMydmpScm1BYW1VT185b2ps0gHKAUFVX3lxTE9KbXRCcklkX19XcFNkMjNKT3ZDSEdqbl83a0NXUDlibTIzMExpS2x1dDhUVHNFbzFrbUcwX0M2eXIwYUMyYTZjN1JiYVA4Z090NVRMYUU2eC1qS2l1eUtSakJTN3NiSDY0TTU1cWF5aHZIdVh1YVFQdUNTV0haZWVGaUk4UndVbEtQdXp6Z2NUTU4tc0Y5N050SGVYYUxSNXM1YkhDcWdoQkpvUmRSOW1sWXUzYnlpbENrVUFmZEs1MUxwNmhxTWRGV2c?oc=5",
         "date": "2026-10-09"
       }
+    ],
+    "TARIL": [
+      {
+        "t": "TARIL Q2FY27 slides: revenue surges 66%, EBITDA margin hits 16% By Investing.com",
+        "src": "Investing.com India",
+        "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOTTMyUFVNSkgxTUlLMWk1N1FzVS1HNlowQlJhMmJNeVFsOThaaktCcTh1Q2k4N2hHb0JKajM2SmJYUXhuUkdGTFNHemxieno1NHA0WHF1d09wVmJkeU5nWlFpaGVSekVoSTdZcmZjclMtWEd1VmYyQlpJd2dHSzZmRHVfTzN3WHZSTUNGdjBDcFF2T0xXRUlfcl9yd243ellvaU9nQUVjTGhsaEd2ZzdweHpHWnhMT0poMGtxcA?oc=5",
+        "date": "2026-10-13"
+      }
+    ],
+    "WSTCSTPAPR": [
+      {
+        "t": "Mukul Agrawal portfolio stock: West Coast Paper up 10%; adds 133% in 7 mths",
+        "src": "Business Standard",
+        "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxPWGhLTHNMTXpyekdFamJuNGY1ZF9kaXpiNzFSWkFpb1dOQUF5TTN6Vm1uRm15YmhaSmZPak5IbmJKTmZWMXc0YnhtaEJtRS1vdHpiRHJTaUpsYTJDbzYxZ3hfd0E3Qlh1V0dLNUg1V2pIY292NDdnT2FYVi1rQms4bXhzYzQ1Rk8zYmw1VXctZzBBSjZ0eTViRWo0eTZ2WHo1a0JsY2dkd1RGS1hGeWtpa1BiQm90ZUQwLVhWNGZacmVkSnFxVXI4VUtRZ2RPZll4OHZYZ09wQdIB3AFBVV95cUxOcU9ENmdUcGxuX3JaMnN1YUtpRlJlVEdYc01uRkJFSHpXN0J0M25HR2FSMXV3eDluWHpyWlVWbWxvYkhBTVY4SC13LWNvVVVya0g4eE9mdXNETkYyR0lrNDRtRzhvYkpoaW9VVFVSZl9YY2JkTDNxN1BDWXFjdUMyS1VNTnlXSXpHQTh1VEJGSEtPbGZmMmE3OThaOGxDd1hNdi1CRDdCVFJybFJtRkJsWGlxN0pkdDd5b3hqRU1rX3pOMEo3emc2TGN6azRJUTJoZzk3dF80d0ZHc0p3?oc=5",
+        "date": "2026-10-14"
+      }
+    ],
+    "V2RETAIL": [
+      {
+        "t": "V2 Retail Q1 FY27: Revenue Up 58%, Profit Rs 41.9 Crore, 57 Stores Added",
+        "src": "Kalkine India",
+        "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxOOVVjX29rZi1uTXRUS20xQ0ZPTmF3bXdTYXkzc3RkU2t3RElJMjdsQjFEQTJnbUVSUDg3S2FtUFlWOGZPNzRIMXcwTUJpeEloWUJ0TTVQd1gxd3M3dnQ4MjMxZXlhX0VUY0stRmJSTm5EemJqZlV6bnNlaXY1b1ZCSHlWb1UxTkRDNzZCTEVaMnZSS29PRGtDdkdzZExrUEdVa2pIZU14Slp3dWRsREJjWWs1RzBZakRsSHZOQ2Q2ektxSVJoMFBaYjJhQWdPWlduQ3pOb0NsREdFZU1YelBPMXhHTC03c0pVTnRKbzA0OFYzRnl4RXc?oc=5",
+        "date": "2026-10-12"
+      }
+    ],
+    "VEDPOWER": [
+      {
+        "t": "Vedanta Power shares jump 13% today after a 5-day loss - Can a rebound in the stock sustain? Tech experts decode",
+        "src": "Livemint",
+        "url": "https://news.google.com/rss/articles/CBMiigJBVV95cUxPQk9STGRRWG1aMVh4SmhaNEs1T3VXN2FBdDFld1FTbHdaeXhBR3pmYjhPMlVfTFNUd1BRMng2MTM4aWdMaG1TUk1wX2taRG1ocnhYcTFpZU9mMzRuaG5qMVRNV0k4ZGlpaURadTZaT3ZsVl9mTVNUOHZ1MUIyTFJmakxja3RXX01SQXVJWVhiU2ZGb211dFgwNTlfNV9pZVpZWHNKVHhfNFNHSWN3T0lZeTNEUk94MkM3NmxOTFFhSi1tajYyZGNpOVVEM0M5VVBzMXF4RkNYamQyNkVYUldRRjA3VllUTm5uR1RLNHJxVmYzVGJuVE13cjVfOTRuVDhxRWNXdmd0ejlBQdIBjwJBVV95cUxOcFM0UUtNUEw0RU1QTzlVV0hBYmgzdlg5UXh3V01GTlNLTFZGTUM4QzhCbmtYT244WEgwakQtQW92QkFPbUZNbktRRG9NeGFXbzFDanZqMm1yVm5wNzlkQTNzaW1aT09RT0l1eXI0T2xVS21aYjRSenpiZDNCYUtMYWxoNzJTdFBmRlpLai1keTd2Rk1laVJmNjZ5cGtkN0ZhcUxpTzRwc2NhSTVnRmtubmx3cmZxMU1vRFRGTkJ5a2owTmw5STItcVFtb1pBMmlhQzVMekdKdU9DNzItZk91X2tJZTRqenNva2tRV2duaFliTHNrLW1GN24yNVRWVDUxMXNkZ05fTFVJVDR1bklz?oc=5",
+        "date": "2026-10-14"
+      }
+    ],
+    "KROSS": [
+      {
+        "t": "Kross Ltd to host Q2FY27 earnings call on October 19, 2026",
+        "src": "scanx.trade",
+        "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOVm1LeVlHR3IyaF92RjhZeUlkZlNXcjR1Q1dHU21mM3N2bE4yNXBxdU1ZbURkUWJoT3lLNFZKVXl6eUdaYXh1T3B3TW5TdG1IOFJtZnJTTTdhbHRuZ0dKaUI0c05nSElQQWN3U3ZTYjJsM0NjeUV5ZTNnbHNMT1p6N2toQzhEdkNzVko2ajZzQ3ZGN3FzVFMxQnppeXFSNW5VRzNORnA1RFNURHlK?oc=5",
+        "date": "2026-10-14"
+      }
+    ],
+    "SSRETAIL": [
+      {
+        "t": "SS Retail share price zooms 20% after Q1 PAT rockets 61%; adds 33 stores",
+        "src": "Business Standard",
+        "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQOWctakM4VE5VSUtzcWRSem80UlRWakJmRTdzb0Vmc2RVWjNHbnNtREpNQ0pNUVoxUmNia0FZaU92Tl9lZmNQT1p0UThBdTV6ZHRxRHVvZzVSSGdBNVlubXAxMnVsZS1RdnRmdkpDSnhiYXg4ZzFZZ2N2bkgzem9CMTVhazZiRTdqVTdUaFZQM1J3NW9MWE05ZUt0dldwUU03T2d0R21sb0syMWE3QnN2bEt5dkU4d1M1MVpLSUw0aEpLUGRrOEhqaWxFaFQ1RXpnWmfSAdcBQVVfeXFMTXdXLXJXOHRZS3R5Y2xzTjhLRXZVd21kdHJjM0ZiSXZ6ZzhNc1pHMFk2T1ZmVnBLVFpmVGhwQllCQnU3NS1zYnlTeU5ZZGJGLS0tdXhwUzZyTThyWjRrWW9weDVybUJac2sxZEx6c2lmNHVMV0JEZzBkVzRfV3BKVVBaajRDZTBTVWh4YnZPTGpJdk9LQ28wZmY2Mi1aYnVUZ0dfa0dRNE1idm5mbmp3YzF3a0NZTnkwNDlTYndBdnBCQ2ZTd19yR211SENiaXpwdW9YVjd1Wms?oc=5",
+        "date": "2026-10-14"
+      }
     ]
   },
-  "vetted_scan": "2026-10-09",
-  "vetted_at": "2026-10-12T07:45+0530"
+  "vetted_scan": "2026-10-14",
+  "vetted_at": "2026-10-14T18:46+0530"
 }
