@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-14",
+  "updated": "2026-10-15",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -1308,10 +1308,10 @@
     ],
     "RITES": [
       {
-        "t": "RITES surges 10.24% to day's high, outperforms railways sector",
-        "src": "MarketsMojo",
-        "url": "https://marketsmojo.com/news/stocks-in-action/rites-ltd-hits-intraday-high-with-1024-surge-on-30-sep-2026-4210071",
-        "date": "2026-09-30"
+        "t": "RITES shares on an uptrend, up 12% in just 5 sessions - Can the stock rise further? Experts decode",
+        "src": "Livemint",
+        "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxQUXB3UUV6aWVCcGpQRjh0OGRLR25KcldaeG5wSnM5UzFhVFZyaV9LRDRnU0I3MGMyWGJmQ1ZzTmgzdnp6U3NNamg3OXpSenFTYldzTjY5YmtsbWdWX2dkOHFmbHhod0pVT0I2WTM1bVBELUdPanRla3JJUjVnN1RhRHJhV2hMN01SRDdSNU9Eb0xBQm1XazVTSi1kMHhHc2NVc2R6UW05NkFJUWM4Z1dLbGZ0UWF1YXZkX19jSm1JMDFrR2lVR2QtOEVhVzRFZy1nNmVMYzZxTUY0MDlpbzdYVlk5TXhpLXJxOG40SGRIaERybDVFRFHSAfsBQVVfeXFMUGJfUUs1eExxNGgwVUlvaFhZT01aRHRyMVRnOG1JZ09ickIzaG9CNExSd210Mkd5M3M2UlVQTldiTTBjb0psUW5xN1lET2NmUVR4LUhSMHJxTm5CNjNXZ3YxbWdOdEtEVVpaeXJqS2d0X29pOHQ3NVB3NlE4WUhZUG9FX25zaXBvak5pZW4zU0hycDNfdHV4REw3S1FSYWhFanNad3daNEQwaHd2MjJHQ1NHYlNmXy1GTW80a2pETjAzZnNzYXBTRHo3aEI5b25XZ0drZmJ5WjEtVkJhTVlBV2FFQ19OMlVLZW1Odmc0WHBqY01Xak45MktQSFU?oc=5",
+        "date": "2026-10-15"
       }
     ],
     "BHAGERIA": [
@@ -1465,8 +1465,56 @@
         "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQOWctakM4VE5VSUtzcWRSem80UlRWakJmRTdzb0Vmc2RVWjNHbnNtREpNQ0pNUVoxUmNia0FZaU92Tl9lZmNQT1p0UThBdTV6ZHRxRHVvZzVSSGdBNVlubXAxMnVsZS1RdnRmdkpDSnhiYXg4ZzFZZ2N2bkgzem9CMTVhazZiRTdqVTdUaFZQM1J3NW9MWE05ZUt0dldwUU03T2d0R21sb0syMWE3QnN2bEt5dkU4d1M1MVpLSUw0aEpLUGRrOEhqaWxFaFQ1RXpnWmfSAdcBQVVfeXFMTXdXLXJXOHRZS3R5Y2xzTjhLRXZVd21kdHJjM0ZiSXZ6ZzhNc1pHMFk2T1ZmVnBLVFpmVGhwQllCQnU3NS1zYnlTeU5ZZGJGLS0tdXhwUzZyTThyWjRrWW9weDVybUJac2sxZEx6c2lmNHVMV0JEZzBkVzRfV3BKVVBaajRDZTBTVWh4YnZPTGpJdk9LQ28wZmY2Mi1aYnVUZ0dfa0dRNE1idm5mbmp3YzF3a0NZTnkwNDlTYndBdnBCQ2ZTd19yR211SENiaXpwdW9YVjd1Wms?oc=5",
         "date": "2026-10-14"
       }
+    ],
+    "ORIENTELEC": [
+      {
+        "t": "Orient Electric Q2 profit jumps two-fold to Rs 27 crore, revenue rises 25% YoY",
+        "src": "The Economic Times",
+        "url": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxNZXlWaDlDWEFUb0RiUlJad25yVlVrWDRVaVAxdFhfQ3BUYW1oQVVVam92VFp2akRnU1Y2STFocGV0U19uRWZpYjRERXZFN3pJZXh0NVZnX0NrUFpOTks1dzREQUFWU1lPNmkxLWxWMUVNc29MLXBWUXNoaU5aLVRBUWo0MGY5OVhXaGJqb29YNEhXbTFiLUtVT0J2N1QtSnF5S0JLMkRnTXk3TzRCWlhHTjYxcGRQSndxenh6c0lUS0c1b1U5SVVTT3U2eFg0d19GZDZmZWZvckZnUXQyd0tRLVAxZHJmd2g3WHfSAe8BQVVfeXFMTWtFaGt5dGpXOUFJYnpXQjZ3Q3hNVjFCNzZMZ21Ja0lJTVJVdUtrcXlneDVsSnpJcG9BTWEtUUJLYlVIcVlOY2dubDBmemxPV0xJbWhVYU1QZ0N2UmlWUzdsVm9QUGktTXN3TEwtRnVNeFBWdDZIa0Z3cElTdmJxZ0ZmSl9QYTBjLUh6eE1XVUV2VVJ3RXV2Mng5OHFoOTdXd0lIR1NVSnpOSFlHaXpTX21ub3FZTm01VkhyNlBpdmZKblFORl9DVXZmVkFzaGFVTVpkWXZqX1ZTMzRhY0pMSlRjLVc5d3FwVmRPUk5aNGM?oc=5",
+        "date": "2026-10-15"
+      }
+    ],
+    "JAICORPLTD": [
+      {
+        "t": "ED attaches 88.47 acres of Alibaug land linked to Jai Corp in INR 2,434-crore fund probe",
+        "src": "Prop News Time",
+        "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxOY0JZaHZXakNfQWZLdTYxMlhPd3dqX2ltVHI0VzV2WmdTYlh6bWNvaXRRM2tHRjZhc09OZW1kd1l2YWExODBFbTRuUlNmaWwwMEk0NjAwcE1Wb09WTFllTGQxSHh4VnZyci11RDQ0QUxxSGFzN0NJenRlb1ZPU25xZ0ZBZHBjTXg4VndDXzBvSXl1aFFCcTNiaWJfOFJSSGVXYzBYOWtrRG9jQ21qTGVXWVE5bjdnQ2lXY2hVNGlNOWNoNXpFUHR2aWNLZWswaXhoTlBHY1cwdw?oc=5",
+        "date": "2026-10-08"
+      }
+    ],
+    "JAIBALAJI": [
+      {
+        "t": "Jai Balaji Industries Q1FY27 revenue up 23%, net profit rises 21%",
+        "src": "scanx.trade",
+        "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQUTduSFNkVVZSRmV5YTNDd3pfQThJZUdKckU1WnRGTjRYSmlJNzM2bnBtMzhwdF9kYy1IWVJYUUZHaFpWTDRfV1l1RG4zNkxQNkZEUGpBM0VlaGNrMzdhT1Y1NE96Vk12Z08xNWc5TUp2bnJaajF3RUN5eHdqQjN0ZVFIYVV1SjlrZlBVY1RDdGcyYzVreXNENUVaOUFLOHlXRWN6eEdkVXVCcFVHVl82ZmxRWUNhWHZlejVtZQ?oc=5",
+        "date": "2026-10-15"
+      }
+    ],
+    "SEJALLTD": [
+      {
+        "t": "Sejal Glass Reports 77.6% YoY Growth in Q2 FY27 Consolidated Net Profit",
+        "src": "EquityBulls",
+        "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE4tRWZJaVdYYXRTNlMwb0RkZ05NOE43cDRRQ3BfUHpja0dHYlNKN2xSbW1iSjQ4Q293ZlZ2MXplM3kwUkQxUnlCWkRScTVJNEt6VHRkUTMtV21aYVJRcEVz?oc=5",
+        "date": "2026-10-13"
+      }
+    ],
+    "TATACOMM": [
+      {
+        "t": "Tata Communications Q2 profit rises 86% to ₹341 crore, revenue up 9.6%",
+        "src": "Business Standard",
+        "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxNM1gyV0lpV2J1X3R3TDZSVkFoSlR1Mnc3azgxOVJkeHJvZm9BTk8xYXhlSjhReGJWaXNVNlhWVmVCVlVBeFRSWkdZMkw3dG1ma1MzS181SlRGNXRyWnFsMEZNZ1pVWGZJZXhmcHZIMVN0WklpS0sxVkR4X1lqak9MS1FTN3pqdkQzOGktYkRobmZFSEZWQjhzM3paQTRXWTU1YzRCQWNnSlhaNkxfTENLYnJ1NUpUOVlJYXZGbmZmekxEV2JvNXNSVVZsYmJfTFZ3d2JFbWZha0RjWXNVRzd6TVNn0gHnAUFVX3lxTE5sLTFxRWFxZVB5dlVnYTNwbnplWFVZbHVmZkwyVXB0UWUyNlBTaWM4VFFpdTdxQUpjRlFDSURYMFctYnBibFNyU2NpV3JKeWFuV1lyVm0tZnBadWN0Yzd5TUlLSl93al8ySW1na2x0aG5IVDY1YlNfeXdvb3FyRXUtNlFvcDcySThZOHpOeDZsUl92NlB5SlRIOWZSc2NSUW1WZmhnWVlXNFBOdXVrSVBTdVg1LXlhRDgzSUJDeGFIckttOVl1ZG1LRWQxVkMzd2Z3S2QtLW5Qc1ZMcGZxbVhVeUtRTTUtZw?oc=5",
+        "date": "2026-10-15"
+      }
+    ],
+    "ALLTIME": [
+      {
+        "t": "All Time Plastics to host analyst meet in Silvassa on Oct 17",
+        "src": "scanx.trade",
+        "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOamNpWWlMNHAyUHlQTjNzd1VlOXJGUUJ3clpxUFlvS2hZLUNyV2FHVFZuTFk3Z1hLM1BkN1hJS1ExaENrNW90NHRNZmViUy1FYmNYRjdxMGhaN1JpaDZfckM5UUVfZGpsUDRpS1NKTnJvZTlMRlZDT0YwOFhoVmNDNU9JbVZzVXlWQ25UQVUwcUlpNWxIcnAya3hGWHBnS3d3cTdWQVdtRnBQYXp6?oc=5",
+        "date": "2026-10-13"
+      }
     ]
   },
-  "vetted_scan": "2026-10-14",
-  "vetted_at": "2026-10-14T18:46+0530"
+  "vetted_scan": "2026-10-15",
+  "vetted_at": "2026-10-15T18:46+0530"
 }
