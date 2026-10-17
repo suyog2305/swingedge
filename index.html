@@ -8451,7 +8451,7 @@ function renderMK(){
   const errs = d.errors || [], src = d.sources || {}, as = b => (d[b] || {}).asof;
   const legacy = (DB.macroSnaps || []).length ? `<details class="tt-table" style="margin-top:10px;"><summary>Your ${DB.macroSnaps.length} manual snapshot(s) from the old Commodities page</summary><div class="wr-twrap" style="max-height:260px;"><table class="scan-table"><thead><tr><th>Week</th><th class="num">Brent</th><th class="num">WTI</th><th class="num">DXY</th><th class="num">USD/INR</th><th class="num">Gold</th><th class="num">Silver</th><th class="num">10Y</th><th class="num">Nifty</th><th>Note</th></tr></thead><tbody>${DB.macroSnaps.map(s => `<tr><td>${wrEsc(s.week || '')}</td>${['brent', 'wti', 'dxy', 'usdinr', 'gold', 'silver', 'yield', 'nifty'].map(k => `<td class="num">${s[k] == null || s[k] === '' ? '—' : wrEsc(s[k])}</td>`).join('')}<td class="tt-note">${wrEsc(s.notes || '')}</td></tr>`).join('')}</tbody></table></div></details>` : '';
   el.innerHTML = `
-    <div class="mk-jump"><a onclick="mkJump('mk-a-macro')">Macro now</a><a onclick="mkJump('mk-a-what')">What is moving what</a><a onclick="mkJump('mk-a-charts')">Charts</a><a onclick="mkJump('mk-a-flow')">Foreign money</a><a onclick="mkJump('mk-a-idx')">NSE indices</a><a onclick="mkJump('mk-a-trk')">Your trackers</a><a onclick="mkJump('mk-a-ev')">Results this week</a><a onclick="mkJump('mk-a-rot')">Sector rotation</a><a onclick="mkJump('mk-a-lead')">Leaders</a><a onclick="show('news')">Market news →</a></div>
+    <div class="mk-jump"><a onclick="mkJump('mk-a-macro')">Macro now</a><a onclick="mkJump('mk-a-what')">What is moving what</a><a onclick="mkJump('mk-a-charts')">Charts</a><a onclick="mkJump('mk-a-flow')">Foreign money</a><a onclick="mkJump('mk-a-fno')">F&amp;O positioning</a><a onclick="mkJump('mk-a-idx')">NSE indices</a><a onclick="mkJump('mk-a-trk')">Your trackers</a><a onclick="mkJump('mk-a-ev')">Results this week</a><a onclick="mkJump('mk-a-rot')">Sector rotation</a><a onclick="mkJump('mk-a-lead')">Leaders</a><a onclick="show('news')">Market news →</a></div>
     <div class="se-row-h mk-sec" id="mk-a-macro"><div><div class="se-eyebrow">Macro now</div><h2>Indices, yields, the dollar, crude and metals</h2></div><span class="wr-hint">India ${wrDate(as('nse'))} · global ${wrDate(as('global'))} · 1D, 1W and 1M changes; yields in basis points</span></div>
     <div class="mk-tiles">${MK_TILES.map(mkTile).join('')}</div>
     <div class="se-panel mk-sec" id="mk-a-what"><div class="se-row-h"><div><div class="se-eyebrow">What is moving what</div><h2>The outside drivers, and what they usually touch</h2></div><div class="se-seg">${[[26, '6 months'], [52, '1 year']].map(([n, t]) => `<button class="${MK.corr === n ? 'active' : ''}" onclick="MK.corr=${n};renderMK()">${t}</button>`).join('')}</div></div>
@@ -8462,11 +8462,14 @@ function renderMK(){
     <div class="tt-grid mk-two">${MK_CHARTS.map(c => chCard(c.key)).join('')}</div>
     <div class="se-row-h mk-sec" id="mk-a-flow"><div><div class="se-eyebrow">Where the money is going</div><h2>Foreign portfolio flows</h2></div><span class="wr-hint">NSDL, through ${wrDate(as('fpi'))}</span></div>
     ${mkFlowBlock()}
+    <div class="se-row-h mk-sec" id="mk-a-fno"><div><div class="se-eyebrow">Derivatives positioning</div><h2>Who holds what in futures and options</h2></div><span class="wr-hint">NSE${NL.fn ? ', session of ' + wrDate(NL.fn.asof) : ''} · contracts held, not cash flow ${seInfoBtn('fn-what')}</span></div>
+    <div id="fno-body">${fnoBlock()}</div>
     <div class="se-panel mk-sec" id="mk-a-idx"><div class="se-row-h"><div><div class="se-eyebrow">Where the money is going</div><h2>NSE indices: return, turnover and valuation</h2></div></div><div id="mk-idx">${mkIdxTable()}</div></div>
     <div class="se-panel mk-sec" id="mk-a-trk"><div class="se-row-h"><div><div class="se-eyebrow">Where the money is going</div><h2>Your sub-sector trackers</h2></div><button class="btn btn-ghost btn-sm" onclick="show('indices')">Open Indices →</button></div>${mkTrackersBlock()}</div>
     <div class="se-panel mk-sec" id="mk-a-ev"><div id="ev-week">${nlWeekHtml()}</div></div>
     <div class="wr-hint" style="margin-top:12px;">Sources — ${Object.keys(src).map(k => `<a href="${wrAttr(src[k].url)}" target="_blank" rel="noopener">${wrEsc(src[k].label)}</a>`).join(' · ')}. Refreshed ${wrEsc(String(d.generated || '').replace('T', ' ').slice(0, 16))} IST by <code>tools/fetch_markets.py</code>.${errs.length ? ` <span class="wr-tag stale">${errs.length} source${errs.length === 1 ? '' : 's'} did not answer; the last good data is shown</span>` : ''} Reference prices from public daily feeds; nothing here is advice.</div>${legacy}`;
   MK_CHARTS.forEach(c => chMount(c.key)); chMount('mk-fpi'); if(CH.reg['mk-trk']) chMount('mk-trk');
+  try{ fnoMount(); }catch(e){ console.error('f&o charts', e); }
 }
 function mkWinBtns(btn){ btn.parentElement.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn)); }
 function mkJump(id){ const el = document.getElementById(id); if(el) el.scrollIntoView({behavior: 'smooth', block: 'start'}); }
@@ -10662,7 +10665,7 @@ function rdRenderReader(el){
 // (tools/fetch_nse_lists.py, from the evening pull) and data/daily/breadth.json (tools/build_breadth.py, from the
 // scan archive). Each one is optional: a missing file leaves its tags, column, panel or strip empty and says so;
 // nothing here may throw. The tags only describe what the exchange has published; none of them rates a stock.
-const NL = { ev: null, surv: null, hol: null, dl: null, br: null, av: null, loaded: false, evBy: new Map() };
+const NL = { ev: null, surv: null, hol: null, dl: null, br: null, av: null, fn: null, loaded: false, evBy: new Map() };
 const NL_RESULTS = new Set(['results', 'results+dividend']);
 const NL_DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 SE_INFO['nl-tags'] = `<h4>Tags beside a name</h4><p><b>results 15-Oct</b> — the company's board meets that day to approve its results (NSE event calendar). Grey when the meeting is 8–21 days away, warm when it is 7 days or fewer, <b>today</b> on the day. Press a tag for more.</p><p><b>LTASM I</b>, <b>STASM II</b>, <b>GSM 0</b> — the stock is on one of NSE's surveillance lists today (long- or short-term Additional Surveillance Measure, or the Graded Surveillance Measure), with its stage. Press a tag for what each one changes about trading the stock.</p>`;
@@ -10684,7 +10687,8 @@ function nlDaysTo(iso, from){ return Math.round((new Date(iso + 'T00:00:00') - n
 function nlIsResults(e){ return e.kind ? NL_RESULTS.has(e.kind) : /financial result/i.test(e.purpose || ''); }
 async function nlGet(path, manual){ try{ const r = await fetch(path, {cache: manual ? 'reload' : 'default'}); return r.ok ? await r.json() : null; }catch(e){ return null; } }
 async function loadNL(manual){
-  const [ev, surv, hol, dl, br, av] = await Promise.all(['data/markets/events.json', 'data/markets/surveillance.json', 'data/markets/holidays.json', 'data/daily/delivery.json', 'data/daily/breadth.json', 'data/daily/averages.json'].map(p => nlGet(p, manual)));
+  const [ev, surv, hol, dl, br, av, fn] = await Promise.all(['data/markets/events.json', 'data/markets/surveillance.json', 'data/markets/holidays.json', 'data/daily/delivery.json', 'data/daily/breadth.json', 'data/daily/averages.json', 'data/daily/fno.json'].map(p => nlGet(p, manual)));
+  NL.fn = fn && fn.participants && Array.isArray(fn.participants.dates) && fn.participants.dates.length ? fn : null;
   NL.ev = ev && Array.isArray(ev.events) ? ev : null;
   NL.surv = surv && (surv.asm || surv.gsm) ? surv : null;
   NL.hol = hol && hol.closed && typeof hol.closed === 'object' ? hol : null;
@@ -10819,6 +10823,133 @@ function nlRenderRegime(){
 }
 function nlBrWin(w, btn){ const e = CH.reg['br-hist']; if(!e) return; e.win = w; chMount('br-hist'); mkWinBtns(btn); }
 // ---- results this week, among the names the app tracks ----
+// ---- F&O positioning (data/daily/fno.json, written by tools/fetch_fno.py from NSE's participant OI, F&O bhavcopy and ban list) ----
+const FN = { win: '3M' };
+const FN_WINS = [['1M', 31], ['3M', 93], ['All', 9999]];
+const FN_PARTS = [['FII', 'Foreign institutions'], ['DII', 'Domestic institutions'], ['Pro', 'Proprietary traders'], ['Client', 'Clients']];
+const FN_KINDS = [['long build-up', 'Long build-up', 'price up, open interest up: new buyers'], ['short build-up', 'Short build-up', 'price down, open interest up: new sellers'],
+                  ['short covering', 'Short covering', 'price up, open interest down: sellers closing'], ['long unwinding', 'Long unwinding', 'price down, open interest down: buyers closing']];
+function fnSigned(v, dec){ return wrIsNum(v) ? (v > 0 ? '+' : v < 0 ? '−' : '') + wrNum(Math.abs(v), dec == null ? 0 : dec) : '—'; }
+function fnK(v){ return wrIsNum(v) ? (v > 0 ? '+' : v < 0 ? '−' : '') + wrNum(Math.abs(v) / 1000, 1) + 'k' : '—'; }
+function fnShareWord(p){ return p == null ? '—' : p < 30 ? 'heavily net short' : p < 45 ? 'net short' : p <= 55 ? 'balanced' : p <= 70 ? 'net long' : 'heavily net long'; }
+function fnPcrWord(v){ return !wrIsNum(v) ? '—' : v < 0.8 ? 'more calls than puts' : v <= 1.2 ? 'balanced' : 'more puts than calls'; }
+// one participant's numbers on session i: [index fut long, short, stock fut long, short, index call long, put long, call short, put short]
+function fnRow(k, i){
+  const r = ((NL.fn.participants || {})[k] || [])[i]; if(!r) return null;
+  const long = r[0], short = r[1];
+  return {long, short, net: long - short, share: long + short ? Math.round(1000 * long / (long + short)) / 10 : null, stk: r[2] - r[3],
+          calls: r[4] - r[6], puts: r[5] - r[7], bias: (r[4] + r[7]) - (r[5] + r[6])};
+}
+function fnVal(oi, px){ return wrIsNum(oi) && wrIsNum(px) ? oi * px / 1e7 : null; }          // ₹ crore
+function fnKpis(P, n){
+  const f = fnRow('FII', n - 1), f1 = n > 1 ? fnRow('FII', n - 2) : null, f5 = n > 5 ? fnRow('FII', n - 6) : null;
+  const nifty = (NL.fn.index || {}).NIFTY || {}, o = nifty.opt || {}, ban = (NL.fn.ban || {}).today || [];
+  const dlt = (a, b, lbl) => a && b ? `${lbl} ${fnK(a.net - b.net)}` : '';
+  const pain = o.max_pain_m, spot = nifty.spot, gap = pain && spot ? 100 * (pain - spot) / spot : null;
+  return `<div class="se-kpis">
+    ${seKpi('FII index futures, net', f ? fnK(f.net) : '—', f ? `long ${f.share}% · ${fnShareWord(f.share)} · ${[dlt(f, f1, 'day'), dlt(f, f5, '5 sessions')].filter(Boolean).join(' · ')}${seInfoBtn('fn-net')}` : '')}
+    ${seKpi('FII index options, bias', f ? fnK(f.bias) : '—', `calls long and puts short, less the reverse${seInfoBtn('fn-opt')}`)}
+    ${seKpi('Nifty put-call ratio', wrIsNum(o.pcr_m) ? o.pcr_m.toFixed(2) : '—', `${fnPcrWord(o.pcr_m)} · series of ${o.m_expiry ? wrShort(o.m_expiry) : '—'} · nearest weekly ${wrIsNum(o.pcr) ? o.pcr.toFixed(2) : '—'}${seInfoBtn('fn-pcr')}`)}
+    ${seKpi('Nifty max pain', wrIsNum(pain) ? wrNum(pain, 0) : '—', `${o.m_expiry ? wrShort(o.m_expiry) + ' series' : ''}${gap != null ? ` · ${Math.abs(gap).toFixed(1)}% ${gap >= 0 ? 'above' : 'below'} spot ${wrNum(spot, 0)}` : ''}${seInfoBtn('fn-maxpain')}`)}
+    ${seKpi('In the F&O ban', String(ban.length), `${ban.length ? wrEsc(ban.slice(0, 4).join(', ')) + (ban.length > 4 ? '…' : '') : 'none today'}${seInfoBtn('fn-ban')}`)}
+  </div>`;
+}
+function fnPartTable(P, n){
+  const rows = FN_PARTS.map(([k, name]) => { const r = fnRow(k, n - 1), p = n > 1 ? fnRow(k, n - 2) : null; return r && Object.assign({code: k, name, dnet: p ? r.net - p.net : null}, r); }).filter(Boolean);
+  const cols = [
+    {k:'name', t:'Participant', type:'html', html: r => `<b>${wrEsc(r.code)}</b> <span class="flat">${wrEsc(r.name)}</span>`, info: 'fn-part'},
+    {k:'long', t:'Index fut long', type:'int'}, {k:'short', t:'Index fut short', type:'int'},
+    {k:'net', t:'Net', type:'html', html: r => `<b class="${r.net > 0 ? 'up' : r.net < 0 ? 'dn' : ''}">${fnSigned(r.net)}</b>`, info: 'fn-net'},
+    {k:'share', t:'Long share', type:'html', html: r => `${r.share == null ? '—' : r.share.toFixed(1) + '%'} <span class="flat">${fnShareWord(r.share)}</span>`, info: 'fn-share'},
+    {k:'dnet', t:'Net, day change', type:'html', html: r => `<span class="${r.dnet > 0 ? 'up' : r.dnet < 0 ? 'dn' : 'flat'}">${fnSigned(r.dnet)}</span>`},
+    {k:'bias', t:'Index options bias', type:'html', html: r => `<span class="${r.bias > 0 ? 'up' : r.bias < 0 ? 'dn' : ''}">${fnSigned(r.bias)}</span>`, info: 'fn-opt'},
+    {k:'stk', t:'Stock futures net', type:'html', html: r => `<span class="${r.stk > 0 ? 'up' : r.stk < 0 ? 'dn' : ''}">${fnSigned(r.stk)}</span>`},
+  ];
+  return wrTable('fn-part', cols, rows, {sortable: false});
+}
+function fnIndexTable(){
+  const ix = NL.fn.index || {};
+  const rows = Object.keys(ix).map(k => { const e = ix[k], f = e.fut || {}, o = e.opt || {}; const v = fnVal(f.oi, e.spot), dv = fnVal(f.oi_chg, e.spot);
+    return {k, spot: e.spot, chg: wrIsNum(f.close) && wrIsNum(f.prev) && f.prev ? 100 * (f.close - f.prev) / f.prev : null, oi: v, oichg: v && dv != null ? 100 * dv / (v - dv) : null,
+            pcr: o.pcr, pcrm: o.pcr_m, pain: o.max_pain_m, mexp: o.m_expiry}; });
+  const cols = [
+    {k:'k', t:'Index', type:'html', html: r => `<b>${wrEsc(r.k)}</b>`}, {k:'spot', t:'Spot', type:'num', dec: 1},
+    {k:'chg', t:'Futures, day', type:'pct', dec: 2}, {k:'oi', t:'Futures OI (₹ Cr)', type:'int', info: 'fn-oi'},
+    {k:'oichg', t:'OI change', type:'pct', dec: 1},
+    {k:'pcrm', t:'PCR, monthly series', type:'html', html: r => wrIsNum(r.pcrm) ? `<b>${r.pcrm.toFixed(2)}</b> <span class="flat">${fnPcrWord(r.pcrm)}</span>` : '—', info: 'fn-pcr'},
+    {k:'pcr', t:'PCR, nearest', type:'num', dec: 2},
+    {k:'pain', t:'Max pain (monthly)', type:'html', html: r => wrIsNum(r.pain) ? wrNum(r.pain, 0) : '—', info: 'fn-maxpain'},
+  ];
+  return wrTable('fn-idx', cols, rows, {sortable: false});
+}
+function fnStockTable(rows){
+  const ban = new Set((NL.fn.ban || {}).today || []);
+  const cols = [
+    {k:'s', t:'Stock', type:'html', html: r => `<b>${wrEsc(r.s)}</b>${ban.has(r.s) ? ' <span class="nl-tag surv" title="in the F&O ban today">ban</span>' : ''}${typeof nlTags === 'function' ? ' ' + nlTags(r.s) : ''}${r.why ? `<div class="mn-s">${wrEsc(r.why)}</div>` : ''}`},
+    {k:'chg', t:'Price', type:'pct', dec: 2}, {k:'oi_pct', t:'OI change', type:'pct', dec: 1}, {k:'val', t:'OI (₹ Cr)', type:'int', info: 'fn-oi'},
+  ];
+  return rows.length ? wrTable('fn-st-' + (rows._id || 'x'), cols, rows, {sortable: false}) : '<div class="wr-hint">none above the size cut-off today</div>';
+}
+function fnBuildPanels(){
+  const S = (NL.fn.stocks || []).filter(s => wrIsNum(s.oi_pct) && s.k).map(s => Object.assign({val: fnVal(s.oi, s.px)}, s));
+  const big = S.filter(s => s.val >= 200);
+  const panels = FN_KINDS.map(([k, title, sub]) => { const rows = big.filter(s => s.k === k).sort((a, b) => Math.abs(b.oi_pct) - Math.abs(a.oi_pct)).slice(0, 8); rows._id = k.replace(/\W+/g, '');
+    return `<div class="se-panel"><div class="wr-sub">${title} <span class="flat">${sub}</span></div>${fnStockTable(rows)}</div>`; }).join('');
+  const tr = typeof nlTracked === 'function' ? nlTracked() : new Map();
+  const mine = S.filter(s => tr.has(s.s)).map(s => Object.assign({}, s, {why: tr.get(s.s).slice(0, 2).join(' · ') + ' — ' + s.k})).sort((a, b) => Math.abs(b.oi_pct) - Math.abs(a.oi_pct)).slice(0, 12);
+  mine._id = 'mine';
+  const counts = FN_KINDS.map(([k, t]) => `${t.toLowerCase()} ${S.filter(s => s.k === k).length}`).join(' · ');
+  return `<div class="wr-sub" style="margin-top:18px;">Stock futures: what changed today ${seInfoBtn('fn-build')}</div>
+    <div class="wr-hint" style="margin:0 0 8px;">${S.length} stock futures with a price and open-interest change · ${counts} · the eight largest moves in open interest per group, among contracts with at least ₹200 Cr open</div>
+    <div class="tt-grid">${panels}</div>
+    <div class="se-panel" style="margin-top:12px;"><div class="wr-sub">Your names in F&O <span class="flat">shortlist, RS leaders, your book and tracker members that trade in futures</span></div>${fnStockTable(mine)}</div>`;
+}
+function fnBanLine(){
+  const b = NL.fn.ban || {}; if(!b.date) return '';
+  const chips = a => a.length ? a.map(x => `<span class="nl-tag surv">${wrEsc(x)}</span>`).join(' ') : '<span class="flat">none</span>';
+  return `<div class="wr-hint" style="margin-top:14px;">F&amp;O ban on ${wrDate(b.date)} ${seInfoBtn('fn-ban')}: ${chips(b.today || [])}${(b.entered || []).length || (b.left || []).length ? ` · entered ${chips(b.entered || [])} · left ${chips(b.left || [])}` : ''}</div>`;
+}
+function fnoBlock(){
+  if(!NL.loaded) return '<div class="wr-empty"><i class="ti ti-loader-2 spin"></i><p>Loading…</p></div>';
+  const f = NL.fn;
+  if(!f || !f.participants || !(f.participants.dates || []).length) return `<div class="wr-hint">No F&amp;O file yet: <code>python tools/fetch_fno.py --backfill 60</code> writes <code>data/daily/fno.json</code> (NSE publishes the files about 19:15 IST).</div>`;
+  const n = f.participants.dates.length;
+  return `${fnKpis(f.participants, n)}
+    <div class="tt-filter" style="margin:12px 0 0;"><span class="wr-hint" style="margin:0;">Window</span><div class="se-seg">${FN_WINS.map(([w]) => `<button class="${w === FN.win ? 'active' : ''}" onclick="fnWin('${w}',this)">${w}</button>`).join('')}</div></div>
+    <div class="tt-grid mk-two" style="margin-top:8px;">${chCard('fn-hist')}${chCard('fn-pcr')}</div>
+    <div class="wr-sub" style="margin-top:18px;">Who holds what, session of ${wrDate(f.participants.dates[n - 1])} ${seInfoBtn('fn-part')}</div>${fnPartTable(f.participants, n)}
+    <div class="wr-sub" style="margin-top:18px;">Index futures and options</div>${fnIndexTable()}
+    ${fnBuildPanels()}${fnBanLine()}
+    <div class="wr-hint" style="margin-top:10px;">NSE participant-wise open interest, the F&amp;O bhavcopy and the ban list, by <code>tools/fetch_fno.py</code>; positioning in contracts, not cash flow.</div>`;
+}
+function fnRegister(){
+  const f = NL.fn; if(!f || !f.participants){ delete CH.reg['fn-hist']; delete CH.reg['fn-pcr']; return false; }
+  const cut = days => { const L = f.participants.dates[f.participants.dates.length - 1], t = new Date(L + 'T00:00:00'); t.setDate(t.getDate() - days); return ttIso(t); };
+  const pw = (CH.reg['fn-hist'] || {}).win || FN.win;
+  CH.reg['fn-hist'] = {title: 'Net index futures by participant', sub: 'contracts held long minus short in index futures, one point per session: the FII line against the other three', wins: FN_WINS, win: pw, hidden: (CH.reg['fn-hist'] || {}).hidden,
+    build: days => chGrid(FN_PARTS.map(([k], j) => ({label: k, pts: f.participants.dates.map((d, i) => { const r = fnRow(k, i); return [d, r ? r.net : null]; }).filter(p => p[1] != null), unit: 'contracts', digits: 0, slot: j + 1, delta: 'none'})), cut(days), false)};
+  const h = f.pcr_hist;
+  if(h && (h.dates || []).length > 1) CH.reg['fn-pcr'] = {title: 'Put-call ratio, monthly series', sub: 'open interest in puts divided by calls on the nearest monthly expiry; above 1.2 more puts, below 0.8 more calls', wins: FN_WINS, win: pw, hidden: (CH.reg['fn-pcr'] || {}).hidden,
+    build: days => chGrid(['NIFTY', 'BANKNIFTY'].map((k, j) => ({label: k, pts: h.dates.map((d, i) => [d, h[k][i]]).filter(p => wrIsNum(p[1])), unit: 'x', digits: 2, slot: j + 1, delta: 'none'})), cut(days), false)};
+  else delete CH.reg['fn-pcr'];
+  return true;
+}
+function fnoMount(){
+  ['fn-hist', 'fn-pcr'].forEach(k => { if(CH.live[k]){ try{ CH.live[k].destroy(); }catch(e){} delete CH.live[k]; } });
+  if(!fnRegister()) return;
+  ['fn-hist', 'fn-pcr'].forEach(k => { if(CH.reg[k] && document.getElementById('cv-' + k)) chMount(k); });
+}
+function fnWin(w, btn){ FN.win = w; ['fn-hist', 'fn-pcr'].forEach(k => { if(CH.reg[k]){ CH.reg[k].win = w; chMount(k); } }); mkWinBtns(btn); }
+SE_INFO['fn-what'] = `<h4>Derivatives positioning</h4><p>This section reads NSE's daily futures-and-options files: open interest by participant (clients, domestic institutions, foreign institutions and proprietary traders), every index and stock contract, and the ban list. Open interest is the number of contracts still open at the close. It shows <b>what is held</b>, not what was traded and not cash-market flow: the FII figures here are contracts in derivatives, a different thing from the FII buying and selling of shares, which NSE shows only to a browser session. The files appear about 19:15 IST, so this section is current by the evening or the next morning.</p>`;
+SE_INFO['fn-part'] = `<h4>Participants</h4><p>NSE splits every open contract by who holds it: <b>FII</b> foreign institutions, <b>DII</b> domestic institutions (mutual funds, insurers), <b>Pro</b> the exchange's proprietary traders and brokers' own books, and <b>Client</b> everyone else, mostly retail. The two sides of every contract balance, so a net long for one group is a net short for another.</p>`;
+SE_INFO['fn-net'] = `<h4>Net index futures</h4><p>Contracts held long minus contracts held short in index futures (Nifty, Bank Nifty and the smaller indices together). Foreign institutions are often net short here because they use index futures to hedge shares they hold in the cash market, so the level on its own says little: read the <b>change</b> and where today sits in the chart's range. The chart shows the participants' nets over time.</p>`;
+SE_INFO['fn-share'] = `<h4>Long share</h4><p>Long contracts divided by long plus short, in percent. Words: under 30% heavily net short, 30 to 45 net short, 45 to 55 balanced, 55 to 70 net long, over 70 heavily net long. A group's level is only meaningful against its own history, so compare it with the chart.</p>`;
+SE_INFO['fn-opt'] = `<h4>Index options bias</h4><p>Calls held long plus puts held short, minus puts held long and calls held short: the contracts that gain if the index rises minus those that gain if it falls. It is a rough guide only, because it ignores strikes, expiry and hedging, and a group can hold both sides at once.</p>`;
+SE_INFO['fn-pcr'] = `<h4>Put-call ratio</h4><p>Open interest in puts divided by open interest in calls. Below 0.8 means more calls than puts held, 0.8 to 1.2 balanced, above 1.2 more puts than calls. Traders usually read it as a gauge of sentiment, and extreme values are sometimes read the other way, so it describes what is held, not what will happen. This page uses the <b>nearest monthly series</b> because the weekly option that is about to expire holds most of Nifty's open interest and swings with expiry-day positioning (the all-expiry ratio went from 0.73 to 1.27 in one day in October 2026); the nearest weekly ratio is shown beside it.</p>`;
+SE_INFO['fn-maxpain'] = `<h4>Max pain</h4><p>The index level at expiry where the option buyers as a group would lose the most money and the sellers the least, worked out from the open interest at every strike of the monthly series. Prices sometimes drift toward it in the last days before expiry; they do not have to.</p>`;
+SE_INFO['fn-build'] = `<h4>Build-up words</h4><p>The nearest-month future's price change against yesterday, combined with the change in open interest across all expiries: <b>long build-up</b> price up and open interest up (new buyers), <b>short build-up</b> price down and open interest up (new sellers), <b>short covering</b> price up and open interest down (sellers closing), <b>long unwinding</b> price down and open interest down (buyers closing). Only stocks with at least ₹200 Cr of open interest are ranked, by the size of the open-interest change in percent.</p>`;
+SE_INFO['fn-ban'] = `<h4>The F&amp;O ban</h4><p>NSE bars new positions in a stock's derivatives once total open interest passes 95% of the market-wide limit for that stock, and lifts the ban when it falls below 80%. During a ban only trades that reduce a position are allowed. A ban means the contracts are crowded, not that the stock is good or bad.</p>`;
+SE_INFO['fn-oi'] = `<h4>Open interest in rupees</h4><p>Open contracts times the futures price (for an index, times the index level), in crore rupees: a size comparable across stocks and indices. The change is the day's change in open interest as a percent of yesterday's.</p>`;
 function nlTracked(){
   const m = new Map(), add = (code, why) => { const k = String(code || '').trim().toUpperCase(); if(!k) return; if(!m.has(k)) m.set(k, []); if(!m.get(k).includes(why)) m.get(k).push(why); };
   try{ ((SL.doc || {}).rows || []).forEach(r => add(r.code, 'Shortlist')); }catch(e){}

@@ -54,6 +54,14 @@ morning GitHub job runs only `--only holidays` (NSE's /api/ may refuse its runne
 `.github/workflows/pull_watchdog.yml` (22:00 IST weekdays) opens a `pull-watchdog` issue when the newest scan is older
 than the expected session and closes it on catch-up.
 
+## F&O positioning
+`tools/fetch_fno.py` (keyless NSE static files: participant OI csv, F&O bhavcopy zip, ban csv) -> `data/daily/fno.json`:
+`participants` {dates, FII/DII/Pro/Client: 8 numbers per date}, `index` (spot, futures OI, PCR for the nearest weekly AND
+the nearest monthly series, max pain), `pcr_hist` (monthly-series PCR: the expiring weekly holds most of Nifty's OI and
+swings with expiry day, so never chart the weekly), `stocks` (price change, OI change over all expiries, build-up word),
+`ban` {today, prev, entered, left}. NSE publishes about 19:15 IST: eod.py's main step usually prints NOT YET and the
+20:00 catch-up writes the file. The page block is `fnoBlock()` in index.html (Markets & Macro, `#mk-a-fno`, data in `NL.fn`).
+
 ## Phase-4 files (price store, history files, true averages, automatic weekly review)
 All stdlib, all "never blocks" steps in eod.py, all in its `OUT`; each tool has `--status` or `--dry-run` and `--quiet`.
 - `data/prices/YYYY-MM-DD.json` + `data/prices/index.json` — the NSE price store, written by `tools/fetch_bhav.py`

@@ -22,6 +22,7 @@ WHAT IT RUNS, IN ORDER
   6. fetch_themes.py     refresh the theme trackers (crude, rigs, the stock); never blocks
   7. fetch_markets.py    refresh the Markets & Macro data (NSE indices, yields, flows); never blocks
      fetch_nse_lists.py  NSE results dates, ASM/GSM lists, holidays, the session's delivery %; never blocks
+     fetch_fno.py        F&O positioning: participant OI, index PCR / max pain, stock build-up, ban list; never blocks
      fetch_bhav.py       NSE's full bhavcopy for the session into the price store (data/prices/); never blocks
      build_averages.py   true simple 50/150/200-day averages from the store (data/daily/averages.json); never blocks
      auto_weekly.py      on the week's last session only: the automatic weekly review (library/weekly/); never blocks
@@ -124,6 +125,7 @@ OUT = ['data/scans',                                            # build_scan
        'data/markets/markets.json',                             # fetch_markets
        'data/markets/events.json', 'data/markets/surveillance.json',   # fetch_nse_lists
        'data/markets/holidays.json', 'data/daily/delivery.json',       # fetch_nse_lists (holidays: the GitHub job too)
+       'data/daily/fno.json',                                          # fetch_fno
        'data/daily/breadth.json',                               # build_breadth
        'data/daily/rs_history.json', 'data/daily/track.json',   # build_history
        'data/prices', 'data/daily/averages.json',               # fetch_bhav (price store), build_averages
@@ -809,6 +811,19 @@ def main():
                     run('fetch the delivery file', [sys.executable, os.path.join('tools', 'fetch_nse_lists.py'), '--only', 'delivery', '--date', date, '--quiet'], False, timeout=300)
                     if dl_date() == date:
                         late.append(os.path.relpath(dl, ROOT))
+                fno = os.path.join(ROOT, 'data', 'daily', 'fno.json')
+                try:
+                    fno_date = json.load(io.open(fno, encoding='utf-8')).get('asof')
+                except Exception:
+                    fno_date = None
+                if fno_date != date:
+                    print(f'\n--- F&O positioning for {date} (never blocks)')
+                    run('fetch F&O positioning', [sys.executable, os.path.join('tools', 'fetch_fno.py'), '--date', date, '--quiet'], False, timeout=300)
+                    try:
+                        if json.load(io.open(fno, encoding='utf-8')).get('asof') == date:
+                            late.append(os.path.relpath(fno, ROOT))
+                    except Exception:
+                        pass
                 # NSE's bhavcopy (the price store's source) is also published in the evening, usually after the
                 # 15:50 run: fetch it for the built close when the store has no file for it, then the averages.
                 if not os.path.exists(price_file(date)):
@@ -825,6 +840,7 @@ def main():
                     _git('add', '--', *late)
                     if _git('diff', '--cached', '--quiet', '--', *late).returncode:
                         what = ' and '.join(x for x, on in (('delivery percentages', any('delivery' in p for p in late)),
+                                                            ('F&O positioning', any('fno' in p for p in late)),
                                                             ('NSE prices', any('prices' in p for p in late))) if on)
                         _git('commit', '-q', '-m', f'{what[:1].upper() + what[1:]} {date}', '--', *late)
                         if publish():
@@ -1127,6 +1143,13 @@ def main():
     # file when NSE does not answer (the delivery file is out about 17:00 IST; a 404 keeps the older one).
     if not run("refresh NSE's lists: results dates, ASM/GSM, holidays, delivery (never blocks the scan)",
                [py, os.path.join('tools', 'fetch_nse_lists.py'), '--date', date, '--quiet'], a.dry_run, timeout=300):
+        print('    ignored - the scan, shortlist and journal above are complete')
+
+    # ---- derivatives positioning: participant OI, index PCR and max pain, stock build-up, the ban list ----------
+    # NSE publishes these about 19:15 IST, after this run has usually finished: the file is then written by the
+    # 20:00 trigger's catch-up. A 404 prints NOT YET and keeps the previous file; it never stops the run.
+    if not run("fetch F&O positioning (never blocks the scan)",
+               [py, os.path.join('tools', 'fetch_fno.py'), '--date', date, '--quiet'], a.dry_run, timeout=300):
         print('    ignored - the scan, shortlist and journal above are complete')
 
     # ---- the NSE price store: the session's full bhavcopy, then true simple averages from it ----------

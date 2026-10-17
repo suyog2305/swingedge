@@ -106,6 +106,12 @@ brief to hand to the report generator. Details in [data/scans/README.md](data/sc
 - **Market News** collects the overnight headlines early each morning (`tools/market_news.py collect`, run by
   `.github/workflows/market_news.yml`, scheduled for 03:13 IST; GitHub often starts it late) and groups them by topic; a short digest written from those
   headlines alone is merged on top by a Claude routine.
+- **F&O positioning** (Markets & Macro, after the foreign flows): from NSE's static daily files, `tools/fetch_fno.py`
+  writes `data/daily/fno.json` - open interest by participant (FII, DII, Pro, Client) with 60 sessions of history, index
+  futures and options (put-call ratio on the nearest monthly series, max pain, futures open interest in rupees), every
+  stock future's build-up word (long build-up, short build-up, short covering, long unwinding), and the F&O ban list with
+  what entered and left. It is positioning in contracts, not cash flow; NSE publishes the files about 19:15 IST, so the
+  20:00 trigger writes them. `python tools/fetch_fno.py --backfill 60` rebuilds the history.
 - **Global Peers** puts the Indian names you follow next to the US and global companies that mirror, supply or
   buy from them (HFCL and Sterlite Tech with Corning, MTAR with Bloom Energy, Netweb and E2E with NVIDIA, Super
   Micro and Nebius, GNG with SK hynix and Samsung), with each side's moves, how closely their daily returns have
