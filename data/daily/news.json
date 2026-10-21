@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-19",
+  "updated": "2026-10-21",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -244,10 +244,10 @@
     ],
     "JUSTDIAL": [
       {
-        "t": "Just Dial locked in upper circuit, spikes 10% on new CEO strategy and Norges Bank-backed AGM optimism",
-        "src": "Business Standard",
-        "url": "https://www.business-standard.com/markets/news/just-dial-locked-in-upper-circuit-stock-spikes-10-in-a-single-session-126082800580_1.html",
-        "date": "2026-08-28"
+        "t": "Buy Just Dial; target of Rs 850: ICICI Securities",
+        "src": "Moneycontrol.com",
+        "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPM1RvcmhhdmU0Umk3SnBFaHJWQ2Z0alc0NDZQWk5ZTTNnTVl1ZVhBSkdsTDJPbGhoa0YzaGNNaUZFTVNwN1F6aGdsODlnWFlqaFQ2aVpraXVaS000N2FaT3ZEWV9hcHB1UEtlTzhqZnZ3cHNPS0pYUHUxOEZIbGVQZjd2d3ZWcHFHME9MNmhZRGZEdEw0NnBBQ1ZXWUZsOWNpb0xNUVdnONIBrAFBVV95cUxOdGtzU2VTVFR5NlhaNzRaZm9SX0x4YVFvSXFKaVd4WUVOMi1IU2ZOZTFfZ0ZQd1VpWVFIV1dYM0RLX1lvVGhBekFMS1RTOG1UWU40QnVKQzczcy1EWFJKRTZVYUFJM2JzZnBMX3VxV3ZUeE9mWlZmOWV1b3BibXhlUEw2M1F1SVBxVTBzSlR6MEQ0UHVXRmtrYXprek1wT2M0eHhIUl9leDRtS0V0?oc=5",
+        "date": "2026-10-21"
       }
     ],
     "ATHERENERG": [
@@ -900,10 +900,10 @@
     ],
     "TRANSRAILL": [
       {
-        "t": "Transrail Lighting shares zoom 12% on 70% rise in manufacturing capacity",
-        "src": "Business Standard",
-        "url": "https://www.business-standard.com/amp/markets/news/transrail-lighting-shares-jump-12-as-manufacturing-capacity-rises-70-126092200317_1.html",
-        "date": "2026-09-22"
+        "t": "Transrail Lighting shares jump 10% | Rs.927 crore order wins, 990 MW solar deal in focus - what investors should know",
+        "src": "TradingView",
+        "url": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxNbXkybzRqbnhfSEltdklDemVhd2xKbzlVcS15SkpIS1RHcUVKd3AwbHVFbzM4SVZmVjJnYktjOXI3OVFwNFFnNVdJMzJWSEpqN3RBNzN1OUhGVjh5azVGWjVwbS1uMWpnUmZaRm56Rmh6R01Sb3VIWVZ4TVpkRjdMdHBvWU0zOVNqdlNGQTNjRnJnT3FSUGljMS01NE1VbWNVWGMwOEdyZDFNUzJ4NERObDhRRXU2cjJTeVdqODRwU2VMS3VLUEJ1UFVaLXdyQzNZdkh2QzJMM2pNWl9mR29iU3VnMTZ3bS1icHFqZjRFVER5TWpvRGpaUWVrQnA?oc=5",
+        "date": "2026-10-21"
       }
     ],
     "GABRIEL": [
@@ -1641,8 +1641,80 @@
         "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQeXZBcEZYbjhDd0JMQ1g3LWp0bGxxRkl1aGVUVWZLZ3d1TDRJaVhnaU5laFBlNFRsdzJKNXVlX0Z5aXR4LXNKRDduWG5Dam1vR00tMXJwZkpjQXhXNXZZZUt5Zjh3M1B1STZRZkpmNHVlOU12ckJ1Y0YzeTI2Zmc0aV84REVNUkRxOFZJc0tzaFctY0FfdTczME9jMGFOV0t5U19veUlwY1JwNkx6dXRuNHl2dks?oc=5",
         "date": "2026-10-19"
       }
+    ],
+    "HDFIRE": [
+      {
+        "t": "HD Fire Protect shares list at nearly 24% premium, pare gains after strong debut",
+        "src": "BusinessLine",
+        "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxQY2pxZFZvbDZsdW1LNTFVaFhId21WcTd6NlNRdHRBYjdqbFpOaDVJdElxNmtocVFuaTlKckVLcjlRYm1xRDhxT3BCLXkyZmtIVnJOZ2tTOV9kVWI0ZUdLWU5zdXJSdHZCNkIzWVpJTHBCZjdneG9mWG5obXNJd3NiVXFpR3diakk3Yjdfckp5OWtlODh5b3Jsa0VJRldVdzdpVVN5OTkxOVhTXzQzSHdrQkN4dmN5VkE3Zkw0UURqakNIa0VQcFFTd3NlWDhkc2g3Ym5NdnphTHlLbmZDcDJ3NEVGMDJGQkFzT2hNTHFn0gH0AUFVX3lxTE9IYWhpUDBzSUpaUXVCMHpaSkVnV3F6RVhTd1dseUU5cUhMVUduUS1qOF82UU9ObDFlQVMyaUFjZHRFTUxoSF9IR2xHYmV3NnVsYmxrRDhORkExS0FfcjV2V0Mtbk0wTzdaOFVXMDJ6VUlGQUMzUUhyR1A2ekp0azlBdzZiWTZDSjRRbXFIMElXYWkzRU5mQ0k0LTFuYmtoTHdfSWhvN3hRV3NXbS1xTGlFSVNuRGNhd1lGN1ppdGpjM0t3Y3h4RHZHeWhyZ21TMERHWUp2WkJfal9iTGlzV1c1eDVObzRCNlJOUkhrZ2pWd2Y5dzM?oc=5",
+        "date": "2026-10-21"
+      }
+    ],
+    "INDIACEM": [
+      {
+        "t": "India Cements share price jumps 8%: A trend reversal or just a relief rally? Experts weigh in; check key levels to watch",
+        "src": "Livemint",
+        "url": "https://news.google.com/rss/articles/CBMilAJBVV95cUxQdlV4dFJkYXpkU3BqWF9RU1VNMmZpUTE0ZUsxWjVoVnNpM0JwTGFCZ3N2T3p2MUVtLWZFQzdqNlRuTF9JcGpLMFJnTmV4WE9VeFNYLXhyX2dUY2R1U0ZScy1neENQdDN1cFVONjljdkE3ay1RTFpZX0gzOWVlS0RKMWdmUWZnTkxaUmRlYURJLXVQeUk0Q0Vra19rOG9qZEdnU3d4cmY4aUFjcjMwdmZUc1BVQXY5cEFWX2VoMXdNdzhZQ0QtSFoxNVdVUFRqM01YTVBFNElHRVhUUWg5VmdxRHNEeEYxZ1RpUW5md1E1Umsta00tYXpIbE5ER3gzYkdYODhuRUoxczRHLWUtMXhQUENFUnrSAZoCQVVfeXFMT2tHN20xSzRJU1hNTXVUa3h6eFlKdEtlWDlHdFdmMFVWZ19ha0lRRzgzOEFKS2VKeVVaei1Pa2pOSTBJTzgwQ0oyaWlKMHVuT09Vb3JEZkNWZEUycUdtVWpWQU5uTmRoLUdSdzBidTdpSS1lR2FpR1RheWpqelNjMG9WRWhnZHBKZEs4TEFZTGkxRHRFaS1nVUlCaERQUC04TDdqYUlwQURUS3FKel9BNlVIaUR1TjN6NTZjWWdtQzFMenhuVV9mTkdWc1NvYTVQWWpyT0NXeHQ3WXVNZ2g1M2VRem84MUtHeU80REZDS25WV0RpWDV6cWpiMExoSHZKdmVORDNWYUpQdGdVUXE5bm9LazF5eFNONWhn?oc=5",
+        "date": "2026-10-21"
+      }
+    ],
+    "FRACTAL": [
+      {
+        "t": "Fractal Analytics shares: 6% jump today after 11% YTD fall - Here's why | What should investors do?",
+        "src": "Livemint",
+        "url": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxQLTJnWGN2OURCMnYtZjF4RXg2V1lGLTdRY1JpbkFBdDN0aF9jM0xlUFk3Y0tteDlKd3RPbzR2c21reWlwbThqY3ByWlZ3QUVTOHNyU3BMWTkybzc2OXpSbXF0VWFScnhoZ3lwQzFYMnVoWnE0cW03MmJuNXlhc01fMFJNQVZqNDZTc2M4WndNYjhaM0JTdzlLNUpMZVdfU0lfczR5eVluOWZ3RjV0TmZBczcxT3drX1RhVk9MdHc0T0d6NlVGamNINVE2TWJJREMwbnRsVldwSURGQUI0V1VqTURCT2t0SXU1ZWwteTlzYjF5UdIB9wFBVV95cUxNeGw2bWF2b3VqcEV4QWlkWjBPVzV2WnluTEo1bUY1OG1EcVJwbks3MHdOamNJMW9VN0xKMWZjNTIyUDZaVEhhTDZqd1otVDlMN203ZVpkZVBWVWttSHE5eGFTSnpfaElnNDhTeVNRdE9aTy01NW9JUThzS2p6YkJ5cF9qM25sZ0x6NE5CWEN0QUZELUI4UXB6WkhLNU52eVBfM3loSVZyU0lYQkp5MEMxRjhOSlZWQ25yY3hQei1IdTBGNDJneXBHYWhJa3l5eTlydHozaXpubkxmaUMtWGE2aVN3eVM5UmlNV2lUV1pjVERIMmtzSlhZ?oc=5",
+        "date": "2026-10-21"
+      }
+    ],
+    "LTTS": [
+      {
+        "t": "Why L&T Technology shares jumped 11% to hit the Rs 4,000 level afterQ2 results",
+        "src": "The Economic Times",
+        "url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxOQ3ZzaC1pYV90aGFsTmc3bmRCMDFmM1hoT3JLM2lVTU9vR0ZZeW0tQnl0TmlDaXFtYXdBLVV3Ung0MDJ5TU5tVDc4Unl3bUF4b2hpaUJGMlBTU3BkYWp2MDFWUUVWRmJEV1UyTFZrSnVSRFdmSTRPZ09kRy1jV2Y3ckNOd05Ec0dORXFpc0g4N2lBY1NsalMwekNQYUZoX1pmU1FLYVM1a0N3T2JQNjEwRlp3OVJkbUpqQXJHNkRuV1Y5ZUp0M2t5LTNXY2hxRVk1dWtSSE1JU1k3aVFwRkJsZVB6ONIB6AFBVV95cUxPYm4xWWgwTUNUaGpUbVVTSzFtWkJrOGdBU1FKTnhXUVVZcFRrbjFYMVZabHg0RVY1RHI2aEd1SDNaOC1pVDhpRi1wM1VkRnVUNUpLLUl4WjEzalZvU0ZDV0VITjVSTVZZdE8tX1FfS1dTOENFUXhlNTk4elB4VmxYV3ZBWjlLQnBhSVU0bGU0ZzMzZTRnRVVzdTRVWmZIcjNuYzVxdzBmcHVjX1B1ak5BRERTc1lqNWVZbWliU0V3V0VJY3pEZzhpbkY5OHVRZUJUUFpFNVdnWVdjZGgwbXVyaUxKS203T2dp?oc=5",
+        "date": "2026-10-21"
+      }
+    ],
+    "HEXT": [
+      {
+        "t": "Dividend alert: Hexaware declares second interim payout of Rs 9.50- Check record date",
+        "src": "The Financial Express",
+        "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPMlN6Tmp1ZEVCZFd3dzlGLVRiNHc5dUxxLWhMYzRRWGg3dDZaTlZacmcyNDFRcWlyOWk0YmRsN1NOWjdhTFJQSXlwcm4tSGZMWllIaC1nX3pGV3B6VzZ1VzgwZHNjMm1xaFFFUWZHd19SWG1qS0VyMkNHT0dpeGNSRzlHU2F4dG9xSEJhSnE1RVh0dXd1WjJKOXlockhESXJ1bHM4dFVLOTM1eXh3UVo0UFBUX1dPX1VvelNfdDlxOUItelpBa3gwX2F2cV9kTnNLeVZjR09aSzN0TW5NcFNpeUZn0gHiAUFVX3lxTE8yU3pOanVkRUJkV3d3OUYtVGI0dzl1THEtaExjNFFYaDd0NlpOVlpyZzI0MVFxaXI5aTRiZGw3U05aN2FMUlBJeXBybi1IZkxaWUhoLWdfekZXcHpXNnVXODBkc2MybXFoUUVRZkd3X1JYbWpLRXIyQ0dPR2l4Y1JHOUdTYXh0b3FIQmFKcTVFWHR1d3VaMko5eWhySERJcnVsczh0VUs5MzV5eHdRWjRQUFRfV09fVW96U190OXE5Qi16WkFreDBfYXZxX2ROc0t5VmNHT1pLM3RNbk1wU2l5Rmc?oc=5",
+        "date": "2026-10-21"
+      }
+    ],
+    "MAHASTEEL": [
+      {
+        "t": "Mahamaya Steel Industries Upper Circuit Streak: Day 4 Price and Data",
+        "src": "Univest",
+        "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxObTFhNkZVb0hZSFBadENXWXcxUmxOLTFnZVdWSEdoaE1rSTlNWmJ3U19udEVlbjR4bnhFaENOV1ZpeFhnWmlLVmhjR0Ffcy1GaVJCZmpFNUl6WjRtQXRGTU9jejVzZHhmWXJpanotTnBhTjlOOFRQQ3ppT25UZ1g0Sw?oc=5",
+        "date": "2026-10-19"
+      }
+    ],
+    "GNA": [
+      {
+        "t": "GNA Axles promoter Maninder Singh sells 11.36 lakh shares",
+        "src": "scanx.trade",
+        "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPZ0NPV0xMSEUwSTM2b2FNTi1CUzFJUV9EN2NmR0xpMFdLMXM1Tm9IMmlPM3o1a05CYjZGMl9Jb0ZlQ3EzOEoyR3dPQW56WmQzOFA1MDR1TVhoNncySk5XRnU0TTd5R0paSnY1ellXd0FJMlBYc3RDWjlIaGtVYTZvRkpVWTdjTjhNTWpYNEIzczRWbTlERzhOX2lhd1dMZW91UDRCT3F2TjNBTWlmaF9RN1RWWm0?oc=5",
+        "date": "2026-10-18"
+      }
+    ],
+    "CYIENTDLM": [
+      {
+        "t": "Cyient DLM, Amber, Dixon Technologies: JPMorgan's Top EMS Picks Amid Growth-Value Debate",
+        "src": "NDTV Profit",
+        "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPSERLODd1eVd0X0hsbkdRZkY4ZzF0dm4tTXJYQXZmUGoxU1NQdGR6QzR5TzdNY0dUbUlPbVlBcFMxRkFsUV8xdFZyOGluTGw0Sk9feHJyeUhoWlVxWmhWN0ZPY2ZOZGp5LXYwdGFINDNTM2dPZmNOdDRKcGJ1eHNjR1M4dmlJdVVaOGdlcG9yMkt6UmNUajlxMnFLb0NoNElVWWctVW9rbFpjRlVkX3pVNXAwd0E1dDFfY2s5SGpKYWE4bW5ybXk00gHPAUFVX3lxTE01R3A2ODF0NDdvT1YwN0V4MmcxbGZkMUdTOF9ydHdyQ2FCWGFieTlBYTFWR1JFVnlkanZtVHRaN2FGLTE2V3lzNXV3a0NXNC1ab3lpS2xFMEZ5aE9Da2xBMXlGTTVGN2dXLU9TcWpWNEJWVkpob01KaE95R1Q0cW5MWnhfSEVyLU9FeWVzRmtQbXplYTdBUlpmUzZFSHIzMXBYTXBrZ1FIN3dIT1lxT1lKVGY3T3BKNUpyOTdHcHR4VHF6aUlDWnlFM1NtU0FIQQ?oc=5",
+        "date": "2026-10-20"
+      }
+    ],
+    "WIPRO": [
+      {
+        "t": "IT Stocks Rally: Wipro, Infosys, Birlasoft Shares Jump Over 3%; Jefferies Sees IT Re-Rating Potential",
+        "src": "NDTV Profit",
+        "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPcU83WG1GQ21ZaFJJMUxZMXpqRzRJYWR4WkZmdnh0WVhKUXNFQU4zYk1PVVRoeERacU9NOUxfX2d5TTh6enN3ZzEtRmkwOVI0SFZSbDJUYjF0UmtfWlM5NnhkYWhmSmZmRDRtWXRJQk8wV3k4YklYS2ZlWVRmblBBRDBWc3Z5WVFXMVN6T2lUcXF5MDFBbWQxRzVTZlE4WXNzZ25tZNIBrAFBVV95cUxOMkpuaEhhd1hhYy1JaGYxQzAwRi1aX25kaHZvLWpsNDJzbW9kU0tiSVozNnNwemp0U3NaazJXdndGX2pMU3F2bGxlU3hSLW92NGhZVEY1ZXVOdDVIZlJqSzVpaktfYUdNUV9yOEJ3M3JMbjUwZS12Z3VYRTJUUnVNV1RRQ2llN3ZWbmtiTDJGQmZGN2Z2X203YkZmVngwSU1hejctelZBeWZzR2hj?oc=5",
+        "date": "2026-10-21"
+      }
     ]
   },
-  "vetted_scan": "2026-10-19",
-  "vetted_at": "2026-10-19T18:54+0530"
+  "vetted_scan": "2026-10-21",
+  "vetted_at": "2026-10-21T18:53+0530"
 }
