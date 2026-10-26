@@ -1,192 +1,264 @@
 {
  "schema": "swingedge-gainers-candidates/1",
- "scan_date": "2026-10-23",
- "collected": "2026-10-25T10:43+0530",
+ "scan_date": "2026-10-26",
+ "collected": "2026-10-26T17:01+0530",
  "stocks": {
   "SSWL": {
    "name": "Steel Str. Wheel",
-   "r1d": 19.99,
+   "r1d": 13.88,
    "cands": []
   },
-  "ANTELOPUS": {
-   "name": "Antelopus Selan",
-   "r1d": 13.0,
+  "ATHERENERG": {
+   "name": "Ather Energy",
+   "r1d": 13.74,
    "cands": [
     {
-     "t": "Antelopus Selan Energy promoter declares no encumbrance in FY26",
-     "src": "scanx.trade",
-     "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOU2pRbHFKNnBUMUtxNzUzbUZka25YZnBvMGtrRHRsdEhiTFlrWjBhQXlIMzI2U3VZaTQyU3pYcHFxZDNhdXRjRmo2TTYtYllaRjFObGZldHJSY2d2UGVtOHFSUEx1MWpoYS1oN0h3Y0RvR2ZWaGozbWJZQ3BDM0FoLUZ3SEU3X1hScWpUNzdnRkpQWFhza0RpVThXNnJEUHNaZ3p0RHotUVhGU2ZHcmNPZnAxazU3UUFRVnlxMA?oc=5",
-     "date": "2026-10-21"
-    }
-   ]
-  },
-  "JINDALPOLY": {
-   "name": "Jindal Poly Film",
-   "r1d": 11.23,
-   "cands": []
-  },
-  "PRIZOR": {
-   "name": "Prizor Viztech",
-   "r1d": 9.95,
-   "cands": [
-    {
-     "t": "Prizor Viztech Share Price Falls 13.60%: Price and Valuation",
-     "src": "Univest",
-     "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE8zTC1FeDFNakpqOXh5UDdJM3pjMktHa1NGZFZOdUdrS29QVV9BYkNDVUtwYURPUk9pVU0wdHVzUURIZ29CQ1JZbTJCcTZQUUxWMXE0cVpYMGlqSFQ2V29nSzVUUHdsWHFhdVVxYkQzNFRNeHBEZmJ3RzRPMA?oc=5",
-     "date": "2026-10-21"
-    }
-   ]
-  },
-  "NOVARTIND": {
-   "name": "Novartis India",
-   "r1d": 8.31,
-   "cands": [
-    {
-     "t": "Novartis presents weaker-than-expected relapse data for multiple sclerosis drug remibrutinib",
-     "src": "pharma.economictimes.indiatimes.com",
-     "url": "https://news.google.com/rss/articles/CBMijAJBVV95cUxNekFGa0xOWFFOdGp2MWpZeTVKSktyUVJwSVhhVE03Ymh2WC1lWWY0MVNkVVFVZ1R1VThKakRjQV9jVEgxY0xDRm1vN2FnTkZLMVNWZmVIX0czaXFmMUp3VnF4aGFuWXBsUVFOWUJrY3JlZmhWTDhidS1VeUZLOTBsUnJQWUVFYnAyN0UwaGV1QTNvdldYc3Bpejd3SktPcERYZkpBbXYzNzBpSEsydDlaQkVrRENLLUNMWnZhNmphbzVvbWtENER3OEI0UFRFMXBDd3lvS1lqaVBRQnAzbDlSV2V0VlNyTmM5bXlnR0o3VU5ySFVzM2tsd0xpYzhPNHV0S25MdTJfMElFbTVk0gGMAkFVX3lxTE16QUZrTE5YUU50anYxall5NUpKS3JRUnBJWGFUTTdiaHZYLWVZZjQxU2RVUVVnVHVVOEpqRGNBX2NUSDFjTENGbW83YWdORksxU1ZmZUhfRzNpcWYxSndWcXhoYW5ZcGxRUU5ZQmtjcmVmaFZMOGJ1LVV5Rks5MGxSclBZRUVicDI3RTBoZXVBM292V1hzcGl6N3dKS09wRFhmSkFtdjM3MGlISzJ0OVpCRWtEQ0stQ0xadmE2amFvNW9ta0Q0RHc4QjRQVEUxcEN3eW9LWWppUFFCcDNsOVJXZXRWU3JOYzlteWdHSjdVTnJIVXMza2x3TGljOE80dXRLbkx1Ml8wSUVtNWQ?oc=5",
-     "date": "2026-10-24"
+     "t": "Ather Energy shares skyrocket 19% after EV maker swings to Rs 1.26 crore profit in Q2",
+     "src": "The Economic Times",
+     "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxOS1M5ZHlBY2NoNndILW9IT1dBYmFwMUMwem5HdWQxNmloandaVzVqcGo5QVhYa2ZjRGdlUE5IQzlvME1uT0paUTNGWlI1dzFOWEd2eHJjV0NUV0lVZ1NUc3BYVXplYlFYNUN3Mk9ZMENOcmwxaWMwUHk3bUFPekltRmtOQWZDakV2YlJ2SlVzZUVTNEhMbmo0UVRsYmZPRXJFLVpBSEhGZ3RHX00wSWhnVERydm1tX1BfOEowZW92eGRiUkFFZWtaanlqLVdCQjRNXzJMdTgxWkN0VFAwSzFBR0NSaUpFUjNZUk9UcUNQWdIB9AFBVV95cUxNanZPOHc2SWZ6NWxtZDJQSjZRNTFkaTZ4VjRYcEw1bERXLTBUWmNtMk9jd0tqOUxOZ0JIQTdyVEZVZnNyMGxsYlVHdGMzX2syQl82RFFkNXhlWTRBbUhXMmNzY3EzYVFHQVV0VkVzR0pybjlYZzRWQThuR2xCdDZWd0lQSW5SSDJ3eHNzOWNVelFlSm5uaXNLSEdNcGtXLVNzR2lNWFFYOERPU2xaQzZUTXJnYW5yVmR6cm1FMmpQRExER0I2RVptbjdJVkZDYjR3MzVkQ0s0QS1ELTJ0WU15YXVlYVk1dkNfZTVkcktHeWpRajU0?oc=5",
+     "date": "2026-10-26"
     },
     {
-     "t": "Novartis AG (NVS) Stock Down 3.3% but Still Overvalued -- GF Score: 75/100",
-     "src": "GuruFocus",
-     "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQQ0tMOGpXbHNGS1ZVRC00VV9LdU1yZkNOU3pRSDBUTDdhVVkyT1pKdHplUlY2WjdXcF9UM3lSZjNVdjhiLVNzRTROcVlJTmF1VFg5TlJsYjB0QUs1ZHNxZy1iTnJKdHBlNzUzaEx2VWZqeGt4REtDaDNiMHNSa2U0WEZESllwYTl6dUZrTEhnOVdTR1pFbXB6UHBEbkxJVGkzbTlEcmhtQQ?oc=5",
-     "date": "2026-10-24"
+     "t": "Ather Energy posts first quarterly profit, shares rise 10%",
+     "src": "Reuters",
+     "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOVnhEVHdQMmhvSjlHM0h6dzZuNWJnQi14MW1wa1Q3T1dTekdSaVpxRjVUMGhTWTBHVjF0amdGMkd2ZVNGUDFtTFhXUG54aS0xWU5VYW9nQVZMS05EV2ZQN3RaWjNwYmw4Snh1YTFJckZ2NTd0ZzE4RF9LYmhlQVBUX2xBSl91WlJCY0x0TXQ5Y090YjRKQ19BQWJ1WWYxU1A4bU5OX284WG5MUUF2YTdV?oc=5",
+     "date": "2026-10-26"
     },
     {
-     "t": "Novartis India targets revenue doubling in four years after key acquisitions",
-     "src": "scanx.trade",
-     "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxObEd4T25TM0dGRWtVdnZudnBWTmZnalJDNVBCOUo5MTN5blgwNFBQNHZZM1RiUEFNVmhaUDAtMVY4NWNCT2FDa1FUbkczNjMyZi0wUTN0c0NsaExVTkMxcUpUV0FkT3ZhYkxKX3ZMdTJFRWxjV25WbHl1VHp0TlNLX2R1RVFuaTAzT1hYUU1Sdi1QSHpZcDVpdFFkRk8xSTRsSmVsVzZTbnE1ejJMeW45M3l0MDZhelAySDJramRURG9vUQ?oc=5",
-     "date": "2026-10-18"
-    }
-   ]
-  },
-  "CYIENT": {
-   "name": "Cyient",
-   "r1d": 7.81,
-   "cands": [
-    {
-     "t": "Dividend Stocks This Week: Chennai Petroleum, L&T Tech, Cyient, Nippon Life AMC, Among 15 Companies In Focus",
-     "src": "NDTV Profit",
-     "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNSHp3S29qRDBkNG52Yng0WUxaNUotdGh1dXNiblo5Z19SeDhBVkMzbmJUejB4QlJHQnpZeWhHUHFraEhndFlsSkxrakUzVEZ0TVMzbjlyOHB1WTRzbjU3RVJYbHJLcEdzVHRUNEliMlRjVGhaNGY0V1dRdE81VDU0c0ExeDRDRGN5SjMtdVVXUW9VUjNUQUUyQmIzenJWQ29jR2k1XzFaYkxqOWlDWXQtcHRiaURuVE8yMjhVT0JwanZyVkNaVE1ucGpQTHRqSHNiV201U0VxZE5LS3E0NnNDb9IB6AFBVV95cUxOZ21DblM3LVpLVXRDOGViVEdLcmxRVzhLN3I2N2xDU1owY1pBOW9fOGpCRlByREplYTZ6cUpxTmFMNEs0UTFjYml2aU1rZzlLdXl4YVMwZFNpU2d1RmJnLVE3cWZpZmxZNnE0UnJmR2JSSXkyWGw3elppdmREMWxrOXRFeWlGMUtMeEh1RzFKU2JETG5Ba1NMQ3VYajhaNFlsUmdtZlVkNkJDYjRaOFFHMVBMdi1PMzNwa2NKYkhUREF0ZHJfdFdBQmw5SFo1M3lHbTNmaFpvLU5fUE9feWNMcTBjRUU2akhP?oc=5",
-     "date": "2026-10-25"
+     "t": "Ather Energy posts maiden quarterly profit on higher sales",
+     "src": "BusinessLine",
+     "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNR1pDMDFKWVRWU19PNDF6NVRUaUdsazYxa3drSWcxc1Y1QzBERGhYc1AtSjdocnhQYkZaSmZiQkQwWGNlLUFCNW5PVVVwWm1JbTVfS19FeURxZmV6YjRFWEN2SnlXZEJYZ1JBSTVKZUxDVWNwWkIyWHpBQWpaRW1TRWJ1anJ0R3ZLdXViREVrTUw0U0R3ZFZOOGlwRUh4aDI3QWc1RWFyZkJlakhtSzFpODNVSXVjREtnQWJ5dlpSbVBtLUnSAcoBQVVfeXFMUGRfbmc4UmJGQ2JqTFRjMFFua0ZRbTdqM05Qc2FUWktLQzJGVFpqZnZBSDJDbHFiSW9ldHR5TDU0QUVHZnJMNDFCRjl6QVlHS3RzalJ1VkhjZTJpR0ptbHVjOW1CbmRrLVBQUllVaWRyRFBJR3VfYVduVHBreF9RTkFiakJGTW5sMEpJS0RxY255SGdIODA1UlZBLVFYUzdkU3VEMUpGTnBPY21kMzhfX0tOT3RGNnJURV9vV0N3b3EwczYtSHRreDREZw?oc=5",
+     "date": "2026-10-26"
     },
     {
-     "t": "Dividend, split, rights issue, buyback next week: Hexaware Tech, Cyient, RailTel to Sagility - Check record dates",
-     "src": "Livemint",
-     "url": "https://news.google.com/rss/articles/CBMihgJBVV95cUxNeFBRamNRdHA0U3drSFdUdUt3dmF2RnZYZWhWNWFTUldTTkQ5XzRULTFORzJybER6TDg4TUZUbTNwNFNFX1pMRVRFbmVZOEhDdWJfR3FIMFAxV1Q1NFNYNXZ6d1Vxb3NmaXpGX2R6NFdLWnM3RUpFX0NpRHlyT3VDbFpPWm9mMDViam94RDkyRE5LS2toMWdFcHJGdjA2ajBYN294azFlQkJUUkxsbnZqc01rcmF6OWdzZktybFBiNExSU1dmY19LSUlTNEVaajFXSFdHUUFyR0xsVmJZUndrcnkwNG9mdDhUWjAtRVRYNnktWk8yVGJwNk1UVkplaUdmakxuaVZR0gGLAkFVX3lxTFBmS1d5VmN0Rnl6V3MyaGdCZ1gwSE9QSld5Y0VNbVMwRy1FbEdoWWJpLW13MHEwWXJ5cEdXWWY0bkpqQndrcGdmUkNVYXdpNV9UXzg3Q2lTTnR4dGJNWlk2OWJDTkNyOEs2V3g4NlhoQ0twZkpaeklHSGpaTFJaeklUdkFGYU9ySW84S2YtRE00SmZUYVNVcFpHNmxpaGZJaG5wV19RbU8wYVBBYnRmTkNUYjctdXRMcnRVQjBsTWN4WlFkN0xsWUY4X04wMVVtbTltMUZ0TjVvb21xTzN0MUdaVjVDX2I4UHFVTUxFTzZQbHZtVDVSeGpfMTdqVlV3RzRVNTc1bXY1OXRubw?oc=5",
-     "date": "2026-10-24"
-    },
-    {
-     "t": "Eternal to Cyient: 5 stocks defy market crash, jump up to 9% in falling market",
-     "src": "The Financial Express",
-     "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPMERKdUlTUS01bFhmT3NkU2dFaUFuSGxlRTVPbGxRck9tQ0dIcWlFdEZwTmhhZHFLZmdUbUtxeVI0NnM2VWszRURzS1JObktpZHNvRzRSMF9TT1ZlTUFNREJ6OGg4a1Z6Sktab2VQbnBLbEdfUFBlejRlR0xRQ3BBLXYtXzI1d0M1NHViaVk2bkhrbTRrS1NrLW5XUzNxbTY1Y3Z0T0xJcS1XbXhGNElkMmxEUzg4X1JWV3NybVZDZmVfUdIByAFBVV95cUxQRzhoNmdrZ2FaeS00T1g2YWxlVnpsQ2VtTUR4VTNBZlAzMnA4V084MVdYV2UtLTBYNlhVUXJfMDYtTnVsSVNBYTFOVnFJOERmRlZOU1B0VmpnQkhrUUdiVERINWdJUUtmWUoyRy14WGNPOFBheWp1WF81dXRJR2xRM3VSQV9yZy00QnBsS0I5clJPaXJXX0pLOXBsVTdkT0JTZ0xoODVBWXM0ZnN4TWxnU1N5bVY4ZEp1aTRqdHQ2Q1Noc2ZRTFRkYg?oc=5",
-     "date": "2026-10-23"
-    },
-    {
-     "t": "Cyient shares hit 1-year high in weak market; brokerages retain positive outlook",
-     "src": "Business Today",
-     "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxQdmhPMEl6ZkZ0SlEyeGZjYUJmc2JNbG1tY2ptVXRLYWNEM1BQbDVhZGhQUlRXQXBnNTJqTmVMRWdXSm5SYnYwM2JlSkZZdHQydEZrekd4SGJ0UUFTVjNOcFFXV3hSV3REcFdwTnpfYVVYaEgtdV9ZUG5Ta3k3c190OWV5eFdlQ3NZWlpCMUdieG1oNHRZdGotQkRWdTB5NmxVSDJvaVRESDJvWjY3NWl0dG5zWFd5MWN0U0dFa2FaNmhyYUlSNmFPWlBWTHQ2N1BzQmU4aWJVV2c1YUktcHRZT9IB5gFBVV95cUxNYzhCYV90dkYwSmRvNURraG9LS1VqWjNQY3NGLTVKa2JUdzdzZ2otSUpZdDdXQVIzdE9nR1ZUaHE4Z3BQSFlBQlpYel9obEtVVk9HUHlrdzR4dmsxbTUxd2VNTDJKX0Y5M3R4ZHFGeGlNUE5rS2dEd3NLZmswSHh0cjJEdmJ2VFN6MFNzTWFhQU5tY2dKbVF4RWJjdV9ueC10ODJMNXlId2xoaDByNkpackZiZ2JTSW05TWJ1Qnppc1ZQR19IeHJjZUk0QnNkZ1M4TF8wNTlxWGg1YkFYVVhuOXYzTEJIdw?oc=5",
-     "date": "2026-10-23"
-    }
-   ]
-  },
-  "KOLTEPATIL": {
-   "name": "Kolte Patil Dev.",
-   "r1d": 6.24,
-   "cands": []
-  },
-  "WESTLIFE": {
-   "name": "Westlife Food",
-   "r1d": 6.08,
-   "cands": [
-    {
-     "t": "Westlife Foodworld soars 20%; rebounds 24% from days' low post Q2 results",
+     "t": "Ather Energy share price zooms 18% on Q2 turnaround, robust revenue growth",
      "src": "Business Standard",
-     "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPWmx2T3pmclloM0dPOE1zRmlMU3d1STU5aTNVRVJ2Qy1INzRoU1drUW45eUE4dUpXNlZGRXllYUdhUEZxT0hFcmRneTBwU21KSHdDUHhOYl9tZWNqbFFBVDhZX1RfSzQwa1lfQ1NtZ0hINERWaGdIazBXV1FnX0hsLW9iUXkwUEYyaUM4OWl6X1l4MXpHOXZlRC1ReWJpRUNLQmM2Wmw2cEtkaWYzZWV4bG50Qkl6Q0FfLUNNSzRidk5hV1dpZk9UTFduSkVfVklMWXfSAdcBQVVfeXFMUDJxX2htblVLczJOY25aS3dpZGxqd193OE5EX042R2ZaX0M2bVg2VDdrYkZEbV90SWFzMDBmU2p4MlUzQWg3UjBqSjBIZHdXRGtUWDNVRll0V0JLYzJJRF9lMmhudUtmNlRkSnNxbF9LRXhxcUNCNnRNc01fRTZoOWxjQ1Z0cTNUanRKRlVNLWg5T0M4ZnRhLU1UOG1yYkxYODRTNmcxb242NzAzS1k5b1Z1SlFQaVAxUzdBVmk4cnVEbnpjd3RFdHVJY3hjSU1zTlJmX2l4RW8?oc=5",
+     "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPbFNFdUhkbFRRME1jaVIyOFNNMGlkeGRpbmxGTTlObU84MXJHdzN4NUVzRTZRX1k5QlNaM1RjOGd0SC1DRzNXc0tEbF9EcjIwV0NObm1qcmVKVjZKcjF2dUZzbDNVUEFJaGFxR3l0a3AzN2VKdmJObEFKMnBEQXJFeEhQT2pnMWowSldkaURudTI2TlpHQ3hMRnN1dlUtX2RfY2xtSWxKUjBpNkZmbGF5MlBraDQ1cGlJbFBiazh2LUxsMWhQVnBVX25WZGp3RXpGOS0wMkVB0gHbAUFVX3lxTE5SMTRoQWpNSF9odGdPMVExZTEwdER3VUVWZkZMLW50SmQ1OGMyMktDbGV2aExVdUVVdklQbGpSalllckg2OUQ0czVYcGloX3ZWd1FaZi0wTVZBdjRMRkJHRnU0ZVFSd25BeWZmV3ZyM2FqTTBkSzkzWnIybkdUdFBYMmpqdXpvSDVhbkc3LVpBaHowdjA4WjNlTnpCZkR2MHdMLUNjcmY4THFMREg5cWstMENqRzZoYVpCN0pxTlFTa2VqZWk5Rk1OSzZVZ1BWU1BlNFdMb3JQcDEwWQ?oc=5",
+     "date": "2026-10-26"
+    }
+   ]
+  },
+  "YASHO": {
+   "name": "Yasho Industries",
+   "r1d": 13.65,
+   "cands": []
+  },
+  "MRPL": {
+   "name": "M R P L",
+   "r1d": 12.66,
+   "cands": [
+    {
+     "t": "MRPL share price zooms 12% in muted market; among most active stocks on NSE",
+     "src": "Business Standard",
+     "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxONVlFWGxsRDZieDE4Y0FHUjltWWpCUkNtY1pJUzdDSWdidERqV1V4X19kMDdLZW9pRlFLWFBMSUU3Z1FUeGZubGhINVNBQWhDamIyWUc4SWZkUk9fU2hncW5kLU4yV2Z2eTBuNmVwM2Z0bkFsbDFvOFh1ZTVHTWpabDhERHRQdE5HVnRMMnQzbmIzZ2xBNjVWU1VndkxEZGJDbXFMWTZNSjhhRzlMZzdJRVk2UGVHeGpuWnp3OFF2UFF3RkZldEZVODFwYXF0UzNuUXdaOTBuVdIB3AFBVV95cUxNUmtIaFo2SUQya3ZNSnpkd2N3UllIWEg5ckR1M3hZeC1aZUw4VGhPYjVFQWk5Mi11Nl9UdXA5Z3paMlYxZ3pWVjdTZnd3YWV3c083ZlhzNl9laEp4UzZ0ckU4bDRNamluOVZhQjJMb3ppbXlQTE5nN3hEUm5KczNqdUliRmphWUZvR1Z5Yy11OXRacDhkM3RzcGpMNzBRTUk1ak44YWtOcjN6eWhGSTFCSDZpdVE0S25LWnRXNVZ1ZGFfeUJoZzJIa1c3YzUwVXpnUkhPXzR4OEctb05Y?oc=5",
+     "date": "2026-10-26"
+    },
+    {
+     "t": "Chennai Petroleum vs MRPL: Which PSU refinery stock wins on Q2 profit, revenue, dividends? Experts weigh in on outlook",
+     "src": "Livemint",
+     "url": "https://news.google.com/rss/articles/CBMikgJBVV95cUxPV3Itbm1ZNEFReU5SN29GYkw3MmJPbk85cFN5S3FmN01oSEtwTjFFX3IwTkl6T0ZxQnJXaF83RlVpeFFoa0hldENQV1JIMEgzY2h3dHdOZFAxS0szeE5oZUJqTFBpclFJb0s3REd1X08xZkp0emhjeFg5R2s4S1JzUFNIUDhDWmNHTFFUQ2lyOGVqcjd1cEloYlprQk5zVHpEMUJzNUFWanJSSGk5UmNreWd4QkxiVDZzaHZ1UW5qSXlTRzU1Nkt4SlZZc1k3eWFacFhJTnJYM3NZdmdtRTNNaHVIeUlXTGxxeFU5OXI2ZzlRMWlQTWhqUzBScWhtSHhhakFadF9aaTZvTFdIWjZUWmhR0gGXAkFVX3lxTE55a193bkFQWXNjQnllWFdRQUthcmFWSFJyWXVIZ1g1eE9uWW5sd3VyZi1WaG1jbldNREFkNFYybk44em1iYzdsUVM2ZHU4UUhjTVNESHE4UDlDX1JHT2FZc2Vma1Rqak5nNjJGcWR4V3dhMkZsTE5GbUI1dk1CdF9uRExrOXdGdDZnYmhERFk2TWc3b0hRSHp0RTc0bFY4SmdKZ0VXblk3b0paQXFZMlp0NWFCMXRIVWtyZ1RjTU9KYjNweDU0dmh0RzUtcUxVUzRyTFJpUUV1dUlJZk5wbjhtN2ZWZ1h0Tno1U3oyVHNibkhvck05YXQxeUhhdjhud0QyajVvLVVZN3VUU1NRTl9lV0hGUHB1Zw?oc=5",
      "date": "2026-10-23"
     },
     {
-     "t": "Westlife Foodworld delivers strongest growth momentum with double-digit same-store sales growth in Q2 FY27",
-     "src": "ET HospitalityWorld",
-     "url": "https://news.google.com/rss/articles/CBMimAJBVV95cUxPS1JzYUI4eXJGc2VhY0RIaEQtUXk0RGtNUi1OSnpnME1fdEFmTXh2T1NmYXFGdHpRbjY1ZzZCd3BSbEkzQUU0RnU0aFRPQmtuUHU2ZWt4THdqY3JDY1FVaGNQekJ2WXZLWVRIc1NHX1dtM1l4SGQtTEtFdXZIV2lFdU02cjREcGU4Q2dkbnhJZXBNNld5eGc1d2hxX25sWDVkdGdBQVNlLTdsY3JYUmtaV2taWlVPdk1Wa1Jic0FEcC1aWGgycFJZMmc2QUh4Nk00aEhNb0pxVWdLejZIUDBCTmViZ2VRZ21venBRandEVVR0end3NFlSN0ZLUzA2NWRlXy1iNGlkTUZZMnlOdUdlaDlfOG9OazlK0gGTAkFVX3lxTE15RnZ1cDNSX2ZoZ0VSNGRDRlU1OUZEVmJWN0VOUzJxSk1pY0Z5X0phSXlheTREbjJtOVFVNi1zbHlSdV9QSFlUYkxtLUlwejNVTjVJdFA0UzE0c0ZlTGQ4Mmg0ZVlMampxeXZ6eVJLV2ZPSGJWdVdOQm1abFp4bmt3TkhvZ1RxX3QtZDQxTGQwby1rN0xNZ01WcEp4WFpoYWJNM0xZU1FDZHZzRWtJNVpXZW1kSVdJOEJmcXp2VEpsOHZJMGxzMWg2dW9xSEQtR1NEamlrVEVGUktOclpOMmlySHZ4U2h2X0dtdmhzbGtBRmstdnlnY2hLZE9FYUlhYzdXcV94U1JKOV9oeWxnOEEyZTBV?oc=5",
+     "t": "Chennai Petro Q2 Results: Profit doubles, margins expand; GRMs higher than MRPL",
+     "src": "CNBC TV18",
+     "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNQUhNZUFQTzI2TkVtRGdwVWVBYkcxRF9oTU5lQzRLTjdtY1g5QVo2XzlSR3pUR0h3QldwanZZTjVUWnlHRHlrWDFpQnAxcmxGX29PZ1drMmIwSUsxNUZHVy12R2lCaGxucXlnTkpIUDUxVDJjZjhTbFlJbTV1cjYyWVVqeTROX0ZJU21fdzhnQVR6N05nMlh5MHYyOXFJbmotV01EUmpmQlpLTG4zTnEtaTFnVmdhX2xMazNud1lSSi00bVBWTnEtYmIzOWZla2w0TUJUNGRhUdIB3AFBVV95cUxPNlpZWllzb3JqOGVlOUlqdGlLUzBUbzRpU3pTNFNNT3NyODY1allHQUN3bTdUV1NnNS1DMG1tZmxfY0RJLVBvVG5JdWNicVRkV2FWSGtVOWNabWtUNEwtYUVycXdVaUxoaDkzam83Vjl5UFJZMEJtVmdpQ2xiUWw4TmpHUnhDWTBZeXJtOFhLZzNhM0dDSVNDTXRETU4zWXRMbDV4TUplcGFJSkVrbExTUFRhNGxrcWVqQ0tmMkhZeFF5QnUyRkVIRFBnX2o0OWZtNVJOS1pSc2J1a1Nv?oc=5",
+     "date": "2026-10-22"
+    },
+    {
+     "t": "Most Active Stocks on NSE Today: MRPL, Vodafone Idea",
+     "src": "HDFC Sky",
+     "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNbTR4M3VmeWlEYkZSUTFIcmdIV0FCQkk3aTlCSmhuN0ZKQXhfb3J6R3lwV1haYVgxYUwxRXl5dXVxM2RVY2NKSS1ac3pCSlIwUnJIV3Q5RkNwWkRTOVZwN1lZM0pjdVNMZkh3bnlYUGMtYlR3QWtHcHNNTXBMd244ZWYzVHk3elZoN1ZfcGtsaVdzdDJKT0xULThoOHIydFhpVUtJdUtadENSLXVzU0JCeXlqc0JxajlDazFN?oc=5",
+     "date": "2026-10-26"
+    }
+   ]
+  },
+  "ACCENTMIC": {
+   "name": "Accent Microcell",
+   "r1d": 11.77,
+   "cands": [
+    {
+     "t": "Can You Buy Accent Microcell Stock (ACCENTMIC) in 2026?",
+     "src": "The Motley Fool",
+     "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOOGRFc2VaRXlqczl4OThmSDdEZUd4Nll3M1NCckZ4Wl9GM1dWOENVLTlreVpwNC1NdXRINk85dW4zdDlCaGNSZ1BPWmZzXzBSa25RSzl5eDZ6UXFkd2kzZEl1bVhybGlhYVdrTGh6dEdZSUx4cGNGNjNnRmktQVV6cEg1ejRBUmtQVlFrdElnNnl6eTRRcHRv?oc=5",
+     "date": "2026-10-20"
+    }
+   ]
+  },
+  "CARBORUNIV": {
+   "name": "Carborundum Uni.",
+   "r1d": 10.87,
+   "cands": []
+  },
+  "INDOSTAR": {
+   "name": "Indostar Capital",
+   "r1d": 10.76,
+   "cands": []
+  },
+  "JYOTISTRUC": {
+   "name": "Jyoti Structures",
+   "r1d": 10.53,
+   "cands": [
+    {
+     "t": "Jyoti Structures share price jumps 14% on ₹949-crore power grid orders",
+     "src": "Business Standard",
+     "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxOTVdqM01DSW0wRERPZ3c1RDM0V3NmZWRncTlHS3hFcHJGOENYSURramdselNHSE5SV3BHVkhQRy1DSjI5RGdTal9pcmhzaDBVc2lzUHBIbnNTRTFQSDlBY0wwWDN1TlYzUzRIMEF3SzhVa2dLVmdOUnhnSF9XaGZBLVZHeEdJYTZ5eGdVSzhTS3RnSUJRY25VYllGbjFsNmRYdjBKZlktZm0tc0FrcUlyOUJOZXRqbWhhV2lJcUhnUk8zMlFteHJXUHdaZGNUZHl10gHWAUFVX3lxTFAyTF9ZY21DOXRLVmhYZEZ2QWd5V1h0QXdLQzJxRFR1ZUFod0pxcnhKcXdIVUNxSXN3Q2xSbV9SVFNtUjFkRzhuVW11SlpaQTdPR2EzeDZGRFFpWUFXVjdhVDhxM180RUdCRG0yMWNrLUkwcEtWc1VDQ1RYQTk4eF9zU3Y4WHU0TUUtcENyUkFCQWlHR19jUlpHQi0ycjN4b0Y5ekJmT25zQXIxYVVNUkZ3T2w5OGdUMVVXanBSNmlBLUFLaFI2cktTdnMxWjdjb09aLXB3bEE?oc=5",
+     "date": "2026-10-26"
+    },
+    {
+     "t": "Price Action: IDFC First Bank sheds 3% as Goldman Sachs maintains 'neutral' rating; Jyoti Structures gains...",
+     "src": "Moneycontrol.com",
+     "url": "https://news.google.com/rss/articles/CBMilAJBVV95cUxQTEI2a2UwSUdwYW5YSm5XTlRtODl4ZVJyTFR0RVNwX2w4ZW5TUXkxS1I5cVp1X2c0SlhKT2ZiajI4aTdtX1g4TE96WUw3U0RobVAycUpwbzJxZjlrZDFJSl9kdlJidmZhLUpZdjhuRjVOMXRfMVVCZE9DQXBFWGZxZVYxYmRuVVlpSnNMY1hvdU1nMnZEU2JTY3ctNW1lWFJYaHdDU2w1V1pTNFlaNHZaOWxoU0VHbTlROGliVjBZTV81alB0ZzdoZ2JXaHV1eV9FbDAxYzRUbTI2WUhpQlBoVk5nZmdiaGxSS3MwcGVFaDQwM3NxN1ZDbHhMbW1qM0tvQm5VMExnOW1rUld1VVpGOGVJNGXSAZQCQVVfeXFMUExCNmtlMElHcGFuWEpuV05UbTg5eGVSckxUdEVTcF9sOGVuU1F5MUtSOXFadV9nNEpYSk9mYmoyOGk3bV9YOExPellMN1NEaG1QMnFKcG8ycWY5a2QxSUpfZHZSYnZmYS1KWXY4bkY1TjF0XzFVQmRPQ0FwRVhmcWVWMWJkblVZaUpzTGNYb3VNZzJ2RFNiU2N3LTVtZVhSWGh3Q1NsNVdaUzRZWjR2WjlsaFNFR205UThpYlYwWU1fNWpQdGc3aGdiV2h1dXlfRWwwMWM0VG0yNllIaUJQaFZOZ2ZnYmhsUktzMHBlRWg0MDNzcTdWQ2x4TG1tajNLb0JuVTBMZzlta1JXdVVaRjhlSTRl?oc=5",
+     "date": "2026-10-26"
+    },
+    {
+     "t": "Jyoti Structures wins ₹690 crore Gujarat transmission line order",
+     "src": "CNBC TV18",
+     "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNMVZIZ1BBQWFFZUJ3NTdvLVg2dFlMZGg2dmg2UFFRU3YwN1BPeDk3RWs0cnRTcTctaE0yd1MyTmdpQXFWMGtseE1rbWI0MXFOZDUxbHVyWjVOclpUYmwwWEFuMVFxa0VlN0g3YlhTVGdqTktjWlZuYUQza2pOU1doem1lNjFCQ2xBa3p1OFhudG54VEpCNnlRU3ZmZnZ3M3UtTEJMN0U3RzZhcDdpTnlPU2pXVENmd1Jt0gG-AUFVX3lxTE1rOTBweEhiM3RXQW52MHlDVy1lUHByWHJaaU1oRGNVdzY2NF9GZlRaRUlDaF9SUWVYWjhFaG9vUmd6MjVzb1JUa3c2YUZPQ0pvNUZaWTdBTTJfc0t1dHNUTFRzc19GeGMxS2Z0R3FqQjBsSVVOY3I0N1R5T2Y0dVRlV1pQRWg5Vm9tcEZhQ3lqTExVZWRHeUc4U3lEVUUwRHJURElqVllxZk5sQzJMQ3RXM0pTOHJOeDIzUXlkWFE?oc=5",
+     "date": "2026-10-23"
+    },
+    {
+     "t": "Jyoti Structures shares gain 6% on Rs 690-crore transmission line order",
+     "src": "Moneycontrol.com",
+     "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxOcVI3TjZyTnhCaTRzSFVPR011aUU3eVVVay05Y1RDRmtUSUp5S2F5MEpqRkhOdnZPa3RNcWc0YjctRzhMc1NMZ0Ryb0pKUGlrWl8xY2ZmQnpERDdqZW5zNGNUZExVTW5heEtVS1R2N3JYLVNyalpkeThsbkhLbkZfa3pJUGJaR1FCQloxemFlcWQwYnk0RXN2WGJQYXQ2YnhHTGVDbjhxak5VYk1ZS21KMVg3NU5xUnlRb3BOTWNiSVJDY01kUFpSeTlxbkQzNm_SAdQBQVVfeXFMTm42aTRCMUhXbkJNdmdka1dEWm51WHdXci1ST3Uwc2hhUnMxSXZBc2JYY2JEN1N3VzdpeXFfc0dNT19lOTBCNTRCMFJmVW1KUHpITllocmg2cGt0RE5VREFHNkFtaXM2QTJBRDdOQmpkUHBpNENQT2N6QjZOWmw3Y3NVd2wtRHN3cDJNTVpMVjZQUE5LYkNOdlZpbU1mYmprTmRNUjVJVUxyZzdWOTkzNndvRWw2dFZaUmRHX3lkOGNzcGtDeG5NMk1fRWhadTlwOHo5V3Q?oc=5",
+     "date": "2026-10-23"
+    }
+   ]
+  },
+  "APOLLO": {
+   "name": "Apollo Micro Sys",
+   "r1d": 9.99,
+   "cands": [
+    {
+     "t": "Earnings call transcript: Apollo Micro Systems jumps 12% after record Q2 2026",
+     "src": "Investing.com India",
+     "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNU1Y4Z1J1bWlKUF9idXVtcUpqdnVwdmlQNWV5REo1NVItZzE1dGllN1FOWmZuN2VybjBjLUl3Rm1aMEctb2hPYTRnaEk1aWVoVnVpYjdsbkY1bFpIbmxvZlkwUkNGSzVFSkdkblBzXy0yQ2txZ1J1QmZkaWQxWUpSUGw3SXhGWFhtSzB0RzdDSFB3bGNKcXVZdi1XUjhPczZzSGZZOWhxV0V4ZVB3SU1rR2tCell1WkhKTmVtb0p3LXJnbzhZcjZJTklMLWpDWHhEWWc?oc=5",
+     "date": "2026-10-26"
+    },
+    {
+     "t": "Apollo Micro Systems shares rally 9% as Q2 net profit jumps 56% YoY",
+     "src": "The Economic Times",
+     "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPMkdJcTFtNjU0dzk2RkJIM1drVkhpNnBQOXk0akJXdTlvSUpNc2xiYzJTZ25kMndod0RWbktGSXhfZzlwZ2R0aXRrUjRNWmVCYmxiM010OUYtdTVEMGhFMkxsZ1EtQWJXaGpPbE5DZ1ByTHhYbE15LVptSFAxM0dzYjFzcG9tYlN3V2xacUlJdWk2LWVhektkM29Wc0xfVE5QVlN1RFl3c25fcGR6OF9HVDd0UFJTLUZ6dE5reW9YNElCOWJhS3VydllBRkw0MXAyRFJfYU5B0gHbAUFVX3lxTE5lTXFVYzYwTHkxMTJoVjNCTTRFYllxS0lWVHhZMEVVQ29Sbm52a0MtTF9ob3c1Q1JiSkpGclZCajZaZ1U4LXpKU3FpOTVjdXpiY1p5dHloV21OMWNLbFJkZFZMX3p3YUREdHFVaGQ2UmpQSVlXVl9nV3ZjWjhQUmZDckJrbFExZndMRlBPYkdreXlPTDhKRUxJd2ozZjZXT0xtRHpsbXhKakREekQ2dXdIVEZsU3ZBUHF4U0tFbGlhdjRneGcxWTF1TTlnTVNYVm9nYnZkNnZaT0ZwSQ?oc=5",
+     "date": "2026-10-26"
+    },
+    {
+     "t": "Apollo Micro Systems share rises 12% on strong September quarter results",
+     "src": "Moneycontrol.com",
+     "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNRldaczg1SWtMdWFJTDdreVVicm5hejh6Y3VvbGp1VTBqZ3RqWDJWQVhIaThJcm9TemMxdms5X1Rhd0FlaTJiN002Z0JwQUdab3ZwQnlUS3JkSzJ6cW1zeTBfZWRnOU9QdkpFMVlJQ1hBTFRndW9qOGUyTXQ1d1pZUklLOU5yTU1ROWk4emRtRjhwYUxUUFFDazNfVFNqcElmTC02c1B5ZVhsTXlXZHUwZ3BhQUozVDZQRHM4RkNjZ3RIN1Z1YWphZVpuWUtrMHNleEHSAdcBQVVfeXFMUEI1MXdQWm41NzJ6N1dYczR2NEZBcEtmMDN2QVJqZWdTWUFfTUFKOHU4VnU5Z1UtUG9LN2NMYXdoRVp2SmRFMTRYTGQ2WUlia1lTTEx5eG9rMFJSMURDd0NfX0lvYkFYV3l5MkRsRnQxUHpMWUVVajJaWlpDOEc0LXdnX0JCcmJqd0FfTHR3WEtGWWRsNmdRalRiX0FCRmdaZXQ4NGpubVhnWHFIVTFlTk9JVlNVdnRCMnFacWZPUWoybWJ4RDUtMmpkYVJ6N1U4d3hZQmVhS2s?oc=5",
+     "date": "2026-10-26"
+    },
+    {
+     "t": "Apollo Micro shares jump 9% after reiterating growth guidance, exports upside on Q2 results",
+     "src": "CNBC TV18",
+     "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxOMm9YM2twdWMtdExnc2lYb3RRN2ktTTlxa1dzdlUwWXlxWlpIcWJDT2xpUFFOQXlhdWJpcHdSWHVFYmxHXy1jVGtDZUxTUExKUm1DeEhsaVVjWXVpOUd5bEFjMWJpQUNyM295dFpHc1ZibzBreU5IUlU1UWhURWkwYXMyRXlsUTZvcHpqWmdySjFPcVdmLXFLVEtaZm1ldEhlNGtpVmc5ckNNaEFQS283ekVCWVA3ZGlvSkdib3ItLWJCX0EtcC0tbDZRSUM0ZGVCQ0ViTFp4bGpUWl8xQXhGbVdSeU5SSVFid280Q1Z30gHzAUFVX3lxTE0zelRxWUJra0FDTnZSRFBHR0NkenA4UFJoakY4YjZ3dkdpUlRHa09hdFhXYjNRSExDWU1sN1hQcEVWWUx3czVuWC1ZRUh6ZWR6MkZWQXFTTGM2dzV5MTlsSUZxNThENG01VlVXSkt1QXVqbllLenBxaEhEZnRQQ2FFa2t6djQ1a1JlOUNvckl1OTZUUTd6T3pQUzhxNWlGY0EyNWxQUnh2VDE3S1ZMVkgzRVB4MGNrcXhjSGpOUVhkV0EtRjdLUElWellwTjM5dHVCNm0yN0dLNmRWM1ItVVdoUGFoTXBaT0VDVnZweTNFNGpzTQ?oc=5",
+     "date": "2026-10-26"
+    }
+   ]
+  },
+  "OAL": {
+   "name": "Oriental Aromat.",
+   "r1d": 9.99,
+   "cands": []
+  },
+  "VMARCIND": {
+   "name": "V-Marc India",
+   "r1d": 9.99,
+   "cands": []
+  },
+  "OBSCP": {
+   "name": "OBSC Perfection",
+   "r1d": 9.64,
+   "cands": []
+  },
+  "FISCHER": {
+   "name": "Fischer Medical",
+   "r1d": 9.42,
+   "cands": [
+    {
+     "t": "How Fischer Medical is targeting export-led growth by expanding medical technology pipeline",
+     "src": "Business Today",
+     "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxQZXNEcXhlVzYyampTQzB3Vmp0SGtLUnRjcm9YR2JNS1d1cXFXTkdzcmxqSkZLampJYURHM2hOOFh5NFdxRGxHNnVYX0tyX0ZIb1kza05BY0ltanhEVDlpd29ubTB5eGdFNlNhVUlqYkM1U1pkN0JoaEFEWEVmeFMxeWloUTluaDloeGVSaXZ1OWNlZVJHQ2UtaklqM0dZMGlvV0t3WjktZnVJNElFcHE1SGNTaTU0amRkQU54VGFzanVPaWlOeW4wdGFJczJ2MEZfMUNDTTNfQmxTNTdxLU5IWHQ5TUU3LXZhQ0hySF9WSkFtZjTSAfgBQVVfeXFMTmRrakRnaVZPaDc2UVk5ZTd5X0dxejNYU0k0WFItMkZvQkVVbEhqZngzVlZDVTBEczJiSXhELWZpYllDRDl0NkxkM3lOeVBOaEtFWkJ3Z0FwYzIyVFZGN004MWdvSkh4VmlQem54aDU2b3Jyb2Fyd1dENW9jYTRiNUVacW9lSWRTcXU3M2owY3o2MDU2R1ZjUHBUa2dnbnJHX0R5MnFVZ19KNmZWcnBHZDNGTUl2TkN0STMxQU92eXY3THlRUERKaUZQeGlLa3BHV21aeTZ4bE5yUkpfMXdONG1NTTlnMmtvOHowZld3U0lHTUFLVWNyWFA?oc=5",
+     "date": "2026-10-22"
+    },
+    {
+     "t": "Ex-R.I. fugitive doctor Ronald Fischer’s sentencing delayed so he can be evaluated for schizophrenia",
+     "src": "The Boston Globe",
+     "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPMjBZdDVIMHRmTGNSVU1mVXVlcTAwOW5XQ3l0Y3hHd0xrcVpHM1ppa01OX3huNFBuUkJ6Zi03M0ttMkQyYnNxbVhfd0FPQTBDTUtFWjUxWDNZRGxPS25pc0t4b0VEbGFqNTBOR3NCRWRIbENyRkJHSHVLVlZEa2FJblowMW56TFk4Mm5sbFdpNjF3dF92SFEwQ25OZ2ZMQWhQQmtiTm5WM3NfcVpx?oc=5",
+     "date": "2026-10-23"
+    },
+    {
+     "t": "Fischer Medical Ventures Share Price and RSI",
+     "src": "Kalkine India",
+     "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQeV9oeGFaOVllOHM3c3dGYVhpTWVzMVdCMHpXVmRCTmRlbndHdkZ6TW9YOGs0ejdhU3ctYzJFQjktdUUwMmpacDdUUXBOR3Y3UUdCQUhzSDhWRl9ybk1pUnM0Yk1XaDJpamthUWM3R2FncU5SNTdJZmJmN3c3TFFCeDZiTnh4dmxuRUZQQWhoVlR6VUVjZnVLTk1nWjRYUEoweHc2MFp6UlZtYXJUNlNydXlWYU1MUVdRSTY4?oc=5",
+     "date": "2026-10-21"
+    },
+    {
+     "t": "Fresenius Medical Care AG: Martin Fischer, Acquisition of shares under the Fresenius Medical Care Management Board Long Term Incentive Plan 2020 (Allocation 202",
+     "src": "www.marketscreener.com",
+     "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxOQndnNXJCWkd2VTdsSFJfNGYwMDRpeWNPVDg0UWxPWEViU2RLbEd2TUNUTTgxa0NFNFpzWTlmeHA4bm5Cdjl5YVlPUWh2aWRKUE5kMkZDZmlQMGpxcjRaMDZfaEs3Uk5DZ0pRbWxKa2pKejdieHdGV0VSM0NXZlZneGp2VnpaSFZvSVdLb1NCdU1PTTh6RU1KOWU1Nk5OalViZmhfbDlMYkhaRGJmUHYwRURRckNOZTdqaUV4blBhYXhldG13ZkYzYlhjanBPaXJWeDdqaGNYYkNHaExvbmNDUW8yWU1YQQ?oc=5",
+     "date": "2026-10-19"
+    }
+   ]
+  },
+  "SAKAR": {
+   "name": "Sakar Healthcare",
+   "r1d": 9.1,
+   "cands": [
+    {
+     "t": "Sakar Healthcare Share Rises After Q2: Will the Rally Last?",
+     "src": "Univest",
+     "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNeElqaVhRaEhUZGlrSW9CcEhaVURTQ1N1ZHI2MFhiUXhHUkx4WGo4NF9XSC0ySXRqTWhuVzhUYVQ0dDQ1MUFtTVUwMHdSbjAwTVFWT3prZVdMNXFCVVBYdkVmYy1VWlRRcC14NUNlTkk2ZlZ0N3pmRWFTU0x2QkRKSERjR1pBTWVvTUlOX3lQOXhKNWQtbGZrRjFoaEVZd0tMUk93QzRlZUJBaGdRc1FfcGRIOEE4NGc4SDlGREprUGNjajNHM1pXOWJraklpcjUy?oc=5",
+     "date": "2026-10-26"
+    },
+    {
+     "t": "Sakar Healthcare Q2 FY27 Results: Revenue Up 53%, EBITDA Up 114%",
+     "src": "Kalkine India",
+     "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQWUs2SzJwUzFZVFNLdVFrSlZhcW5XNXBqZVplRzRjYjkzd1VScW9BMklJWFU3MEJoYUN6cTRvNUQwdkVSZWo5YXJHNXN4LXFsSEU4OTIwcV9zbUJJUUNydC1qcTdILWFzSVBadUR5d2pwa0RUTFdqVGh2QkdRbEZuUFcxOWR1MF8xaEo4YjlBcnVhSHdlLXJ0U3p1MTRQOVZidHhqRGI1SHpnN3gzM25FVUVLZ0xHdmVEOHVXNmtKa25wVHUxZTYw?oc=5",
+     "date": "2026-10-26"
+    },
+    {
+     "t": "Sakar Healthcare Q2FY27 Results: Net Profit Rises 149% to Rs 11.30 Crore, Revenue Jumps 51.9%",
+     "src": "Dalal Street Investment Journal",
+     "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPVFNMR0QtMWtxWUFtdEt4RGtINnZpc3pHZG1taWNFQXdKbEdNQzFhQVdieHMtVERrT3NEU0dEQmRPd29CSm5uRHBoVmVoYXRSWUoxRUg5MmVoU2dNOXlzLTAyVlBIX1lXanMta2tVR3VhVENncEk1MUNha21maVJ6NkRlTThSRUtuVzEzNVkwTFczSXF5MnVyTmhxQmFXeWo5cGs1cXJuZ3lqc18yLTFSaVBtMXlMejF2Q2ozYTREQVVIQnNTV21OSDJGZVhxOXo2cFE?oc=5",
      "date": "2026-10-24"
     },
     {
-     "t": "Westlife Foodworld EBITDA Rises 29 Pc in September Quarter",
-     "src": "Indian Retailer",
-     "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQUWFXQUotb2ZiQWNKZXNDa3loRTdrNGNCREFDR0cyUTdnd0NKVzlQclFQWTJpdFM4UWtfeTJRSl94RHpGZHRtcUZiekhwNVc2NXNIcFdHS3dFNHhIUmxMRUtlTUNBWEhGRWNLUWtiNFJnQXYta3pVaGpvRjZ1NU92UnpaYzZDMXNhRkRHMkxJTi1TU2dTWGc?oc=5",
-     "date": "2026-10-23"
-    },
-    {
-     "t": "Westlife Foodworld Q2 revenue rises 16 per cent to Rs 747 crore; same-store sales grow 10.1 per cent",
-     "src": "ET Retail",
-     "url": "https://news.google.com/rss/articles/CBMioAJBVV95cUxPMWp3U2k3aFktSjFqaW1XMEtpejg1cWl4X1hKMUJTN2cyNzhPa2lncTlyQjM3S1FJMnk3cUtIdENVQjZZOWJxMHVPS2xkZDBKTWlBREpEUVB3ZEFNQzNTOThBeFg2RVUxb2N1cVFtTGxiSnJaR3NjcG9zaGdENk92NHBZTmdJRzExY0tvM0MyM0d6YVBqdkM3QnRURUhvUE9HVkZfZWhUTkhkVXlhVW1CYnZqUEdENV9PZ0lwVTg5Y0NvTmhZLWcyMGpLeVBOZFIwLTlNcnFmc1Fad1dYR2RHWVNWUVJTbzBZVjYzY3lYWkZ1Wk0xUWlCRkNGNjlfRU05ZW5qSzhkSDFYX1Y3dEVyTXR3blpZN2xVSDJBelI4VVLSAaACQVVfeXFMTzFqd1NpN2hZLUoxamltVzBLaXo4NXFpeF9YSjFCUzdnMjc4T2tpZ3E5ckIzN0tRSTJ5N3FLSHRDVUI2WTlicTB1T0tsZGQwSk1pQURKRFFQd2RBTUMzUzk4QXhYNkVVMW9jdXFRbUxsYkpyWkdzY3Bvc2hnRDZPdjRwWU5nSUcxMWNLbzNDMjNHemFQanZDN0J0VEVIb1BPR1ZGX2VoVE5IZFV5YVVtQmJ2alBHRDVfT2dJcFU4OWNDb05oWS1nMjBqS3lQTmRSMC05TXJxZnNRWndXWEdkR1lTVlFSU28wWVY2M2N5WFpGdVpNMVFpQkZDRjY5X0VNOWVuaks4ZEgxWF9WN3RFck10d25aWTdsVUgyQXpSOFVS?oc=5",
+     "t": "Sakar Healthcare Q2 profit jumps 149% to ₹11.3 crore as revenue rises 52% to ₹87.4 crore; EBITDA margin at 27.85%",
+     "src": "Business Upturn",
+     "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPdDF3am1wUGpuclRkdnpNSDNEN2NDSkpsSjhzQXpGZXhRLUUyUG5JN0FTR3VheW5fRFBNZFZTZmQzUHpvSXJfTzQ0TFo3SFZsV21PQXg3RHlXYS1xV2cycEVoQ19tR1pkMXVDT3hORklfS1hvUFViVzRlaEliRi10RXBYRXpubTY5ZzAxSFJGUnNYQng0MjBGLVNnLXlMV3Z3ZzZyOU9HTWc1cWRiZE9ZZlE2Wk1zMzdvNW13eVRTS3Y2YnF2TUNKbGVQM0JpNlNjTndtTlFteEhKb09WcDRRX1B3?oc=5",
      "date": "2026-10-23"
     }
    ]
   },
-  "GRWRHITECH": {
-   "name": "Garware Hi Tech",
-   "r1d": 5.62,
+  "SESHAPAPER": {
+   "name": "Seshasayee Paper",
+   "r1d": 8.84,
    "cands": [
     {
-     "t": "Earnings call transcript: Garware Hi-Tech Films posts strong Q2 2027 growth",
-     "src": "Investing.com Nigeria",
-     "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxQaGl0SngwNmdyR282cUYwbjJ2M3FXallvNWk1azk5TXM5d0lLeFFsSzk0dlhYdHJkSEpKZVpJVHFEYjlZdzNFR0xfeUxjd0FraUVhd0VhSV9xeXJkZEZVSk5NeWNqVUNVdkNUU2xaY0ZjcFBGT29Gb1IxdW1YcnN4dUJoNEsxMkt2YmZzWnRLbUdUUHlXYkprOHZxVloza2JhS3ZaanNmVU1KN0FZa2JmVUlNOGtrNFBXQW91WDVLQnBFNk9RRWxVUDNENU93QUU?oc=5",
-     "date": "2026-10-23"
+     "t": "Seshasayee Paper and Boards shares jump 10% after Q2 results, but technicals remain weak | What's next for investors?",
+     "src": "Livemint",
+     "url": "https://news.google.com/rss/articles/CBMijgJBVV95cUxNckM2NkJEcUhnZXdwUW9MTnZGOUtzNTN1c19qdzhEeFBXTXl3eTI3c01HMnluaVdVVTFraU5KbWprSXp2aFFJV1h5cjVLdTVYcEVIaUZmMlFmVHlfbFVBV2xNS1BZb1dOZzFoUVJsZ18xcWNnWUF3TkxSSFkyVm9oX29WZkthU25IT3Mzckw3MF9RcW1EVWJ6dUlGUGpvM0NIUkpXWVNtUC12cnplZ0xTQjJNWUl1VkwyOV9DeUJ6dzBKZFFxMGhIV3A0b2hQVVhLZ0tjcGItc2hZekYzWUwxZFhTclBsWUExMF9XT0s3cm9kZkJYMndrQ1hyRmpIdW1oNWxMZkttSVIzdmd4TkHSAZMCQVVfeXFMUHNOX0pKNGlTOVFHUEpwTUZadzctaHM0ZjFhWjZNN0VVZjFGQnh6ZUlQLW4wdUt1cTY1ZU0wcVJNTjVRRXg1ZDM0WTRQQWw4a0dFd3IxSlNYYTQwNVBhYUhneGpKb0FMeEhzMXBNYnpCV2JxVEtIZ1FYRFdPeXVTelZMYzlXSnhEM0RvOWtEb3dldnViMzhITDFvT2huTGU2bDdLY0tvcjk2eURCaFRDbi1EVFdFMWtUSzBLaEFYZlhrYngxM1lWMHh1RzlTek1HUGhzT2ZSeVVqWUEtR0FMTG16emhMUm5POF9UYjJEcDNFZTREVldRX1ZOa2JfYWhEaUFNVjZ4Q2hzc1h3dDBRSUYtX0U?oc=5",
+     "date": "2026-10-26"
     },
     {
-     "t": "Garware Hi-Tech Films Limited Reports Earnings Results for the Second Quarter and Six Months Ended September 30, 2026",
-     "src": "www.marketscreener.com",
-     "url": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxNUWt5U0NtX0ZQU1daRzFWcDVCUUNLcVNwYnhOdU1OV0pWbEtLNWhUTEZNaDh6R3ItVllzSXNtWmgyNkFHYzVEV0lNTktqRnROeklfS1pKcVdDcDVhbGdvZmRkZ2YycEgtM2daVzgwT2xjR0R2V1BfNGsxX1VTcXNCRXB0UXFoV2xGZWo2VXdLazlrMWZvalp4emF3Mi02MmFfanlucEplLUJKWTZXYUozdk9LbXdEUTJBWld6UWNCdXBXZGVhaTlSRlgyY09pZmZXZ2I4LWphUmdHWUlWY1pJU29ZQmNZN0lf?oc=5",
-     "date": "2026-10-22"
-    },
-    {
-     "t": "Garware Hi-Tech Films reports record Q2 FY27 revenue of ₹696 Cr; net profit surges 41.9% YoY to ₹129.44 Cr",
-     "src": "Trade Brains",
-     "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxPcWhUdi1DX25ra29SZUxLdXN6eG9kZTZuUnFoWkVtRVIzRXdRMXZjYmptaEd1eGZ2WTdWMXpJNzU5b3RpUjRZZUxSRVBHdmZhR3dzR3dqbC1oOVRmcEdFajBWeVlKdVRQTWJWd0JFRE1peDRNVG1XUklDU3Q0aTMzMnM2eTBDY3RiMWdVcmx0bEpzQldzZEpCVF9UNXU4Z196b3l6RzlrX01tVkNKX3h5ZVBlUEN2dllDTzBjcVhmMnZsaFFnZUY1dFBtbm10dTYyTk5XZDhReHFiazVwLWJxYw?oc=5",
-     "date": "2026-10-22"
-    },
-    {
-     "t": "Garware Hi-Tech Films Limited Reports Outstanding Financial Performance for Q2 and H1 FY27",
-     "src": "EquityBulls",
-     "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNdERtTnpUbl9TREhQaG5YUkl6YW1scWFSbXplNWxnY0g1ajVQMWw2XzVLWGhlRHNZZXByaHc4NThfdVlPbDFrbkZyWHZweEdFM052TnQyWGRac1IxbXlwT1VNRUhobmpBQWhrcU5QNl9feXBWdGJzZlBHdG96R2xsZUlNazJkNU9HQUNrSzlIdkU5aGhrNG1KMFFJLVp6eFhVWjI0M2pISDNLSUNFbXhHOVUzYUYxZjNMY1pKTg?oc=5",
-     "date": "2026-10-22"
-    }
-   ]
-  },
-  "SGMART": {
-   "name": "SG Mart",
-   "r1d": 5.3,
-   "cands": []
-  },
-  "LCL": {
-   "name": "Lohia Corp",
-   "r1d": 5.24,
-   "cands": [
-    {
-     "t": "LOHIA CORP Share Price News: Price Fall and Peers",
+     "t": "Seshasayee Paper Shares Jump 10% After Q2: What's Next?",
      "src": "Univest",
-     "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE0waUtJU1dlWThxS1JaVlBTdkhfTTA5ai1oS1EteEoyMU51b3ZFQm9qUGhYT2ZCd3hqLXE0bWhhRXFXckZvZjlmaWk5TDhWZUktLWlTV1JzOXhLeEpOVXFSZHYwa0t6SmxrZ096NFZLQUd4NldZeWc?oc=5",
-     "date": "2026-10-21"
+     "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxNdjhIbDl6bEJ4UldmVW5EbUZOcEpLUVpscjI2Y2VrVjVUZWw0RFJHVVlhWDhtZjE2OFEwa3RJMWt1cHZOR2QxcG9pd2ZRdEV5RzNnSWRFd0xKTzYtU3Z0TnlUTUUwUTdKeVA3cVdnYVZSc196WkZCZGotc2N1RWhsS2dYTlpWQ29FQmVYX3c3VjBCdFB0cHJGNFdtcjU0akVyd1J0QmZJTDdMcGUtX3d1eVNhbmhscDV6bHl0YTMtdmhnamNaOHZkeGJXZTBCR1hhWW44RnJGQUtRYVRa?oc=5",
+     "date": "2026-10-26"
+    },
+    {
+     "t": "Seshasayee Paper Q2: revenue up 45.3% YoY to ₹503.06 Cr as net profit nearly doubles to ₹42.31 Cr",
+     "src": "Trade Brains",
+     "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNallzelJpaVd4UExHaUVodWF3SVlhVTkzemVOektVOGpJel9rdndrZFhYYlJKbHAwUzlyUnhadmtwbDM0bzY2RF80Zl9idmt5VmJjaDVjMXpYLUlPeExjaXpua19jUE9PRHNZcGhBSFlUS0pqUlJ3R1pONGcxSFU4NFdiLWx6dnJJdEx5c0hlaVFWQXFMUTFWdUJwXzQ2cmJnV0FGTFFpRFc4QlpLU3ZIcGpOeW0xa1FycGpycl9keWdtUTVOTVlIQmNNc3QxZ3dPd0dv?oc=5",
+     "date": "2026-10-26"
+    },
+    {
+     "t": "Seshasayee Paper Reports Q2 Standalone Net Profit Of ₹34.9 Crore And Revenue Of ₹500 Crore",
+     "src": "Sahi",
+     "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNZEFVQWdBNkx6ZzZnSVFJSFlpOUhTWnd5T21mZVZhMURXbU5NOElVemZjMEQyaGRRMS1EVURpN1N1aXBxTThtZWtJZ3FOWFV0dHE5cTB5cDNSNE8tM2VQYWNfbEREN2pXZTB2Q0hteHQ3amlvSWFxd2hXYzZXMWc1ZVhoQm1PR3lYcWxJdG42b0VTdUwyeUJnYmJ3dWRmcEpiSXI5REhzMTBPZ3FPZ1lNeHF6UDg?oc=5",
+     "date": "2026-10-24"
     }
    ]
-  },
-  "PASHUPATI": {
-   "name": "Pashupati Cotsp.",
-   "r1d": 5.03,
-   "cands": []
-  },
-  "MOREPENLAB": {
-   "name": "Morepen Labs.",
-   "r1d": 4.99,
-   "cands": []
-  },
-  "AHCL": {
-   "name": "Anlon Healthcare",
-   "r1d": 4.97,
-   "cands": []
   }
  },
  "errors": []
