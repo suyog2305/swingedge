@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25",
+  "updated": "2026-10-26",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -252,10 +252,10 @@
     ],
     "ATHERENERG": [
       {
-        "t": "Ather Energy shares rise 7% after Rs 1,758 crore block deal as Hero MotoCorp raises stake",
-        "src": "Business Today",
-        "url": "https://www.businesstoday.in/markets/stocks/story/ather-energy-shares-rise-7-after-rs-1758-crore-block-deals-heres-why-551941-2026-08-28",
-        "date": "2026-08-28"
+        "t": "Ather Energy posts first quarterly profit, shares rise 10%",
+        "src": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOVnhEVHdQMmhvSjlHM0h6dzZuNWJnQi14MW1wa1Q3T1dTekdSaVpxRjVUMGhTWTBHVjF0amdGMkd2ZVNGUDFtTFhXUG54aS0xWU5VYW9nQVZMS05EV2ZQN3RaWjNwYmw4Snh1YTFJckZ2NTd0ZzE4RF9LYmhlQVBUX2xBSl91WlJCY0x0TXQ5Y090YjRKQ19BQWJ1WWYxU1A4bU5OX284WG5MUUF2YTdV?oc=5",
+        "date": "2026-10-26"
       }
     ],
     "TEJASNET": [
@@ -1801,8 +1801,48 @@
         "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxPcWhUdi1DX25ra29SZUxLdXN6eG9kZTZuUnFoWkVtRVIzRXdRMXZjYmptaEd1eGZ2WTdWMXpJNzU5b3RpUjRZZUxSRVBHdmZhR3dzR3dqbC1oOVRmcEdFajBWeVlKdVRQTWJWd0JFRE1peDRNVG1XUklDU3Q0aTMzMnM2eTBDY3RiMWdVcmx0bEpzQldzZEpCVF9UNXU4Z196b3l6RzlrX01tVkNKX3h5ZVBlUEN2dllDTzBjcVhmMnZsaFFnZUY1dFBtbm10dTYyTk5XZDhReHFiazVwLWJxYw?oc=5",
         "date": "2026-10-22"
       }
+    ],
+    "MRPL": [
+      {
+        "t": "MRPL share price zooms 12% in muted market; among most active stocks on NSE",
+        "src": "Business Standard",
+        "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxONVlFWGxsRDZieDE4Y0FHUjltWWpCUkNtY1pJUzdDSWdidERqV1V4X19kMDdLZW9pRlFLWFBMSUU3Z1FUeGZubGhINVNBQWhDamIyWUc4SWZkUk9fU2hncW5kLU4yV2Z2eTBuNmVwM2Z0bkFsbDFvOFh1ZTVHTWpabDhERHRQdE5HVnRMMnQzbmIzZ2xBNjVWU1VndkxEZGJDbXFMWTZNSjhhRzlMZzdJRVk2UGVHeGpuWnp3OFF2UFF3RkZldEZVODFwYXF0UzNuUXdaOTBuVdIB3AFBVV95cUxNUmtIaFo2SUQya3ZNSnpkd2N3UllIWEg5ckR1M3hZeC1aZUw4VGhPYjVFQWk5Mi11Nl9UdXA5Z3paMlYxZ3pWVjdTZnd3YWV3c083ZlhzNl9laEp4UzZ0ckU4bDRNamluOVZhQjJMb3ppbXlQTE5nN3hEUm5KczNqdUliRmphWUZvR1Z5Yy11OXRacDhkM3RzcGpMNzBRTUk1ak44YWtOcjN6eWhGSTFCSDZpdVE0S25LWnRXNVZ1ZGFfeUJoZzJIa1c3YzUwVXpnUkhPXzR4OEctb05Y?oc=5",
+        "date": "2026-10-26"
+      }
+    ],
+    "JYOTISTRUC": [
+      {
+        "t": "Jyoti Structures share price jumps 14% on ₹949-crore power grid orders",
+        "src": "Business Standard",
+        "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxOTVdqM01DSW0wRERPZ3c1RDM0V3NmZWRncTlHS3hFcHJGOENYSURramdselNHSE5SV3BHVkhQRy1DSjI5RGdTal9pcmhzaDBVc2lzUHBIbnNTRTFQSDlBY0wwWDN1TlYzUzRIMEF3SzhVa2dLVmdOUnhnSF9XaGZBLVZHeEdJYTZ5eGdVSzhTS3RnSUJRY25VYllGbjFsNmRYdjBKZlktZm0tc0FrcUlyOUJOZXRqbWhhV2lJcUhnUk8zMlFteHJXUHdaZGNUZHl10gHWAUFVX3lxTFAyTF9ZY21DOXRLVmhYZEZ2QWd5V1h0QXdLQzJxRFR1ZUFod0pxcnhKcXdIVUNxSXN3Q2xSbV9SVFNtUjFkRzhuVW11SlpaQTdPR2EzeDZGRFFpWUFXVjdhVDhxM180RUdCRG0yMWNrLUkwcEtWc1VDQ1RYQTk4eF9zU3Y4WHU0TUUtcENyUkFCQWlHR19jUlpHQi0ycjN4b0Y5ekJmT25zQXIxYVVNUkZ3T2w5OGdUMVVXanBSNmlBLUFLaFI2cktTdnMxWjdjb09aLXB3bEE?oc=5",
+        "date": "2026-10-26"
+      }
+    ],
+    "APOLLO": [
+      {
+        "t": "Apollo Micro Systems shares rally 9% as Q2 net profit jumps 56% YoY",
+        "src": "The Economic Times",
+        "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPMkdJcTFtNjU0dzk2RkJIM1drVkhpNnBQOXk0akJXdTlvSUpNc2xiYzJTZ25kMndod0RWbktGSXhfZzlwZ2R0aXRrUjRNWmVCYmxiM010OUYtdTVEMGhFMkxsZ1EtQWJXaGpPbE5DZ1ByTHhYbE15LVptSFAxM0dzYjFzcG9tYlN3V2xacUlJdWk2LWVhektkM29Wc0xfVE5QVlN1RFl3c25fcGR6OF9HVDd0UFJTLUZ6dE5reW9YNElCOWJhS3VydllBRkw0MXAyRFJfYU5B0gHbAUFVX3lxTE5lTXFVYzYwTHkxMTJoVjNCTTRFYllxS0lWVHhZMEVVQ29Sbm52a0MtTF9ob3c1Q1JiSkpGclZCajZaZ1U4LXpKU3FpOTVjdXpiY1p5dHloV21OMWNLbFJkZFZMX3p3YUREdHFVaGQ2UmpQSVlXVl9nV3ZjWjhQUmZDckJrbFExZndMRlBPYkdreXlPTDhKRUxJd2ozZjZXT0xtRHpsbXhKakREekQ2dXdIVEZsU3ZBUHF4U0tFbGlhdjRneGcxWTF1TTlnTVNYVm9nYnZkNnZaT0ZwSQ?oc=5",
+        "date": "2026-10-26"
+      }
+    ],
+    "SAKAR": [
+      {
+        "t": "Sakar Healthcare Q2FY27 Results: Net Profit Rises 149% to Rs 11.30 Crore, Revenue Jumps 51.9%",
+        "src": "Dalal Street Investment Journal",
+        "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPVFNMR0QtMWtxWUFtdEt4RGtINnZpc3pHZG1taWNFQXdKbEdNQzFhQVdieHMtVERrT3NEU0dEQmRPd29CSm5uRHBoVmVoYXRSWUoxRUg5MmVoU2dNOXlzLTAyVlBIX1lXanMta2tVR3VhVENncEk1MUNha21maVJ6NkRlTThSRUtuVzEzNVkwTFczSXF5MnVyTmhxQmFXeWo5cGs1cXJuZ3lqc18yLTFSaVBtMXlMejF2Q2ozYTREQVVIQnNTV21OSDJGZVhxOXo2cFE?oc=5",
+        "date": "2026-10-24"
+      }
+    ],
+    "SESHAPAPER": [
+      {
+        "t": "Seshasayee Paper Q2: revenue up 45.3% YoY to ₹503.06 Cr as net profit nearly doubles to ₹42.31 Cr",
+        "src": "Trade Brains",
+        "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNallzelJpaVd4UExHaUVodWF3SVlhVTkzemVOektVOGpJel9rdndrZFhYYlJKbHAwUzlyUnhadmtwbDM0bzY2RF80Zl9idmt5VmJjaDVjMXpYLUlPeExjaXpua19jUE9PRHNZcGhBSFlUS0pqUlJ3R1pONGcxSFU4NFdiLWx6dnJJdEx5c0hlaVFWQXFMUTFWdUJwXzQ2cmJnV0FGTFFpRFc4QlpLU3ZIcGpOeW0xa1FycGpycl9keWdtUTVOTVlIQmNNc3QxZ3dPd0dv?oc=5",
+        "date": "2026-10-26"
+      }
     ]
   },
-  "vetted_scan": "2026-10-23",
-  "vetted_at": "2026-10-25T18:46+0530"
+  "vetted_scan": "2026-10-26",
+  "vetted_at": "2026-10-26T19:04+0530"
 }
