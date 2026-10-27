@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26",
+  "updated": "2026-10-27",
   "note": "Curated recent headlines for notable movers, keyed by NSE code. Baked snapshot (refreshed by Claude, not the weekly task). Every gainer also gets always-live news links in the app.",
   "stocks": {
     "SHANTIGEAR": [
@@ -1076,10 +1076,10 @@
     ],
     "OLAELEC": [
       {
-        "t": "Ola Electric zooms 10% on heavy volume, trades higher for 3rd straight day",
-        "src": "Business Standard",
-        "url": "https://www.business-standard.com/markets/news/ola-electric-zooms-10-on-heavy-volume-trades-higher-for-3rd-straight-day-126092300279_1.html",
-        "date": "2026-09-23"
+        "t": "Ola Electric shares climb nearly 14%; what should investors watch now?",
+        "src": "Business Today",
+        "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQNF9RYXlBNHFZZzAwLVZzZTNiaWM2OURZTkV2VUpzdVFFNkhYS0RZLVpkRVZSNFBqR3JndkdKQjlvYnJPcGdEbHdZamMzbnB5dzBwemhEOVV3bmpueDU1MllmRHczTThRRlltd3NfeWs0cmdsaE1uV3ZOcGh3SzJUTmV4NlJEMjBjaXlUZTdxQ0lJSFBYSUxvNjAyTHpsbGw0aWQzMU1taUpVdjlYaU9YOEVOb3owbk4xc1F5bVF3aEk0VTFNNEEyZ2VrcVI5d0ZB0gHWAUFVX3lxTE9CTWZfVnNjSlJKcExBMTAyUUxpWmRMSU5fa0lPWW1tTHJMSGs0aTV4MnM2TXNLZVJibERGa1loaUJEeERnWkZQSWd5Sm1pMlRNQnkySXA4RzUzV1M2R3JaTllRbEI2cC0zZ0Jnd1FPcDNyTDdkVGNmOGtNWExEWjNjQVZIRFhGbmRhTmRwSmc0bmNScEhSd215S3VKODlSQmtVTl92TFkzNWd6am1IcGkzTXBQaGFDNXNQSlZ1SkVRakpGYWFSM2I2LTNXbzhOYlJVX2pmRFE?oc=5",
+        "date": "2026-10-27"
       }
     ],
     "BPLPHARMA": [
@@ -1300,10 +1300,10 @@
     ],
     "SUNTV": [
       {
-        "t": "Sun TV zooms 20%, sharpest intraday rally in 9 years; up 45% in 7 days",
-        "src": "Business Standard",
-        "url": "https://www.business-standard.com/markets/news/sun-tv-zooms-20-sees-sharpest-intraday-rally-in-9-years-up-45-in-7-days-126093000512_1.html",
-        "date": "2026-09-30"
+        "t": "Sun TV Network fixes Nov 5 record date for second interim dividend FY27",
+        "src": "scanx.trade",
+        "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOdHFsNFBkd0V0SzhfMlhoT3lySFgwYzB5amlSc0UtQ0RRbUFCZkZuRDJyOXNzTUlzS2hINVJGb3lOUW55aUhmWlo2Z2NXbWRVbGdrMk9fRnRrYXhXUHc5a3p3Vkh5eGZLZmhkOUtGQXZUZktfRVk2Uk84Sm03cEhYaTZCQjRqYXRkcTZhRE82bEE0MzdhRUtxQ3J1N0Q0V3dQbjA2TUtMUUd6RUxPV0dHNk9NV3AtQVNONXRKcWQzOGNQQQ?oc=5",
+        "date": "2026-10-26"
       }
     ],
     "RITES": [
@@ -1841,8 +1841,80 @@
         "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNallzelJpaVd4UExHaUVodWF3SVlhVTkzemVOektVOGpJel9rdndrZFhYYlJKbHAwUzlyUnhadmtwbDM0bzY2RF80Zl9idmt5VmJjaDVjMXpYLUlPeExjaXpua19jUE9PRHNZcGhBSFlUS0pqUlJ3R1pONGcxSFU4NFdiLWx6dnJJdEx5c0hlaVFWQXFMUTFWdUJwXzQ2cmJnV0FGTFFpRFc4QlpLU3ZIcGpOeW0xa1FycGpycl9keWdtUTVOTVlIQmNNc3QxZ3dPd0dv?oc=5",
         "date": "2026-10-26"
       }
+    ],
+    "SMT": [
+      {
+        "t": "Invesco Mutual Fund picks up 3.5% stake in Sahajanand Medical; Yali Capital exits Tonbo Imaging India",
+        "src": "Moneycontrol.com",
+        "url": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxNTGRzTE1UUlY3Ukx5QWp6R1ROakRqWFlOdjhtLVdDMThnX3l0NDNKLTNORG45NzRsU0VvajdvX3dyYm1OWUE3WnIzWW52d1lxZFpWeDBQX1pQbmliZmZkLXZPOG1VdE5pQi16X1AwVHc2UzZEN1BOMzEzWFpweFdjTjQ0UGQ5bUhRZHlOaGpUdGpyM2J3TzBMTURUQVlET01XUzNQd3BJbzAwX003ZlRiSGNKdFhoNFVORk9OVktTbVI5dlBjWjlrYTNfc3V3WU9NMnFrZG9GNkMwd3dnTTltUnpSV253S1BIWUlhV3JMZ1d2cXRjcWFJ0gH8AUFVX3lxTE90eEJCdzB1b1RHVWdwNUN4ZjI0T0IxM0pIdXNieFNfOHJxcGZPRDhfQWpYOE5aMmlQVGx5Y3BSNWFWVGhPMUdYRlYycWV0cTR3ZjBXcFlDQjJuUTlrcWQzeEhmbklub2twM25IZTlReGFTSGtSQ0Q0U295SERqWnpudGkzWjNwQzZOd0RQN3RncmtDSU5sYTRLR2JhRnhBZHFpM2l5MFhCSXFQZ3RzMUZVXzJGYXVGdVd5MkFyM2JObFUzTkRsRFludEMwazc3b0M4YWVFdGg5SjR6NTdnTmkyZkxHaUFlWGR1NGRnTWFNS2FBWHJ3bkc2QzMwdg?oc=5",
+        "date": "2026-10-25"
+      }
+    ],
+    "AGIIL": [
+      {
+        "t": "AGI Infra Ltd Locks at Upper Circuit With 15% Gain Amid Rising Delivery Volumes",
+        "src": "MarketsMojo",
+        "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNQXFPLUxxa3JtQTlQUzhUd0ZvSGtQeUI5YXFENmJlZDlTQ3VxRmRROVVOcVBsUl9JTVgxdWtQZnplaVlJNjBmaDF1dllYbmdIenVpOUNVREFSWmZZU2RmclhtcDJPcmNUWV9zUWZPMkc3SF9idXVPZXdEdzZldTk4TEJna0QtX1RKVVU0YjVLb2ZURzM2aG15UG44VURYSVJRRk1rWjNMb3c3SnMwRWFWdUV1VkxGaDNXQXpZR1pn?oc=5",
+        "date": "2026-10-27"
+      }
+    ],
+    "INDIAGLYCO": [
+      {
+        "t": "India Glycols Ltd Surges 7.78% to Day's High of Rs 311 — Outperforms Sector by 7.43 Percentage Points",
+        "src": "MarketsMojo",
+        "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNVmFHOF9aajdGZExlMFgtUWNlbjJEb1NTSjAxaVBMNXNNY0ZkS3pPcmdIZXpRT25YaFYxdm1XdXZQck4xNUpxS2IxRXNfQkVvejVvd2d4MWxnbi1KT1d2TDZWWVNiM3JQV0FVUUo2NFB0U0pBeHlKY1dHN2plYUVNNm1OeXNuUDFrMUZla0Y1dWZhY05udUMyTWREQ3ExaUNGeDJqZXVCaVZDOVRjSHhRVS1XamIzZmxyd3pGTENOeWJUZw?oc=5",
+        "date": "2026-10-27"
+      }
+    ],
+    "BBL": [
+      {
+        "t": "Bharat Bijlee shares see biggest single-day gain in more than two years post strong Q2 results",
+        "src": "CNBC TV18",
+        "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOY0ZiR2t3Mmx5cFRocDVtLU5vdktORnJJWlBZUWtRVHp5QVMwRmpKNG9fOGw0VjFGZTBrTnlzUEZXcXg1SGIzM1h4SHNsWUQ5d1hpRXE5aE5pLXlKTXNEZUp6REZTV3NkX2R5SHFuU3hoTWhRWC1PY3d3NXd4RDY2c2dxczRsSWdtM1l3UG5ZSUN2SF9LaGdQUVlheUJSNVdzMkN6dl9SRlpuOXN1Um5iVkp1bzNlN21FbXlKenMxVXdYY0pxSkRZeG15aC1uNkJGNHA3Q3ZqOE9LaUnSAdsBQVVfeXFMTmNGYkdrdzJseXBUaHA1bS1Ob3ZLTkZySVpQWVFrUVR6eUFTMEZqSjRvXzhsNFYxRmUwa055c1BGV3F4NUhiMzNYeEhzbFlEOXdYaUVxOWhOaS15Sk1zRGVKekRGU1dzZF9keUhxblN4aE1oUVgtT2N3dzV3eEQ2NnNncXM0bElnbTNZd1BuWUlDdkhfS2hnUFFZYXlCUjVXczJDenZfUkZabjlzdVJuYlZKdW8zZTdtRW15SnpzMVV3WGNKcUpEWXhteWgtbjZCRjRwN0N2ajhPS2lJ?oc=5",
+        "date": "2026-10-27"
+      }
+    ],
+    "ONESOURCE": [
+      {
+        "t": "Onesource Specialty Pharma Q2 Results: Stock jumps 8% on strong operating performance, revenue growth",
+        "src": "CNBC TV18",
+        "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxPbFJ5cDQzczFFRDF4MGlkb3ZsMndhUmEtRmZtTmI0RjI0T0cxLWVVZmtrZGxpd083Mlg0VkNMTmtxdXBKTXE4bWU2SnEweEJnRVpDaUljcGpYMUFlMG90akY2eVJwRjJjc2piZEpaMk52SE5HTXAtd3MyQmRJLUFBWWRhOW5wTlBqRFlLQ2R5ZzF0SndkMXRveFdFZWs0bF93c0FaMHkya1E0XzlzVjVFYmFIS3p3ZXJJTGRlTlFJRDJfY1RERHBfOW1qRFYxcFVEQ1VDSjZ1d1NvaV85d2hScjhMamg1cFpCUHRZREhn0gHuAUFVX3lxTE9sUnlwNDNzMUVEMXgwaWRvdmwyd2FSYS1GZm1OYjRGMjRPRzEtZVVma2tkbGl3TzcyWDRWQ0xOa3F1cEpNcThtZTZKcTB4QmdFWkNpSWNwalgxQWUwb3RqRjZ5UnBGMmNzamJkSloyTnZITkdNcC13czJCZEktQUFZZGE5bnBOUGpEWUtDZHlnMXRKd2QxdG94V0VlazRsX3dzQVoweTJrUTRfOXNWNUViYUhLendlcklMZGVOUUlEMl9jVEREcF85bWpEVjFwVURDVUNKNnV3U29pXzl3aFJyOExqaDVwWkJQdFlESGc?oc=5",
+        "date": "2026-10-27"
+      }
+    ],
+    "ACUTAAS": [
+      {
+        "t": "Acutaas Chemicals rallies 13%; hits record high on strong Q2 results",
+        "src": "Business Standard",
+        "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNdXZYMVZYMnBNM1NZb2ZFTXVDOWY4d2Q3cmduREdRQ0Q0M2NQaFZKLUhXMWpXemo4T3plNkNpZi1mU2t5LUNzR1NwT0JrRnRMRmw2UW44eHAwLWlKSTZIcFFVYUVvN0NydGRxYUNSc2JETFYzWURhMmduSVFZQXJET1hncUF6akp1cFUtTTg5Ti02cmFmREltLW9nQVhmbnNlQW5DRjUwVTJyUDJwTG1sUXZiUmFPbnRIU2RVaWJiTG5abnIxRklsM29PeExsd9IB0wFBVV95cUxOM1pfWWdQVFpXTWZNLUZIdGtyZk5vWTI3NV9qTGZ6WkY5M2h3UUFmOWpNcHJSc1piNU1Mc1JKeEtxank5TVljYnduNlRRbVhwVDg1WlhLcURjOFJib0tzNTJhVktNTmVVRlRXbEZMNS1UaEJFdk1tV2dnS1gxVUg4UG1Lc0ZGV1c2ck5PRHhObmRuY21hQlZWT001YmQ2Yk51NVFKdDk0SUFZcURjLVJJaHpUQWJNak03ZzdjR1lBMzZnWWE3bEEzNmZUMExnSDFhVjNF?oc=5",
+        "date": "2026-10-27"
+      }
+    ],
+    "BHARATSE": [
+      {
+        "t": "Bharat Seats Q2FY27 results: Net profit up 54% YoY to ₹15.2 crore",
+        "src": "scanx.trade",
+        "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNVllGZHIzaUdvZjFmVEcwQzRCSUw1VDRPZWVsZks1SXZxOUFQUGU5RHFIaTYzM3Q3UUx6bTNVSlNTRWZhbUZIYVpWb0VNaVlHVDhnbzlTcmkxX05vMkpyWWRHdko0NHB6WUFxbzJqNEs4TXVPU0pESTdrVHlGZm5qUl81cEtNNE1PbXR6WGhBdHV0QU9BTXdXbU5ILUQxNmpaTFZSUGlCc3JaZUM4dG1KMGdhN1NXUQ?oc=5",
+        "date": "2026-10-27"
+      }
+    ],
+    "MAHLOG": [
+      {
+        "t": "Buy Mahindra Logistics; target of Rs 584: Prabhudas Lilladher",
+        "src": "Moneycontrol.com",
+        "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOTGZEb3BGRHJfZ1A3V0tESG5jVGJhdWhvbFNQRk84WkszLWp4eEV0RmhKcE9RUkVwVlM2MUQzOUd3QjlkNkw0alByMVlxVllvVFdqWk5DeXgxaVhCTWdDWTY2UHRDdU84QlN2a0MxVkpzZXN0Rm9NblZMWkdhVWl6TGduOE94Sl84LXpEWUNUSF9pTmN4X1B5RkY1cFB3VlBUVmU3TkpBUFY3anFDTlo0eHRkNEFfU2FIaG5OajlXbEt0M2_SAcgBQVVfeXFMTjJXNm1CZmFTX2dFQ1M1X3VTZlo1VmROd2c1T0dBSlJqcFRWUW1CeTJseWlmX0tpc1FjRDdrSWwwX0NNNThqZHF1dFFxNVQtVlRxWksxWXpNSXUweVN2Zm1NSDN2cWhRLWgxd3hXTHpTQ3lqZXU1RlU0dkppb1Fnc2o3N3ZpaEllcDRCTEdaa2FCVS1ENkxoVXRoa05udVAtbVBnTFotcUZiVWZKOTdpNUg2ZnhIZVZfanJwUUF5SzhONml2R0Vfeks?oc=5",
+        "date": "2026-10-26"
+      }
+    ],
+    "INA": [
+      {
+        "t": "Insolation Energy Ltd Surges 7.0% to Day's High of Rs 67.4 — Outperforms Sector by 5.07 Percentage Points",
+        "src": "MarketsMojo",
+        "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPU0o4QUFKaks2dmZSUEpwRTJUc0VYT2J1Y1pQaDBBZ0I0VUVwYU9DbUJZQVFPdHFDQXhTZFhQNGJ5OERkMmZSamxiTUtDbEtOTEpLT0lzU2R5LVAzczRrOC16UWN1clAwc19iMThnd3FlQ2JVR190WkZwbXFuU2hQRHlPSXl2YnBJRUhLTkxGeXIzQVZSSW93bktpbW0zSzV1WE5RbXhBRnJVbndpZDVnR0JLdVZkMnNoRktCUFp4NTR3QjJxdkE?oc=5",
+        "date": "2026-10-27"
+      }
     ]
   },
-  "vetted_scan": "2026-10-26",
-  "vetted_at": "2026-10-26T19:04+0530"
+  "vetted_scan": "2026-10-27",
+  "vetted_at": "2026-10-27T19:27+0530"
 }
