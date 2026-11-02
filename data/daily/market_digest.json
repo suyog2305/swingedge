@@ -1,78 +1,79 @@
 {
  "schema": "swingedge-market-digest/1",
- "for": "2026-11-01",
- "at": "2026-11-01T07:46+0530",
+ "for": "2026-11-02",
+ "at": "2026-11-02T07:46+0530",
  "by": "Claude routine",
- "headline": "Tech rout wipes $1 trillion from Wall Street on AI spending fears; Fed holds, yields fall, Sensex and Nifty rally",
+ "headline": "US tech sell-off on AI spending worries weighs on Asia; oil slips on Iran talks, OPEC+ holds output",
  "points": [
   {
-   "t": "Wall Street closed sharply lower as AI cash-burn fears sparked a tech sell-off, with the Nasdaq heading for its worst day since June and chip stocks down 7.2% in one session.",
-   "why": "A global AI capital-spending scare weighs on the AI data-centre, fibre and EMS themes and on foreign appetite for tech-linked Indian names.",
+   "t": "US stock futures rebounded after a brutal sell-off, with a $5 trillion AI wipeout cited, and Seoul stocks opened lower on disappointing tech earnings and AI spending worries.",
+   "why": "AI capital spending doubts are a key driver for global risk appetite and for Indian IT and AI-linked data-centre and EMS themes.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMiygFBVV95cUxOSTk2T1V2TEZqRklZcDI4b1ZXUWZLTEVfbHNhNnFvUWM1TUZsQ1BsbTlFQ3Byel9venlPamZLWlZoYkE5bkhqMmp5YTdUQ21WY1NfaWVmSUtIQ0lqNGRZaVlhei03eWFWTkdJeTNYNl96QmEwQjE4dTl5cV8yQWxYV040VW1LWlI2WHdDZ210c2pZWHFDeE5GUW50S3VCZVA2UERTU3FxYXpYbEpLa1hzd0NWcXJobUE2WkFTVmVWX1A1QzlGMjQ3R2xn?oc=5",
-    "https://news.google.com/rss/articles/CBMigwFBVV95cUxNc3ZVZWk3Rkc2ZG5Scm1WT0syb0UtQl9WZnFCWGF3UTZPam44VU1QSDNXQ01QZVlreG1xaENHRGZuMUdFUURyeVA1MV9hbzZrNFpEVDRkS3FSZE5KNVZiNzIxOWsxZXBwN3kzWGQ3Wi1Cbk1BWFVfTkRQTFQxTDVId2trcw?oc=5",
-    "https://news.google.com/rss/articles/CBMixAFBVV95cUxPNTM1RjhCODBSclVNVWNWYy1ObVBIbHlvblN0SEZYLWF3Q1ducFVEOGoxQlVmR1hSVlQ1ZEhvYmtkM3BYaTZsQnBVQmhoSmZiR2I0ZmFJU1hDS2NxcFFUMHUzOUdwdDE3d1BVVi10WUtQU2RSTWp6WU1ialhMVC1TeERvYldXeUhCbjFIZzZzWHRLc3dFbF9HM0wxZ3lvNzA1NlJTY2dkYWdVbU1xcUh5cGxCLXhZcVp6Smd6emVqLUZWazBT?oc=5"
+    "https://news.google.com/rss/articles/CBMi7wFBVV95cUxPWmx3V1R5bUs2dmU4azlGVmpzQ3hPaV9tTjgzUzZWY0p6ZVhVRzBKOGF6VThtYlVwRE5sUUk0bExjWWEzVWUycGEza2FZdUhiaHY5djhQR3NCaHRib2YzRnhKbHRFMWkwNFRCRi05Q3ZicGpxcld3OUJjSThVOE9tQzlGN3lXVVREVHYwR2lkbm5FS0daZ1AyelpWMWpzRFd4NEMwZkhyVXNocHJNb2dCZG15a0RNbFRYT0tTZEFFcFlUVHRtR3BGM3pQZlNkZ0RDd1Z3RUdRRDRpNjd4aU5Xc0JRTUZ5ZDI3MFRNSFdqZ9IB9AFBVV95cUxQLVJSZkN4TDRQQ0JRUHZEYi1ZM3dVc2RtTUN6VDFGWmdKcExIVzdDT05wTEY5SkN0dUpvaW5WQUxON1NScGNJeDE0MXFFcWg3RFJXeUxHQ1B0eEJSVlZXR0hHTXBUeXBSVFVxM2xxZy1oTWI3eHRYaGVGcGQxaEp2R2w3WUM0dERUR0pkeFZHUlpuS2czT0lZdWs5dklfX2Rwc19odG1yczZsYWVLdVltS2RrRHExbnQ4M3c4Qm1PZ2NHc2RWTUMtMGxxZU85U2VDYVAwR0dBT0VEX2ZKR3luaEFDcUQzb0RJdmtIVHZQSEk2UVFu?oc=5",
+    "https://news.google.com/rss/articles/CBMiWkFVX3lxTE90MzBLcmZteWRrXzNOdTBUTVFob2JubU1sRS1RM3FRNEM1Y01IRjdEbGZiTzNFamVfb043TFVDTWRiaGRmXzN5SzBvSmxzaV9JYjlHSkJqUm1OQQ?oc=5",
+    "https://news.google.com/rss/articles/CBMigAFBVV95cUxPa0FBVWk3TmRsZjhQZ0Z2eF95SlBNb3p2cnRhXzFyQ093cFM5dmtmSFVpRTF2cDE5ZGhwSjVkWkgzRmtMa0M3SURkN2hxa0pyS1pQR0Z1YkFEeThJUmNaYlB1RHNWTk1lZkNCMVQ4TlZuaFdJTm5DcXAyb2VKVW9rXw?oc=5"
    ]
   },
   {
-   "t": "The sell-off was reported as wiping more than $1 trillion from share values as tech's $828 billion AI spending spree sparked market fears.",
-   "why": "AI capital spending is a key driver of chip, data-centre and EMS sentiment, and a sharp reversal can spill over to Indian IT and electronics stocks.",
+   "t": "FPIs turned net buyers as AI trade worries triggered an allocation shift.",
+   "why": "Foreign flows are a main driver of Indian large-cap direction; a shift toward India supports the index.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMidEFVX3lxTE1WaEdkUjE4cFJlX1hGUk9qODZTalAyR0hmci1pdXpQaWQzeU1xbmdqSFZBUXdpWXY4VGVMV3BQaFNEcFFOQWpsUk5YenhBLTJDVGl1dUNHOHZIM3F4UTlKVmEyV0dmZm9rcjM4WHhvdDN1dFlU?oc=5",
-    "https://news.google.com/rss/articles/CBMihwFBVV95cUxPWHBfTG1zQ1FTWTVJdG80M3c3bUFqdFoxWVNZRUgzSTZaQkh6X0VuZ3A2UDJQSER0RURxbGd2MnFLRjdCdFA2c3ZjT29lVHdEQnhUdUlpOFV1cFNCeFZDWlFHSm4tVnNTUjJ3M21acXp1YS1oWDFsVm1peWV4RDJLMkFCdkxlemM?oc=5"
+    "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPdHNYcFpObkFKTzNLY2VLaGxoYi11TFEwZmZ5R3RSWmFrcnNiSXk5bF85Q0Z6OF9NV3B3YmhHYXBXTVNkeWZkVXplNW1tbmVvYzNlMHdqNkNJMlR6b1piR2I1UkszOWJ0c2JRTnJ3N09fVDVkMVJ5M3d2OUp6WlVzdnFsUGlUSGtmWjZydnZmZlNHb0lmYjJCZ25ZSjNJODNzdFBZcm1PemNtUFFqS2hOUDctSzA2dHJiWUpsdXVZYkk0M2ZDNEEzUG8wbFBzLUJJbWJSVUp3TEV2bVRFdXNjUmFB0gHbAUFVX3lxTE8teG1tY3EweUg4VWRnZTBYZWE4ZzdaRmYzWm9JejFlUG9sZ2F0dGpidi04RENyak9weVEzYmMtT1RiX0J1NzFoRWhVYTlGbVBUS3B5MmZza0xpXzlhR0J6WW42SVZ5QzI1TC1UajB4MS1xdE4wbnV0ejhsZEwzN2g4SzhJV08wNDk0MmFIVlF4VGZ1U0p3WTJRYUNaWkJ1TVhhaERtQkRkR1dBRDByNXNDM2NOQjQ3ODVPSU1kbUFlV2ZiRGtndnY0YlFDbzFCTXJ1OTVUMmhOY3FzNA?oc=5"
    ]
   },
   {
-   "t": "The Fed held rates, and US Treasury and European bond yields fell after the Fed and ECB holds.",
-   "why": "Lower US yields tend to ease pressure on foreign flows into Indian equities.",
+   "t": "Oil fell more than 1% as talks continue on ending the Iran war.",
+   "why": "Lower crude eases India's import bill and inflation pressure, which helps oil marketers and the rupee.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMiygFBVV95cUxNMVJzTU8waHdld3FnbVROOGw4ZEtGS2g3UHpKYVFXTXhzdW9DeW8xYmJrY1RmWGFvNUlqWThQR2FWaTRuaklmYWlhbTNQV0lfa3BNNmFjSHBUaTk0NDVNSHRFLUg5MFFhTFZZMWZrTHh5ZHpYVnVzMlpNZ2hqaEM3LVJuOUhrUV9kc3NGRHpfdFNkUEhTX2oyTzVRMUhvS1dyNkF1UVV4eEtFM3VXTXJvUG9Lc3dnRjRDc190d0Vzem5ZNmxfNktGcUl3?oc=5",
-    "https://news.google.com/rss/articles/CBMimgFBVV95cUxQLVpkc0tPSDBPVHptQ0w1dG1CTjVvTXpYZTAwbWlJOVpJUHc3UTN5R2pPeTA0QnoyVWpRVGpLS3JFd0xSeDdoWjJtRlJBNHZXVm5kcTBRaUdxQTNNeGdNQmFxYWE0MjBoZG80SVlscnJSaGRDdDBmUFRsT3BtWnd5TjlwZ3dqWDNDRnFVamJ4RlVqZThYTm5tVTJB?oc=5"
+    "https://news.google.com/rss/articles/CBMitgFBVV95cUxPZVVkbEVEOU5GRTJZME5MN0hWUmI0MmpUWmc3RnpzMHhBSm01R1lTaFRERjAwNjM4WGVFUmZtQjZiYXhPc1FYamxaWVUzdmxwNkNBbEM1RWFDa05ubGFGN3NrRVV0YmJiaWRyMm14bGthc2xWQk9pYjlheW9adUR2Vm10c2FmckhKbW4wVzVFVlBPSHdXVWJ4YkNoS3VFaVkzN1JsX25Ba2RSa2ptMUFtMmJZQVhBZw?oc=5",
+    "https://news.google.com/rss/articles/CBMirgFBVV95cUxPUXhyUmVvN1pUclRUSU1DUkNoR1RPWWdwMUtXT3hNbFgxa1h1YlUxRDRuSV9ia0RBb2k1N3diRC10YUNRb0lON0hIR2NPVUlkY3ptb1NucUdJT3dQZHZxeVd2bkZiLWR1aWdwSlhTMVo0dmRVU2xBTzhZUHdpWE55UHdEb1JrYTB0cHFNV0dsLUUwYXhCTHhKZ0EyZ05adjJacHkzQ2xpQzJkc2RFNHc?oc=5"
    ]
   },
   {
-   "t": "US bonds rallied, sending yields to their biggest monthly decline since 2023.",
-   "why": "A fall in US yields is a supportive driver for foreign flows into India.",
+   "t": "OPEC+ agreed to keep its December oil output target unchanged, with Iran war disruptions clouding 2027 production plans.",
+   "why": "Steady supply targets keep crude direction tied to the war and diplomacy, which matters for India's inflation outlook.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPMlpxTjRrd0pFbThfU2w3bE90TGQ4bkt0VWZ2bG0zNERPWDhtc21WRmJyZ2RlZWZTcFhoSVBlR0xnWDd3MXNSVFREMTlGbm5IVzlqV2tMYUt0TTBBcWZYanJmV2h6cDFxUkhjS002N3BPaFV0Q3JmaFdiZzB5TmdXN04ybHZPbEY4Z0Y2YXJkank4TFFxN3hDQjhzMEtXS3U0cUpvbDRpTmFMWjgzQy03OUREVXVHUkxsWnlOYUVCTEZkYWZZeGprbjBxOUZUNERl0gHWAUFVX3lxTE1GbjF0T3VCZTFnalZsb2t0UVN0YUZfaGNNdWpnclpjRXRtVXVfZ21sa0ZFWE1VbzVSblNCT21jcllvS3NVdE9TcWZaOU9kUjh4cjNRWE90b1B1d1dkR3M2bGVkRU4tMGVYalJTYWNfNmprZ2NlWlR1dkczOXF4dzJ2R0Naa1RxMnNKSlo5b000OW5LenZrYk1HdnZLQzhTbVR6V19Fc0NEX0lQUTFkQW01TWVrTTNnYXdQcXlrb0UzUkFPUXdBRHVnZ0YzcUlBUjJfZW9zV0E?oc=5"
+    "https://news.google.com/rss/articles/CBMigwFBVV95cUxOYkMxeDJWdHY5TXJBcWlrckM3anZKVnpKUWk3QWVla1ZWVEhBNVEwTi1vNmtlVG1FeklrdVplcF82d3pDRG9oY29rWGw1Rm5YdkZZMUo1ZTBKVDlIVXpGYktNSDlzSWd2TFY5Zm5hZTNZWm1MUllVVzU4eldZb0NaZGZtMA?oc=5",
+    "https://news.google.com/rss/articles/CBMi4wFBVV95cUxOdDlNdEZ1UUlfUE9QTlI0Y2Q0S1RIU0pKUjExUmlTRUNnY2h1SmlTM3VVOXktVVZUOVFmQmVZY0daOHhqNmdVVzA5clF0ODFaV01uZ25NYUM4Sml6NWZueG5IY2xJY2dLakhMdDNtT0VSLUhEdnE0NVZGcUZXNnpFVGtFVE5Pc2RmZHIyLXd1TTV0bzZ4M0hsU3JYZC1NYnlYaHlYY3Q0dFZRMkhVNHpxbU1hbHRzb0NReUtYRDlpZTkwWXdyTUtLZ3hrLWVMdEZReWtrTlVCUERQVHFsOUYzVGp5a9IB6AFBVV95cUxNaG5RLTNrS2pvaTRvYV9nY01qUDBZNmJ0bHQwMU5IbnVhbHVqMkQ4SVNiMzNtZzVHMzdyRlJXTzVUYkFYRzR1WkJSN01Ya3VEY2JPQ1c2bjZDRG9SN3daTWdEVlVIMWRvOXFTMFRlOXNYVU56YlBac1NXcHpVVUU4LVVNc3lFZW5oOElad3RycERfMjNjY3V2NlVqM1dLQ0FEeXJvWnNEY2F3OW4tUXh2UU1PemY3VUNxRW01dVEzZ3hpV0NnUTBFU2hiYlQ2bnkzV05iT011YjFQdzJLTDZtYzdSV0p3emNE?oc=5",
+    "https://news.google.com/rss/articles/CBMi1AFBVV95cUxOQndBbENIejV4eWVIQUZHMDFQS0tma2F5Tmw3Y3o4Z1JHZkJtYUkxSVl2UUx1RWJFampVRVRQZDJKQ1ZfZXJ4RV9lX3BETjhtbWdvMkVMc1RZMHNqRW5JcDVwdl96Ri1aV1dlNnB4TWE3WVFqdFVZX2t6Q2VwSklLTXJsWnZrMzZtMWpCZUg2dG9IZURuQlg2RGsyZmRGamI1b184bk5JV3J3RHQ2UWV6REx0a0poM3ZYRGdkSHVmeW9uX1VRcFFBbFJDNmRxYzFuSFpnbNIB1AFBVV95cUxOQndBbENIejV4eWVIQUZHMDFQS0tma2F5Tmw3Y3o4Z1JHZkJtYUkxSVl2UUx1RWJFampVRVRQZDJKQ1ZfZXJ4RV9lX3BETjhtbWdvMkVMc1RZMHNqRW5JcDVwdl96Ri1aV1dlNnB4TWE3WVFqdFVZX2t6Q2VwSklLTXJsWnZrMzZtMWpCZUg2dG9IZURuQlg2RGsyZmRGamI1b184bk5JV3J3RHQ2UWV6REx0a0poM3ZYRGdkSHVmeW9uX1VRcFFBbFJDNmRxYzFuSFpnbA?oc=5"
    ]
   },
   {
-   "t": "Sensex and Nifty surged after the Fed kept rates steady and the rupee rallied, with reports of nearly 2% gains on renewed FII buying and easing bond yields.",
-   "why": "Foreign flows and a firmer rupee were the drivers behind the domestic rally.",
+   "t": "RBI's net short dollar forward position hit a record $239.2 billion in September, and a professor flagged 19% bank credit growth against 10% GDP as an inflation and rupee risk.",
+   "why": "Rupee and credit conditions bear on banks, foreign flows and RBI policy.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMitAFBVV95cUxOc3dhMzJPYXVvVzlWUWtGaFhsSnp0Q3FXMHg3VFN4SVJUZmNiZzJ2d28wYUZlbGU2OF9mMGZVNFJxUkZzZkpPbVcyX185eERFWWNwNTBEYTR5U3RPTVdtclV2U2NiYjJOLUNYYmsyRlkxMFAyaUx6ZTVuZU5EdUlqMjl2bjZjbEU0R3ZQcUVxYnEwWHl1WlNlWFViWGxVUUdOUUlSWmdMRFNoRXpwcGU4QjZHVUE?oc=5",
-    "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNTlpYWnJTeVR0c2Z4a09VcUNtWkRzZVVsOTNKNGxIMWd3RGRYV05rVnU4WWJkaTBpNE5JQTZKcnJQQmN0SU1qc3RGb2N4OWUtaEFJSkNrQngzYXBidmNmNG5FbWdhY2duS1E2ZF9qZ2pqZFpSbmVJM09USEJHLUFWd3pDNlo1ZmZIV3hwdW5uQXllR0wtbFplY2JiS0JwemllTHlSZjhpT2RIaDQyZlh1M1RtQWxLNF8zX091ZkhMVEFaWEk?oc=5"
+    "https://news.google.com/rss/articles/CBMi1wFBVV95cUxQdjJDTlN6SWdESUNoZHhKWi1JMDFoUnNsUWF0RnBSQ05PT3RFeDh3UldrUVV5Z3ZNRGlWdUNEbnJKM2dGdkNHeXJfNlZSWnctdzR3NlR2OW9JbS1LaThEdEFTYjUxUENZOG1VMWJ6YWJyOGVnbHNlZnRnNHpHaFBGTmJjNVBoQ2pfTTFDZ2pYQ00zSnVyWnRiN0txdUprTGw3ZzBfcWpzMWFKQnVFRGFEbzl1Z2s1VUNiS0Y1MW1qQjFHRktqZUJhRm9xNE5YWTI2d2QzWjZkQdIB3AFBVV95cUxOMGNYRm9BNmdfOXhKNGhRVS1ISzZVZHAwRWdOTThMTEpvTWRnVjBpQm9FdkNITWpnUkh6NVJwaGpoNTRERHNYN294ZUZfaUZJM0RnRldjT2s5V0RPaW1wUkhWb2tva2JRcDJUZ3ZONjhGVkRlQzdhd2ExWjFQU3FPR3ZuNkV4dWlaYWljOGNBZFRTR25TYVJ0c1hqM1QzQXhxV3BudWh1V1RPZW9ReVd5YnVOcFptN2lmZUJfenVJUURyMDRvZkQzMHFmZktBbWlUTDY5REV5RTdjU2d6?oc=5",
+    "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQWVNnQW1uX3hIVVNkRjVCQUFucHBIelQ4WUY2YS1obkx4T2JwUEUxc3BkdDNCbnRPZVZFaG5CS2JCbXNneUtSZFp0VjVzU0lQRHFwY29LeUo5VGd6YURveWhfcXE2Y1BtV2lDS3NINUlyTjdwQXMzTjNCWGVmVG9BSEl3UEhJN0RaSHphMnFVckQxWjJfSlozcGNFeHQ0a2lCazBKWEsxNEZBU1IxVTJyQUFvMDh5N21VcFh6cXFfYUxEYjdSeFdaZnQtN2F0elhsbVptXzdR0gHeAUFVX3lxTE0tTnVIVm1KMHpJd3NNYjhJV2UwTkx0UWZRbHR6YjRjR0tjSXdCcHZiYlQxZUQxZjdMNzVLVDZrbl9xTE1FRHJsdjIzT3pjTk9PXzUtSDFjaG1DU2FCdWYzdC1TZWUySWloa1o5YTNQOW42S1NtUTMzUmJLT3pvUnktTHNqMGhjamNza2hQOEVIbUpvU3dQc1cxTGJpOFk1aVNCTENxWlF2RldIb0Nva3lPQWZHUWtYenhsTTQyU19Jb3pHZEVsdTh6bUpWN2JISVpBaEREbmtZX05pVDhLZw?oc=5"
    ]
   },
   {
-   "t": "The Sensex rose to 74,459.53 as IT stocks held up against the global tech rout.",
-   "why": "It shows Indian IT diverging from the US tech sell-off on the day.",
+   "t": "Gold had its worst October since 2008 and hit a one-year low, though one report says it rebounded near $3,900 despite inflation worries.",
+   "why": "Weak gold affects metal and gold-linked names and signals the dollar and yield backdrop.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMirAFBVV95cUxNMnFmRldDMzd3TnpFc0hrV1lTT1Z6VWJiMWtiTVE3LWwwcl9FX1NaT0l0dkw4Y0V0bVdRN2xCWDVHM29HS3pFbnZ4ZU5YYW5YRFBadU1VVV9URmJLZFZ0RGtYdUUwVGhqdlZLOHM0c2tjMnNERTlDMnRSN2Ztbk5rWm9fSTlaeXQ0VVh1VGpsaHVENGFNd0ZMVXZyaG4wNUROMnJTOGVISWxiMXRn?oc=5",
-    "https://news.google.com/rss/articles/CBMif0FVX3lxTE5UbnpKVngzMWxSZk8zblNBSE55Mm5IX2Z1SVhwZEN5LWVHTWZncFJkdnhwM1JZeUkxYU9tNVlrbUs3c1d0aWhwVDUzdWVYU0o2aHVOSTlsZC02Y045UWZ6ODY1Z1BWYVpYZVlUZDh4dHJKYXlCcFduYk00TFFHYms?oc=5"
+    "https://news.google.com/rss/articles/CBMinwFBVV95cUxQeG5MTkZBU2VmcXM1Zm00QkVLRHRqaEpNMFZZcVpkSDQwRTE3WUczTFhKQWMwU3NvNWhCZGJwbDdBRUtKMTE4MDAyaDJvZVplRHZBMmFsbExtZVJBNG9GLUFpcC1CdE9XdUlpbWhhQ0dtX1hxMmJLV1BiejlCOXJKXzJESXNBOXNEMFVja2lDVzhmUFkwNTRrTFdpRzVVR1k?oc=5",
+    "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQM19qX0hVbXhhZHBSWE5mak80SlduQTJlUGh3eGdQQTFtNHdQOUJucEtoNzlWU3ZpOHF4anJOVjNhOHk4dTYwVHEtTlZQMVgyQXJiQWxZcFNFMVRpUWZqNzdCNExYajFnSjdleUtjZkJuX0g2Nlo3UXQxTlpHbGxsQmk2MmM4Vnlnby1VcVJySEcwZGhydWdtZUpVUnJfeDBmREdUXzJBb0pfRmRJQkxPZVZERm5FanNHTms0NVBjUWpENVZZcG5wdUNORVdLRmNyUnhLNzZGOUd2RW1DZmNWNUNfSEk0TE1xYnhV0gHwAUFVX3lxTE1hRlBKM01yek1od01sU0p6ZjBFb1BnSjg0SnRsUjZ1RU9VYjJCbEVWSV9mVFY2aXdBdHFSeXN0MlMzdWRETHk5YWZzcnppekd0SEQ1ajlxOERRbUFCOF9WVGUzNWtURmZWQk9TTnZrU3VvX19RTUh0ZDhoaXQtajN2OUh5N2xoQ1FQNVRkNUp4WWtmeW5GYUJ2dC11dXA2d2diTm10X1JtZUw2enZYZDZvdWpHeDBNaWFLZEp3Q2poaWtSeFNMNlR6RzFzX0xEbWo0bVBnUWVCU1ZLa2VVWDlSRHcxUzd3dlVXYzAxSnJ1NA?oc=5",
+    "https://news.google.com/rss/articles/CBMinAFBVV95cUxPSHBFTXFaaDRMZWt5VEVYeC1PZU9zQ0E3OU1TV3lhZDJZelBJSUswZkxTblFSMHVRaVl3WnZtSmJvR3djRkttaVd1S3NBRk9VT1J6OVVEQTVqWDhKVDRxNkF0akxXOVYwcWhLNDhVRUhmRWtYcG1KWEQxcnJxM0M0NXFNd2k4QTh0NUdqZzFIcENOUlpiQTJqLWUyVTQ?oc=5"
    ]
   },
   {
-   "t": "OPEC+ agreed in principle to keep oil output targets steady in December, while oil futures fell on hope for Middle East diplomacy.",
-   "why": "Steady supply and lower crude help India's import bill, inflation and oil marketers; Middle East tensions remain a risk.",
+   "t": "Wall Street is bracing for the biggest US Treasury issuance overhaul in nearly three years, with long-bond cuts and more T-bill reliance in focus.",
+   "why": "US yields influence foreign money moving toward or away from India.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMitgFBVV95cUxOTk80ZVBzRVczc0hyRHU0RkJiTWx5ZDUwdnBHb0FWSmJyQWJzWHRYR0hZd0MzTW1INnFtSWRISVVRb1RncDltYW16eTYxRU9NcWJzanRqMmp4LWFXUVNTV2tzT3JCM0doS01hWDdGeUhNdHZ3WTdYXy14Q0luZTRmOWdQNlp2ZThtYlQ0cWhNSVk0c0ZkOUFyMExMUWRHMXRKamU2ZHRLa2pPMG9heUhzN2YwTnpCZw?oc=5",
-    "https://news.google.com/rss/articles/CBMirgFBVV95cUxNeklkQ3dLbGJfaEt1ZDNyR3BZbk5JcjlJWVNEVnRrSVFudjJsOFA1S20zSlNxdVpoVkFJM1liUUdaTXExS25HTzFnUFYxWUNkWUFTVU9mODVlX3VwOGdzRGJEdHUzQzhyekVZeUhmN1RTTUhMM05peURpTFBRTFcyZ3RyX2dRT1lDT3k5YmtWeHRhYTJGdWNqWFRXZFVJMWMxMlM3YWcyZWlMZHV5SGc?oc=5",
-    "https://news.google.com/rss/articles/CBMihwFBVV95cUxPQ3lRaUlfQ08wZ2luRGE1Tk5qYm8tbjVxTUw3ZmZUWG5oQVhLTmNtb0xnXzVPY194MkVMR1BJS1EtNERIZE9MbnM5bXhBamE1NU9FczZsUC1WU0VKUDNYLWV3dThSenloXzNOTjVWcU1KZ3ROemc1dExSekRWMUdXSl9YaEczWDQ?oc=5"
+    "https://news.google.com/rss/articles/CBMitAFBVV95cUxQQ3N2ZVdrWVZaekU3UUdvbWgzZE4wTUF5X2tsajg4V042UDRJeEpwa2RqY1RxLWlNNk5sWTl4QUFlQk1mQjhsTzh3STlDR0lVN3ByaVQyUFRFUnlpZG95dGpuZjVtN3lMX3lfQkZRWnUyM3FqSnAyeE9sQ25fSHI1Mmo2M1dPT3d4RkwxM1hjSkRYbFBrdlFtUXpnUlNCc05aRkJvOWNFSFZBQjRqaXFHUVVGZzQ?oc=5",
+    "https://news.google.com/rss/articles/CBMidkFVX3lxTFB2dTI4WFBnRWpmUlBmYUxmUTZJeEYzUFIyVzdwWEU5bGt0UEVEdTBrcXpnX3lwTG5NcnJtWkYxOHpINVM5Wkx0OGZHZVNObEdncUhxRmZUUW1rSkM0V3Y4VlVsN1B2Wjl4aC12bDY4NzdnU1NVYmc?oc=5"
    ]
   },
   {
-   "t": "Gold prices fell Rs 3,200 to a 10-month low in Delhi, and silver fell Rs 4,200.",
-   "why": "Weaker precious metals reflect the global sell-off and Fed rate concerns, relevant to gold-linked and metals stocks.",
+   "t": "Trump said the US and Canada have a 'concept' of a trade deal, including the Keystone XL pipeline.",
+   "why": "Tariff and trade developments shape global sentiment and policy risk for exporters.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMi3gFBVV95cUxORjUxN253NEJvSjJDMm9zWmRjbmN1ZzVFR0ozajZkWUtjUVVZOGFJQWNTY29JNGhTdU1mYVhocTdBZnM5WTctLWZhYjE3N3lCMGVsZVBoOUZJVjU2V3VDN3F6RFpLM0FhdktYUFJTWVJNTm1HQUttOXlRWFNvY1AtTHp4STBEVGtfVmNkZUZTLXctUGZiamdIUVRoV1JQOUdFM3hxMVRPTmxVdExHTERQLURGdWVKbXgzcXk4M09FTmJGdDBRMGN2ckhBV1BuRFpBd1hSd0pjRFN6RjVjakHSAeMBQVVfeXFMTmN3VGVpWm42VjByd3JHNnRvbE9TRXVoTmRTSVl3LWNXRTJFY3ZUaGNJVnRMYnJJbWFldkdvNXZPYnRDb3RzNE1XWG5LY0dMbUszZWU1cUpXTUZmR1VyVmdnOVI4cjk3eXhzdHVaTzZ2QVdGOFdIYkQzdjk3dzMyX2xiN3lUY1BGdFBkQW56eG52cmpxaU1PRmR0YVBfLUpydkhwc0l3Wl92Mi1nTG8tYm44NERLR2c1OTk3d2k4N25ublI0M2tyVDE1RTZFYkdJV29QZ1drSUJnU3JlRkgtSnV5MXc?oc=5",
-    "https://news.google.com/rss/articles/CBMizwFBVV95cUxNcVZxTHZWc0pfaHlwZFVTOUpuMk9wWjJuNVNmVWV1Y3V0ZWJONXZIRzQ0NmVxWG9BZGtwVEM1ZlR6RWVkNVFralZrUXVRb2ZRMHVYOEszbEJnWURvRGpNN25LTGgxTXE4TXNkcUhUVlBJblFNb05uaUp2M1k0Z0xXV0lXdFd2amwzTDJZdUduM3JYSFVNM1NCY2UtU2lmSkpBbDNQajFHTFBOUWYzcGluQ2VNUWJrUldjbGtnRjRlcjlkM3NnXzZXenZQZEkzWnfSAdYBQVVfeXFMTzUtTF9VTU9vcjZJV2lpVWIyUlBsbDZUZnVUc0pHV3RSMHdLbTJOeEQ3S3NBUTNKOGRPejZpdlZKRy00NTRpSWp2ZjdKTC03LWhzNlhibktpa1RRY21CSV9BQXRSVWxNY1NBamx6RnhVYUp3SnBaS2NXMTdjNEJHcDRHNVBITkl0N0JiOGllS3A4cXBOU1VPajRxNEpVclJnbk1QT1JqSlBiVEtJRWZKT0U4ZE0yLTVVYmV3VVFuNTBsUWJtb2dZNTkxTkVYMnFWVXhDNEx4dw?oc=5"
+    "https://news.google.com/rss/articles/CBMidkFVX3lxTFAtcVN2emdNdDQ1VHVPenE3Zld0QlN1aTdBUHBBa0xJeU5kMjNKUkJhTnc4SnZpZnR3V2IwVUxQVU16WTQ1UFpGeW5qWXhaN3c3WGZSWmFXOFpJMWROY1dkeWFKeTJzbVF0UzhhZTg2Vl9pcHR5T0E?oc=5",
+    "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOR0Nhdlp2WTBXeDFmeXNrRklfY1Y0SDhmMlhIbHRFOUlzbnlRSGRaNDZDY19BOGVDbkFzOEFRemZmRHRBc2YyaDl0YXVPRkc1cUNjRnZVQl9qNUJRV2V3NElxNVQ2YmRWWXhkYzRkOG5pREtVVzVzQm1oSWNqM3lKTXBfemRjS2pleU0yb1pGa1FGT0FyVkVva3ZaaUFKVGpLd1JoNFpBZXV4bnFUVkVnODYxbnFORFpERjI00gHAAUFVX3lxTFAwOUo2Q21UcjFFTGdEMXVTTlpaOGxIUlZRNnktVDRMRkFfcXZjT2ljWU1YemNBTElpWmFqWVp2QlVMWVNrckRFbDJHYmZha2tqM2RYYzVOVE02NXN2WWdEeUF3d2lQQU5YYWRxWHZYSTZHdk9OYUwzTTJkamNxZkxPQW5SR2xRcEp1cWJGT1dLOWhtTHIzSnpjSlNWTkxoeHYzamI3SS0wWjlhUjZwejBOcVRrbWhmNlR3OGhkSjlJNQ?oc=5"
    ]
   }
  ],
  "watch": [
-  "US midterm elections, jobs data and earnings from Apple, AMD and Palantir in the week ahead",
-  "India-US trade deal still not signed"
+  "US midterm elections, Apple and AMD earnings and jobs data this week",
+  "RBA decision"
  ]
 }
