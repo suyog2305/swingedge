@@ -1,5 +1,5 @@
 {
- "status": "ok",
- "at": "2026-10-28T17:01",
- "message": "2026-10-28 close pulled and built"
+ "status": "cookie",
+ "at": "2026-11-02T22:14",
+ "message": "2026-11-02: the screener.in session has expired, so the 2026-11-02 close cannot be pulled until a new sessionid is pasted into .secrets/screener_cookie.txt (the run retries every 10 minutes until 21:00)"
 }
