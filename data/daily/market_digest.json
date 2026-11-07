@@ -1,70 +1,70 @@
 {
  "schema": "swingedge-market-digest/1",
- "for": "2026-11-06",
- "at": "2026-11-06T07:45+0530",
+ "for": "2026-11-07",
+ "at": "2026-11-07T07:46+0530",
  "by": "Claude routine",
- "headline": "Nasdaq has its biggest daily drop in 19 months on AI fears; Gift Nifty cues weak after Sensex rally on FPI inflows",
+ "headline": "Oil heads for its biggest weekly drop as US jobs data revives Fed rate-hike bets and the rupee rallies",
  "points": [
   {
-   "t": "Nasdaq posted its biggest daily drop in 19 months on fears of AI regulations, and the S&P 500 fell 4.4%.",
-   "why": "A sharp US tech selloff is the overnight lead for Asia and weighs on IT and AI-linked Indian stocks.",
+   "t": "Oil is set for its biggest weekly drop, with Brent sliding to about $98 after topping $100 earlier in the week; headlines conflict on whether US-Iran talks are progressing or deadlocked.",
+   "why": "Lower crude eases India's oil import bill and inflation pressure, which helps oil marketers and the rupee.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMisgFBVV95cUxObTdYYmZaZmRqRUt0TDhBbERraDF2VlpSTDJ4M1NyZ2dRRkNUUVJ0OVFHdzJyc01uNDZOV2YzZFprbU90aUNzTEtYTEdNWU5Jc19VVVlHc24tNkZ2VFhqOWg3b0swVDFnY2hHaGxuNVZXVkE5S09xZXV2eGRQb1kwdWFEZWxpeGMybDZRcGtyWW52Q1JfaHY4MVo1YmJfRW9KZmNsdVJqS24zeGRZVUpaV3VB?oc=5",
-    "https://news.google.com/rss/articles/CBMiowFBVV95cUxObklSZnhYUU1hNzlEUDhqWlIxMkFsdkVsdjVRSDFZNUIwcG5hSGtkcXctb3piTUpXVzlUMGItR3NQQ0EyQjV6dUZOM0pqbnRBWjZwMkgyTXJEeTh1MGJtc0p6b0ZlbXR5QW1OcDdPZkh3X0xBRzU4c1dYclNORF9jNGtPbHRYdGJOLWp5eW5uTW45ZzBZdWdHaWVoV2swdjFMck9V?oc=5"
+    "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQdm9DLXFFMGI2T2RXWGkxbkxHNXJsci1rQnh0WmhaMnFTRUhHdXd2OGdpQ1I1NHY0SkFOLVcwMDVnYi1UNVhQWk9KOWtKQklMbEZCTkIxYXV2OTE5NWFaWGRsSGhnT2FXVXpSQUZVWXVrdklGQjgwYldWMkRXSUFWdXMxTEZTZEoyRF9WaVRVaXpoN01OX3lpS0VjdEFnTVVoUDFEMWZKT21KUkE3TUZ2RnNFWml6dkZTM0x2cmdhU052RFQ0UWJiMEhzWDYtOGZlYi1r0gHYAUFVX3lxTE9OdEtxQWxmSzdNZ1l1VTB0YTRKeXRWQXRyWVJNMWJ5eHFCV0NIYUZzR3BBOElPdzgxZFhDNER2cFdmSjBUcmN4RG1vdF9CQ0lGMlU2Rzd5YjdTcGhjSHJOXzBJOWt2THJTUWpkRnlTdW02Z1JUakY0bHNtLU94MXV1SFJOZnREanhwb1hFeDJqT1lnYlk0MzVhSTRENC1zcDhfaThSNjR1SnlsNlJieVRPU1lZMHZZYVI2NG9QTUlCSzJWbXVvcUZEZmxLUk5XVzUxYWdUM1lCaw?oc=5",
+    "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQZ2xoWFBWVHFUSzVhRFV6eThwQ09JRHgzN3FPekNHemlqUzYwbUFtbzd0QjB2bXMtcFBxZ0hqSUdxSXV3TnV4dnVUNE1aSWxCQlMzWXVNUTVXM2pxWTZmTncxSTMzOTMzdlVqM1lscjd2ekZ0LXNNRHN5bmQ4RkJUSjZ6Y3poTDBKekFhaFpLNzBpd1Exd1B3S0xHbVBiMWxwOEZ0X2lGbEd0dUxxQ25RMEtFUHBOTkUzcTVnajlpa2VoczVaYzJVd9IBzwFBVV95cUxORXZ4UXBmckU2bGhCRUV6dDBac1Y4Ty1hVkhCWWxvV2x6RHAzVDRzTjE0RXcwczRFcFJid3RrQzJiSTRaMlZNS2RkelFFVnFDQzl5WUtVNDJqZkotWGdZbXdyODZLVnpJOXFxajN4UEFFcmJoMFllekI2Ql9zd1Q4TVRxZGIyRnVNM2t6TlhGQnZpTGtPT2tYOWdVY3p6UzJtazNQS212UnZES2o4RkUtVFFzQmNLMnhwRUwwODdvRWk0Q243UkJ4X0gwQjNlUW8?oc=5",
+    "https://news.google.com/rss/articles/CBMikgFBVV95cUxPSXFwRjliNjJSakhhNDA1YlQ3S20zRG82UUhOMnhxanFONHdpT09sWlVGb3Q4RmRqbTBzSWg4RVVKb3piREVQUjI1cFphaVpiQi03Y1IyMFRWMmkwOEc2RVN0bF9jajNiYWdHWU84SGcycGwzY2N2czV0NHJhOHlrc3JfSXMtYTQzS3dBLTZhN3FHdw?oc=5"
    ]
   },
   {
-   "t": "Gift Nifty pointed lower following the Nasdaq and Nikkei selloff ahead of Nov 6 trade.",
-   "why": "It signals a weak open for Sensex and Nifty after the overseas rout.",
+   "t": "The rupee closed at 93.90 on Friday and rose to a six-month high on oil relief and FPI inflows.",
+   "why": "A firmer rupee and foreign inflows support the dollar-rupee and foreign-flow drivers for Indian equities.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMi8gFBVV95cUxPb2hpSWFValVMT0hocU50Q3I0Rklqd3lmR2F2WWRVTERwS3JPeE5wZ0lRU2lRTTA4U01IT0Z4aFFINUlqLVM4MXZXTHJhNVB4LXEzclYzOGQtc2NWOUE3X2NweTRsSGNkeXUwcE9ZdUd3aXdVM0JMWmk5SzVXazJwU3JTcG1DVy1QRG51MWdUOFl2ZzhIVUl4TWVKTEpCelhGa3l4bWptaXhmWV9vY1k5eDRvVkx2Wjl1QzlVOUQ0MzhCY3JmVk95bFo1NmZNVDYzRXFFOVR4RWVuWEJqU2NwYVBDcG9OR1VoRmotMjhEeFlJUdIB-gFBVV95cUxQSFlMQWZmZll3X1hzTGZJaW1BN2g4SUpZODhXdGlrOEhIVE5zZTNGVUc1UnNEUW9NWnFJekROcTBYWDNrY3lDQ2JGUFJuS2RyTDN1MVZMd0VqTjJKMVQ4WnljZEZLajFYS1ZpeVBOb0w1VWdqaTk3eFI5M01LWEFiOHBCMTlHVGd3LXFnUFY5OVpnaVlsTERmNVVDNmNXaHY5M1EzQk1MZzFRaDZiRVRwZDl6SmRJMkdWZlM3ZTZpYkw1dDlROTNQcUlJZUNsb1ViS2R2MEZLWFFKbTZJV3N1YU1zbWR2M0Jpc2RCNG9nNjJFUkVjSFZpMlVR?oc=5"
+    "https://news.google.com/rss/articles/CBMijAJBVV95cUxNMUhGZFhpMk9DSlRZUTZLcjh6Ui05YjNRb1RhMFdJdDQ2MzdETlVSbEhWS2hVZ3hqSV94VktFYWlBaWhudWZEc0FMWmgzdkFjLUdyMF8xUUVTa01yZV9SQ1hCV1ZqbXpQZnVFZExCQ0ZuNzNUdkJyaGN3U2tNRjN3YVlyVHlUdXluaTlTX3F0bXNvUzNsSkVfWVRBMTdFNWZIbS1YUWJHUHcydm9MaWhvMk0yTWxmVGRlbGV4WDlqMG9ycUx0djhNTEt0MHYzLWhOeThhVDg0cnpFSUNCZVc4dDR3Z002bUVlODg5Nnh0M1M1VWVkVHI1OTZwQ0F6WV9Zc2xYZzJmVTBLcGQ10gGGAkFVX3lxTE1rTmJtZFJZWG9XV1FNaHRobWo4Z2wyQXRtNUR0MElsSW9QWWZMek5pNjlIRzRaZm9iUzV1aEVnLV9tVFpGMDRQV2x2Vkp3WkVpV2IyeDNKcmZsU1YtM1JPb2RSNUxJRUJSaFI2akctU04wcjVzYUZZdkd3clFYR0JESlAzOEhwTmMxTFZ0b2twcE8wYXBwdEh2aXZVUHZnSUgybkNtX2l2QU1tT3NYNXdfQ0c3R0JiUTlFcTcwRnZIcmtHRGZ2UGhRQzFuQzdpMXpqeEtiRlpGLUVsZkdDV3gwUWUzY1h0andqbDlQYVhpaWNwR0FtRE01RkNrdWkzYzZudzlITFE?oc=5",
+    "https://news.google.com/rss/articles/CBMixAFBVV95cUxNLVVWb2hPVk81VWRWdXNpOXpFVDBQV0thbF9vYllvNHUxMTNaOU9mVkRjbjZ6azNEd1FFRzZUbGd0Y2QyUm5EVHRxRnhBLTIxR0JDcGlhRzR6Mzh0ZDJXRGJKTXZZVkRMYXMyMHJrVUVydE9FeURHSV84NjFhTU53NTVMY2FnZS10RTFmelVEM3pBREZYelFwRHpTY0xQM2dPTjVCeFZ1Z09QNmFxWHJzNU9GTmlRZHRRZXJyMktPM2o2ZUtf0gHLAUFVX3lxTE1WTnc2czEtc0hrWWVNLWV0OXdtcWlPY211Q3B6TFJsWTg0NnM2RUlRSS10cC1yR3hlNFh3aE15UHlXN0ZtSm12UU1NYXhlNlJXTUFlalJJckNCc0xNTHhLeXNPcjZBMEpYS09jb0NlQU8xc25IN2paS0dYUHJTeHdLNVNZUHpkSFAtRmtLVmV3bHh5TW5RbF83S0RfUVVWMHNGZlkxOW1wdkZIa2RYcmlkUGpJT3U4ZlRsQTA2d3hmNlJ3cG4xVk91b1Nr?oc=5"
    ]
   },
   {
-   "t": "Sensex rallied as overseas funds put in Rs 14,975 crore.",
-   "why": "Foreign flows are the main driver of Indian equities, and the inflow came before the US selloff.",
+   "t": "Foreign investors sold a record Rs 4.55 trillion in Samvat 2082 while domestic institutions bought a record amount.",
+   "why": "Domestic buying has absorbed heavy foreign selling, so foreign flows remain the key swing factor for large caps.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNa25FV1prVU0zRlpDZ2lXMDd1aU9kMmI4MWpOLTZlZm42V1U3clNYMmZ6c2VoRm5jOElpUFk4SFRTVVdKdkp4UURWZ2FrMzVCVjlSUktyM2pUMjd6cVA4LXI1Y01tSWNxRTAxUXQwRXllMGJ5enctMkRjeUNCOEJnaVhaRmhpNkpyajdJYTNVMXZQcFNBNmZDdTlkalpDcnR0S2VzSDFNaHZiTTBQU1lTcEVyY3E5bV9WSEhxYUItSWZEVmFIYWc3M9IBzgFBVV95cUxPRWx6OWE1enhDaWRpZ1VvUXNrR1JpVl8tZTdNRUVnT1R1MXdZRlFqTnp4Z09lZTVaZXExU1gxQUxnYU1sbmNqRGNMTjVVSGZzU1hWMWl1Njc0SlQ0MzFNQ3V3YUp0VG9vUndTWG5qZG1Zc3c0Y2p0bXJLMnBiRng2eWJ0U1l5NXRHMUtYd3VFdlQ1WjkydzVsUFA3MXA3Q3gxdDZoT1hYYlB1blhPY29hbXVRM0hxYXlJZTVsSmxYdEI5V1pCVk5HUXNPOWpUUQ?oc=5"
+    "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNaHl2TDlVUm1MX1VBMUZ3MUR2eUg5MHc4Q05QNm4tN1A0ek85SzBNaEVDd3hxaEdSazcxY0R0ODUxeXNkMTV0OWlBTjAyLVo4eGVBN25Bby0zcGx6eGh1aHVJSlZoZWxQQ1pCMUlmaENQWHZqXzFnazJGRTE5WE9ULXdfOU9ENVBNbXZ1RHhacjgyQ1NLVTJBX243dTlEWi1wcXBtNzJ0YTh2alByMUJ0WnpVUVROZklVVnhlYjRVSlFhS0otR2NZUmtWSlJlSGIxQURCdkJ2NVPSAd4BQVVfeXFMUGhreUtrTVNDOXpFLTRxWHhSaDR4YkZLVmlfNFJFd1pTOGNaY29VQUdld0hfY1RKX2tDVnV4a3J3emo5WXFfd1J6SUk1bE51Q1Z0M2VMblhwekx6X2RlQjN1bFg4VWpPYnZlSDFzUVV6dGt3S2lWcXFrUUFBQ3hyeThvY2lLUEtLZkpyTUMwTUhvcWZ5Xzh6cnMxZEtWcGNwcTdPWXh1ZktrRktiWC1wczRWeFRhWW1ya2cwVHB1ZXJ1VERMSTA5djBrS2p0QTd4UTFRdHJTQWJHRlhXdmJB?oc=5"
    ]
   },
   {
-   "t": "Oil climbed from a two-month low, with Brent up US$3.67 a barrel on Nov 5 after tanker attacks.",
-   "why": "Crude drives India's import bill and inflation, and hits oil marketers and the rupee.",
+   "t": "A strong US jobs report lifted Fed rate-hike bets, and Fed's Daly said more hikes are likely needed; Treasury yields rose.",
+   "why": "Higher US yields tend to pull foreign money away from India and pressure rate-sensitive sectors.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMinAFBVV95cUxPQlB2Q1M3aHY0UjIwVUczU09aRnVsVDhTSDVncElSMGVwRDE0a3lPLUNXbVN0R25iZHZkOXRtMkg5QTZ5VFNTRi1uTDZfd3pfVlZqUFEyaHZ6R0RPSDltbmRRdWMxbC1JcEV4UGxiYmFESjJWb1QtSkhaNW5kWlF1WkJHenZDLXJZdjJDWjYxcGsxd1RXMHI3N0R1a0Q?oc=5",
-    "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9pNEs3YUtscjZqTU5hRnNDZ1JXbmdtekcwRUZBemJ0aFNtMTJZZ2RNOWh5bW9Ra1dKWWhEck1wak9QZEVONGRuS2VWdzA0RGNuTER6dzEzclhGXzZOMlI4?oc=5"
+    "https://news.google.com/rss/articles/CBMimwFBVV95cUxQMF93ekZ4N2wtdW4zX1llS2FoZWpNVlhMLTRNOGVJTUktZmpLQUNBSzY2bW16Mm9mb3lrZERqNFZ6WkRmYkhBTG00Z2k2NFYyNTVLcmVBSkV5eVJRU1RwZFc5blM4MkRmcUxYU2hadXRWbVh0VXpjektqM1BGS3ZlZlNMeW43VWxmeE5TQm13d0E3bTVwUnp5dzFFNA?oc=5",
+    "https://news.google.com/rss/articles/CBMitgFBVV95cUxNNlV4UkhGUmxWX1RyQXZqMnlGbnJIMFRXMm1VWGJ6dWVDNERJMjB4eTVva3FxNmFmMzZBU3Jmc1hTc09BWG5OcC1SMVA3MmhhMTV3bFk0NE56N0t0NkFPcXFGeTV4dFZvcGlqS2hzRTUtSkRxNzNoWnFJUjFhWkFlZFBzZHNYeGl1enUxOXlna2NPdkNEMGU3OTVWYkJmYXR1ZnRUaFR1ekI3QXBQeWoySDBrMHNnUQ?oc=5",
+    "https://news.google.com/rss/articles/CBMitgFBVV95cUxQM3NNcGNRYkZlWG9POWd3eC1hYThVTjhmVEVfb1NEZy1qZlJhc3dBMGQyLTlmR0ZwN0hEUmdyclN0c0RiVjZwaGlPdGxuWDlHbW56WVhwcER1V2pxLWJ5YjZWSXE3bDZkc0pUWWlyZnEweER3TWJob2Rjb0pRSWd1c3lUZHBoeTFoZmNnc25feUszUWVMYy1uR014ekZkNGZLX1IxWnh2dkdSRTRDTFRsTUNVM204QQ?oc=5"
    ]
   },
   {
-   "t": "The rupee firmed on falling oil prices and FPI inflows.",
-   "why": "A stronger rupee helps importers and foreign-investor returns, though oil rebounded after the report.",
+   "t": "The Nasdaq 100 had its worst day since 2020 this week amid a $2.5 trillion AI-related tech rout, then rebounded about 1.1% on Friday.",
+   "why": "AI capital spending sentiment drives the lead for Indian IT, data-centre and electronics themes.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMivAFBVV95cUxNUTZ3Tk1HMmpsMHFFUERvaGFsdGk3eEs1d2xEcXRwZ2tMTHZaQlNrczJtWWdfeWxJZnpWRkFWQllrR1ZIcVJPTzR1VjZaVmpmZ3NnVFhhbm9qT2NUNnVtME1hMVlQTnFqb2ltT0UtbDE0YUszblZZWmRfSzhtYkpOM0pXdmxJTWd1Q1NOQ1V1Y3pQOVUwNTlNOEF1Z2VuNTZ6Y1Z2VmxLZjlyNk05Y0s3LXBxcVlXWnVTTWtjddIBwwFBVV95cUxQM204alRoX2U5M01iUURYb3dFcTJjd1lJS0YwaTFudExKMm9jSTdWZWY5ZGxoLVVMNDFjTWVta1JpTW5GMzhfNGQxRWxnRi16TUQ2M09RcnB3R1pKWGRMSkVqZ3JTQWdNWk16QWJjRUFvUHo0QW5lejJTMW1rXzJBUnNheV9oYVR2OUNwR1lXVUdlcnF5WWVwOTdqN2I0NFY5TGYtTXpJdWRsU084bnJtYXpWMWtWbmY2R3hJRVlidE5KWms?oc=5",
-    "https://news.google.com/rss/articles/CBMirAFBVV95cUxPTkQ2VHV3QVBYU09xbkdYb1I2YTUtTDY3ZkZXWnJOZFlQQWJSTElZMThYZnFfX1BoMHZQYl80MGswRll4RlJ2TWVrMFFEQUVFRUZKNlVtRDNhVV81ZEotZ01KUlYxckhkMEZOU2l4MlZ2NkNQWm1rTUMwa3pkWFZWMlBwMHh2aUdXNTdLRVRxdm1HZjhrVmgxaUp1bFdYNXJzR2FLSmFJcWFFVEpv0gGyAUFVX3lxTE5FMzBDX3BobGZQXzZxRURVRTNxZTN4djJuRnJfTzA2NnZ5VDF2YkgxcU9td2tNRWF3UlNtT2k4dGpvakxqejdET3FwWHJoVFdDLVEweVlvSDBsSHcxOU5sNUNkd1hySkREb25JeGNqUFhObjlRVlRmaUN0WlVzMWJQTUp4TzM2dGlSWFJkd0hRb0NMWnB4eHFQb01YRjNUY2dLVkl3WWpSTS14ZWo3Nlp2V1E?oc=5"
+    "https://news.google.com/rss/articles/CBMi5AFBVV95cUxQR0tLOVpwZnN6NDJ6YWpFV0g3ZEVGQVFZNllsbGZkMjAxazNCX3NkS0dvSmtjYkh1ZTA4dGZGbHJHR1B0eU5raXlqc2VtcHBSRHhTVGlFS3VtRGR5NlpDVk5saHNtMlk2RG5Nb1pwOUk2Y0lLT1pkeDdkRU9wZGRQcUZHNVFhNzR5dXR0X2NJMVhKWk1yeDk5bzZQNnpNUzlDU2s2TjhaRUJLdXZIOFlBbGpzZTdiQ3FQeWgzZ0dxLWdnMHBGTTNXMVVab1lMbzVmbndSWVJOQlR0TFZJRmVkUUxNd1A?oc=5",
+    "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOVjhNSkxWaHNDNkkxUE51NVdvLXhyVzJ5ZGRmUHNrSUlNcG05TXRBZ2JVV3RPWk45RUxySTlZME9BRklSTFBTTzJUX294eHF5MXRkeGRMejl4SmY2MFJCckxRcmZnWXVoYnV5ang4VDZmenBqbU1Ld0NKSWIyMGdDOUxZaVhUWFVfRzg1eHlwbnk3OENMVFVybkVxc3k0b1ExMlY0WVdoSGFSdGFPclpsdWFTUHdfaVN6cnJaRUo4WFVEUQ?oc=5",
+    "https://news.google.com/rss/articles/CBMiVEFVX3lxTE1HMDllUnFiQ29JNS15bHY0THBFUVVVQnRYYTN6Y2hPRFNSRHd2TXRUcFZzT0ROOFBacmIxYWxpcDdSRkU5Z01RRnZYVTltVzlnT3VEcQ?oc=5"
    ]
   },
   {
-   "t": "Treasuries rallied on haven demand during the tech selloff, while Fed officials Hammack and Barkin favoured a gradual rate-hike path.",
-   "why": "Lower US yields ease pressure on foreign flows into India, but hike talk keeps rates a risk.",
+   "t": "Gold fell on the strong US jobs report but held the $4,000 support level.",
+   "why": "Rising US rate-hike bets weigh on gold, which matters for India's jewellery demand and import costs.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMirwFBVV95cUxPVkloRjhzaFhUVFFUc1hMQWpZVk9IZmNTRE5KYTBhekdoN0xXby1MOUVpaGRmYnJjdW5rc1hfanFVYUNIdXVYbGV1MDhUX1Q5Wk1yTk1DWVFuM1lzMERVRVhnMmhSOW5EcWp3dl94eS1JcHZMNEhiOFNtUVlialFYNS1Vb3dOeENpazN5SmVyUWJKNTJDMXFUUm9TRFZreUlObm40S0lpUmQ3YVFNUUFJ?oc=5",
-    "https://news.google.com/rss/articles/CBMipgFBVV95cUxPTDI4cDU1ODdtRUFrTlZiTjZUbUlKNjZicWpjOHp0YnhONENvNEhMemJ3bWNyR1Rpd0d5akp3Yk1FVElzaDlBenRLRkttdjFvOXFZaGt6dm05WWdZZXpqcU5vazJSY2p3UEx6dkFtM18tNU5nVFZEb0dFY3NHUkRGZlAxS2xJVHZPWWFYOWNUd1lsU2VnbEliTXZDYnp1Um5aX2M1a3Fn?oc=5"
+    "https://news.google.com/rss/articles/CBMixAFBVV95cUxPNC15eThsLWJvMkJ4WnNmT1V1TzdOTHRWY0VrZjBhajYtNExPMEhqZ3dZRmlaS0hxcWRLbzZ1SUphMFNpR2IxMkpTemhWR3hwWUtOSmVsM2E4WGNXdXNXa3RTWm1JaDlkVmZjLXB6bEE5WWxkemRVTlFnQS1CejhFLWRXZ2lYNWlnZ0puYmlVMmZoX0ZKbkZTazh0ekpfWUhOOVRTYUEyY2VtWTRxRTRrcmZWUVdPcUN1blFydnBCOHV0VS1F?oc=5",
+    "https://news.google.com/rss/articles/CBMiugFBVV95cUxPMVFrY1hheExQaDduSlBRcndvS2FkcW84Y0UwRnVZUGRKSnJ5eW9keHNzemhJNEpadVQxRlJXMHNxYzhOVXVLakZNNTBBNmNsYTFadkpvN0Z4RnFwWUtYcVoxRlZjV3pNaWphd2FZRGt5eGp4Z20wc2xkeTN3dXFpa0xodkIwdGlQTHhCc05PQTBISkNjVjE1LTZSMUR0UV91SlFNR0x5STlSeEt6R2lOR0JsUXBURzk3V2c?oc=5"
    ]
   },
   {
-   "t": "Microsoft is souring on neoclouds amid data centre delays and costs.",
-   "why": "It bears on the AI capital-spending theme behind India's data-centre, fibre and EMS stocks.",
+   "t": "The US urged China to honour its Busan trade deal commitments, while Trump said the US is close to a trade deal with Canada.",
+   "why": "Tariff and trade-deal headlines shape global risk appetite and export-sensitive Indian sectors.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMitAFBVV95cUxOUTR2cGs0cFlMMmd0Zmx6SjMxblBNUWJVajQtQ2tWaGVyeEswUkZvbE5NeEwtSzQxVlNodHFjalBvQU95TW5UcG9Ja3FTMWRHZEplcEFCTFZNcEhiVFlUNHVVaTlJQnpsajNUQzFIRmhJa1BsQzItMkNfZndsdHZBenV3U3lIcGtsVllpZEp1NDkxREJsd25qd3kwV05IekQ4bmVlNkxZNzc2VnRjYTBIWWJ1Rm8?oc=5"
-   ]
-  },
-  {
-   "t": "Gold held gains as Wall Street plunged and Fed hike bets eased.",
-   "why": "Gold is a haven signal, relevant to jewellers and gold-loan lenders in India.",
-   "refs": [
-    "https://news.google.com/rss/articles/CBMivAFBVV95cUxOdktNV1ItcEw3anlLMXJFSHJGbk9tQ01jMFV1a2tJTVRxZDRlejVEWmFTMWw3T1ZvLWc1LVpNYk9jSHRtcEh6MWJHU0lOZE5PVkpPNm1oYzRUeTdrOUc0U1hKeXg0MWdvUDNwTjJKb09XQV9ZX0QteXl3Z2VnTUhsQUZtRE5abzV1dll3QURpdHZkajVfVFUyWnktNFl2dGdoSlozNk1Xby14Nk1fczlpakEtTlpKTVhKdHFPdQ?oc=5"
+    "https://news.google.com/rss/articles/CBMingFBVV95cUxOemI4U2V6Z1BYeGlHbDlHSENZR1JaR1VxQ0hZVFRZWTlpNGhfMDdDel9udEcyVTM5eThkaDJENTUzdURpTGFwTFl0WkRpVjl5dGFvZEgydXk3ZDRNN1ZTZHZIRXVvclY3OGRPemk1eWtCSWdTY2RvdVpLSjByTXNkR202ZDZxNFNUNmh1SnBQUW1BNjdwRzRUajRTYnZxZ9IBowFBVV95cUxOajB4Y3FQZHRmZlp5ZHNiMThkUk5ZMEt0cjNyZDBmY1JhREVQRkRRbnZiRWxUZzdEaUJqcDZDMEc3c2xqMVkzSmZwaUdvSk5jMHdOLWlfTU12bzJWaVBTeVYzYUFiNlRoQnlTOXc4TkpKWGRYQjZReEFaTG9CYkxTTUQ5Y0tScWpQVVhjLWtrNlNNUzJkVE9NSFFZM184YTJhQWNN?oc=5",
+    "https://news.google.com/rss/articles/CBMikwFBVV95cUxOaDI5eGZlcm9sclAzLUhsYWJyUE5YdEF5cWVJNTBqa3pLMk1WdTNFZmNRUnhsS3RadEtPVV9zeHF2Znk0cnpham51WjJtcjVFb3k3NjdUYjZ1VDhqNTE5dWhpRlZHbko2V1NGbGNkVlp5NXgyNnhhNm85enAtUUhfaG83Vm9zR0NjUWhoVjFoUGpPNUE?oc=5"
    ]
   }
  ],
- "watch": []
+ "watch": [
+  "Diwali Muhurat trading date for Samvat 2083: NSE and BSE open on a Sunday (india:6)"
+ ]
 }
