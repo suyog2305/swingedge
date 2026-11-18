@@ -1,72 +1,76 @@
 {
  "schema": "swingedge-market-digest/1",
- "for": "2026-11-17",
- "at": "2026-11-17T18:51+0530",
+ "for": "2026-11-18",
+ "at": "2026-11-18T18:50+0530",
  "by": "Claude routine",
- "headline": "Nasdaq falls 2.5% on AI jitters before Nvidia results; Brent slips below $92; Bank Nifty hits a record",
+ "headline": "GIFT Nifty signals a weak open despite Nvidia's upbeat outlook; Wall Street fell and Fed rate-hike bets hit gold",
  "points": [
   {
-   "t": "Wall Street ended sharply lower, with the Nasdaq down 2.5% for a third straight loss as AI hardware stocks slid ahead of Nvidia results and the Anthropic IPO.",
-   "why": "An AI capital-spending selloff in the US is the main overnight risk for Indian IT and AI-linked themes.",
+   "t": "GIFT Nifty fell over 100 points, signalling a weak start for Sensex and Nifty even though Nvidia's results and outlook beat and Asian markets were mixed to higher.",
+   "why": "A negative opening lead sets the tone for index heavyweights and AI-linked names despite the positive chip news.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMilAFBVV95cUxNdUpfVm01VTlQR2pxQUI4V2NBem8wNEFjV0tuSTRSZDJmU2tsMHpvZGJXb3J1SkNuRldlZTNOeXA5SHZFV2NJTHFiZUF3RTY0NmhfeFZTTzdlb3FVdVE2UlNtUDNKalNSWlFOX0s2TnBEc1dZZ1F4T2pieFRGT2U3M2lyNEJvU1VoeTBVU0ZxdDl2R3BS?oc=5",
-    "https://news.google.com/rss/articles/CBMirgFBVV95cUxOZEJobHpHMl90WUdVbnpzSGxLb1l3bi1BczhrN29iVW9rUzBtQWE4aFNuM2ZGS1RIQThLdEZPWmZjeExVaHhRaXBubkdqR3R3TXJYTlRqUmRYcXZxYS1pV1lyRlExUDdEUWJ3cTg4aktJVWcxbkg5UW9oeVRXLXhCZjdRQmFNeFJlLXhpWTRMM1lEUVlodGwxVHNCSE9ONTlnem0yekw1dDNraElYZGc?oc=5"
+    "https://news.google.com/rss/articles/CBMi-wFBVV95cUxNYjFkS1hWNmVtWFY5SjA0LUhZTXZDb1BveGRYcUx2WEQxRkNtY2w4dlN3R0c0TEtjaVBySHp5WXlVOF9ud05yM0JjSl9vbnFHYUdXQmgwR2w0Mzg5X3BhdGptMFNyd2NXU1VnaFVqTGU4SUd1a0xMQkdQUFdKbU9LTWY0eGV5SkRTMmtfUmtBVnZlNmZpUXVCaU9CUnk2bjFVZjEyMldkN3pzVXhxNkFsN1F5WlFuTFZpTzVTYnBneW1PU09SdnlSUGZuZU8tZmQ4dWVGMEw1aGItd3BBYlVvV1BKbjJ4dnh4RWdUdzg0SVNIUGxKbFdNeEVtUdIBgAJBVV95cUxPWHo3ejN2WFU3T0ZWSmZNWm95eXJaY2IwWUlBUHdwQjQxd1Y5UHAyMkZBOXJJVWZpTDlMZElqUjd6MmpGVVRPRFd0MVZQTVVrVXl0a200WlZzbEtoNkhkcDBGUElVR0tfTDlPTEd0a2tUcTdrdE45VUg1Rnl2dl93U19wLVJiMzNhclhNUDlxcmJjdU1sZEhqV1RwVC1Zb0RPdlVFZ3dBQ1lUcmZfOF96WWFVSUhGWTNlbWVvazg4SFdISWoyRlpIZXZYdUpJWEFlNmV2Y0pVMm9ZQVlzOHdOSXNVc0pRU3J4SDR0TVNobTlaTVVwdXhOY0ZTZFVoeGpt?oc=5",
+    "https://news.google.com/rss/articles/CBMiywJBVV95cUxPUnh6R1dKdzFXbTBqdEhoZW1LbDlZSmVRc2xsbzN5bnBTekozVkpqa21PblUxMDdsblFJRG1vcXlMbGRLWUJvTDlMVjd6bmI4OURlWDRiNXpWaFRMN3VVNXFkWGJpcDNubGd4a3BzOFFpOGpsTTNFTHdtZ0Q1bXFQYWYxMXlRWG9NdTMxLVdLVjVaOVE3aGZUOXJFcHZVT3FPbVhuMDNQZ3B5SXFIT2dCOHZrd29nd0xoMHg0U0dsT19YVUFkaDlpaHNwVjYtWnVvX1daMjA4MFJ6S1hzZG1NTlFGcWd3OVN2UmFuYnVrRFF0XzdXS2pxMHFlSUNqSHpyc0FZS1pfOVhEcmFJd1RWMHBCRVU1aWNDQ2JkZHprM1JUczk1dkJRWGNCNEJBR2plWktyT2VYR1BadUFJMnNyVC1MZFVzSE12TjNF0gHQAkFVX3lxTE4tU2hYT3pzOTdiTS02SEtYektJb2hBREtkLU5lS2I0Sk5ZOGJwWUZoQnlDTmh4M2J3eHpLaUZKUkRyN1ZDbUoxSlZZZUw3LTFqdVRBR2gzeFM1OEtOSVU0WkFNNUU3Mk9aX0RvSGxiRDd3S3BIcGhVNmRSTkh3bm5ZVkhBbVlVcm5xWTRvbWZ6Qlc5bEJ5SDRwMnpHSl92OFJYdlA0R0VCemZtWGMwVUJGVWRiMzc1TkJpZ1FjX0o4d19ydlBOa2tjZWwxN1d0cDBRWHA0czRLb2RyZE4zRk5pWFdsR3N1Y0lLZDlxNGlEN3QtNHYwTVpQeFR3NFhjZlNlNjhDU0JHdnc3WVI5cFdIdEtmMUo5WEF3MjFpRU8xR0ppYVpTVnRzX0NvQnJSMDl1d1hnNHZJeEF1Tno4X3dpd0NWdkRsWmRYYmNwendSZA?oc=5"
    ]
   },
   {
-   "t": "The S&P 500 closed down 2%, and GIFT Nifty signalled a flat, muted start for Sensex and Nifty as Asian markets fell.",
-   "why": "Weak global risk appetite tends to cap foreign flows into Indian equities.",
+   "t": "Wall Street ended lower: the S&P 500 closed down 1% and the Dow shed 955 points, with the S&P at its lowest since July and chip stocks sinking.",
+   "why": "The overnight US slide is the lead for Asian risk appetite and foreign flows into India.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMiygFBVV95cUxQci1pU21ETUhmdGp0dU4yYUNBNm5zdndmN19MZjdBc0J0YTJaSVZjcnJsZGlYZHhsZUotc1Jac2ptYmVrdk1wZmY4REsxWEE3bmlfZ2JQN19JQ3FUaHlLUmNkS1dGWGRLaEVwM00yYUR6aGJ3ellNRHNZcDRubWQ1WXExTl9mdFZuYXNlTVpqWkJScmlITFRkQXJtcDZETEtDM1UtcTQyMDI4NE10b1FDbElvMWZzUXl0ckdubndIMnhuZzVzYk14Y1NB?oc=5",
-    "https://news.google.com/rss/articles/CBMi_wFBVV95cUxNVmhUeHJDMlRIbnhzRUh1aXk0aTc2cmJlQ1BVSlNvbDBEWnhfbHZ4akdIT2RmdFgwQWNNZWdhakpzRDFNcnpBUlBWSHdsNEdxdE1lclJPX1pvajJ5cGE5T3hUMmtBSmZmR0xSVkg3UTA2YXFEaW1FSUttdTNGeGV3N2lzTHcyLWVjdW80WGU0UGZRbDNaY193N18ydjZkN2NVVU9rSFR0Y1Z6YUlmQklUel9rNU9PWWN6N3NKNmpCVlZNYnF3bXpMcXJzV09OTVNfZXRZWVV3QUZJa0ZGT0ZMVkU4R3E4cjZ4YnFfenZJNFVfVlAxM1IxaE4xTW5oYlXSAYQCQVVfeXFMTUg5eTQ3VHd3Q1FRQlUwWk04b01wcTNJUS15cG9ENzc3bVB4YWtrZkJqU2hmbEd2WmpaYXJNcFRTSkdWTlpMUlBuaUtaMUJ2b1owdHB2WnNRajYwX0pPYWxFRFcxTXB0Z2x1OFNQX0ZhWGVMdjdOV1g1NGc1ay1rQVNVNnR4cHdwVDRtdzlBZm5qREV6OHJURzY3TDJwSnlmMnVZWVRzMHFxQjRQZTRJRE5GNnJ0RUcxX2NfV1c0cUxwcHEwOTZyZ1dNX0ZxYTkzdF9pX05aeDVCQUtxRFd0VUxCXzdHWUZ0OGIwQktVaThaSGFuRlZXc3J5LVhJZERlRWdmTUE?oc=5"
+    "https://news.google.com/rss/articles/CBMiywFBVV95cUxOZFE0Y0lIX2xnNktjZjh2NWJLSDNMRnpHZElBX1dmSnhJQ05GNXVMckx6WUV6dUxKUXJ1SnBiQ3lYaFpyTE1tZW5QMWlYLU1YWXpNX3IyS3VFNXp0OFRJUXBkOXM4TWhYRGhndEQtVXduRWMxRUoyb0ExUks1UnBfd3B3MUNleVpwRVU1YmNCR1ZtYlNhQmI1YVBvTVFxY2N3czRYUG1oUUZ0bzVERFdyYXhfOFVnV0REcHFiMVhENlhZd2xHV21wWWZubw?oc=5",
+    "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOZ3dQMEtuYTRhb0RsSkdWYzV5b0U1dnM0Sno4YS04R2lYQVFoYkFEbFVHakVvd0VpTXV2bE9mMFozd1A2OThyTTZYV1dOV01yWDBFUXBJUG83YV9xQXBjMkF3ZktHaTctaEhrQXEyUXRaR2dLcWhXaWl0R25FSVpWT3NndkdpUWxW0gGcAUFVX3lxTFA0T1BpcFQ5cHk4MGVfMTR5Y095YXNGZkVJTlgzWUU0RjQzSHJIdlhyc2o5UEc4cjN0Mzl4eEFhTWFuRDhqSC1TZnVPZ0dJR09Pd0FPTDNwRWdCVW5oM0k3VXhwY0NRN3pyWjdqQmNURFBMckNrbVMxVDFHUmtOb1NRNDI2RjlBREFDc29MVW9QNjh4UDJpbzd4Y1JCOQ?oc=5",
+    "https://news.google.com/rss/articles/CBMivgFBVV95cUxPR2FnYXJRN0FjXzJ5TE05dGpQNDFXcG0zTnBfbFdMZWN6eW1uUTBJQ2pyVjdoeHJDdHF4djBRaDNjTzdKeWh4OXdWUU93VlVENVFjS1RLQ0F1Mk4wTGlhZFUyYWNNMS10UlVvVFVoWnlpVEY5U3hIUmM1RzlaZGh1SUNMTnlYWHAwZzQ5UUdabHdWM3hiRk1TMVh5UlphbGdLc0ZveEtxNDFHOXMzVTZLWkd5ZlUwSFFFeG1sOHhR?oc=5"
    ]
   },
   {
-   "t": "Brent crude fell below $92 on supply-surplus hopes, with WSJ reporting Trump said new strikes on Iran are unlikely.",
-   "why": "Lower crude eases the import bill and inflation pressure, which helps oil marketers and rupee sentiment.",
+   "t": "Nvidia gave an upbeat outlook, but its interim CEO said it is no longer sending AI chips to China.",
+   "why": "AI capital spending is a driver for Indian data-centre, fibre and EMS themes, and the China curb adds uncertainty to the chip supply chain.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMimgJBVV95cUxNdjlVUVdCajJIV0FNR0duSU9FYXowOFVYQk1UQWxQUTdtc1ZreU44TGxRbk9hZ0kzQnBLcXJtOTM1Wi1KNjJTVjJBZVNIZ2YwVVIydmE4ZnNWR3lBSUFZZDM3cWVyQ0lKSWRNVFVzeXhRWVQzMVFqakxlVllySWlTQW52RDVmaG82OTN0ckRzU3kwU1hmSDVqRGJ4OUFxeF80alJ4X1ZydHlQVmNzTE4tZlRVcWJmMk8xVl9ZckRWQjhoemRlTngxY1pxUEtKNkVUSUJkZ3JQa3pRQTF5OUZCWEFvRHk5NGdkRmVNNkR3M0xsaFpva3JHTXE3T3ZqblJSLWRfLU1VbzZ2RlFEdEZnNFhaWjNTUXQ0VkHSAZ8CQVVfeXFMTVh2eERHbk9Lanc4MXdGckhPb251UzlfSFRkT0pQVFd4bTY4bDJUdUtJU3drX0NyZ0FIdGZJRmpnUm84dWxVR3VTOTg0Vk12X29OZWRjNFNPZThTNDEwSWRzNkxXWm5GMHVPTS1lOEhVTGM2aVVpRFo4a3NsbEVyUTdLdVYxUHB2WG92WjFfZDcyajZCQXdybzAzSUVabUZPME54aTVwZ2JacWFGZi1WOFN0Q2w1aDlGWlM3YmRUUVlpYmw5MUloSllPR0pCMXh3cTVBU1djWVBVdWlQNC1vc3lOM3NMRFRPOC1QZnNwXzZwLXVRZllyS0o5QmVKdG9lVjAtSVg0ZUxLR2ZiQ2ZtWWtqNGtiLW4yVERJYkk3SWM?oc=5",
-    "https://news.google.com/rss/articles/CBMixgFBVV95cUxOVFNfSjlGZWFOd01laGhIaG9idVhwaUxEOXctN1hkb1E2Qkd6YXEyaE5DUHFzMEdoT3dqWXNQbkxScXRFb3o2aGU4SEpWdnU5SGdKQUJXTUFMdS1kcHJKVnJPVnBUZk1XUjd6NXRLcnJwSGhXMFZVa2hqQ1VvVWkzM2FxT2tCNlhGN1VYYjgwRTdiY2Z6SElpNmtfMXRmTjF0RW5fX0JVVWhuZVlsX1lWdDBMU1g1ZzBFeXlGT2tZbUNyQjlLUFE?oc=5"
+    "https://news.google.com/rss/articles/CBMirgFBVV95cUxOQUp2Z1haU0NNQkJ2ekdiQnZFRjJ2cWN4ckVMdnNJY05BOFNCUlNqbzl2RkNoblhlRTFuU1djbWdoenZmdGZYZ1VjNlhnS0E2YXJLLUQ3c21UZGZCNzZrQWhaa3RGVnlBX2phdUVkTTlIc3U5VDBkenFQUXpmQnVqRDg0bFNOODZsdTJMeDgxQWE0Z1NZMEd2cVZPUVRyT2xPYWUyZnZQanRQQnhFZmc?oc=5",
+    "https://news.google.com/rss/articles/CBMitgFBVV95cUxQVk5ZV2dpR3EyVEtJcVdSZTBCVGl6UE1qZ1gzNWdiaHJ3WGR1S3NUd2VRcWVzUWhjanFicXVzNi1zRWZNel9EdlVOaC1uMUFCckRXMkRGWkRZeHdZUnE4VTdtUkZ2N0dITkRYa040X29HanoxODdGVXV3NzEyOGhnR1VOb2VwcFNIcHFJQlFrNXM3T1hqQlN5WnB0MHJTU0R2cTZOUnBNbV9Ubm81clFKM0x5cHRxdw?oc=5",
+    "https://news.google.com/rss/articles/CBMilAFBVV95cUxOUHhZZG5FcFhON3BCMkRyY201M2FVdVRTaUF2a29ScWc3ZTd4TkI1Zm44SXNOcmZoOE9tN29nalFxMllaQV9ZQVp5SFNKbFlmVWtxVmtjdGl4WVVRRnpFeVZaVjVCVGozeFVWYzF6NnM1dERENnQ5SWpLTlNsejBDS21mS2k2aUhQeHZHNU80V2dvbG9h?oc=5"
    ]
   },
   {
-   "t": "Goldman sees Brent easing to $78 by December 2027 as the oil market moves into surplus, while NDTV Profit notes six tankers were hit in Hormuz.",
-   "why": "A forecast of falling crude is offset by supply-route risk, so the crude driver remains two-sided.",
+   "t": "Brent crude is near $93 and dipped below it, as traders weigh a supply surplus against fresh US-Iran clashes and Hormuz attacks; OPEC output is nearing prewar levels.",
+   "why": "Crude drives India's import bill, inflation and oil marketers' margins, so a steady-to-lower price is a relief while supply risks persist.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMi3wFBVV95cUxQRVZVU1dLQjBfNzJRdmlrMVkxekhBV29CTXRJY3hDeGNtc0VEajVCUEEzbnpuV19TOUNyUXJCcGs5Rkl3bThOSHgzZWZxSndXZC0wYUp1TVJEeGUyQVoxOHZJMThCLUJoYk5FWXZsSW5xb29LNUc1TW8yS2hEcElzMGQ2MUtfQzVEa1FOcjNGcy1ZaXpUUWhfQzFGNGozMDVoNzUzMy03V0JhdXZiQkctWFZBQVRoODlKemFUQTI1NFB3dk5jV0FZWWY3amNpVERodjR0eU5Ddi11MDhmR0VB0gHkAUFVX3lxTFB0Ry02MnNUUmU0Tko5UzlkZ3A5WWl5bk4zaUt3c1hXVWxEVm0tTHZMelIwd1dEMEYzbjE1dUZocVhkS1ZKdzVEMzZJY3lSZUthbVlCLUxadmlpMGd4a3VhZkltSHhUZlBka0RkTTlBeVUydHBnYUJ5NC0zTGFiRUM5WXo1RHBCM1gwRXpZRU5Sb3RuSmhTQ2o2TC1Gb29lSXdvSWxjZUVqSUsza1JBQnVOak9MMGNJenBaQ3NuSXRtSG90UkswRjM3cXJrbTZzNzA5dWthQjVWQ0dETEVwcThfT2dBag?oc=5",
-    "https://news.google.com/rss/articles/CBMitgFBVV95cUxNdTJ2UmdGc1JpckdSck9Zd0YtQkxoXzBXaU5HSWx0M1Q4YjRJUm9VVTliWVcycWM4UWlPNTRsUVprakx6YWViRy1XTldkZ1BibmtrMTBYb1RTaGlMZ0E1dFlmVUtuWEpqQkZQMXFJRjRFejJuTkhEOF9tUVotX1FlRFZBeGhBM181d1o4dlB3amk2QzItV1Qxci0tNnQ1aGFMaklEQ3dHSE9pR0NoT3hqWHZ1V2Njd9IBvgFBVV95cUxQRnJsV29aaW1GVVc2TUVjWk5FN1c0QUkxSGh0VGc0SDhoaWtiMUphaGY3dU9PYWQyaGhPWXJ2MGEtd3Y4U0lHOXVlNUJoNnBKSUhjeW9RUkNZYjlFTmY5WWVYbk55MlVmNVFFVDlaQk9tR1RLaHp1MEhiRWk3REI2NGxZMk1jWUk4NnN1TVJIN2dES2VKZkhSU3NMQ2U1eXc0LXdvaEhySTdXU1liXzItQ2dndE5Pc3NyWU5Eemh3?oc=5"
+    "https://news.google.com/rss/articles/CBMisAJBVV95cUxPV2I3NjFoLXlLX3BWWlA5S1pRbjRvLVhQS2I3VjFNZ0dwd0Z3SGRGZldYVFZVT0hoTWtYOFpRdnlhdThaT1lOeHlxQzRoQjhydUpqNGpLZkFXYzJmRmxXMHFON29QODJoOGdFMEFRTXk5alBUMlM3YmxMdHNPNm5sTUsyVF9aR1lSTmJjOXQ0VE5rSFk2NEJvaWlnd0VTVF9ZZ2ZIY2R5U1ROZjdzdlBVQ3FKSUNzVGxiYzUwdmlPUzRQUTBTMTNWVlFrYWFwNE91VnFadl94V1ctcy1yWElyckZzam1MTXQ2d01KSFdPR05ZcndyTlJlSWxBakFkZ2pKdmh2cTZhSE11WjVwZjJEMkJNZXR2a2JlbWlvX2RYUXRtUXotVmdpMU5aR0VIX2t40gG2AkFVX3lxTFBFcXlpZURMZlFOV0FUalpXT2ZIaGRpUG1fVmVFT3dTaG9ZOUpiMG1ZckxfZEVmeUVpbmxHS3dSc0VlTk9NcTBCUG9DZzNKRDNJdVlwQndYckNmZFYtQWZ3ME5XcGRET3QyNTJSanl3RXRXcV83aHZLa3g4akFxbENHT1h6LVJlUkZLTzhYUnNpODQyYi1RSWtoSHUtWGx3VmhtdW1zdWhLVlI0OGVWUUM3aURlWl9ZRDJpUGdXdjRNVjZYRzdvb0ZtME12djVwek5Gc1AyNXpaZzlqYjU2a2ZoNk5KTUlROW9kYl9kWVh2TUFycDZJbXVXNW8xdmJrclYzR3JrOXdKY0hOTDlJUXBkOTNtWmVHaFZTaldTdE9aSzJyZ1Y4WF9LeTlIQzI5YVVCMkxIWWc?oc=5",
+    "https://news.google.com/rss/articles/CBMi-wFBVV95cUxON21QRVpFZnJaWUk1ZTViNkdkZ0ozNk9KQktKS1RORHJnNTdqQkYxSEhOUF9NNGoxQVVDRlI1ckJKRkhmUlZHeFQ0ZVk5LUtFclAyYWZNSVAwYVE4V2ExS21neHhZU1lkRnRWYW1pU01OSWxwR0FNVFdmcElwbl90cVdOZXd1d1FRbi1fTTI4Xy14VlFhRmY2RTBVS2pSZXZWS3NHU3pScFRLaFZnb0dvdWxRbnN2Ry0xdUVLOTV6bER6aDA0TV80Tm9ncklPdi03SkRLS0lWWHZwc1liLW9UaG1ySUNHRVFvUHhMUHRsV1IyWHJqM0QzYUE3b9IBgAJBVV95cUxPci0ycUZwcGV2ZGZfN0l5bXN5N2ZuZFVMRURGVE51SmQ5TUMzYTczUG1Na3ZCMUlsLW9WNWdmdGpPN2c0Yk9WdmZGZ29oMEtVU3dPT2Y2WWQwUFU0Yms4Z0xYTWxmMXVQdmlwc29yUXlFRFZHSnBZMlhMRzVIZ2gwc3l2Z3E0X1VzTFp5b3d3SlEwbmlMZmxaN01ZZVh5bU0ydE5FbEVveVp5SjB3YmZrV2R5bzBpV1g5TmJ1UnIzUFh4NlgtN0RieE94SEdGR0dIYjRIa1FFWDBnb2JLZ1BSak1ydjhPTTFSVW4yU2hSdWtiTTVneTFJdHhxdTFxdEc5?oc=5",
+    "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQbkZ3Y3c3WE51TWt2RUVhZUdxbk5PM3FCdjNERW94S3NEckxuUVBidkxiRHdHUnl6RGxLZnIwZjh1UTlmak1tOW50MmZWemFEQlY5UUs3Z2pISzVodWhiRjFZSHN0T2xLTkVIV3A0Y0xUbnJOVy1ZRDJYWlNPbGJ6M1VHa2VLN2xMRDlJdkpESnZLZzFoWHc2WFg0eE43dzZsTGlEU1JVQjBkUQ?oc=5"
    ]
   },
   {
-   "t": "The dollar hit its highest since April 2025 as traders bet on Fed rate hikes, and Fed's Hammack reiterated a preference for small, incremental hikes.",
-   "why": "A stronger dollar and a hiking Fed pull foreign money away from emerging markets and pressure the rupee.",
+   "t": "The dollar rose to a 19-month high on Fed rate-hike bets, and Bloomberg reports the US 10-year yield is set for a historic run above 5%.",
+   "why": "A stronger dollar and higher US yields tend to pull foreign money away from emerging markets like India.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMiggFBVV95cUxQSEtUOG9teHZQbm5OR1ByM292eDhBVVZvQldBR09Mb2JxbDFVTUtHX05LZ2dBQmV5NzFiNjBpUVBkb3g4Y3JONnBBbHFlazBEZ2I2OU1BdTBIY3BiNU5icDdKVVAxZEFVQVdvMDIzMXIzWWU5SUdrS2IwcXpjY3dYZXVR?oc=5",
-    "https://news.google.com/rss/articles/CBMitAFBVV95cUxOa3MwUUp3QjVuS0NGTWhLN0hYZldpQkJHUUZKRDZSRlhvdXJ1d2VXTVk1UkVzZ2swX1N1OWdQM1g1cC10cnMwaTRCRzEtVWNfWHBLdjdYY19wUEpZZERkQl9zVzNsbjVuZ25zQUFsaXFBMnBVX1I1X1pPU01SdEpPZzA1clBJZkx5TjYwV29QUmxHRmxfYW8wdWFLazlLbXVBRk9nUm01aVppdHRtS2RjRHlJeW0?oc=5"
+    "https://news.google.com/rss/articles/CBMitwFBVV95cUxPbUFTNFdTU2N5M2hVYW8zei1IMG9pbnFtc0xHU3U4cjZXUXFmaXVCTmRTbktVd2pTTlpiNHp1R2ZmWlBLSTdyU0dnX1NiT21mM2JiX3JkUzc4S0dlb3IyZEgxbzlPNEhTX1lPa0c5MHBpZU1aTjJQdGg1b242M3hUT1AtN25lNXFacnNTUmJzbFNHUkg4QzNmOEFvNk0tLWpHeFpzNVpLdlYxOHpNMmJRTUp6ZzBxS2M?oc=5",
+    "https://news.google.com/rss/articles/CBMitAFBVV95cUxOOTJ3VWxtanltWDFIdk5Jc2U5eFdaUFp6aG1PVVkwVVNpNVZxRFRvQllPcjYwVGh1OVlpVG9pQ1QyX283NldTUnBMa0NxRllJd1E3UDVacklIdTh0MmxsQnc2LTRfaGFFR092OHZZNnUwNEFGLVBFaFF5M0paNFo5d0t4YUIyUDNOVnV5UVVyRTlJRmN6azkxTmNjR251eU8yaDVmX2tJdGpFNkdIekVRbndoMEo?oc=5"
    ]
   },
   {
-   "t": "FIIs bought Rs 4,865 crore while DIIs sold, and Sensex rose about 100 points with Nifty above 25,300 and Bank Nifty at a record high.",
-   "why": "Foreign buying and bank strength are holding the domestic tape up despite the weak global lead.",
+   "t": "Gold is near a 14-month low, falling toward $3,800, as Fed hawks reinforce the rate-hike outlook.",
+   "why": "Falling gold prices put pressure on gold-loan lenders, which expect more auctions of pledged jewellery.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNOG1VdDZDWlVBOFhCMVFlLUdoTVV3bzhNaHlGaG1JQXpKVERrX3VadWhYeEs3WThzRVhVZ3BRSkNWdWc5TmhLWDVCUUpqUm9BbW9LdzRMLUd2N0pPMGt1SWo5eDR3LXlOdllTRkpmVTdxV1pqRGVSTjFRODlkQlo4TGxLS0YwWndPaDlZQXdSVGhXWXVTbjR5TG9rbUtrNVhsQm4zWldmR3c1NjNXNENZWndHYmhjbFNXSnM5bVBTVEtETTjSAcoBQVVfeXFMT1o3SU53QTZtWU5sY3QwM3VMQUhqQjVwdm5xQVBpVFgycUttdkNSY2d4c2U1akZSYzQzTGVhSFY1MXh0dzhGQ2xZRTc2UlVkQ0pTVXIydUUzQWEwTGplY250R29UNkZ5NXlvNWFWQVpFNk9DS0RWcGo5eTdQb2oyMFI2RF9hU0lVNnp6X0s3QXRjUGMxRFE3WU9uS1dyVnlqTUlDa1BKRVlSY2NoOXVlYnp2dVRDWnkxVjRBOGJRanVNbjFjRGt6SVJMUQ?oc=5",
-    "https://news.google.com/rss/articles/CBMilwJBVV95cUxPSW1PY1V3S1hTcGZLbV9ZRFZlUGE0d0JSb0JBQnNZVWVSVnZIenpZSms2V0JNUTBjREtwRVh2NUJZUm1YTnNLaVhIdWFDMEUwM2hqWjBTVlhkakVvcHJDVXEtLUM1M0Q2azhCSlRYWHpHUEFjcWlycTJkRDRQWWgxZzBwdVVRNU43a0VVbExQUHRaOTJlcHQxczE4OVRhdUVHWlFzWHhURTJuSTIwZTZTb2NZTGpYWkZmYWNxR2xZZk1aRHdzT0k0a1V4Q3hkUGVSM0tUVmp5cGJwaE5tVTRmclk1ZVhuaWg2eDBQVGJOd1pVcThNU2NtcXVvWDdaZDFQYU5VMmJheUFwczFNMWkyNXJNS0FYMWPSAZ8CQVVfeXFMTzBBbEU3dnNsQjRDT09PbWhoTVdreWM1RHdoLXBiUkhRWE10M19Wa2NRRWNPZjlqTFJnM2ZobU1URzBudDI2d0FmZlk1d3dXR1p2b1RRMnNfdjVBVVZLQlFlT1MzUV96TFFMbTFYcUwwR1RkREcxbFFLSDI4Z0haU2tyUC1rS1U2OW15dFNja2tfMzUyZWViNmZvb2hkOEhMWE9qZjVQcVFCMURreDZFdVROc1dnX1pxZjIxblVLRngwZE9BOVZrbUNObUs4M2xMTFViRW52YU1VbDJ6TS05cmZzNUhWRU02Y1ljZnp4OWd0S2ZReThBMUo0ek9XYmZXSVl0dERCRXhhSEVOR1lxYm1FMk5aNjUwSFJFOFVRbzg?oc=5"
+    "https://news.google.com/rss/articles/CBMisAFBVV95cUxOMmlWeXc5bFpQUDI1bkQyQVVEMmpSRC1ZUWpkZDczNDU5RUxoNFBzOXpreXZnOTctS0s1NGRBcW5Bb2ZUVGxMSWRiZU5ydWpKYkpaM1EteFZsdHF2Q1JVN1hWOW9aQm13ZlFmVWVuWVI5S0xJVFdUaERVT0hab2tCOUpBSzhvM2ZvczNFd0hNYndoREJ2d3llcVRRdVZ2VUFqZ1VBSGVYY0d5MVREZEp1MA?oc=5",
+    "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNM1d5T3FvLWcxWFI1OGw2NFFLdUs1MG5KakQtb1NiVW5ycm80dUxBRWZLZGUxRGpPWnAyUVdLUk1jbGxQbU4wT09oSkFOQ3NCTDU0Z3liNWh5LUZ5VXprWW4zVDlybm9iQ3RPLVN4UmhwbzdDRW1sTl9SNVJoNzdzTm1STC1xd241ZmNoa1R6b2FPV0ZzNExGS1B5dk56ZkVTWmpsRV9uMjNEMGNwcVpwaXlHVHNEdy1s?oc=5",
+    "https://news.google.com/rss/articles/CBMizwJBVV95cUxQUU5EN1FMZ2hIeVVidUozVFE4Zkh4dTA4MHlsUktJNUNOY0tZeURpdk9kakdjdW1STWZlWFp4Z3oxMk0xODFfWDdDWjA0SzhEZmdfNV9SS3EtQ3lLa2ZjcXAzejhTSzNRYUxBdWY1amxaOWpyMkhwaENLMlBBZGVaZVFibHZSZmZMaWRzWV9ORmcwcG9Ia29Cd3YwcDFiZmJDLVlkbnloVTFiUjJDMU82ZjZSY0gyTVZkSC1CM1A1V0h2OFVzc09sOGpMSGZmYktZZjBJTGRsSm9INkdqeGk0U2F0MlljTjNnS1BXRU4yY2lfRlVFajBPRm40QkpKTElIaTYwNnFnelhubU5oVHJfeTQyZFRSTldpZmFyX1FVbHEycWgwZ0wydUdqZzFnODd6MllvVXVDZ3E4QW5aUjh3NW5uVlEzQk9vWmNmY0szZ9IByAJBVV95cUxOc3BTLXpkTWdnY09hMmlKbkc2Z3daT0pvX2ZYM0NidEFNQkotbldUSHpQLThJWWsxR0U2MzlXeDlQU0gtVEZwTjZrU01xbkpkQ2tQeEM0M3lWeXNkU253bC1odWR5Qi1kWGtOTlU1Sk91LXVuLVhRWHBkTGk0NWhROTFWbjk1ZFQ5aHZhS3RROGNRNUNaWUQ4bElUZ01KWFJmeVpBOHdqOXFHM05aOTdfalU2QjFCNVZkUG1VU2JURVltTmQ3b0ZvV3FfUGJhOXVfMTIyTTI2Q3NKZ0xqbmppNGJUdF9zN1dqajgtbm51c29Qb3RnYkdMVHFDT0JRTFoxcFZkNHJsc0VOb0xpRnhIWFgtOU00ZmZ0eW56LTNaMDNjNXRsR25vanJpdDZRcVA3LWFXQXBRQlh6Mk54ejlOX0prQVVVYVFk?oc=5"
    ]
   },
   {
-   "t": "Gold and silver broke to new 52-week lows as the US dollar reached a 19-month high.",
-   "why": "Falling precious metals reflect the same dollar and rate-hike pressure that weighs on emerging-market flows.",
+   "t": "The Indian rupee is poised to extend its outperformance on swelling inflows, Reuters reports.",
+   "why": "Rupee strength and inflows are a counterweight to the dollar's rise and ease pressure on imported inflation.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMitgFBVV95cUxNU2Q4Umg3MHpwRlFERzN5SW9RSWRpZTY0VlpQc2RmTnhEN094MVNvclhtZ0lVUmlYXzVDNFFoV3hxM1Jfb2V0c08xYUZJdjMyQzhuWDFXMlQ4NXptRkxTVkRuNW5DSlljbGRzNEk0SlZoU3FMSDFyRU0zU0J3RldKSnc0OXhvZk5pOF9ZS2NISFhjVDNFeDBWMDBoNDJ2ZGRBX29HVFhvQkw3T29IaGVHZ3Q5TjZnUQ?oc=5",
-    "https://news.google.com/rss/articles/CBMitAFBVV95cUxOYzFpQTVGVjlYdkhERGtrelRDOHplTTY2bkxmRGJ0d2VYWWZtYjVEM21aaTFnbUhBenotV1FEeDBMbGl2elVZMHFCOUJUSlAyMDVrZ3k4WlNYU245TjlPSUZnSV9Qc05zYkMycExjME5qTnFzTFQ5cUF1eXZkZnFXM2l3ZTN2MFBfbDczYmh1d1o2OXR1bVJaU29XbDVvUEJsMkFOaU5PX3VCcndMVFpqdTE3S0k?oc=5"
+    "https://news.google.com/rss/articles/CBMivwFBVV95cUxQdTlWWmtObE8xMHhyN1lJWmdqajZvblBaUW5UNjliOElTVWZYaXpGZk8tZjZWdUcxdFAtWTZYZ3JlR2RTRXBDdUM4TW9NLVJSdVo4ZDVscVg3MGJwdDF1R3R2VnF4bWQ0alFMcjFfbmw3ZFB2SzR3ZFVTZy1qYWN4RTByeWE1aTB0UDlSaUpkdVZYbFR0S0owT0wtUnJrZ0JpNUotdm5DRWFmTmVQNGhKYmtmVVBMSjIwWWI0MGE2OA?oc=5"
    ]
   },
   {
-   "t": "Pace Digitek bagged a Rs 2,691 crore NTPC battery storage order and Axiscades won a Rs 223.95 crore Ministry of Defence order.",
-   "why": "Large power and defence order wins support the order-book story in those sectors.",
+   "t": "The US and Thailand reached a substantial conclusion of a trade deal, with Thailand to eliminate tariffs on US exports, while Canada and China expanded their trade pact.",
+   "why": "Trade and tariff deals shape the global trade backdrop for Indian exporters.",
    "refs": [
-    "https://news.google.com/rss/articles/CBMivwFBVV95cUxPWXJwVm92SW5VTjI4a2dhR05RX2JONVFISWRaMHhjbmhnY1pLU01EZ1UzMG55cWpKRkxuNGxfOGU1UEpvbFlOeVhFaXVkd213Zk0wQVoyWkJyRUVHLWFOMGZqSVVqckpFUkVpNGQxajdtbFd3ZjFrS3BQWW5pX1BzMVpKaXRDRGVsRnctTmtPZEFabU8tNnpReHI1M1gzTlF1dl9TaWNGdjRZTVAzX29MdGJqSURUN2FTbmdqUG5sRdIBxAFBVV95cUxNekVsZ2RKX2lVcXZKMFIxX3JvYTRmSWF4bEJOZkUzUU1mMkk3Tl9UR05IeDVjeXVDS21wS2JYS2p4cXU2MVlzMmlPU3F4dHlTMEY2WXFjZkhBdTA4cU9hLUlyZXE4ZFItV2dLSy16ZkI2b1laNE5ZcGJyRFgwT0VyNVVmblJiM3Y1QTloOHdOR0V4SzRZUmRTT2NCc3dMVUwzMlhrVFhRX1R0R1c4M3N4MWU0X253SkFZSmxlVVVlRVNqUXJn?oc=5",
-    "https://news.google.com/rss/articles/CBMiugFBVV95cUxPZ19FMll5SkxXZEo1eERpUUhJdTU0RHFyclZkZUZXWWpubGNoYW5PdDhuZTU0YVpKRUM2YWQtMWwwcDQxWU13aHNnSTAxTFIyWXBTRjJteEdNRXF1dDBWcmJ1aVFWd3ZERkExemw0OUNmT0phc0RGa3prckJ0eEdfMlpHTkUweUF4NS1NMVVRMjFCYlVYbkRtV0FKbE9GYjJ2MHBZd2JnYndGcHlLZHJBVWFaOTZiN0R0Rmc?oc=5"
+    "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPR1B0SHdwYzVvUGVLN1dvUUFzRmUwRmFEUExzMmVuX3pvMFNKVUJaMThSSFVIT0pLMjhhamZqOUpGbDhNVm43ZlhxZVBqQ0ZJT0VlQS1NX1VCTzFvbjJZSlNxVml3aVU1a2N3LVdLV1FZcldOeThBaEp6eFRGTTVnc09WcXJuTlNIMkRtbUQ0cElsTTdmd0laYjNmc0kxeklqMUdfZk1MSFM?oc=5",
+    "https://news.google.com/rss/articles/CBMivwFBVV95cUxQbFZqX2xZWW5hUGhJWjdRN0xTLUtSZ2VrWmRJdFJVWTF3S0oyUWpoaXhmTVRWa0Q4a2U5WWpleUhYRTlQUkxjTEU1NXM4Q0l6LWp4Nnl0MzNuQU5FTkltOEVhQUJRTk8zM3BqYkVhV25LQjNBSk5pNFoyX2M0cVp0M2VTazY1cHgxYzJFZmlwemJGY2U1REVmTGI4bDNYY3NFSVFEQmRDSmZVT1k5U2NUYVNCekRWbVRpRk5rdkxWQQ?oc=5",
+    "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOQjR0MTNkRVVxajUtVS15YjVqVTRiZXdndUlIcmEtUktXX1V4Q0x2TFk0RTdHVURqNUR1b0wtbHUwbWZtaWR6Yzl0RU5yb0IyQjhhYnhndVFmM2hzV0ZDbUhBUDJmNzNnZFg0S3hFaERuS1k0OVY2UlQwTHNFbjVCeG5Ial90VTh5LUFRU29xVV9wa1R3dDNQelRVX2pSZUd1eFpqNDBjYVbSAa4BQVVfeXFMTnU2V01NSU9GNFZPQWRaSEgta284WWJEVDVWN3h1Tm5VWmZaY0tUOXJjbl9Rc1NlRTJkd01BdUQtdlpKS204NlJ0ZDJXcWs1blg5T19ITlRGeUhoUjAxUllmX016Sk1IUGoyMlZQTXk3cU9RdzlhSUVlVC1tRnZITUpoSEF5d2F2WHoxZnJmbm1VOUV2VjhVMWx3NUwtZ1RUMUJrNk5nVGJXWTl4NmhR?oc=5"
    ]
   }
  ],
