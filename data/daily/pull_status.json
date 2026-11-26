@@ -1,5 +1,5 @@
 {
- "status": "stale",
- "at": "2026-11-26T13:15",
- "message": "2026-11-19: the session changed before the close could be pulled (now market open); nothing was written"
+ "status": "cookie",
+ "at": "2026-11-26T15:50",
+ "message": "2026-11-26: the screener.in session has expired, so the 2026-11-26 close cannot be pulled until a new sessionid is pasted into .secrets/screener_cookie.txt (the run retries every 10 minutes until 21:00)"
 }
